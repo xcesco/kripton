@@ -116,7 +116,7 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("INSERT INTO employees (fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray) select fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray  from employees where fieldBoolean=? and fieldByte=? and fieldCharacter=? and fieldShort=? and fieldInteger=? and fieldLong=? and fieldFloat=? and fieldDouble=? and fieldString=? and fieldByteArray=?");
+      Logger.info("INSERT INTO employees (fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -142,7 +142,7 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
     // log section END
     // insert operation
     // generate SQL for insert
-    String _sql=String.format("INSERT INTO employees (%s) select fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray  from employees where fieldBoolean=${bean.fieldBoolean} and fieldByte=${bean.fieldByte} and fieldCharacter=${bean.fieldCharacter} and fieldShort=${bean.fieldShort} and fieldInteger=${bean.fieldInteger} and fieldLong=${bean.fieldLong} and fieldFloat=${bean.fieldFloat} and fieldDouble=${bean.fieldDouble} and fieldString=${bean.fieldString} and fieldByteArray=${bean.fieldByteArray}", _contentValues.keyList(), _contentValues.keyValueList());
+    String _sql=String.format("INSERT INTO employees (%s) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=${bean.fieldBoolean} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}", _contentValues.keyList(), _contentValues.keyValueList());
     long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
     bean.id=result;
   }

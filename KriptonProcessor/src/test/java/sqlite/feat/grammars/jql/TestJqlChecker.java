@@ -112,6 +112,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 			public String onBindParameter(String bindParameterName) {
 				return "?";
 			}
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		}));
 
 		log("aa");
@@ -254,6 +260,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 			public String onBindParameter(String bindParameterName) {
 				return "?";
 			}
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 		assertEquals("sql for log generation failed", logSql, sqlLogResult);
 	}
@@ -327,6 +339,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 			@Override
 			public String onBindParameter(String bindParameterName) {
 				return "?";
+			}
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		});
 		assertEquals("sql for log generation failed", sqlForLog, sqlLogResult);
@@ -437,6 +455,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 				@Override
 				public String onBindParameter(String bindParameterName) {
 					return "?";
+				}
+
+				@Override
+				public String onColumnFullyQualifiedName(String tableName, String columnName) {
+					// TODO Auto-generated method stub
+					return null;
 				}
 
 			});

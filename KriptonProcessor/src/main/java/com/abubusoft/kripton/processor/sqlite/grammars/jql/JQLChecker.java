@@ -48,6 +48,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlLexer;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_fully_qualified_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_to_updateContext;
@@ -59,7 +60,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Limit_stmt
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Offset_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Order_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Qualified_column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Result_columnContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_coreContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_or_valuesContext;
@@ -181,12 +181,14 @@ public class JQLChecker {
 
 				if (ctx.getText().endsWith("*")) {
 					builder.type(ProjectionType.STAR);
-				} else if (ctx.expr().qualified_column_name().column_name() != null) {
-					if (ctx.expr().table_name() != null) {
-						builder.table(ctx.expr().table_name().getText());
+				} else if (ctx.table_name()!=null){					
+					builder.table(ctx.expr().table_name().getText());					
+				} else if (ctx.expr().column_fully_qualified_name()!=null && ctx.expr().column_fully_qualified_name().column_simple_name() != null) {
+					if (ctx.expr().column_fully_qualified_name().table_simple_name() != null) {
+						builder.table(ctx.expr().column_fully_qualified_name().table_simple_name().getText());
 					}
 
-					String jqlColumnName = ctx.expr().qualified_column_name().column_name().getText();
+					String jqlColumnName = ctx.expr().column_fully_qualified_name().column_simple_name().getText();
 					builder.column(jqlColumnName);
 					builder.property(entity.findPropertyByName(jqlColumnName));
 
@@ -344,8 +346,8 @@ public class JQLChecker {
 		}
 		
 		@Override
-		public void enterQualified_column_name(Qualified_column_nameContext ctx) {
-			String value = listener.onColumnName(ctx.table_name()!=null ? ctx.table_name().getText() :"", ctx.column_name().getText());
+		public void enterColumn_fully_qualified_name(Column_fully_qualified_nameContext ctx) {			
+			String value = listener.onColumnFullyQualifiedName(ctx.table_simple_name()!=null ? ctx.table_simple_name().getText() :"", ctx.column_simple_name().getText());
 
 			// skip without replace
 			if (value == null)
@@ -356,7 +358,13 @@ public class JQLChecker {
 
 		@Override
 		public void enterColumn_name(Column_nameContext ctx) {
-			
+			String value = listener.onColumnName(ctx.getText());
+
+			// skip without replace
+			if (value == null)
+				return;
+
+			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
 
 		@Override

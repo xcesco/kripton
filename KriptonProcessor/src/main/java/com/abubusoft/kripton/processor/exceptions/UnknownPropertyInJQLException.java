@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import java.lang.annotation.Annotation;
 
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
@@ -25,7 +26,11 @@ public class UnknownPropertyInJQLException extends KriptonProcessorException {
 	private static final long serialVersionUID = 8462705406839489618L;
 
 	public UnknownPropertyInJQLException(SQLiteModelMethod method, String propertyName) {
-		super(String.format("In DAO '%s' in method '%s', unknown property '%s' is used", method.getParent().getName(), method.getName(), propertyName));
+		this(method, null, propertyName);
+	}
+	
+	public UnknownPropertyInJQLException(SQLiteModelMethod method, String className, String propertyName) {		
+		super(String.format("In DAO '%s' in method '%s', unknown property '%s' is used", method.getParent().getName(), method.getName(), (StringUtils.hasText(className) ? className + "." : "")+propertyName));		
 	}
 	
 	public UnknownPropertyInJQLException(SQLiteModelMethod method, Class<? extends Annotation> annotation, AnnotationAttributeType attribute, String propertyName) {

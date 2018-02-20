@@ -227,6 +227,12 @@ public abstract class SqlInsertBuilder {
 				return daoDefinition.getParent().getEntityBySimpleName(tableName).getTableName();
 			}
 
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				AssertKripton.fail("Inconsistent state");
+				return null;
+			}
+
 		});
 
 		// generate columnCheckSet

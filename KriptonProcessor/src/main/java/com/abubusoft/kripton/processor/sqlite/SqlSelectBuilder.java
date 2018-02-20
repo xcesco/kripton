@@ -471,6 +471,11 @@ public abstract class SqlSelectBuilder {
 
 				return tempProperty.columnName;
 			}
+			
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
+			}
 
 		});
 		return sql;

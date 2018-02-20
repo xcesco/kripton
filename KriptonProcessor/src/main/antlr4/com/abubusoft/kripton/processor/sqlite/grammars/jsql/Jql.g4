@@ -147,12 +147,12 @@ create_virtual_table_stmt
  ;
 
 delete_stmt
- : with_clause? K_DELETE K_FROM qualified_table_name
+ : with_clause? K_DELETE K_FROM table_fully_qualified_name
    ( where_stmt )?
  ;
 
 delete_stmt_limited
- : with_clause? K_DELETE K_FROM qualified_table_name
+ : with_clause? K_DELETE K_FROM table_fully_qualified_name
    ( where_stmt )?
    ( ( order_stmt )?
      limit_stmt ( offset_stmt )?     
@@ -254,7 +254,7 @@ select_or_values
  ;
 
 update_stmt
- : with_clause? K_UPDATE ( K_OR conflict_algorithm )? qualified_table_name
+ : with_clause? K_UPDATE ( K_OR conflict_algorithm )? table_fully_qualified_name
    K_SET columns_to_update ( where_stmt )?
  ;
  
@@ -267,7 +267,7 @@ update_stmt_limited
                          | K_OR K_ABORT
                          | K_OR K_REPLACE
                          | K_OR K_FAIL
-                         | K_OR K_IGNORE )? qualified_table_name
+                         | K_OR K_IGNORE )? table_fully_qualified_name
    K_SET columns_to_update ( where_stmt )?
    ( ( order_stmt )?
      limit_stmt ( offset_stmt )?
@@ -326,7 +326,7 @@ expr
  : literal_value
  | bind_parameter
  | bind_dynamic_sql
- | qualified_column_name
+ | column_fully_qualified_name
  | unary_operator expr
  | expr '||' expr
  | expr ( '*' | '/' | '%' ) expr
@@ -354,8 +354,8 @@ expr
  | raise_function
  ;
  
-qualified_column_name
- : ( ( database_name '.' )? table_name '.' )? column_name
+column_fully_qualified_name
+ : ( ( database_name '.' )? table_simple_name '.' )? column_simple_name
  ;
  
 bind_parameter
@@ -420,7 +420,7 @@ where_stmt_clauses
  : expr
  ;
 
-qualified_table_name
+table_fully_qualified_name
  : ( database_name '.' )? table_name ( K_INDEXED K_BY index_name
                                      | K_NOT K_INDEXED )?
  ;
@@ -681,6 +681,14 @@ database_name
  ;
 
 table_name
+ : any_name
+ ;
+ 
+ table_simple_name
+ : any_name
+ ;
+ 
+ column_simple_name
  : any_name
  ;
 

@@ -157,8 +157,6 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
 				
 				return entity.getTableName();
-				
-				
 			}
 
 			@Override
@@ -166,6 +164,11 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 				
 				return "${" + resolvedParamName + "}";
+			}
+			
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);			
 			}
 
 		});

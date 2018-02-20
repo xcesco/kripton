@@ -150,6 +150,10 @@ public abstract class SqlBuilderHelper {
 	 */
 	public static void generateJavaDocForContentProvider(final SQLiteModelMethod method,
 			MethodSpec.Builder methodBuilder) {
+
+		final SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLiteDatabaseSchema schema = method.getParent().getParent();
+
 		// javadoc
 		String operation = method.jql.operationType.toString();
 		methodBuilder.addJavadoc("<h1>Content provider URI ($L operation):</h1>\n", operation);
@@ -163,16 +167,22 @@ public abstract class SqlBuilderHelper {
 
 					@Override
 					public String onTableName(String tableName) {
-						return method.getParent().getParent().getEntityBySimpleName(tableName).getTableName();
+						return schema.getEntityBySimpleName(tableName).getTableName();
 					}
 
 					@Override
 					public String onColumnName(String columnName) {
-						SQLProperty tempProperty = method.getParent().getEntity().get(columnName);
+						SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);
 						AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method,
 								columnName);
 
 						return tempProperty.columnName;
+					}
+
+					@Override
+					public String onColumnFullyQualifiedName(String tableName, String columnName) {
+						return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName,
+								columnName);
 					}
 
 				});
@@ -437,6 +447,12 @@ public abstract class SqlBuilderHelper {
 						}
 
 						@Override
+						public String onColumnFullyQualifiedName(String tableName, String columnName) {
+							return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName,
+									columnName);
+						}
+
+						@Override
 						public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
 							return null;
 						}
@@ -517,6 +533,7 @@ public abstract class SqlBuilderHelper {
 	 */
 	public static void generateLog(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLiteDatabaseSchema schema=daoDefinition.getParent();
 
 		// log is enabled
 		if (daoDefinition.isLogEnabled()) {
@@ -526,42 +543,45 @@ public abstract class SqlBuilderHelper {
 
 			methodBuilder.addCode("// log for insert -- BEGIN \n");
 
-			JQLChecker checker = JQLChecker.getInstance();			
-			final One<Boolean> inWhere=new One<Boolean>(false);
+			JQLChecker checker = JQLChecker.getInstance();
+			final One<Boolean> inWhere = new One<Boolean>(false);
 
 			String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
 
 				@Override
 				public String onTableName(String tableName) {
-
 					return method.getParent().getEntity().getTableName();
 				}
-				
+
 				@Override
 				public String onBindParameter(String bindParameterName) {
 					if (inWhere.value0) {
 						return "?";
-					} 
-					
+					}
+
 					return null;
 				}
-				
+
 				@Override
-				public void onWhereStatementBegin(Where_stmtContext ctx) {				
+				public void onWhereStatementBegin(Where_stmtContext ctx) {
 					super.onWhereStatementBegin(ctx);
-					
-					inWhere.value0=true;
-				}
-				
-				@Override
-				public void onWhereStatementEnd(Where_stmtContext ctx) {				
-					super.onWhereStatementEnd(ctx);
-					
-					inWhere.value0=false;
+
+					inWhere.value0 = true;
 				}
 
+				@Override
+				public void onWhereStatementEnd(Where_stmtContext ctx) {
+					super.onWhereStatementEnd(ctx);
+
+					inWhere.value0 = false;
+				}
+
+				@Override
+				public String onColumnFullyQualifiedName(String tableName, String columnName) {
+					return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
+				}
 			});
-			
+
 			if (method.jql.containsSelectOperation) {
 				// log
 				// manage log
@@ -580,7 +600,7 @@ public abstract class SqlBuilderHelper {
 						return "%s";
 					}
 				});
-				
+
 				methodBuilder.addStatement("$T _columnNameBuffer=new $T()", StringBuffer.class, StringBuffer.class);
 				methodBuilder.addStatement("$T _columnValueBuffer=new $T()", StringBuffer.class, StringBuffer.class);
 				methodBuilder.addStatement("String _columnSeparator=$S", "");
@@ -622,7 +642,7 @@ public abstract class SqlBuilderHelper {
 	 * @param methodBuilder
 	 */
 	public static void generateSQLForInsertDynamic(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		// SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		methodBuilder.addComment("generate SQL for insert");
 		JQLChecker checker = JQLChecker.getInstance();
 
@@ -631,8 +651,12 @@ public abstract class SqlBuilderHelper {
 
 			@Override
 			public String onTableName(String tableName) {
-
 				return method.getParent().getEntity().getTableName();
+			}
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
 			}
 
 		});
@@ -663,7 +687,7 @@ public abstract class SqlBuilderHelper {
 	 * @param methodBuilder
 	 */
 	public static void generateSQLForStaticQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		// SQLDaoDefinition daoDefinition = method.getParent();
+		final SQLiteDatabaseSchema schema = method.getParent().getParent();
 		methodBuilder.addComment("generate static SQL for statement");
 		JQLChecker checker = JQLChecker.getInstance();
 
@@ -674,7 +698,7 @@ public abstract class SqlBuilderHelper {
 			public String onTableName(String tableName) {
 				return method.getParent().getEntity().getTableName();
 			}
-			
+
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
 				return onColumnName(columnName);
@@ -692,6 +716,11 @@ public abstract class SqlBuilderHelper {
 			@Override
 			public String onBindParameter(String bindParameterName) {
 				return "?";
+			}
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
 			}
 
 		});
@@ -719,60 +748,66 @@ public abstract class SqlBuilderHelper {
 
 	public static List<Pair<String, TypeName>> orderContentValues(final SQLiteModelMethod method,
 			final List<Pair<String, TypeName>> updateableParams) {
-		final List<Pair<String, TypeName>> result=new ArrayList<Pair<String, TypeName>>();
-		
-		JQLChecker checker=JQLChecker.getInstance();
-		final SQLEntity entity=method.getParent().getEntity();
-		final One<Boolean> inserMode=new One<Boolean>(false);
-		
+		final SQLiteDatabaseSchema schema = method.getParent().getParent();
+		final List<Pair<String, TypeName>> result = new ArrayList<Pair<String, TypeName>>();
+
+		JQLChecker checker = JQLChecker.getInstance();
+		final SQLEntity entity = method.getParent().getEntity();
+		final One<Boolean> inserMode = new One<Boolean>(false);
+
 		checker.replace(method, method.jql, new JQLReplacerListenerImpl() {
-			
+
 			// used in update
 			@Override
 			public String onColumnNameToUpdate(String columnName) {
-				String column=entity.findPropertyByName(columnName).columnName;
-				
-				for (Pair<String, TypeName> item: updateableParams) {
-					String paramNameInQuery=method.findParameterAliasByName(item.value0);
+				String column = entity.findPropertyByName(columnName).columnName;
+
+				for (Pair<String, TypeName> item : updateableParams) {
+					String paramNameInQuery = method.findParameterAliasByName(item.value0);
 					if (paramNameInQuery.equalsIgnoreCase(columnName)) {
 						result.add(item);
 						break;
 					}
 				}
-						
+
 				return column;
 			}
-			
+
 			// used in insert
 			@Override
-			public void onColumnNameSetBegin(Column_name_setContext ctx) {			
-				inserMode.value0=true;
+			public void onColumnNameSetBegin(Column_name_setContext ctx) {
+				inserMode.value0 = true;
 			}
-			
+
 			@Override
 			public void onColumnNameSetEnd(Column_name_setContext ctx) {
-				inserMode.value0=false;
+				inserMode.value0 = false;
 			}
-			
+
 			@Override
 			public String onColumnName(String columnName) {
-				if (!inserMode.value0) return columnName;
-				String column=entity.findPropertyByName(columnName).columnName;
-				
-				for (Pair<String, TypeName> item: updateableParams) {
-					String paramNameInQuery=method.findParameterAliasByName(item.value0);
+				if (!inserMode.value0)
+					return columnName;
+				String column = entity.findPropertyByName(columnName).columnName;
+
+				for (Pair<String, TypeName> item : updateableParams) {
+					String paramNameInQuery = method.findParameterAliasByName(item.value0);
 					if (paramNameInQuery.equalsIgnoreCase(columnName)) {
 						result.add(item);
 						break;
 					}
 				}
-						
+
 				return column;
 			}
-						
-			
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
+			}
+
 		});
-		
+
 		return result;
 	}
 

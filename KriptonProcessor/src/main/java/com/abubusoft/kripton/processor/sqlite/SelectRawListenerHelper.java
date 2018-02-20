@@ -20,8 +20,6 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.Set;
 
-import javax.lang.model.util.Elements;
-
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
@@ -29,7 +27,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)

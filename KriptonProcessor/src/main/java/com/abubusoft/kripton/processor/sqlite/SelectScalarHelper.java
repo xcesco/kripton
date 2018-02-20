@@ -20,8 +20,6 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.Set;
 
-import javax.lang.model.util.Elements;
-
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
@@ -29,7 +27,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 

@@ -36,13 +36,22 @@ public interface JQLReplacerListener {
 	String onTableName(String tableName);
 
 	/**
+	 * On simple column name.
 	 * If event return null, replacement will no executed.
 	 * 
 	 * @param statement
 	 * @return
 	 * 		<code>null</code> to avoid replacement.
 	 */
-	String onColumnName(String tableName, String columnName);
+	String onColumnName(String columnName);
+	
+	/**
+	 * On full qualified column name.
+	 * @param tableName
+	 * @param columnName
+	 * @return
+	 */
+	String onColumnFullyQualifiedName(String tableName, String columnName);
 	
 	/**
 	 * If event return null, replacement will no executed.

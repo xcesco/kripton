@@ -52,6 +52,11 @@ public abstract class GenericSQLHelper {
 				columnsToUpdate.value0=true;
 			}
 			
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
+			}
+			
 			
 			@Override
 			public String onColumnName(String columnName) {

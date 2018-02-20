@@ -438,6 +438,11 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 				AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, tableName);
 				return currentEntity.getTableName();
 			}
+			
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
+			}
 
 			@Override
 			public void onWhereStatementBegin(Where_stmtContext ctx) {

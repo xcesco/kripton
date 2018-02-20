@@ -1,4 +1,4 @@
-package sqlite.kripton186.persistence;
+package sqlite.feature.join.model;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -9,70 +9,67 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
-import sqlite.kripton186.model.CountryTable;
-import sqlite.kripton186.model.PhoneNumberTable;
-import sqlite.kripton186.model.PrefixConfigTable;
 
 /**
  * <p>
- * Represents implementation of datasource XenoDataSource.
+ * Represents implementation of datasource AppDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see XenoDataSource
- * @see BindXenoDaoFactory
- * @see PhoneDao
- * @see PhoneDaoImpl
- * @see PhoneNumber
- * @see PrefixConfigDao
- * @see PrefixConfigDaoImpl
- * @see PrefixConfig
- * @see CountryDao
- * @see CountryDaoImpl
- * @see Country
+ * @see AppDataSource
+ * @see BindAppDaoFactory
+ * @see BookDao
+ * @see BookDaoImpl
+ * @see Book
+ * @see UserDao
+ * @see UserDaoImpl
+ * @see User
+ * @see LoanDao
+ * @see LoanDaoImpl
+ * @see Loan
  */
-public class BindXenoDataSource extends AbstractDataSource implements BindXenoDaoFactory, XenoDataSource {
+public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindXenoDataSource instance;
+  static BindAppDataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(this);
+  protected BookDaoImpl bookDao = new BookDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected PrefixConfigDaoImpl prefixConfigDao = new PrefixConfigDaoImpl(this);
+  protected UserDaoImpl userDao = new UserDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected CountryDaoImpl countryDao = new CountryDaoImpl(this);
+  protected LoanDaoImpl loanDao = new LoanDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time */
   private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  protected BindXenoDataSource(DataSourceOptions options) {
-    super("xeno.db", 1, options);
+  protected BindAppDataSource(DataSourceOptions options) {
+    super("library.db", 1, options);
   }
 
   @Override
-  public PhoneDaoImpl getPhoneDao() {
-    return phoneDao;
+  public BookDaoImpl getBookDao() {
+    return bookDao;
   }
 
   @Override
-  public PrefixConfigDaoImpl getPrefixConfigDao() {
-    return prefixConfigDao;
+  public UserDaoImpl getUserDao() {
+    return userDao;
   }
 
   @Override
-  public CountryDaoImpl getCountryDao() {
-    return countryDao;
+  public LoanDaoImpl getLoanDao() {
+    return loanDao;
   }
 
   /**
@@ -154,9 +151,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * instance
    */
-  public static synchronized BindXenoDataSource instance() {
+  public static synchronized BindAppDataSource instance() {
     if (instance==null) {
-      instance=new BindXenoDataSource(null);
+      instance=new BindAppDataSource(null);
     }
     return instance;
   }
@@ -165,8 +162,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindXenoDataSource open() {
-    BindXenoDataSource instance=instance();
+  public static BindAppDataSource open() {
+    BindAppDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -175,8 +172,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindXenoDataSource openReadOnly() {
-    BindXenoDataSource instance=instance();
+  public static BindAppDataSource openReadOnly() {
+    BindAppDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -194,22 +191,22 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(CountryTable.CREATE_TABLE_SQL);
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",BookTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+    database.execSQL(BookTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",LoanTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    database.execSQL(LoanTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -265,22 +262,22 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(CountryTable.CREATE_TABLE_SQL);
+      database.execSQL(UserTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",BookTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+      database.execSQL(BookTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",LoanTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      database.execSQL(LoanTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -293,24 +290,25 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
+    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 
   public void clearCompiledStatements() {
-    PhoneDaoImpl.clearCompiledStatements();
-    PrefixConfigDaoImpl.clearCompiledStatements();
-    CountryDaoImpl.clearCompiledStatements();
+    BookDaoImpl.clearCompiledStatements();
+    UserDaoImpl.clearCompiledStatements();
+    LoanDaoImpl.clearCompiledStatements();
   }
 
   /**
    * Build instance.
    * @return dataSource instance.
    */
-  public static synchronized BindXenoDataSource build(DataSourceOptions options) {
+  public static synchronized BindAppDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindXenoDataSource(options);
+      instance=new BindAppDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
@@ -320,14 +318,14 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * Build instance with default config.
    */
-  public static synchronized BindXenoDataSource build() {
+  public static synchronized BindAppDataSource build() {
     return build(DataSourceOptions.builder().build());
   }
 
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindXenoDaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindAppDaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
@@ -337,7 +335,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindXenoDaoFactory daoFactory);
+    TransactionResult onExecute(BindAppDaoFactory daoFactory);
   }
 
   /**
@@ -350,53 +348,53 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindXenoDaoFactory daoFactory);
+    T onExecute(BindAppDaoFactory daoFactory);
   }
 
-  class DataSourceSingleThread implements BindXenoDaoFactory {
+  class DataSourceSingleThread implements BindAppDaoFactory {
     private SQLContextSingleThreadImpl _context;
 
-    private PhoneDaoImpl _phoneDao;
+    private BookDaoImpl _bookDao;
 
-    private PrefixConfigDaoImpl _prefixConfigDao;
+    private UserDaoImpl _userDao;
 
-    private CountryDaoImpl _countryDao;
+    private LoanDaoImpl _loanDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindXenoDataSource.this);
+      _context=new SQLContextSingleThreadImpl(BindAppDataSource.this);
     }
 
     /**
      *
-     * retrieve dao PhoneDao
+     * retrieve dao BookDao
      */
-    public PhoneDaoImpl getPhoneDao() {
-      if (_phoneDao==null) {
-        _phoneDao=new PhoneDaoImpl(_context);
+    public BookDaoImpl getBookDao() {
+      if (_bookDao==null) {
+        _bookDao=new BookDaoImpl(_context);
       }
-      return _phoneDao;
+      return _bookDao;
     }
 
     /**
      *
-     * retrieve dao PrefixConfigDao
+     * retrieve dao UserDao
      */
-    public PrefixConfigDaoImpl getPrefixConfigDao() {
-      if (_prefixConfigDao==null) {
-        _prefixConfigDao=new PrefixConfigDaoImpl(_context);
+    public UserDaoImpl getUserDao() {
+      if (_userDao==null) {
+        _userDao=new UserDaoImpl(_context);
       }
-      return _prefixConfigDao;
+      return _userDao;
     }
 
     /**
      *
-     * retrieve dao CountryDao
+     * retrieve dao LoanDao
      */
-    public CountryDaoImpl getCountryDao() {
-      if (_countryDao==null) {
-        _countryDao=new CountryDaoImpl(_context);
+    public LoanDaoImpl getLoanDao() {
+      if (_loanDao==null) {
+        _loanDao=new LoanDaoImpl(_context);
       }
-      return _countryDao;
+      return _loanDao;
     }
 
     public DataSourceSingleThread bindToThread() {

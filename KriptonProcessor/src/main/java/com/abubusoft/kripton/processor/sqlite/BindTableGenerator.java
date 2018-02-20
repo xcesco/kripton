@@ -546,6 +546,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					return "While table definition generation for entity " + entity.getName();
 				}
 			}, createIndex, new JQLReplacerListenerImpl() {
+								
+				
 				@Override
 				public String onColumnName(String columnName) {
 					fieldCounter.value0++;
@@ -553,6 +555,12 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 					AssertKripton.assertTrue(property != null, "class '%s' in @%s(indexes) use unknown property '%s'", entity.getName(), BindTable.class.getSimpleName(), columnName);
 					return property.columnName;
+				}
+
+				@Override
+				public String onColumnFullyQualifiedName(String tableName, String columnName) {
+					AssertKripton.fail("Inconsistent state");
+					return null;
 				}
 			});
 

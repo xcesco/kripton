@@ -418,7 +418,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("INSERT OR REPLACE INTO person (personName) SELECT personName FROM person WHERE personName=?");
+      Logger.info("INSERT OR REPLACE INTO person (personName) SELECT person_name FROM person WHERE person_name=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

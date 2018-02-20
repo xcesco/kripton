@@ -295,7 +295,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("UPDATE person SET Personname=${personName}, student = (select student from person where personSurname=?)");
+      Logger.info("UPDATE person SET Personname=${personName}, student = (select student from person where person_surname=?)");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

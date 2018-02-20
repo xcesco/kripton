@@ -74,6 +74,11 @@ public abstract class JavadocUtility {
 				AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, tableName);
 				return currentEntity.getTableName();
 			}
+			
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);						
+			}
 
 			@Override
 			public String onColumnName(String columnName) {				

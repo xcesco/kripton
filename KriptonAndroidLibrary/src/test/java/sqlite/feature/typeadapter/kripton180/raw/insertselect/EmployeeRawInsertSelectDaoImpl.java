@@ -81,7 +81,7 @@ public class EmployeeRawInsertSelectDaoImpl extends AbstractDao implements Emplo
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("INSERT INTO employees (fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray) select fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray  from employees where fieldBoolean=? and fieldByte=? and fieldCharacter=? and fieldShort=? and fieldInteger=? and fieldLong=? and fieldFloat=? and fieldDouble=? and fieldString=? and fieldByteArray=?");
+      Logger.info("INSERT INTO employees (fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

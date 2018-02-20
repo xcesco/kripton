@@ -211,6 +211,11 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 				return "${" + resolvedParamName + "}";
 			}
+			
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
+			}
 
 		});
 

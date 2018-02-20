@@ -236,6 +236,8 @@ public abstract class SqlModifyBuilder {
 	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, ModifyType updateResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteDatabaseSchema schema=daoDefinition.getParent();
+		
 		final Set<String> columns = new LinkedHashSet<>();
 
 		JQLChecker jqlChecker = JQLChecker.getInstance();
@@ -281,6 +283,11 @@ public abstract class SqlModifyBuilder {
 
 				columns.add(tempProperty.columnName);
 				return null;
+			}
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
 			}
 
 		});
@@ -527,6 +534,11 @@ public abstract class SqlModifyBuilder {
 			@Override
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
 				usedInWhere.value0 = false;
+			}
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
 			};
 
 		});
@@ -567,6 +579,11 @@ public abstract class SqlModifyBuilder {
 				SQLEntity entity = schema.getEntityBySimpleName(tableName);
 				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
 				return entity.getTableName();
+			}
+
+			@Override
+			public String onColumnFullyQualifiedName(String tableName, String columnName) {
+				return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(schema, method, tableName, columnName);
 			}
 
 		});
