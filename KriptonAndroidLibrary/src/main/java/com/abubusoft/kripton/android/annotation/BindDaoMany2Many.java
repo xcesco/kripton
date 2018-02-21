@@ -35,9 +35,7 @@ public @interface BindDaoMany2Many {
 	 * @return defined name of the table in java style
 	 */
 	String tableName() default "";
-		
-	boolean onlyFields() default true;
-	
+			
 	Class<?> entity1();
 	
 	Class<?> entity2();
