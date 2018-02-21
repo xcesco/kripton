@@ -27,7 +27,6 @@ import java.util.Set;
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.PackageElement;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
@@ -101,41 +100,40 @@ public class BindM2MBuilder extends AbstractBuilder {
 	private void generateDaoPart(M2MEntity entity) throws IOException {
 		String daoClassName = entity.daoName.simpleName();
 
-		PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
-		String packageName = pkg.getQualifiedName().toString();
+		//PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
+		//String daoPackageName = pkg.getQualifiedName().toString();
+		String daoPackageName = entity.daoName.packageName();
+		String entityPackageName=entity.getPackageName();
 		String generatedDaoClassName = "Generated" + daoClassName;
 
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, packageName, generatedDaoClassName);
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDaoMany2Many.class, daoPackageName, generatedDaoClassName);
 		//@formatter:off
 		classBuilder = TypeSpec.interfaceBuilder(generatedDaoClassName)
 				.addModifiers(Modifier.PUBLIC)				
 				.addAnnotation(AnnotationSpec.builder(BindDao.class)
-						.addMember("value", "$T.class",TypeUtility.className(packageName, entity.name)).build())
+						.addMember("value", "$T.class",TypeUtility.className(entityPackageName, entity.name)).build())
 				.addAnnotation(AnnotationSpec.builder(BindGeneratedDao.class)
-						.addMember("dao", "$T.class",TypeUtility.className(packageName, daoClassName)).build())
+						.addMember("dao", "$T.class",entity.daoName).build())
 				.addAnnotation(AnnotationSpec.builder(BindDaoMany2Many.class)											
 						.addMember("entity1", "$T.class",entity.entity1Name)
 						.addMember("entity2", "$T.class",entity.entity2Name)
 						.build())
-				
-				
-				
-				.addSuperinterface(TypeUtility.typeName(packageName, daoClassName));		
+				.addSuperinterface(entity.daoName);		
 		//@formatter:on
 
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
 
 		if (entity.generateMethods) {
-			generateSelects(entity, packageName);
-			generateDeletes(entity, packageName);
-			generateInsert(entity, packageName);
+			generateSelects(entity, entityPackageName);
+			generateDeletes(entity, entityPackageName);
+			generateInsert(entity, entityPackageName);
 		}
 
 		TypeSpec typeSpec = classBuilder.build();
 
-		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
+		JavaWriterHelper.writeJava2File(filer, daoPackageName, typeSpec);
 
-		GeneratedTypeElement daoPartElement = new GeneratedTypeElement(packageName, classBuilder.build(), null, null);
+		GeneratedTypeElement daoPartElement = new GeneratedTypeElement(daoPackageName, classBuilder.build(), null, null);
 		daoResult.add(daoPartElement);
 	}
 

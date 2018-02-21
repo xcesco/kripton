@@ -1,4 +1,4 @@
-package sqlite.kripton186.persistence;
+package sqlite.feature.many2many.case6.persistence;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -9,9 +9,11 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
-import sqlite.kripton186.model.CountryTable;
-import sqlite.kripton186.model.PhoneNumberTable;
-import sqlite.kripton186.model.PrefixConfigTable;
+import sqlite.feature.many2many.case6.model.CountryTable;
+import sqlite.feature.many2many.case6.model.PersonPhoneTable;
+import sqlite.feature.many2many.case6.model.PersonTable;
+import sqlite.feature.many2many.case6.model.PhoneNumberTable;
+import sqlite.feature.many2many.case6.model.PrefixConfigTable;
 
 /**
  * <p>
@@ -30,6 +32,12 @@ import sqlite.kripton186.model.PrefixConfigTable;
  * @see CountryDao
  * @see CountryDaoImpl
  * @see Country
+ * @see Person2PhoneDao
+ * @see Person2PhoneDaoImpl
+ * @see PersonPhone
+ * @see PersonDao
+ * @see PersonDaoImpl
+ * @see Person
  */
 public class BindXenoDataSource extends AbstractDataSource implements BindXenoDaoFactory, XenoDataSource {
   /**
@@ -53,6 +61,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   protected CountryDaoImpl countryDao = new CountryDaoImpl(this);
 
   /**
+   * <p>dao instance</p>
+   */
+  protected Person2PhoneDaoImpl person2PhoneDao = new Person2PhoneDaoImpl(this);
+
+  /**
+   * <p>dao instance</p>
+   */
+  protected PersonDaoImpl personDao = new PersonDaoImpl(this);
+
+  /**
    * Used only in transactions (that can be executed one for time */
   private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
@@ -73,6 +91,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   @Override
   public CountryDaoImpl getCountryDao() {
     return countryDao;
+  }
+
+  @Override
+  public Person2PhoneDaoImpl getPerson2PhoneDao() {
+    return person2PhoneDao;
+  }
+
+  @Override
+  public PersonDaoImpl getPersonDao() {
+    return personDao;
   }
 
   /**
@@ -194,22 +222,34 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(CountryTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(CountryTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
@@ -265,22 +305,34 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(CountryTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
         Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(CountryTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -293,6 +345,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
+    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
@@ -302,6 +355,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     PhoneDaoImpl.clearCompiledStatements();
     PrefixConfigDaoImpl.clearCompiledStatements();
     CountryDaoImpl.clearCompiledStatements();
+    Person2PhoneDaoImpl.clearCompiledStatements();
+    PersonDaoImpl.clearCompiledStatements();
   }
 
   /**
@@ -362,6 +417,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
 
     private CountryDaoImpl _countryDao;
 
+    private Person2PhoneDaoImpl _person2PhoneDao;
+
+    private PersonDaoImpl _personDao;
+
     DataSourceSingleThread() {
       _context=new SQLContextSingleThreadImpl(BindXenoDataSource.this);
     }
@@ -397,6 +456,28 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         _countryDao=new CountryDaoImpl(_context);
       }
       return _countryDao;
+    }
+
+    /**
+     *
+     * retrieve dao Person2PhoneDao
+     */
+    public Person2PhoneDaoImpl getPerson2PhoneDao() {
+      if (_person2PhoneDao==null) {
+        _person2PhoneDao=new Person2PhoneDaoImpl(_context);
+      }
+      return _person2PhoneDao;
+    }
+
+    /**
+     *
+     * retrieve dao PersonDao
+     */
+    public PersonDaoImpl getPersonDao() {
+      if (_personDao==null) {
+        _personDao=new PersonDaoImpl(_context);
+      }
+      return _personDao;
     }
 
     public DataSourceSingleThread bindToThread() {
