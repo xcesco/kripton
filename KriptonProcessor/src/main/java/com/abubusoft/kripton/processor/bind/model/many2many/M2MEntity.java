@@ -37,7 +37,9 @@ public class M2MEntity extends M2MBase {
 	
 	public TypeElement daoElement;
 
-	public M2MEntity(TypeElement daoElement, String packageName, String entityName, ClassName daoClazzName, ClassName entity1ClazzName, ClassName entity2ClazzName, String idName, String tableName, boolean needToCreate) {
+	public boolean generateMethods;
+
+	public M2MEntity(TypeElement daoElement, String packageName, String entityName, ClassName daoClazzName, ClassName entity1ClazzName, ClassName entity2ClazzName, String idName, String tableName, boolean needToCreate, boolean generatedMethods) {
 		this.packageName = packageName;
 		this.entity1Name = entity1ClazzName;
 		this.entity2Name = entity2ClazzName;
@@ -47,6 +49,7 @@ public class M2MEntity extends M2MBase {
 		this.tableName = StringUtils.hasText(tableName) ? tableName : (CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, this.name));
 		this.needToCreate = needToCreate;
 		this.daoElement=daoElement;
+		this.generateMethods=generatedMethods;
 	}
 
 	public static String extractClassName(String fullName) {
@@ -74,12 +77,16 @@ public class M2MEntity extends M2MBase {
 		PackageElement pkg = null;
 		String packageName = null;
 		boolean needToCreate = true;
+		boolean generatedMethods=true;
 
 		if (daoElement.getAnnotation(BindDaoMany2Many.class) != null) {
 			entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1));
 			entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2));
 			prefixId = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ID_NAME);
 			tableName = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.TABLE_NAME);
+			
+			generatedMethods=AnnotationUtility.extractAsBoolean(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.METHODS);
+			
 			entityName = entity1.simpleName() + entity2.simpleName();
 			pkg = BaseProcessor.elementUtils.getPackageOf(daoElement);
 			packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -101,7 +108,7 @@ public class M2MEntity extends M2MBase {
 			needToCreate = false;
 		}
 
-		M2MEntity entity = new M2MEntity(daoElement, packageName, entityName, TypeUtility.className(daoElement.asType().toString()), entity1, entity2, prefixId, tableName, needToCreate);
+		M2MEntity entity = new M2MEntity(daoElement, packageName, entityName, TypeUtility.className(daoElement.asType().toString()), entity1, entity2, prefixId, tableName, needToCreate, generatedMethods);
 
 		return entity;
 	}

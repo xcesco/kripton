@@ -125,9 +125,11 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
 
-		generateSelects(entity, packageName);
-		generateDeletes(entity, packageName);
-		generateInsert(entity, packageName);
+		if (entity.generateMethods) {
+			generateSelects(entity, packageName);
+			generateDeletes(entity, packageName);
+			generateInsert(entity, packageName);
+		}
 
 		TypeSpec typeSpec = classBuilder.build();
 

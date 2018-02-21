@@ -6,7 +6,6 @@ import java.util.List;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;

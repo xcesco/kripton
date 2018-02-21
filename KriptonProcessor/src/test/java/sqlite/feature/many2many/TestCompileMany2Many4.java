@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.many2many.case4;
+package sqlite.feature.many2many;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,10 +36,10 @@ import sqlite.feature.many2many.case4.persistence.PrefixConfigDao;
 import sqlite.feature.many2many.case4.persistence.XenoDataSource;
 
 @RunWith(JUnit4.class)
-public class TestCompileMany2ManyCase4 extends AbstractBindSQLiteProcessorTest {
+public class TestCompileMany2Many4 extends AbstractBindSQLiteProcessorTest {
 
 	@Test
-	public void testDuplicateMethods() throws Throwable {		
+	public void testMethods() throws Throwable {		
 		buildDataSourceProcessorTest(ActionType.class,
 				Country.class,
 				Person.class,

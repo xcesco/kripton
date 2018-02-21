@@ -83,7 +83,9 @@ public enum AnnotationAttributeType {
 	
 	DAO("dao"),
 	
-	GENERATE_RX("rx");
+	GENERATE_RX("rx"),
+	
+	METHODS("methods");
 
 	private String value;
 
