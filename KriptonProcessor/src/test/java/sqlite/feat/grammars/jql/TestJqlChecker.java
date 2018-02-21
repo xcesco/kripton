@@ -50,12 +50,10 @@ import base.BaseProcessorTest;
 public class TestJqlChecker extends BaseProcessorTest {
 
 	JQLContext dummyContext = new JQLContext() {
-
 		@Override
 		public String getContextDescription() {
 			return "test context";
 		}
-
 	};
 
 	/**
@@ -150,6 +148,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			@Override
+			public String getTableName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 	}
 
@@ -221,6 +225,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 			@Override
 			public SQLProperty findPropertyByName(String name) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getTableName() {
 				// TODO Auto-generated method stub
 				return null;
 			}

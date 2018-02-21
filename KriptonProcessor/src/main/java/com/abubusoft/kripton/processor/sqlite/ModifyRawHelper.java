@@ -28,6 +28,7 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
@@ -235,14 +236,6 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 
 			@Override
-			public String onTableName(String className) {
-				SQLEntity tempEntity = currentSchema.getEntityBySimpleName(className);
-				AssertKripton.assertTrueOrUnknownClassInJQLException(tempEntity != null, method, className);
-
-				return tempEntity.getTableName();
-			}
-
-			@Override
 			public String onBindParameter(String bindParameterName) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
@@ -424,14 +417,6 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 
 				return tempProperty.columnName;
-			}
-
-			@Override
-			public String onTableName(String className) {
-				SQLEntity tempEntity = currentSchema.getEntityBySimpleName(className);
-				AssertKripton.assertTrueOrUnknownClassInJQLException(tempEntity != null, method, className);
-
-				return tempEntity.getTableName();
 			}
 
 			@Override

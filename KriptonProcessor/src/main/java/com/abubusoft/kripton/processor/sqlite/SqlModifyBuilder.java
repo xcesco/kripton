@@ -37,6 +37,7 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -510,13 +511,6 @@ public abstract class SqlModifyBuilder {
 			}
 
 			@Override
-			public String onTableName(String tableName) {
-				SQLEntity entity = currentSchema.getEntityBySimpleName(tableName);
-				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
-				return entity.getTableName();
-			}
-
-			@Override
 			public void onWhereStatementBegin(Where_stmtContext ctx) {
 				usedInWhere.value0 = true;
 			}
@@ -557,12 +551,6 @@ public abstract class SqlModifyBuilder {
 				return "?";
 			}
 
-			@Override
-			public String onTableName(String tableName) {
-				SQLEntity entity = currentSchema.getEntityBySimpleName(tableName);
-				AssertKripton.assertTrueOrUnknownClassInJQLException(entity != null, method, tableName);
-				return entity.getTableName();
-			}
 
 		});
 

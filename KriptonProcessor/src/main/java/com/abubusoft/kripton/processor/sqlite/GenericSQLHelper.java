@@ -6,6 +6,7 @@ import java.util.List;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
@@ -58,11 +59,6 @@ public abstract class GenericSQLHelper {
 
 				return resolvedName;
 
-			}
-
-			@Override
-			public String onTableName(String tableName) {
-				return currentSchema.getEntityBySimpleName(tableName).getTableName();
 			}
 
 			@Override

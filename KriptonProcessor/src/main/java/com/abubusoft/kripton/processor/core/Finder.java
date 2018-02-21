@@ -9,4 +9,6 @@ public interface Finder<T> {
 	List<T> getCollection();
 
 	String getSimpleName();
+	
+	String getTableName();
 }

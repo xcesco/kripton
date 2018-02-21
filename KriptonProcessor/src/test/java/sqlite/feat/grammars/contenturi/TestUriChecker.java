@@ -36,7 +36,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
 import base.BaseProcessorTest;
@@ -217,6 +216,12 @@ public class TestUriChecker extends BaseProcessorTest {
 			@Override
 			public String getSimpleName() {
 				return "table";
+			}
+
+			@Override
+			public String getTableName() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 
 		};

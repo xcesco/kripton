@@ -26,6 +26,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPart;
@@ -65,14 +66,7 @@ public abstract class JavadocUtility {
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 				
 		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
-
-			@Override
-			public String onTableName(String tableName) {
-				SQLEntity currentEntity = currentSchema.getEntityBySimpleName(tableName);
-				AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, tableName);
-				return currentEntity.getTableName();
-			}
-
+	
 			@Override
 			public String onColumnName(String columnName) {				
 				SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);

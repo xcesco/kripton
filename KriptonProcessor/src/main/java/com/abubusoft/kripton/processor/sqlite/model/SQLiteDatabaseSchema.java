@@ -29,6 +29,7 @@ import javax.lang.model.element.TypeElement;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
@@ -162,11 +163,20 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		return entities.get(entityClassName);
 	}
 
-	public SQLEntity getEntityBySimpleName(String entityName) {
+	public Finder<SQLProperty> getEntityBySimpleName(String entityName) {
 		if (entityName == null)
 			return null;
 
-		return entitiesBySimpleName.get(entityName.toLowerCase());
+		SQLEntity result=entitiesBySimpleName.get(entityName.toLowerCase());		
+		if (result!=null) return result;
+		
+		for (GeneratedTypeElement item :this.generatedEntities) {
+			if (item.typeSpec.name.toLowerCase().equals(entityName.toLowerCase())) {
+				return item;
+			}
+		}
+		
+		return null;
 	}
 
 	public Set<SQLProperty> getPropertyBySimpleName(String propertyName) {

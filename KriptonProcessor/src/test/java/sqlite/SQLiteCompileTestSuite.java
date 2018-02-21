@@ -44,6 +44,7 @@ import sqlite.feature.typeadapter.kripton180.Test180Suite;
 import sqlite.kripton111.TestCompile111;
 import sqlite.kripton186.Test186Suite;
 import sqlite.kripton205.Test205Suite;
+import sqlite.kripton209.Test209Suite;
 import sqlite.kripton33.Test33Suite;
 import sqlite.kripton38.Test38Suite;
 import sqlite.kripton40.Test40Suite;
@@ -140,7 +141,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			IncludeFieldsTestSuite.class,						
 			TestJQLFeatureSuite.class,
 			Test62Compile.class,
-			Test63Compile.class
+			Test63Compile.class,
+			Test209Suite.class			
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

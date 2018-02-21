@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-public class GeneratedTypeElement {
+public class GeneratedTypeElement implements Finder<SQLProperty> {
 
 	public String packageName;
 	public TypeSpec typeSpec;
@@ -58,6 +59,18 @@ public class GeneratedTypeElement {
 	
 	public TypeName getClassName() {
 		return TypeUtility.className(getQualifiedName());
+	}
+
+	@Override
+	public SQLProperty findPropertyByName(String name) {
+		name = name.toLowerCase();
+		for (SQLProperty item : properties) {
+			if (item.getName().toLowerCase().equals(name)) {
+				return item;
+			}
+		}
+
+		return null;
 	}
 
 }

@@ -25,6 +25,7 @@ import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
@@ -159,11 +160,6 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.addJavadoc("<h2>SQL $L for Content Provider</h2>\n", operation);
 		String sql = JQLChecker.getInstance().replace(method, method.jql,
 				new com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl(method) {
-
-					@Override
-					public String onTableName(String tableName) {
-						return currentSchema.getEntityBySimpleName(tableName).getTableName();
-					}
 
 					@Override
 					public String onColumnName(String columnName) {
@@ -429,11 +425,6 @@ public abstract class SqlBuilderHelper {
 						}
 
 						@Override
-						public String onTableName(String tableName) {
-							return currentSchema.getEntityBySimpleName(tableName).getTableName();
-						}
-
-						@Override
 						public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
 							return null;
 						}
@@ -529,11 +520,6 @@ public abstract class SqlBuilderHelper {
 			String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 				@Override
-				public String onTableName(String tableName) {
-					return method.getParent().getEntity().getTableName();
-				}
-
-				@Override
 				public String onBindParameter(String bindParameterName) {
 					if (inWhere.value0) {
 						return "?";
@@ -622,13 +608,7 @@ public abstract class SqlBuilderHelper {
 
 		// replace the table name, other pieces will be removed
 		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
-
-			@Override
-			public String onTableName(String tableName) {
-				return method.getParent().getEntity().getTableName();
-			}
-			
-
+		
 		});
 
 		sql = checker.replaceVariableStatements(method, sql, new JQLReplaceVariableStatementListenerImpl() {
@@ -662,11 +642,6 @@ public abstract class SqlBuilderHelper {
 
 		// replace the table name, other pieces will be removed
 		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
-
-			@Override
-			public String onTableName(String tableName) {
-				return method.getParent().getEntity().getTableName();
-			}
 
 			@Override
 			public String onColumnNameToUpdate(String columnName) {

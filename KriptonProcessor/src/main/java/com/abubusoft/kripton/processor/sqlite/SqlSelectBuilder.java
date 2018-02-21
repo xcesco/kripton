@@ -34,6 +34,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -447,11 +448,6 @@ public abstract class SqlSelectBuilder {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 		// convert jql to sql
 		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
-
-			@Override
-			public String onTableName(String tableName) {
-				return currentSchema.getEntityBySimpleName(tableName).getTableName();
-			}
 
 			@Override
 			public String onBindParameter(String bindParameterName) {
