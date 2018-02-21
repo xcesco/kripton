@@ -1,6 +1,7 @@
 package sqlite.kripton209.model1;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import java.util.List;
@@ -12,6 +13,9 @@ public interface UserDao {
 
   @BindSqlSelect(where="id = ${id}")
   User getUserById(long id);
+  
+  @BindSqlInsert
+  void insert(User user);
 
 
 }

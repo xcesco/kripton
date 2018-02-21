@@ -1,12 +1,16 @@
 package sqlite.kripton209.model2;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import java.util.List;
 
 @BindDao(Device.class)
 public interface DeviceDao {
+	
+	@BindSqlInsert
+	void insert(Device device);
 
     @BindSqlSelect
     List<Device> getAllDevices();
