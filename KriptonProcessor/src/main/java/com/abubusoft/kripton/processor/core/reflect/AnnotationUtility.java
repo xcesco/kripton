@@ -354,23 +354,6 @@ public abstract class AnnotationUtility {
 		return result.value0;
 	}
 
-	/**
-	 * Define for entity the model annotation set.
-	 * 
-	 * @param elementUtils
-	 * @param entity
-	 */
-//	static void buildAnnotations(Elements elementUtils, final ModelWithAnnotation entity, final AnnotationFilter filter) {
-//		forEachAnnotations(elementUtils, entity.getElement(), filter, new AnnotationFoundListener() {
-//
-//			@Override
-//			public void onAcceptAnnotation(Element executableMethod, String annotationClassName, Map<String, String> attributes) {
-//				ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
-//
-//				entity.addAnnotation(annotation);
-//			}
-//		});
-//	}
 	
 	public static List<ModelAnnotation> buildAnnotationList(final Element element, final AnnotationFilter filter) {
 		final List<ModelAnnotation> annotationList=new ArrayList<>();

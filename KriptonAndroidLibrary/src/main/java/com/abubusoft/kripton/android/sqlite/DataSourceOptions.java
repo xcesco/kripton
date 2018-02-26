@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.common.Pair;
 
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
@@ -42,7 +43,7 @@ public class DataSourceOptions {
 
 	public final DatabaseLifecycleHandler databaseLifecycleHandler;
 
-	public final List<SQLiteUpdateTask> updateTasks;
+	public final List<Pair<Integer, SQLiteUpdateTask>> updateTasks;
 
 	public static Builder builder() {
 		return new Builder();
@@ -53,7 +54,7 @@ public class DataSourceOptions {
 		private CursorFactory factory;
 		private DatabaseErrorHandler errorHandler;
 		private DatabaseLifecycleHandler databaseLifecycleHandler;
-		private List<SQLiteUpdateTask> updateTasks = new ArrayList<>();
+		private List<Pair<Integer, SQLiteUpdateTask>> updateTasks = new ArrayList<>();
 
 		public Builder cursorFactory(CursorFactory value) {
 			this.factory = value;
@@ -97,10 +98,10 @@ public class DataSourceOptions {
 		 * @return
 		 */
 		public Builder addUpdateTask(int currentVersion, final List<String> sqlCommandList) {
-			SQLiteUpdateTask task = new SQLiteUpdateTask(currentVersion) {
+			SQLiteUpdateTask task = new SQLiteUpdateTask() {
 
 				@Override
-				public void execute(SQLiteDatabase database) {
+				public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
 					for (String item : sqlCommandList) {
 						Logger.info(item);
 						database.execSQL(item);
@@ -108,13 +109,14 @@ public class DataSourceOptions {
 				}
 			};
 
-			this.updateTasks.add(task);
+			this.updateTasks.add(new Pair<>(currentVersion, task));
 
 			return this;
 		}
-
-		public Builder addUpdateTask(SQLiteUpdateTask task) {
-			this.updateTasks.add(task);
+		
+		public Builder addUpdateTask(int version, SQLiteUpdateTask task) {
+			
+			this.updateTasks.add(new Pair<>(version, task));
 			return this;
 		}
 
@@ -128,9 +130,9 @@ public class DataSourceOptions {
 		 * @return
 		 */
 		public Builder addUpdateTask(int currentVersion, InputStream inputStream) {
-			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(currentVersion, inputStream);
+			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(inputStream);
 
-			this.updateTasks.add(task);
+			this.updateTasks.add(new Pair<Integer, SQLiteUpdateTask>(currentVersion, task));			
 
 			return this;
 		}
@@ -140,7 +142,7 @@ public class DataSourceOptions {
 		}
 	}
 
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<SQLiteUpdateTask> updateTasks, boolean log) {
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<Pair<Integer, SQLiteUpdateTask>> updateTasks, boolean log) {
 		this.logEnabled = log;
 		this.factory = factory;
 		this.errorHandler = errorHandler;

@@ -24,15 +24,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
+import com.abubusoft.kripton.processor.sqlite.FindTasksVisitor;
 import com.squareup.javapoet.ClassName;
 
 public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElement> {
@@ -94,6 +100,12 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public boolean generateRx;
 
+	private ArrayList<Pair<Integer, String>> defaultTasks;
+
+	public ArrayList<Pair<Integer, String>> getDefaultTasks() {
+		return defaultTasks;
+	}
+
 	public List<String> getDaoNameSet() {
 		return daoNameSet;
 	}
@@ -113,6 +125,25 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.contentProvider = null;
 		this.generatedEntities=new LinkedHashSet<GeneratedTypeElement>();
 		this.daoNameSet=daoIntoDataSource;
+		
+		FindTasksVisitor valueVisitor = new FindTasksVisitor();
+		List<? extends AnnotationMirror> annotationMirrors = item.getAnnotationMirrors();
+		for (AnnotationMirror annotationMirror : annotationMirrors) {
+			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
+
+			if (BindDataSource.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
+
+					// The 'entry.getKey()' here is the annotation attribute
+					// name.
+					String key = entry.getKey().getSimpleName().toString();
+					entry.getValue().accept(valueVisitor, key);
+				}
+			}
+
+		}
+		
+		this.defaultTasks=valueVisitor.getTasks();
 
 	}
 

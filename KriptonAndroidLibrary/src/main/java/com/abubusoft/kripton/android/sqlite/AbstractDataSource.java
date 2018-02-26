@@ -27,6 +27,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.ContentValues;
@@ -53,6 +54,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
 	/**
 	 * Get error listener, in transations
+	 * 
 	 * @return
 	 */
 	public OnErrorListener getOnErrorListener() {
@@ -61,6 +63,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
 	/**
 	 * Set error listener for transactions
+	 * 
 	 * @param onErrorListener
 	 */
 	public void setOnErrorListener(OnErrorListener onErrorListener) {
@@ -169,6 +172,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		protected TypeStatus initialValue() {
 			return TypeStatus.CLOSED;
 		}
+			
 	};
 
 	/**
@@ -192,13 +196,13 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	}
 
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
-		DataSourceOptions optionsValue = (options== null) ?DataSourceOptions.builder().build() : options;
-		
+		DataSourceOptions optionsValue = (options == null) ? DataSourceOptions.builder().build() : options;
+
 		this.name = name;
 		this.version = version;
 		this.context = new SQLContextImpl(this);
 		this.options = optionsValue;
-		this.logEnabled=optionsValue.logEnabled;
+		this.logEnabled = optionsValue.logEnabled;
 	}
 
 	/*
@@ -255,24 +259,22 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	}
 
 	protected SQLiteUpdateTask findPopulateTaskList(int currentVersion) {
-		for (SQLiteUpdateTask item : this.options.updateTasks) {
-			if (item.previousVersion == item.currentVersion && item.currentVersion == currentVersion) {
-				return item;
+		for (Pair<Integer, SQLiteUpdateTask> item : this.options.updateTasks) {
+			if (item.value0 == currentVersion) {
+				return item.value1;
 			}
 		}
 
 		return null;
 	}
 
-	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {
-		int counter = currentVersion - previousVersion > 0 ? 1 : -1;
+	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {		
 		List<SQLiteUpdateTask> result = new ArrayList<>();
 
-		for (SQLiteUpdateTask item : this.options.updateTasks) {
-			if (item.previousVersion == previousVersion && item.currentVersion == item.previousVersion + counter) {
-				result.add(item);
-
-				previousVersion = item.currentVersion;
+		for (Pair<Integer, SQLiteUpdateTask> item : this.options.updateTasks) {
+			if (item.value0 - 1 == previousVersion) {
+				result.add(item.value1);
+				previousVersion = item.value0;
 			}
 
 			if (previousVersion == currentVersion)
@@ -280,9 +282,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		}
 
 		if (previousVersion != currentVersion) {
-			throw (new KriptonRuntimeException(
-					String.format("Can not find version update task from version %s to version %s", previousVersion,
-							currentVersion)));
+			throw (new KriptonRuntimeException(String.format("Can not find version update task from version %s to version %s", previousVersion, currentVersion)));
 		}
 
 		return result;
@@ -291,11 +291,9 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
 	protected void createHelper(DataSourceOptions options) {
 		if (KriptonLibrary.context() == null)
-			throw new KriptonRuntimeException(
-					"Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
+			throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
 
-		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version,
-				options.errorHandler) {
+		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
 
 			@Override
 			public void onConfigure(SQLiteDatabase database) {
@@ -329,8 +327,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 */
 	public SQLiteDatabase database() {
 		if (database == null)
-			throw (new KriptonRuntimeException(
-					"No database connection is opened before use " + this.getClass().getCanonicalName()));
+			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
 
@@ -405,10 +402,10 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 				database = sqliteHelper.getReadableDatabase();
 
 				if (logEnabled)
-					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()-1));
+					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			} else {
 				if (logEnabled)
-					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()-1));
+					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			}
 		} finally {
 			lockDb.unlock();
@@ -437,12 +434,12 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 				// open new write database
 				sqliteHelper.setWriteAheadLoggingEnabled(true);
 				database = sqliteHelper.getWritableDatabase();
-				
+
 				if (logEnabled)
-					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue()-1));
+					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			} else {
 				if (logEnabled)
-					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue()-1));
+					Logger.info("database REUSE %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			}
 		} finally {
 			lockDb.unlock();

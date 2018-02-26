@@ -13,23 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.contentprovider;
+package sqlite.feature.contentprovider.kripton213.case1;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
-import sqlite.feature.contentprovider.kripton213.case1.TestCompileKripton213;
-import sqlite.feature.contentprovider.kripton35.TestContentProvider;
+import sqlite.AbstractBindSQLiteProcessorTest;
 
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestContentProvider.class,
-		TestCompileKripton213.class
-		 })
-//@formatter:on
-public class TestContentProviderSuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class TestCompileKripton213 extends AbstractBindSQLiteProcessorTest {
+
+	
+	/**
+	 * No @BindType is put in bean definition
+	 * 
+	 * @throws Throwable
+	 */
+	@Test
+	public void testCompile() throws Throwable {
+		buildDataSourceProcessorTest(Cheese.class, CheeseDao.class, SampleDataSource.class, SampleUpdate02.class);
+	}
 
 }

@@ -85,7 +85,8 @@ public enum AnnotationAttributeType {
 	
 	GENERATE_RX("rx"),
 	
-	METHODS("methods");
+	METHODS("methods"), TASK("task"),
+	TASKS("tasks");
 
 	private String value;
 

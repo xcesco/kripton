@@ -21,9 +21,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Decorate an interface to define a database schema. This definition is needed to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractDataSource} instance.</p>
+ * <p>
+ * Decorate an interface to define a database schema. This definition is needed
+ * to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractDataSource}
+ * instance.
+ * </p>
  * 
- * <p>For every managed entity referred in {{@link #dao()} attribute, will be used the associated {@link BindDao} definition.
+ * <p>
+ * For every managed entity referred in {{@link #dao()} attribute, will be used
+ * the associated {@link BindDao} definition.
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -31,43 +37,43 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindDataSource {
-	
+
 	/**
 	 * DAOs to include in the database schema
 	 * 
-	 * @return
-	 * 		class to include in the database schema
+	 * @return class to include in the database schema
 	 */
 	Class<?>[] daoSet();
-	
+
 	/**
 	 * Name of database file
 	 * 
-	 * @return
-	 * 		database name
+	 * @return database name
 	 */
 	String fileName();
-	
+
 	/**
 	 * Database version
 	 * 
-	 * @return
-	 * 		database version
+	 * @return database version
 	 */
 	int version() default 1;
-	
+
 	/**
 	 * if true, generate log info
 	 * 
-	 * @return
-	 * 		true if you want to produce log code
+	 * @return true if you want to produce log code
 	 */
 	boolean log() default true;
-	
+
 	/**
-	 * <p>if true, generate schema sql file, in <code>schema/</code> folder.</p>
+	 * <p>
+	 * if true, generate schema sql file, in <code>schema/</code> folder.
+	 * </p>
 	 * 
-	 * <p>The name of file will be:</p>
+	 * <p>
+	 * The name of file will be:
+	 * </p>
 	 * 
 	 * <pre>
 	 * {name of datasource}.schema.{version}.sql
@@ -82,30 +88,33 @@ public @interface BindDataSource {
 	 * @return
 	 */
 	boolean schema() default false;
-	
+
 	/**
 	 * if true, generate async task
 	 * 
-	 * @return
-	 * 		true if you want to generate async task class
+	 * @return true if you want to generate async task class
 	 */
 	boolean asyncTask() default false;
 
 	/**
 	 * if true, generate cursor wrapper
 	 * 
-	 * @return
-	 * 		true if you want to generate cursor wrapper
+	 * @return true if you want to generate cursor wrapper
 	 */
 	boolean cursorWrapper() default false;
-	
+
 	/**
 	 * if true, generate rx support
 	 * 
-	 * @return
-	 * 		true if you want to generate rx support
+	 * @return true if you want to generate rx support
 	 */
 	boolean rx() default false;
-	
-	
+
+	/**
+	 * When a datasource instance is created, these are the executed tasks.
+	 * 
+	 * @return
+	 */
+	BindDataSourceUpdateTask[] tasks() default {};
+
 }

@@ -1,4 +1,4 @@
-package bind.kripton81ExceptionCoverage;
+package sqlite.feature.contentprovider.kripton213.case1;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -12,38 +12,38 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource Bean8DataSource.
+ * Represents implementation of datasource SampleDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see Bean8DataSource
- * @see BindBean8DaoFactory
- * @see Bean8Dao
- * @see Bean8DaoImpl
- * @see Bean8
+ * @see SampleDataSource
+ * @see BindSampleDaoFactory
+ * @see CheeseDao
+ * @see CheeseDaoImpl
+ * @see Cheese
  */
-public class BindBean8DataSource extends AbstractDataSource implements BindBean8DaoFactory, Bean8DataSource {
+public class BindSampleDataSource extends AbstractDataSource implements BindSampleDaoFactory, SampleDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindBean8DataSource instance;
+  static BindSampleDataSource instance;
 
   /**
    * <p>dao instance</p>
    */
-  protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(this);
+  protected CheeseDaoImpl cheeseDao = new CheeseDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time */
   private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  protected BindBean8DataSource(DataSourceOptions options) {
-    super("", 1, options);
+  protected BindSampleDataSource(DataSourceOptions options) {
+    super("sample.db", 1, options);
   }
 
   @Override
-  public Bean8DaoImpl getBean8Dao() {
-    return bean8Dao;
+  public CheeseDaoImpl getCheeseDao() {
+    return cheeseDao;
   }
 
   /**
@@ -125,9 +125,12 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   /**
    * instance
    */
-  public static synchronized BindBean8DataSource instance() {
+  public static synchronized BindSampleDataSource instance() {
     if (instance==null) {
-      instance=new BindBean8DataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.addUpdateTask(1, new SampleUpdate02())
+      	.build();
+      instance=new BindSampleDataSource(options);
     }
     return instance;
   }
@@ -136,8 +139,8 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindBean8DataSource open() {
-    BindBean8DataSource instance=instance();
+  public static BindSampleDataSource open() {
+    BindSampleDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -146,8 +149,8 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindBean8DataSource openReadOnly() {
-    BindBean8DataSource instance=instance();
+  public static BindSampleDataSource openReadOnly() {
+    BindSampleDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -165,23 +168,23 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",Bean8Table.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",CheeseTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(Bean8Table.CREATE_TABLE_SQL);
+    database.execSQL(CheeseTable.CREATE_TABLE_SQL);
     // if we have a populate task (previous and current are same), try to execute it
     if (options.updateTasks != null) {
       SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
       if (task != null) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
         }
         // log section END
-        task.execute(database,previousVersion, previousVersion+1);
+        task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
         }
         // log section END
       }
@@ -207,13 +210,13 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
       for (SQLiteUpdateTask task : tasks) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
+          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
         }
         // log section END
-        task.execute(database, previousVersion, previousVersion+1);
+        task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
+          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
         }
         // log section END
       }
@@ -224,10 +227,10 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",Bean8Table.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",CheeseTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(Bean8Table.CREATE_TABLE_SQL);
+      database.execSQL(CheeseTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -246,16 +249,16 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   }
 
   public void clearCompiledStatements() {
-    Bean8DaoImpl.clearCompiledStatements();
+    CheeseDaoImpl.clearCompiledStatements();
   }
 
   /**
    * Build instance.
    * @return dataSource instance.
    */
-  public static synchronized BindBean8DataSource build(DataSourceOptions options) {
+  public static synchronized BindSampleDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindBean8DataSource(options);
+      instance=new BindSampleDataSource(options);
     }
     instance.openWritableDatabase();
     instance.close();
@@ -265,14 +268,14 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   /**
    * Build instance with default config.
    */
-  public static synchronized BindBean8DataSource build() {
+  public static synchronized BindSampleDataSource build() {
     return build(DataSourceOptions.builder().build());
   }
 
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindBean8DaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindSampleDaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
@@ -282,7 +285,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindBean8DaoFactory daoFactory);
+    TransactionResult onExecute(BindSampleDaoFactory daoFactory);
   }
 
   /**
@@ -295,27 +298,27 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindBean8DaoFactory daoFactory);
+    T onExecute(BindSampleDaoFactory daoFactory);
   }
 
-  class DataSourceSingleThread implements BindBean8DaoFactory {
+  class DataSourceSingleThread implements BindSampleDaoFactory {
     private SQLContextSingleThreadImpl _context;
 
-    private Bean8DaoImpl _bean8Dao;
+    private CheeseDaoImpl _cheeseDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindBean8DataSource.this);
+      _context=new SQLContextSingleThreadImpl(BindSampleDataSource.this);
     }
 
     /**
      *
-     * retrieve dao Bean8Dao
+     * retrieve dao CheeseDao
      */
-    public Bean8DaoImpl getBean8Dao() {
-      if (_bean8Dao==null) {
-        _bean8Dao=new Bean8DaoImpl(_context);
+    public CheeseDaoImpl getCheeseDao() {
+      if (_cheeseDao==null) {
+        _cheeseDao=new CheeseDaoImpl(_context);
       }
-      return _bean8Dao;
+      return _cheeseDao;
     }
 
     public DataSourceSingleThread bindToThread() {

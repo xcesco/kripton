@@ -35,18 +35,16 @@ public class SQLiteUpdateTaskFromFile extends SQLiteUpdateTask {
 	private String schemaDefinitionFile;
 	private InputStream inputStream;
 
-	public SQLiteUpdateTaskFromFile(int currentVersion, String schemaDefinitionFileName) {
-		super(currentVersion);
+	public SQLiteUpdateTaskFromFile(String schemaDefinitionFileName) {
 		this.schemaDefinitionFile = schemaDefinitionFileName;
 	}
 	
-	public SQLiteUpdateTaskFromFile(int currentVersion, InputStream inputStream) {
-		super(currentVersion);
+	public SQLiteUpdateTaskFromFile(InputStream inputStream) {		
 		this.inputStream = inputStream;
 	}
 
 	@Override
-	public void execute(SQLiteDatabase database) {
+	public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
 		List<String> executionList=null;
 	
 		if (inputStream==null) {
