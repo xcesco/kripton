@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 
 /**
@@ -27,11 +28,12 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBean2}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single2/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamic3}</td></tr>
  * </table>
+ *
  */
 public class BindDeleteBeanPersonContentProvider extends ContentProvider {
   /**
-   * <p>content provider's URI. Example:</p>
-   * <pre>content://sqlite.contentprovider.kripton35</pre>
+   * <p>content provider's URI.</p>
+   * <pre>content://sqlite.feature.javadoc.bean</pre>
    */
   public static final String URI = "content://sqlite.feature.javadoc.bean";
 
@@ -50,15 +52,45 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons/#");
 
-  public static final String PATH_PERSON_2 = "persons/#/moreAndMore";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
+   */
+  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#/moreAndMore");
 
-  public static final String PATH_PERSON_3 = "persons/a/*/*";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/[*]/[*]</pre>
+   */
+  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/a/*/*");
 
-  public static final String PATH_PERSON_4 = "persons/single/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/single/#");
 
-  public static final String PATH_PERSON_5 = "persons/single2/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single2/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/single2/#");
+
+  static final String PATH_PERSON_1 = "persons/#";
+
+  static final String PATH_PERSON_2 = "persons/#/moreAndMore";
+
+  static final String PATH_PERSON_3 = "persons/a/*/*";
+
+  static final String PATH_PERSON_4 = "persons/single/#";
+
+  static final String PATH_PERSON_5 = "persons/single2/#";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -85,6 +117,9 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
+    if (KriptonLibrary.context()==null) {
+      KriptonLibrary.init(getContext());
+    }
     dataSource = BindDeleteBeanPersonDataSource.instance();
     dataSource.openWritableDatabase();
     return true;
@@ -102,6 +137,20 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
   }
 
   @Override
+  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
+    throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
+  }
+
+  /**
+   *
+   * <h2>Supported insert operations</h2>
+   * <table>
+   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+   * </table>
+   *
+   */
+  @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
     long _id=-1;
     Uri _returnURL=null;
@@ -118,18 +167,18 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
     throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
   }
 
-  @Override
-  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
-    throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
-  }
-
   /**
-   * method DeleteBeanPersonDao.deleteOneBean
-   * method DeleteBeanPersonDao.deleteFromSelectAllBeansJQL
-   * method DeleteBeanPersonDao.deleteBean
-   * method DeleteBeanPersonDao.deleteBeanDynamic
-   * method DeleteBeanPersonDao.deleteBeanDynamicWithArgs
+   *
+   * <h2>Supported delete operations</h2>
+   * <table>
+   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteOneBean0}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamicWithArgs4}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${bean.personSurname}/${bean.personName}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteFromSelectAllBeansJQL1}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBean2}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single2/${bean.id}</pre></td><td>{@link DeleteBeanPersonDaoImpl#deleteBeanDynamic3}</td></tr>
+   * </table>
+   *
    */
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {

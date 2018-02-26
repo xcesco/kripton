@@ -5,17 +5,13 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import com.abubusoft.kripton.android.KriptonLibrary;
 
 /**
  * <p>This is the content provider generated for {@link SelectRawPersonDataSource}</p>
  *
  * <h2>Content provider authority:</h2>
  * <pre>sqlite.feature.javadoc.bean</pre>
- *
- * <h2>Supported insert operations</h2>
- * <table>
- * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * </table>
  *
  * <h2>Supported query operations</h2>
  * <table>
@@ -29,11 +25,17 @@ import android.net.Uri;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${id}/${name}</pre></td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${id}</pre></td><td>{@link SelectRawPersonDaoImpl#selectWithJQL7}</td></tr>
  * </table>
+ *
+ * <h2>Supported insert operations</h2>
+ * <table>
+ * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+ * </table>
+ *
  */
 public class BindSelectRawPersonContentProvider extends ContentProvider {
   /**
-   * <p>content provider's URI. Example:</p>
-   * <pre>content://sqlite.contentprovider.kripton35</pre>
+   * <p>content provider's URI.</p>
+   * <pre>content://sqlite.feature.javadoc.bean</pre>
    */
   public static final String URI = "content://sqlite.feature.javadoc.bean";
 
@@ -52,21 +54,69 @@ public class BindSelectRawPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
+   */
+  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons");
 
-  public static final String PATH_PERSON_2 = "persons/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#");
 
-  public static final String PATH_PERSON_3 = "persons/a";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a</pre>
+   */
+  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/a");
 
-  public static final String PATH_PERSON_4 = "persons/dynamic/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/dynamic/#");
 
-  public static final String PATH_PERSON_5 = "persons/dynamicOrder/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/dynamicOrder/#");
 
-  public static final String PATH_PERSON_6 = "persons/dynamicOrderAndLis/*";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/[*]</pre>
+   */
+  public static final Uri URI_PATH_PERSON_6 = Uri.parse(URI+"/persons/dynamicOrderAndLis/*");
 
-  public static final String PATH_PERSON_7 = "persons/dynamicandArgs/#/*";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#/[*]</pre>
+   */
+  public static final Uri URI_PATH_PERSON_7 = Uri.parse(URI+"/persons/dynamicandArgs/#/*");
 
-  public static final String PATH_PERSON_8 = "persons/jql/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_8 = Uri.parse(URI+"/persons/jql/#");
+
+  static final String PATH_PERSON_1 = "persons";
+
+  static final String PATH_PERSON_2 = "persons/#";
+
+  static final String PATH_PERSON_3 = "persons/a";
+
+  static final String PATH_PERSON_4 = "persons/dynamic/#";
+
+  static final String PATH_PERSON_5 = "persons/dynamicOrder/#";
+
+  static final String PATH_PERSON_6 = "persons/dynamicOrderAndLis/*";
+
+  static final String PATH_PERSON_7 = "persons/dynamicandArgs/#/*";
+
+  static final String PATH_PERSON_8 = "persons/jql/#";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -102,6 +152,9 @@ public class BindSelectRawPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
+    if (KriptonLibrary.context()==null) {
+      KriptonLibrary.init(getContext());
+    }
     dataSource = BindSelectRawPersonDataSource.instance();
     dataSource.openWritableDatabase();
     return true;
@@ -118,40 +171,21 @@ public class BindSelectRawPersonContentProvider extends ContentProvider {
     dataSource.close();
   }
 
-  @Override
-  public Uri insert(Uri uri, ContentValues contentValues) {
-    long _id=-1;
-    Uri _returnURL=null;
-    switch (sURIMatcher.match(uri)) {
-      default: {
-        throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
-      }
-    }
-  }
-
-  @Override
-  public int update(Uri uri, ContentValues contentValues, String selection,
-      String[] selectionArgs) {
-    throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
-  }
-
   /**
-   * method SelectRawPersonDao.selectAllBeans
-   * method SelectRawPersonDao.selectAllBeansCount
-   * method SelectRawPersonDao.selectOneBean
-   * method SelectRawPersonDao.selectOneBeanWithDynamic
-   * method SelectRawPersonDao.selectOneBeanWithDynamicAndArgs
-   * method SelectRawPersonDao.selectOneBeanWithDynamicOrder
-   * method SelectRawPersonDao.selectOneBeanWithDynamicOrderAndListener
-   * method SelectRawPersonDao.selectWithJQL
-   * method SelectRawPersonDao.selectAllBeans
-   * method SelectRawPersonDao.selectAllBeansCount
-   * method SelectRawPersonDao.selectOneBean
-   * method SelectRawPersonDao.selectOneBeanWithDynamic
-   * method SelectRawPersonDao.selectOneBeanWithDynamicAndArgs
-   * method SelectRawPersonDao.selectOneBeanWithDynamicOrder
-   * method SelectRawPersonDao.selectOneBeanWithDynamicOrderAndListener
-   * method SelectRawPersonDao.selectWithJQL
+   *
+   * <h2>Supported query operations</h2>
+   * <table>
+   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link SelectRawPersonDaoImpl#selectAllBeans0}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${id}</pre></td><td>{@link SelectRawPersonDaoImpl#selectOneBean2}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a</pre></td><td>{@link SelectRawPersonDaoImpl#selectAllBeansCount1}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${id}</pre></td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamic3}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${id}</pre></td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamicOrder5}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${surname}</pre></td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${id}/${name}</pre></td><td>{@link SelectRawPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${id}</pre></td><td>{@link SelectRawPersonDaoImpl#selectWithJQL7}</td></tr>
+   * </table>
+   *
    */
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -203,6 +237,31 @@ public class BindSelectRawPersonContentProvider extends ContentProvider {
       }
     }
     return returnCursor;
+  }
+
+  /**
+   *
+   * <h2>Supported insert operations</h2>
+   * <table>
+   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+   * </table>
+   *
+   */
+  @Override
+  public Uri insert(Uri uri, ContentValues contentValues) {
+    long _id=-1;
+    Uri _returnURL=null;
+    switch (sURIMatcher.match(uri)) {
+      default: {
+        throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
+      }
+    }
+  }
+
+  @Override
+  public int update(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
+    throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
   }
 
   @Override

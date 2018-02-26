@@ -109,6 +109,13 @@ public @interface BindDataSource {
 	 * @return true if you want to generate rx support
 	 */
 	boolean rx() default false;
+	
+	/**
+	 * if true, generate database in memory
+	 * 
+	 * @return true if you want to generate database in memory
+	 */
+	boolean inMemory() default false;
 
 	/**
 	 * When a datasource instance is created, these are the executed tasks.

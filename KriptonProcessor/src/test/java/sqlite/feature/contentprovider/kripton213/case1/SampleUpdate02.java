@@ -11,15 +11,12 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class SampleUpdate02 extends SQLiteUpdateTask {
+public class SampleUpdate02 implements SQLiteUpdateTask {
 
-	public SampleUpdate02() {
-		super(2);
-	}
-
+	
 	@Override
 	public void execute(SQLiteDatabase database) {
-		//database.
+		// TODO Auto-generated method stub
 		
 	}
 

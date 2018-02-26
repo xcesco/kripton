@@ -193,16 +193,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(CityTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);
@@ -215,13 +215,13 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       if (task != null) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("Begin create database version 1");
         }
         // log section END
         task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("End create database");
         }
         // log section END
       }
@@ -247,15 +247,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       for (SQLiteUpdateTask task : tasks) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
         task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
+        previousVersion++;
       }
     } else {
       // drop all tables
@@ -264,16 +265,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(CityTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);

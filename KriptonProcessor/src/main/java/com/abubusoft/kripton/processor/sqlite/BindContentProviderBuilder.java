@@ -265,7 +265,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			
 			listFieldUri.add(FieldSpec.builder(Uri.class, "URI_"+entry.value1.pathCostant, Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC)
 					.addJavadoc("<p>Uri</p>\n")
-					.addJavadoc("<pre>$L/$L</pre>\n", schema.contentProviderUri(), entry.value1.uriTemplate)
+					.addJavadoc("<pre>$L/$L</pre>\n", schema.contentProviderUri().replace("*", "[*]"), entry.value1.uriTemplate.replace("*", "[*]"))
 					.initializer(CodeBlock.of("Uri.parse(URI+\"/$L\")", entry.value1.uriTemplate))
 					.build());
 			

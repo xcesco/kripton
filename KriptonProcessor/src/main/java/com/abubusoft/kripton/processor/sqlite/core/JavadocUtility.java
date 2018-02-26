@@ -26,7 +26,6 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPart;

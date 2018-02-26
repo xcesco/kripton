@@ -49,11 +49,12 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	public void testCustomUpdateTwiceStep() throws Exception {	
 		SQLiteUpdateTestHelper.resetInstance(BindSchoolDataSource.class);
 		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql"))
-				.addUpdateTask(new SQLiteUpdateTask(4) {
+				.addUpdateTask(4, new SQLiteUpdateTask() {
 					
 					@Override
 					public void execute(SQLiteDatabase database) {
-						Logger.info("just in case, 3 and 4 are the same!");						
+						Logger.info("just in case, 3 and 4 are the same!");			
+						
 					}
 				})
 				.build());

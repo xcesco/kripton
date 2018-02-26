@@ -259,7 +259,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	}
 
 	protected SQLiteUpdateTask findPopulateTaskList(int currentVersion) {
-		for (Pair<Integer, SQLiteUpdateTask> item : this.options.updateTasks) {
+		for (Pair<Integer, ? extends SQLiteUpdateTask> item : this.options.updateTasks) {
 			if (item.value0 == currentVersion) {
 				return item.value1;
 			}
@@ -271,7 +271,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {		
 		List<SQLiteUpdateTask> result = new ArrayList<>();
 
-		for (Pair<Integer, SQLiteUpdateTask> item : this.options.updateTasks) {
+		for (Pair<Integer, ? extends SQLiteUpdateTask> item : this.options.updateTasks) {
 			if (item.value0 - 1 == previousVersion) {
 				result.add(item.value1);
 				previousVersion = item.value0;

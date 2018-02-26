@@ -26,12 +26,12 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public abstract class SQLiteUpdateTask {	
+public interface SQLiteUpdateTask {	
 	
 	/**
 	 * method to execute to launch build update from previous version to current version
 	 * @param database
 	 */
-	public abstract void execute(SQLiteDatabase database, int previousVersion ,int currentVersion);
+	void execute(SQLiteDatabase database);
 
 }

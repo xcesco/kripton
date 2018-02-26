@@ -38,7 +38,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindDummy01DataSource(DataSourceOptions options) {
-    super("dummy", 1, options);
+    super(null, 1, options);
   }
 
   @Override
@@ -160,7 +160,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database in memory version %s",this.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -175,13 +175,13 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
       if (task != null) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("Begin create database version 1");
         }
         // log section END
         task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("End create database");
         }
         // log section END
       }
@@ -207,15 +207,16 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
       for (SQLiteUpdateTask task : tasks) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
         task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
+        previousVersion++;
       }
     } else {
       // drop all tables

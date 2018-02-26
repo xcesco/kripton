@@ -43,7 +43,7 @@ public class DataSourceOptions {
 
 	public final DatabaseLifecycleHandler databaseLifecycleHandler;
 
-	public final List<Pair<Integer, SQLiteUpdateTask>> updateTasks;
+	public final List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks;
 
 	public static Builder builder() {
 		return new Builder();
@@ -54,7 +54,7 @@ public class DataSourceOptions {
 		private CursorFactory factory;
 		private DatabaseErrorHandler errorHandler;
 		private DatabaseLifecycleHandler databaseLifecycleHandler;
-		private List<Pair<Integer, SQLiteUpdateTask>> updateTasks = new ArrayList<>();
+		private List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks = new ArrayList<>();
 
 		public Builder cursorFactory(CursorFactory value) {
 			this.factory = value;
@@ -101,7 +101,7 @@ public class DataSourceOptions {
 			SQLiteUpdateTask task = new SQLiteUpdateTask() {
 
 				@Override
-				public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+				public void execute(SQLiteDatabase database) {
 					for (String item : sqlCommandList) {
 						Logger.info(item);
 						database.execSQL(item);
@@ -132,7 +132,7 @@ public class DataSourceOptions {
 		public Builder addUpdateTask(int currentVersion, InputStream inputStream) {
 			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(inputStream);
 
-			this.updateTasks.add(new Pair<Integer, SQLiteUpdateTask>(currentVersion, task));			
+			this.updateTasks.add(new Pair<>(currentVersion, task));			
 
 			return this;
 		}
@@ -142,7 +142,7 @@ public class DataSourceOptions {
 		}
 	}
 
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<Pair<Integer, SQLiteUpdateTask>> updateTasks, boolean log) {
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log) {
 		this.logEnabled = log;
 		this.factory = factory;
 		this.errorHandler = errorHandler;

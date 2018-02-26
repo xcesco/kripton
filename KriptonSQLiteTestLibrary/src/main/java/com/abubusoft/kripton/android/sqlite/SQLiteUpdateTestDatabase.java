@@ -9,6 +9,7 @@ import java.util.List;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.common.One;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.Context;
@@ -31,7 +32,7 @@ public class SQLiteUpdateTestDatabase {
 
 		private int version;
 
-		private List<SQLiteUpdateTask> updateTasks;
+		private List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks;
 
 		private InputStream initialSchemaInputStream;
 
@@ -43,23 +44,22 @@ public class SQLiteUpdateTestDatabase {
 			this.updateTasks = new ArrayList<>();
 		}
 
-		public Builder addVersionUpdateTask(SQLiteUpdateTask task) {
-			updateTasks.add(task);
+		public Builder addVersionUpdateTask(int currentVersion, SQLiteUpdateTask task) {
+			updateTasks.add(new Pair<>(currentVersion, task));
 
 			return this;
 		}
 
-		public Builder addVersionUpdateTask(int currentVersion, InputStream updateSqlInputStream) {
-			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(currentVersion, updateSqlInputStream);
-			updateTasks.add(task);
+		public Builder addVersionUpdateTask(int currentVersion, InputStream updateSqlInputStream) {			
+			updateTasks.add(new Pair<>(currentVersion, new SQLiteUpdateTaskFromFile(updateSqlInputStream)));
 
 			return this;
 		}
 
 		public Builder addVersionUpdateTask(int currentVersion, Context context, int updateSqlRawResourceId) {
-			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(currentVersion,
+			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(
 					context.getResources().openRawResource(updateSqlRawResourceId));
-			updateTasks.add(task);
+			updateTasks.add(new Pair<>(currentVersion, task));
 
 			return this;
 		}
@@ -70,13 +70,11 @@ public class SQLiteUpdateTestDatabase {
 		 * @return
 		 */
 		public SQLiteUpdateTestDatabase build() {
-			Collections.sort(updateTasks, new Comparator<SQLiteUpdateTask>() {
+			Collections.sort(updateTasks, new Comparator<Pair<Integer, ? extends SQLiteUpdateTask>>() {
 
 				@Override
-				public int compare(SQLiteUpdateTask entry0, SQLiteUpdateTask entry1) {
-					return (entry0.previousVersion == entry1.previousVersion)
-							? (entry0.currentVersion - entry1.currentVersion)
-							: (entry0.previousVersion - entry1.previousVersion);
+				public int compare(Pair<Integer, ? extends SQLiteUpdateTask> entry0, Pair<Integer, ? extends SQLiteUpdateTask> entry1) {
+					return entry0.value0 - entry1.value0;
 				}
 			});
 
@@ -92,7 +90,7 @@ public class SQLiteUpdateTestDatabase {
 
 	private SQLiteOpenHelper sqlite;
 
-	private List<SQLiteUpdateTask> updateTasks;
+	private List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks;
 
 	private CursorFactory factory;
 
@@ -107,7 +105,7 @@ public class SQLiteUpdateTestDatabase {
 	private Context context;
 
 	SQLiteUpdateTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler,
-			InputStream initialSchemaInputStream, int initialSchemaResourceId, List<SQLiteUpdateTask> updateTasks) {
+			InputStream initialSchemaInputStream, int initialSchemaResourceId, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks) {
 		this.version = version;
 		this.factory = factory;
 		this.context = context;
@@ -154,8 +152,9 @@ public class SQLiteUpdateTestDatabase {
 	 * 
 	 * @param version
 	 * @param schemaDefinitionInputStream
+	 * @return 
 	 */
-	public void updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {
+	public SQLiteUpdateTestDatabase updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {
 		sqlite = new SQLiteOpenHelper(context, MIGRATION_TEST, factory, version, errorHandler) {
 
 			@Override
@@ -164,6 +163,7 @@ public class SQLiteUpdateTestDatabase {
 
 				for (SQLiteUpdateTask item : task) {
 					item.execute(db);
+					oldVersion++;
 				}
 			}
 
@@ -175,6 +175,8 @@ public class SQLiteUpdateTestDatabase {
 		};
 
 		SQLiteSchemaVerifierHelper.verifySchema(sqlite.getWritableDatabase(), schemaDefinitionInputStream);
+		
+		return this;
 	}
 
 	/**
@@ -185,9 +187,12 @@ public class SQLiteUpdateTestDatabase {
 	 * @param version
 	 * @param context
 	 * @param schemaDefinitionRawResourceId
+	 * @return 
 	 */
-	public void updateAndVerify(int version, final Context context, final int schemaDefinitionRawResourceId) {
+	public SQLiteUpdateTestDatabase updateAndVerify(int version, final Context context, final int schemaDefinitionRawResourceId) {
 		updateAndVerify(version, context.getResources().openRawResource(schemaDefinitionRawResourceId));
+		
+		return this;
 	}
 
 	List<SQLiteUpdateTask> findTask(int previousVersion, int currentVersion) {
@@ -196,9 +201,9 @@ public class SQLiteUpdateTestDatabase {
 		for (int i = previousVersion; i < currentVersion; i++) {
 			ref.value0 = i;
 			SQLiteUpdateTask t = null;
-			for (SQLiteUpdateTask item : updateTasks) {
-				if (item.previousVersion == ref.value0) {
-					t = item;
+			for (Pair<Integer, ? extends SQLiteUpdateTask> item : updateTasks) {
+				if (item.value0-1 == ref.value0) {
+					t = item.value1;
 					break;
 				}
 			}

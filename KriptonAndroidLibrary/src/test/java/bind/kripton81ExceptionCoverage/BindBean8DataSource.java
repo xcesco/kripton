@@ -175,13 +175,13 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
       if (task != null) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
+          Logger.info("Begin create database version 1");
         }
         // log section END
-        task.execute(database,previousVersion, previousVersion+1);
+        task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
+          Logger.info("End create database");
         }
         // log section END
       }
@@ -210,12 +210,13 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database, previousVersion, previousVersion+1);
+        task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
+        previousVersion++;
       }
     } else {
       // drop all tables

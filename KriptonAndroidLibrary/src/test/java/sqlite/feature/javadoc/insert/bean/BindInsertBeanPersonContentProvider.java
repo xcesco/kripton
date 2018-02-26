@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 
 /**
@@ -20,11 +21,12 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/name</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2}</td></tr>
  * </table>
+ *
  */
 public class BindInsertBeanPersonContentProvider extends ContentProvider {
   /**
-   * <p>content provider's URI. Example:</p>
-   * <pre>content://sqlite.contentprovider.kripton35</pre>
+   * <p>content provider's URI.</p>
+   * <pre>content://sqlite.feature.javadoc.bean</pre>
    */
   public static final String URI = "content://sqlite.feature.javadoc.bean";
 
@@ -43,11 +45,29 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
+   */
+  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons");
 
-  public static final String PATH_PERSON_2 = "persons/name";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/name</pre>
+   */
+  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/name");
 
-  public static final String PATH_PERSON_3 = "persons/surname";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/surname</pre>
+   */
+  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/surname");
+
+  static final String PATH_PERSON_1 = "persons";
+
+  static final String PATH_PERSON_2 = "persons/name";
+
+  static final String PATH_PERSON_3 = "persons/surname";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -68,6 +88,9 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
+    if (KriptonLibrary.context()==null) {
+      KriptonLibrary.init(getContext());
+    }
     dataSource = BindInsertBeanPersonDataSource.instance();
     dataSource.openWritableDatabase();
     return true;
@@ -84,10 +107,22 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
     dataSource.close();
   }
 
+  @Override
+  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
+    throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
+  }
+
   /**
-   * method InsertBeanPersonDao.insertOneBean
-   * method InsertBeanPersonDao.insertOneBeanFieldName
-   * method InsertBeanPersonDao.insertOneBeanFieldSurname
+   *
+   * <h2>Supported insert operations</h2>
+   * <table>
+   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBean0}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/name</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2}</td></tr>
+   * </table>
+   *
    */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
@@ -127,12 +162,6 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
   public int update(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     throw new IllegalArgumentException("Unknown URI for UPDATE operation: " + uri);
-  }
-
-  @Override
-  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
-    throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
   }
 
   @Override

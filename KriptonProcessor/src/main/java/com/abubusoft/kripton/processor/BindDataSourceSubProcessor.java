@@ -693,11 +693,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_ASYNC_TASK);
 		boolean generateCursorWrapper = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_CURSOR_WRAPPER);
 		boolean generateRx = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_RX);
+		boolean inMemory = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.IN_MEMORY);
 		// get all dao used within SQLDatabaseSchema annotation
 		List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.DAO_SET);
 
 		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper,
-				generateRx, daoIntoDataSource);
+				generateRx, daoIntoDataSource, inMemory);
 
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);

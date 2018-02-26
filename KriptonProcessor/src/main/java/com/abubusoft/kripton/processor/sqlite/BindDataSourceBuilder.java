@@ -23,18 +23,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.processing.Filer;
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
@@ -85,7 +80,6 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.subjects.PublishSubject;
-import sqlite.feature.contentprovider.kripton213.case1.SampleUpdate02;
 
 /**
  * Generates database class
@@ -252,12 +246,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// generate openReadOnly
 		generateOpenReadOnly(dataSourceName);
 
-		{
-			// constructor
-			MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addParameter(DataSourceOptions.class, "options").addModifiers(Modifier.PROTECTED);
-			methodBuilder.addStatement("super($S, $L, options)", schema.fileName, schema.version);
-			classBuilder.addMethod(methodBuilder.build());
-		}
+		// generate constructor
+		generateConstructor(schema);
 
 		// before use entities, order them with dependencies respect
 		List<SQLEntity> orderedEntities = generateOrderedEntitiesList(schema);
@@ -291,6 +281,16 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
+	}
+
+	/**
+	 * @param schema
+	 */
+	private void generateConstructor(SQLiteDatabaseSchema schema) {
+		// constructor
+		MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addParameter(DataSourceOptions.class, "options").addModifiers(Modifier.PROTECTED);
+		methodBuilder.addStatement("super($S, $L, options)", schema.isInMemory()? null: schema.fileName  , schema.version);
+		classBuilder.addMethod(methodBuilder.build());
 	}
 
 	private void generateDataSourceSingleThread(SQLiteDatabaseSchema schema, String dataSourceName) {
@@ -450,7 +450,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.addComment("log section BEGIN");
 			methodBuilder.beginControlFlow("if (this.logEnabled)");
 
-			methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, this.getVersion())", Logger.class);
+			if (schema.isInMemory()) {
+				methodBuilder.addStatement("$T.info(\"Create database in memory version %s\",this.getVersion())", Logger.class);
+			} else {
+				methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, this.getVersion())", Logger.class);
+			}
 
 			// generate log section - END
 			methodBuilder.endControlFlow();
@@ -505,7 +509,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.addComment("log section BEGIN");
 			methodBuilder.beginControlFlow("if (this.logEnabled)");
 
-			methodBuilder.addStatement("$T.info(\"Begin update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+			methodBuilder.addStatement("$T.info(\"Begin create database version $L\")", Logger.class, schema.version);
 			// generate log section - END
 			methodBuilder.endControlFlow();
 			methodBuilder.addComment("log section END");
@@ -516,7 +520,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			// generate log section - BEGIN
 			methodBuilder.addComment("log section BEGIN");
 			methodBuilder.beginControlFlow("if (this.logEnabled)");
-			methodBuilder.addStatement("$T.info(\"End update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+			methodBuilder.addStatement("$T.info(\"End create database\")", Logger.class);
 			// generate log section - END
 			methodBuilder.endControlFlow();
 			methodBuilder.addComment("log section END");
@@ -567,7 +571,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addComment("log section BEGIN");
 		methodBuilder.beginControlFlow("if (this.logEnabled)");
 
-		methodBuilder.addStatement("$T.info(\"Begin update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+		methodBuilder.addStatement("$T.info(\"Begin update database from version %s to %s\", previousVersion, previousVersion+1)", Logger.class);
 
 		// generate log section - END
 		methodBuilder.endControlFlow();
@@ -579,12 +583,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addComment("log section BEGIN");
 		methodBuilder.beginControlFlow("if (this.logEnabled)");
 
-		methodBuilder.addStatement("$T.info(\"End update database from version %s to %s\", task.previousVersion, task.currentVersion)", Logger.class);
+		methodBuilder.addStatement("$T.info(\"End update database from version %s to %s\", previousVersion, previousVersion+1)", Logger.class);
 
 		// generate log section - END
 		methodBuilder.endControlFlow();
 		methodBuilder.addComment("log section END");
 
+		methodBuilder.addStatement("previousVersion++");
 		methodBuilder.endControlFlow();
 		methodBuilder.nextControlFlow("else");
 

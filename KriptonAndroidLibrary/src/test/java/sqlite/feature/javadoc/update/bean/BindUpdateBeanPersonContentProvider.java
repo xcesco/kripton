@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 
 /**
@@ -30,11 +31,12 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5}</td></tr>
  * </table>
+ *
  */
 public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   /**
-   * <p>content provider's URI. Example:</p>
-   * <pre>content://sqlite.contentprovider.kripton35</pre>
+   * <p>content provider's URI.</p>
+   * <pre>content://sqlite.feature.javadoc.bean</pre>
    */
   public static final String URI = "content://sqlite.feature.javadoc.bean";
 
@@ -53,21 +55,69 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-  public static final String PATH_PERSON_1 = "persons";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
+   */
+  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons");
 
-  public static final String PATH_PERSON_2 = "persons/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#");
 
-  public static final String PATH_PERSON_3 = "persons/#/more";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#/more</pre>
+   */
+  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/#/more");
 
-  public static final String PATH_PERSON_4 = "persons/#/moreAndMore";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
+   */
+  public static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/#/moreAndMore");
 
-  public static final String PATH_PERSON_5 = "persons/dynamic/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/dynamic/#");
 
-  public static final String PATH_PERSON_6 = "persons/dynamicArgs/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_6 = Uri.parse(URI+"/persons/dynamicArgs/#");
 
-  public static final String PATH_PERSON_7 = "persons/jql";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql</pre>
+   */
+  public static final Uri URI_PATH_PERSON_7 = Uri.parse(URI+"/persons/jql");
 
-  public static final String PATH_PERSON_8 = "persons/jql/one/b/#";
+  /**
+   * <p>Uri</p>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/#</pre>
+   */
+  public static final Uri URI_PATH_PERSON_8 = Uri.parse(URI+"/persons/jql/one/b/#");
+
+  static final String PATH_PERSON_1 = "persons";
+
+  static final String PATH_PERSON_2 = "persons/#";
+
+  static final String PATH_PERSON_3 = "persons/#/more";
+
+  static final String PATH_PERSON_4 = "persons/#/moreAndMore";
+
+  static final String PATH_PERSON_5 = "persons/dynamic/#";
+
+  static final String PATH_PERSON_6 = "persons/dynamicArgs/#";
+
+  static final String PATH_PERSON_7 = "persons/jql";
+
+  static final String PATH_PERSON_8 = "persons/jql/one/b/#";
 
   static final int PATH_PERSON_1_INDEX = 1;
 
@@ -103,6 +153,9 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
+    if (KriptonLibrary.context()==null) {
+      KriptonLibrary.init(getContext());
+    }
     dataSource = BindUpdateBeanPersonDataSource.instance();
     dataSource.openWritableDatabase();
     return true;
@@ -120,6 +173,20 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   }
 
   @Override
+  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+      String sortOrder) {
+    throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
+  }
+
+  /**
+   *
+   * <h2>Supported insert operations</h2>
+   * <table>
+   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+   * </table>
+   *
+   */
+  @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
     long _id=-1;
     Uri _returnURL=null;
@@ -131,14 +198,20 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   }
 
   /**
-   * method UpdateBeanPersonDao.updateAllBeans
-   * method UpdateBeanPersonDao.updateOneBean
-   * method UpdateBeanPersonDao.updateOneBeanWithDynamic
-   * method UpdateBeanPersonDao.updateOneBeanWithDynamicAndArgs
-   * method UpdateBeanPersonDao.updateAllBeansJQL
-   * method UpdateBeanPersonDao.updateFromSelectJQL
-   * method UpdateBeanPersonDao.updateBeanDynamic
-   * method UpdateBeanPersonDao.updateBeanDynamicWithArgs
+   *
+   * <h2>Supported update operations</h2>
+   * <table>
+   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeans0}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBean1}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamic6}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5}</td></tr>
+   * </table>
+   *
    */
   @Override
   public int update(Uri uri, ContentValues contentValues, String selection,
@@ -196,12 +269,6 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
     // log section END
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowUpdated;
-  }
-
-  @Override
-  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
-    throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
   }
 
   @Override

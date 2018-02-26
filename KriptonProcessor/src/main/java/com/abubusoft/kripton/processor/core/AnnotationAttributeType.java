@@ -75,6 +75,8 @@ public enum AnnotationAttributeType {
 	
 	RELATIONSHIP("relationship"),
 	
+	IN_MEMORY("inMemory"),
+	
 	ENTITY_1("entity1"),
 	
 	ENTITY_2("entity2"),

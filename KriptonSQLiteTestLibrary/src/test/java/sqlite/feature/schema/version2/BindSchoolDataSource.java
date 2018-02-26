@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.sqlite.SQLiteSchemaVerifierHelper;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
 
@@ -204,16 +204,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(StudentTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
@@ -232,13 +232,13 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       if (task != null) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("Begin create database version 2");
         }
         // log section END
         task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("End create database");
         }
         // log section END
       }
@@ -264,33 +264,34 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       for (SQLiteUpdateTask task : tasks) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
         task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
+        previousVersion++;
       }
     } else {
       // drop all tables
-      SQLiteSchemaVerifierHelper.dropTablesAndIndices(database);
+      SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
 
       // generate tables
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);

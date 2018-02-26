@@ -31,7 +31,7 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class SQLiteUpdateTaskFromFile extends SQLiteUpdateTask {
+public class SQLiteUpdateTaskFromFile implements SQLiteUpdateTask {
 	private String schemaDefinitionFile;
 	private InputStream inputStream;
 
@@ -44,7 +44,7 @@ public class SQLiteUpdateTaskFromFile extends SQLiteUpdateTask {
 	}
 
 	@Override
-	public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
+	public void execute(SQLiteDatabase database) {
 		List<String> executionList=null;
 	
 		if (inputStream==null) {

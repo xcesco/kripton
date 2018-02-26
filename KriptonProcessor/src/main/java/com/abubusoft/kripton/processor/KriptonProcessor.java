@@ -28,7 +28,6 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 
 /**
  * Annotation processor for json/xml/etc
@@ -66,7 +65,6 @@ public class KriptonProcessor extends BaseProcessor {
 		dataSourceProcessor.init(processingEnv);
 
 		count = 0;
-		JavaWriterHelper.reset();
 	}
 
 	@Override

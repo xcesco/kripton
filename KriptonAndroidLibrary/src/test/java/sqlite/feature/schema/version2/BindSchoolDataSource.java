@@ -232,13 +232,13 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       if (task != null) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("Begin create database version 2");
         }
         // log section END
         task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("End create database");
         }
         // log section END
       }
@@ -264,15 +264,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       for (SQLiteUpdateTask task : tasks) {
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
         task.execute(database);
         // log section BEGIN
         if (this.logEnabled) {
-          Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+          Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
+        previousVersion++;
       }
     } else {
       // drop all tables

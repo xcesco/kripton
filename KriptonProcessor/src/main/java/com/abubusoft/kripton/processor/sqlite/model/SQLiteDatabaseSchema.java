@@ -102,6 +102,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	private ArrayList<Pair<Integer, String>> defaultTasks;
 
+	private boolean inMemory;
+
 	public ArrayList<Pair<Integer, String>> getDefaultTasks() {
 		return defaultTasks;
 	}
@@ -110,7 +112,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		return daoNameSet;
 	}
 
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask,boolean generateCursor,  boolean generateRx, List<String> daoIntoDataSource) {
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask,boolean generateCursor,  boolean generateRx, List<String> daoIntoDataSource, boolean inMemory) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -125,6 +127,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.contentProvider = null;
 		this.generatedEntities=new LinkedHashSet<GeneratedTypeElement>();
 		this.daoNameSet=daoIntoDataSource;
+		this.inMemory=inMemory;
 		
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
 		List<? extends AnnotationMirror> annotationMirrors = item.getAnnotationMirrors();
@@ -145,6 +148,14 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		
 		this.defaultTasks=valueVisitor.getTasks();
 
+	}
+
+	public boolean isInMemory() {
+		return inMemory;
+	}
+
+	public void setInMemory(boolean inMemory) {
+		this.inMemory = inMemory;
 	}
 
 	public void clear() {
