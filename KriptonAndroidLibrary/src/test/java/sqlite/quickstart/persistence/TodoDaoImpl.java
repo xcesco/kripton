@@ -151,34 +151,34 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Todo> resultList=new ArrayList<Todo>(cursor.getCount());
+      ArrayList<Todo> resultList=new ArrayList<Todo>(_cursor.getCount());
       Todo resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("user_id");
-        int index2=cursor.getColumnIndex("title");
-        int index3=cursor.getColumnIndex("completed");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("user_id");
+        int index2=_cursor.getColumnIndex("title");
+        int index3=_cursor.getColumnIndex("completed");
 
         do
          {
           resultBean=new Todo();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.completed=cursor.getInt(index3)==0?false:true; }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.title=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.completed=_cursor.getInt(index3)==0?false:true; }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -228,28 +228,28 @@ public class TodoDaoImpl extends AbstractDao implements TodoDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Todo resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("user_id");
-        int index2=cursor.getColumnIndex("title");
-        int index3=cursor.getColumnIndex("completed");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("user_id");
+        int index2=_cursor.getColumnIndex("title");
+        int index3=_cursor.getColumnIndex("completed");
 
         resultBean=new Todo();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.title=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.completed=cursor.getInt(index3)==0?false:true; }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.title=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.completed=_cursor.getInt(index3)==0?false:true; }
 
       }
       return resultBean;

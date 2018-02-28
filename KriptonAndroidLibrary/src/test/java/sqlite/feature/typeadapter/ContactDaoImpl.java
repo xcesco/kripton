@@ -117,43 +117,43 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Contact> resultList=new ArrayList<Contact>(cursor.getCount());
+      ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("surname");
-        int index2=cursor.getColumnIndex("birth_day");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("surname");
+        int index2=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=cursor.getColumnIndex("password");
+        int index3=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
-        int index4=cursor.getColumnIndex("type");
+        int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
-        int index5=cursor.getColumnIndex("update_date");
-        int index6=cursor.getColumnIndex("update_time");
+        int index5=_cursor.getColumnIndex("update_date");
+        int index6=_cursor.getColumnIndex("update_time");
 
         do
          {
           resultBean=new Contact();
 
-          resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.surname=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(cursor.getLong(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(cursor.getBlob(index3))); }
-          if (!cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(cursor.getInt(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(cursor.getString(index6)); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -206,43 +206,43 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Contact> resultList=new ArrayList<Contact>(cursor.getCount());
+      ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("surname");
-        int index2=cursor.getColumnIndex("birth_day");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("surname");
+        int index2=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=cursor.getColumnIndex("password");
+        int index3=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
-        int index4=cursor.getColumnIndex("type");
+        int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
-        int index5=cursor.getColumnIndex("update_date");
-        int index6=cursor.getColumnIndex("update_time");
+        int index5=_cursor.getColumnIndex("update_date");
+        int index6=_cursor.getColumnIndex("update_time");
 
         do
          {
           resultBean=new Contact();
 
-          resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.surname=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(cursor.getLong(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(cursor.getBlob(index3))); }
-          if (!cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(cursor.getInt(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(cursor.getString(index6)); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -478,43 +478,43 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Contact> resultList=new ArrayList<Contact>(cursor.getCount());
+      ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("surname");
-        int index2=cursor.getColumnIndex("birth_day");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("surname");
+        int index2=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=cursor.getColumnIndex("password");
+        int index3=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
-        int index4=cursor.getColumnIndex("type");
+        int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
-        int index5=cursor.getColumnIndex("update_date");
-        int index6=cursor.getColumnIndex("update_time");
+        int index5=_cursor.getColumnIndex("update_date");
+        int index6=_cursor.getColumnIndex("update_time");
 
         do
          {
           resultBean=new Contact();
 
-          resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.surname=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(cursor.getLong(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(cursor.getBlob(index3))); }
-          if (!cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(cursor.getInt(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(cursor.getString(index6)); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -572,27 +572,27 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       Contact resultBean=new Contact();
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("surname");
-        int index2=cursor.getColumnIndex("birth_day");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("surname");
+        int index2=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=cursor.getColumnIndex("password");
+        int index3=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
-        int index4=cursor.getColumnIndex("type");
+        int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
-        int index5=cursor.getColumnIndex("update_date");
-        int index6=cursor.getColumnIndex("update_time");
+        int index5=_cursor.getColumnIndex("update_date");
+        int index6=_cursor.getColumnIndex("update_time");
 
-        int rowCount=cursor.getCount();
+        int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
@@ -605,16 +605,16 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
           resultBean.updateTime=null;
 
           // generate mapping
-          resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.surname=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(cursor.getLong(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(cursor.getBlob(index3))); }
-          if (!cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(cursor.getInt(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(cursor.getString(index6)); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
 
-          listener.onRead(resultBean, cursor.getPosition(), rowCount);
-        } while (cursor.moveToNext());
+          listener.onRead(resultBean, _cursor.getPosition(), rowCount);
+        } while (_cursor.moveToNext());
       }
     }
   }
@@ -665,35 +665,35 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Contact> resultList=new ArrayList<Contact>(cursor.getCount());
+      ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("birth_day");
+        int index0=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index1=cursor.getColumnIndex("password");
+        int index1=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
-        int index2=cursor.getColumnIndex("type");
+        int index2=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
 
         do
          {
           resultBean=new Contact();
 
-          if (!cursor.isNull(index0)) { resultBean.birthDay=birthDayAdapter.toJava(cursor.getLong(index0)); }
-          if (!cursor.isNull(index1)) { resultBean.setPassword(passwordAdapter.toJava(cursor.getBlob(index1))); }
-          if (!cursor.isNull(index2)) { resultBean.type=typeAdapter.toJava(cursor.getInt(index2)); }
+          if (!_cursor.isNull(index0)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index0)); }
+          if (!_cursor.isNull(index1)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index1))); }
+          if (!_cursor.isNull(index2)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index2)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -750,43 +750,43 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Contact> resultList=new ArrayList<Contact>(cursor.getCount());
+      ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("surname");
-        int index2=cursor.getColumnIndex("birth_day");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("surname");
+        int index2=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=cursor.getColumnIndex("password");
+        int index3=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
-        int index4=cursor.getColumnIndex("type");
+        int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
-        int index5=cursor.getColumnIndex("update_date");
-        int index6=cursor.getColumnIndex("update_time");
+        int index5=_cursor.getColumnIndex("update_date");
+        int index6=_cursor.getColumnIndex("update_time");
 
         do
          {
           resultBean=new Contact();
 
-          resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.surname=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(cursor.getLong(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(cursor.getBlob(index3))); }
-          if (!cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(cursor.getInt(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(cursor.getString(index6)); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -843,43 +843,43 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Contact> resultList=new ArrayList<Contact>(cursor.getCount());
+      ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("surname");
-        int index2=cursor.getColumnIndex("birth_day");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("surname");
+        int index2=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=cursor.getColumnIndex("password");
+        int index3=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
-        int index4=cursor.getColumnIndex("type");
+        int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
-        int index5=cursor.getColumnIndex("update_date");
-        int index6=cursor.getColumnIndex("update_time");
+        int index5=_cursor.getColumnIndex("update_date");
+        int index6=_cursor.getColumnIndex("update_time");
 
         do
          {
           resultBean=new Contact();
 
-          resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.surname=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(cursor.getLong(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(cursor.getBlob(index3))); }
-          if (!cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(cursor.getInt(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(cursor.getString(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(cursor.getString(index6)); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -917,11 +917,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateCompactBeanPreparedStatement4);
     _contentValues.put("id", bean.getId());
-    if (bean.type!=null) {
-      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
 
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
@@ -991,16 +987,8 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       updateCompactRaw1PreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateCompactRaw1PreparedStatement5);
-    if (password!=null) {
-      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
-    } else {
-      _contentValues.putNull("password");
-    }
-    if (type!=null) {
-      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
+    _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -1071,11 +1059,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       updateCompactRaw2PreparedStatement6 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateCompactRaw2PreparedStatement6);
-    if (birthDay!=null) {
-      _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
@@ -1143,21 +1127,9 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       updateJQLBeanPreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLBeanPreparedStatement7);
-    if (bean.birthDay!=null) {
-      _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, bean.birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
-    if (bean.getPassword()!=null) {
-      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
-    } else {
-      _contentValues.putNull("password");
-    }
-    if (bean.type!=null) {
-      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, bean.birthDay));
+    _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
+    _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
 
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
@@ -1229,11 +1201,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       updateJQLRawPreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLRawPreparedStatement8);
-    if (birthDay!=null) {
-      _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("birth_day", SQLTypeAdapterUtils.toData(DateAdapterType.class, birthDay));
     _contentValues.put("id", id);
 
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
@@ -1300,16 +1268,8 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertCompactRawPreparedStatement9);
 
-    if (password!=null) {
-      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
-    } else {
-      _contentValues.putNull("password");
-    }
-    if (type!=null) {
-      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
+    _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
     _contentValues.put("id", id);
 
     // log section BEGIN
@@ -1378,11 +1338,7 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertCompactBeanPreparedStatement10);
     _contentValues.put("id", bean.getId());
-    if (bean.type!=null) {
-      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -1452,16 +1408,8 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
       insertJQLBeanPreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertJQLBeanPreparedStatement11);
-    if (bean.getPassword()!=null) {
-      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
-    } else {
-      _contentValues.putNull("password");
-    }
-    if (bean.type!=null) {
-      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, bean.getPassword()));
+    _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, bean.type));
     _contentValues.put("id", bean.getId());
 
     // log section BEGIN
@@ -1535,16 +1483,8 @@ public class ContactDaoImpl extends AbstractDao implements ContactDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertJQLRawPreparedStatement12);
 
-    if (password!=null) {
-      _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
-    } else {
-      _contentValues.putNull("password");
-    }
-    if (type!=null) {
-      _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("password", SQLTypeAdapterUtils.toData(PasswordAdapterType.class, password));
+    _contentValues.put("type", SQLTypeAdapterUtils.toData(EnumAdapterType.class, type));
     _contentValues.put("id", id);
 
     // log section BEGIN

@@ -133,8 +133,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 					// check same type
 					TypeUtility.checkTypeCompatibility(method, item, property);
+					boolean nullable=TypeUtility.isNullable(method, item, property) && !property.hasTypeAdapter();
 
-					if (TypeUtility.isNullable(method, item, property)) {
+					if (nullable) {
 						methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
 					}
 
@@ -149,7 +150,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 					methodBuilder.addCode(");\n");
 
-					if (TypeUtility.isNullable(method, item, property)) {
+					if (nullable) {
 						methodBuilder.nextControlFlow("else");
 						
 						if (method.isLogEnabled()) {

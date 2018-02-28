@@ -42,11 +42,6 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   static BindQuickStartDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected UserDaoImpl userDao = new UserDaoImpl(this);

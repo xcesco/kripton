@@ -38,11 +38,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   static BindXenoDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(this);

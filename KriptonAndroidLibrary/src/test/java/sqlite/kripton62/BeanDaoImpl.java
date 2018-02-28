@@ -104,44 +104,44 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Bean resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value");
-        int index2=cursor.getColumnIndex("value_byte_set");
-        int index3=cursor.getColumnIndex("value_short_set");
-        int index4=cursor.getColumnIndex("value_integer_set");
-        int index5=cursor.getColumnIndex("value_string_set");
-        int index6=cursor.getColumnIndex("value_character_set");
-        int index7=cursor.getColumnIndex("value_float_set");
-        int index8=cursor.getColumnIndex("value_double_set");
-        int index9=cursor.getColumnIndex("value_big_decimal_set");
-        int index10=cursor.getColumnIndex("value_bean_set");
-        int index11=cursor.getColumnIndex("value_enum_type_set");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value");
+        int index2=_cursor.getColumnIndex("value_byte_set");
+        int index3=_cursor.getColumnIndex("value_short_set");
+        int index4=_cursor.getColumnIndex("value_integer_set");
+        int index5=_cursor.getColumnIndex("value_string_set");
+        int index6=_cursor.getColumnIndex("value_character_set");
+        int index7=_cursor.getColumnIndex("value_float_set");
+        int index8=_cursor.getColumnIndex("value_double_set");
+        int index9=_cursor.getColumnIndex("value_big_decimal_set");
+        int index10=_cursor.getColumnIndex("value_bean_set");
+        int index11=_cursor.getColumnIndex("value_enum_type_set");
 
         resultBean=new Bean();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index5)); }
-        if (!cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index6)); }
-        if (!cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index7)); }
-        if (!cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index8)); }
-        if (!cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index9)); }
-        if (!cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index10)); }
-        if (!cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index11)); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.value=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index5)); }
+        if (!_cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index6)); }
+        if (!_cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index7)); }
+        if (!_cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index8)); }
+        if (!_cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index9)); }
+        if (!_cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index10)); }
+        if (!_cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index11)); }
 
       }
       return resultBean;
@@ -200,29 +200,29 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       Bean resultBean=new Bean();
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value");
-        int index2=cursor.getColumnIndex("value_byte_set");
-        int index3=cursor.getColumnIndex("value_short_set");
-        int index4=cursor.getColumnIndex("value_integer_set");
-        int index5=cursor.getColumnIndex("value_string_set");
-        int index6=cursor.getColumnIndex("value_character_set");
-        int index7=cursor.getColumnIndex("value_float_set");
-        int index8=cursor.getColumnIndex("value_double_set");
-        int index9=cursor.getColumnIndex("value_big_decimal_set");
-        int index10=cursor.getColumnIndex("value_bean_set");
-        int index11=cursor.getColumnIndex("value_enum_type_set");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value");
+        int index2=_cursor.getColumnIndex("value_byte_set");
+        int index3=_cursor.getColumnIndex("value_short_set");
+        int index4=_cursor.getColumnIndex("value_integer_set");
+        int index5=_cursor.getColumnIndex("value_string_set");
+        int index6=_cursor.getColumnIndex("value_character_set");
+        int index7=_cursor.getColumnIndex("value_float_set");
+        int index8=_cursor.getColumnIndex("value_double_set");
+        int index9=_cursor.getColumnIndex("value_big_decimal_set");
+        int index10=_cursor.getColumnIndex("value_bean_set");
+        int index11=_cursor.getColumnIndex("value_enum_type_set");
 
-        int rowCount=cursor.getCount();
+        int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
@@ -240,21 +240,21 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
           resultBean.valueEnumTypeSet=null;
 
           // generate mapping
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index10)); }
-          if (!cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index11)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.value=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index8)); }
+          if (!_cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index9)); }
+          if (!_cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index10)); }
+          if (!_cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index11)); }
 
-          listener.onRead(resultBean, cursor.getPosition(), rowCount);
-        } while (cursor.moveToNext());
+          listener.onRead(resultBean, _cursor.getPosition(), rowCount);
+        } while (_cursor.moveToNext());
       }
     }
   }
@@ -311,19 +311,19 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
         do
          {
-          listener.onRead(cursor);
-        } while (cursor.moveToNext());
+          listener.onRead(_cursor);
+        } while (_cursor.moveToNext());
       }
     }
   }
@@ -379,50 +379,50 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean> resultList=new ArrayList<Bean>(cursor.getCount());
+      ArrayList<Bean> resultList=new ArrayList<Bean>(_cursor.getCount());
       Bean resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value");
-        int index2=cursor.getColumnIndex("value_byte_set");
-        int index3=cursor.getColumnIndex("value_short_set");
-        int index4=cursor.getColumnIndex("value_integer_set");
-        int index5=cursor.getColumnIndex("value_string_set");
-        int index6=cursor.getColumnIndex("value_character_set");
-        int index7=cursor.getColumnIndex("value_float_set");
-        int index8=cursor.getColumnIndex("value_double_set");
-        int index9=cursor.getColumnIndex("value_big_decimal_set");
-        int index10=cursor.getColumnIndex("value_bean_set");
-        int index11=cursor.getColumnIndex("value_enum_type_set");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value");
+        int index2=_cursor.getColumnIndex("value_byte_set");
+        int index3=_cursor.getColumnIndex("value_short_set");
+        int index4=_cursor.getColumnIndex("value_integer_set");
+        int index5=_cursor.getColumnIndex("value_string_set");
+        int index6=_cursor.getColumnIndex("value_character_set");
+        int index7=_cursor.getColumnIndex("value_float_set");
+        int index8=_cursor.getColumnIndex("value_double_set");
+        int index9=_cursor.getColumnIndex("value_big_decimal_set");
+        int index10=_cursor.getColumnIndex("value_bean_set");
+        int index11=_cursor.getColumnIndex("value_enum_type_set");
 
         do
          {
           resultBean=new Bean();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index10)); }
-          if (!cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index11)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.value=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index8)); }
+          if (!_cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index9)); }
+          if (!_cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index10)); }
+          if (!_cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index11)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -808,44 +808,44 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Bean resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("value");
-        int index2=cursor.getColumnIndex("value_byte_set");
-        int index3=cursor.getColumnIndex("value_short_set");
-        int index4=cursor.getColumnIndex("value_integer_set");
-        int index5=cursor.getColumnIndex("value_string_set");
-        int index6=cursor.getColumnIndex("value_character_set");
-        int index7=cursor.getColumnIndex("value_float_set");
-        int index8=cursor.getColumnIndex("value_double_set");
-        int index9=cursor.getColumnIndex("value_big_decimal_set");
-        int index10=cursor.getColumnIndex("value_bean_set");
-        int index11=cursor.getColumnIndex("value_enum_type_set");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value");
+        int index2=_cursor.getColumnIndex("value_byte_set");
+        int index3=_cursor.getColumnIndex("value_short_set");
+        int index4=_cursor.getColumnIndex("value_integer_set");
+        int index5=_cursor.getColumnIndex("value_string_set");
+        int index6=_cursor.getColumnIndex("value_character_set");
+        int index7=_cursor.getColumnIndex("value_float_set");
+        int index8=_cursor.getColumnIndex("value_double_set");
+        int index9=_cursor.getColumnIndex("value_big_decimal_set");
+        int index10=_cursor.getColumnIndex("value_bean_set");
+        int index11=_cursor.getColumnIndex("value_enum_type_set");
 
         resultBean=new Bean();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.value=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(cursor.getBlob(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(cursor.getBlob(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(cursor.getBlob(index5)); }
-        if (!cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(cursor.getBlob(index6)); }
-        if (!cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(cursor.getBlob(index7)); }
-        if (!cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(cursor.getBlob(index8)); }
-        if (!cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(cursor.getBlob(index9)); }
-        if (!cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(cursor.getBlob(index10)); }
-        if (!cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(cursor.getBlob(index11)); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.value=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index5)); }
+        if (!_cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index6)); }
+        if (!_cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index7)); }
+        if (!_cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index8)); }
+        if (!_cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index9)); }
+        if (!_cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index10)); }
+        if (!_cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index11)); }
 
       }
       return resultBean;

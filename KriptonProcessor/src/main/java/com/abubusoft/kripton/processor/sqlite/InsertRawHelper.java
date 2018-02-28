@@ -93,7 +93,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				// check same type
 				TypeUtility.checkTypeCompatibility(method, item, property);
 				// check nullabliity
-				nullable = TypeUtility.isNullable(method, item, property);
+				nullable = TypeUtility.isNullable(method, item, property) && !property.hasTypeAdapter();
 
 				if (nullable) {
 					// it use raw method param's typeName

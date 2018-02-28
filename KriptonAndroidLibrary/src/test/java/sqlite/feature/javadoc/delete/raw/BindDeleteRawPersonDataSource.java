@@ -30,11 +30,6 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   static BindDeleteRawPersonDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DeleteRawPersonDaoImpl deleteRawPersonDao = new DeleteRawPersonDaoImpl(this);

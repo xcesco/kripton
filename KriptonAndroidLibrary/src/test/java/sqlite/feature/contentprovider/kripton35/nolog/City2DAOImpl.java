@@ -142,19 +142,19 @@ public class City2DAOImpl extends AbstractDao implements City2DAO {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
       City resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
 
         resultBean=new City();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
 
       }
       return resultBean;

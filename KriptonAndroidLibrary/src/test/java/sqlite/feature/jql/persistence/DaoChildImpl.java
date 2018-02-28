@@ -77,32 +77,32 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Child> resultList=new ArrayList<Child>(cursor.getCount());
+      ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("_id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("parent_id");
+        int index0=_cursor.getColumnIndex("_id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("parent_id");
 
         do
          {
           resultBean=new Child();
 
-          resultBean.id=cursor.getLong(index0);
-          resultBean.name=cursor.getString(index1);
-          if (!cursor.isNull(index2)) { resultBean.parentId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          resultBean.name=_cursor.getString(index1);
+          if (!_cursor.isNull(index2)) { resultBean.parentId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -224,32 +224,32 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Child> resultList=new ArrayList<Child>(cursor.getCount());
+      ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("_id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("parent_id");
+        int index0=_cursor.getColumnIndex("_id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("parent_id");
 
         do
          {
           resultBean=new Child();
 
-          resultBean.id=cursor.getLong(index0);
-          resultBean.name=cursor.getString(index1);
-          if (!cursor.isNull(index2)) { resultBean.parentId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          resultBean.name=_cursor.getString(index1);
+          if (!_cursor.isNull(index2)) { resultBean.parentId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -296,18 +296,18 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       int result=0;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        if (cursor.isNull(0)) { return 0; }
-        result=cursor.getInt(0);
+        if (_cursor.isNull(0)) { return 0; }
+        result=_cursor.getInt(0);
       }
       return result;
     }
@@ -355,32 +355,32 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Child> resultList=new ArrayList<Child>(cursor.getCount());
+      ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("_id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("parent_id");
+        int index0=_cursor.getColumnIndex("_id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("parent_id");
 
         do
          {
           resultBean=new Child();
 
-          resultBean.id=cursor.getLong(index0);
-          resultBean.name=cursor.getString(index1);
-          if (!cursor.isNull(index2)) { resultBean.parentId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          resultBean.name=_cursor.getString(index1);
+          if (!_cursor.isNull(index2)) { resultBean.parentId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

@@ -30,11 +30,6 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
   static BindDeleteBeanPersonDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DeleteBeanPersonDaoImpl deleteBeanPersonDao = new DeleteBeanPersonDaoImpl(this);

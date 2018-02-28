@@ -69,30 +69,30 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<BeanA_3> resultList=new ArrayList<BeanA_3>(cursor.getCount());
+      ArrayList<BeanA_3> resultList=new ArrayList<BeanA_3>(_cursor.getCount());
       BeanA_3 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("value_string2");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("value_string2");
 
         do
          {
           resultBean=new BeanA_3();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.valueString2=_cursor.getString(index1); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -140,30 +140,30 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<BeanA_3> resultList=new ArrayList<BeanA_3>(cursor.getCount());
+      ArrayList<BeanA_3> resultList=new ArrayList<BeanA_3>(_cursor.getCount());
       BeanA_3 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("value_string2");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("value_string2");
 
         do
          {
           resultBean=new BeanA_3();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.valueString2=cursor.getString(index1); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.valueString2=_cursor.getString(index1); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -210,28 +210,28 @@ public class DaoBeanA_3Impl extends AbstractDao implements DaoBeanA_3 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<BeanA_3> resultList=new ArrayList<BeanA_3>(cursor.getCount());
+      ArrayList<BeanA_3> resultList=new ArrayList<BeanA_3>(_cursor.getCount());
       BeanA_3 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
+        int index0=_cursor.getColumnIndex("pk");
 
         do
          {
           resultBean=new BeanA_3();
 
-          resultBean.id=cursor.getLong(index0);
+          resultBean.id=_cursor.getLong(index0);
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

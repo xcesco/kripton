@@ -30,11 +30,6 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   static BindSelectBeanPersonDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected SelectBeanPersonDaoImpl selectBeanPersonDao = new SelectBeanPersonDaoImpl(this);

@@ -29,11 +29,6 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   static BindLongDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected LongDaoImpl longDao = new LongDaoImpl(this);

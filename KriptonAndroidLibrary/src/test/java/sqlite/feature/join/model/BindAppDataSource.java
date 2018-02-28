@@ -35,11 +35,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   static BindAppDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected BookDaoImpl bookDao = new BookDaoImpl(this);

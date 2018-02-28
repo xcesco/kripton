@@ -34,11 +34,6 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   static BindFamilyDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DaoChildImpl daoChild = new DaoChildImpl(this);

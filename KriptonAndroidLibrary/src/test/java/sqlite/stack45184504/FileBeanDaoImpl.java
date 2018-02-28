@@ -244,34 +244,34 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<FileBean> resultList=new ArrayList<FileBean>(cursor.getCount());
+      ArrayList<FileBean> resultList=new ArrayList<FileBean>(_cursor.getCount());
       FileBean resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("content");
-        int index3=cursor.getColumnIndex("content_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("content");
+        int index3=_cursor.getColumnIndex("content_type");
 
         do
          {
           resultBean=new FileBean();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.content=cursor.getBlob(index2); }
-          if (!cursor.isNull(index3)) { resultBean.contentType=cursor.getString(index3); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.content=_cursor.getBlob(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.contentType=_cursor.getString(index3); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

@@ -35,11 +35,6 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   static BindApp1DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DeviceDaoImpl deviceDao = new DeviceDaoImpl(this);

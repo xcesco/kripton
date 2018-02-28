@@ -109,10 +109,10 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		TypeName entityClass = typeName(entity.getElement());
 
 		methodBuilder.addCode("\n");
-		methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(cursor.getCount())", List.class, entityClass, ArrayList.class, entityClass);
+		methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(_cursor.getCount())", List.class, entityClass, ArrayList.class, entityClass);
 		methodBuilder.addStatement("$T resultBean=null", entityClass);
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
+		methodBuilder.beginControlFlow("if (_cursor.moveToFirst())");
 
 		// generate index from columns
 		methodBuilder.addCode("\n");
@@ -121,7 +121,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			for (JQLProjection a : fieldList) {
 				SQLProperty item = a.property;
 
-				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);
+				methodBuilder.addStatement("int index$L=_cursor.getColumnIndex($S)", (i++), item.columnName);
 				if (item.hasTypeAdapter()) {
 					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
 							item.typeAdapter.getAdapterTypeName());
@@ -139,9 +139,9 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			SQLProperty item = a.property;
 
 			if (item.isNullable()) {
-				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
+				methodBuilder.addCode("if (!_cursor.isNull(index$L)) { ", i);
 			}
-			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "cursor", "index" + i + "");
+			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor", "index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");
@@ -153,7 +153,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		methodBuilder.addCode("\n");
 
 		methodBuilder.addCode("resultList.add(resultBean);\n");
-		methodBuilder.endControlFlow("while (cursor.moveToNext())");
+		methodBuilder.endControlFlow("while (_cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
 

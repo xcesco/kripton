@@ -29,11 +29,6 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   static BindCollegeStudentsDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected CollegeStudentDaoImpl collegeStudentDao = new CollegeStudentDaoImpl(this);

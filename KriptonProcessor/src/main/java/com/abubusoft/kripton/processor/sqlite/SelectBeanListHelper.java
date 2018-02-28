@@ -72,13 +72,13 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 
 		methodBuilder.addCode("\n");
 		if (TypeUtility.isTypeEquals(collectionClass, TypeUtility.typeName(ArrayList.class))) {
-			methodBuilder.addCode("$T<$T> resultList=new $T<$T>(cursor.getCount());\n", collectionClass, entityClass, collectionClass, entityClass);
+			methodBuilder.addCode("$T<$T> resultList=new $T<$T>(_cursor.getCount());\n", collectionClass, entityClass, collectionClass, entityClass);
 		} else {
 			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass, entityClass);
 		}
 		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
+		methodBuilder.beginControlFlow("if (_cursor.moveToFirst())");
 
 		// generate index from columns
 		methodBuilder.addCode("\n");
@@ -87,7 +87,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 			for (JQLProjection a : fieldList) {
 				SQLProperty item = a.property;
 
-				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);
+				methodBuilder.addStatement("int index$L=_cursor.getColumnIndex($S)", (i++), item.columnName);
 				if (item.hasTypeAdapter()) {
 					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
 							item.typeAdapter.getAdapterTypeName());
@@ -104,9 +104,9 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		for (JQLProjection a : fieldList) {
 			SQLProperty item = a.property;
 			if (item.isNullable()) {
-				methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
+				methodBuilder.addCode("if (!_cursor.isNull(index$L)) { ", i);
 			}
-			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "cursor", "index" + i + "");
+			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor", "index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");
@@ -118,7 +118,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		methodBuilder.addCode("\n");
 
 		methodBuilder.addCode("resultList.add(resultBean);\n");
-		methodBuilder.endControlFlow("while (cursor.moveToNext())");
+		methodBuilder.endControlFlow("while (_cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
 

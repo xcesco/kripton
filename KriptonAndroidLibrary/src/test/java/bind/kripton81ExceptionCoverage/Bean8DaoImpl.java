@@ -58,30 +58,30 @@ public class Bean8DaoImpl extends AbstractDao implements Bean8Dao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean8> resultList=new ArrayList<Bean8>(cursor.getCount());
+      ArrayList<Bean8> resultList=new ArrayList<Bean8>(_cursor.getCount());
       Bean8 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("ignore2");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("ignore2");
 
         do
          {
           resultBean=new Bean8();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.ignore2=cursor.getString(index1); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.ignore2=_cursor.getString(index1); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

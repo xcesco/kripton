@@ -55,27 +55,27 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -111,21 +111,21 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
 
         resultBean=new Person();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
 
       }
       return resultBean;

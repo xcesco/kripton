@@ -71,26 +71,26 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       LinkedHashSet<String> resultList=new LinkedHashSet<String>();
 
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
         do
          {
-          if (!cursor.isNull(0)) {
-            resultList.add(parser1(cursor.getBlob(0)));
+          if (!_cursor.isNull(0)) {
+            resultList.add(parser1(_cursor.getBlob(0)));
           } else {
             resultList.add(null);
           }
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
       return resultList;
     }
@@ -128,26 +128,26 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Date> resultList=new ArrayList<Date>(cursor.getCount());
+      ArrayList<Date> resultList=new ArrayList<Date>(_cursor.getCount());
 
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
         do
          {
-          if (!cursor.isNull(0)) {
-            resultList.add(parser2(cursor.getBlob(0)));
+          if (!_cursor.isNull(0)) {
+            resultList.add(parser2(_cursor.getBlob(0)));
           } else {
             resultList.add(null);
           }
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
       return resultList;
     }

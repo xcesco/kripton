@@ -30,11 +30,6 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   static BindKripton180BeanInsertSelectDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(this);

@@ -55,11 +55,7 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.image!=null) {
-      _contentValues.put("image", SQLTypeAdapterUtils.toData(BitmapTypeAdapter.class, bean.image));
-    } else {
-      _contentValues.putNull("image");
-    }
+    _contentValues.put("image", SQLTypeAdapterUtils.toData(BitmapTypeAdapter.class, bean.image));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -136,31 +132,31 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("image");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("image");
         BitmapTypeAdapter imageAdapter=SQLTypeAdapterUtils.getAdapter(BitmapTypeAdapter.class);
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.image=imageAdapter.toJava(cursor.getBlob(index1)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.image=imageAdapter.toJava(_cursor.getBlob(index1)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

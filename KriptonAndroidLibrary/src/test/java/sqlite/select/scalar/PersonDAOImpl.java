@@ -59,18 +59,18 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       String result=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        if (cursor.isNull(0)) { return null; }
-        result=cursor.getString(0);
+        if (_cursor.isNull(0)) { return null; }
+        result=_cursor.getString(0);
       }
       return result;
     }
@@ -108,18 +108,18 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       Date result=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        if (cursor.isNull(0)) { return null; }
-        result=DateUtils.read(cursor.getString(0));
+        if (_cursor.isNull(0)) { return null; }
+        result=DateUtils.read(_cursor.getString(0));
       }
       return result;
     }

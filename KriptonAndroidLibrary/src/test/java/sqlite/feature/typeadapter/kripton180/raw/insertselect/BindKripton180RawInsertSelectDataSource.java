@@ -30,11 +30,6 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   static BindKripton180RawInsertSelectDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected EmployeeRawInsertSelectDaoImpl employeeRawInsertSelectDao = new EmployeeRawInsertSelectDaoImpl(this);

@@ -69,24 +69,24 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Bean02 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("text");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("text");
 
         resultBean=new Bean02();
 
-        resultBean.setId(cursor.getLong(index0));
-        if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
+        resultBean.setId(_cursor.getLong(index0));
+        if (!_cursor.isNull(index1)) { resultBean.setText(_cursor.getString(index1)); }
 
       }
       return resultBean;

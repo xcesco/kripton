@@ -35,11 +35,6 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   static BindPersonCirtyDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected PersonDaoImpl personDao = new PersonDaoImpl(this);

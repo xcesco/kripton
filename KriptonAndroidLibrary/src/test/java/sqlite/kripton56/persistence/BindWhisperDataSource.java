@@ -30,11 +30,6 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   static BindWhisperDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);

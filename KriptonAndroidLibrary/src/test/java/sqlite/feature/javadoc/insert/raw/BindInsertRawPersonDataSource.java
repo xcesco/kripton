@@ -30,11 +30,6 @@ public class BindInsertRawPersonDataSource extends AbstractDataSource implements
   static BindInsertRawPersonDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected InsertRawPersonDaoImpl insertRawPersonDao = new InsertRawPersonDaoImpl(this);

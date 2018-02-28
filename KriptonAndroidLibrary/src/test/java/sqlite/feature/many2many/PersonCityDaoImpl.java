@@ -82,26 +82,26 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       PersonCity resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_id");
-        int index2=cursor.getColumnIndex("city_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_id");
+        int index2=_cursor.getColumnIndex("city_id");
 
         resultBean=new PersonCity();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.cityId=cursor.getLong(index2); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
 
       }
       return resultBean;
@@ -150,32 +150,32 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<PersonCity> resultList=new ArrayList<PersonCity>(cursor.getCount());
+      ArrayList<PersonCity> resultList=new ArrayList<PersonCity>(_cursor.getCount());
       PersonCity resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_id");
-        int index2=cursor.getColumnIndex("city_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_id");
+        int index2=_cursor.getColumnIndex("city_id");
 
         do
          {
           resultBean=new PersonCity();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.cityId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -224,32 +224,32 @@ public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCit
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<PersonCity> resultList=new ArrayList<PersonCity>(cursor.getCount());
+      ArrayList<PersonCity> resultList=new ArrayList<PersonCity>(_cursor.getCount());
       PersonCity resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_id");
-        int index2=cursor.getColumnIndex("city_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_id");
+        int index2=_cursor.getColumnIndex("city_id");
 
         do
          {
           resultBean=new PersonCity();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.cityId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

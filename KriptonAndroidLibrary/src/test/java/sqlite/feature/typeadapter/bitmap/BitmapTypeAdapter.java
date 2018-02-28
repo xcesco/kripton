@@ -6,15 +6,17 @@ import com.abubusoft.kripton.android.BindSQLTypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class BitmapTypeAdapter implements BindSQLTypeAdapter<Bitmap, byte[]> {
 
 	@Override
 	public Bitmap toJava(byte[] dataValue) {
 		if (dataValue == null)
-			return null;		
-		Bitmap bitmap_tmp = BitmapFactory.decodeByteArray(dataValue, 0, dataValue.length);
+			return null;
+		Bitmap.Config configBmp = Bitmap.Config.ARGB_8888;
+		Bitmap bitmap_tmp = Bitmap.createBitmap(256, 256, configBmp);
+		ByteBuffer buffer = ByteBuffer.wrap(dataValue);
+		bitmap_tmp.copyPixelsFromBuffer(buffer);
 
 		return bitmap_tmp;
 	}

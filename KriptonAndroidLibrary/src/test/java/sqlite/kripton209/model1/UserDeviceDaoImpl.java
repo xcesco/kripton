@@ -82,26 +82,26 @@ public class UserDeviceDaoImpl extends AbstractDao implements GeneratedUserDevic
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       UserDevice resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("user_id");
-        int index2=cursor.getColumnIndex("device_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("user_id");
+        int index2=_cursor.getColumnIndex("device_id");
 
         resultBean=new UserDevice();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.deviceId=cursor.getLong(index2); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.deviceId=_cursor.getLong(index2); }
 
       }
       return resultBean;
@@ -150,32 +150,32 @@ public class UserDeviceDaoImpl extends AbstractDao implements GeneratedUserDevic
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<UserDevice> resultList=new ArrayList<UserDevice>(cursor.getCount());
+      ArrayList<UserDevice> resultList=new ArrayList<UserDevice>(_cursor.getCount());
       UserDevice resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("user_id");
-        int index2=cursor.getColumnIndex("device_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("user_id");
+        int index2=_cursor.getColumnIndex("device_id");
 
         do
          {
           resultBean=new UserDevice();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.deviceId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.deviceId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -224,32 +224,32 @@ public class UserDeviceDaoImpl extends AbstractDao implements GeneratedUserDevic
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<UserDevice> resultList=new ArrayList<UserDevice>(cursor.getCount());
+      ArrayList<UserDevice> resultList=new ArrayList<UserDevice>(_cursor.getCount());
       UserDevice resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("user_id");
-        int index2=cursor.getColumnIndex("device_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("user_id");
+        int index2=_cursor.getColumnIndex("device_id");
 
         do
          {
           resultBean=new UserDevice();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.userId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.deviceId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.deviceId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

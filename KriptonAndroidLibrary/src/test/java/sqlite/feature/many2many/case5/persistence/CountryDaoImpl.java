@@ -186,34 +186,34 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Country resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("area");
-        int index2=cursor.getColumnIndex("code");
-        int index3=cursor.getColumnIndex("calling_code");
-        int index4=cursor.getColumnIndex("region");
-        int index5=cursor.getColumnIndex("name");
-        int index6=cursor.getColumnIndex("translated_name");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("area");
+        int index2=_cursor.getColumnIndex("code");
+        int index3=_cursor.getColumnIndex("calling_code");
+        int index4=_cursor.getColumnIndex("region");
+        int index5=_cursor.getColumnIndex("name");
+        int index6=_cursor.getColumnIndex("translated_name");
 
         resultBean=new Country();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.area=cursor.getLong(index1); }
-        resultBean.code=cursor.getString(index2);
-        resultBean.callingCode=cursor.getString(index3);
-        if (!cursor.isNull(index4)) { resultBean.region=cursor.getString(index4); }
-        resultBean.name=cursor.getString(index5);
-        if (!cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(cursor.getBlob(index6)); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.area=_cursor.getLong(index1); }
+        resultBean.code=_cursor.getString(index2);
+        resultBean.callingCode=_cursor.getString(index3);
+        if (!_cursor.isNull(index4)) { resultBean.region=_cursor.getString(index4); }
+        resultBean.name=_cursor.getString(index5);
+        if (!_cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(_cursor.getBlob(index6)); }
 
       }
       return resultBean;
@@ -347,40 +347,40 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Country> resultList=new ArrayList<Country>(cursor.getCount());
+      ArrayList<Country> resultList=new ArrayList<Country>(_cursor.getCount());
       Country resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("area");
-        int index2=cursor.getColumnIndex("code");
-        int index3=cursor.getColumnIndex("calling_code");
-        int index4=cursor.getColumnIndex("region");
-        int index5=cursor.getColumnIndex("name");
-        int index6=cursor.getColumnIndex("translated_name");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("area");
+        int index2=_cursor.getColumnIndex("code");
+        int index3=_cursor.getColumnIndex("calling_code");
+        int index4=_cursor.getColumnIndex("region");
+        int index5=_cursor.getColumnIndex("name");
+        int index6=_cursor.getColumnIndex("translated_name");
 
         do
          {
           resultBean=new Country();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.area=cursor.getLong(index1); }
-          resultBean.code=cursor.getString(index2);
-          resultBean.callingCode=cursor.getString(index3);
-          if (!cursor.isNull(index4)) { resultBean.region=cursor.getString(index4); }
-          resultBean.name=cursor.getString(index5);
-          if (!cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(cursor.getBlob(index6)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.area=_cursor.getLong(index1); }
+          resultBean.code=_cursor.getString(index2);
+          resultBean.callingCode=_cursor.getString(index3);
+          if (!_cursor.isNull(index4)) { resultBean.region=_cursor.getString(index4); }
+          resultBean.name=_cursor.getString(index5);
+          if (!_cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(_cursor.getBlob(index6)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -433,34 +433,34 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Country resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("area");
-        int index2=cursor.getColumnIndex("code");
-        int index3=cursor.getColumnIndex("calling_code");
-        int index4=cursor.getColumnIndex("region");
-        int index5=cursor.getColumnIndex("name");
-        int index6=cursor.getColumnIndex("translated_name");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("area");
+        int index2=_cursor.getColumnIndex("code");
+        int index3=_cursor.getColumnIndex("calling_code");
+        int index4=_cursor.getColumnIndex("region");
+        int index5=_cursor.getColumnIndex("name");
+        int index6=_cursor.getColumnIndex("translated_name");
 
         resultBean=new Country();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.area=cursor.getLong(index1); }
-        resultBean.code=cursor.getString(index2);
-        resultBean.callingCode=cursor.getString(index3);
-        if (!cursor.isNull(index4)) { resultBean.region=cursor.getString(index4); }
-        resultBean.name=cursor.getString(index5);
-        if (!cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(cursor.getBlob(index6)); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.area=_cursor.getLong(index1); }
+        resultBean.code=_cursor.getString(index2);
+        resultBean.callingCode=_cursor.getString(index3);
+        if (!_cursor.isNull(index4)) { resultBean.region=_cursor.getString(index4); }
+        resultBean.name=_cursor.getString(index5);
+        if (!_cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(_cursor.getBlob(index6)); }
 
       }
       return resultBean;
@@ -513,34 +513,34 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Country resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("area");
-        int index2=cursor.getColumnIndex("code");
-        int index3=cursor.getColumnIndex("calling_code");
-        int index4=cursor.getColumnIndex("region");
-        int index5=cursor.getColumnIndex("name");
-        int index6=cursor.getColumnIndex("translated_name");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("area");
+        int index2=_cursor.getColumnIndex("code");
+        int index3=_cursor.getColumnIndex("calling_code");
+        int index4=_cursor.getColumnIndex("region");
+        int index5=_cursor.getColumnIndex("name");
+        int index6=_cursor.getColumnIndex("translated_name");
 
         resultBean=new Country();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.area=cursor.getLong(index1); }
-        resultBean.code=cursor.getString(index2);
-        resultBean.callingCode=cursor.getString(index3);
-        if (!cursor.isNull(index4)) { resultBean.region=cursor.getString(index4); }
-        resultBean.name=cursor.getString(index5);
-        if (!cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(cursor.getBlob(index6)); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.area=_cursor.getLong(index1); }
+        resultBean.code=_cursor.getString(index2);
+        resultBean.callingCode=_cursor.getString(index3);
+        if (!_cursor.isNull(index4)) { resultBean.region=_cursor.getString(index4); }
+        resultBean.name=_cursor.getString(index5);
+        if (!_cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(_cursor.getBlob(index6)); }
 
       }
       return resultBean;

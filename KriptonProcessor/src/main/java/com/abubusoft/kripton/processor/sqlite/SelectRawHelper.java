@@ -44,7 +44,7 @@ public class SelectRawHelper extends AbstractSelectCodeGenerator {
 	 */
 	@Override
 	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
-		methodBuilder.addCode("return cursor;\n");
+		methodBuilder.addCode("return _cursor;\n");
 	}
 
 

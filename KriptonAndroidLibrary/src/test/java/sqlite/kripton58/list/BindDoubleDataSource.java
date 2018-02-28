@@ -29,11 +29,6 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   static BindDoubleDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DoubleDaoImpl doubleDao = new DoubleDaoImpl(this);

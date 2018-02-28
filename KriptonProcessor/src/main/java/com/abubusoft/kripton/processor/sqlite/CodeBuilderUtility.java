@@ -89,7 +89,7 @@ public abstract class CodeBuilderUtility {
 			item = entity.get(columnName);
 			AssertKripton.assertTrueOrUnknownPropertyInJQLException(item != null, method, columnName);
 
-			if (TypeUtility.isNullable(item)) {
+			if (TypeUtility.isNullable(item) && !item.hasTypeAdapter()) {
 				methodBuilder.beginControlFlow("if ($L!=null)", getter(entityName, entityClassName, item));
 			}
 
@@ -102,7 +102,7 @@ public abstract class CodeBuilderUtility {
 			SQLTransformer.javaProperty2ContentValues(methodBuilder, entityClassName, entityName, item);
 			methodBuilder.addCode(");\n");
 
-			if (TypeUtility.isNullable(item)) {
+			if (TypeUtility.isNullable(item) && !item.hasTypeAdapter()) {
 				methodBuilder.nextControlFlow("else");
 				
 				if (method.isLogEnabled()) {

@@ -29,11 +29,6 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
   static BindDummy04DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DaoBeanInsertOKImpl daoBeanInsertOK = new DaoBeanInsertOKImpl(this);

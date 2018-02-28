@@ -69,7 +69,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     // query SQL is statically defined
     String _sql=SELECT_INCLUDE_ONE_SQL1;
     // add where arguments
-    _contentValues.addWhereArgs((bean.name==null?"":bean.name));
+    _contentValues.addWhereArgs(bean.name);
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -84,30 +84,30 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("name");
-        int index1=cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("name");
+        int index1=_cursor.getColumnIndex("id");
 
         do
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.name=cursor.getString(index0); }
-          resultBean.id=cursor.getLong(index1);
+          if (!_cursor.isNull(index0)) { resultBean.name=_cursor.getString(index0); }
+          resultBean.id=_cursor.getLong(index1);
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -149,34 +149,34 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("surname");
-        int index1=cursor.getColumnIndex("birth_city");
-        int index2=cursor.getColumnIndex("birth_day");
-        int index3=cursor.getColumnIndex("type_name");
+        int index0=_cursor.getColumnIndex("surname");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("type_name");
 
         do
          {
           resultBean=new Person();
 
-          if (!cursor.isNull(index0)) { resultBean.surname=cursor.getString(index0); }
-          if (!cursor.isNull(index1)) { resultBean.birthCity=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(cursor.getString(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3); }
+          if (!_cursor.isNull(index0)) { resultBean.surname=_cursor.getString(index0); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.typeName=_cursor.getString(index3); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

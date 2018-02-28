@@ -77,24 +77,24 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Track resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("album_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("album_id");
 
         resultBean=new Track();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.albumId=cursor.getLong(index1); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.albumId=_cursor.getLong(index1); }
 
       }
       return resultBean;
@@ -134,30 +134,30 @@ public class TrackDaoImpl extends AbstractDao implements TrackDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Track> resultList=new ArrayList<Track>(cursor.getCount());
+      ArrayList<Track> resultList=new ArrayList<Track>(_cursor.getCount());
       Track resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("album_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("album_id");
 
         do
          {
           resultBean=new Track();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.albumId=cursor.getLong(index1); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.albumId=_cursor.getLong(index1); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

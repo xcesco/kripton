@@ -62,27 +62,27 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
       SimpleAddressItem resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("address");
-        int index3=cursor.getColumnIndex("city");
-        int index4=cursor.getColumnIndex("state");
-        int index5=cursor.getColumnIndex("phone");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("address");
+        int index3=_cursor.getColumnIndex("city");
+        int index4=_cursor.getColumnIndex("state");
+        int index5=_cursor.getColumnIndex("phone");
 
         resultBean=new SimpleAddressItem();
 
-        resultBean.setId(cursor.getLong(index0));
-        if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setAddress(cursor.getString(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.setCity(cursor.getString(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.setState(cursor.getString(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.setPhone(cursor.getLong(index5)); }
+        resultBean.setId(_cursor.getLong(index0));
+        if (!_cursor.isNull(index1)) { resultBean.setName(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.setAddress(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.setCity(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.setState(_cursor.getString(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.setPhone(_cursor.getLong(index5)); }
 
       }
       return resultBean;
@@ -137,33 +137,33 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      ArrayList<SimpleAddressItem> resultList=new ArrayList<SimpleAddressItem>(cursor.getCount());
+      ArrayList<SimpleAddressItem> resultList=new ArrayList<SimpleAddressItem>(_cursor.getCount());
       SimpleAddressItem resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("address");
-        int index3=cursor.getColumnIndex("city");
-        int index4=cursor.getColumnIndex("state");
-        int index5=cursor.getColumnIndex("phone");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("address");
+        int index3=_cursor.getColumnIndex("city");
+        int index4=_cursor.getColumnIndex("state");
+        int index5=_cursor.getColumnIndex("phone");
 
         do
          {
           resultBean=new SimpleAddressItem();
 
-          resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setName(cursor.getString(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.setAddress(cursor.getString(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setCity(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setState(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.setPhone(cursor.getLong(index5)); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setName(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setAddress(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setCity(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setState(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.setPhone(_cursor.getLong(index5)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

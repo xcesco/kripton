@@ -29,11 +29,6 @@ public class BindBean64ADataSource extends AbstractDataSource implements BindBea
   static BindBean64ADataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected Bean64ADaoImpl bean64ADao = new Bean64ADaoImpl(this);

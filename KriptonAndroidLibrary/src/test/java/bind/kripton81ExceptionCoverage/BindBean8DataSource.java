@@ -29,11 +29,6 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   static BindBean8DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(this);

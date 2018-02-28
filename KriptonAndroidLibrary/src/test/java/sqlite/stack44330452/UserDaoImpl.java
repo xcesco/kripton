@@ -57,28 +57,28 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<User> resultList=new ArrayList<User>(cursor.getCount());
+      ArrayList<User> resultList=new ArrayList<User>(_cursor.getCount());
       User resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
 
         do
          {
           resultBean=new User();
 
-          resultBean.id=cursor.getLong(index0);
+          resultBean.id=_cursor.getLong(index0);
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

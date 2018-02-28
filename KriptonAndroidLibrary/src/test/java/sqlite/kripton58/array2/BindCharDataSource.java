@@ -29,11 +29,6 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   static BindCharDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected CharDaoImpl charDao = new CharDaoImpl(this);

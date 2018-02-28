@@ -96,50 +96,50 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(cursor.getCount());
+      ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("param1");
-        int index2=cursor.getColumnIndex("param2");
-        int index3=cursor.getColumnIndex("param3");
-        int index4=cursor.getColumnIndex("param4");
-        int index5=cursor.getColumnIndex("column_list_string");
-        int index6=cursor.getColumnIndex("column_map_integer_string");
-        int index7=cursor.getColumnIndex("column_array_char");
-        int index8=cursor.getColumnIndex("column_array_char_type");
-        int index9=cursor.getColumnIndex("column_bean");
-        int index10=cursor.getColumnIndex("column_array_byte_type");
-        int index11=cursor.getColumnIndex("value_string");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("param1");
+        int index2=_cursor.getColumnIndex("param2");
+        int index3=_cursor.getColumnIndex("param3");
+        int index4=_cursor.getColumnIndex("param4");
+        int index5=_cursor.getColumnIndex("column_list_string");
+        int index6=_cursor.getColumnIndex("column_map_integer_string");
+        int index7=_cursor.getColumnIndex("column_array_char");
+        int index8=_cursor.getColumnIndex("column_array_char_type");
+        int index9=_cursor.getColumnIndex("column_bean");
+        int index10=_cursor.getColumnIndex("column_array_byte_type");
+        int index11=_cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new Bean84A();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.param1=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.param2=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.param3=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.param4=cursor.getString(index4); }
-          if (!cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.columnArrayByteType=cursor.getBlob(index10); }
-          if (!cursor.isNull(index11)) { resultBean.valueString=cursor.getString(index11); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.param1=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.param2=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.param3=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.param4=_cursor.getString(index4); }
+          if (!_cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(_cursor.getBlob(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(_cursor.getBlob(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(_cursor.getBlob(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(_cursor.getBlob(index8)); }
+          if (!_cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(_cursor.getBlob(index9)); }
+          if (!_cursor.isNull(index10)) { resultBean.columnArrayByteType=_cursor.getBlob(index10); }
+          if (!_cursor.isNull(index11)) { resultBean.valueString=_cursor.getString(index11); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -197,50 +197,50 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(cursor.getCount());
+      ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("param1");
-        int index2=cursor.getColumnIndex("param2");
-        int index3=cursor.getColumnIndex("param3");
-        int index4=cursor.getColumnIndex("param4");
-        int index5=cursor.getColumnIndex("column_list_string");
-        int index6=cursor.getColumnIndex("column_map_integer_string");
-        int index7=cursor.getColumnIndex("column_array_char");
-        int index8=cursor.getColumnIndex("column_array_char_type");
-        int index9=cursor.getColumnIndex("column_bean");
-        int index10=cursor.getColumnIndex("column_array_byte_type");
-        int index11=cursor.getColumnIndex("value_string");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("param1");
+        int index2=_cursor.getColumnIndex("param2");
+        int index3=_cursor.getColumnIndex("param3");
+        int index4=_cursor.getColumnIndex("param4");
+        int index5=_cursor.getColumnIndex("column_list_string");
+        int index6=_cursor.getColumnIndex("column_map_integer_string");
+        int index7=_cursor.getColumnIndex("column_array_char");
+        int index8=_cursor.getColumnIndex("column_array_char_type");
+        int index9=_cursor.getColumnIndex("column_bean");
+        int index10=_cursor.getColumnIndex("column_array_byte_type");
+        int index11=_cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new Bean84A();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.param1=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.param2=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.param3=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.param4=cursor.getString(index4); }
-          if (!cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.columnArrayByteType=cursor.getBlob(index10); }
-          if (!cursor.isNull(index11)) { resultBean.valueString=cursor.getString(index11); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.param1=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.param2=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.param3=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.param4=_cursor.getString(index4); }
+          if (!_cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(_cursor.getBlob(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(_cursor.getBlob(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(_cursor.getBlob(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(_cursor.getBlob(index8)); }
+          if (!_cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(_cursor.getBlob(index9)); }
+          if (!_cursor.isNull(index10)) { resultBean.columnArrayByteType=_cursor.getBlob(index10); }
+          if (!_cursor.isNull(index11)) { resultBean.valueString=_cursor.getString(index11); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -311,50 +311,50 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(cursor.getCount());
+      ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("param1");
-        int index2=cursor.getColumnIndex("param2");
-        int index3=cursor.getColumnIndex("param3");
-        int index4=cursor.getColumnIndex("param4");
-        int index5=cursor.getColumnIndex("column_list_string");
-        int index6=cursor.getColumnIndex("column_map_integer_string");
-        int index7=cursor.getColumnIndex("column_array_char");
-        int index8=cursor.getColumnIndex("column_array_char_type");
-        int index9=cursor.getColumnIndex("column_bean");
-        int index10=cursor.getColumnIndex("column_array_byte_type");
-        int index11=cursor.getColumnIndex("value_string");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("param1");
+        int index2=_cursor.getColumnIndex("param2");
+        int index3=_cursor.getColumnIndex("param3");
+        int index4=_cursor.getColumnIndex("param4");
+        int index5=_cursor.getColumnIndex("column_list_string");
+        int index6=_cursor.getColumnIndex("column_map_integer_string");
+        int index7=_cursor.getColumnIndex("column_array_char");
+        int index8=_cursor.getColumnIndex("column_array_char_type");
+        int index9=_cursor.getColumnIndex("column_bean");
+        int index10=_cursor.getColumnIndex("column_array_byte_type");
+        int index11=_cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new Bean84A();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.param1=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.param2=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.param3=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.param4=cursor.getString(index4); }
-          if (!cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(cursor.getBlob(index5)); }
-          if (!cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(cursor.getBlob(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(cursor.getBlob(index7)); }
-          if (!cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(cursor.getBlob(index8)); }
-          if (!cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(cursor.getBlob(index9)); }
-          if (!cursor.isNull(index10)) { resultBean.columnArrayByteType=cursor.getBlob(index10); }
-          if (!cursor.isNull(index11)) { resultBean.valueString=cursor.getString(index11); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.param1=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.param2=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.param3=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.param4=_cursor.getString(index4); }
+          if (!_cursor.isNull(index5)) { resultBean.columnListString=Bean84ATable.parseColumnListString(_cursor.getBlob(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.columnMapIntegerString=Bean84ATable.parseColumnMapIntegerString(_cursor.getBlob(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.columnArrayChar=Bean84ATable.parseColumnArrayChar(_cursor.getBlob(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.columnArrayCharType=Bean84ATable.parseColumnArrayCharType(_cursor.getBlob(index8)); }
+          if (!_cursor.isNull(index9)) { resultBean.columnBean=Bean84ATable.parseColumnBean(_cursor.getBlob(index9)); }
+          if (!_cursor.isNull(index10)) { resultBean.columnArrayByteType=_cursor.getBlob(index10); }
+          if (!_cursor.isNull(index11)) { resultBean.valueString=_cursor.getString(index11); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

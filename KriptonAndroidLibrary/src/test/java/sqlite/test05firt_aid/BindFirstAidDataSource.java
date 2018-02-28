@@ -29,11 +29,6 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   static BindFirstAidDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected FirstAidDaoImpl firstAidDao = new FirstAidDaoImpl(this);

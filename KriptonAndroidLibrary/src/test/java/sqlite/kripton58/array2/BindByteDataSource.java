@@ -29,11 +29,6 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
   static BindByteDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected ByteDaoImpl byteDao = new ByteDaoImpl(this);

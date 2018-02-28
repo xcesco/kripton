@@ -67,34 +67,34 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean64B> resultList=new ArrayList<Bean64B>(cursor.getCount());
+      ArrayList<Bean64B> resultList=new ArrayList<Bean64B>(_cursor.getCount());
       Bean64B resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("value_map_string_bean");
-        int index1=cursor.getColumnIndex("value_set_string");
-        int index2=cursor.getColumnIndex("value_string");
-        int index3=cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("value_map_string_bean");
+        int index1=_cursor.getColumnIndex("value_set_string");
+        int index2=_cursor.getColumnIndex("value_string");
+        int index3=_cursor.getColumnIndex("id");
 
         do
          {
           resultBean=new Bean64B();
 
-          if (!cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64BTable.parseValueMapStringBean(cursor.getBlob(index0)); }
-          if (!cursor.isNull(index1)) { resultBean.valueSetString=Bean64BTable.parseValueSetString(cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
-          resultBean.id=cursor.getLong(index3);
+          if (!_cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64BTable.parseValueMapStringBean(_cursor.getBlob(index0)); }
+          if (!_cursor.isNull(index1)) { resultBean.valueSetString=Bean64BTable.parseValueSetString(_cursor.getBlob(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.valueString=_cursor.getString(index2); }
+          resultBean.id=_cursor.getLong(index3);
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -144,34 +144,34 @@ public class Bean64BDaoImpl extends AbstractDao implements Bean64BDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean64B> resultList=new ArrayList<Bean64B>(cursor.getCount());
+      ArrayList<Bean64B> resultList=new ArrayList<Bean64B>(_cursor.getCount());
       Bean64B resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("value_map_string_bean");
-        int index1=cursor.getColumnIndex("value_set_string");
-        int index2=cursor.getColumnIndex("value_string");
-        int index3=cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("value_map_string_bean");
+        int index1=_cursor.getColumnIndex("value_set_string");
+        int index2=_cursor.getColumnIndex("value_string");
+        int index3=_cursor.getColumnIndex("id");
 
         do
          {
           resultBean=new Bean64B();
 
-          if (!cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64BTable.parseValueMapStringBean(cursor.getBlob(index0)); }
-          if (!cursor.isNull(index1)) { resultBean.valueSetString=Bean64BTable.parseValueSetString(cursor.getBlob(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
-          resultBean.id=cursor.getLong(index3);
+          if (!_cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64BTable.parseValueMapStringBean(_cursor.getBlob(index0)); }
+          if (!_cursor.isNull(index1)) { resultBean.valueSetString=Bean64BTable.parseValueSetString(_cursor.getBlob(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.valueString=_cursor.getString(index2); }
+          resultBean.id=_cursor.getLong(index3);
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

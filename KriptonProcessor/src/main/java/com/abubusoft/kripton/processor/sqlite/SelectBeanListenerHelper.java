@@ -76,7 +76,7 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode("$T resultBean=new $T();", entityClass, entityClass);
 		methodBuilder.addCode("\n");
 		//methodBuilder.beginControlFlow("try");
-		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
+		methodBuilder.beginControlFlow("if (_cursor.moveToFirst())");
 
 		// generate index from columns
 		methodBuilder.addCode("\n");
@@ -85,14 +85,14 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 			for (JQLProjection a : fieldList) {
 				SQLProperty item=a.property;
 				
-				methodBuilder.addStatement("int index$L=cursor.getColumnIndex($S)", (i++), item.columnName);				
+				methodBuilder.addStatement("int index$L=_cursor.getColumnIndex($S)", (i++), item.columnName);				
 				if (item.hasTypeAdapter()) {
 					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class, item.typeAdapter.getAdapterTypeName());
 				}
 			}
 		}
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("int rowCount=cursor.getCount();\n");
+		methodBuilder.addCode("int rowCount=_cursor.getCount();\n");
 
 		methodBuilder.beginControlFlow("do\n");
 
@@ -102,7 +102,7 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 			int i = 0;
 			for (SQLProperty item : entity.getCollection()) {
 				if (item.isNullable()) {
-					SQLTransformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "cursor", "index" + i + "");
+					SQLTransformer.resetBean(methodBuilder, entityClass, "resultBean", item,  "_cursor", "index" + i + "");
 					methodBuilder.addCode(";");
 					methodBuilder.addCode("\n");
 				} else {
@@ -120,9 +120,9 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 			for (JQLProjection a : fieldList) {
 				SQLProperty item=a.property;
 				if (item.isNullable()) {
-					methodBuilder.addCode("if (!cursor.isNull(index$L)) { ", i);
+					methodBuilder.addCode("if (!_cursor.isNull(index$L)) { ", i);
 				}
-				SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "cursor", "index" + i + "");
+				SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor", "index" + i + "");
 				methodBuilder.addCode(";");
 				if (item.isNullable()) {
 					methodBuilder.addCode(" }");
@@ -134,8 +134,8 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 		}
 		methodBuilder.addCode("\n");
 
-		methodBuilder.addCode("$L.onRead(resultBean, cursor.getPosition(), rowCount);\n", listenerName);
-		methodBuilder.endControlFlow("while (cursor.moveToNext())");
+		methodBuilder.addCode("$L.onRead(resultBean, _cursor.getPosition(), rowCount);\n", listenerName);
+		methodBuilder.endControlFlow("while (_cursor.moveToNext())");
 		
 		// close try { open cursor 
 		methodBuilder.endControlFlow();	

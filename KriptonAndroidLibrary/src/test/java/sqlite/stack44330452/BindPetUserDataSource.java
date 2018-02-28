@@ -32,11 +32,6 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   static BindPetUserDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected UserDaoImpl userDao = new UserDaoImpl(this);

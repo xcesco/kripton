@@ -46,11 +46,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   static BindXenoDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(this);
@@ -229,16 +224,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
@@ -297,16 +292,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);

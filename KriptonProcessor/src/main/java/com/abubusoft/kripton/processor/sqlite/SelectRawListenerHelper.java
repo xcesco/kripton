@@ -59,14 +59,14 @@ public class SelectRawListenerHelper extends AbstractSelectCodeGenerator {
 		String listenerName = SqlSelectBuilder.getNameParameterOfType(method, listenerType);
 
 		methodBuilder.addCode("\n");
-		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
+		methodBuilder.beginControlFlow("if (_cursor.moveToFirst())");
 
 		// generate index from columns
 		methodBuilder.addCode("\n");
 
 		methodBuilder.beginControlFlow("do\n");
-		methodBuilder.addCode("$L.onRead(cursor);\n", listenerName);
-		methodBuilder.endControlFlow("while (cursor.moveToNext())");
+		methodBuilder.addCode("$L.onRead(_cursor);\n", listenerName);
+		methodBuilder.endControlFlow("while (_cursor.moveToNext())");
 
 		// close cursor
 		methodBuilder.endControlFlow();

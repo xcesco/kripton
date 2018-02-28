@@ -29,11 +29,6 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
   static BindBean93DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected Bean93DaoImpl bean93Dao = new Bean93DaoImpl(this);

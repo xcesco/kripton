@@ -29,11 +29,6 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   static BindSampleDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected CheeseDaoImpl cheeseDao = new CheeseDaoImpl(this);

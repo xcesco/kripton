@@ -30,11 +30,6 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
   static BindKripton180RawDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected EmployeeRawDaoImpl employeeRawDao = new EmployeeRawDaoImpl(this);

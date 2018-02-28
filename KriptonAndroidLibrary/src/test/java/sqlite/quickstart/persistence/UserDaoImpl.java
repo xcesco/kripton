@@ -180,42 +180,42 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<User> resultList=new ArrayList<User>(cursor.getCount());
+      ArrayList<User> resultList=new ArrayList<User>(_cursor.getCount());
       User resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("username");
-        int index3=cursor.getColumnIndex("email");
-        int index4=cursor.getColumnIndex("address");
-        int index5=cursor.getColumnIndex("phone");
-        int index6=cursor.getColumnIndex("website");
-        int index7=cursor.getColumnIndex("company");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("username");
+        int index3=_cursor.getColumnIndex("email");
+        int index4=_cursor.getColumnIndex("address");
+        int index5=_cursor.getColumnIndex("phone");
+        int index6=_cursor.getColumnIndex("website");
+        int index7=_cursor.getColumnIndex("company");
 
         do
          {
           resultBean=new User();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.username=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.phone=cursor.getString(index5); }
-          if (!cursor.isNull(index6)) { resultBean.website=cursor.getString(index6); }
-          if (!cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(cursor.getBlob(index7)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.username=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.email=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.phone=_cursor.getString(index5); }
+          if (!_cursor.isNull(index6)) { resultBean.website=_cursor.getString(index6); }
+          if (!_cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(_cursor.getBlob(index7)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -269,36 +269,36 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       User resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("username");
-        int index3=cursor.getColumnIndex("email");
-        int index4=cursor.getColumnIndex("address");
-        int index5=cursor.getColumnIndex("phone");
-        int index6=cursor.getColumnIndex("website");
-        int index7=cursor.getColumnIndex("company");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("username");
+        int index3=_cursor.getColumnIndex("email");
+        int index4=_cursor.getColumnIndex("address");
+        int index5=_cursor.getColumnIndex("phone");
+        int index6=_cursor.getColumnIndex("website");
+        int index7=_cursor.getColumnIndex("company");
 
         resultBean=new User();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.username=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.email=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.phone=cursor.getString(index5); }
-        if (!cursor.isNull(index6)) { resultBean.website=cursor.getString(index6); }
-        if (!cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(cursor.getBlob(index7)); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.username=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.email=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(_cursor.getBlob(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.phone=_cursor.getString(index5); }
+        if (!_cursor.isNull(index6)) { resultBean.website=_cursor.getString(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(_cursor.getBlob(index7)); }
 
       }
       return resultBean;

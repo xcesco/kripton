@@ -29,11 +29,6 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   static BindShortDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected ShortDaoImpl shortDao = new ShortDaoImpl(this);

@@ -30,11 +30,6 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
   static BindInsertBeanPersonDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected InsertBeanPersonDaoImpl insertBeanPersonDao = new InsertBeanPersonDaoImpl(this);

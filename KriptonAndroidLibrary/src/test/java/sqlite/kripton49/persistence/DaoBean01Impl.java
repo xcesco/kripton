@@ -80,24 +80,24 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Bean01Entity resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("text");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("text");
 
         resultBean=new Bean01Entity();
 
-        resultBean.setId(cursor.getLong(index0));
-        if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
+        resultBean.setId(_cursor.getLong(index0));
+        if (!_cursor.isNull(index1)) { resultBean.setText(_cursor.getString(index1)); }
 
       }
       return resultBean;
@@ -145,30 +145,30 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean01Entity> resultList=new ArrayList<Bean01Entity>(cursor.getCount());
+      ArrayList<Bean01Entity> resultList=new ArrayList<Bean01Entity>(_cursor.getCount());
       Bean01Entity resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("text");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("text");
 
         do
          {
           resultBean=new Bean01Entity();
 
-          resultBean.setId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setText(cursor.getString(index1)); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setText(_cursor.getString(index1)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

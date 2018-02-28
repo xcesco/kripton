@@ -29,11 +29,6 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   static BindPKDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected PKDaoImpl pKDao = new PKDaoImpl(this);

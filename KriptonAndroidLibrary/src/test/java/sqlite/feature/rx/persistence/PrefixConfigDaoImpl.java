@@ -168,30 +168,30 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       PrefixConfig resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("default_country");
-        int index2=cursor.getColumnIndex("dual_billing_prefix");
-        int index3=cursor.getColumnIndex("enabled");
-        int index4=cursor.getColumnIndex("dialog_timeout");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("default_country");
+        int index2=_cursor.getColumnIndex("dual_billing_prefix");
+        int index3=_cursor.getColumnIndex("enabled");
+        int index4=_cursor.getColumnIndex("dialog_timeout");
 
         resultBean=new PrefixConfig();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.defaultCountry=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.dualBillingPrefix=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.enabled=cursor.getInt(index3)==0?false:true; }
-        if (!cursor.isNull(index4)) { resultBean.dialogTimeout=cursor.getLong(index4); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.defaultCountry=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.dualBillingPrefix=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.enabled=_cursor.getInt(index3)==0?false:true; }
+        if (!_cursor.isNull(index4)) { resultBean.dialogTimeout=_cursor.getLong(index4); }
 
       }
       return resultBean;
@@ -325,30 +325,30 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       PrefixConfig resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("default_country");
-        int index2=cursor.getColumnIndex("dual_billing_prefix");
-        int index3=cursor.getColumnIndex("enabled");
-        int index4=cursor.getColumnIndex("dialog_timeout");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("default_country");
+        int index2=_cursor.getColumnIndex("dual_billing_prefix");
+        int index3=_cursor.getColumnIndex("enabled");
+        int index4=_cursor.getColumnIndex("dialog_timeout");
 
         resultBean=new PrefixConfig();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.defaultCountry=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.dualBillingPrefix=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.enabled=cursor.getInt(index3)==0?false:true; }
-        if (!cursor.isNull(index4)) { resultBean.dialogTimeout=cursor.getLong(index4); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.defaultCountry=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.dualBillingPrefix=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.enabled=_cursor.getInt(index3)==0?false:true; }
+        if (!_cursor.isNull(index4)) { resultBean.dialogTimeout=_cursor.getLong(index4); }
 
       }
       return resultBean;

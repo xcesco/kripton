@@ -120,32 +120,32 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Bean05 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("number");
-        int index2=cursor.getColumnIndex("bean_type");
-        int index3=cursor.getColumnIndex("text");
-        int index4=cursor.getColumnIndex("content");
-        int index5=cursor.getColumnIndex("creation_time");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("number");
+        int index2=_cursor.getColumnIndex("bean_type");
+        int index3=_cursor.getColumnIndex("text");
+        int index4=_cursor.getColumnIndex("content");
+        int index5=_cursor.getColumnIndex("creation_time");
 
         resultBean=new Bean05();
 
-        resultBean.setPk(cursor.getLong(index0));
-        if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
-        if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
+        resultBean.setPk(_cursor.getLong(index0));
+        if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
+        if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
 
       }
       return resultBean;
@@ -184,7 +184,7 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     String _sql=SELECT_ONE_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
-    _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
+    _contentValues.addWhereArgs(bean.getText());
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -199,32 +199,32 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Bean05 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("number");
-        int index2=cursor.getColumnIndex("bean_type");
-        int index3=cursor.getColumnIndex("text");
-        int index4=cursor.getColumnIndex("content");
-        int index5=cursor.getColumnIndex("creation_time");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("number");
+        int index2=_cursor.getColumnIndex("bean_type");
+        int index3=_cursor.getColumnIndex("text");
+        int index4=_cursor.getColumnIndex("content");
+        int index5=_cursor.getColumnIndex("creation_time");
 
         resultBean=new Bean05();
 
-        resultBean.setPk(cursor.getLong(index0));
-        if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
-        if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-        if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-        if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
+        resultBean.setPk(_cursor.getLong(index0));
+        if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
+        if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
 
       }
       return resultBean;
@@ -276,38 +276,38 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean05> resultList=new ArrayList<Bean05>(cursor.getCount());
+      ArrayList<Bean05> resultList=new ArrayList<Bean05>(_cursor.getCount());
       Bean05 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("number");
-        int index2=cursor.getColumnIndex("bean_type");
-        int index3=cursor.getColumnIndex("text");
-        int index4=cursor.getColumnIndex("content");
-        int index5=cursor.getColumnIndex("creation_time");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("number");
+        int index2=_cursor.getColumnIndex("bean_type");
+        int index3=_cursor.getColumnIndex("text");
+        int index4=_cursor.getColumnIndex("content");
+        int index5=_cursor.getColumnIndex("creation_time");
 
         do
          {
           resultBean=new Bean05();
 
-          resultBean.setPk(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
-          if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
+          resultBean.setPk(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -354,26 +354,26 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Long> resultList=new ArrayList<Long>(cursor.getCount());
+      ArrayList<Long> resultList=new ArrayList<Long>(_cursor.getCount());
 
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
         do
          {
-          if (!cursor.isNull(0)) {
-            resultList.add(parser1(cursor.getBlob(0)));
+          if (!_cursor.isNull(0)) {
+            resultList.add(parser1(_cursor.getBlob(0)));
           } else {
             resultList.add(null);
           }
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
       return resultList;
     }
@@ -419,18 +419,18 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       Long result=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        if (cursor.isNull(0)) { return null; }
-        result=cursor.getLong(0);
+        if (_cursor.isNull(0)) { return null; }
+        result=_cursor.getLong(0);
       }
       return result;
     }
@@ -482,19 +482,19 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
         do
          {
-          listener.onRead(cursor);
-        } while (cursor.moveToNext());
+          listener.onRead(_cursor);
+        } while (_cursor.moveToNext());
       }
     }
   }
@@ -545,23 +545,23 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       Bean05 resultBean=new Bean05();
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("number");
-        int index2=cursor.getColumnIndex("bean_type");
-        int index3=cursor.getColumnIndex("text");
-        int index4=cursor.getColumnIndex("content");
-        int index5=cursor.getColumnIndex("creation_time");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("number");
+        int index2=_cursor.getColumnIndex("bean_type");
+        int index3=_cursor.getColumnIndex("text");
+        int index4=_cursor.getColumnIndex("content");
+        int index5=_cursor.getColumnIndex("creation_time");
 
-        int rowCount=cursor.getCount();
+        int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
@@ -573,15 +573,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
           resultBean.setCreationTime(null);
 
           // generate mapping
-          resultBean.setPk(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
-          if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
+          resultBean.setPk(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
 
-          listener.onRead(resultBean, cursor.getPosition(), rowCount);
-        } while (cursor.moveToNext());
+          listener.onRead(resultBean, _cursor.getPosition(), rowCount);
+        } while (_cursor.moveToNext());
       }
     }
   }
@@ -632,19 +632,19 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
         do
          {
-          listener.onRead(cursor);
-        } while (cursor.moveToNext());
+          listener.onRead(_cursor);
+        } while (_cursor.moveToNext());
       }
     }
   }
@@ -695,23 +695,23 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       Bean05 resultBean=new Bean05();
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("number");
-        int index2=cursor.getColumnIndex("bean_type");
-        int index3=cursor.getColumnIndex("text");
-        int index4=cursor.getColumnIndex("content");
-        int index5=cursor.getColumnIndex("creation_time");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("number");
+        int index2=_cursor.getColumnIndex("bean_type");
+        int index3=_cursor.getColumnIndex("text");
+        int index4=_cursor.getColumnIndex("content");
+        int index5=_cursor.getColumnIndex("creation_time");
 
-        int rowCount=cursor.getCount();
+        int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
@@ -723,15 +723,15 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
           resultBean.setCreationTime(null);
 
           // generate mapping
-          resultBean.setPk(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setNumber(cursor.getLong(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(cursor.getString(index2))); }
-          if (!cursor.isNull(index3)) { resultBean.setText(cursor.getString(index3)); }
-          if (!cursor.isNull(index4)) { resultBean.setContent(cursor.getBlob(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(cursor.getString(index5))); }
+          resultBean.setPk(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
 
-          listener.onRead(resultBean, cursor.getPosition(), rowCount);
-        } while (cursor.moveToNext());
+          listener.onRead(resultBean, _cursor.getPosition(), rowCount);
+        } while (_cursor.moveToNext());
       }
     }
   }
@@ -1316,18 +1316,18 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       byte[] result=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        if (cursor.isNull(0)) { return null; }
-        result=cursor.getBlob(0);
+        if (_cursor.isNull(0)) { return null; }
+        result=_cursor.getBlob(0);
       }
       return result;
     }

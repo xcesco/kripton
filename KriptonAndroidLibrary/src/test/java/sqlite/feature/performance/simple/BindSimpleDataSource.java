@@ -29,11 +29,6 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   static BindSimpleDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected SimpleAddressDaoImpl simpleAddressDao = new SimpleAddressDaoImpl(this);

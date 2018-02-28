@@ -29,11 +29,6 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   static BindDummy01DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DaoChannelImpl daoChannel = new DaoChannelImpl(this);

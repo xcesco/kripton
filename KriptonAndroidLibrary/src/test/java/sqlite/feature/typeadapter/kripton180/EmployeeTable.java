@@ -1,16 +1,5 @@
 package sqlite.feature.typeadapter.kripton180;
 
-import com.abubusoft.kripton.BinderUtils;
-import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.KriptonJsonContext;
-import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-
 /**
  * <p>
  * Entity <code>Employee</code> is associated to table <code>employees</code>
@@ -153,52 +142,4 @@ public class EmployeeTable {
    *  @see Employee#fieldByteArray
    */
   public static final String COLUMN_FIELD_BYTE_ARRAY = "field_byte_array";
-
-  /**
-   * AddressBindMap */
-  private static AddressBindMap addressBindMap = BinderUtils.mapperFor(Address.class);
-
-  /**
-   * for attribute address serialization
-   */
-  public static byte[] serializeAddress(Address value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        addressBindMap.serializeOnJackson(value, jacksonSerializer);
-      }
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute address parsing
-   */
-  public static Address parseAddress(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      Address result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=addressBindMap.parseOnJackson(jacksonParser);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
 }

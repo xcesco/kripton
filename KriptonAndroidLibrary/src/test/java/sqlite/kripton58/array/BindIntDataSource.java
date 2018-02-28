@@ -29,11 +29,6 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   static BindIntDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected IntDaoImpl intDao = new IntDaoImpl(this);

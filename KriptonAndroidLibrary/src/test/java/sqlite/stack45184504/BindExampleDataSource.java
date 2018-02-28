@@ -29,11 +29,6 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
   static BindExampleDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected FileBeanDaoImpl fileBeanDao = new FileBeanDaoImpl(this);

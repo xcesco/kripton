@@ -86,46 +86,46 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<MessageEntity> resultList=new ArrayList<MessageEntity>(cursor.getCount());
+      ArrayList<MessageEntity> resultList=new ArrayList<MessageEntity>(_cursor.getCount());
       MessageEntity resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("channel_id");
-        int index2=cursor.getColumnIndex("owner_type");
-        int index3=cursor.getColumnIndex("uid");
-        int index4=cursor.getColumnIndex("face_uid");
-        int index5=cursor.getColumnIndex("text");
-        int index6=cursor.getColumnIndex("owner_uid");
-        int index7=cursor.getColumnIndex("channel_uid");
-        int index8=cursor.getColumnIndex("update_time");
-        int index9=cursor.getColumnIndex("type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("channel_id");
+        int index2=_cursor.getColumnIndex("owner_type");
+        int index3=_cursor.getColumnIndex("uid");
+        int index4=_cursor.getColumnIndex("face_uid");
+        int index5=_cursor.getColumnIndex("text");
+        int index6=_cursor.getColumnIndex("owner_uid");
+        int index7=_cursor.getColumnIndex("channel_uid");
+        int index8=_cursor.getColumnIndex("update_time");
+        int index9=_cursor.getColumnIndex("type");
 
         do
          {
           resultBean=new MessageEntity();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.channelId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(cursor.getString(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.uid=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.faceUid=cursor.getString(index4); }
-          if (!cursor.isNull(index5)) { resultBean.text=cursor.getString(index5); }
-          if (!cursor.isNull(index6)) { resultBean.ownerUid=cursor.getString(index6); }
-          if (!cursor.isNull(index7)) { resultBean.channelUid=cursor.getString(index7); }
-          if (!cursor.isNull(index8)) { resultBean.updateTime=cursor.getLong(index8); }
-          if (!cursor.isNull(index9)) { resultBean.type=MessageType.valueOf(cursor.getString(index9)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.channelId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.uid=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.faceUid=_cursor.getString(index4); }
+          if (!_cursor.isNull(index5)) { resultBean.text=_cursor.getString(index5); }
+          if (!_cursor.isNull(index6)) { resultBean.ownerUid=_cursor.getString(index6); }
+          if (!_cursor.isNull(index7)) { resultBean.channelUid=_cursor.getString(index7); }
+          if (!_cursor.isNull(index8)) { resultBean.updateTime=_cursor.getLong(index8); }
+          if (!_cursor.isNull(index9)) { resultBean.type=MessageType.valueOf(_cursor.getString(index9)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -397,40 +397,40 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       MessageEntity resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("channel_id");
-        int index2=cursor.getColumnIndex("owner_type");
-        int index3=cursor.getColumnIndex("uid");
-        int index4=cursor.getColumnIndex("face_uid");
-        int index5=cursor.getColumnIndex("text");
-        int index6=cursor.getColumnIndex("owner_uid");
-        int index7=cursor.getColumnIndex("channel_uid");
-        int index8=cursor.getColumnIndex("update_time");
-        int index9=cursor.getColumnIndex("type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("channel_id");
+        int index2=_cursor.getColumnIndex("owner_type");
+        int index3=_cursor.getColumnIndex("uid");
+        int index4=_cursor.getColumnIndex("face_uid");
+        int index5=_cursor.getColumnIndex("text");
+        int index6=_cursor.getColumnIndex("owner_uid");
+        int index7=_cursor.getColumnIndex("channel_uid");
+        int index8=_cursor.getColumnIndex("update_time");
+        int index9=_cursor.getColumnIndex("type");
 
         resultBean=new MessageEntity();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.channelId=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(cursor.getString(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.uid=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.faceUid=cursor.getString(index4); }
-        if (!cursor.isNull(index5)) { resultBean.text=cursor.getString(index5); }
-        if (!cursor.isNull(index6)) { resultBean.ownerUid=cursor.getString(index6); }
-        if (!cursor.isNull(index7)) { resultBean.channelUid=cursor.getString(index7); }
-        if (!cursor.isNull(index8)) { resultBean.updateTime=cursor.getLong(index8); }
-        if (!cursor.isNull(index9)) { resultBean.type=MessageType.valueOf(cursor.getString(index9)); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.channelId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.uid=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.faceUid=_cursor.getString(index4); }
+        if (!_cursor.isNull(index5)) { resultBean.text=_cursor.getString(index5); }
+        if (!_cursor.isNull(index6)) { resultBean.ownerUid=_cursor.getString(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.channelUid=_cursor.getString(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.updateTime=_cursor.getLong(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.type=MessageType.valueOf(_cursor.getString(index9)); }
 
       }
       return resultBean;

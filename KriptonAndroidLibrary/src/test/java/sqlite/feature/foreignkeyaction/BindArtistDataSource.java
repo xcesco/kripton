@@ -35,11 +35,6 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   static BindArtistDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected ArtistDaoImpl artistDao = new ArtistDaoImpl(this);

@@ -63,22 +63,20 @@ public class SelectScalarHelper extends AbstractSelectCodeGenerator {
 
 		methodBuilder.addCode("\n");
 		// methodBuilder.beginControlFlow("try");
-		methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
+		methodBuilder.beginControlFlow("if (_cursor.moveToFirst())");
 
 		// generate index from columns
 		methodBuilder.addCode("\n");
-		// methodBuilder.beginControlFlow("do\n");
 
-		// methodBuilder.addCode("if (cursor.getString(0);\n");
 		if (TypeUtility.isNullable(returnTypeName)) {
-			methodBuilder.addCode("if (cursor.isNull(0)) { return null; }\n");
+			methodBuilder.addCode("if (_cursor.isNull(0)) { return null; }\n");
 		} else {
-			methodBuilder.addCode("if (cursor.isNull(0)) { return ");
+			methodBuilder.addCode("if (_cursor.isNull(0)) { return ");
 			t.generateDefaultValue(methodBuilder);
 			methodBuilder.addCode("; }\n", t);
 		}
 		methodBuilder.addCode("result=");
-		t.generateReadValueFromCursor(methodBuilder, method.getParent(), returnTypeName, "cursor", "0");
+		t.generateReadValueFromCursor(methodBuilder, method.getParent(), returnTypeName, "_cursor", "0");
 		methodBuilder.addCode(";\n");
 
 		// end cursor

@@ -303,7 +303,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 						// eventually we take associated property
 						SQLProperty property = usedBeanPropertyNames.get(i) == null ? null : entity.get(usedBeanPropertyNames.get(i));
 						
-						if (nullable && !(property != null && property.hasTypeAdapter()) && !method.hasAdapterForParam(item)) {
+						if (nullable && !(property != null) && !method.hasAdapterForParam(item)) {
 							methodBuilder.addCode("($L==null?\"\":", item);
 						}
 
@@ -320,7 +320,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 						// check for string conversion
 						TypeUtility.endStringConversion(methodBuilder, paramTypeName);
 
-						if (nullable && !(property != null && property.hasTypeAdapter()) && !method.hasAdapterForParam(item)) {
+						if (nullable && !(property != null) && !method.hasAdapterForParam(item)) {
 							methodBuilder.addCode(")");
 						}
 					}					
@@ -352,9 +352,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			}									
 
 			if (generationType.generateCloseableCursor) {
-				methodBuilder.beginControlFlow("try ($T cursor = database().rawQuery(_sql, _sqlArgs))", Cursor.class);
+				methodBuilder.beginControlFlow("try ($T _cursor = database().rawQuery(_sql, _sqlArgs))", Cursor.class);
 			} else {
-				methodBuilder.addStatement("$T cursor = database().rawQuery(_sql, _sqlArgs)", Cursor.class);
+				methodBuilder.addStatement("$T _cursor = database().rawQuery(_sql, _sqlArgs)", Cursor.class);
 			}
 
 						
@@ -363,7 +363,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				methodBuilder.addComment("log section BEGIN");
 				methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
 				
-				methodBuilder.addCode("$T.info(\"Rows found: %s\",cursor.getCount());\n", Logger.class);
+				methodBuilder.addCode("$T.info(\"Rows found: %s\",_cursor.getCount());\n", Logger.class);
 				
 				// generate log section - END
 				methodBuilder.endControlFlow();

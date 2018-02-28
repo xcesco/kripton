@@ -37,11 +37,6 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   static BindPersonCirtyOk1DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected PersonOk1DaoImpl personOk1Dao = new PersonOk1DaoImpl(this);
@@ -200,16 +195,16 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(CityTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(CityTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);
@@ -256,16 +251,16 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(CityTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(CityTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);

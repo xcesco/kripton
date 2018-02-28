@@ -69,34 +69,34 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<SchoolLunch> resultList=new ArrayList<SchoolLunch>(cursor.getCount());
+      ArrayList<SchoolLunch> resultList=new ArrayList<SchoolLunch>(_cursor.getCount());
       SchoolLunch resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("lunch_id");
-        int index1=cursor.getColumnIndex("fresh");
-        int index2=cursor.getColumnIndex("contains_meat");
-        int index3=cursor.getColumnIndex("fruits");
+        int index0=_cursor.getColumnIndex("lunch_id");
+        int index1=_cursor.getColumnIndex("fresh");
+        int index2=_cursor.getColumnIndex("contains_meat");
+        int index3=_cursor.getColumnIndex("fruits");
 
         do
          {
           resultBean=new SchoolLunch();
 
-          resultBean.setLunchId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setFresh(cursor.getInt(index1)==0?false:true); }
-          if (!cursor.isNull(index2)) { resultBean.setContainsMeat(cursor.getInt(index2)==0?false:true); }
-          if (!cursor.isNull(index3)) { resultBean.setFruits(SchoolLunchTable.parseFruits(cursor.getBlob(index3))); }
+          resultBean.setLunchId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setFresh(_cursor.getInt(index1)==0?false:true); }
+          if (!_cursor.isNull(index2)) { resultBean.setContainsMeat(_cursor.getInt(index2)==0?false:true); }
+          if (!_cursor.isNull(index3)) { resultBean.setFruits(SchoolLunchTable.parseFruits(_cursor.getBlob(index3))); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -138,34 +138,34 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<SchoolLunch> resultList=new ArrayList<SchoolLunch>(cursor.getCount());
+      ArrayList<SchoolLunch> resultList=new ArrayList<SchoolLunch>(_cursor.getCount());
       SchoolLunch resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("lunch_id");
-        int index1=cursor.getColumnIndex("fresh");
-        int index2=cursor.getColumnIndex("contains_meat");
-        int index3=cursor.getColumnIndex("fruits");
+        int index0=_cursor.getColumnIndex("lunch_id");
+        int index1=_cursor.getColumnIndex("fresh");
+        int index2=_cursor.getColumnIndex("contains_meat");
+        int index3=_cursor.getColumnIndex("fruits");
 
         do
          {
           resultBean=new SchoolLunch();
 
-          resultBean.setLunchId(cursor.getLong(index0));
-          if (!cursor.isNull(index1)) { resultBean.setFresh(cursor.getInt(index1)==0?false:true); }
-          if (!cursor.isNull(index2)) { resultBean.setContainsMeat(cursor.getInt(index2)==0?false:true); }
-          if (!cursor.isNull(index3)) { resultBean.setFruits(SchoolLunchTable.parseFruits(cursor.getBlob(index3))); }
+          resultBean.setLunchId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setFresh(_cursor.getInt(index1)==0?false:true); }
+          if (!_cursor.isNull(index2)) { resultBean.setContainsMeat(_cursor.getInt(index2)==0?false:true); }
+          if (!_cursor.isNull(index3)) { resultBean.setFruits(SchoolLunchTable.parseFruits(_cursor.getBlob(index3))); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

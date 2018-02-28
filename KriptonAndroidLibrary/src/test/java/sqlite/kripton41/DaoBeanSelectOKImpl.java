@@ -67,18 +67,18 @@ public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK 
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       Boolean result=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        if (cursor.isNull(0)) { return null; }
-        result=cursor.getInt(0)==0?false:true;
+        if (_cursor.isNull(0)) { return null; }
+        result=_cursor.getInt(0)==0?false:true;
       }
       return result;
     }

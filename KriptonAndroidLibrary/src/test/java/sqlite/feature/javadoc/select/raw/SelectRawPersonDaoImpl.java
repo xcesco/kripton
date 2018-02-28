@@ -88,34 +88,34 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_name");
-        int index2=cursor.getColumnIndex("person_surname");
-        int index3=cursor.getColumnIndex("student");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_name");
+        int index2=_cursor.getColumnIndex("person_surname");
+        int index3=_cursor.getColumnIndex("student");
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.setPersonName(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setPersonSurname(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setStudent(_cursor.getInt(index3)==0?false:true); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -217,18 +217,18 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       int result=0;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        if (cursor.isNull(0)) { return 0; }
-        result=cursor.getInt(0);
+        if (_cursor.isNull(0)) { return 0; }
+        result=_cursor.getInt(0);
       }
       return result;
     }
@@ -340,28 +340,28 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_name");
-        int index2=cursor.getColumnIndex("person_surname");
-        int index3=cursor.getColumnIndex("student");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_name");
+        int index2=_cursor.getColumnIndex("person_surname");
+        int index3=_cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.setPersonName(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.setPersonSurname(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.setStudent(_cursor.getInt(index3)==0?false:true); }
 
       }
       return resultBean;
@@ -505,22 +505,22 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("person_name");
+        int index0=_cursor.getColumnIndex("person_name");
 
         resultBean=new Person();
 
-        if (!cursor.isNull(index0)) { resultBean.setPersonName(cursor.getString(index0)); }
+        if (!_cursor.isNull(index0)) { resultBean.setPersonName(_cursor.getString(index0)); }
 
       }
       return resultBean;
@@ -680,28 +680,28 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_name");
-        int index2=cursor.getColumnIndex("person_surname");
-        int index3=cursor.getColumnIndex("student");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_name");
+        int index2=_cursor.getColumnIndex("person_surname");
+        int index3=_cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.setPersonName(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.setPersonSurname(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.setStudent(_cursor.getInt(index3)==0?false:true); }
 
       }
       return resultBean;
@@ -862,28 +862,28 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_name");
-        int index2=cursor.getColumnIndex("person_surname");
-        int index3=cursor.getColumnIndex("student");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_name");
+        int index2=_cursor.getColumnIndex("person_surname");
+        int index3=_cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.setPersonName(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.setPersonSurname(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.setStudent(_cursor.getInt(index3)==0?false:true); }
 
       }
       return resultBean;
@@ -1042,21 +1042,21 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
       Person resultBean=new Person();
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_name");
-        int index2=cursor.getColumnIndex("person_surname");
-        int index3=cursor.getColumnIndex("student");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_name");
+        int index2=_cursor.getColumnIndex("person_surname");
+        int index3=_cursor.getColumnIndex("student");
 
-        int rowCount=cursor.getCount();
+        int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
@@ -1066,13 +1066,13 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
           resultBean.setStudent(false);
 
           // generate mapping
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
-          if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.setPersonName(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setPersonSurname(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setStudent(_cursor.getInt(index3)==0?false:true); }
 
-          listener.onRead(resultBean, cursor.getPosition(), rowCount);
-        } while (cursor.moveToNext());
+          listener.onRead(resultBean, _cursor.getPosition(), rowCount);
+        } while (_cursor.moveToNext());
       }
     }
   }
@@ -1203,28 +1203,28 @@ public class SelectRawPersonDaoImpl extends AbstractDao implements SelectRawPers
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_name");
-        int index2=cursor.getColumnIndex("person_surname");
-        int index3=cursor.getColumnIndex("student");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_name");
+        int index2=_cursor.getColumnIndex("person_surname");
+        int index3=_cursor.getColumnIndex("student");
 
         resultBean=new Person();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.setPersonName(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.setPersonSurname(cursor.getString(index2)); }
-        if (!cursor.isNull(index3)) { resultBean.setStudent(cursor.getInt(index3)==0?false:true); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.setPersonName(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.setPersonSurname(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.setStudent(_cursor.getInt(index3)==0?false:true); }
 
       }
       return resultBean;

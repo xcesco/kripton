@@ -30,11 +30,6 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   static BindPerson1DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected Dao1PersonImpl dao1Person = new Dao1PersonImpl(this);

@@ -29,11 +29,6 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   static BindSchoolLunchDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected SchoolLunchDAOImpl schoolLunchDAO = new SchoolLunchDAOImpl(this);

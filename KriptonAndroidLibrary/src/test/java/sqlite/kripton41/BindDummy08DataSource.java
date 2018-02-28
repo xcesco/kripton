@@ -29,11 +29,6 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
   static BindDummy08DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected DaoBeanDeleteOKImpl daoBeanDeleteOK = new DaoBeanDeleteOKImpl(this);

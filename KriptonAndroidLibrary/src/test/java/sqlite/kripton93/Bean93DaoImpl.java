@@ -85,28 +85,28 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       Bean93 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
-        int index3=cursor.getColumnIndex("type_name");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
+        int index3=_cursor.getColumnIndex("type_name");
 
         resultBean=new Bean93();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-        if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.typeName=_cursor.getString(index3); }
 
       }
       return resultBean;
@@ -148,34 +148,34 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Bean93> resultList=new ArrayList<Bean93>(cursor.getCount());
+      ArrayList<Bean93> resultList=new ArrayList<Bean93>(_cursor.getCount());
       Bean93 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("surname");
-        int index3=cursor.getColumnIndex("type_name");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
+        int index3=_cursor.getColumnIndex("type_name");
 
         do
          {
           resultBean=new Bean93();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.name=cursor.getString(index1); }
-          if (!cursor.isNull(index2)) { resultBean.surname=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.typeName=cursor.getString(index3); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.typeName=_cursor.getString(index3); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

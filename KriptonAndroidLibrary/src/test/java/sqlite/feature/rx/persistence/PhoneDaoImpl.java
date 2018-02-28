@@ -186,32 +186,32 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       PhoneNumber resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("action");
-        int index2=cursor.getColumnIndex("number");
-        int index3=cursor.getColumnIndex("country_code");
-        int index4=cursor.getColumnIndex("contact_name");
-        int index5=cursor.getColumnIndex("contact_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("action");
+        int index2=_cursor.getColumnIndex("number");
+        int index3=_cursor.getColumnIndex("country_code");
+        int index4=_cursor.getColumnIndex("contact_name");
+        int index5=_cursor.getColumnIndex("contact_id");
 
         resultBean=new PhoneNumber();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.number=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.countryCode=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.contactName=cursor.getString(index4); }
-        if (!cursor.isNull(index5)) { resultBean.contactId=cursor.getString(index5); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.number=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.countryCode=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.contactName=_cursor.getString(index4); }
+        if (!_cursor.isNull(index5)) { resultBean.contactId=_cursor.getString(index5); }
 
       }
       return resultBean;
@@ -354,32 +354,32 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       PhoneNumber resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("action");
-        int index2=cursor.getColumnIndex("number");
-        int index3=cursor.getColumnIndex("country_code");
-        int index4=cursor.getColumnIndex("contact_name");
-        int index5=cursor.getColumnIndex("contact_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("action");
+        int index2=_cursor.getColumnIndex("number");
+        int index3=_cursor.getColumnIndex("country_code");
+        int index4=_cursor.getColumnIndex("contact_name");
+        int index5=_cursor.getColumnIndex("contact_id");
 
         resultBean=new PhoneNumber();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(cursor.getString(index1)); }
-        if (!cursor.isNull(index2)) { resultBean.number=cursor.getString(index2); }
-        if (!cursor.isNull(index3)) { resultBean.countryCode=cursor.getString(index3); }
-        if (!cursor.isNull(index4)) { resultBean.contactName=cursor.getString(index4); }
-        if (!cursor.isNull(index5)) { resultBean.contactId=cursor.getString(index5); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.number=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.countryCode=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.contactName=_cursor.getString(index4); }
+        if (!_cursor.isNull(index5)) { resultBean.contactId=_cursor.getString(index5); }
 
       }
       return resultBean;
@@ -423,38 +423,38 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<PhoneNumber> resultList=new ArrayList<PhoneNumber>(cursor.getCount());
+      ArrayList<PhoneNumber> resultList=new ArrayList<PhoneNumber>(_cursor.getCount());
       PhoneNumber resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("action");
-        int index2=cursor.getColumnIndex("number");
-        int index3=cursor.getColumnIndex("country_code");
-        int index4=cursor.getColumnIndex("contact_name");
-        int index5=cursor.getColumnIndex("contact_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("action");
+        int index2=_cursor.getColumnIndex("number");
+        int index3=_cursor.getColumnIndex("country_code");
+        int index4=_cursor.getColumnIndex("contact_name");
+        int index5=_cursor.getColumnIndex("contact_id");
 
         do
          {
           resultBean=new PhoneNumber();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(cursor.getString(index1)); }
-          if (!cursor.isNull(index2)) { resultBean.number=cursor.getString(index2); }
-          if (!cursor.isNull(index3)) { resultBean.countryCode=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.contactName=cursor.getString(index4); }
-          if (!cursor.isNull(index5)) { resultBean.contactId=cursor.getString(index5); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.number=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.countryCode=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.contactName=_cursor.getString(index4); }
+          if (!_cursor.isNull(index5)) { resultBean.contactId=_cursor.getString(index5); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

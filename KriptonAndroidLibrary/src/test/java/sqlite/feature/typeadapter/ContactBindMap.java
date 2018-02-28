@@ -2,11 +2,11 @@ package sqlite.feature.typeadapter;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
-import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.Base64Utils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.SQLTimeUtils;
-import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
@@ -32,7 +32,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     // field birthDay (mapped with "birthDay")
     if (object.birthDay!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("birthDay", DateUtils.write(object.birthDay));
+      // using type adapter sqlite.feature.typeadapter.DateAdapterType
+      jacksonSerializer.writeNumberField("birthDay", TypeAdapterUtils.toData(DateAdapterType.class, object.birthDay));
     }
 
     // field id (mapped with "id")
@@ -42,7 +43,7 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     // field password (mapped with "password")
     if (object.getPassword()!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("password", object.getPassword());
+      jacksonSerializer.writeBinaryField("password", TypeAdapterUtils.toData(PasswordAdapterType.class, object.getPassword()));
     }
 
     // field surname (mapped with "surname")
@@ -54,7 +55,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     // field type (mapped with "type")
     if (object.type!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("type", object.type.toString());
+      // using type adapter sqlite.feature.typeadapter.EnumAdapterType
+      jacksonSerializer.writeNumberField("type", TypeAdapterUtils.toData(EnumAdapterType.class, object.type));
     }
 
     // field updateDate (mapped with "updateDate")
@@ -83,8 +85,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
 
     // field birthDay (mapped with "birthDay")
     if (object.birthDay!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("birthDay", DateUtils.write(object.birthDay));
+      // using type adapter sqlite.feature.typeadapter.DateAdapterType
+      jacksonSerializer.writeStringField("birthDay", PrimitiveUtils.writeLong(TypeAdapterUtils.toData(DateAdapterType.class, object.birthDay)));
     }
 
     // field id (mapped with "id")
@@ -93,7 +95,7 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     // field password (mapped with "password")
     if (object.getPassword()!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("password", object.getPassword());
+      jacksonSerializer.writeBinaryField("password", TypeAdapterUtils.toData(PasswordAdapterType.class, object.getPassword()));
     }
 
     // field surname (mapped with "surname")
@@ -104,8 +106,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
 
     // field type (mapped with "type")
     if (object.type!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("type", object.type.toString());
+      // using type adapter sqlite.feature.typeadapter.EnumAdapterType
+      jacksonSerializer.writeStringField("type", PrimitiveUtils.writeInteger(TypeAdapterUtils.toData(EnumAdapterType.class, object.type)));
     }
 
     // field updateDate (mapped with "updateDate")
@@ -137,9 +139,11 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     // Persisted fields:
 
     // field birthDay (mapped with "birthDay")
+    // field trasformation java.lang.Long sqlite.feature.typeadapter.DateAdapterType 
     if (object.birthDay!=null)  {
+      // using type adapter sqlite.feature.typeadapter.DateAdapterType
       xmlSerializer.writeStartElement("birthDay");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.birthDay)));
+      xmlSerializer.writeLong(TypeAdapterUtils.toData(DateAdapterType.class, object.birthDay));
       xmlSerializer.writeEndElement();
     }
 
@@ -149,9 +153,10 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     xmlSerializer.writeEndElement();
 
     // field password (mapped with "password")
+    // field trasformation byte[] sqlite.feature.typeadapter.PasswordAdapterType 
     if (object.getPassword()!=null) {
       xmlSerializer.writeStartElement("password");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.getPassword()));
+      xmlSerializer.writeBinary(TypeAdapterUtils.toData(PasswordAdapterType.class, object.getPassword()));
       xmlSerializer.writeEndElement();
     }
 
@@ -163,9 +168,11 @@ public class ContactBindMap extends AbstractMapper<Contact> {
     }
 
     // field type (mapped with "type")
+    // field trasformation java.lang.Integer sqlite.feature.typeadapter.EnumAdapterType 
     if (object.type!=null)  {
+      // using type adapter sqlite.feature.typeadapter.EnumAdapterType
       xmlSerializer.writeStartElement("type");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.type.toString()));
+      xmlSerializer.writeInt(TypeAdapterUtils.toData(EnumAdapterType.class, object.type));
       xmlSerializer.writeEndElement();
     }
 
@@ -211,7 +218,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
           case "birthDay":
             // field birthDay (mapped with "birthDay")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.birthDay=DateUtils.read(jacksonParser.getText());
+              // using type adapter sqlite.feature.typeadapter.DateAdapterType
+              instance.birthDay=TypeAdapterUtils.toJava(DateAdapterType.class, jacksonParser.getLongValue());
             }
           break;
           case "id":
@@ -221,7 +229,7 @@ public class ContactBindMap extends AbstractMapper<Contact> {
           case "password":
             // field password (mapped with "password")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setPassword(jacksonParser.getText());
+              instance.setPassword(TypeAdapterUtils.toJava(PasswordAdapterType.class, jacksonParser.getBinaryValue()));
             }
           break;
           case "surname":
@@ -233,8 +241,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
           case "type":
             // field type (mapped with "type")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              String tempEnum=jacksonParser.getText();
-              instance.type=StringUtils.hasText(tempEnum)?ContactType.valueOf(tempEnum):null;
+              // using type adapter sqlite.feature.typeadapter.EnumAdapterType
+              instance.type=TypeAdapterUtils.toJava(EnumAdapterType.class, jacksonParser.getIntValue());
             }
           break;
           case "updateDate":
@@ -279,7 +287,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
           case "birthDay":
             // field birthDay (mapped with "birthDay")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.birthDay=DateUtils.read(jacksonParser.getText());
+              // using type adapter sqlite.feature.typeadapter.DateAdapterType
+              instance.birthDay=TypeAdapterUtils.toJava(DateAdapterType.class, PrimitiveUtils.readLong(jacksonParser.getText(), null));
             }
           break;
           case "id":
@@ -289,7 +298,7 @@ public class ContactBindMap extends AbstractMapper<Contact> {
           case "password":
             // field password (mapped with "password")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setPassword(jacksonParser.getText());
+              instance.setPassword(TypeAdapterUtils.toJava(PasswordAdapterType.class, Base64Utils.decode(jacksonParser.getValueAsString())));
             }
           break;
           case "surname":
@@ -301,8 +310,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
           case "type":
             // field type (mapped with "type")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              String tempEnum=jacksonParser.getText();
-              instance.type=StringUtils.hasText(tempEnum)?ContactType.valueOf(tempEnum):null;
+              // using type adapter sqlite.feature.typeadapter.EnumAdapterType
+              instance.type=TypeAdapterUtils.toJava(EnumAdapterType.class, PrimitiveUtils.readInteger(jacksonParser.getText(), null));
             }
           break;
           case "updateDate":
@@ -356,7 +365,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
             switch(currentTag) {
                 case "birthDay":
                   // property birthDay (mapped on "birthDay")
-                  instance.birthDay=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                  // using type adapter sqlite.feature.typeadapter.DateAdapterType
+                  instance.birthDay=TypeAdapterUtils.toJava(DateAdapterType.class, PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null));
                 break;
                 case "id":
                   // property id (mapped on "id")
@@ -364,7 +374,7 @@ public class ContactBindMap extends AbstractMapper<Contact> {
                 break;
                 case "password":
                   // property password (mapped on "password")
-                  instance.setPassword(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                  instance.setPassword(TypeAdapterUtils.toJava(PasswordAdapterType.class, xmlParser.getElementAsBinary()));
                 break;
                 case "surname":
                   // property surname (mapped on "surname")
@@ -372,7 +382,8 @@ public class ContactBindMap extends AbstractMapper<Contact> {
                 break;
                 case "type":
                   // property type (mapped on "type")
-                  instance.type=ContactType.valueOf(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                  // using type adapter sqlite.feature.typeadapter.EnumAdapterType
+                  instance.type=TypeAdapterUtils.toJava(EnumAdapterType.class, PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null));
                 break;
                 case "updateDate":
                   // property updateDate (mapped on "updateDate")

@@ -29,11 +29,6 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   static BindFloatDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected FloatDaoImpl floatDao = new FloatDaoImpl(this);

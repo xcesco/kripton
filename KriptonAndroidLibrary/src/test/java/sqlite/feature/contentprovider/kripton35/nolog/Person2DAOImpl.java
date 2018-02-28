@@ -1137,37 +1137,37 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     // add where arguments
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("alias_parent_id");
-        int index2=cursor.getColumnIndex("city");
-        int index3=cursor.getColumnIndex("birth_city");
-        int index4=cursor.getColumnIndex("birth_day");
-        int index5=cursor.getColumnIndex("value");
-        int index6=cursor.getColumnIndex("name");
-        int index7=cursor.getColumnIndex("surname");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("alias_parent_id");
+        int index2=_cursor.getColumnIndex("city");
+        int index3=_cursor.getColumnIndex("birth_city");
+        int index4=_cursor.getColumnIndex("birth_day");
+        int index5=_cursor.getColumnIndex("value");
+        int index6=_cursor.getColumnIndex("name");
+        int index7=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.city=cursor.getLong(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.value=cursor.getLong(index5); }
-          if (!cursor.isNull(index6)) { resultBean.setName(cursor.getString(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.setSurname(cursor.getString(index7)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.parentId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.city=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.value=_cursor.getLong(index5); }
+          if (!_cursor.isNull(index6)) { resultBean.setName(_cursor.getString(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.setSurname(_cursor.getString(index7)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -1318,37 +1318,37 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("alias_parent_id");
-        int index2=cursor.getColumnIndex("city");
-        int index3=cursor.getColumnIndex("birth_city");
-        int index4=cursor.getColumnIndex("birth_day");
-        int index5=cursor.getColumnIndex("value");
-        int index6=cursor.getColumnIndex("name");
-        int index7=cursor.getColumnIndex("surname");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("alias_parent_id");
+        int index2=_cursor.getColumnIndex("city");
+        int index3=_cursor.getColumnIndex("birth_city");
+        int index4=_cursor.getColumnIndex("birth_day");
+        int index5=_cursor.getColumnIndex("value");
+        int index6=_cursor.getColumnIndex("name");
+        int index7=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.city=cursor.getLong(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.value=cursor.getLong(index5); }
-          if (!cursor.isNull(index6)) { resultBean.setName(cursor.getString(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.setSurname(cursor.getString(index7)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.parentId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.city=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.value=_cursor.getLong(index5); }
+          if (!_cursor.isNull(index6)) { resultBean.setName(_cursor.getString(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.setSurname(_cursor.getString(index7)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -1483,39 +1483,39 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
 
     String _sql=_sqlBuilder.toString();
     // add where arguments
-    _contentValues.addWhereArgs((bean.getName()==null?"":bean.getName()));
+    _contentValues.addWhereArgs(bean.getName());
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("alias_parent_id");
-        int index2=cursor.getColumnIndex("city");
-        int index3=cursor.getColumnIndex("birth_city");
-        int index4=cursor.getColumnIndex("birth_day");
-        int index5=cursor.getColumnIndex("value");
-        int index6=cursor.getColumnIndex("name");
-        int index7=cursor.getColumnIndex("surname");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("alias_parent_id");
+        int index2=_cursor.getColumnIndex("city");
+        int index3=_cursor.getColumnIndex("birth_city");
+        int index4=_cursor.getColumnIndex("birth_day");
+        int index5=_cursor.getColumnIndex("value");
+        int index6=_cursor.getColumnIndex("name");
+        int index7=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.city=cursor.getLong(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.value=cursor.getLong(index5); }
-          if (!cursor.isNull(index6)) { resultBean.setName(cursor.getString(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.setSurname(cursor.getString(index7)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.parentId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.city=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.value=_cursor.getLong(index5); }
+          if (!_cursor.isNull(index6)) { resultBean.setName(_cursor.getString(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.setSurname(_cursor.getString(index7)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -1620,37 +1620,37 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     String _sql=SELECT_BEAN_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("alias_parent_id");
-        int index2=cursor.getColumnIndex("city");
-        int index3=cursor.getColumnIndex("birth_city");
-        int index4=cursor.getColumnIndex("birth_day");
-        int index5=cursor.getColumnIndex("value");
-        int index6=cursor.getColumnIndex("name");
-        int index7=cursor.getColumnIndex("surname");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("alias_parent_id");
+        int index2=_cursor.getColumnIndex("city");
+        int index3=_cursor.getColumnIndex("birth_city");
+        int index4=_cursor.getColumnIndex("birth_day");
+        int index5=_cursor.getColumnIndex("value");
+        int index6=_cursor.getColumnIndex("name");
+        int index7=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.parentId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.city=cursor.getLong(index2); }
-          if (!cursor.isNull(index3)) { resultBean.birthCity=cursor.getString(index3); }
-          if (!cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(cursor.getString(index4)); }
-          if (!cursor.isNull(index5)) { resultBean.value=cursor.getLong(index5); }
-          if (!cursor.isNull(index6)) { resultBean.setName(cursor.getString(index6)); }
-          if (!cursor.isNull(index7)) { resultBean.setSurname(cursor.getString(index7)); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.parentId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.city=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.value=_cursor.getLong(index5); }
+          if (!_cursor.isNull(index6)) { resultBean.setName(_cursor.getString(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.setSurname(_cursor.getString(index7)); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -1762,14 +1762,14 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
         do
          {
-          cursorListener.onRead(cursor);
-        } while (cursor.moveToNext());
+          cursorListener.onRead(_cursor);
+        } while (_cursor.moveToNext());
       }
     }
   }

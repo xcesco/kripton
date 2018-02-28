@@ -70,32 +70,32 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<BeanA_4> resultList=new ArrayList<BeanA_4>(cursor.getCount());
+      ArrayList<BeanA_4> resultList=new ArrayList<BeanA_4>(_cursor.getCount());
       BeanA_4 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("bean_a2_id");
-        int index2=cursor.getColumnIndex("value_string");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("bean_a2_id");
+        int index2=_cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new BeanA_4();
 
-          resultBean.id=cursor.getLong(index0);
-          resultBean.beanA2Id=cursor.getLong(index1);
-          if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          resultBean.beanA2Id=_cursor.getLong(index1);
+          if (!_cursor.isNull(index2)) { resultBean.valueString=_cursor.getString(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -144,32 +144,32 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<BeanA_4> resultList=new ArrayList<BeanA_4>(cursor.getCount());
+      ArrayList<BeanA_4> resultList=new ArrayList<BeanA_4>(_cursor.getCount());
       BeanA_4 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
-        int index1=cursor.getColumnIndex("bean_a2_id");
-        int index2=cursor.getColumnIndex("value_string");
+        int index0=_cursor.getColumnIndex("pk");
+        int index1=_cursor.getColumnIndex("bean_a2_id");
+        int index2=_cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new BeanA_4();
 
-          resultBean.id=cursor.getLong(index0);
-          resultBean.beanA2Id=cursor.getLong(index1);
-          if (!cursor.isNull(index2)) { resultBean.valueString=cursor.getString(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          resultBean.beanA2Id=_cursor.getLong(index1);
+          if (!_cursor.isNull(index2)) { resultBean.valueString=_cursor.getString(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -216,28 +216,28 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<BeanA_4> resultList=new ArrayList<BeanA_4>(cursor.getCount());
+      ArrayList<BeanA_4> resultList=new ArrayList<BeanA_4>(_cursor.getCount());
       BeanA_4 resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("pk");
+        int index0=_cursor.getColumnIndex("pk");
 
         do
          {
           resultBean=new BeanA_4();
 
-          resultBean.id=cursor.getLong(index0);
+          resultBean.id=_cursor.getLong(index0);
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

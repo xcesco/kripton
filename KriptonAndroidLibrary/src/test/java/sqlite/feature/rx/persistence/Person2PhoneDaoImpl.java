@@ -86,26 +86,26 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
       PersonPhoneNumber resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_id");
-        int index2=cursor.getColumnIndex("phone_number_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_id");
+        int index2=_cursor.getColumnIndex("phone_number_id");
 
         resultBean=new PersonPhoneNumber();
 
-        resultBean.id=cursor.getLong(index0);
-        if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
-        if (!cursor.isNull(index2)) { resultBean.phoneNumberId=cursor.getLong(index2); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.phoneNumberId=_cursor.getLong(index2); }
 
       }
       return resultBean;
@@ -154,32 +154,32 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<PersonPhoneNumber> resultList=new ArrayList<PersonPhoneNumber>(cursor.getCount());
+      ArrayList<PersonPhoneNumber> resultList=new ArrayList<PersonPhoneNumber>(_cursor.getCount());
       PersonPhoneNumber resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_id");
-        int index2=cursor.getColumnIndex("phone_number_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_id");
+        int index2=_cursor.getColumnIndex("phone_number_id");
 
         do
          {
           resultBean=new PersonPhoneNumber();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.phoneNumberId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.phoneNumberId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;
@@ -228,32 +228,32 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<PersonPhoneNumber> resultList=new ArrayList<PersonPhoneNumber>(cursor.getCount());
+      ArrayList<PersonPhoneNumber> resultList=new ArrayList<PersonPhoneNumber>(_cursor.getCount());
       PersonPhoneNumber resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("id");
-        int index1=cursor.getColumnIndex("person_id");
-        int index2=cursor.getColumnIndex("phone_number_id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("person_id");
+        int index2=_cursor.getColumnIndex("phone_number_id");
 
         do
          {
           resultBean=new PersonPhoneNumber();
 
-          resultBean.id=cursor.getLong(index0);
-          if (!cursor.isNull(index1)) { resultBean.personId=cursor.getLong(index1); }
-          if (!cursor.isNull(index2)) { resultBean.phoneNumberId=cursor.getLong(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.phoneNumberId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

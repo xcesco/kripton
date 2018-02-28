@@ -29,11 +29,6 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   static BindBean2DataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected BeanDao2Impl beanDao2 = new BeanDao2Impl(this);

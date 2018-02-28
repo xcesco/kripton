@@ -65,7 +65,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		methodBuilder.addCode("\n");
 		
 		if (TypeUtility.isTypeEquals(collectionClass, TypeUtility.typeName(ArrayList.class))) {			
-			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(cursor.getCount())", collectionClass, elementName, collectionClass, elementName);
+			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(_cursor.getCount())", collectionClass, elementName, collectionClass, elementName);
 		} else {			
 			methodBuilder.addStatement("$T<$T> resultList=new $T<$T>()", collectionClass, elementName, collectionClass, elementName);
 		}
@@ -75,17 +75,17 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 
 		//@formatter:off
 		methodBuilder.addCode("\n");
-			methodBuilder.beginControlFlow("if (cursor.moveToFirst())");
+			methodBuilder.beginControlFlow("if (_cursor.moveToFirst())");
 				methodBuilder.addCode("\n");
 				methodBuilder.beginControlFlow("do\n");
-					methodBuilder.beginControlFlow("if (!cursor.isNull(0))");
+					methodBuilder.beginControlFlow("if (!_cursor.isNull(0))");
 						methodBuilder.addCode("resultList.add(");
-						t.generateReadValueFromCursor(methodBuilder, method.getParent(), elementName, "cursor", "0");
+						t.generateReadValueFromCursor(methodBuilder, method.getParent(), elementName, "_cursor", "0");
 						methodBuilder.addCode(");\n");
 					methodBuilder.nextControlFlow("else");
 						methodBuilder.addCode("resultList.add(null);\n");		
 					methodBuilder.endControlFlow();
-				methodBuilder.endControlFlow("while (cursor.moveToNext())");
+				methodBuilder.endControlFlow("while (_cursor.moveToNext())");
 			methodBuilder.endControlFlow();
 			methodBuilder.addCode("return resultList;\n");
 		methodBuilder.endControlFlow();

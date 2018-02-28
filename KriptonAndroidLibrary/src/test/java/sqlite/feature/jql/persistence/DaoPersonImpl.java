@@ -65,32 +65,32 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section END
-    try (Cursor cursor = database().rawQuery(_sql, _sqlArgs)) {
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",cursor.getCount());
+        Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
 
-      ArrayList<Person> resultList=new ArrayList<Person>(cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
-      if (cursor.moveToFirst()) {
+      if (_cursor.moveToFirst()) {
 
-        int index0=cursor.getColumnIndex("_id");
-        int index1=cursor.getColumnIndex("name");
-        int index2=cursor.getColumnIndex("image");
+        int index0=_cursor.getColumnIndex("_id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("image");
 
         do
          {
           resultBean=new Person();
 
-          resultBean.id=cursor.getLong(index0);
-          resultBean.name=cursor.getString(index1);
-          if (!cursor.isNull(index2)) { resultBean.image=cursor.getBlob(index2); }
+          resultBean.id=_cursor.getLong(index0);
+          resultBean.name=_cursor.getString(index1);
+          if (!_cursor.isNull(index2)) { resultBean.image=_cursor.getBlob(index2); }
 
           resultList.add(resultBean);
-        } while (cursor.moveToNext());
+        } while (_cursor.moveToNext());
       }
 
       return resultList;

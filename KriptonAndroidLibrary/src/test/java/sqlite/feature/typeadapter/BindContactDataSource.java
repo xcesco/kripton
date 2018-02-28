@@ -29,11 +29,6 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
   static BindContactDataSource instance;
 
   /**
-   * <p>True if dataSource is just created</p>
-   */
-  private boolean justCreated;
-
-  /**
    * <p>dao instance</p>
    */
   protected ContactDaoImpl contactDao = new ContactDaoImpl(this);
