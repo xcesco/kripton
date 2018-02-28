@@ -19,6 +19,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAdapter;
@@ -37,6 +38,7 @@ import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.bind.transform.ByteArrayBindTransform;
 import com.abubusoft.kripton.processor.bind.transform.ObjectBindTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -67,7 +69,7 @@ public abstract class BindEntityBuilder {
 
 	private static AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 
-	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
+	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).add(BindSqlAdapter.class).build();
 
 	public static BindEntity parse(final BindModel model, TypeElement element) {
 		final Elements elementUtils = BaseProcessor.elementUtils;
@@ -106,8 +108,8 @@ public abstract class BindEntityBuilder {
 				if (property.hasAnnotation(BindDisabled.class)) {
 					if (bindAllFields) {
 						return false;
-					} else {
-						throw new InvalidDefinition(String.format("@%s can not be used with @%s(allField=false)", BindDisabled.class.getSimpleName(), BindType.class.getSimpleName()));
+					} else {											
+						throw new InvalidDefinition(String.format("In class '%s', @%s can not be used with @%s(allField=false)", property.getParent().getElement().asType().toString(), BindDisabled.class.getSimpleName(), BindType.class.getSimpleName()));
 					}
 				}
 
@@ -133,10 +135,9 @@ public abstract class BindEntityBuilder {
 				property.xmlInfo.wrappedCollection = false;
 				property.xmlInfo.xmlType = XmlType.valueOf(XmlType.TAG.toString());
 				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());
-
-				// @BindAdapter
-				ModelAnnotation annotationBindAdapter = property.getAnnotation(BindAdapter.class);
-				if (annotationBindAdapter != null) {
+				
+				// check if there is an adapter
+				if ((property.getAnnotation(BindAdapter.class)!= null) || (property.getAnnotation(BindSqlAdapter.class)!=null)) {
 					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
 
 					if (!transform.isTypeAdapterSupported()) {

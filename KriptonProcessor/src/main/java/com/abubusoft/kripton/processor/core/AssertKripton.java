@@ -24,6 +24,7 @@ import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.ForeignKeyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
@@ -223,6 +224,14 @@ public abstract class AssertKripton {
 			throw (new InvalidDefinition(msg));
 		}
 
+	}
+
+	public static void assertTrueOfInvalidDefinition(boolean expression, BindProperty property, String message) {
+		if (!expression) {
+			String msg = String.format("In class '%s', property '%s' has invalid definition: %s", property.getParent().getElement().asType().toString(), property.getName(), message);
+			throw (new InvalidDefinition(msg));
+		}
+		
 	}
 
 }

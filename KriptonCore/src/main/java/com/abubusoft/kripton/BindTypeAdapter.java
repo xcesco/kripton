@@ -4,7 +4,7 @@
 package com.abubusoft.kripton;
 
 /**
- * Bind Type Adapter.  
+ * Allows to manage a field of type J as a field of type D. It's usefully for unsupported type.   
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *

@@ -206,7 +206,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		classBuilder.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
 		
 		// instance
-		classBuilder.addField(FieldSpec.builder(Boolean.TYPE, "justCreated", Modifier.PRIVATE).addJavadoc("<p>True if dataSource is just created</p>\n").build());
+		//classBuilder.addField(FieldSpec.builder(Boolean.TYPE, "justCreated", Modifier.PRIVATE).addJavadoc("<p>True if dataSource is just created</p>\n").build());
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			// TypeName daoInterfaceName =
