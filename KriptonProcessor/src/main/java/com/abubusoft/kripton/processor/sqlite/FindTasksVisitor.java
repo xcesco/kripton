@@ -60,9 +60,7 @@ public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String
 
 	@Override
 	public Void visitAnnotation(AnnotationMirror a, String p) {
-		//System.out.printf(">> %s annotationTypeValue: %s\n", p, a.toString());
-
-		if (AnnotationAttributeType.TASKS.getValue().equals(p)) {
+		if (AnnotationAttributeType.UPDATE_TASKS.getValue().equals(p)) {
 			inTasks = true;
 		}
 
@@ -71,7 +69,7 @@ public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String
 			entry.getValue().accept(this, key);
 		}
 
-		if (AnnotationAttributeType.TASKS.getValue().equals(p)) {
+		if (AnnotationAttributeType.UPDATE_TASKS.getValue().equals(p)) {
 			inTasks = false;
 		}
 

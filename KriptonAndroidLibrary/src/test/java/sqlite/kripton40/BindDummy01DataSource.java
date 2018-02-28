@@ -29,6 +29,11 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   static BindDummy01DataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected DaoBean01Impl daoBean01 = new DaoBean01Impl(this);
@@ -127,7 +132,9 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    */
   public static synchronized BindDummy01DataSource instance() {
     if (instance==null) {
-      instance=new BindDummy01DataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindDummy01DataSource(options);
     }
     return instance;
   }
@@ -160,7 +167,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -169,26 +176,10 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
     }
     // log section END
     database.execSQL(Bean01Table.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("Begin create database version 1");
-        }
-        // log section END
-        task.execute(database);
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("End create database");
-        }
-        // log section END
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -258,8 +249,6 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
     if (instance==null) {
       instance=new BindDummy01DataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

@@ -32,7 +32,7 @@ public class TestCompileKripton213 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws Throwable {
-		buildDataSourceProcessorTest(Cheese.class, CheeseDao.class, SampleDataSource.class, SampleUpdate02.class);
+		buildDataSourceProcessorTest(Cheese.class, CheeseDao.class, SampleDataSource.class, SampleUpdate02.class, SamplePopulator.class);
 	}
 
 }

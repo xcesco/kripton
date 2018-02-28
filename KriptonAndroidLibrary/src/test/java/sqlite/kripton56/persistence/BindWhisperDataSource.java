@@ -30,6 +30,11 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   static BindWhisperDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);
@@ -128,7 +133,9 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    */
   public static synchronized BindWhisperDataSource instance() {
     if (instance==null) {
-      instance=new BindWhisperDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindWhisperDataSource(options);
     }
     return instance;
   }
@@ -161,7 +168,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -170,26 +177,10 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     }
     // log section END
     database.execSQL(MessageEntityTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("Begin create database version 1");
-        }
-        // log section END
-        task.execute(database);
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("End create database");
-        }
-        // log section END
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -259,8 +250,6 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
     if (instance==null) {
       instance=new BindWhisperDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

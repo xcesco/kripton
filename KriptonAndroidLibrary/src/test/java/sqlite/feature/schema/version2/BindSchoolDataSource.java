@@ -38,6 +38,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   static BindSchoolDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(this);
@@ -166,7 +171,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    */
   public static synchronized BindSchoolDataSource instance() {
     if (instance==null) {
-      instance=new BindSchoolDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindSchoolDataSource(options);
     }
     return instance;
   }
@@ -199,7 +206,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -226,26 +233,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     }
     // log section END
     database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("Begin create database version 2");
-        }
-        // log section END
-        task.execute(database);
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("End create database");
-        }
-        // log section END
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -337,8 +328,6 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     if (instance==null) {
       instance=new BindSchoolDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

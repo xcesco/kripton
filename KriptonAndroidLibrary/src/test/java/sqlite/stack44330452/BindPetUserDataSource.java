@@ -32,6 +32,11 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   static BindPetUserDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected UserDaoImpl userDao = new UserDaoImpl(this);
@@ -140,7 +145,9 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    */
   public static synchronized BindPetUserDataSource instance() {
     if (instance==null) {
-      instance=new BindPetUserDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindPetUserDataSource(options);
     }
     return instance;
   }
@@ -173,7 +180,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -188,26 +195,10 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     }
     // log section END
     database.execSQL(PetTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("Begin create database version 1");
-        }
-        // log section END
-        task.execute(database);
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("End create database");
-        }
-        // log section END
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -285,8 +276,6 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
     if (instance==null) {
       instance=new BindPetUserDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

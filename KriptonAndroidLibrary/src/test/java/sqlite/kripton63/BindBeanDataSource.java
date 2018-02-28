@@ -29,6 +29,11 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   static BindBeanDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected BeanDaoImpl beanDao = new BeanDaoImpl(this);
@@ -127,7 +132,9 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
    */
   public static synchronized BindBeanDataSource instance() {
     if (instance==null) {
-      instance=new BindBeanDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindBeanDataSource(options);
     }
     return instance;
   }
@@ -160,7 +167,7 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -169,26 +176,10 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
     }
     // log section END
     database.execSQL(Bean63Table.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("Begin create database version 1");
-        }
-        // log section END
-        task.execute(database);
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("End create database");
-        }
-        // log section END
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -258,8 +249,6 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
     if (instance==null) {
       instance=new BindBeanDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

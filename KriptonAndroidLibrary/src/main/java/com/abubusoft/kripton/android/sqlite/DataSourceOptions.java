@@ -45,6 +45,10 @@ public class DataSourceOptions {
 
 	public final List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks;
 
+	public final SQLitePopulator populator;
+
+	public final boolean inMemory;		
+
 	public static Builder builder() {
 		return new Builder();
 	}
@@ -55,6 +59,8 @@ public class DataSourceOptions {
 		private DatabaseErrorHandler errorHandler;
 		private DatabaseLifecycleHandler databaseLifecycleHandler;
 		private List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks = new ArrayList<>();
+		private SQLitePopulator populator;
+		private boolean inMemory;
 
 		public Builder cursorFactory(CursorFactory value) {
 			this.factory = value;
@@ -73,6 +79,16 @@ public class DataSourceOptions {
 
 		public Builder databaseLifecycleHandler(DatabaseLifecycleHandler value) {
 			this.databaseLifecycleHandler = value;
+			return this;
+		}
+		
+		public Builder populator(SQLitePopulator populator) {
+			this.populator=populator;
+			return this;
+		}
+		
+		public Builder inMemory(boolean inMemory) {
+			this.inMemory=inMemory;
 			return this;
 		}
 
@@ -138,16 +154,18 @@ public class DataSourceOptions {
 		}
 
 		public DataSourceOptions build() {
-			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, updateTasks, logEnabled);
+			return new DataSourceOptions(factory, errorHandler, databaseLifecycleHandler, updateTasks, logEnabled, populator, inMemory);
 		}
 	}
 
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log) {
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator, boolean inMemory) {
 		this.logEnabled = log;
 		this.factory = factory;
 		this.errorHandler = errorHandler;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;
 		this.updateTasks = updateTasks;
+		this.populator=populator;
+		this.inMemory=inMemory;
 	}
 
 }

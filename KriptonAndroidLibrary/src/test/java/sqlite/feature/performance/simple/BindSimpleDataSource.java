@@ -29,6 +29,11 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   static BindSimpleDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected SimpleAddressDaoImpl simpleAddressDao = new SimpleAddressDaoImpl(this);
@@ -127,7 +132,9 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
    */
   public static synchronized BindSimpleDataSource instance() {
     if (instance==null) {
-      instance=new BindSimpleDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindSimpleDataSource(options);
     }
     return instance;
   }
@@ -159,16 +166,10 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     database.execSQL(SimpleAddressItemTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        task.execute(database);
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -228,8 +229,6 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
     if (instance==null) {
       instance=new BindSimpleDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

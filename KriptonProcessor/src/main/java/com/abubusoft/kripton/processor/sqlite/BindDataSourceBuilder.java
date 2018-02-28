@@ -204,6 +204,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// instance
 		classBuilder.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
+		
+		// instance
+		classBuilder.addField(FieldSpec.builder(Boolean.TYPE, "justCreated", Modifier.PRIVATE).addJavadoc("<p>True if dataSource is just created</p>\n").build());
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			// TypeName daoInterfaceName =
@@ -349,9 +352,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 			methodBuilder.beginControlFlow("if (instance==null)");
 			methodBuilder.addStatement("instance=new $L(options)", dataSourceName);
-			methodBuilder.endControlFlow();
-			methodBuilder.addStatement("instance.openWritableDatabase()");
-			methodBuilder.addStatement("instance.close()");
+			methodBuilder.endControlFlow();			
+			
+			generatePopulate(schema, methodBuilder);
+			
 			methodBuilder.addCode("return instance;\n");
 
 			classBuilder.addMethod(methodBuilder.build());
@@ -377,20 +381,22 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).returns(className(schemaName));
 
 		methodBuilder.beginControlFlow("if (instance==null)");
-		if (schema.getDefaultTasks() != null && schema.getDefaultTasks().size() > 0) {
-			methodBuilder.addCode("$T options=$T.builder()",DataSourceOptions.class, DataSourceOptions.class);
-			
+		methodBuilder.addCode("$T options=$T.builder()",DataSourceOptions.class, DataSourceOptions.class);
+		if (schema.getDefaultTasks() != null && schema.getDefaultTasks().size() > 0) {						
 			for (Pair<Integer, String> task : schema.getDefaultTasks()) {				
-				methodBuilder.addCode("\n\t.addUpdateTask($L, new $T())", task.value0, TypeUtility.className(task.value1));
-				
+				methodBuilder.addCode("\n\t.addUpdateTask($L, new $T())", task.value0, TypeUtility.className(task.value1));				
 			}
-			methodBuilder.addCode("\n\t.build();\n",DataSourceOptions.class, DataSourceOptions.class);
-			
-			methodBuilder.addStatement("instance=new $L(options)", schemaName);
-		} else {
-			methodBuilder.addStatement("instance=new $L(null)", schemaName);	
 		}
+		if (schema.populatorClazz!=null) {
+			methodBuilder.addCode("\n\t.populator(new $T())", TypeUtility.className(schema.populatorClazz));
+		}
+		if (schema.isInMemory()) {
+			methodBuilder.addCode("\n\t.inMemory(true)");
+		}
+		methodBuilder.addCode("\n\t.build();\n",DataSourceOptions.class, DataSourceOptions.class);
+		methodBuilder.addStatement("instance=new $L(options)", schemaName);
 		
+		generatePopulate(schema, methodBuilder);
 
 		methodBuilder.endControlFlow();
 
@@ -398,6 +404,21 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addCode("return instance;\n");
 
 		classBuilder.addMethod(methodBuilder.build());
+	}
+
+	/**
+	 * @param schema
+	 * @param methodBuilder
+	 */
+	private void generatePopulate(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder) {
+		if (schema.populatorClazz!=null) {
+			methodBuilder.addStatement("instance.openWritableDatabase()");
+			methodBuilder.addStatement("instance.close()");
+			methodBuilder.beginControlFlow("if (instance.justCreated && options.populator!=null)");		
+			methodBuilder.addComment("run populator");
+			methodBuilder.addStatement("options.populator.execute()");
+			methodBuilder.endControlFlow();
+		}
 	}
 
 	/**
@@ -451,9 +472,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.beginControlFlow("if (this.logEnabled)");
 
 			if (schema.isInMemory()) {
-				methodBuilder.addStatement("$T.info(\"Create database in memory version %s\",this.getVersion())", Logger.class);
+				methodBuilder.addStatement("$T.info(\"Create database in memory version %s\",database.getVersion())", Logger.class);
 			} else {
-				methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, this.getVersion())", Logger.class);
+				methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, database.getVersion())", Logger.class);
 			}
 
 			// generate log section - END
@@ -499,38 +520,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		}
 
-		methodBuilder.addComment("if we have a populate task (previous and current are same), try to execute it");
-		methodBuilder.beginControlFlow("if (options.updateTasks != null)");
-		methodBuilder.addStatement("$T task = findPopulateTaskList(database.getVersion())", SQLiteUpdateTask.class);
-		methodBuilder.beginControlFlow("if (task != null)");
-
-		if (schema.isLogEnabled()) {
-			// generate log section - BEGIN
-			methodBuilder.addComment("log section BEGIN");
-			methodBuilder.beginControlFlow("if (this.logEnabled)");
-
-			methodBuilder.addStatement("$T.info(\"Begin create database version $L\")", Logger.class, schema.version);
-			// generate log section - END
-			methodBuilder.endControlFlow();
-			methodBuilder.addComment("log section END");
-		}
-		methodBuilder.addStatement("task.execute(database)");
-
-		if (schema.isLogEnabled()) {
-			// generate log section - BEGIN
-			methodBuilder.addComment("log section BEGIN");
-			methodBuilder.beginControlFlow("if (this.logEnabled)");
-			methodBuilder.addStatement("$T.info(\"End create database\")", Logger.class);
-			// generate log section - END
-			methodBuilder.endControlFlow();
-			methodBuilder.addComment("log section END");
-		}
-		methodBuilder.endControlFlow();
-		methodBuilder.endControlFlow();
-
 		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
 		methodBuilder.addStatement("options.databaseLifecycleHandler.onCreate(database)");
 		methodBuilder.endControlFlow();
+		
+		methodBuilder.addStatement("justCreated=true");
 
 		classBuilder.addMethod(methodBuilder.build());
 

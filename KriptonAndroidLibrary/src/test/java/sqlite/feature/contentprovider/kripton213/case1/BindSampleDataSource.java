@@ -29,6 +29,11 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   static BindSampleDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected CheeseDaoImpl cheeseDao = new CheeseDaoImpl(this);
@@ -129,8 +134,15 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
     if (instance==null) {
       DataSourceOptions options=DataSourceOptions.builder()
       	.addUpdateTask(1, new SampleUpdate02())
+      	.populator(new SamplePopulator())
       	.build();
       instance=new BindSampleDataSource(options);
+      instance.openWritableDatabase();
+      instance.close();
+      if (instance.justCreated && options.populator!=null) {
+        // run populator
+        options.populator.execute();
+      }
     }
     return instance;
   }
@@ -163,7 +175,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -172,26 +184,10 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
     }
     // log section END
     database.execSQL(CheeseTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("Begin create database version 1");
-        }
-        // log section END
-        task.execute(database);
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("End create database");
-        }
-        // log section END
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -263,6 +259,10 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
     }
     instance.openWritableDatabase();
     instance.close();
+    if (instance.justCreated && options.populator!=null) {
+      // run populator
+      options.populator.execute();
+    }
     return instance;
   }
 

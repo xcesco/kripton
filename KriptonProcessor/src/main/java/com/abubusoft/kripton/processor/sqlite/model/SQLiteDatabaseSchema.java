@@ -30,6 +30,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
@@ -43,6 +44,8 @@ import com.squareup.javapoet.ClassName;
 
 public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElement> {
 
+	public final String populatorClazz;
+
 	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
@@ -54,12 +57,12 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public List<String> sqlForCreate = new ArrayList<String>();
 
 	public List<String> sqlForDrop = new ArrayList<String>();
-	
+
 	/**
-	 * used to 
+	 * used to
 	 */
-	protected long globalCounter=0;
-	
+	protected long globalCounter = 0;
+
 	public long nextCounter() {
 		return ++globalCounter;
 	}
@@ -84,7 +87,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public boolean generateCursor;
 
 	public boolean generateSchema;
-	
+
 	public LinkedHashSet<GeneratedTypeElement> generatedEntities;
 
 	/**
@@ -112,7 +115,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		return daoNameSet;
 	}
 
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask,boolean generateCursor,  boolean generateRx, List<String> daoIntoDataSource, boolean inMemory) {
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask, boolean generateCursor, boolean generateRx,
+			List<String> daoIntoDataSource, boolean inMemory, String populator) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -123,12 +127,12 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.generateSchema = schema;
 		this.generatedClassName = "Bind" + getName();
 		this.generateContentProvider = false;
-		this.generateRx=generateRx;
+		this.generateRx = generateRx;
 		this.contentProvider = null;
-		this.generatedEntities=new LinkedHashSet<GeneratedTypeElement>();
-		this.daoNameSet=daoIntoDataSource;
-		this.inMemory=inMemory;
-		
+		this.generatedEntities = new LinkedHashSet<GeneratedTypeElement>();
+		this.daoNameSet = daoIntoDataSource;
+		this.inMemory = inMemory;
+
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
 		List<? extends AnnotationMirror> annotationMirrors = item.getAnnotationMirrors();
 		for (AnnotationMirror annotationMirror : annotationMirrors) {
@@ -136,17 +140,21 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 			if (BindDataSource.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
 				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
-
-					// The 'entry.getKey()' here is the annotation attribute
-					// name.
+					// The 'entry.getKey()' here is the annotation attribute name.
 					String key = entry.getKey().getSimpleName().toString();
 					entry.getValue().accept(valueVisitor, key);
 				}
 			}
 
 		}
-		
-		this.defaultTasks=valueVisitor.getTasks();
+
+		this.defaultTasks = valueVisitor.getTasks();
+
+		if (!NoPopulator.class.getName().equals(populator)) {
+			this.populatorClazz = populator;
+		} else {
+			this.populatorClazz = null;
+		}
 
 	}
 
@@ -187,10 +195,10 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	 * @param p
 	 */
 	private void checkName(Set<SQLProperty> listEntity, SQLProperty p) {
-		for (SQLProperty item: listEntity) {
+		for (SQLProperty item : listEntity) {
 			AssertKripton.assertTrueOrInvalidPropertyName(item.columnName.equals(p.columnName), item, p);
 		}
-		
+
 	}
 
 	public Collection<SQLEntity> getEntities() {
@@ -209,15 +217,16 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		if (entityName == null)
 			return null;
 
-		SQLEntity result=entitiesBySimpleName.get(entityName.toLowerCase());		
-		if (result!=null) return result;
-		
-		for (GeneratedTypeElement item :this.generatedEntities) {
+		SQLEntity result = entitiesBySimpleName.get(entityName.toLowerCase());
+		if (result != null)
+			return result;
+
+		for (GeneratedTypeElement item : this.generatedEntities) {
 			if (item.typeSpec.name.toLowerCase().equals(entityName.toLowerCase())) {
 				return item;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -262,8 +271,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	}
 
 	public ClassName getGeneratedClass() {
-		String packageName=getElement().asType().toString();
-		return TypeUtility.className(packageName.substring(0, packageName.lastIndexOf("."))+"."+getGeneratedClassName());
+		String packageName = getElement().asType().toString();
+		return TypeUtility.className(packageName.substring(0, packageName.lastIndexOf(".")) + "." + getGeneratedClassName());
 	}
 
 }

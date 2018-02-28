@@ -30,6 +30,11 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   static BindDeleteRawPersonDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected DeleteRawPersonDaoImpl deleteRawPersonDao = new DeleteRawPersonDaoImpl(this);
@@ -128,7 +133,9 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
    */
   public static synchronized BindDeleteRawPersonDataSource instance() {
     if (instance==null) {
-      instance=new BindDeleteRawPersonDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindDeleteRawPersonDataSource(options);
     }
     return instance;
   }
@@ -161,7 +168,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -170,26 +177,10 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("Begin create database version 1");
-        }
-        // log section END
-        task.execute(database);
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("End create database");
-        }
-        // log section END
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -259,8 +250,6 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
     if (instance==null) {
       instance=new BindDeleteRawPersonDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

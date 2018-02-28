@@ -22,9 +22,10 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceUpdateTask;
 
 @BindContentProvider(authority = "com.abubusoft.contentprovidersample.provider")
-@BindDataSource(daoSet = {CheeseDao.class},fileName = "sample.db", version = 1, tasks={
+@BindDataSource(daoSet = {CheeseDao.class},fileName = "sample.db", version = 1, updateTasks={
 		@BindDataSourceUpdateTask(version=1, task=SampleUpdate02.class)
-})
+},
+populator=SamplePopulator.class)
 public interface SampleDataSource {
 
 }

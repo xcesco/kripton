@@ -172,7 +172,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		protected TypeStatus initialValue() {
 			return TypeStatus.CLOSED;
 		}
-			
+
 	};
 
 	/**
@@ -215,12 +215,15 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		lockDb.lock();
 		try {
 			if (openCounter.decrementAndGet() <= 0) {
-				// Closing database
-				if (database != null) {
-					clearCompiledStatements();
-					database.close();
+
+				if (!this.options.inMemory) {
+					// Closing database
+					if (database != null) {
+						clearCompiledStatements();
+						database.close();
+					}
+					database = null;
 				}
-				database = null;
 				if (logEnabled)
 					Logger.info("database CLOSED (%s) (connections: %s)", status.get(), openCounter.intValue());
 			} else {
@@ -258,17 +261,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		openCounter.set(0);
 	}
 
-	protected SQLiteUpdateTask findPopulateTaskList(int currentVersion) {
-		for (Pair<Integer, ? extends SQLiteUpdateTask> item : this.options.updateTasks) {
-			if (item.value0 == currentVersion) {
-				return item.value1;
-			}
-		}
-
-		return null;
-	}
-
-	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {		
+	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {
 		List<SQLiteUpdateTask> result = new ArrayList<>();
 
 		for (Pair<Integer, ? extends SQLiteUpdateTask> item : this.options.updateTasks) {
@@ -398,8 +391,10 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
 			if (openCounter.incrementAndGet() == 1) {
 				// open new read database
-				sqliteHelper.setWriteAheadLoggingEnabled(true);
-				database = sqliteHelper.getReadableDatabase();
+				if (database == null) {
+					sqliteHelper.setWriteAheadLoggingEnabled(true);
+					database = sqliteHelper.getReadableDatabase();
+				}
 
 				if (logEnabled)
 					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
@@ -431,10 +426,12 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 			status.set(TypeStatus.READ_AND_WRITE_OPENED);
 
 			if (openCounter.incrementAndGet() == 1) {
-				// open new write database
-				sqliteHelper.setWriteAheadLoggingEnabled(true);
-				database = sqliteHelper.getWritableDatabase();
 
+				// open new write database
+				if (database == null) {
+					sqliteHelper.setWriteAheadLoggingEnabled(true);
+					database = sqliteHelper.getWritableDatabase();
+				}
 				if (logEnabled)
 					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			} else {

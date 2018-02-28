@@ -30,6 +30,11 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   static BindPersonDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected PersonDaoImpl personDao = new PersonDaoImpl(this);
@@ -128,7 +133,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    */
   public static synchronized BindPersonDataSource instance() {
     if (instance==null) {
-      instance=new BindPersonDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindPersonDataSource(options);
     }
     return instance;
   }
@@ -160,16 +167,10 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   public void onCreate(SQLiteDatabase database) {
     // generate tables
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        task.execute(database);
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -229,8 +230,6 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     if (instance==null) {
       instance=new BindPersonDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

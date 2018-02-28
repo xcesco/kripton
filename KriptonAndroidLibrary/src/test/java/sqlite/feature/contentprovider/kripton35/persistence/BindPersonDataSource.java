@@ -34,6 +34,11 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   static BindPersonDataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected PersonDAOImpl personDAO = new PersonDAOImpl(this);
@@ -142,7 +147,9 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    */
   public static synchronized BindPersonDataSource instance() {
     if (instance==null) {
-      instance=new BindPersonDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindPersonDataSource(options);
     }
     return instance;
   }
@@ -175,7 +182,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
     }
     // log section END
     // log section BEGIN
@@ -190,26 +197,10 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("Begin create database version 1");
-        }
-        // log section END
-        task.execute(database);
-        // log section BEGIN
-        if (this.logEnabled) {
-          Logger.info("End create database");
-        }
-        // log section END
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -287,8 +278,6 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     if (instance==null) {
       instance=new BindPersonDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 

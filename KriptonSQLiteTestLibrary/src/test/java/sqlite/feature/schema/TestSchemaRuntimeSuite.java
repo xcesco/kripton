@@ -22,7 +22,7 @@ import org.junit.runners.Suite;
 //@formatter:off
 @Suite.SuiteClasses(
 		{  
-		TestSchemaUpdater.class,
+		TestSchemaUpdater.class, 
 		TestSchemaUpdater2.class,
 		TestSchemaUpdater3.class
 		 })

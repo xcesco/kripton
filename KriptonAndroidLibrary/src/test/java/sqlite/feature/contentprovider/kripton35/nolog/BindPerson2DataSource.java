@@ -34,6 +34,11 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
   static BindPerson2DataSource instance;
 
   /**
+   * <p>True if dataSource is just created</p>
+   */
+  private boolean justCreated;
+
+  /**
    * <p>dao instance</p>
    */
   protected Person2DAOImpl person2DAO = new Person2DAOImpl(this);
@@ -142,7 +147,9 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    */
   public static synchronized BindPerson2DataSource instance() {
     if (instance==null) {
-      instance=new BindPerson2DataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindPerson2DataSource(options);
     }
     return instance;
   }
@@ -175,16 +182,10 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     // generate tables
     database.execSQL(CityTable.CREATE_TABLE_SQL);
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // if we have a populate task (previous and current are same), try to execute it
-    if (options.updateTasks != null) {
-      SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
-      if (task != null) {
-        task.execute(database);
-      }
-    }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -247,8 +248,6 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
     if (instance==null) {
       instance=new BindPerson2DataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 
