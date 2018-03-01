@@ -49,19 +49,19 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    */
-  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons");
+  private static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/name</pre>
    */
-  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/name");
+  private static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/name");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/surname</pre>
    */
-  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/surname");
+  private static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/surname");
 
   static final String PATH_PERSON_1 = "persons";
 
@@ -74,6 +74,36 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
   static final int PATH_PERSON_2_INDEX = 2;
 
   static final int PATH_PERSON_3_INDEX = 3;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
+   *
+   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBean0}</p>
+   */
+  public static final Uri URI_PERSON_INSERT_ONE_BEAN = URI_PATH_PERSON_1;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/name</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/name</pre>
+   *
+   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1}</p>
+   */
+  public static final Uri URI_PERSON_INSERT_ONE_BEAN_FIELD_NAME = URI_PATH_PERSON_2;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/surname</pre>
+   *
+   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2}</p>
+   */
+  public static final Uri URI_PERSON_INSERT_ONE_BEAN_FIELD_SURNAME = URI_PATH_PERSON_3;
 
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);

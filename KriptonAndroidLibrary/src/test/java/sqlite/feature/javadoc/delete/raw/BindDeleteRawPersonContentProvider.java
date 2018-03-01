@@ -57,37 +57,37 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons/#");
+  private static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    */
-  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#/moreAndMore");
+  private static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#/moreAndMore");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/[*]</pre>
    */
-  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/*");
+  private static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/*");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/a/[*]/[*]</pre>
    */
-  public static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/a/*/*");
+  private static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/a/*/*");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/single/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/single/#");
+  private static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/single/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/single2/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_6 = Uri.parse(URI+"/persons/single2/#");
+  private static final Uri URI_PATH_PERSON_6 = Uri.parse(URI+"/persons/single2/#");
 
   static final String PATH_PERSON_1 = "persons/#";
 
@@ -112,6 +112,56 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
   static final int PATH_PERSON_5_INDEX = 5;
 
   static final int PATH_PERSON_6_INDEX = 6;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteRawPersonDaoImpl#deleteOneBean0}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_ONE_BEAN = URI_PATH_PERSON_1;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteRawPersonDaoImpl#deleteBeanDynamicWithArgs5}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_BEAN_DYNAMIC_WITH_ARGS = URI_PATH_PERSON_2;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/[*]/[*]</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/${surname}/${name}</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteRawPersonDaoImpl#deleteFromSelectAllBeansJQL2}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_FROM_SELECT_ALL_BEANS_J_Q_L = URI_PATH_PERSON_4;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteRawPersonDaoImpl#deleteRaw3}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_RAW = URI_PATH_PERSON_5;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single2/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single2/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteRawPersonDaoImpl#deleteRawDynamic4}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_RAW_DYNAMIC = URI_PATH_PERSON_6;
 
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);

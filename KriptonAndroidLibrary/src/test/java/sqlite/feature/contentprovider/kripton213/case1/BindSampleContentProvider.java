@@ -66,13 +66,13 @@ public class BindSampleContentProvider extends ContentProvider {
    * <p>Uri</p>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre>
    */
-  public static final Uri URI_PATH_CHEESE_1 = Uri.parse(URI+"/cheese");
+  private static final Uri URI_PATH_CHEESE_1 = Uri.parse(URI+"/cheese");
 
   /**
    * <p>Uri</p>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre>
    */
-  public static final Uri URI_PATH_CHEESE_2 = Uri.parse(URI+"/cheese/#");
+  private static final Uri URI_PATH_CHEESE_2 = Uri.parse(URI+"/cheese/#");
 
   static final String PATH_CHEESE_1 = "cheese";
 
@@ -81,6 +81,26 @@ public class BindSampleContentProvider extends ContentProvider {
   static final int PATH_CHEESE_1_INDEX = 1;
 
   static final int PATH_CHEESE_2_INDEX = 2;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre>
+   *
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#insert0}</p>
+   */
+  public static final Uri URI_CHEESE_INSERT = URI_PATH_CHEESE_1;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#update4}</p>
+   */
+  public static final Uri URI_CHEESE_UPDATE = URI_PATH_CHEESE_2;
 
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_CHEESE_1, PATH_CHEESE_1_INDEX);

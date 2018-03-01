@@ -56,31 +56,31 @@ public class BindUpdateRawPersonContentProvider extends ContentProvider {
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons/#");
+  private static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/more</pre>
    */
-  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#/more");
+  private static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#/more");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    */
-  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/#/moreAndMore");
+  private static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/#/moreAndMore");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/[*]</pre>
    */
-  public static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/jql/*");
+  private static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/jql/*");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/all/[*]</pre>
    */
-  public static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/jql/all/*");
+  private static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/jql/all/*");
 
   static final String PATH_PERSON_1 = "persons/#";
 
@@ -101,6 +101,56 @@ public class BindUpdateRawPersonContentProvider extends ContentProvider {
   static final int PATH_PERSON_4_INDEX = 4;
 
   static final int PATH_PERSON_5_INDEX = 5;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link UpdateRawPersonDaoImpl#updateBean2}</p>
+   */
+  public static final Uri URI_PERSON_UPDATE_BEAN = URI_PATH_PERSON_1;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#/more</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/${id}/more</pre>
+   *
+   * <p>Method associated to this URI is {@link UpdateRawPersonDaoImpl#updateBeanDynamic3}</p>
+   */
+  public static final Uri URI_PERSON_UPDATE_BEAN_DYNAMIC = URI_PATH_PERSON_2;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/${id}/moreAndMore</pre>
+   *
+   * <p>Method associated to this URI is {@link UpdateRawPersonDaoImpl#updateBeanDynamicWithArgs4}</p>
+   */
+  public static final Uri URI_PERSON_UPDATE_BEAN_DYNAMIC_WITH_ARGS = URI_PATH_PERSON_3;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/[*]</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/${personSurname}</pre>
+   *
+   * <p>Method associated to this URI is {@link UpdateRawPersonDaoImpl#updateAllBeansJQL0}</p>
+   */
+  public static final Uri URI_PERSON_UPDATE_ALL_BEANS_J_Q_L = URI_PATH_PERSON_4;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/all/[*]</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/all/${surname}</pre>
+   *
+   * <p>Method associated to this URI is {@link UpdateRawPersonDaoImpl#updateFromSelectJQL1}</p>
+   */
+  public static final Uri URI_PERSON_UPDATE_FROM_SELECT_J_Q_L = URI_PATH_PERSON_5;
 
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);

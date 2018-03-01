@@ -20,9 +20,11 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.className
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.annotation.processing.Filer;
@@ -94,7 +96,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		public String uriTemplate;
 
 		public int pathValue;
-
+		
 		public String getContentType() {
 			String type = "item";
 
@@ -156,14 +158,13 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindContentProvider.class, packageName, contentProviderName);
 		classBuilder = TypeSpec.classBuilder(contentProviderName).addModifiers(Modifier.PUBLIC).superclass(ContentProvider.class);
-		
+
 		classBuilder.addJavadoc("<p>This is the content provider generated for {@link $L}</p>\n\n", dataSourceName);
-		
+
 		classBuilder.addJavadoc("<h2>Content provider authority:</h2>\n");
 		classBuilder.addJavadoc("<pre>$L</pre>\n\n", schema.contentProvider.authority);
-		
-		generateOnCreate(dataSourceNameClazz);
 
+		generateOnCreate(dataSourceNameClazz);
 		generateOnShutdown(dataSourceNameClazz);
 
 		// define static fields
@@ -183,6 +184,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		List<FieldSpec> listFieldUri = new ArrayList<>();
 		List<FieldSpec> listFieldString = new ArrayList<>();
 		List<FieldSpec> listFieldIndex = new ArrayList<>();
+		List<FieldSpec> listFieldAlias = new ArrayList<>();
 
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 			String pathConstantName = "PATH_" + daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
@@ -204,8 +206,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 					entry.uriTemplate = daoMethod.contentProviderEntryPathTemplate;
 
 					// we finish later
-					entry.pathCostant = pathConstantName; 
-					entry.pathIndex = pathConstantName; 														
+					entry.pathCostant = pathConstantName;
+					entry.pathIndex = pathConstantName;
 				}
 
 				switch (daoMethod.jql.operationType) {
@@ -252,28 +254,37 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		};
 		Collections.sort(listUriSet, c);
 
+		Set<String> alreadyUsedName = new HashSet<String>();
+		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
+
 		int i = 1;
 		for (Pair<String, ContentEntry> entry : listUriSet) {
 			// define ordered part of attributes (after sort)
 			entry.value1.pathCostant += "_" + i;
 			entry.value1.pathIndex += "_" + i + "_INDEX";
 			entry.value1.pathValue = i;
+			
+			
 
 			// build class attributes
 			listFieldString.add(FieldSpec.builder(String.class, entry.value1.pathCostant, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$S", entry.value1.uriTemplate)).build());
 			listFieldIndex.add(FieldSpec.builder(Integer.TYPE, entry.value1.pathIndex, Modifier.STATIC, Modifier.FINAL).initializer(CodeBlock.of("$L", entry.value1.pathValue)).build());
-			
-			listFieldUri.add(FieldSpec.builder(Uri.class, "URI_"+entry.value1.pathCostant, Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC)
-					.addJavadoc("<p>Uri</p>\n")
+
+			listFieldUri.add(FieldSpec.builder(Uri.class, "URI_" + entry.value1.pathCostant, Modifier.STATIC, Modifier.FINAL, Modifier.PRIVATE).addJavadoc("<p>Uri</p>\n")
 					.addJavadoc("<pre>$L/$L</pre>\n", schema.contentProviderUri().replace("*", "[*]"), entry.value1.uriTemplate.replace("*", "[*]"))
-					.initializer(CodeBlock.of("Uri.parse(URI+\"/$L\")", entry.value1.uriTemplate))
-					.build());
+					.initializer(CodeBlock.of("Uri.parse(URI+\"/$L\")", entry.value1.uriTemplate)).build());
 			
+			generateURIForMethod(schema, listFieldAlias, alreadyUsedName, format, entry, entry.value1.delete);
+			generateURIForMethod(schema, listFieldAlias, alreadyUsedName, format, entry, entry.value1.insert);
+			generateURIForMethod(schema, listFieldAlias, alreadyUsedName, format, entry, entry.value1.select);
+			generateURIForMethod(schema, listFieldAlias, alreadyUsedName, format, entry, entry.value1.update);
+ 
+
 			staticBuilder.addStatement("sURIMatcher.addURI(AUTHORITY, $L, $L)", entry.value1.pathCostant, entry.value1.pathIndex);
 
 			i++;
 		}
-		
+
 		for (FieldSpec f : listFieldUri) {
 			classBuilder.addField(f);
 		}
@@ -285,14 +296,18 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		for (FieldSpec f : listFieldIndex) {
 			classBuilder.addField(f);
 		}
-
+		
+		for (FieldSpec f : listFieldAlias) {
+			classBuilder.addField(f);
+		}
+				
 		classBuilder.addStaticBlock(staticBuilder.build());
 
 		generateQuery(schema);
-		
+
 		generateInsert(schema);
 
-		generateUpdate(schema);	
+		generateUpdate(schema);
 
 		generateDelete(schema);
 
@@ -300,6 +315,31 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
+	}
+
+	/**
+	 * @param schema
+	 * @param listFieldAlias
+	 * @param alreadyUsedName
+	 * @param format
+	 * @param entry
+	 * @param method
+	 */
+	private void generateURIForMethod(SQLiteDatabaseSchema schema, List<FieldSpec> listFieldAlias, Set<String> alreadyUsedName, Converter<String, String> format, Pair<String, ContentEntry> entry,
+			SQLiteModelMethod method) {
+		if (method==null) return;
+		String alias = "URI_" + entry.value1.pathCostant.substring(0, entry.value1.pathCostant.lastIndexOf("_")).replace("PATH_", "") +"_" +format.convert(method.getName());
+		if (!alreadyUsedName.contains(alias)) {
+			String contentUri=schema.contentProviderUri().replace("*", "[*]")+"/"+ entry.value1.uriTemplate.replace("*", "[*]");
+			String contentUriWithParameter=method.contentProviderUri().replace("*", "[*]");
+			
+			listFieldAlias.add(FieldSpec.builder(Uri.class, alias, Modifier.STATIC, Modifier.FINAL, Modifier.PUBLIC)
+					.addJavadoc("<h2>URI standard</h2>\n<pre>$L</pre></p>\n", contentUri)
+					.addJavadoc("<h2>URI with parameters</h2>\n<pre>$L</pre>\n\n", contentUriWithParameter)						
+					.addJavadoc("<p>Method associated to this URI is {@link $LImpl#$L}</p>\n", method.getParent().getName(), method.contentProviderMethodName)
+					.initializer(CodeBlock.of("URI_" + entry.value1.pathCostant)).build());
+			alreadyUsedName.add(alias);
+		}
 	}
 
 	/**
@@ -352,10 +392,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
 				methodBuilder.beginControlFlow("if (dataSource.isLogEnabled())");
-								
+
 				methodBuilder.addStatement("$T.info(\"Element is created with URI '%s'\", _returnURL)", Logger.class);
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI '%s'\", uri)", Logger.class);
-				
+
 				// generate log section - END
 				methodBuilder.endControlFlow();
 				methodBuilder.addComment("log section END");
@@ -369,9 +409,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	private void defineJavadocForContentUri(MethodSpec.Builder builder, SQLiteModelMethod method) {
-		classBuilder.addJavadoc("<tr><td><pre>$L</pre></td><td>{@link $LImpl#$L}</td></tr>\n", method.contentProviderUri(), method.getParent().getName(), method.contentProviderMethodName);
+		String contentUri=method.contentProviderUri().replace("*", "[*]");
 		
-		builder.addJavadoc("<tr><td><pre>$L</pre></td><td>{@link $LImpl#$L}</td></tr>\n", method.contentProviderUri(), method.getParent().getName(), method.contentProviderMethodName);
+		classBuilder.addJavadoc("<tr><td><pre>$L</pre></td><td>{@link $LImpl#$L}</td></tr>\n", contentUri, method.getParent().getName(), method.contentProviderMethodName);
+		builder.addJavadoc("<tr><td><pre>$L</pre></td><td>{@link $LImpl#$L}</td></tr>\n", contentUri, method.getParent().getName(), method.contentProviderMethodName);
 
 	}
 
@@ -423,9 +464,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
 				methodBuilder.beginControlFlow("if (dataSource.isLogEnabled())");
-				
+
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
-				
+
 				// generate log section - END
 				methodBuilder.endControlFlow();
 				methodBuilder.addComment("log section END");
@@ -473,7 +514,6 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		}
 
 		defineJavadocFooterForContentOperation(methodBuilder);
-		
 
 		methodBuilder.beginControlFlow("default:");
 		methodBuilder.addStatement("throw new $T(\"Unknown URI for $L operation: \" + uri)", IllegalArgumentException.class, JQLType.UPDATE);
@@ -486,9 +526,9 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
 				methodBuilder.beginControlFlow("if (dataSource.isLogEnabled())");
-				
+
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
-				
+
 				// generate log section - END
 				methodBuilder.endControlFlow();
 				methodBuilder.addComment("log section END");
@@ -503,16 +543,16 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	private void defineJavadocFooterForContentOperation(MethodSpec.Builder methodBuilder) {
-		classBuilder.addJavadoc("</table>\n\n");		
+		classBuilder.addJavadoc("</table>\n\n");
 		methodBuilder.addJavadoc("</table>\n\n");
-		
+
 	}
 
 	private void defineJavadocHeaderForContentOperation(MethodSpec.Builder builder, String value) {
 		builder.addJavadoc("\n<h2>Supported $L operations</h2>\n", value);
 		builder.addJavadoc("<table>\n");
 		builder.addJavadoc("<tr><th>URI</th><th>DAO.METHOD</th></tr>\n");
-		
+
 		classBuilder.addJavadoc("<h2>Supported $L operations</h2>\n", value);
 		classBuilder.addJavadoc("<table>\n");
 		classBuilder.addJavadoc("<tr><th>URI</th><th>DAO.METHOD</th></tr>\n");
@@ -530,9 +570,10 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	private boolean hasOperationOfType(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, JQLType jqlType) {
 		boolean hasOperation = false;
 		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
-			
-			if (daoDefinition.getElement().getAnnotation(BindContentProviderPath.class)==null) continue;
-			
+
+			if (daoDefinition.getElement().getAnnotation(BindContentProviderPath.class) == null)
+				continue;
+
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
 				if (daoMethod.jql.operationType != jqlType) {
 					continue;
@@ -542,7 +583,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 				}
 
 				hasOperation = true;
-				//methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
+				// methodBuilder.addJavadoc("method $L.$L\n",
+				// daoDefinition.getName(), daoMethod.getName());
 			}
 		}
 		return hasOperation;
@@ -576,7 +618,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("@see android.content.ContentProvider#onCreate()\n");
 
 		methodBuilder.beginControlFlow("if ($T.context()==null)", KriptonLibrary.class);
-			methodBuilder.addStatement("KriptonLibrary.init(getContext())");
+		methodBuilder.addStatement("KriptonLibrary.init(getContext())");
 		methodBuilder.endControlFlow();
 		methodBuilder.addStatement("dataSource = $L.instance()", dataSourceNameClazz);
 		methodBuilder.addStatement("dataSource.openWritableDatabase()");
@@ -621,10 +663,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
 				if (daoMethod.jql.operationType != JQLType.SELECT)
 					continue;
-				//methodBuilder.addJavadoc("method $L.$L\n", daoDefinition.getName(), daoMethod.getName());
+				// methodBuilder.addJavadoc("method $L.$L\n",
+				// daoDefinition.getName(), daoMethod.getName());
 			}
 		}
-		
+
 		defineJavadocHeaderForContentOperation(methodBuilder, "query");
 
 		methodBuilder.beginControlFlow("switch (sURIMatcher.match(uri))");

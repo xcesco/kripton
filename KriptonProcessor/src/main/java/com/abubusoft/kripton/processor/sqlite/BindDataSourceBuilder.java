@@ -411,12 +411,19 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * @param methodBuilder
 	 */
 	private void generatePopulate(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder) {
-		if (schema.populatorClazz!=null) {
+		if (schema.populatorClazz!=null) {			
+			methodBuilder.addComment("force database DDL run");			
+			methodBuilder.beginControlFlow("if (options.populator!=null)");
+			
 			methodBuilder.addStatement("instance.openWritableDatabase()");
 			methodBuilder.addStatement("instance.close()");
-			methodBuilder.beginControlFlow("if (instance.justCreated && options.populator!=null)");		
+			
+			methodBuilder.beginControlFlow("if (instance.justCreated)");
+			
 			methodBuilder.addComment("run populator");
 			methodBuilder.addStatement("options.populator.execute()");
+			
+			methodBuilder.endControlFlow();
 			methodBuilder.endControlFlow();
 		}
 	}
@@ -472,9 +479,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.beginControlFlow("if (this.logEnabled)");
 
 			if (schema.isInMemory()) {
-				methodBuilder.addStatement("$T.info(\"Create database in memory version %s\",database.getVersion())", Logger.class);
+				methodBuilder.addStatement("$T.info(\"Create database in memory", Logger.class);
 			} else {
-				methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, database.getVersion())", Logger.class);
+				methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, this.version)", Logger.class);
 			}
 
 			// generate log section - END

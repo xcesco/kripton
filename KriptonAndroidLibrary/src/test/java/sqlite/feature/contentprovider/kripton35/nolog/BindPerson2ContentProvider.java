@@ -75,73 +75,73 @@ public class BindPerson2ContentProvider extends ContentProvider {
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/cities</pre>
    */
-  public static final Uri URI_PATH_CITY_1 = Uri.parse(URI+"/cities");
+  private static final Uri URI_PATH_CITY_1 = Uri.parse(URI+"/cities");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/cities/person/#</pre>
    */
-  public static final Uri URI_PATH_CITY_2 = Uri.parse(URI+"/cities/person/#");
+  private static final Uri URI_PATH_CITY_2 = Uri.parse(URI+"/cities/person/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons</pre>
    */
-  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons");
+  private static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/#");
+  private static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/[*]</pre>
    */
-  public static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/*");
+  private static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/*");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/[*]/test0</pre>
    */
-  public static final Uri URI_PATH_PERSON_6 = Uri.parse(URI+"/persons/*/test0");
+  private static final Uri URI_PATH_PERSON_6 = Uri.parse(URI+"/persons/*/test0");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/[*]/test1</pre>
    */
-  public static final Uri URI_PATH_PERSON_7 = Uri.parse(URI+"/persons/*/test1");
+  private static final Uri URI_PATH_PERSON_7 = Uri.parse(URI+"/persons/*/test1");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test0/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_8 = Uri.parse(URI+"/persons/test0/#");
+  private static final Uri URI_PATH_PERSON_8 = Uri.parse(URI+"/persons/test0/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test1/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_9 = Uri.parse(URI+"/persons/test1/#");
+  private static final Uri URI_PATH_PERSON_9 = Uri.parse(URI+"/persons/test1/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test2/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_10 = Uri.parse(URI+"/persons/test2/#");
+  private static final Uri URI_PATH_PERSON_10 = Uri.parse(URI+"/persons/test2/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3</pre>
    */
-  public static final Uri URI_PATH_PERSON_11 = Uri.parse(URI+"/persons/test3");
+  private static final Uri URI_PATH_PERSON_11 = Uri.parse(URI+"/persons/test3");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_12 = Uri.parse(URI+"/persons/test3/#");
+  private static final Uri URI_PATH_PERSON_12 = Uri.parse(URI+"/persons/test3/#");
 
   static final String PATH_CITY_1 = "cities";
 
@@ -190,6 +190,96 @@ public class BindPerson2ContentProvider extends ContentProvider {
   static final int PATH_PERSON_11_INDEX = 11;
 
   static final int PATH_PERSON_12_INDEX = 12;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/cities</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/cities</pre>
+   *
+   * <p>Method associated to this URI is {@link City2DAOImpl#insertBean0}</p>
+   */
+  public static final Uri URI_CITY_INSERT_BEAN = URI_PATH_CITY_1;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/cities/person/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/cities/person/${personId}</pre>
+   *
+   * <p>Method associated to this URI is {@link City2DAOImpl#selectCityFromPerson1}</p>
+   */
+  public static final Uri URI_CITY_SELECT_CITY_FROM_PERSON = URI_PATH_CITY_2;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons</pre>
+   *
+   * <p>Method associated to this URI is {@link Person2DAOImpl#insertBean0}</p>
+   */
+  public static final Uri URI_PERSON_INSERT_BEAN = URI_PATH_PERSON_3;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link Person2DAOImpl#updateRaw5}</p>
+   */
+  public static final Uri URI_PERSON_UPDATE_RAW = URI_PATH_PERSON_4;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/[*]</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/${name}</pre>
+   *
+   * <p>Method associated to this URI is {@link Person2DAOImpl#insertName1}</p>
+   */
+  public static final Uri URI_PERSON_INSERT_NAME = URI_PATH_PERSON_5;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/[*]/test0</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/${nameTemp}/test0</pre>
+   *
+   * <p>Method associated to this URI is {@link Person2DAOImpl#selectOne9}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ONE = URI_PATH_PERSON_6;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test0/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test0/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link Person2DAOImpl#deleteRaw3}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_RAW = URI_PATH_PERSON_8;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3</pre>
+   *
+   * <p>Method associated to this URI is {@link Person2DAOImpl#selectBean12}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_BEAN = URI_PATH_PERSON_11;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3/${person.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link Person2DAOImpl#updateBean8}</p>
+   */
+  public static final Uri URI_PERSON_UPDATE_BEAN = URI_PATH_PERSON_12;
 
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_CITY_1, PATH_CITY_1_INDEX);

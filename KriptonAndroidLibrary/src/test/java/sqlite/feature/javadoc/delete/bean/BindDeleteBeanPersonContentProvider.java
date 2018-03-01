@@ -56,31 +56,31 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons/#");
+  private static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    */
-  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#/moreAndMore");
+  private static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#/moreAndMore");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/a/[*]/[*]</pre>
    */
-  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/a/*/*");
+  private static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/a/*/*");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/single/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/single/#");
+  private static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/single/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/single2/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/single2/#");
+  private static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/single2/#");
 
   static final String PATH_PERSON_1 = "persons/#";
 
@@ -101,6 +101,56 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
   static final int PATH_PERSON_4_INDEX = 4;
 
   static final int PATH_PERSON_5_INDEX = 5;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteBeanPersonDaoImpl#deleteOneBean0}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_ONE_BEAN = URI_PATH_PERSON_1;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteBeanPersonDaoImpl#deleteBeanDynamicWithArgs4}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_BEAN_DYNAMIC_WITH_ARGS = URI_PATH_PERSON_2;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/[*]/[*]</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/${bean.personSurname}/${bean.personName}</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteBeanPersonDaoImpl#deleteFromSelectAllBeansJQL1}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_FROM_SELECT_ALL_BEANS_J_Q_L = URI_PATH_PERSON_3;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteBeanPersonDaoImpl#deleteBean2}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_BEAN = URI_PATH_PERSON_4;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single2/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/single2/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link DeleteBeanPersonDaoImpl#deleteBeanDynamic3}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_BEAN_DYNAMIC = URI_PATH_PERSON_5;
 
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);

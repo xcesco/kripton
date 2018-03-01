@@ -185,7 +185,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 * True if dataSource is just created
 	 * </p>
 	 */
-	protected boolean justCreated=false;
+	protected boolean justCreated = false;
 
 	/**
 	 * <p>
@@ -291,9 +291,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		}
 
 		if (previousVersion != currentVersion) {
-			throw (new KriptonRuntimeException(
-					String.format("Can not find version update task from version %s to version %s", previousVersion,
-							currentVersion)));
+			Logger.warn(String.format("Can not find version update task from version %s to version %s", previousVersion, currentVersion));
 		}
 
 		return result;
@@ -302,11 +300,9 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
 	protected void createHelper(DataSourceOptions options) {
 		if (KriptonLibrary.context() == null)
-			throw new KriptonRuntimeException(
-					"Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
+			throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
 
-		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version,
-				options.errorHandler) {
+		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
 
 			@Override
 			public void onConfigure(SQLiteDatabase database) {
@@ -340,8 +336,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	 */
 	public SQLiteDatabase database() {
 		if (database == null)
-			throw (new KriptonRuntimeException(
-					"No database connection is opened before use " + this.getClass().getCanonicalName()));
+			throw (new KriptonRuntimeException("No database connection is opened before use " + this.getClass().getCanonicalName()));
 		return database;
 	}
 

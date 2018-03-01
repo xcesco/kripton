@@ -59,55 +59,55 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    */
-  public static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons");
+  private static final Uri URI_PATH_PERSON_1 = Uri.parse(URI+"/persons");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#");
+  private static final Uri URI_PATH_PERSON_2 = Uri.parse(URI+"/persons/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/a/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/a/#");
+  private static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/a/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/dynamic/#");
+  private static final Uri URI_PATH_PERSON_4 = Uri.parse(URI+"/persons/dynamic/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/dynamicOrder/#");
+  private static final Uri URI_PATH_PERSON_5 = Uri.parse(URI+"/persons/dynamicOrder/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_6 = Uri.parse(URI+"/persons/dynamicOrderAndLis/#");
+  private static final Uri URI_PATH_PERSON_6 = Uri.parse(URI+"/persons/dynamicOrderAndLis/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_7 = Uri.parse(URI+"/persons/dynamicandArgs/#");
+  private static final Uri URI_PATH_PERSON_7 = Uri.parse(URI+"/persons/dynamicandArgs/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_8 = Uri.parse(URI+"/persons/jql/#");
+  private static final Uri URI_PATH_PERSON_8 = Uri.parse(URI+"/persons/jql/#");
 
   /**
    * <p>Uri</p>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/#</pre>
    */
-  public static final Uri URI_PATH_PERSON_9 = Uri.parse(URI+"/persons/jqlAndInnserSQL/#");
+  private static final Uri URI_PATH_PERSON_9 = Uri.parse(URI+"/persons/jqlAndInnserSQL/#");
 
   static final String PATH_PERSON_1 = "persons";
 
@@ -144,6 +144,96 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
   static final int PATH_PERSON_8_INDEX = 8;
 
   static final int PATH_PERSON_9_INDEX = 9;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectAllBeans0}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ALL_BEANS = URI_PATH_PERSON_1;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBean2}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ONE_BEAN = URI_PATH_PERSON_2;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/a/${love.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectAllBeansCount1}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ALL_BEANS_COUNT = URI_PATH_PERSON_3;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ONE_BEAN_WITH_DYNAMIC = URI_PATH_PERSON_4;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ONE_BEAN_WITH_DYNAMIC_ORDER = URI_PATH_PERSON_5;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ONE_BEAN_WITH_DYNAMIC_ORDER_AND_LISTENER = URI_PATH_PERSON_6;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ONE_BEAN_WITH_DYNAMIC_AND_ARGS = URI_PATH_PERSON_7;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectWithJQL7}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_WITH_J_Q_L = URI_PATH_PERSON_8;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}</pre>
+   *
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_WITH_J_Q_L_AND_INNER_S_Q_L = URI_PATH_PERSON_9;
 
   static {
     sURIMatcher.addURI(AUTHORITY, PATH_PERSON_1, PATH_PERSON_1_INDEX);
