@@ -1,5 +1,7 @@
 package sqlite.kripton51.entities;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>MessageEntity</code> is associated to table <code>message</code>
@@ -7,7 +9,7 @@ package sqlite.kripton51.entities;
  * </p>
  *  @see MessageEntity
  */
-public class MessageEntityTable {
+public class MessageEntityTable implements SQLiteTable {
   /**
    * Costant represents typeName of table message
    */
@@ -100,4 +102,17 @@ public class MessageEntityTable {
    *  @see MessageEntity#type
    */
   public static final String COLUMN_TYPE = "type";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_CHANNEL_ID, COLUMN_OWNER_TYPE, COLUMN_UID, COLUMN_FACE_UID, COLUMN_TEXT, COLUMN_OWNER_UID, COLUMN_CHANNEL_UID, COLUMN_UPDATE_TIME, COLUMN_TYPE};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
 }

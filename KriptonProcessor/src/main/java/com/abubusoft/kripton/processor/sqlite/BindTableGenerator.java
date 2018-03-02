@@ -30,6 +30,7 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.One;
@@ -59,8 +60,12 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.FieldSpec.Builder;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
@@ -316,7 +321,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
-		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC);
+		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC).addSuperinterface(SQLiteTable.class);
 
 		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName), Modifier.STATIC, Modifier.PRIVATE);
 
@@ -501,9 +506,29 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		model.sqlForCreate.add(bufferTable.toString());
 		model.sqlForDrop.add(bufferDropTable.toString());
 
+		generateColumnsArray(entity);
+		
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
+	}
+
+	/**
+	 * @param entity
+	 */
+	private void generateColumnsArray(SQLEntity entity) {
+		{
+		// generate columns array
+		Builder sp = FieldSpec.builder(ArrayTypeName.of(String.class), "COLUMNS", Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL );
+		String s="";
+		StringBuilder buffer=new StringBuilder();
+		for (SQLProperty property: entity.getCollection()) {
+			buffer.append(s+"COLUMN_" + columnNameToUpperCaseConverter.convert(property.getName()));
+			s=", ";
+		}
+		classBuilder.addField(sp.addJavadoc("Columns array\n").initializer("{"+buffer.toString()+"}").build());
+		classBuilder.addMethod(MethodSpec.methodBuilder("columns").addModifiers(Modifier.PUBLIC).addJavadoc("Columns array\n").addAnnotation(Override.class).returns(ArrayTypeName.of(String.class)).addStatement("return COLUMNS").build());
+		}
 	}
 
 	public static Pair<String, String> buldIndexes(final SQLEntity entity, boolean unique, int counter) {
