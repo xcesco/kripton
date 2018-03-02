@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -33,6 +34,11 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
    * <p>datasource singleton</p>
    */
   static BindApp1DataSource instance;
+
+  /**
+   * List of tables compose datasource
+   */
+  static final SQLiteTable[] TABLES = {new UserTable(), new DeviceTable(), new UserDeviceTable()};
 
   /**
    * <p>dao instance</p>
@@ -305,6 +311,13 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
    */
   public static synchronized BindApp1DataSource build() {
     return build(DataSourceOptions.builder().build());
+  }
+
+  /**
+   * List of tables compose datasource:
+   */
+  public static SQLiteTable[] tables() {
+    return TABLES;
   }
 
   /**

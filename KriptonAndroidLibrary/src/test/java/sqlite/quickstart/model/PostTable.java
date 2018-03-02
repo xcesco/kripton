@@ -1,5 +1,7 @@
 package sqlite.quickstart.model;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Post</code> is associated to table <code>post</code>
@@ -7,7 +9,7 @@ package sqlite.quickstart.model;
  * </p>
  *  @see Post
  */
-public class PostTable {
+public class PostTable implements SQLiteTable {
   /**
    * Costant represents typeName of table post
    */
@@ -58,4 +60,25 @@ public class PostTable {
    *  @see Post#body
    */
   public static final String COLUMN_BODY = "body";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_USER_ID, COLUMN_ID, COLUMN_TITLE, COLUMN_BODY};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

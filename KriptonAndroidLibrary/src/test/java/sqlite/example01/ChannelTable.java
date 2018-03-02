@@ -1,5 +1,7 @@
 package sqlite.example01;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Channel</code> is associated to table <code>channel</code>
@@ -7,7 +9,7 @@ package sqlite.example01;
  * </p>
  *  @see Channel
  */
-public class ChannelTable {
+public class ChannelTable implements SQLiteTable {
   /**
    * Costant represents typeName of table channel
    */
@@ -65,4 +67,25 @@ public class ChannelTable {
    *  @see Channel#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_UID, COLUMN_OWNER_UID, COLUMN_UPDATE_TIME, COLUMN_NAME, COLUMN_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

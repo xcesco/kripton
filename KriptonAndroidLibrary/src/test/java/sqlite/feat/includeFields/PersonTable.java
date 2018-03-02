@@ -1,5 +1,7 @@
 package sqlite.feat.includeFields;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Person</code> is associated to table <code>person</code>
@@ -7,7 +9,7 @@ package sqlite.feat.includeFields;
  * </p>
  *  @see Person
  */
-public class PersonTable {
+public class PersonTable implements SQLiteTable {
   /**
    * Costant represents typeName of table person
    */
@@ -72,4 +74,25 @@ public class PersonTable {
    *  @see Person#typeName
    */
   public static final String COLUMN_TYPE_NAME = "type_name";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_SURNAME, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY, COLUMN_TYPE_NAME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

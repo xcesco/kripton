@@ -40,6 +40,7 @@ import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -65,7 +66,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.FieldSpec.Builder;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
@@ -119,7 +119,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
-		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC);
+		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC).addSuperinterface(SQLiteTable.class);;
 
 		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName), Modifier.STATIC, Modifier.PRIVATE);
 
@@ -159,7 +159,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		for (SQLProperty item : entity.getCollection()) {
 			bufferTable.append(separator);
 			bufferTable.append(item.columnName);
-			
+
 			// every column is a long
 			bufferTable.append(" " + SQLTransformer.lookup(TypeName.LONG).getColumnTypeAsString());
 
@@ -207,7 +207,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 						throw new InvalidBeanTypeException(item, foreignClassName);
 					}
 				}
-				
+
 				bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.getTableName() + "(" + reference.getPrimaryKey().columnName + ")");
 
 				if (item.onDeleteAction != ForeignKeyAction.NO_ACTION) {
@@ -238,7 +238,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			bufferTable.append(bufferIndexesCreate.toString());
 		}
 
-		// add  single column indexes (NOT UNIQUE)
+		// add single column indexes (NOT UNIQUE)
 		{
 			Pair<String, String> multiIndexes = buldIndexes(entity, false, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
@@ -293,13 +293,15 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		model.sqlForCreate.add(bufferTable.toString());
 		model.sqlForDrop.add(bufferDropTable.toString());
 
+		generateColumnsArray(entity);
+		
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
 	}
 
 	public static String getTableClassName(String entityName) {
-		return  entityName + SUFFIX;
+		return entityName + SUFFIX;
 	}
 
 	public static ClassName tableClassName(SQLDaoDefinition dao, SQLEntity entity) {
@@ -380,7 +382,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			boolean nullable = item.isNullable();
 
-			// if it is not primary key and it is not nullable, then add not null
+			// if it is not primary key and it is not nullable, then add not
+			// null
 			if (!nullable && item.columnType != ColumnType.PRIMARY_KEY) {
 				bufferTable.append(" NOT NULL");
 			}
@@ -391,7 +394,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				SQLEntity reference = model.getEntity(foreignClassName);
 
 				if (reference == null) {
-					// check if we have a DAO associated into DataSource definition
+					// check if we have a DAO associated into DataSource
+					// definition
 					boolean found = false;
 					for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
 						if (daoDefinition.getEntityClassName().equals(foreignClassName)) {
@@ -507,28 +511,32 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		model.sqlForDrop.add(bufferDropTable.toString());
 
 		generateColumnsArray(entity);
-		
+
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 
 	}
 
 	/**
+	 * generate columns array.
+	 * 
 	 * @param entity
 	 */
-	private void generateColumnsArray(SQLEntity entity) {
-		{
+	private void generateColumnsArray(Finder<SQLProperty> entity) {
 		// generate columns array
-		Builder sp = FieldSpec.builder(ArrayTypeName.of(String.class), "COLUMNS", Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL );
-		String s="";
-		StringBuilder buffer=new StringBuilder();
-		for (SQLProperty property: entity.getCollection()) {
-			buffer.append(s+"COLUMN_" + columnNameToUpperCaseConverter.convert(property.getName()));
-			s=", ";
+		Builder sp = FieldSpec.builder(ArrayTypeName.of(String.class), "COLUMNS", Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL);
+		String s = "";
+		StringBuilder buffer = new StringBuilder();
+		for (SQLProperty property : entity.getCollection()) {
+			buffer.append(s + "COLUMN_" + columnNameToUpperCaseConverter.convert(property.getName()));
+			s = ", ";
 		}
-		classBuilder.addField(sp.addJavadoc("Columns array\n").initializer("{"+buffer.toString()+"}").build());
-		classBuilder.addMethod(MethodSpec.methodBuilder("columns").addModifiers(Modifier.PUBLIC).addJavadoc("Columns array\n").addAnnotation(Override.class).returns(ArrayTypeName.of(String.class)).addStatement("return COLUMNS").build());
-		}
+		classBuilder.addField(sp.addJavadoc("Columns array\n").initializer("{" + buffer.toString() + "}").build());
+		classBuilder.addMethod(MethodSpec.methodBuilder("columns").addModifiers(Modifier.PUBLIC).addJavadoc("Columns array\n").addAnnotation(Override.class).returns(ArrayTypeName.of(String.class))
+				.addStatement("return COLUMNS").build());
+		
+		classBuilder.addMethod(MethodSpec.methodBuilder("name").addModifiers(Modifier.PUBLIC).addJavadoc("table name\n").addAnnotation(Override.class).returns(TypeName.get(String.class))
+				.addStatement("return TABLE_NAME").build());
 	}
 
 	public static Pair<String, String> buldIndexes(final SQLEntity entity, boolean unique, int counter) {
@@ -571,7 +579,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					return "While table definition generation for entity " + entity.getName();
 				}
 			}, createIndex, new JQLReplacerListenerImpl(null) {
-											
+
 				@Override
 				public String onColumnName(String columnName) {
 					fieldCounter.value0++;
@@ -599,9 +607,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		return result;
 	}
-	
+
 	/**
 	 * A generated element can have only a primary key and two FK
+	 * 
 	 * @param entity
 	 * @param unique
 	 * @param counter
@@ -617,8 +626,12 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		uniqueString = "UNIQUE ";
 		indexes = entity.index;
-		//  entity.annotationTable.getAttributeAsArray(AnnotationAttributeType.UNIQUE_INDEXES);
-		// CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id) REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES seminar(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc, seminar_id desc);
+		// entity.annotationTable.getAttributeAsArray(AnnotationAttributeType.UNIQUE_INDEXES);
+		// CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT,
+		// student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id)
+		// REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES
+		// seminar(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on
+		// seminar_2_student (student_id asc, seminar_id desc);
 
 		if (indexes == null || indexes.size() == 0)
 			return result;

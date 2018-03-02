@@ -1,5 +1,7 @@
 package sqlite.feature.indexes;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Person</code> is associated to table <code>person</code>
@@ -7,7 +9,7 @@ package sqlite.feature.indexes;
  * </p>
  *  @see Person
  */
-public class PersonTable {
+public class PersonTable implements SQLiteTable {
   /**
    * Costant represents typeName of table person
    */
@@ -86,4 +88,25 @@ public class PersonTable {
    *  @see Person#birthDay
    */
   public static final String COLUMN_BIRTH_DAY = "birth_day";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_TYPE_NAME, COLUMN_NAME_TEMP, COLUMN_DATE, COLUMN_NAME, COLUMN_SURNAME, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

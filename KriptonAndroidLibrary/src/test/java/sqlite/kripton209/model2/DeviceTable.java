@@ -1,5 +1,7 @@
 package sqlite.kripton209.model2;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Device</code> is associated to table <code>device</code>
@@ -7,7 +9,7 @@ package sqlite.kripton209.model2;
  * </p>
  *  @see Device
  */
-public class DeviceTable {
+public class DeviceTable implements SQLiteTable {
   /**
    * Costant represents typeName of table device
    */
@@ -44,4 +46,25 @@ public class DeviceTable {
    *  @see Device#name
    */
   public static final String COLUMN_NAME = "name";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

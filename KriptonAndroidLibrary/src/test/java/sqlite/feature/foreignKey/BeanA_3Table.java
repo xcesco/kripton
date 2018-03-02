@@ -1,5 +1,7 @@
 package sqlite.feature.foreignKey;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>BeanA_3</code> is associated to table <code>bean_a_3</code>
@@ -7,7 +9,7 @@ package sqlite.feature.foreignKey;
  * </p>
  *  @see BeanA_3
  */
-public class BeanA_3Table {
+public class BeanA_3Table implements SQLiteTable {
   /**
    * Costant represents typeName of table bean_a_3
    */
@@ -44,4 +46,25 @@ public class BeanA_3Table {
    *  @see BeanA_3#valueString2
    */
   public static final String COLUMN_VALUE_STRING2 = "value_string2";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE_STRING2};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

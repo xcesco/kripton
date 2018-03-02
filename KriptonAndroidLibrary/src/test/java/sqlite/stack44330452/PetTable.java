@@ -1,5 +1,7 @@
 package sqlite.stack44330452;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Pet</code> is associated to table <code>pet</code>
@@ -7,7 +9,7 @@ package sqlite.stack44330452;
  * </p>
  *  @see Pet
  */
-public class PetTable {
+public class PetTable implements SQLiteTable {
   /**
    * Costant represents typeName of table pet
    */
@@ -51,4 +53,25 @@ public class PetTable {
    *  @see Pet#name
    */
   public static final String COLUMN_NAME = "name";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_USER_ID, COLUMN_NAME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

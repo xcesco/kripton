@@ -2,6 +2,7 @@ package sqlite.feature.rx.model;
 
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -20,7 +21,7 @@ import java.util.Map;
  * </p>
  *  @see Country
  */
-public class CountryTable {
+public class CountryTable implements SQLiteTable {
   /**
    * Costant represents typeName of table country
    */
@@ -92,6 +93,11 @@ public class CountryTable {
    *  @see Country#translatedName
    */
   public static final String COLUMN_TRANSLATED_NAME = "translated_name";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_AREA, COLUMN_CODE, COLUMN_CALLING_CODE, COLUMN_REGION, COLUMN_NAME, COLUMN_TRANSLATED_NAME};
 
   /**
    * for attribute translatedName serialization
@@ -174,5 +180,21 @@ public class CountryTable {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

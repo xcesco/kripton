@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -44,6 +45,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * <p>datasource singleton</p>
    */
   static BindXenoDataSource instance;
+
+  /**
+   * List of tables compose datasource
+   */
+  static final SQLiteTable[] TABLES = {new PersonPhoneTable(), new CountryTable(), new PersonTable(), new PhoneNumberTable(), new PrefixConfigTable()};
 
   /**
    * <p>dao instance</p>
@@ -224,16 +230,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
@@ -292,16 +298,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
@@ -362,6 +368,13 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   public static synchronized BindXenoDataSource build() {
     return build(DataSourceOptions.builder().build());
+  }
+
+  /**
+   * List of tables compose datasource:
+   */
+  public static SQLiteTable[] tables() {
+    return TABLES;
   }
 
   /**

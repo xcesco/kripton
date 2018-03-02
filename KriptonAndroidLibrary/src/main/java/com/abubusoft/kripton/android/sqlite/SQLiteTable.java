@@ -14,4 +14,10 @@ public interface SQLiteTable {
 	 * @return
 	 */
 	String[] columns();
+
+	/**
+	 * Name of table
+	 * @return
+	 */
+	String name();
 }

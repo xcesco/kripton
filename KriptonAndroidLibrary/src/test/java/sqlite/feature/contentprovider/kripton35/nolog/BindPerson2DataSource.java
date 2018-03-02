@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -32,6 +33,11 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    * <p>datasource singleton</p>
    */
   static BindPerson2DataSource instance;
+
+  /**
+   * List of tables compose datasource
+   */
+  static final SQLiteTable[] TABLES = {new CityTable(), new PersonTable()};
 
   /**
    * <p>dao instance</p>
@@ -251,6 +257,13 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
    */
   public static synchronized BindPerson2DataSource build() {
     return build(DataSourceOptions.builder().build());
+  }
+
+  /**
+   * List of tables compose datasource:
+   */
+  public static SQLiteTable[] tables() {
+    return TABLES;
   }
 
   /**

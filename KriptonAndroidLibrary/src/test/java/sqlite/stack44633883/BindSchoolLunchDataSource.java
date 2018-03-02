@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -27,6 +28,11 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
    * <p>datasource singleton</p>
    */
   static BindSchoolLunchDataSource instance;
+
+  /**
+   * List of tables compose datasource
+   */
+  static final SQLiteTable[] TABLES = {new SchoolLunchTable()};
 
   /**
    * <p>dao instance</p>
@@ -252,6 +258,13 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
    */
   public static synchronized BindSchoolLunchDataSource build() {
     return build(DataSourceOptions.builder().build());
+  }
+
+  /**
+   * List of tables compose datasource:
+   */
+  public static SQLiteTable[] tables() {
+    return TABLES;
   }
 
   /**

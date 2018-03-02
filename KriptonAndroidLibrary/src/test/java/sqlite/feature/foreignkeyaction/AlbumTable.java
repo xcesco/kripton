@@ -1,5 +1,7 @@
 package sqlite.feature.foreignkeyaction;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Album</code> is associated to table <code>album</code>
@@ -7,7 +9,7 @@ package sqlite.feature.foreignkeyaction;
  * </p>
  *  @see Album
  */
-public class AlbumTable {
+public class AlbumTable implements SQLiteTable {
   /**
    * Costant represents typeName of table album
    */
@@ -51,4 +53,25 @@ public class AlbumTable {
    *  @see Album#name
    */
   public static final String COLUMN_NAME = "name";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ARTIST_ID, COLUMN_NAME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

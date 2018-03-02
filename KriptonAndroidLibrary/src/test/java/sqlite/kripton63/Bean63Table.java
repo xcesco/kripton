@@ -2,6 +2,7 @@ package sqlite.kripton63;
 
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -20,7 +21,7 @@ import java.util.Map;
  * </p>
  *  @see Bean63
  */
-public class Bean63Table {
+public class Bean63Table implements SQLiteTable {
   /**
    * Costant represents typeName of table bean63
    */
@@ -71,6 +72,11 @@ public class Bean63Table {
    *  @see Bean63#valueMapEnumByte
    */
   public static final String COLUMN_VALUE_MAP_ENUM_BYTE = "value_map_enum_byte";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE_MAP_STRING_BYTE, COLUMN_VALUE_MAP_ENUM_BYTE};
 
   /**
    * for attribute valueMapStringByte serialization
@@ -233,5 +239,21 @@ public class Bean63Table {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

@@ -1,5 +1,7 @@
 package bind.kripton81ExceptionCoverage;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Bean8</code> is associated to table <code>bean8</code>
@@ -7,7 +9,7 @@ package bind.kripton81ExceptionCoverage;
  * </p>
  *  @see Bean8
  */
-public class Bean8Table {
+public class Bean8Table implements SQLiteTable {
   /**
    * Costant represents typeName of table bean8
    */
@@ -44,4 +46,25 @@ public class Bean8Table {
    *  @see Bean8#ignore2
    */
   public static final String COLUMN_IGNORE2 = "ignore2";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_IGNORE2};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

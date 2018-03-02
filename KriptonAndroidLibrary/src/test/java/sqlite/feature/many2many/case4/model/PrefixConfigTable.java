@@ -1,5 +1,7 @@
 package sqlite.feature.many2many.case4.model;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>PrefixConfig</code> is associated to table <code>prefix_config</code>
@@ -7,7 +9,7 @@ package sqlite.feature.many2many.case4.model;
  * </p>
  *  @see PrefixConfig
  */
-public class PrefixConfigTable {
+public class PrefixConfigTable implements SQLiteTable {
   /**
    * Costant represents typeName of table prefix_config
    */
@@ -65,4 +67,25 @@ public class PrefixConfigTable {
    *  @see PrefixConfig#dialogTimeout
    */
   public static final String COLUMN_DIALOG_TIMEOUT = "dialog_timeout";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_DEFAULT_COUNTRY, COLUMN_DUAL_BILLING_PREFIX, COLUMN_ENABLED, COLUMN_DIALOG_TIMEOUT};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

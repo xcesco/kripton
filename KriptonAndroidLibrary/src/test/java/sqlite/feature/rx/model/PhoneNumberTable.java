@@ -1,5 +1,7 @@
 package sqlite.feature.rx.model;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>PhoneNumber</code> is associated to table <code>phone_number</code>
@@ -7,7 +9,7 @@ package sqlite.feature.rx.model;
  * </p>
  *  @see PhoneNumber
  */
-public class PhoneNumberTable {
+public class PhoneNumberTable implements SQLiteTable {
   /**
    * Costant represents typeName of table phone_number
    */
@@ -72,4 +74,25 @@ public class PhoneNumberTable {
    *  @see PhoneNumber#contactId
    */
   public static final String COLUMN_CONTACT_ID = "contact_id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ACTION, COLUMN_NUMBER, COLUMN_COUNTRY_CODE, COLUMN_CONTACT_NAME, COLUMN_CONTACT_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

@@ -2,6 +2,7 @@ package sqlite.kripton58.list;
 
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -20,7 +21,7 @@ import java.util.List;
  * </p>
  *  @see CharBean
  */
-public class CharBeanTable {
+public class CharBeanTable implements SQLiteTable {
   /**
    * Costant represents typeName of table char_bean
    */
@@ -64,6 +65,11 @@ public class CharBeanTable {
    *  @see CharBean#value2
    */
   public static final String COLUMN_VALUE2 = "value2";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE2};
 
   /**
    * for attribute value serialization
@@ -205,5 +211,21 @@ public class CharBeanTable {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

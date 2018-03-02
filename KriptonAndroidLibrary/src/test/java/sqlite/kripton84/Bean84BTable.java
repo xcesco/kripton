@@ -3,6 +3,7 @@ package sqlite.kripton84;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.core.JsonToken;
  * </p>
  *  @see Bean84B
  */
-public class Bean84BTable {
+public class Bean84BTable implements SQLiteTable {
   /**
    * Costant represents typeName of table bean84_b
    */
@@ -59,6 +60,11 @@ public class Bean84BTable {
   /**
    * Bean84B2BindMap */
   private static Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_COLUMN_BEAN};
 
   /**
    * for attribute columnBean serialization
@@ -102,5 +108,21 @@ public class Bean84BTable {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

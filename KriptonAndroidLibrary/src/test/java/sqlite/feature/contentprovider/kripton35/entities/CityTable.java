@@ -1,5 +1,7 @@
 package sqlite.feature.contentprovider.kripton35.entities;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>City</code> is associated to table <code>city</code>
@@ -7,7 +9,7 @@ package sqlite.feature.contentprovider.kripton35.entities;
  * </p>
  *  @see City
  */
-public class CityTable {
+public class CityTable implements SQLiteTable {
   /**
    * Costant represents typeName of table city
    */
@@ -44,4 +46,25 @@ public class CityTable {
    *  @see City#name
    */
   public static final String COLUMN_NAME = "name";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

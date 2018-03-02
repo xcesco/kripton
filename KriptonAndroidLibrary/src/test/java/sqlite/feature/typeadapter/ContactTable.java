@@ -1,5 +1,7 @@
 package sqlite.feature.typeadapter;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Contact</code> is associated to table <code>contact</code>
@@ -7,7 +9,7 @@ package sqlite.feature.typeadapter;
  * </p>
  *  @see Contact
  */
-public class ContactTable {
+public class ContactTable implements SQLiteTable {
   /**
    * Costant represents typeName of table contact
    */
@@ -79,4 +81,25 @@ public class ContactTable {
    *  @see Contact#updateTime
    */
   public static final String COLUMN_UPDATE_TIME = "update_time";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_SURNAME, COLUMN_BIRTH_DAY, COLUMN_PASSWORD, COLUMN_TYPE, COLUMN_UPDATE_DATE, COLUMN_UPDATE_TIME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

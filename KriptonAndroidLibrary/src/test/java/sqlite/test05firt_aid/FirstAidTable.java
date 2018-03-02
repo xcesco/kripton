@@ -1,5 +1,7 @@
 package sqlite.test05firt_aid;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>FirstAid</code> is associated to table <code>first_aid</code>
@@ -7,7 +9,7 @@ package sqlite.test05firt_aid;
  * </p>
  *  @see FirstAid
  */
-public class FirstAidTable {
+public class FirstAidTable implements SQLiteTable {
   /**
    * Costant represents typeName of table first_aid
    */
@@ -184,4 +186,25 @@ public class FirstAidTable {
    *  @see FirstAid#redAverageWaitingTime
    */
   public static final String COLUMN_RED_AVERAGE_WAITING_TIME = "red_average_waiting_time";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_UID, COLUMN_DESCRIPTION, COLUMN_INFO, COLUMN_LONGITUDE, COLUMN_LATITUDE, COLUMN_ADDRESS, COLUMN_ADDRESS2, COLUMN_CITY, COLUMN_PHONE, COLUMN_TOTAL_PATIENT_COUNT, COLUMN_WHITE_WAITING_PATIENTS, COLUMN_WHITE_VISITING_PATIENTS, COLUMN_WHITE_AVERAGE_WAITING_TIME, COLUMN_GREEN_WAITING_PATIENTS, COLUMN_GREEN_VISITING_PATIENTS, COLUMN_GREEN_AVERAGE_WAITING_TIME, COLUMN_YELLOW_WAITING_PATIENTS, COLUMN_YELLOW_VISITING_PATIENTS, COLUMN_YELLOW_AVERAGE_WAITING_TIME, COLUMN_RED_WAITING_PATIENTS, COLUMN_RED_AVERAGE_WAITING_TIME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

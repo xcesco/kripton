@@ -1,5 +1,7 @@
 package sqlite.feature.many2many.err3;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>PersonCityErr3</code> is associated to table <code>person_city_err3</code>
@@ -7,7 +9,7 @@ package sqlite.feature.many2many.err3;
  * </p>
  *  @see PersonCityErr3
  */
-public class PersonCityErr3Table {
+public class PersonCityErr3Table implements SQLiteTable {
   /**
    * Costant represents typeName of table person_city_err3
    */
@@ -51,4 +53,25 @@ public class PersonCityErr3Table {
    *  @see PersonCityErr3#cityId
    */
   public static final String COLUMN_CITY_ID = "city_id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PERSON_ID, COLUMN_CITY_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

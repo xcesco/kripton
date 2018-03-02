@@ -1,5 +1,7 @@
 package sqlite.quickstart.model;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Todo</code> is associated to table <code>todo</code>
@@ -7,7 +9,7 @@ package sqlite.quickstart.model;
  * </p>
  *  @see Todo
  */
-public class TodoTable {
+public class TodoTable implements SQLiteTable {
   /**
    * Costant represents typeName of table todo
    */
@@ -58,4 +60,25 @@ public class TodoTable {
    *  @see Todo#completed
    */
   public static final String COLUMN_COMPLETED = "completed";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_USER_ID, COLUMN_TITLE, COLUMN_COMPLETED};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

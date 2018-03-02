@@ -1,5 +1,7 @@
 package sqlite.feature.speed.model;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Person</code> is associated to table <code>person</code>
@@ -7,7 +9,7 @@ package sqlite.feature.speed.model;
  * </p>
  *  @see Person
  */
-public class PersonTable {
+public class PersonTable implements SQLiteTable {
   /**
    * Costant represents typeName of table person
    */
@@ -51,4 +53,25 @@ public class PersonTable {
    *  @see Person#surname
    */
   public static final String COLUMN_SURNAME = "surname";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_SURNAME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

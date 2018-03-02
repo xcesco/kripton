@@ -1,5 +1,7 @@
 package sqlite.feature.typeadapter.kripton180;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Employee</code> is associated to table <code>employees</code>
@@ -7,7 +9,7 @@ package sqlite.feature.typeadapter.kripton180;
  * </p>
  *  @see Employee
  */
-public class EmployeeTable {
+public class EmployeeTable implements SQLiteTable {
   /**
    * Costant represents typeName of table employees
    */
@@ -142,4 +144,25 @@ public class EmployeeTable {
    *  @see Employee#fieldByteArray
    */
   public static final String COLUMN_FIELD_BYTE_ARRAY = "field_byte_array";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_LAST_NAME, COLUMN_FIRST_NAME, COLUMN_BIRTH_DATE, COLUMN_HIRE_DATE, COLUMN_ADDRESS, COLUMN_FIELD_BOOLEAN, COLUMN_FIELD_BYTE, COLUMN_FIELD_CHARACTER, COLUMN_FIELD_SHORT, COLUMN_FIELD_INTEGER, COLUMN_FIELD_LONG, COLUMN_FIELD_FLOAT, COLUMN_FIELD_DOUBLE, COLUMN_FIELD_STRING, COLUMN_FIELD_BYTE_ARRAY};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

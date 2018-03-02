@@ -1,5 +1,7 @@
 package sqlite.stack44330452;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>User</code> is associated to table <code>user</code>
@@ -7,7 +9,7 @@ package sqlite.stack44330452;
  * </p>
  *  @see User
  */
-public class UserTable {
+public class UserTable implements SQLiteTable {
   /**
    * Costant represents typeName of table user
    */
@@ -37,4 +39,25 @@ public class UserTable {
    *  @see User#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

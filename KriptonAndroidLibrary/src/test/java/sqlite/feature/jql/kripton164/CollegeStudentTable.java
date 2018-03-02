@@ -1,5 +1,7 @@
 package sqlite.feature.jql.kripton164;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>CollegeStudent</code> is associated to table <code>students</code>
@@ -7,7 +9,7 @@ package sqlite.feature.jql.kripton164;
  * </p>
  *  @see CollegeStudent
  */
-public class CollegeStudentTable {
+public class CollegeStudentTable implements SQLiteTable {
   /**
    * Costant represents typeName of table students
    */
@@ -51,4 +53,25 @@ public class CollegeStudentTable {
    *  @see CollegeStudent#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_FIRST_NAME, COLUMN_SURNAME, COLUMN_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

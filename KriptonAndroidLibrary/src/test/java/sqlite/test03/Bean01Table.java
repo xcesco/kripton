@@ -3,6 +3,7 @@ package sqlite.test03;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -20,7 +21,7 @@ import java.util.List;
  * </p>
  *  @see Bean01
  */
-public class Bean01Table {
+public class Bean01Table implements SQLiteTable {
   /**
    * Costant represents typeName of table bean01
    */
@@ -89,6 +90,11 @@ public class Bean01Table {
   /**
    * Bean02BindMap */
   private static Bean02BindMap bean02BindMap = BinderUtils.mapperFor(Bean02.class);
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_LISTA, COLUMN_ID, COLUMN_MESSAGE_DATE, COLUMN_MESSAGE_TEXT, COLUMN_BEAN_LIST, COLUMN_VALUE};
 
   /**
    * for attribute lista serialization
@@ -230,5 +236,21 @@ public class Bean01Table {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

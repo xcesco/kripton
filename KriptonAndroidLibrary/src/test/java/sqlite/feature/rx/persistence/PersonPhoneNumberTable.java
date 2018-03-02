@@ -1,5 +1,7 @@
 package sqlite.feature.rx.persistence;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>PersonPhoneNumber</code> is associated to table <code>person_phone_number</code>
@@ -7,7 +9,7 @@ package sqlite.feature.rx.persistence;
  * </p>
  *  @see PersonPhoneNumber
  */
-public class PersonPhoneNumberTable {
+public class PersonPhoneNumberTable implements SQLiteTable {
   /**
    * Costant represents typeName of table person_phone_number
    */
@@ -51,4 +53,25 @@ public class PersonPhoneNumberTable {
    *  @see PersonPhoneNumber#phoneNumberId
    */
   public static final String COLUMN_PHONE_NUMBER_ID = "phone_number_id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PERSON_ID, COLUMN_PHONE_NUMBER_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

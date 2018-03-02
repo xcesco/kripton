@@ -1,5 +1,7 @@
 package sqlite.kripton38;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Bean05</code> is associated to table <code>ws_bean</code>
@@ -7,7 +9,7 @@ package sqlite.kripton38;
  * </p>
  *  @see Bean05
  */
-public class Bean05Table {
+public class Bean05Table implements SQLiteTable {
   /**
    * Costant represents typeName of table ws_bean
    */
@@ -74,6 +76,11 @@ public class Bean05Table {
   public static final String COLUMN_CREATION_TIME = "creation_time";
 
   /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_PK, COLUMN_NUMBER, COLUMN_BEAN_TYPE, COLUMN_TEXT, COLUMN_CONTENT, COLUMN_CREATION_TIME};
+
+  /**
    * for attribute content serialization
    */
   public static byte[] serializeContent(byte[] value) {
@@ -85,5 +92,21 @@ public class Bean05Table {
    */
   public static byte[] parseContent(byte[] input) {
     return input;
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

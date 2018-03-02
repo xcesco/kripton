@@ -3,6 +3,7 @@ package sqlite.kripton60;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.SQLTimeUtils;
@@ -29,7 +30,7 @@ import java.util.Set;
  * </p>
  *  @see Bean
  */
-public class BeanTable {
+public class BeanTable implements SQLiteTable {
   /**
    * Costant represents typeName of table bean
    */
@@ -350,6 +351,11 @@ public class BeanTable {
   /**
    * BeanBindMap */
   private static BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_VALUE_BOOL_TYPE, COLUMN_VALUE_BOOL, COLUMN_VALUE_BYTE_TYPE, COLUMN_VALUE_BYTE, COLUMN_VALUE_SHORT_TYPE, COLUMN_VALUE_SHORT, COLUMN_VALUE_INT_TYPE, COLUMN_VALUE_INT, COLUMN_VALUE_STRING, COLUMN_VALUE_CHAR_TYPE, COLUMN_VALUE_CHAR, COLUMN_VALUE_FLOAT_TYPE, COLUMN_VALUE_FLOAT, COLUMN_VALUE_BIG_INTEGER, COLUMN_VALUE_BIG_DECIMAL, COLUMN_VALUE_ENUM_TYPE, COLUMN_VALUE_LONG_TYPE, COLUMN_VALUE_LONG, COLUMN_VALUE_DOUBLE_TYPE, COLUMN_VALUE_DOUBLE, COLUMN_VALUE_LOCALE, COLUMN_VALUE_CALENDAR, COLUMN_VALUE_DATE, COLUMN_VALUE_URL, COLUMN_VALUE_TIME, COLUMN_VALUE_CURRENCY, COLUMN_VALUE_TIME_ZONE, COLUMN_VALUE_TIME_LIST, COLUMN_VALUE_STRIN_LIST, COLUMN_VALUE_LONG_LIST, COLUMN_VALUE_BYTE_ARRAY, COLUMN_VALUE_LONG_TYPE_ARRAY, COLUMN_VALUE_LONG_ARRAY, COLUMN_VALUE_BEAN_ARRAY, COLUMN_VALUE_STRING_ARRAY, COLUMN_VALUE_CHAR_LIST, COLUMN_VALUE_CHAR_TYPE_ARRAY, COLUMN_VALUE_CHAR_ARRAY, COLUMN_VALUE_MAP_STRING_BEAN, COLUMN_VALUE_LINKED_MAP_STRING_BEAN, COLUMN_VALUE_SET_STRING, COLUMN_ID};
 
   /**
    * for attribute valueTimeList serialization
@@ -1295,5 +1301,21 @@ public class BeanTable {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

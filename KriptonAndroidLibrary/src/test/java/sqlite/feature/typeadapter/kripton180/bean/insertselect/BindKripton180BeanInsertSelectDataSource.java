@@ -5,6 +5,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -28,6 +29,11 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    * <p>datasource singleton</p>
    */
   static BindKripton180BeanInsertSelectDataSource instance;
+
+  /**
+   * List of tables compose datasource
+   */
+  static final SQLiteTable[] TABLES = {new EmployeeTable()};
 
   /**
    * <p>dao instance</p>
@@ -253,6 +259,13 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    */
   public static synchronized BindKripton180BeanInsertSelectDataSource build() {
     return build(DataSourceOptions.builder().build());
+  }
+
+  /**
+   * List of tables compose datasource:
+   */
+  public static SQLiteTable[] tables() {
+    return TABLES;
   }
 
   /**

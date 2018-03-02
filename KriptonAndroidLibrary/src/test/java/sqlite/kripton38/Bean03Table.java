@@ -1,5 +1,7 @@
 package sqlite.kripton38;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Bean03</code> is associated to table <code>bean03</code>
@@ -7,7 +9,7 @@ package sqlite.kripton38;
  * </p>
  *  @see Bean03
  */
-public class Bean03Table {
+public class Bean03Table implements SQLiteTable {
   /**
    * Costant represents typeName of table bean03
    */
@@ -44,4 +46,25 @@ public class Bean03Table {
    *  @see Bean03#text
    */
   public static final String COLUMN_TEXT = "text";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_TEXT};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

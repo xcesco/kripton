@@ -1,5 +1,7 @@
 package sqlite.feature.performance.simple;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>SimpleAddressItem</code> is associated to table <code>simple_address_item</code>
@@ -7,7 +9,7 @@ package sqlite.feature.performance.simple;
  * </p>
  *  @see SimpleAddressItem
  */
-public class SimpleAddressItemTable {
+public class SimpleAddressItemTable implements SQLiteTable {
   /**
    * Costant represents typeName of table simple_address_item
    */
@@ -72,4 +74,25 @@ public class SimpleAddressItemTable {
    *  @see SimpleAddressItem#phone
    */
   public static final String COLUMN_PHONE = "phone";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_ADDRESS, COLUMN_CITY, COLUMN_STATE, COLUMN_PHONE};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

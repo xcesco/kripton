@@ -1,5 +1,7 @@
 package bind.kripton81ExceptionCoverage;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>PKBean</code> is associated to table <code>p_k_bean</code>
@@ -7,7 +9,7 @@ package bind.kripton81ExceptionCoverage;
  * </p>
  *  @see PKBean
  */
-public class PKBeanTable {
+public class PKBeanTable implements SQLiteTable {
   /**
    * Costant represents typeName of table p_k_bean
    */
@@ -44,4 +46,25 @@ public class PKBeanTable {
    *  @see PKBean#description
    */
   public static final String COLUMN_DESCRIPTION = "description";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_DESCRIPTION};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
@@ -28,6 +29,7 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
+import com.squareup.javapoet.TypeName;
 
 public class SQLEntity extends ModelClass<SQLProperty> implements Finder<SQLProperty> {
 

@@ -2,6 +2,7 @@ package sqlite.stack44633883;
 
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -18,7 +19,7 @@ import java.util.HashSet;
  * </p>
  *  @see SchoolLunch
  */
-public class SchoolLunchTable {
+public class SchoolLunchTable implements SQLiteTable {
   /**
    * Costant represents typeName of table SchoolLunches
    */
@@ -69,6 +70,11 @@ public class SchoolLunchTable {
    *  @see SchoolLunch#fruits
    */
   public static final String COLUMN_FRUITS = "fruits";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_LUNCH_ID, COLUMN_FRESH, COLUMN_CONTAINS_MEAT, COLUMN_FRUITS};
 
   /**
    * for attribute fruits serialization
@@ -136,5 +142,21 @@ public class SchoolLunchTable {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

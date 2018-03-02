@@ -3,6 +3,7 @@ package sqlite.quickstart.model;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.core.JsonToken;
  * </p>
  *  @see User
  */
-public class UserTable {
+public class UserTable implements SQLiteTable {
   /**
    * Costant represents typeName of table user
    */
@@ -107,6 +108,11 @@ public class UserTable {
   private static CompanyBindMap companyBindMap = BinderUtils.mapperFor(Company.class);
 
   /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_USERNAME, COLUMN_EMAIL, COLUMN_ADDRESS, COLUMN_PHONE, COLUMN_WEBSITE, COLUMN_COMPANY};
+
+  /**
    * for attribute address serialization
    */
   public static byte[] serializeAddress(Address value) {
@@ -192,5 +198,21 @@ public class UserTable {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

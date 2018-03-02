@@ -42,6 +42,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource.OnErrorListener;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -60,8 +61,11 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.FieldSpec.Builder;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -204,9 +208,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// instance
 		classBuilder.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
-		
+
 		// instance
-		//classBuilder.addField(FieldSpec.builder(Boolean.TYPE, "justCreated", Modifier.PRIVATE).addJavadoc("<p>True if dataSource is just created</p>\n").build());
+		// classBuilder.addField(FieldSpec.builder(Boolean.TYPE, "justCreated",
+		// Modifier.PRIVATE).addJavadoc("<p>True if dataSource is just
+		// created</p>\n").build());
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			// TypeName daoInterfaceName =
@@ -282,6 +288,38 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// build
 		generateBuild(dataSourceName, schema);
 
+		{
+			Builder f = FieldSpec.builder(ArrayTypeName.of(SQLiteTable.class), "TABLES", Modifier.FINAL, Modifier.STATIC).addJavadoc("List of tables compose datasource\n");
+			com.squareup.javapoet.CodeBlock.Builder c = CodeBlock.builder();
+			String s="";
+			
+			c.add("{");
+			for (SQLEntity entity : schema.getEntities()) {
+				String tableName=BindTableGenerator.getTableClassName(entity.getName());
+					
+				c.add(s+"new $T()", TypeUtility.className(tableName));
+				s=", ";
+			}
+			
+			for (GeneratedTypeElement entity : schema.generatedEntities) {
+				String tableName=BindTableGenerator.getTableClassName(entity.getQualifiedName());
+					
+				c.add(s+"new $T()", TypeUtility.className(tableName));
+				s=", ";
+			}						
+			
+			c.add("}");
+			f.initializer(c.build());
+			classBuilder.addField(f.build());
+			
+			classBuilder.addMethod(
+					MethodSpec.methodBuilder("tables")
+					.addJavadoc("List of tables compose datasource:\n")
+					.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+					.addStatement("return TABLES")
+					.returns(ArrayTypeName.of(SQLiteTable.class)).build());
+		}
+
 		TypeSpec typeSpec = classBuilder.build();
 		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 	}
@@ -292,7 +330,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	private void generateConstructor(SQLiteDatabaseSchema schema) {
 		// constructor
 		MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder().addParameter(DataSourceOptions.class, "options").addModifiers(Modifier.PROTECTED);
-		methodBuilder.addStatement("super($S, $L, options)", schema.isInMemory()? null: schema.fileName  , schema.version);
+		methodBuilder.addStatement("super($S, $L, options)", schema.isInMemory() ? null : schema.fileName, schema.version);
 		classBuilder.addMethod(methodBuilder.build());
 	}
 
@@ -352,10 +390,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 			methodBuilder.beginControlFlow("if (instance==null)");
 			methodBuilder.addStatement("instance=new $L(options)", dataSourceName);
-			methodBuilder.endControlFlow();			
-			
+			methodBuilder.endControlFlow();
+
 			generatePopulate(schema, methodBuilder);
-			
+
 			methodBuilder.addCode("return instance;\n");
 
 			classBuilder.addMethod(methodBuilder.build());
@@ -381,21 +419,21 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).returns(className(schemaName));
 
 		methodBuilder.beginControlFlow("if (instance==null)");
-		methodBuilder.addCode("$T options=$T.builder()",DataSourceOptions.class, DataSourceOptions.class);
-		if (schema.getDefaultTasks() != null && schema.getDefaultTasks().size() > 0) {						
-			for (Pair<Integer, String> task : schema.getDefaultTasks()) {				
-				methodBuilder.addCode("\n\t.addUpdateTask($L, new $T())", task.value0, TypeUtility.className(task.value1));				
+		methodBuilder.addCode("$T options=$T.builder()", DataSourceOptions.class, DataSourceOptions.class);
+		if (schema.getDefaultTasks() != null && schema.getDefaultTasks().size() > 0) {
+			for (Pair<Integer, String> task : schema.getDefaultTasks()) {
+				methodBuilder.addCode("\n\t.addUpdateTask($L, new $T())", task.value0, TypeUtility.className(task.value1));
 			}
 		}
-		if (schema.populatorClazz!=null) {
+		if (schema.populatorClazz != null) {
 			methodBuilder.addCode("\n\t.populator(new $T())", TypeUtility.className(schema.populatorClazz));
 		}
 		if (schema.isInMemory()) {
 			methodBuilder.addCode("\n\t.inMemory(true)");
 		}
-		methodBuilder.addCode("\n\t.build();\n",DataSourceOptions.class, DataSourceOptions.class);
+		methodBuilder.addCode("\n\t.build();\n", DataSourceOptions.class, DataSourceOptions.class);
 		methodBuilder.addStatement("instance=new $L(options)", schemaName);
-		
+
 		generatePopulate(schema, methodBuilder);
 
 		methodBuilder.endControlFlow();
@@ -411,18 +449,18 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * @param methodBuilder
 	 */
 	private void generatePopulate(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder) {
-		if (schema.populatorClazz!=null) {			
-			methodBuilder.addComment("force database DDL run");			
+		if (schema.populatorClazz != null) {
+			methodBuilder.addComment("force database DDL run");
 			methodBuilder.beginControlFlow("if (options.populator!=null)");
-			
+
 			methodBuilder.addStatement("instance.openWritableDatabase()");
 			methodBuilder.addStatement("instance.close()");
-			
+
 			methodBuilder.beginControlFlow("if (instance.justCreated)");
-			
+
 			methodBuilder.addComment("run populator");
 			methodBuilder.addStatement("options.populator.execute()");
-			
+
 			methodBuilder.endControlFlow();
 			methodBuilder.endControlFlow();
 		}
@@ -530,7 +568,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.beginControlFlow("if (options.databaseLifecycleHandler != null)");
 		methodBuilder.addStatement("options.databaseLifecycleHandler.onCreate(database)");
 		methodBuilder.endControlFlow();
-		
+
 		methodBuilder.addStatement("justCreated=true");
 
 		classBuilder.addMethod(methodBuilder.build());

@@ -1,5 +1,7 @@
 package sqlite.feature.join.model;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>User</code> is associated to table <code>user</code>
@@ -7,7 +9,7 @@ package sqlite.feature.join.model;
  * </p>
  *  @see User
  */
-public class UserTable {
+public class UserTable implements SQLiteTable {
   /**
    * Costant represents typeName of table user
    */
@@ -58,4 +60,25 @@ public class UserTable {
    *  @see User#age
    */
   public static final String COLUMN_AGE = "age";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_LAST_NAME, COLUMN_AGE};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

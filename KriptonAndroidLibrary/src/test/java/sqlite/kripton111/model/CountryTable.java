@@ -1,5 +1,7 @@
 package sqlite.kripton111.model;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Country</code> is associated to table <code>country</code>
@@ -7,7 +9,7 @@ package sqlite.kripton111.model;
  * </p>
  *  @see Country
  */
-public class CountryTable {
+public class CountryTable implements SQLiteTable {
   /**
    * Costant represents typeName of table country
    */
@@ -72,4 +74,25 @@ public class CountryTable {
    *  @see Country#name
    */
   public static final String COLUMN_NAME = "name";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_AREA, COLUMN_CODE, COLUMN_CALLING_CODE, COLUMN_REGION, COLUMN_NAME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

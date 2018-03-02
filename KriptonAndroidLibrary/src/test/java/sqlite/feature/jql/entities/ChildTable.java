@@ -1,5 +1,7 @@
 package sqlite.feature.jql.entities;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Child</code> is associated to table <code>child</code>
@@ -7,7 +9,7 @@ package sqlite.feature.jql.entities;
  * </p>
  *  @see Child
  */
-public class ChildTable {
+public class ChildTable implements SQLiteTable {
   /**
    * Costant represents typeName of table child
    */
@@ -51,4 +53,25 @@ public class ChildTable {
    *  @see Child#parentId
    */
   public static final String COLUMN_PARENT_ID = "parent_id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_PARENT_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

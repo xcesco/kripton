@@ -115,4 +115,12 @@ public class MessageEntityTable implements SQLiteTable {
   public String[] columns() {
     return COLUMNS;
   }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

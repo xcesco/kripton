@@ -3,6 +3,7 @@ package sqlite.kripton58.array2;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -22,7 +23,7 @@ import sqlite.kripton58.BeanInnerBindMap;
  * </p>
  *  @see BeanBean
  */
-public class BeanBeanTable {
+public class BeanBeanTable implements SQLiteTable {
   /**
    * Costant represents typeName of table bean_bean
    */
@@ -70,6 +71,11 @@ public class BeanBeanTable {
   /**
    * BeanInnerBindMap */
   private static BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE2};
 
   /**
    * for attribute value serialization
@@ -211,5 +217,21 @@ public class BeanBeanTable {
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

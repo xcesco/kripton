@@ -3,6 +3,7 @@ package sqlite.kripton84;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -23,7 +24,7 @@ import java.util.Map;
  * </p>
  *  @see Bean84A
  */
-public class Bean84ATable {
+public class Bean84ATable implements SQLiteTable {
   /**
    * Costant represents typeName of table bean84_a
    */
@@ -134,6 +135,11 @@ public class Bean84ATable {
   /**
    * Bean84ABindMap */
   private static Bean84ABindMap bean84ABindMap = BinderUtils.mapperFor(Bean84A.class);
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PARAM1, COLUMN_PARAM2, COLUMN_PARAM3, COLUMN_PARAM4, COLUMN_COLUMN_LIST_STRING, COLUMN_COLUMN_MAP_INTEGER_STRING, COLUMN_COLUMN_ARRAY_CHAR, COLUMN_COLUMN_ARRAY_CHAR_TYPE, COLUMN_COLUMN_BEAN, COLUMN_COLUMN_ARRAY_BYTE_TYPE, COLUMN_VALUE_STRING};
 
   /**
    * for attribute columnListString serialization
@@ -480,5 +486,21 @@ public class Bean84ATable {
    */
   public static byte[] parseColumnArrayByteType(byte[] input) {
     return input;
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }

@@ -1,5 +1,7 @@
 package sqlite.feature.many2many;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Person</code> is associated to table <code>persons</code>
@@ -7,7 +9,7 @@ package sqlite.feature.many2many;
  * </p>
  *  @see Person
  */
-public class PersonTable {
+public class PersonTable implements SQLiteTable {
   /**
    * Costant represents typeName of table persons
    */
@@ -44,4 +46,25 @@ public class PersonTable {
    *  @see Person#name
    */
   public static final String COLUMN_NAME = "name";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

@@ -1,5 +1,7 @@
 package sqlite.feature.foreignkeyaction;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Track</code> is associated to table <code>track</code>
@@ -7,7 +9,7 @@ package sqlite.feature.foreignkeyaction;
  * </p>
  *  @see Track
  */
-public class TrackTable {
+public class TrackTable implements SQLiteTable {
   /**
    * Costant represents typeName of table track
    */
@@ -44,4 +46,25 @@ public class TrackTable {
    *  @see Track#albumId
    */
   public static final String COLUMN_ALBUM_ID = "album_id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ALBUM_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

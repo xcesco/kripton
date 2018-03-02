@@ -1,5 +1,7 @@
 package sqlite.quickstart.model;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Comment</code> is associated to table <code>comment</code>
@@ -7,7 +9,7 @@ package sqlite.quickstart.model;
  * </p>
  *  @see Comment
  */
-public class CommentTable {
+public class CommentTable implements SQLiteTable {
   /**
    * Costant represents typeName of table comment
    */
@@ -65,4 +67,25 @@ public class CommentTable {
    *  @see Comment#body
    */
   public static final String COLUMN_BODY = "body";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_POST_ID, COLUMN_ID, COLUMN_NAME, COLUMN_EMAIL, COLUMN_BODY};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

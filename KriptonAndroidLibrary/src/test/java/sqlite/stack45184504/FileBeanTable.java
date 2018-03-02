@@ -1,5 +1,7 @@
 package sqlite.stack45184504;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>FileBean</code> is associated to table <code>files</code>
@@ -7,7 +9,7 @@ package sqlite.stack45184504;
  * </p>
  *  @see FileBean
  */
-public class FileBeanTable {
+public class FileBeanTable implements SQLiteTable {
   /**
    * Costant represents typeName of table files
    */
@@ -60,6 +62,11 @@ public class FileBeanTable {
   public static final String COLUMN_CONTENT_TYPE = "content_type";
 
   /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_CONTENT, COLUMN_CONTENT_TYPE};
+
+  /**
    * for attribute content serialization
    */
   public static byte[] serializeContent(byte[] value) {
@@ -71,5 +78,21 @@ public class FileBeanTable {
    */
   public static byte[] parseContent(byte[] input) {
     return input;
+  }
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
   }
 }
