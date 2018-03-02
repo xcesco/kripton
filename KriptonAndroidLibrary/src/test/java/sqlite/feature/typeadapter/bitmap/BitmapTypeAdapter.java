@@ -1,11 +1,13 @@
 package sqlite.feature.typeadapter.bitmap;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
 import com.abubusoft.kripton.android.BindSQLTypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class BitmapTypeAdapter implements BindSQLTypeAdapter<Bitmap, byte[]> {
 
@@ -13,24 +15,17 @@ public class BitmapTypeAdapter implements BindSQLTypeAdapter<Bitmap, byte[]> {
 	public Bitmap toJava(byte[] dataValue) {
 		if (dataValue == null)
 			return null;
-		Bitmap.Config configBmp = Bitmap.Config.ARGB_8888;
-		Bitmap bitmap_tmp = Bitmap.createBitmap(256, 256, configBmp);
-		ByteBuffer buffer = ByteBuffer.wrap(dataValue);
-		bitmap_tmp.copyPixelsFromBuffer(buffer);
-
-		return bitmap_tmp;
+		return BitmapFactory.decodeByteArray(dataValue, 0, dataValue.length);
 	}
 
 	@Override
 	public byte[] toData(Bitmap bitmap) {
 		if (bitmap == null)
 			return null;
-		int size = bitmap.getRowBytes() * bitmap.getHeight();
-		ByteBuffer byteBuffer = ByteBuffer.allocate(size);
-		bitmap.copyPixelsToBuffer(byteBuffer);
-		byte[] byteArray = byteBuffer.array();
 
-		return byteArray;
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		return stream.toByteArray();
 	}
 
 	@Override
