@@ -72,11 +72,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
       updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
-    if (personName!=null) {
-      _contentValues.put("person_name", personName);
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", personName);
 
 
     // generation CODE_001 -- BEGIN
@@ -142,11 +138,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement1);
     _contentValues.put("student", student);
-    if (name!=null) {
-      _contentValues.put("person_name", name);
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", name);
 
     _contentValues.addWhereArgs((surname==null?"":surname));
 
@@ -284,11 +276,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
   @Override
   public void updateFromSelectAllBeansJQL(String surname, String name) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (name!=null) {
-      _contentValues.put("person_name", name);
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", name);
     // build where condition
     _contentValues.addWhereArgs((surname==null?"":surname));
     // log section BEGIN
@@ -350,11 +338,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
       updateFromSelectJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement2);
-    if (personName!=null) {
-      _contentValues.put("person_name", personName);
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", personName);
 
     _contentValues.addWhereArgs((surname==null?"":surname));
 
@@ -495,11 +479,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
       updateBeanPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement3);
-    if (personName!=null) {
-      _contentValues.put("person_name", personName);
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", personName);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -647,11 +627,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
   @Override
   public int updateBeanDynamic(String where, String personName, long id) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (personName!=null) {
-      _contentValues.put("person_name", personName);
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", personName);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -816,11 +792,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
   @Override
   public int updateBeanDynamicWithArgs(String personName, long id, String where, String[] args) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (personName!=null) {
-      _contentValues.put("person_name", personName);
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", personName);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 

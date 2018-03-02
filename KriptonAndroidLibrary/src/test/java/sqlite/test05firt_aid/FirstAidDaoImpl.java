@@ -240,79 +240,27 @@ public class FirstAidDaoImpl extends AbstractDao implements FirstAidDao {
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
-    if (bean.uid!=null) {
-      _contentValues.put("uid", bean.uid);
-    } else {
-      _contentValues.putNull("uid");
-    }
-    if (bean.description!=null) {
-      _contentValues.put("description", bean.description);
-    } else {
-      _contentValues.putNull("description");
-    }
-    if (bean.info!=null) {
-      _contentValues.put("info", bean.info);
-    } else {
-      _contentValues.putNull("info");
-    }
-    if (bean.longitude!=null) {
-      _contentValues.put("longitude", bean.longitude);
-    } else {
-      _contentValues.putNull("longitude");
-    }
-    if (bean.latitude!=null) {
-      _contentValues.put("latitude", bean.latitude);
-    } else {
-      _contentValues.putNull("latitude");
-    }
-    if (bean.address!=null) {
-      _contentValues.put("address", bean.address);
-    } else {
-      _contentValues.putNull("address");
-    }
-    if (bean.address2!=null) {
-      _contentValues.put("address2", bean.address2);
-    } else {
-      _contentValues.putNull("address2");
-    }
-    if (bean.city!=null) {
-      _contentValues.put("city", bean.city);
-    } else {
-      _contentValues.putNull("city");
-    }
-    if (bean.phone!=null) {
-      _contentValues.put("phone", bean.phone);
-    } else {
-      _contentValues.putNull("phone");
-    }
+    _contentValues.put("uid", bean.uid);
+    _contentValues.put("description", bean.description);
+    _contentValues.put("info", bean.info);
+    _contentValues.put("longitude", bean.longitude);
+    _contentValues.put("latitude", bean.latitude);
+    _contentValues.put("address", bean.address);
+    _contentValues.put("address2", bean.address2);
+    _contentValues.put("city", bean.city);
+    _contentValues.put("phone", bean.phone);
     _contentValues.put("total_patient_count", bean.totalPatientCount);
     _contentValues.put("white_waiting_patients", bean.whiteWaitingPatients);
     _contentValues.put("white_visiting_patients", bean.whiteVisitingPatients);
-    if (bean.whiteAverageWaitingTime!=null) {
-      _contentValues.put("white_average_waiting_time", bean.whiteAverageWaitingTime);
-    } else {
-      _contentValues.putNull("white_average_waiting_time");
-    }
+    _contentValues.put("white_average_waiting_time", bean.whiteAverageWaitingTime);
     _contentValues.put("green_waiting_patients", bean.greenWaitingPatients);
     _contentValues.put("green_visiting_patients", bean.greenVisitingPatients);
-    if (bean.greenAverageWaitingTime!=null) {
-      _contentValues.put("green_average_waiting_time", bean.greenAverageWaitingTime);
-    } else {
-      _contentValues.putNull("green_average_waiting_time");
-    }
+    _contentValues.put("green_average_waiting_time", bean.greenAverageWaitingTime);
     _contentValues.put("yellow_waiting_patients", bean.yellowWaitingPatients);
     _contentValues.put("yellow_visiting_patients", bean.yellowVisitingPatients);
-    if (bean.yellowAverageWaitingTime!=null) {
-      _contentValues.put("yellow_average_waiting_time", bean.yellowAverageWaitingTime);
-    } else {
-      _contentValues.putNull("yellow_average_waiting_time");
-    }
+    _contentValues.put("yellow_average_waiting_time", bean.yellowAverageWaitingTime);
     _contentValues.put("red_waiting_patients", bean.redWaitingPatients);
-    if (bean.redAverageWaitingTime!=null) {
-      _contentValues.put("red_average_waiting_time", bean.redAverageWaitingTime);
-    } else {
-      _contentValues.putNull("red_average_waiting_time");
-    }
+    _contentValues.put("red_average_waiting_time", bean.redAverageWaitingTime);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

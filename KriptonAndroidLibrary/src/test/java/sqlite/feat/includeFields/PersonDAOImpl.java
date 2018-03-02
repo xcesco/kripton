@@ -207,11 +207,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       insertIncludeOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertIncludeOnePreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
     _contentValues.put("id", bean.id);
 
     // log section BEGIN
@@ -280,26 +276,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       insertExcludeOnePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertExcludeOnePreparedStatement1);
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.birthCity!=null) {
-      _contentValues.put("birth_city", bean.birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (bean.birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
-    if (bean.typeName!=null) {
-      _contentValues.put("type_name", bean.typeName);
-    } else {
-      _contentValues.putNull("type_name");
-    }
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("birth_city", bean.birthCity);
+    _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    _contentValues.put("type_name", bean.typeName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -362,11 +342,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       updateIncludeOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateIncludeOnePreparedStatement2);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
     _contentValues.put("id", bean.id);
 
 
@@ -424,26 +400,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       updateExcludeOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateExcludeOnePreparedStatement3);
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.birthCity!=null) {
-      _contentValues.put("birth_city", bean.birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (bean.birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
-    if (bean.typeName!=null) {
-      _contentValues.put("type_name", bean.typeName);
-    } else {
-      _contentValues.putNull("type_name");
-    }
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("birth_city", bean.birthCity);
+    _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    _contentValues.put("type_name", bean.typeName);
 
 
     // generation CODE_001 -- BEGIN

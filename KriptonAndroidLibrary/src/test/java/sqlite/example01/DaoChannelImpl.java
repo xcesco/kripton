@@ -311,11 +311,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw1PreparedStatement4);
 
-    if (b!=null) {
-      _contentValues.put("owner_uid", b);
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("owner_uid", b);
     _contentValues.put("id", azz);
 
     // log section BEGIN
@@ -384,11 +380,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw2PreparedStatement5);
 
-    if (b!=null) {
-      _contentValues.put("owner_uid", b);
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("owner_uid", b);
     _contentValues.put("id", id);
 
     // log section BEGIN
@@ -457,11 +449,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRaw3PreparedStatement6);
 
-    if (ownerUid!=null) {
-      _contentValues.put("owner_uid", ownerUid);
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("owner_uid", ownerUid);
     _contentValues.put("id", id);
 
     // log section BEGIN
@@ -531,22 +519,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       insertBean1PreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBean1PreparedStatement7);
-    if (bean.getUid()!=null) {
-      _contentValues.put("uid", bean.getUid());
-    } else {
-      _contentValues.putNull("uid");
-    }
-    if (bean.getOwnerUid()!=null) {
-      _contentValues.put("owner_uid", bean.getOwnerUid());
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("uid", bean.getUid());
+    _contentValues.put("owner_uid", bean.getOwnerUid());
     _contentValues.put("update_time", bean.getUpdateTime());
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.getName());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -617,22 +593,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       insertBean2PreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBean2PreparedStatement8);
-    if (bean.getUid()!=null) {
-      _contentValues.put("uid", bean.getUid());
-    } else {
-      _contentValues.putNull("uid");
-    }
-    if (bean.getOwnerUid()!=null) {
-      _contentValues.put("owner_uid", bean.getOwnerUid());
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("uid", bean.getUid());
+    _contentValues.put("owner_uid", bean.getOwnerUid());
     _contentValues.put("update_time", bean.getUpdateTime());
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.getName());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -835,11 +799,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       updateContactRaw3PreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw3PreparedStatement11);
-    if (app!=null) {
-      _contentValues.put("owner_uid", app);
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("owner_uid", app);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -904,11 +864,7 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       updateContactRaw4PreparedStatement12 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactRaw4PreparedStatement12);
-    if (ownerUid!=null) {
-      _contentValues.put("owner_uid", ownerUid);
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("owner_uid", ownerUid);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -974,22 +930,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       updateContactBean1PreparedStatement13 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean1PreparedStatement13);
-    if (value.getUid()!=null) {
-      _contentValues.put("uid", value.getUid());
-    } else {
-      _contentValues.putNull("uid");
-    }
-    if (value.getOwnerUid()!=null) {
-      _contentValues.put("owner_uid", value.getOwnerUid());
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("uid", value.getUid());
+    _contentValues.put("owner_uid", value.getOwnerUid());
     _contentValues.put("update_time", value.getUpdateTime());
-    if (value.getName()!=null) {
-      _contentValues.put("name", value.getName());
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", value.getName());
 
     _contentValues.addWhereArgs(String.valueOf(value.getId()));
 
@@ -1055,22 +999,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       updateContactBean2PreparedStatement14 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean2PreparedStatement14);
-    if (bean.getUid()!=null) {
-      _contentValues.put("uid", bean.getUid());
-    } else {
-      _contentValues.putNull("uid");
-    }
-    if (bean.getOwnerUid()!=null) {
-      _contentValues.put("owner_uid", bean.getOwnerUid());
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("uid", bean.getUid());
+    _contentValues.put("owner_uid", bean.getOwnerUid());
     _contentValues.put("update_time", bean.getUpdateTime());
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.getName());
 
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
 
@@ -1136,22 +1068,10 @@ public class DaoChannelImpl extends AbstractDao implements DaoChannel {
       updateContactBean3PreparedStatement15 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean3PreparedStatement15);
-    if (bean.getUid()!=null) {
-      _contentValues.put("uid", bean.getUid());
-    } else {
-      _contentValues.putNull("uid");
-    }
-    if (bean.getOwnerUid()!=null) {
-      _contentValues.put("owner_uid", bean.getOwnerUid());
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
+    _contentValues.put("uid", bean.getUid());
+    _contentValues.put("owner_uid", bean.getOwnerUid());
     _contentValues.put("update_time", bean.getUpdateTime());
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.getName());
 
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
 

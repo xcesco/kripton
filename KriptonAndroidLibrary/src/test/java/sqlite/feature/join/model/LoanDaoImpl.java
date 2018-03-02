@@ -52,16 +52,8 @@ public class LoanDaoImpl extends AbstractDao implements LoanDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (entity.startTime!=null) {
-      _contentValues.put("start_time", SQLDateUtils.write(entity.startTime));
-    } else {
-      _contentValues.putNull("start_time");
-    }
-    if (entity.endTime!=null) {
-      _contentValues.put("end_time", SQLDateUtils.write(entity.endTime));
-    } else {
-      _contentValues.putNull("end_time");
-    }
+    _contentValues.put("start_time", SQLDateUtils.write(entity.startTime));
+    _contentValues.put("end_time", SQLDateUtils.write(entity.endTime));
     _contentValues.put("book_id", entity.bookId);
     _contentValues.put("user_id", entity.userId);
 

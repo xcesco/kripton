@@ -204,26 +204,10 @@ public class Dao3PersonImpl extends AbstractDao implements Dao3Person {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (surname!=null) {
-      _contentValues.put("surname", surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (birthCity!=null) {
-      _contentValues.put("birth_city", birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("name", name);
+    _contentValues.put("surname", surname);
+    _contentValues.put("birth_city", birthCity);
+    _contentValues.put("birth_day", DateUtils.write(birthDay));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

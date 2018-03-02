@@ -63,22 +63,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.getLista()!=null) {
-      _contentValues.put("lista", Bean01Table.serializeLista(bean.getLista()));
-    } else {
-      _contentValues.putNull("lista");
-    }
+    _contentValues.put("lista", Bean01Table.serializeLista(bean.getLista()));
     _contentValues.put("message_date", bean.getMessageDate());
-    if (bean.getMessageText()!=null) {
-      _contentValues.put("message_text", bean.getMessageText());
-    } else {
-      _contentValues.putNull("message_text");
-    }
-    if (bean.getBeanList()!=null) {
-      _contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
-    } else {
-      _contentValues.putNull("bean_list");
-    }
+    _contentValues.put("message_text", bean.getMessageText());
+    _contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     _contentValues.put("value", bean.getValue());
 
     // log section BEGIN
@@ -377,22 +365,10 @@ public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
       updatePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement5);
-    if (bean.getLista()!=null) {
-      _contentValues.put("lista", Bean01Table.serializeLista(bean.getLista()));
-    } else {
-      _contentValues.putNull("lista");
-    }
+    _contentValues.put("lista", Bean01Table.serializeLista(bean.getLista()));
     _contentValues.put("message_date", bean.getMessageDate());
-    if (bean.getMessageText()!=null) {
-      _contentValues.put("message_text", bean.getMessageText());
-    } else {
-      _contentValues.putNull("message_text");
-    }
-    if (bean.getBeanList()!=null) {
-      _contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
-    } else {
-      _contentValues.putNull("bean_list");
-    }
+    _contentValues.put("message_text", bean.getMessageText());
+    _contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     _contentValues.put("value", bean.getValue());
 
     _contentValues.addWhereArgs(String.valueOf(bean.getValue()));

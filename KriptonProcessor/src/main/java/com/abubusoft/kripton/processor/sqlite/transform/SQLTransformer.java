@@ -84,7 +84,7 @@ public abstract class SQLTransformer {
 	public static void javaProperty2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		TypeName typeName = null;
 
-		if (property.getPropertyType() != null) {
+		if (property!=null && property.getPropertyType() != null) {
 			typeName = property.getPropertyType().getTypeName();
 		}
 

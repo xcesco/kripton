@@ -509,16 +509,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
-    if (value!=null) {
-      _contentValues.put("value", value);
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (value2!=null) {
-      _contentValues.put("value2", serializer1(value2));
-    } else {
-      _contentValues.putNull("value2");
-    }
+    _contentValues.put("value", value);
+    _contentValues.put("value2", serializer1(value2));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -585,16 +577,8 @@ public class ByteDaoImpl extends AbstractDao implements ByteDao {
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
-    if (bean.getValue()!=null) {
-      _contentValues.put("value", bean.getValue());
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (bean.getValue2()!=null) {
-      _contentValues.put("value2", ByteBeanTable.serializeValue2(bean.getValue2()));
-    } else {
-      _contentValues.putNull("value2");
-    }
+    _contentValues.put("value", bean.getValue());
+    _contentValues.put("value2", ByteBeanTable.serializeValue2(bean.getValue2()));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

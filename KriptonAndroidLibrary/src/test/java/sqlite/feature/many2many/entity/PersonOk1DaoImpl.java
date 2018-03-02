@@ -122,11 +122,7 @@ public class PersonOk1DaoImpl extends AbstractDao implements PersonOk1Dao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

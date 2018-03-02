@@ -49,12 +49,12 @@ class BigIntegerSQLTransform extends AbstractSQLTransform {
 	@Override
 	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName,
 			TypeName paramTypeName, ModelProperty property) {
-		generateWriteParam2WhereCondition(methodBuilder, method, paramName, paramTypeName);
+		methodBuilder.addCode("$L", paramName);
 	}
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
-		methodBuilder.addCode("$L.toString()", getter(beanName, beanClass, property));
+		methodBuilder.addCode("$L", getter(beanName, beanClass, property));
 	}
 
 	@Override

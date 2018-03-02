@@ -145,26 +145,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertThread1PreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.birthCity!=null) {
-      _contentValues.put("birth_city", bean.birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (bean.birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("birth_city", bean.birthCity);
+    _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -236,26 +220,10 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.birthCity!=null) {
-      _contentValues.put("birth_city", bean.birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (bean.birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("birth_city", bean.birthCity);
+    _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 

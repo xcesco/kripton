@@ -466,61 +466,17 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
-    if (value.value!=null) {
-      _contentValues.put("value", value.value);
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (value.getValueByteSet()!=null) {
-      _contentValues.put("value_byte_set", Bean2Table.serializeValueByteSet(value.getValueByteSet()));
-    } else {
-      _contentValues.putNull("value_byte_set");
-    }
-    if (value.getValueShortSet()!=null) {
-      _contentValues.put("value_short_set", Bean2Table.serializeValueShortSet(value.getValueShortSet()));
-    } else {
-      _contentValues.putNull("value_short_set");
-    }
-    if (value.getValueIntegerSet()!=null) {
-      _contentValues.put("value_integer_set", Bean2Table.serializeValueIntegerSet(value.getValueIntegerSet()));
-    } else {
-      _contentValues.putNull("value_integer_set");
-    }
-    if (value.getValueStringSet()!=null) {
-      _contentValues.put("value_string_set", Bean2Table.serializeValueStringSet(value.getValueStringSet()));
-    } else {
-      _contentValues.putNull("value_string_set");
-    }
-    if (value.getValueCharacterSet()!=null) {
-      _contentValues.put("value_character_set", Bean2Table.serializeValueCharacterSet(value.getValueCharacterSet()));
-    } else {
-      _contentValues.putNull("value_character_set");
-    }
-    if (value.getValueFloatSet()!=null) {
-      _contentValues.put("value_float_set", Bean2Table.serializeValueFloatSet(value.getValueFloatSet()));
-    } else {
-      _contentValues.putNull("value_float_set");
-    }
-    if (value.getValueDoubleSet()!=null) {
-      _contentValues.put("value_double_set", Bean2Table.serializeValueDoubleSet(value.getValueDoubleSet()));
-    } else {
-      _contentValues.putNull("value_double_set");
-    }
-    if (value.getValueBigDecimalSet()!=null) {
-      _contentValues.put("value_big_decimal_set", Bean2Table.serializeValueBigDecimalSet(value.getValueBigDecimalSet()));
-    } else {
-      _contentValues.putNull("value_big_decimal_set");
-    }
-    if (value.getValueBeanSet()!=null) {
-      _contentValues.put("value_bean_set", Bean2Table.serializeValueBeanSet(value.getValueBeanSet()));
-    } else {
-      _contentValues.putNull("value_bean_set");
-    }
-    if (value.getValueEnumTypeSet()!=null) {
-      _contentValues.put("value_enum_type_set", Bean2Table.serializeValueEnumTypeSet(value.getValueEnumTypeSet()));
-    } else {
-      _contentValues.putNull("value_enum_type_set");
-    }
+    _contentValues.put("value", value.value);
+    _contentValues.put("value_byte_set", Bean2Table.serializeValueByteSet(value.getValueByteSet()));
+    _contentValues.put("value_short_set", Bean2Table.serializeValueShortSet(value.getValueShortSet()));
+    _contentValues.put("value_integer_set", Bean2Table.serializeValueIntegerSet(value.getValueIntegerSet()));
+    _contentValues.put("value_string_set", Bean2Table.serializeValueStringSet(value.getValueStringSet()));
+    _contentValues.put("value_character_set", Bean2Table.serializeValueCharacterSet(value.getValueCharacterSet()));
+    _contentValues.put("value_float_set", Bean2Table.serializeValueFloatSet(value.getValueFloatSet()));
+    _contentValues.put("value_double_set", Bean2Table.serializeValueDoubleSet(value.getValueDoubleSet()));
+    _contentValues.put("value_big_decimal_set", Bean2Table.serializeValueBigDecimalSet(value.getValueBigDecimalSet()));
+    _contentValues.put("value_bean_set", Bean2Table.serializeValueBeanSet(value.getValueBeanSet()));
+    _contentValues.put("value_enum_type_set", Bean2Table.serializeValueEnumTypeSet(value.getValueEnumTypeSet()));
 
     _contentValues.addWhereArgs(String.valueOf(value.id));
 
@@ -590,61 +546,17 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
-    if (bean.value!=null) {
-      _contentValues.put("value", bean.value);
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (bean.getValueByteSet()!=null) {
-      _contentValues.put("value_byte_set", Bean2Table.serializeValueByteSet(bean.getValueByteSet()));
-    } else {
-      _contentValues.putNull("value_byte_set");
-    }
-    if (bean.getValueShortSet()!=null) {
-      _contentValues.put("value_short_set", Bean2Table.serializeValueShortSet(bean.getValueShortSet()));
-    } else {
-      _contentValues.putNull("value_short_set");
-    }
-    if (bean.getValueIntegerSet()!=null) {
-      _contentValues.put("value_integer_set", Bean2Table.serializeValueIntegerSet(bean.getValueIntegerSet()));
-    } else {
-      _contentValues.putNull("value_integer_set");
-    }
-    if (bean.getValueStringSet()!=null) {
-      _contentValues.put("value_string_set", Bean2Table.serializeValueStringSet(bean.getValueStringSet()));
-    } else {
-      _contentValues.putNull("value_string_set");
-    }
-    if (bean.getValueCharacterSet()!=null) {
-      _contentValues.put("value_character_set", Bean2Table.serializeValueCharacterSet(bean.getValueCharacterSet()));
-    } else {
-      _contentValues.putNull("value_character_set");
-    }
-    if (bean.getValueFloatSet()!=null) {
-      _contentValues.put("value_float_set", Bean2Table.serializeValueFloatSet(bean.getValueFloatSet()));
-    } else {
-      _contentValues.putNull("value_float_set");
-    }
-    if (bean.getValueDoubleSet()!=null) {
-      _contentValues.put("value_double_set", Bean2Table.serializeValueDoubleSet(bean.getValueDoubleSet()));
-    } else {
-      _contentValues.putNull("value_double_set");
-    }
-    if (bean.getValueBigDecimalSet()!=null) {
-      _contentValues.put("value_big_decimal_set", Bean2Table.serializeValueBigDecimalSet(bean.getValueBigDecimalSet()));
-    } else {
-      _contentValues.putNull("value_big_decimal_set");
-    }
-    if (bean.getValueBeanSet()!=null) {
-      _contentValues.put("value_bean_set", Bean2Table.serializeValueBeanSet(bean.getValueBeanSet()));
-    } else {
-      _contentValues.putNull("value_bean_set");
-    }
-    if (bean.getValueEnumTypeSet()!=null) {
-      _contentValues.put("value_enum_type_set", Bean2Table.serializeValueEnumTypeSet(bean.getValueEnumTypeSet()));
-    } else {
-      _contentValues.putNull("value_enum_type_set");
-    }
+    _contentValues.put("value", bean.value);
+    _contentValues.put("value_byte_set", Bean2Table.serializeValueByteSet(bean.getValueByteSet()));
+    _contentValues.put("value_short_set", Bean2Table.serializeValueShortSet(bean.getValueShortSet()));
+    _contentValues.put("value_integer_set", Bean2Table.serializeValueIntegerSet(bean.getValueIntegerSet()));
+    _contentValues.put("value_string_set", Bean2Table.serializeValueStringSet(bean.getValueStringSet()));
+    _contentValues.put("value_character_set", Bean2Table.serializeValueCharacterSet(bean.getValueCharacterSet()));
+    _contentValues.put("value_float_set", Bean2Table.serializeValueFloatSet(bean.getValueFloatSet()));
+    _contentValues.put("value_double_set", Bean2Table.serializeValueDoubleSet(bean.getValueDoubleSet()));
+    _contentValues.put("value_big_decimal_set", Bean2Table.serializeValueBigDecimalSet(bean.getValueBigDecimalSet()));
+    _contentValues.put("value_bean_set", Bean2Table.serializeValueBeanSet(bean.getValueBeanSet()));
+    _contentValues.put("value_enum_type_set", Bean2Table.serializeValueEnumTypeSet(bean.getValueEnumTypeSet()));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -711,11 +623,7 @@ public class BeanDao2Impl extends AbstractDao implements BeanDao2 {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
 
-    if (valueBigDecimalSet!=null) {
-      _contentValues.put("value_big_decimal_set", serializer1(valueBigDecimalSet));
-    } else {
-      _contentValues.putNull("value_big_decimal_set");
-    }
+    _contentValues.put("value_big_decimal_set", serializer1(valueBigDecimalSet));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

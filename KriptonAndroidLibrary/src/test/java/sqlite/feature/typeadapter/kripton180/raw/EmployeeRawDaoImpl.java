@@ -998,8 +998,8 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
 
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
-    _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
-    _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
+    _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
     _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
@@ -1101,8 +1101,8 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
 
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
-    _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
-    _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
+    _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
     _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
@@ -1210,8 +1210,8 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement2);
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, fieldByte));
-    _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
-    _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
+    _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, fieldCharacter));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, fieldShort));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, fieldLong));
     _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, fieldFloat));
@@ -1314,11 +1314,7 @@ public class EmployeeRawDaoImpl extends AbstractDao implements EmployeeRawDao {
       updatePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement3);
-    if (firstName!=null) {
-      _contentValues.put("first_name", firstName);
-    } else {
-      _contentValues.putNull("first_name");
-    }
+    _contentValues.put("first_name", firstName);
 
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));

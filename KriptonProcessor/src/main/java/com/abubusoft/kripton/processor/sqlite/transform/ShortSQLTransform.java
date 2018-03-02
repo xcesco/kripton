@@ -34,7 +34,7 @@ public class ShortSQLTransform extends WrappedSQLTransformation {
 		}
 
 		this.READ_FROM_CURSOR = "$L.getShort($L)";
-		this.WRITE_COSTANT="(int)";
+		this.WRITE_COSTANT="";
 	}
 
 	@Override

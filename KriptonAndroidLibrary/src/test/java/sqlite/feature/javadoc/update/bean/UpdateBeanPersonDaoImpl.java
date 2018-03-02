@@ -77,16 +77,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       updateAllBeansPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansPreparedStatement0);
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
 
@@ -216,16 +208,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       updateOneBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneBeanPreparedStatement1);
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -372,16 +356,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public int updateOneBeanWithDynamic(Person bean, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -544,16 +520,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public int updateOneBeanWithDynamicAndArgs(Person bean, String where, String[] args) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -723,11 +691,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       updateAllBeansJQLPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllBeansJQLPreparedStatement2);
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
 
@@ -842,11 +806,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public void updateFromSelectAllBeansJQL(Person bean) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
     _contentValues.put("student", bean.isStudent());
 
 
@@ -920,11 +880,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
       updateFromSelectJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateFromSelectJQLPreparedStatement3);
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -1070,16 +1026,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public int updateBeanDynamic(Person bean, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -1242,16 +1190,8 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
   @Override
   public int updateBeanDynamicWithArgs(Person bean, String where, String[] args) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));

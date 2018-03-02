@@ -395,61 +395,17 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertAllPreparedStatement0);
-    if (bean.param1!=null) {
-      _contentValues.put("param1", bean.param1);
-    } else {
-      _contentValues.putNull("param1");
-    }
-    if (bean.param2!=null) {
-      _contentValues.put("param2", bean.param2);
-    } else {
-      _contentValues.putNull("param2");
-    }
-    if (bean.param3!=null) {
-      _contentValues.put("param3", bean.param3);
-    } else {
-      _contentValues.putNull("param3");
-    }
-    if (bean.param4!=null) {
-      _contentValues.put("param4", bean.param4);
-    } else {
-      _contentValues.putNull("param4");
-    }
-    if (bean.columnListString!=null) {
-      _contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
-    } else {
-      _contentValues.putNull("column_list_string");
-    }
-    if (bean.columnMapIntegerString!=null) {
-      _contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
-    } else {
-      _contentValues.putNull("column_map_integer_string");
-    }
-    if (bean.columnArrayChar!=null) {
-      _contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
-    } else {
-      _contentValues.putNull("column_array_char");
-    }
-    if (bean.columnArrayCharType!=null) {
-      _contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
-    } else {
-      _contentValues.putNull("column_array_char_type");
-    }
-    if (bean.columnBean!=null) {
-      _contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
-    } else {
-      _contentValues.putNull("column_bean");
-    }
-    if (bean.columnArrayByteType!=null) {
-      _contentValues.put("column_array_byte_type", bean.columnArrayByteType);
-    } else {
-      _contentValues.putNull("column_array_byte_type");
-    }
-    if (bean.valueString!=null) {
-      _contentValues.put("value_string", bean.valueString);
-    } else {
-      _contentValues.putNull("value_string");
-    }
+    _contentValues.put("param1", bean.param1);
+    _contentValues.put("param2", bean.param2);
+    _contentValues.put("param3", bean.param3);
+    _contentValues.put("param4", bean.param4);
+    _contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
+    _contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
+    _contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
+    _contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
+    _contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
+    _contentValues.put("column_array_byte_type", bean.columnArrayByteType);
+    _contentValues.put("value_string", bean.valueString);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -516,11 +472,7 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
-    if (param1!=null) {
-      _contentValues.put("column_list_string", serializer1(param1));
-    } else {
-      _contentValues.putNull("column_list_string");
-    }
+    _contentValues.put("column_list_string", serializer1(param1));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -594,61 +546,17 @@ public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
       updateAllPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllPreparedStatement2);
-    if (bean.param1!=null) {
-      _contentValues.put("param1", bean.param1);
-    } else {
-      _contentValues.putNull("param1");
-    }
-    if (bean.param2!=null) {
-      _contentValues.put("param2", bean.param2);
-    } else {
-      _contentValues.putNull("param2");
-    }
-    if (bean.param3!=null) {
-      _contentValues.put("param3", bean.param3);
-    } else {
-      _contentValues.putNull("param3");
-    }
-    if (bean.param4!=null) {
-      _contentValues.put("param4", bean.param4);
-    } else {
-      _contentValues.putNull("param4");
-    }
-    if (bean.columnListString!=null) {
-      _contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
-    } else {
-      _contentValues.putNull("column_list_string");
-    }
-    if (bean.columnMapIntegerString!=null) {
-      _contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
-    } else {
-      _contentValues.putNull("column_map_integer_string");
-    }
-    if (bean.columnArrayChar!=null) {
-      _contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
-    } else {
-      _contentValues.putNull("column_array_char");
-    }
-    if (bean.columnArrayCharType!=null) {
-      _contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
-    } else {
-      _contentValues.putNull("column_array_char_type");
-    }
-    if (bean.columnBean!=null) {
-      _contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
-    } else {
-      _contentValues.putNull("column_bean");
-    }
-    if (bean.columnArrayByteType!=null) {
-      _contentValues.put("column_array_byte_type", bean.columnArrayByteType);
-    } else {
-      _contentValues.putNull("column_array_byte_type");
-    }
-    if (bean.valueString!=null) {
-      _contentValues.put("value_string", bean.valueString);
-    } else {
-      _contentValues.putNull("value_string");
-    }
+    _contentValues.put("param1", bean.param1);
+    _contentValues.put("param2", bean.param2);
+    _contentValues.put("param3", bean.param3);
+    _contentValues.put("param4", bean.param4);
+    _contentValues.put("column_list_string", Bean84ATable.serializeColumnListString(bean.columnListString));
+    _contentValues.put("column_map_integer_string", Bean84ATable.serializeColumnMapIntegerString(bean.columnMapIntegerString));
+    _contentValues.put("column_array_char", Bean84ATable.serializeColumnArrayChar(bean.columnArrayChar));
+    _contentValues.put("column_array_char_type", Bean84ATable.serializeColumnArrayCharType(bean.columnArrayCharType));
+    _contentValues.put("column_bean", Bean84ATable.serializeColumnBean(bean.columnBean));
+    _contentValues.put("column_array_byte_type", bean.columnArrayByteType);
+    _contentValues.put("value_string", bean.valueString);
 
 
     // generation CODE_001 -- BEGIN

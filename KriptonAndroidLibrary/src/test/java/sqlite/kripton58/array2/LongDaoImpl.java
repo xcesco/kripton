@@ -509,16 +509,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
     _contentValues.put("id", id);
-    if (value!=null) {
-      _contentValues.put("value", serializer1(value));
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (value2!=null) {
-      _contentValues.put("value2", serializer2(value2));
-    } else {
-      _contentValues.putNull("value2");
-    }
+    _contentValues.put("value", serializer1(value));
+    _contentValues.put("value2", serializer2(value2));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -585,16 +577,8 @@ public class LongDaoImpl extends AbstractDao implements LongDao {
       insertPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
-    if (bean.getValue()!=null) {
-      _contentValues.put("value", LongBeanTable.serializeValue(bean.getValue()));
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (bean.getValue2()!=null) {
-      _contentValues.put("value2", LongBeanTable.serializeValue2(bean.getValue2()));
-    } else {
-      _contentValues.putNull("value2");
-    }
+    _contentValues.put("value", LongBeanTable.serializeValue(bean.getValue()));
+    _contentValues.put("value2", LongBeanTable.serializeValue2(bean.getValue2()));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

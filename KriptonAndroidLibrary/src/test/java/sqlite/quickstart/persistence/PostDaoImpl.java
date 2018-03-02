@@ -61,16 +61,8 @@ public class PostDaoImpl extends AbstractDao implements PostDao {
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("user_id", bean.userId);
     _contentValues.put("id", bean.id);
-    if (bean.title!=null) {
-      _contentValues.put("title", bean.title);
-    } else {
-      _contentValues.putNull("title");
-    }
-    if (bean.body!=null) {
-      _contentValues.put("body", bean.body);
-    } else {
-      _contentValues.putNull("body");
-    }
+    _contentValues.put("title", bean.title);
+    _contentValues.put("body", bean.body);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

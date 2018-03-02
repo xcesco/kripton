@@ -183,11 +183,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (user.userName!=null) {
-      _contentValues.put("user_name", user.userName);
-    } else {
-      _contentValues.putNull("user_name");
-    }
+    _contentValues.put("user_name", user.userName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

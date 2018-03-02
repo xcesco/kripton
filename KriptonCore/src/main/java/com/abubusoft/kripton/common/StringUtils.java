@@ -64,7 +64,7 @@ public class StringUtils {
 	public static String checkSize(Object value, int limitSize, String defaultValue) {
 		if (value != null) {
 			if (byte[].class.getSimpleName().equals(value.getClass().getSimpleName())) {
-				return checkSize((byte[]) value, limitSize);
+				return checkSize((byte[]) value, limitSize/2);
 			}
 
 			String str = value.toString();
@@ -76,13 +76,26 @@ public class StringUtils {
 			return defaultValue;
 
 	}
+	
+	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
+	
+	public static String bytesToHex(byte[] bytes, int size) {
+		size=Math.min(bytes.length, size);
+	    char[] hexChars = new char[size * 2];
+	    for ( int j = 0; j < size; j++ ) {
+	        int v = bytes[j] & 0xFF;
+	        hexChars[j * 2] = hexArray[v >>> 4];
+	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+	    }
+	    return new String(hexChars);
+	}
 
 	public static String checkSize(byte[] value, int limitSize) {
 		if (value != null) {
 			if (value.length > limitSize) {
-				return new String(value, 0, limitSize - 3) + "...";
+				return bytesToHex(value, limitSize-3) + "...";
 			} else
-				return new String(value);
+				return bytesToHex(value, value.length);
 		} else
 			return null;
 

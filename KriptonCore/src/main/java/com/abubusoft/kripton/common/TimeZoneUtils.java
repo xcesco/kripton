@@ -5,6 +5,7 @@ import java.util.TimeZone;
 public class TimeZoneUtils {
 	
 	public static String write(TimeZone value) {
+		if (value==null) return null;
 		return value.getID();		
 	}
 	

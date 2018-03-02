@@ -52,11 +52,7 @@ public class DaoBeanInsertOKImpl extends AbstractDao implements DaoBeanInsertOK 
     KriptonContentValues _contentValues=contentValuesForUpdate(insertDistancePreparedStatement0);
 
     _contentValues.put("id", id);
-    if (value!=null) {
-      _contentValues.put("value", value);
-    } else {
-      _contentValues.putNull("value");
-    }
+    _contentValues.put("value", value);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

@@ -64,16 +64,8 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.defaultCountry!=null) {
-      _contentValues.put("default_country", bean.defaultCountry);
-    } else {
-      _contentValues.putNull("default_country");
-    }
-    if (bean.dualBillingPrefix!=null) {
-      _contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
-    } else {
-      _contentValues.putNull("dual_billing_prefix");
-    }
+    _contentValues.put("default_country", bean.defaultCountry);
+    _contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
     _contentValues.put("enabled", bean.enabled);
     _contentValues.put("dialog_timeout", bean.dialogTimeout);
 
@@ -378,16 +370,8 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
       updatePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement3);
-    if (bean.defaultCountry!=null) {
-      _contentValues.put("default_country", bean.defaultCountry);
-    } else {
-      _contentValues.putNull("default_country");
-    }
-    if (bean.dualBillingPrefix!=null) {
-      _contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
-    } else {
-      _contentValues.putNull("dual_billing_prefix");
-    }
+    _contentValues.put("default_country", bean.defaultCountry);
+    _contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
     _contentValues.put("enabled", bean.enabled);
     _contentValues.put("dialog_timeout", bean.dialogTimeout);
 

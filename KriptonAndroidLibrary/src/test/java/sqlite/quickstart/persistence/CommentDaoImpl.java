@@ -62,21 +62,9 @@ public class CommentDaoImpl extends AbstractDao implements CommentDao {
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("post_id", bean.postId);
     _contentValues.put("id", bean.id);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.email!=null) {
-      _contentValues.put("email", bean.email);
-    } else {
-      _contentValues.putNull("email");
-    }
-    if (bean.body!=null) {
-      _contentValues.put("body", bean.body);
-    } else {
-      _contentValues.putNull("body");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("email", bean.email);
+    _contentValues.put("body", bean.body);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

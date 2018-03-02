@@ -124,11 +124,7 @@ public class CheeseDaoImpl extends AbstractDao implements CheeseDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (cheese.name!=null) {
-      _contentValues.put("name", cheese.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", cheese.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -616,11 +612,7 @@ public class CheeseDaoImpl extends AbstractDao implements CheeseDao {
       updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
-    if (cheese.name!=null) {
-      _contentValues.put("name", cheese.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", cheese.name);
 
     _contentValues.addWhereArgs(String.valueOf(cheese.id));
 

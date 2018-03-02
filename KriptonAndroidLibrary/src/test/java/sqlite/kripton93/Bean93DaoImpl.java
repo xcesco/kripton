@@ -208,21 +208,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
       insertDefaultPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertDefaultPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.typeName!=null) {
-      _contentValues.put("type_name", bean.typeName);
-    } else {
-      _contentValues.putNull("type_name");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("type_name", bean.typeName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -294,21 +282,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertAbortPreparedStatement1);
     _contentValues.put("id", bean.id);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.typeName!=null) {
-      _contentValues.put("type_name", bean.typeName);
-    } else {
-      _contentValues.putNull("type_name");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("type_name", bean.typeName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -380,21 +356,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertFailPreparedStatement2);
     _contentValues.put("id", bean.id);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.typeName!=null) {
-      _contentValues.put("type_name", bean.typeName);
-    } else {
-      _contentValues.putNull("type_name");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("type_name", bean.typeName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -466,21 +430,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertIgnorePreparedStatement3);
     _contentValues.put("id", bean.id);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.typeName!=null) {
-      _contentValues.put("type_name", bean.typeName);
-    } else {
-      _contentValues.putNull("type_name");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("type_name", bean.typeName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -552,21 +504,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertReplacePreparedStatement4);
     _contentValues.put("id", bean.id);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.typeName!=null) {
-      _contentValues.put("type_name", bean.typeName);
-    } else {
-      _contentValues.putNull("type_name");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("type_name", bean.typeName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -638,21 +578,9 @@ public class Bean93DaoImpl extends AbstractDao implements Bean93Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRollbackPreparedStatement5);
     _contentValues.put("id", bean.id);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.typeName!=null) {
-      _contentValues.put("type_name", bean.typeName);
-    } else {
-      _contentValues.putNull("type_name");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("type_name", bean.typeName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

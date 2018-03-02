@@ -122,11 +122,7 @@ public class PersonErr3DaoImpl extends AbstractDao implements PersonErr3Dao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

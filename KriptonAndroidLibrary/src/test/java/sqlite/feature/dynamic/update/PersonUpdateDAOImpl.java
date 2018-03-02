@@ -265,11 +265,7 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   @Override
   public void updateRaw(String name, String nameValue, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", name);
 
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
 
@@ -348,26 +344,10 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
   @Override
   public void updateBean(Person bean, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (bean.birthCity!=null) {
-      _contentValues.put("birth_city", bean.birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (bean.birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+    _contentValues.put("birth_city", bean.birthCity);
+    _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -519,26 +499,10 @@ public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO 
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (surname!=null) {
-      _contentValues.put("surname", surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
-    if (birthCity!=null) {
-      _contentValues.put("birth_city", birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("name", name);
+    _contentValues.put("surname", surname);
+    _contentValues.put("birth_city", birthCity);
+    _contentValues.put("birth_day", DateUtils.write(birthDay));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

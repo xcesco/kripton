@@ -66,16 +66,8 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneRawPreparedStatement0);
 
-    if (name!=null) {
-      _contentValues.put("person_name", name);
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (personSurname!=null) {
-      _contentValues.put("person_surname", personSurname);
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", name);
+    _contentValues.put("person_surname", personSurname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -184,11 +176,7 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneRawFieldNamePreparedStatement1);
 
-    if (name!=null) {
-      _contentValues.put("person_name", name);
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -301,16 +289,8 @@ public class InsertRawPersonDaoImpl extends AbstractDao implements InsertRawPers
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOne2RawFieldNamePreparedStatement2);
 
-    if (name!=null) {
-      _contentValues.put("person_name", name);
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (surnname!=null) {
-      _contentValues.put("person_surname", surnname);
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", name);
+    _contentValues.put("person_surname", surnname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

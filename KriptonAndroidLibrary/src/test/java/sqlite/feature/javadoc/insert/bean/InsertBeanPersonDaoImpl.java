@@ -67,16 +67,8 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
       insertOneBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanPreparedStatement0);
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
     // log section BEGIN
@@ -189,11 +181,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
       insertOneBeanFieldNamePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanFieldNamePreparedStatement1);
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -307,11 +295,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
       insertOneBeanFieldSurnamePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOneBeanFieldSurnamePreparedStatement2);
-    if (bean.getPersonSurname()!=null) {
-      _contentValues.put("person_surname", bean.getPersonSurname());
-    } else {
-      _contentValues.putNull("person_surname");
-    }
+    _contentValues.put("person_surname", bean.getPersonSurname());
     _contentValues.put("student", bean.isStudent());
 
     // log section BEGIN
@@ -419,11 +403,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
   @Override
   public void insertBeanFromSelect(Person bean) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.getPersonName()!=null) {
-      _contentValues.put("person_name", bean.getPersonName());
-    } else {
-      _contentValues.putNull("person_name");
-    }
+    _contentValues.put("person_name", bean.getPersonName());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

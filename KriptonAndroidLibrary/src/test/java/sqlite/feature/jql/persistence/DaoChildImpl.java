@@ -133,11 +133,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
     _contentValues.put("parent_id", bean.parentId);
 
     // log section BEGIN
@@ -469,11 +465,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       insertByCopy3PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertByCopy3PreparedStatement1);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
     _contentValues.put("parent_id", bean.parentId);
 
     // log section BEGIN
@@ -543,11 +535,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     KriptonContentValues _contentValues=contentValuesForUpdate(insertByCopyPreparedStatement2);
 
     _contentValues.put("parent_id", parentId);
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -616,11 +604,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
       updateJQLPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLPreparedStatement3);
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", name);
 
     _contentValues.addWhereArgs(String.valueOf(parentId));
 

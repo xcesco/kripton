@@ -204,21 +204,9 @@ public class Bean64ADaoImpl extends AbstractDao implements Bean64ADao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.valueMapStringBean!=null) {
-      _contentValues.put("value_map_string_bean", Bean64ATable.serializeValueMapStringBean(bean.valueMapStringBean));
-    } else {
-      _contentValues.putNull("value_map_string_bean");
-    }
-    if (bean.valueSetString!=null) {
-      _contentValues.put("value_set_string", Bean64ATable.serializeValueSetString(bean.valueSetString));
-    } else {
-      _contentValues.putNull("value_set_string");
-    }
-    if (bean.valueString!=null) {
-      _contentValues.put("value_string", bean.valueString);
-    } else {
-      _contentValues.putNull("value_string");
-    }
+    _contentValues.put("value_map_string_bean", Bean64ATable.serializeValueMapStringBean(bean.valueMapStringBean));
+    _contentValues.put("value_set_string", Bean64ATable.serializeValueSetString(bean.valueSetString));
+    _contentValues.put("value_string", bean.valueString);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

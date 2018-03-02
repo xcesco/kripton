@@ -121,16 +121,8 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
       insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.image!=null) {
-      _contentValues.put("image", bean.image);
-    } else {
-      _contentValues.putNull("image");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("image", bean.image);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

@@ -58,21 +58,9 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.content!=null) {
-      _contentValues.put("content", bean.content);
-    } else {
-      _contentValues.putNull("content");
-    }
-    if (bean.contentType!=null) {
-      _contentValues.put("content_type", bean.contentType);
-    } else {
-      _contentValues.putNull("content_type");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("content", bean.content);
+    _contentValues.put("content_type", bean.contentType);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -145,21 +133,9 @@ public class FileBeanDaoImpl extends AbstractDao implements FileBeanDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
 
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (contentType!=null) {
-      _contentValues.put("content_type", contentType);
-    } else {
-      _contentValues.putNull("content_type");
-    }
-    if (content!=null) {
-      _contentValues.put("content", content);
-    } else {
-      _contentValues.putNull("content");
-    }
+    _contentValues.put("name", name);
+    _contentValues.put("content_type", contentType);
+    _contentValues.put("content", content);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

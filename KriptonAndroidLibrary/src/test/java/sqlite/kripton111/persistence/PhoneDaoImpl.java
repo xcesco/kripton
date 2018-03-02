@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
+import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -66,31 +67,11 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.actionType!=null) {
-      _contentValues.put("action_type", bean.actionType.toString());
-    } else {
-      _contentValues.putNull("action_type");
-    }
-    if (bean.number!=null) {
-      _contentValues.put("number", bean.number);
-    } else {
-      _contentValues.putNull("number");
-    }
-    if (bean.countryCode!=null) {
-      _contentValues.put("country_code", bean.countryCode);
-    } else {
-      _contentValues.putNull("country_code");
-    }
-    if (bean.contactName!=null) {
-      _contentValues.put("contact_name", bean.contactName);
-    } else {
-      _contentValues.putNull("contact_name");
-    }
-    if (bean.contactId!=null) {
-      _contentValues.put("contact_id", bean.contactId);
-    } else {
-      _contentValues.putNull("contact_id");
-    }
+    _contentValues.put("action_type", EnumUtils.write(bean.actionType));
+    _contentValues.put("number", bean.number);
+    _contentValues.put("country_code", bean.countryCode);
+    _contentValues.put("contact_name", bean.contactName);
+    _contentValues.put("contact_id", bean.contactId);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

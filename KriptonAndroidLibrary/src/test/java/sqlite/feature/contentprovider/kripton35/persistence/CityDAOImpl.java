@@ -61,11 +61,7 @@ public class CityDAOImpl extends AbstractDao implements CityDAO {
       insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

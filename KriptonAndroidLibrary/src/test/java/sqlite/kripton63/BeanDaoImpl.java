@@ -387,21 +387,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
-    if (value.value!=null) {
-      _contentValues.put("value", value.value);
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (value.valueMapStringByte!=null) {
-      _contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(value.valueMapStringByte));
-    } else {
-      _contentValues.putNull("value_map_string_byte");
-    }
-    if (value.valueMapEnumByte!=null) {
-      _contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(value.valueMapEnumByte));
-    } else {
-      _contentValues.putNull("value_map_enum_byte");
-    }
+    _contentValues.put("value", value.value);
+    _contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(value.valueMapStringByte));
+    _contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(value.valueMapEnumByte));
 
     _contentValues.addWhereArgs(String.valueOf(value.id));
 
@@ -463,21 +451,9 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
-    if (bean.value!=null) {
-      _contentValues.put("value", bean.value);
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (bean.valueMapStringByte!=null) {
-      _contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(bean.valueMapStringByte));
-    } else {
-      _contentValues.putNull("value_map_string_byte");
-    }
-    if (bean.valueMapEnumByte!=null) {
-      _contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(bean.valueMapEnumByte));
-    } else {
-      _contentValues.putNull("value_map_enum_byte");
-    }
+    _contentValues.put("value", bean.value);
+    _contentValues.put("value_map_string_byte", Bean63Table.serializeValueMapStringByte(bean.valueMapStringByte));
+    _contentValues.put("value_map_enum_byte", Bean63Table.serializeValueMapEnumByte(bean.valueMapEnumByte));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -544,11 +520,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
 
-    if (valueMapStringByte!=null) {
-      _contentValues.put("value_map_string_byte", serializer1(valueMapStringByte));
-    } else {
-      _contentValues.putNull("value_map_string_byte");
-    }
+    _contentValues.put("value_map_string_byte", serializer1(valueMapStringByte));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -794,11 +766,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement5);
 
-    if (valueMapEnumByte!=null) {
-      _contentValues.put("value_map_enum_byte", serializer2(valueMapEnumByte));
-    } else {
-      _contentValues.putNull("value_map_enum_byte");
-    }
+    _contentValues.put("value_map_enum_byte", serializer2(valueMapEnumByte));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

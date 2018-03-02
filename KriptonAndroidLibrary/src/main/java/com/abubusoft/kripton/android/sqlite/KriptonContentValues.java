@@ -16,6 +16,8 @@
 
 package com.abubusoft.kripton.android.sqlite;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +68,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, String value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindString(compiledStatementBindIndex++, (String) value);
+			if (value==null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);				
+			} else {				
+				compiledStatement.bindString(compiledStatementBindIndex++, (String) value);
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -87,7 +93,11 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(String value) {
-		compiledStatement.bindString(compiledStatementBindIndex++, value);
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			compiledStatement.bindString(compiledStatementBindIndex++, value);
+		}
 
 	}
 
@@ -101,7 +111,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Byte value) {
 		if (this.compiledStatement != null) {
-			this.compiledStatement.bindLong(compiledStatementBindIndex++, value);
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				this.compiledStatement.bindLong(compiledStatementBindIndex++, value);
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -122,7 +136,11 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Byte value) {
-		this.compiledStatement.bindLong(compiledStatementBindIndex++, value);
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			this.compiledStatement.bindLong(compiledStatementBindIndex++, value);
+		}
 	}
 
 	/**
@@ -135,7 +153,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Short value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindLong(compiledStatementBindIndex++, (short) value);
+			if (value==null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);				
+			} else {				
+				compiledStatement.bindLong(compiledStatementBindIndex++, (short) value);
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -156,7 +178,89 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Short value) {
-		compiledStatement.bindLong(compiledStatementBindIndex++, (short) value);
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			compiledStatement.bindLong(compiledStatementBindIndex++, (short) value);
+		}
+	}
+	
+	/**
+	 * Adds a value to the set.
+	 *
+	 * @param key
+	 *            the name of the value to put
+	 * @param value
+	 *            the data for the value to put
+	 */
+	public void put(String key, BigDecimal value) {
+		if (this.compiledStatement != null) {
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				compiledStatement.bindString(compiledStatementBindIndex++, value.toPlainString());
+			}
+		} else if (values != null) {
+			values.put(key, value.toPlainString());
+			return;
+		}
+
+		names.add(key);
+		// values.put(key, value);
+		args.add(value);
+		valueType.add(ParamType.INTEGER);
+	}
+	
+	/**
+	 * Adds a value to the set.
+	 *
+	 * @param key
+	 *            the name of the value to put
+	 * @param value
+	 *            the data for the value to put
+	 */
+	public void put(String key, BigInteger value) {
+		if (this.compiledStatement != null) {
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				compiledStatement.bindString(compiledStatementBindIndex++, value.toString());
+			}
+		} else if (values != null) {
+			values.put(key, value.toString());
+			return;
+		}
+
+		names.add(key);
+		// values.put(key, value);
+		args.add(value);
+		valueType.add(ParamType.INTEGER);
+	}
+	
+	/**
+	 * Adds a value to the set.
+	 *
+	 * @param key
+	 *            the name of the value to put
+	 * @param value
+	 *            the data for the value to put
+	 */
+	public void put(String key, Character value) {
+		if (this.compiledStatement != null) {
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				compiledStatement.bindLong(compiledStatementBindIndex++, (int) value);
+			}
+		} else if (values != null) {
+			values.put(key, (int)value);
+			return;
+		}
+
+		names.add(key);
+		// values.put(key, value);
+		args.add(value);
+		valueType.add(ParamType.INTEGER);
 	}
 
 	/**
@@ -169,7 +273,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Integer value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindLong(compiledStatementBindIndex++, (int) value);
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				compiledStatement.bindLong(compiledStatementBindIndex++, (int) value);
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -190,7 +298,11 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Integer value) {
-		compiledStatement.bindLong(compiledStatementBindIndex++, value);
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			compiledStatement.bindLong(compiledStatementBindIndex++, value);
+		}
 	}
 
 	/**
@@ -203,7 +315,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Long value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindLong(compiledStatementBindIndex++, (long) value);
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				compiledStatement.bindLong(compiledStatementBindIndex++, (long) value);
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -224,7 +340,11 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Long value) {
-		compiledStatement.bindLong(compiledStatementBindIndex++, (long) value);
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			compiledStatement.bindLong(compiledStatementBindIndex++, (long) value);
+		}
 	}
 
 	/**
@@ -237,7 +357,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Float value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindDouble(compiledStatementBindIndex++, (float) value);
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				this.compiledStatement.bindDouble(compiledStatementBindIndex++, (float) value);
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -258,8 +382,11 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Float value) {
-		compiledStatement.bindDouble(compiledStatementBindIndex++, (float) value);
-
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			compiledStatement.bindDouble(compiledStatementBindIndex++, (float) value);
+		}
 	}
 
 	/**
@@ -271,7 +398,11 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Double value) {
-		this.compiledStatement.bindDouble(compiledStatementBindIndex++, value);
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			this.compiledStatement.bindDouble(compiledStatementBindIndex++, value);
+		}
 	}
 
 	/**
@@ -284,7 +415,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Double value) {
 		if (this.compiledStatement != null) {
-			this.compiledStatement.bindDouble(compiledStatementBindIndex++, value);
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				this.compiledStatement.bindDouble(compiledStatementBindIndex++, value);
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -306,7 +441,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, Boolean value) {
 		if (this.compiledStatement != null) {
-			this.compiledStatement.bindLong(compiledStatementBindIndex++, (((Boolean) value) == true ? 1 : 0));
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				this.compiledStatement.bindLong(compiledStatementBindIndex++, (((Boolean) value) == true ? 1 : 0));
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -327,7 +466,11 @@ public final class KriptonContentValues {
 	 */
 	public void put(String key, byte[] value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindBlob(compiledStatementBindIndex++, value);
+			if (value == null) {
+				this.compiledStatement.bindNull(compiledStatementBindIndex++);
+			} else {
+				compiledStatement.bindBlob(compiledStatementBindIndex++, value);
+			}
 		} else if (values != null) {
 			values.put(key, value);
 			return;
@@ -368,7 +511,11 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(Boolean value) {
-		this.compiledStatement.bindLong(compiledStatementBindIndex++, (value == true ? 1 : 0));
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			this.compiledStatement.bindLong(compiledStatementBindIndex++, (value == true ? 1 : 0));
+		}
 	}
 
 	/**
@@ -380,7 +527,11 @@ public final class KriptonContentValues {
 	 *            the data for the value to put
 	 */
 	public void put(byte[] value) {
-		compiledStatement.bindBlob(compiledStatementBindIndex++, value);
+		if (value == null) {
+			this.compiledStatement.bindNull(compiledStatementBindIndex++);
+		} else {
+			compiledStatement.bindBlob(compiledStatementBindIndex++, value);
+		}
 	}
 
 	/**
@@ -396,7 +547,7 @@ public final class KriptonContentValues {
 
 	public void addWhereArgs(String value) {
 		if (this.compiledStatement != null) {
-			compiledStatement.bindString(compiledStatementBindIndex++,value);
+			compiledStatement.bindString(compiledStatementBindIndex++, value);
 		}
 
 		whereArgs.add(value);
@@ -474,13 +625,13 @@ public final class KriptonContentValues {
 		valueType.clear();
 		args.clear();
 		whereArgs.clear();
-		compiledStatement=null;
-		compiledStatementBindIndex=1;
+		compiledStatement = null;
+		compiledStatementBindIndex = 1;
 
 	}
-	
+
 	public void clearBindIndex() {
-		compiledStatementBindIndex=1;
+		compiledStatementBindIndex = 1;
 	}
 
 	protected Triple<String, Object, ParamType> triple = new Triple<>();
@@ -541,11 +692,11 @@ public final class KriptonContentValues {
 
 	public void clear(SQLiteStatement compiledStatement) {
 		clear();
-		this.compiledStatement = compiledStatement;		
+		this.compiledStatement = compiledStatement;
 		if (compiledStatement != null) {
 			this.compiledStatement.clearBindings();
-		} 
-		
+		}
+
 	}
 
 }

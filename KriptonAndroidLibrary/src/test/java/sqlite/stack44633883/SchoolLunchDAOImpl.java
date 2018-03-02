@@ -199,11 +199,7 @@ public class SchoolLunchDAOImpl extends AbstractDao implements SchoolLunchDAO {
     KriptonContentValues _contentValues=contentValuesForUpdate(insertAllPreparedStatement0);
     _contentValues.put("fresh", schoolLunches.isFresh());
     _contentValues.put("contains_meat", schoolLunches.isContainsMeat());
-    if (schoolLunches.getFruits()!=null) {
-      _contentValues.put("fruits", SchoolLunchTable.serializeFruits(schoolLunches.getFruits()));
-    } else {
-      _contentValues.putNull("fruits");
-    }
+    _contentValues.put("fruits", SchoolLunchTable.serializeFruits(schoolLunches.getFruits()));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

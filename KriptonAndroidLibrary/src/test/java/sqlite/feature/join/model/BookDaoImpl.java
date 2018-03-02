@@ -53,11 +53,7 @@ public class BookDaoImpl extends AbstractDao implements BookDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (entity.title!=null) {
-      _contentValues.put("title", entity.title);
-    } else {
-      _contentValues.putNull("title");
-    }
+    _contentValues.put("title", entity.title);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

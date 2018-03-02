@@ -6,6 +6,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
+import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import sqlite.kripton56.entities.OwnerType;
@@ -55,11 +56,7 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
       updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
-    if (ownerType!=null) {
-      _contentValues.put("owner_type", ownerType.toString());
-    } else {
-      _contentValues.putNull("owner_type");
-    }
+    _contentValues.put("owner_type", EnumUtils.write(ownerType));
 
     _contentValues.addWhereArgs(String.valueOf(id));
 

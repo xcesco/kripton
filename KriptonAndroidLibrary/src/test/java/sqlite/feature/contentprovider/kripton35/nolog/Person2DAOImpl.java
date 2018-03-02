@@ -97,27 +97,11 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     _contentValues.put(bean.city);
-    if (bean.birthCity!=null) {
-      _contentValues.put(bean.birthCity);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.birthDay!=null) {
-      _contentValues.put(DateUtils.write(bean.birthDay));
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(bean.birthCity);
+    _contentValues.put(DateUtils.write(bean.birthDay));
     _contentValues.put(bean.value);
-    if (bean.getName()!=null) {
-      _contentValues.put(bean.getName());
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.getSurname()!=null) {
-      _contentValues.put(bean.getSurname());
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(bean.getName());
+    _contentValues.put(bean.getSurname());
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
@@ -190,11 +174,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertNamePreparedStatement1);
 
-    if (tempName!=null) {
-      _contentValues.put(tempName);
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(tempName);
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertNamePreparedStatement1, _contentValues);
@@ -567,11 +547,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
       updateRawPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateRawPreparedStatement4);
-    if (name!=null) {
-      _contentValues.put(name);
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(name);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -685,11 +661,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   @Override
   public int updateRaw(String name, long id, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (name!=null) {
-      _contentValues.put(name);
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(name);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -819,11 +791,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
   @Override
   public int updateRaw(String name, long id, String where, String[] args) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (name!=null) {
-      _contentValues.put(name);
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(name);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -971,27 +939,11 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement5);
     _contentValues.put(person.parentId);
     _contentValues.put(person.city);
-    if (person.birthCity!=null) {
-      _contentValues.put(person.birthCity);
-    } else {
-      _contentValues.putNull();
-    }
-    if (person.birthDay!=null) {
-      _contentValues.put(DateUtils.write(person.birthDay));
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(person.birthCity);
+    _contentValues.put(DateUtils.write(person.birthDay));
     _contentValues.put(person.value);
-    if (person.getName()!=null) {
-      _contentValues.put(person.getName());
-    } else {
-      _contentValues.putNull();
-    }
-    if (person.getSurname()!=null) {
-      _contentValues.put(person.getSurname());
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(person.getName());
+    _contentValues.put(person.getSurname());
 
     _contentValues.addWhereArgs(String.valueOf(person.id));
 

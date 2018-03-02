@@ -53,7 +53,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 
-		boolean nullable;
+		//boolean nullable;
 
 		// generate javadoc
 		generateJavaDoc(methodBuilder, method, returnType);
@@ -93,12 +93,12 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				// check same type
 				TypeUtility.checkTypeCompatibility(method, item, property);
 				// check nullabliity
-				nullable = TypeUtility.isNullable(method, item, property) && !property.hasTypeAdapter();
-
-				if (nullable) {
-					// it use raw method param's typeName
-					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
-				}
+//				nullable = TypeUtility.isNullable(method, item, property) && !property.hasTypeAdapter();
+//
+//				if (nullable) {
+//					// it use raw method param's typeName
+//					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
+//				}
 				
 				if (method.isLogEnabled()) {
 					methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
@@ -109,17 +109,17 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				// it does not need to be converted in string
 				SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, item.value1, property);
 				methodBuilder.addCode(");\n");
-				if (nullable) {
-					methodBuilder.nextControlFlow("else");					
-					
-					if (method.isLogEnabled()) {
-						methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
-					} else {
-						methodBuilder.addStatement("_contentValues.putNull()");
-					}
-					
-					methodBuilder.endControlFlow();
-				}
+//				if (nullable) {
+//					methodBuilder.nextControlFlow("else");					
+//					
+//					if (method.isLogEnabled()) {
+//						methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
+//					} else {
+//						methodBuilder.addStatement("_contentValues.putNull()");
+//					}
+//					
+//					methodBuilder.endControlFlow();
+//				}
 
 			}
 			methodBuilder.addCode("\n");

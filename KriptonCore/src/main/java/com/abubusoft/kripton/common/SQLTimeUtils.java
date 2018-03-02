@@ -5,6 +5,7 @@ import java.sql.Time;
 public class SQLTimeUtils {
 	
 	public static String write(Time value) {
+		if (value==null) return null;
 		return value.toString();
 	}
 	

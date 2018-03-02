@@ -97,27 +97,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
     _contentValues.put("city", bean.city);
-    if (bean.birthCity!=null) {
-      _contentValues.put("birth_city", bean.birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (bean.birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("birth_city", bean.birthCity);
+    _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
     _contentValues.put("value", bean.value);
-    if (bean.getName()!=null) {
-      _contentValues.put("name", bean.getName());
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.getSurname()!=null) {
-      _contentValues.put("surname", bean.getSurname());
-    } else {
-      _contentValues.putNull("surname");
-    }
+    _contentValues.put("name", bean.getName());
+    _contentValues.put("surname", bean.getSurname());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -226,11 +210,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertNamePreparedStatement1);
 
-    if (tempName!=null) {
-      _contentValues.put("name", tempName);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", tempName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -705,11 +685,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
       updateRawPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateRawPreparedStatement4);
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", name);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -857,11 +833,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public int updateRaw(String name, long id, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", name);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -1025,11 +997,7 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
   @Override
   public int updateRaw(String name, long id, String where, String[] args) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (name!=null) {
-      _contentValues.put("name", name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", name);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -1211,27 +1179,11 @@ public class PersonDAOImpl extends AbstractDao implements PersonDAO {
     KriptonContentValues _contentValues=contentValuesForUpdate(updateBeanPreparedStatement5);
     _contentValues.put("alias_parent_id", person.parentId);
     _contentValues.put("city", person.city);
-    if (person.birthCity!=null) {
-      _contentValues.put("birth_city", person.birthCity);
-    } else {
-      _contentValues.putNull("birth_city");
-    }
-    if (person.birthDay!=null) {
-      _contentValues.put("birth_day", DateUtils.write(person.birthDay));
-    } else {
-      _contentValues.putNull("birth_day");
-    }
+    _contentValues.put("birth_city", person.birthCity);
+    _contentValues.put("birth_day", DateUtils.write(person.birthDay));
     _contentValues.put("value", person.value);
-    if (person.getName()!=null) {
-      _contentValues.put("name", person.getName());
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (person.getSurname()!=null) {
-      _contentValues.put("surname", person.getSurname());
-    } else {
-      _contentValues.putNull("surname");
-    }
+    _contentValues.put("name", person.getName());
+    _contentValues.put("surname", person.getSurname());
 
     _contentValues.addWhereArgs(String.valueOf(person.id));
 

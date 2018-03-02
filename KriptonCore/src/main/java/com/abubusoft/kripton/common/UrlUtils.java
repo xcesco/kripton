@@ -20,8 +20,9 @@ import java.net.URL;
 
 public class UrlUtils {
 
-	public static String write(URL url) {
-		return url.toString();
+	public static String write(URL value) {
+		if (value==null) return null;
+		return value.toString();
 	}
 	
 	/**

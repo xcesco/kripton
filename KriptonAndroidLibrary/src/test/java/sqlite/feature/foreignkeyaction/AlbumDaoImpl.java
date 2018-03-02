@@ -199,11 +199,7 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement0);
     _contentValues.put("artist_id", bean.artistId);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -265,11 +261,7 @@ public class AlbumDaoImpl extends AbstractDao implements AlbumDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("artist_id", bean.artistId);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", bean.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

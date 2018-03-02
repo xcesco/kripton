@@ -94,6 +94,36 @@ public class BindSampleContentProvider extends ContentProvider {
 
   /**
    * <h2>URI standard</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre>
+   *
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#selectAll1}</p>
+   */
+  public static final Uri URI_CHEESE_SELECT_ALL = URI_PATH_CHEESE_1;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#deleteById3}</p>
+   */
+  public static final Uri URI_CHEESE_DELETE_BY_ID = URI_PATH_CHEESE_2;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#selectById2}</p>
+   */
+  public static final Uri URI_CHEESE_SELECT_BY_ID = URI_PATH_CHEESE_2;
+
+  /**
+   * <h2>URI standard</h2>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre></p>
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}</pre>

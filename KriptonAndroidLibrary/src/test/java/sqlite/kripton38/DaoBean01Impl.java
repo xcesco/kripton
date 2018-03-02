@@ -125,11 +125,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
-    if (text!=null) {
-      _contentValues.put("text", text);
-    } else {
-      _contentValues.putNull("text");
-    }
+    _contentValues.put("text", text);
 
     _contentValues.addWhereArgs(String.valueOf(id));
 

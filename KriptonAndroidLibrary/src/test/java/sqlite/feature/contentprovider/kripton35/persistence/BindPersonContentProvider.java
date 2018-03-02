@@ -224,6 +224,26 @@ public class BindPersonContentProvider extends ContentProvider {
 
   /**
    * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
+   *
+   * <p>Method associated to this URI is {@link PersonDAOImpl#selectAll10}</p>
+   */
+  public static final Uri URI_PERSON_SELECT_ALL = URI_PATH_PERSON_3;
+
+  /**
+   * <h2>URI standard</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35/persons/#</pre></p>
+   * <h2>URI with parameters</h2>
+   * <pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre>
+   *
+   * <p>Method associated to this URI is {@link PersonDAOImpl#deleteRaw2}</p>
+   */
+  public static final Uri URI_PERSON_DELETE_RAW = URI_PATH_PERSON_4;
+
+  /**
+   * <h2>URI standard</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/#</pre></p>
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre>
@@ -254,13 +274,13 @@ public class BindPersonContentProvider extends ContentProvider {
 
   /**
    * <h2>URI standard</h2>
-   * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test0/#</pre></p>
+   * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/#</pre></p>
    * <h2>URI with parameters</h2>
-   * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test0/${id}</pre>
+   * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#deleteRaw3}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#deleteBean4}</p>
    */
-  public static final Uri URI_PERSON_DELETE_RAW = URI_PATH_PERSON_8;
+  public static final Uri URI_PERSON_DELETE_BEAN = URI_PATH_PERSON_9;
 
   /**
    * <h2>URI standard</h2>

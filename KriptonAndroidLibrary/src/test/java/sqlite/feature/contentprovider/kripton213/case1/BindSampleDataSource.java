@@ -132,11 +132,14 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
       	.populator(new SamplePopulator())
       	.build();
       instance=new BindSampleDataSource(options);
-      instance.openWritableDatabase();
-      instance.close();
-      if (instance.justCreated && options.populator!=null) {
-        // run populator
-        options.populator.execute();
+      // force database DDL run
+      if (options.populator!=null) {
+        instance.openWritableDatabase();
+        instance.close();
+        if (instance.justCreated) {
+          // run populator
+          options.populator.execute();
+        }
       }
     }
     return instance;
@@ -170,7 +173,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, this.version);
     }
     // log section END
     // log section BEGIN
@@ -252,11 +255,14 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
     if (instance==null) {
       instance=new BindSampleDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
-    if (instance.justCreated && options.populator!=null) {
-      // run populator
-      options.populator.execute();
+    // force database DDL run
+    if (options.populator!=null) {
+      instance.openWritableDatabase();
+      instance.close();
+      if (instance.justCreated) {
+        // run populator
+        options.populator.execute();
+      }
     }
     return instance;
   }

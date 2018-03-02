@@ -614,31 +614,15 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.lastName!=null) {
-      _contentValues.put("last_name", bean.lastName);
-    } else {
-      _contentValues.putNull("last_name");
-    }
-    if (bean.firstName!=null) {
-      _contentValues.put("first_name", bean.firstName);
-    } else {
-      _contentValues.putNull("first_name");
-    }
-    if (bean.birthDate!=null) {
-      _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
-    } else {
-      _contentValues.putNull("birth_date");
-    }
-    if (bean.hireDate!=null) {
-      _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
-    } else {
-      _contentValues.putNull("hire_date");
-    }
+    _contentValues.put("last_name", bean.lastName);
+    _contentValues.put("first_name", bean.firstName);
+    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
+    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
-    _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
-    _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
+    _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
     _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
@@ -723,8 +707,8 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
     KriptonContentValues _contentValues=contentValuesForUpdate(insertJQLPreparedStatement1);
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
-    _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
-    _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
+    _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
     _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
@@ -824,31 +808,15 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
-    if (bean.lastName!=null) {
-      _contentValues.put("last_name", bean.lastName);
-    } else {
-      _contentValues.putNull("last_name");
-    }
-    if (bean.firstName!=null) {
-      _contentValues.put("first_name", bean.firstName);
-    } else {
-      _contentValues.putNull("first_name");
-    }
-    if (bean.birthDate!=null) {
-      _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
-    } else {
-      _contentValues.putNull("birth_date");
-    }
-    if (bean.hireDate!=null) {
-      _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
-    } else {
-      _contentValues.putNull("hire_date");
-    }
+    _contentValues.put("last_name", bean.lastName);
+    _contentValues.put("first_name", bean.firstName);
+    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
+    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
-    _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
-    _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
+    _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
     _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
@@ -940,31 +908,15 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       updateByIdPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement3);
-    if (bean.lastName!=null) {
-      _contentValues.put("last_name", bean.lastName);
-    } else {
-      _contentValues.putNull("last_name");
-    }
-    if (bean.firstName!=null) {
-      _contentValues.put("first_name", bean.firstName);
-    } else {
-      _contentValues.putNull("first_name");
-    }
-    if (bean.birthDate!=null) {
-      _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
-    } else {
-      _contentValues.putNull("birth_date");
-    }
-    if (bean.hireDate!=null) {
-      _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
-    } else {
-      _contentValues.putNull("hire_date");
-    }
+    _contentValues.put("last_name", bean.lastName);
+    _contentValues.put("first_name", bean.firstName);
+    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
+    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
-    _contentValues.put("field_character", (int)SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
-    _contentValues.put("field_short", (int)SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
+    _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
     _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
@@ -1046,26 +998,10 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       updateJQLPreparedStatement4 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateJQLPreparedStatement4);
-    if (bean.lastName!=null) {
-      _contentValues.put("last_name", bean.lastName);
-    } else {
-      _contentValues.putNull("last_name");
-    }
-    if (bean.firstName!=null) {
-      _contentValues.put("first_name", bean.firstName);
-    } else {
-      _contentValues.putNull("first_name");
-    }
-    if (bean.birthDate!=null) {
-      _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
-    } else {
-      _contentValues.putNull("birth_date");
-    }
-    if (bean.hireDate!=null) {
-      _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
-    } else {
-      _contentValues.putNull("hire_date");
-    }
+    _contentValues.put("last_name", bean.lastName);
+    _contentValues.put("first_name", bean.firstName);
+    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
+    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
@@ -1142,26 +1078,10 @@ public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao 
       updateByIdJQLPreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdJQLPreparedStatement5);
-    if (bean.lastName!=null) {
-      _contentValues.put("last_name", bean.lastName);
-    } else {
-      _contentValues.putNull("last_name");
-    }
-    if (bean.firstName!=null) {
-      _contentValues.put("first_name", bean.firstName);
-    } else {
-      _contentValues.putNull("first_name");
-    }
-    if (bean.birthDate!=null) {
-      _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
-    } else {
-      _contentValues.putNull("birth_date");
-    }
-    if (bean.hireDate!=null) {
-      _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
-    } else {
-      _contentValues.putNull("hire_date");
-    }
+    _contentValues.put("last_name", bean.lastName);
+    _contentValues.put("first_name", bean.firstName);
+    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
+    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));

@@ -262,11 +262,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.valueString2!=null) {
-      _contentValues.put("value_string2", bean.valueString2);
-    } else {
-      _contentValues.putNull("value_string2");
-    }
+    _contentValues.put("value_string2", bean.valueString2);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -337,11 +333,7 @@ public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
       updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
-    if (bean.valueString2!=null) {
-      _contentValues.put("value_string2", bean.valueString2);
-    } else {
-      _contentValues.putNull("value_string2");
-    }
+    _contentValues.put("value_string2", bean.valueString2);
 
     _contentValues.addWhereArgs((bean.valueString2==null?"":bean.valueString2));
 

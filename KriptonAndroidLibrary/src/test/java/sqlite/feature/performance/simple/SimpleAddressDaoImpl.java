@@ -197,26 +197,10 @@ public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDa
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
-    if (bean.getName()!=null) {
-      _contentValues.put(bean.getName());
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.getAddress()!=null) {
-      _contentValues.put(bean.getAddress());
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.getCity()!=null) {
-      _contentValues.put(bean.getCity());
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.getState()!=null) {
-      _contentValues.put(bean.getState());
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(bean.getName());
+    _contentValues.put(bean.getAddress());
+    _contentValues.put(bean.getCity());
+    _contentValues.put(bean.getState());
     _contentValues.put(bean.getPhone());
 
     // insert operation

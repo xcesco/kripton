@@ -204,11 +204,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
-    if (text!=null) {
-      _contentValues.put("text", text);
-    } else {
-      _contentValues.putNull("text");
-    }
+    _contentValues.put("text", text);
 
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
 
@@ -312,11 +308,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement2);
 
-    if (id!=null) {
-      _contentValues.put("id", id);
-    } else {
-      _contentValues.putNull("id");
-    }
+    _contentValues.put("id", id);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -382,11 +374,7 @@ public class DaoBean01Impl extends AbstractDao implements DaoBean01 {
       insertOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement3);
-    if (bean.getText()!=null) {
-      _contentValues.put("text", bean.getText());
-    } else {
-      _contentValues.putNull("text");
-    }
+    _contentValues.put("text", bean.getText());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

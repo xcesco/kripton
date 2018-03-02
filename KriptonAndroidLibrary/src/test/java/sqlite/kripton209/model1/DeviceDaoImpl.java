@@ -55,11 +55,7 @@ public class DeviceDaoImpl extends AbstractDao implements DeviceDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (device.name!=null) {
-      _contentValues.put("name", device.name);
-    } else {
-      _contentValues.putNull("name");
-    }
+    _contentValues.put("name", device.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

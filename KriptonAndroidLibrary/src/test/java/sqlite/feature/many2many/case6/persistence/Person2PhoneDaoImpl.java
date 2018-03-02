@@ -510,11 +510,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
     _contentValues.put("person_id", bean.personId);
     _contentValues.put("phone_number_id", bean.phoneNumberId);
-    if (bean.buyDate!=null) {
-      _contentValues.put("buy_date", SQLDateUtils.write(bean.buyDate));
-    } else {
-      _contentValues.putNull("buy_date");
-    }
+    _contentValues.put("buy_date", SQLDateUtils.write(bean.buyDate));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

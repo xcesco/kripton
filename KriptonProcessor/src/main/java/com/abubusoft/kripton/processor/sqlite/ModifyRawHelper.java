@@ -133,11 +133,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 					// check same type
 					TypeUtility.checkTypeCompatibility(method, item, property);
-					boolean nullable=TypeUtility.isNullable(method, item, property) && !property.hasTypeAdapter();
-
-					if (nullable) {
-						methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
-					}
+//					boolean nullable=TypeUtility.isNullable(method, item, property) && !property.hasTypeAdapter();
+//
+//					if (nullable) {
+//						methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
+//					}
 
 					// here it needed raw parameter typeName
 					if (method.isLogEnabled()) {
@@ -150,17 +150,17 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 					methodBuilder.addCode(");\n");
 
-					if (nullable) {
-						methodBuilder.nextControlFlow("else");
-						
-						if (method.isLogEnabled()) {
-							methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
-						} else {
-							methodBuilder.addStatement("_contentValues.putNull()");
-						}
-												
-						methodBuilder.endControlFlow();
-					}
+//					if (nullable) {
+//						methodBuilder.nextControlFlow("else");
+//						
+//						if (method.isLogEnabled()) {
+//							methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
+//						} else {
+//							methodBuilder.addStatement("_contentValues.putNull()");
+//						}
+//												
+//						methodBuilder.endControlFlow();
+//					}
 				}
 
 				methodBuilder.addCode("\n");

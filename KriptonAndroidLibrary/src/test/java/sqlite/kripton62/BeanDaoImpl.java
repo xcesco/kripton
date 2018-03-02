@@ -466,61 +466,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
-    if (value.value!=null) {
-      _contentValues.put("value", value.value);
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (value.valueByteSet!=null) {
-      _contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(value.valueByteSet));
-    } else {
-      _contentValues.putNull("value_byte_set");
-    }
-    if (value.valueShortSet!=null) {
-      _contentValues.put("value_short_set", BeanTable.serializeValueShortSet(value.valueShortSet));
-    } else {
-      _contentValues.putNull("value_short_set");
-    }
-    if (value.valueIntegerSet!=null) {
-      _contentValues.put("value_integer_set", BeanTable.serializeValueIntegerSet(value.valueIntegerSet));
-    } else {
-      _contentValues.putNull("value_integer_set");
-    }
-    if (value.valueStringSet!=null) {
-      _contentValues.put("value_string_set", BeanTable.serializeValueStringSet(value.valueStringSet));
-    } else {
-      _contentValues.putNull("value_string_set");
-    }
-    if (value.valueCharacterSet!=null) {
-      _contentValues.put("value_character_set", BeanTable.serializeValueCharacterSet(value.valueCharacterSet));
-    } else {
-      _contentValues.putNull("value_character_set");
-    }
-    if (value.valueFloatSet!=null) {
-      _contentValues.put("value_float_set", BeanTable.serializeValueFloatSet(value.valueFloatSet));
-    } else {
-      _contentValues.putNull("value_float_set");
-    }
-    if (value.valueDoubleSet!=null) {
-      _contentValues.put("value_double_set", BeanTable.serializeValueDoubleSet(value.valueDoubleSet));
-    } else {
-      _contentValues.putNull("value_double_set");
-    }
-    if (value.valueBigDecimalSet!=null) {
-      _contentValues.put("value_big_decimal_set", BeanTable.serializeValueBigDecimalSet(value.valueBigDecimalSet));
-    } else {
-      _contentValues.putNull("value_big_decimal_set");
-    }
-    if (value.valueBeanSet!=null) {
-      _contentValues.put("value_bean_set", BeanTable.serializeValueBeanSet(value.valueBeanSet));
-    } else {
-      _contentValues.putNull("value_bean_set");
-    }
-    if (value.valueEnumTypeSet!=null) {
-      _contentValues.put("value_enum_type_set", BeanTable.serializeValueEnumTypeSet(value.valueEnumTypeSet));
-    } else {
-      _contentValues.putNull("value_enum_type_set");
-    }
+    _contentValues.put("value", value.value);
+    _contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(value.valueByteSet));
+    _contentValues.put("value_short_set", BeanTable.serializeValueShortSet(value.valueShortSet));
+    _contentValues.put("value_integer_set", BeanTable.serializeValueIntegerSet(value.valueIntegerSet));
+    _contentValues.put("value_string_set", BeanTable.serializeValueStringSet(value.valueStringSet));
+    _contentValues.put("value_character_set", BeanTable.serializeValueCharacterSet(value.valueCharacterSet));
+    _contentValues.put("value_float_set", BeanTable.serializeValueFloatSet(value.valueFloatSet));
+    _contentValues.put("value_double_set", BeanTable.serializeValueDoubleSet(value.valueDoubleSet));
+    _contentValues.put("value_big_decimal_set", BeanTable.serializeValueBigDecimalSet(value.valueBigDecimalSet));
+    _contentValues.put("value_bean_set", BeanTable.serializeValueBeanSet(value.valueBeanSet));
+    _contentValues.put("value_enum_type_set", BeanTable.serializeValueEnumTypeSet(value.valueEnumTypeSet));
 
     _contentValues.addWhereArgs(String.valueOf(value.id));
 
@@ -590,61 +546,17 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
-    if (bean.value!=null) {
-      _contentValues.put("value", bean.value);
-    } else {
-      _contentValues.putNull("value");
-    }
-    if (bean.valueByteSet!=null) {
-      _contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(bean.valueByteSet));
-    } else {
-      _contentValues.putNull("value_byte_set");
-    }
-    if (bean.valueShortSet!=null) {
-      _contentValues.put("value_short_set", BeanTable.serializeValueShortSet(bean.valueShortSet));
-    } else {
-      _contentValues.putNull("value_short_set");
-    }
-    if (bean.valueIntegerSet!=null) {
-      _contentValues.put("value_integer_set", BeanTable.serializeValueIntegerSet(bean.valueIntegerSet));
-    } else {
-      _contentValues.putNull("value_integer_set");
-    }
-    if (bean.valueStringSet!=null) {
-      _contentValues.put("value_string_set", BeanTable.serializeValueStringSet(bean.valueStringSet));
-    } else {
-      _contentValues.putNull("value_string_set");
-    }
-    if (bean.valueCharacterSet!=null) {
-      _contentValues.put("value_character_set", BeanTable.serializeValueCharacterSet(bean.valueCharacterSet));
-    } else {
-      _contentValues.putNull("value_character_set");
-    }
-    if (bean.valueFloatSet!=null) {
-      _contentValues.put("value_float_set", BeanTable.serializeValueFloatSet(bean.valueFloatSet));
-    } else {
-      _contentValues.putNull("value_float_set");
-    }
-    if (bean.valueDoubleSet!=null) {
-      _contentValues.put("value_double_set", BeanTable.serializeValueDoubleSet(bean.valueDoubleSet));
-    } else {
-      _contentValues.putNull("value_double_set");
-    }
-    if (bean.valueBigDecimalSet!=null) {
-      _contentValues.put("value_big_decimal_set", BeanTable.serializeValueBigDecimalSet(bean.valueBigDecimalSet));
-    } else {
-      _contentValues.putNull("value_big_decimal_set");
-    }
-    if (bean.valueBeanSet!=null) {
-      _contentValues.put("value_bean_set", BeanTable.serializeValueBeanSet(bean.valueBeanSet));
-    } else {
-      _contentValues.putNull("value_bean_set");
-    }
-    if (bean.valueEnumTypeSet!=null) {
-      _contentValues.put("value_enum_type_set", BeanTable.serializeValueEnumTypeSet(bean.valueEnumTypeSet));
-    } else {
-      _contentValues.putNull("value_enum_type_set");
-    }
+    _contentValues.put("value", bean.value);
+    _contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(bean.valueByteSet));
+    _contentValues.put("value_short_set", BeanTable.serializeValueShortSet(bean.valueShortSet));
+    _contentValues.put("value_integer_set", BeanTable.serializeValueIntegerSet(bean.valueIntegerSet));
+    _contentValues.put("value_string_set", BeanTable.serializeValueStringSet(bean.valueStringSet));
+    _contentValues.put("value_character_set", BeanTable.serializeValueCharacterSet(bean.valueCharacterSet));
+    _contentValues.put("value_float_set", BeanTable.serializeValueFloatSet(bean.valueFloatSet));
+    _contentValues.put("value_double_set", BeanTable.serializeValueDoubleSet(bean.valueDoubleSet));
+    _contentValues.put("value_big_decimal_set", BeanTable.serializeValueBigDecimalSet(bean.valueBigDecimalSet));
+    _contentValues.put("value_bean_set", BeanTable.serializeValueBeanSet(bean.valueBeanSet));
+    _contentValues.put("value_enum_type_set", BeanTable.serializeValueEnumTypeSet(bean.valueEnumTypeSet));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -711,11 +623,7 @@ public class BeanDaoImpl extends AbstractDao implements BeanDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement2);
 
-    if (valueBigDecimalSet!=null) {
-      _contentValues.put("value_big_decimal_set", serializer1(valueBigDecimalSet));
-    } else {
-      _contentValues.putNull("value_big_decimal_set");
-    }
+    _contentValues.put("value_big_decimal_set", serializer1(valueBigDecimalSet));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

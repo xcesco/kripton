@@ -270,11 +270,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("bean_a2_id", bean.beanA2Id);
-    if (bean.valueString!=null) {
-      _contentValues.put("value_string", bean.valueString);
-    } else {
-      _contentValues.putNull("value_string");
-    }
+    _contentValues.put("value_string", bean.valueString);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -347,11 +343,7 @@ public class DaoBeanA_4Impl extends AbstractDao implements DaoBeanA_4 {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
     _contentValues.put("bean_a2_id", bean.beanA2Id);
-    if (bean.valueString!=null) {
-      _contentValues.put("value_string", bean.valueString);
-    } else {
-      _contentValues.putNull("value_string");
-    }
+    _contentValues.put("value_string", bean.valueString);
 
     _contentValues.addWhereArgs((bean.valueString==null?"":bean.valueString));
 

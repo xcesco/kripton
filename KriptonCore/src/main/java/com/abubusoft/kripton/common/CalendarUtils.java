@@ -47,6 +47,7 @@ public class CalendarUtils {
 
 
 	public static String write(Calendar value) {
+		if (value==null) return null;
 		return DateUtils.write(value.getTime());
 	}
 

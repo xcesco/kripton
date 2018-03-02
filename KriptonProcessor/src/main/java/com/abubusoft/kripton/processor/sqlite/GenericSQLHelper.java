@@ -91,12 +91,12 @@ public abstract class GenericSQLHelper {
 			// check same type
 			TypeUtility.checkTypeCompatibility(method, methodParam, property);
 			// check nullabliity
-			nullable = TypeUtility.isNullable(method, methodParam, property);
-
-			if (nullable) {
-				// it use raw method param's typeName
-				methodBuilder.beginControlFlow("if ($L!=null)", methodParam.value0);
-			}
+//			nullable = TypeUtility.isNullable(method, methodParam, property);
+//
+//			if (nullable) {
+//				// it use raw method param's typeName
+//				methodBuilder.beginControlFlow("if ($L!=null)", methodParam.value0);
+//			}
 			
 			if (method.isLogEnabled()) {
 				methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
@@ -107,17 +107,17 @@ public abstract class GenericSQLHelper {
 			// it does not need to be converted in string
 			SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, methodParam.value0, methodParam.value1, property);
 			methodBuilder.addCode(");\n");
-			if (nullable) {
-				methodBuilder.nextControlFlow("else");					
-				
-				if (method.isLogEnabled()) {
-					methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
-				} else {
-					methodBuilder.addStatement("_contentValues.putNull()");
-				}
-				
-				methodBuilder.endControlFlow();
-			}
+//			if (nullable) {
+//				methodBuilder.nextControlFlow("else");					
+//				
+//				if (method.isLogEnabled()) {
+//					methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
+//				} else {
+//					methodBuilder.addStatement("_contentValues.putNull()");
+//				}
+//				
+//				methodBuilder.endControlFlow();
+//			}
 
 		}
 

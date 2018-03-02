@@ -203,11 +203,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.columnBean!=null) {
-      _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
-    } else {
-      _contentValues.putNull("column_bean");
-    }
+    _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -273,11 +269,7 @@ public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
       updateAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateAllPreparedStatement1);
-    if (bean.columnBean!=null) {
-      _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
-    } else {
-      _contentValues.putNull("column_bean");
-    }
+    _contentValues.put("column_bean", Bean84BTable.serializeColumnBean(bean.columnBean));
 
 
     // generation CODE_001 -- BEGIN

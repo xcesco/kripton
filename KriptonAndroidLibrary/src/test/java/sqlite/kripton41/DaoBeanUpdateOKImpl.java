@@ -58,11 +58,7 @@ public class DaoBeanUpdateOKImpl extends AbstractDao implements DaoBeanUpdateOK 
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateDistancePreparedStatement0);
     _contentValues.put("id", id);
-    if (value!=null) {
-      _contentValues.put("value", value);
-    } else {
-      _contentValues.putNull("value");
-    }
+    _contentValues.put("value", value);
 
     _contentValues.addWhereArgs(String.valueOf(test));
 

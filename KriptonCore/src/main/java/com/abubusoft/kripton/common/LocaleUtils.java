@@ -5,6 +5,7 @@ import java.util.Locale;
 public class LocaleUtils {
 
 	public static String write(Locale locale) {
+		if (locale==null) return null;
 		return locale.toString();
 	}
 	

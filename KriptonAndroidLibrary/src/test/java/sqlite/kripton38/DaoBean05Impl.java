@@ -12,6 +12,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -765,21 +766,9 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertRawPreparedStatement0);
 
-    if (text!=null) {
-      _contentValues.put("text", text);
-    } else {
-      _contentValues.putNull("text");
-    }
-    if (content!=null) {
-      _contentValues.put("content", content);
-    } else {
-      _contentValues.putNull("content");
-    }
-    if (creationTime!=null) {
-      _contentValues.put("creation_time", DateUtils.write(creationTime));
-    } else {
-      _contentValues.putNull("creation_time");
-    }
+    _contentValues.put("text", text);
+    _contentValues.put("content", content);
+    _contentValues.put("creation_time", DateUtils.write(creationTime));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -849,26 +838,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("number", bean.getNumber());
-    if (bean.getBeanType()!=null) {
-      _contentValues.put("bean_type", bean.getBeanType().toString());
-    } else {
-      _contentValues.putNull("bean_type");
-    }
-    if (bean.getText()!=null) {
-      _contentValues.put("text", bean.getText());
-    } else {
-      _contentValues.putNull("text");
-    }
-    if (bean.getContent()!=null) {
-      _contentValues.put("content", bean.getContent());
-    } else {
-      _contentValues.putNull("content");
-    }
-    if (bean.getCreationTime()!=null) {
-      _contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
-    } else {
-      _contentValues.putNull("creation_time");
-    }
+    _contentValues.put("bean_type", EnumUtils.write(bean.getBeanType()));
+    _contentValues.put("text", bean.getText());
+    _contentValues.put("content", bean.getContent());
+    _contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -944,26 +917,10 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement2);
     _contentValues.put("number", bean.getNumber());
-    if (bean.getBeanType()!=null) {
-      _contentValues.put("bean_type", bean.getBeanType().toString());
-    } else {
-      _contentValues.putNull("bean_type");
-    }
-    if (bean.getText()!=null) {
-      _contentValues.put("text", bean.getText());
-    } else {
-      _contentValues.putNull("text");
-    }
-    if (bean.getContent()!=null) {
-      _contentValues.put("content", bean.getContent());
-    } else {
-      _contentValues.putNull("content");
-    }
-    if (bean.getCreationTime()!=null) {
-      _contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
-    } else {
-      _contentValues.putNull("creation_time");
-    }
+    _contentValues.put("bean_type", EnumUtils.write(bean.getBeanType()));
+    _contentValues.put("text", bean.getText());
+    _contentValues.put("content", bean.getContent());
+    _contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
 
     _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
     _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
@@ -1039,16 +996,8 @@ public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
       updateOnePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement3);
-    if (content!=null) {
-      _contentValues.put("content", content);
-    } else {
-      _contentValues.putNull("content");
-    }
-    if (text!=null) {
-      _contentValues.put("text", text);
-    } else {
-      _contentValues.putNull("text");
-    }
+    _contentValues.put("content", content);
+    _contentValues.put("text", text);
 
     _contentValues.addWhereArgs(String.valueOf(uid));
     _contentValues.addWhereArgs((valido==null?"":DateUtils.write(valido)));

@@ -7,6 +7,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
+import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -168,42 +169,14 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
     _contentValues.put("channel_id", bean.channelId);
-    if (bean.ownerType!=null) {
-      _contentValues.put("owner_type", bean.ownerType.toString());
-    } else {
-      _contentValues.putNull("owner_type");
-    }
-    if (bean.uid!=null) {
-      _contentValues.put("uid", bean.uid);
-    } else {
-      _contentValues.putNull("uid");
-    }
-    if (bean.faceUid!=null) {
-      _contentValues.put("face_uid", bean.faceUid);
-    } else {
-      _contentValues.putNull("face_uid");
-    }
-    if (bean.text!=null) {
-      _contentValues.put("text", bean.text);
-    } else {
-      _contentValues.putNull("text");
-    }
-    if (bean.ownerUid!=null) {
-      _contentValues.put("owner_uid", bean.ownerUid);
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
-    if (bean.channelUid!=null) {
-      _contentValues.put("channel_uid", bean.channelUid);
-    } else {
-      _contentValues.putNull("channel_uid");
-    }
+    _contentValues.put("owner_type", EnumUtils.write(bean.ownerType));
+    _contentValues.put("uid", bean.uid);
+    _contentValues.put("face_uid", bean.faceUid);
+    _contentValues.put("text", bean.text);
+    _contentValues.put("owner_uid", bean.ownerUid);
+    _contentValues.put("channel_uid", bean.channelUid);
     _contentValues.put("update_time", bean.updateTime);
-    if (bean.type!=null) {
-      _contentValues.put("type", bean.type.toString());
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("type", EnumUtils.write(bean.type));
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -271,42 +244,14 @@ public class DaoMessageImpl extends AbstractDao implements DaoMessage {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("channel_id", bean.channelId);
-    if (bean.ownerType!=null) {
-      _contentValues.put("owner_type", bean.ownerType.toString());
-    } else {
-      _contentValues.putNull("owner_type");
-    }
-    if (bean.uid!=null) {
-      _contentValues.put("uid", bean.uid);
-    } else {
-      _contentValues.putNull("uid");
-    }
-    if (bean.faceUid!=null) {
-      _contentValues.put("face_uid", bean.faceUid);
-    } else {
-      _contentValues.putNull("face_uid");
-    }
-    if (bean.text!=null) {
-      _contentValues.put("text", bean.text);
-    } else {
-      _contentValues.putNull("text");
-    }
-    if (bean.ownerUid!=null) {
-      _contentValues.put("owner_uid", bean.ownerUid);
-    } else {
-      _contentValues.putNull("owner_uid");
-    }
-    if (bean.channelUid!=null) {
-      _contentValues.put("channel_uid", bean.channelUid);
-    } else {
-      _contentValues.putNull("channel_uid");
-    }
+    _contentValues.put("owner_type", EnumUtils.write(bean.ownerType));
+    _contentValues.put("uid", bean.uid);
+    _contentValues.put("face_uid", bean.faceUid);
+    _contentValues.put("text", bean.text);
+    _contentValues.put("owner_uid", bean.ownerUid);
+    _contentValues.put("channel_uid", bean.channelUid);
     _contentValues.put("update_time", bean.updateTime);
-    if (bean.type!=null) {
-      _contentValues.put("type", bean.type.toString());
-    } else {
-      _contentValues.putNull("type");
-    }
+    _contentValues.put("type", EnumUtils.write(bean.type));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

@@ -16,6 +16,7 @@ import com.abubusoft.kripton.common.CalendarUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.CurrencyUtils;
 import com.abubusoft.kripton.common.DateUtils;
+import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.LocaleUtils;
 import com.abubusoft.kripton.common.SQLTimeUtils;
@@ -832,7 +833,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       deleteCharPreparedStatement10 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteCharPreparedStatement10);
-    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
+    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf(valueChar)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -877,7 +878,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       deleteCharTypePreparedStatement11 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteCharTypePreparedStatement11);
-    _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
+    _contentValues.addWhereArgs(String.valueOf(valueCharType));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1102,7 +1103,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       deleteEnumTypePreparedStatement16 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteEnumTypePreparedStatement16);
-    _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
+    _contentValues.addWhereArgs((valueEnumType==null?"":EnumUtils.write(valueEnumType)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1507,7 +1508,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       deleteShortPreparedStatement25 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteShortPreparedStatement25);
-    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
+    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf(valueShort)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1552,7 +1553,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       deleteShortTypePreparedStatement26 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteShortTypePreparedStatement26);
-    _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
+    _contentValues.addWhereArgs(String.valueOf(valueShortType));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -1819,178 +1820,46 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement31);
     _contentValues.put("value_bool_type", bean.valueBoolType);
-    if (bean.valueBool!=null) {
-      _contentValues.put("value_bool", bean.valueBool);
-    } else {
-      _contentValues.putNull("value_bool");
-    }
+    _contentValues.put("value_bool", bean.valueBool);
     _contentValues.put("value_byte_type", bean.valueByteType);
-    if (bean.valueByte!=null) {
-      _contentValues.put("value_byte", bean.valueByte);
-    } else {
-      _contentValues.putNull("value_byte");
-    }
-    _contentValues.put("value_short_type", (int)bean.valueShortType);
-    if (bean.valueShort!=null) {
-      _contentValues.put("value_short", (int)bean.valueShort);
-    } else {
-      _contentValues.putNull("value_short");
-    }
+    _contentValues.put("value_byte", bean.valueByte);
+    _contentValues.put("value_short_type", bean.valueShortType);
+    _contentValues.put("value_short", bean.valueShort);
     _contentValues.put("value_int_type", bean.valueIntType);
-    if (bean.valueInt!=null) {
-      _contentValues.put("value_int", bean.valueInt);
-    } else {
-      _contentValues.putNull("value_int");
-    }
-    if (bean.valueString!=null) {
-      _contentValues.put("value_string", bean.valueString);
-    } else {
-      _contentValues.putNull("value_string");
-    }
-    _contentValues.put("value_char_type", (int)bean.valueCharType);
-    if (bean.valueChar!=null) {
-      _contentValues.put("value_char", (int)bean.valueChar);
-    } else {
-      _contentValues.putNull("value_char");
-    }
+    _contentValues.put("value_int", bean.valueInt);
+    _contentValues.put("value_string", bean.valueString);
+    _contentValues.put("value_char_type", bean.valueCharType);
+    _contentValues.put("value_char", bean.valueChar);
     _contentValues.put("value_float_type", bean.valueFloatType);
-    if (bean.valueFloat!=null) {
-      _contentValues.put("value_float", bean.valueFloat);
-    } else {
-      _contentValues.putNull("value_float");
-    }
-    if (bean.valueBigInteger!=null) {
-      _contentValues.put("value_big_integer", bean.valueBigInteger.toString());
-    } else {
-      _contentValues.putNull("value_big_integer");
-    }
-    if (bean.valueBigDecimal!=null) {
-      _contentValues.put("value_big_decimal", bean.valueBigDecimal.toPlainString());
-    } else {
-      _contentValues.putNull("value_big_decimal");
-    }
-    if (bean.valueEnumType!=null) {
-      _contentValues.put("value_enum_type", bean.valueEnumType.toString());
-    } else {
-      _contentValues.putNull("value_enum_type");
-    }
+    _contentValues.put("value_float", bean.valueFloat);
+    _contentValues.put("value_big_integer", bean.valueBigInteger);
+    _contentValues.put("value_big_decimal", bean.valueBigDecimal);
+    _contentValues.put("value_enum_type", EnumUtils.write(bean.valueEnumType));
     _contentValues.put("value_long_type", bean.valueLongType);
-    if (bean.valueLong!=null) {
-      _contentValues.put("value_long", bean.valueLong);
-    } else {
-      _contentValues.putNull("value_long");
-    }
+    _contentValues.put("value_long", bean.valueLong);
     _contentValues.put("value_double_type", bean.valueDoubleType);
-    if (bean.valueDouble!=null) {
-      _contentValues.put("value_double", bean.valueDouble);
-    } else {
-      _contentValues.putNull("value_double");
-    }
-    if (bean.valueLocale!=null) {
-      _contentValues.put("value_locale", LocaleUtils.write(bean.valueLocale));
-    } else {
-      _contentValues.putNull("value_locale");
-    }
-    if (bean.valueCalendar!=null) {
-      _contentValues.put("value_calendar", CalendarUtils.write(bean.valueCalendar));
-    } else {
-      _contentValues.putNull("value_calendar");
-    }
-    if (bean.valueDate!=null) {
-      _contentValues.put("value_date", DateUtils.write(bean.valueDate));
-    } else {
-      _contentValues.putNull("value_date");
-    }
-    if (bean.valueUrl!=null) {
-      _contentValues.put("value_url", UrlUtils.write(bean.valueUrl));
-    } else {
-      _contentValues.putNull("value_url");
-    }
-    if (bean.valueTime!=null) {
-      _contentValues.put("value_time", SQLTimeUtils.write(bean.valueTime));
-    } else {
-      _contentValues.putNull("value_time");
-    }
-    if (bean.valueCurrency!=null) {
-      _contentValues.put("value_currency", CurrencyUtils.write(bean.valueCurrency));
-    } else {
-      _contentValues.putNull("value_currency");
-    }
-    if (bean.valueTimeZone!=null) {
-      _contentValues.put("value_time_zone", TimeZoneUtils.write(bean.valueTimeZone));
-    } else {
-      _contentValues.putNull("value_time_zone");
-    }
-    if (bean.valueTimeList!=null) {
-      _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(bean.valueTimeList));
-    } else {
-      _contentValues.putNull("value_time_list");
-    }
-    if (bean.valueStrinList!=null) {
-      _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(bean.valueStrinList));
-    } else {
-      _contentValues.putNull("value_strin_list");
-    }
-    if (bean.valueLongList!=null) {
-      _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(bean.valueLongList));
-    } else {
-      _contentValues.putNull("value_long_list");
-    }
-    if (bean.valueByteArray!=null) {
-      _contentValues.put("value_byte_array", bean.valueByteArray);
-    } else {
-      _contentValues.putNull("value_byte_array");
-    }
-    if (bean.valueLongTypeArray!=null) {
-      _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(bean.valueLongTypeArray));
-    } else {
-      _contentValues.putNull("value_long_type_array");
-    }
-    if (bean.valueLongArray!=null) {
-      _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(bean.valueLongArray));
-    } else {
-      _contentValues.putNull("value_long_array");
-    }
-    if (bean.valueBeanArray!=null) {
-      _contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(bean.valueBeanArray));
-    } else {
-      _contentValues.putNull("value_bean_array");
-    }
-    if (bean.valueStringArray!=null) {
-      _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(bean.valueStringArray));
-    } else {
-      _contentValues.putNull("value_string_array");
-    }
-    if (bean.valueCharList!=null) {
-      _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(bean.valueCharList));
-    } else {
-      _contentValues.putNull("value_char_list");
-    }
-    if (bean.valueCharTypeArray!=null) {
-      _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(bean.valueCharTypeArray));
-    } else {
-      _contentValues.putNull("value_char_type_array");
-    }
-    if (bean.valueCharArray!=null) {
-      _contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(bean.valueCharArray));
-    } else {
-      _contentValues.putNull("value_char_array");
-    }
-    if (bean.valueMapStringBean!=null) {
-      _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(bean.valueMapStringBean));
-    } else {
-      _contentValues.putNull("value_map_string_bean");
-    }
-    if (bean.valueLinkedMapStringBean!=null) {
-      _contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean));
-    } else {
-      _contentValues.putNull("value_linked_map_string_bean");
-    }
-    if (bean.valueSetString!=null) {
-      _contentValues.put("value_set_string", Bean64Table.serializeValueSetString(bean.valueSetString));
-    } else {
-      _contentValues.putNull("value_set_string");
-    }
+    _contentValues.put("value_double", bean.valueDouble);
+    _contentValues.put("value_locale", LocaleUtils.write(bean.valueLocale));
+    _contentValues.put("value_calendar", CalendarUtils.write(bean.valueCalendar));
+    _contentValues.put("value_date", DateUtils.write(bean.valueDate));
+    _contentValues.put("value_url", UrlUtils.write(bean.valueUrl));
+    _contentValues.put("value_time", SQLTimeUtils.write(bean.valueTime));
+    _contentValues.put("value_currency", CurrencyUtils.write(bean.valueCurrency));
+    _contentValues.put("value_time_zone", TimeZoneUtils.write(bean.valueTimeZone));
+    _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(bean.valueTimeList));
+    _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(bean.valueStrinList));
+    _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(bean.valueLongList));
+    _contentValues.put("value_byte_array", bean.valueByteArray);
+    _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(bean.valueLongTypeArray));
+    _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(bean.valueLongArray));
+    _contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(bean.valueBeanArray));
+    _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(bean.valueStringArray));
+    _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(bean.valueCharList));
+    _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(bean.valueCharTypeArray));
+    _contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(bean.valueCharArray));
+    _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(bean.valueMapStringBean));
+    _contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean));
+    _contentValues.put("value_set_string", Bean64Table.serializeValueSetString(bean.valueSetString));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2057,11 +1926,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement32);
 
-    if (valueBigDecimal!=null) {
-      _contentValues.put("value_big_decimal", valueBigDecimal.toPlainString());
-    } else {
-      _contentValues.putNull("value_big_decimal");
-    }
+    _contentValues.put("value_big_decimal", valueBigDecimal);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2126,11 +1991,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement33);
 
-    if (valueBigInteger!=null) {
-      _contentValues.put("value_big_integer", valueBigInteger.toString());
-    } else {
-      _contentValues.putNull("value_big_integer");
-    }
+    _contentValues.put("value_big_integer", valueBigInteger);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2260,11 +2121,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement35);
 
-    if (valueBool!=null) {
-      _contentValues.put("value_bool", valueBool);
-    } else {
-      _contentValues.putNull("value_bool");
-    }
+    _contentValues.put("value_bool", valueBool);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2329,11 +2186,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertArrayBeanTypePreparedStatement36);
 
-    if (valueBeanArray!=null) {
-      _contentValues.put("value_bean_array", serializer1(valueBeanArray));
-    } else {
-      _contentValues.putNull("value_bean_array");
-    }
+    _contentValues.put("value_bean_array", serializer1(valueBeanArray));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2398,11 +2251,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertArrayLongPreparedStatement37);
 
-    if (valueLongArray!=null) {
-      _contentValues.put("value_long_array", serializer2(valueLongArray));
-    } else {
-      _contentValues.putNull("value_long_array");
-    }
+    _contentValues.put("value_long_array", serializer2(valueLongArray));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2467,11 +2316,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertArrayLongTypePreparedStatement38);
 
-    if (valueLongTypeArray!=null) {
-      _contentValues.put("value_long_type_array", serializer3(valueLongTypeArray));
-    } else {
-      _contentValues.putNull("value_long_type_array");
-    }
+    _contentValues.put("value_long_type_array", serializer3(valueLongTypeArray));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2536,11 +2381,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBytePreparedStatement39);
 
-    if (valueByte!=null) {
-      _contentValues.put("value_byte", valueByte);
-    } else {
-      _contentValues.putNull("value_byte");
-    }
+    _contentValues.put("value_byte", valueByte);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2670,11 +2511,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertCalendarPreparedStatement41);
 
-    if (valueCalendar!=null) {
-      _contentValues.put("value_calendar", CalendarUtils.write(valueCalendar));
-    } else {
-      _contentValues.putNull("value_calendar");
-    }
+    _contentValues.put("value_calendar", CalendarUtils.write(valueCalendar));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2739,11 +2576,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertCharPreparedStatement42);
 
-    if (valueChar!=null) {
-      _contentValues.put("value_char", (int)valueChar);
-    } else {
-      _contentValues.putNull("value_char");
-    }
+    _contentValues.put("value_char", valueChar);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2808,7 +2641,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertCharTypePreparedStatement43);
 
-    _contentValues.put("value_char_type", (int)valueCharType);
+    _contentValues.put("value_char_type", valueCharType);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2873,11 +2706,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertCurrencyPreparedStatement44);
 
-    if (valueCurrency!=null) {
-      _contentValues.put("value_currency", CurrencyUtils.write(valueCurrency));
-    } else {
-      _contentValues.putNull("value_currency");
-    }
+    _contentValues.put("value_currency", CurrencyUtils.write(valueCurrency));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -2942,11 +2771,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertDatePreparedStatement45);
 
-    if (valueDate!=null) {
-      _contentValues.put("value_date", DateUtils.write(valueDate));
-    } else {
-      _contentValues.putNull("value_date");
-    }
+    _contentValues.put("value_date", DateUtils.write(valueDate));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3011,11 +2836,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertDoublePreparedStatement46);
 
-    if (valueDouble!=null) {
-      _contentValues.put("value_double", valueDouble);
-    } else {
-      _contentValues.putNull("value_double");
-    }
+    _contentValues.put("value_double", valueDouble);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3145,11 +2966,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertEnumTypePreparedStatement48);
 
-    if (valueEnumType!=null) {
-      _contentValues.put("value_enum_type", valueEnumType.toString());
-    } else {
-      _contentValues.putNull("value_enum_type");
-    }
+    _contentValues.put("value_enum_type", EnumUtils.write(valueEnumType));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3214,11 +3031,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertFloatPreparedStatement49);
 
-    if (valueFloat!=null) {
-      _contentValues.put("value_float", valueFloat);
-    } else {
-      _contentValues.putNull("value_float");
-    }
+    _contentValues.put("value_float", valueFloat);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3348,11 +3161,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertIntPreparedStatement51);
 
-    if (valueInt!=null) {
-      _contentValues.put("value_int", valueInt);
-    } else {
-      _contentValues.putNull("value_int");
-    }
+    _contentValues.put("value_int", valueInt);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3482,11 +3291,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertListLongPreparedStatement53);
 
-    if (valueLongList!=null) {
-      _contentValues.put("value_long_list", serializer4(valueLongList));
-    } else {
-      _contentValues.putNull("value_long_list");
-    }
+    _contentValues.put("value_long_list", serializer4(valueLongList));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3551,11 +3356,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertLocalePreparedStatement54);
 
-    if (valueLocale!=null) {
-      _contentValues.put("value_locale", LocaleUtils.write(valueLocale));
-    } else {
-      _contentValues.putNull("value_locale");
-    }
+    _contentValues.put("value_locale", LocaleUtils.write(valueLocale));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3620,11 +3421,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertLongPreparedStatement55);
 
-    if (valueLong!=null) {
-      _contentValues.put("value_long", valueLong);
-    } else {
-      _contentValues.putNull("value_long");
-    }
+    _contentValues.put("value_long", valueLong);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3754,11 +3551,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertShortPreparedStatement57);
 
-    if (valueShort!=null) {
-      _contentValues.put("value_short", (int)valueShort);
-    } else {
-      _contentValues.putNull("value_short");
-    }
+    _contentValues.put("value_short", valueShort);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3823,7 +3616,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertShortTypePreparedStatement58);
 
-    _contentValues.put("value_short_type", (int)valueShortType);
+    _contentValues.put("value_short_type", valueShortType);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3888,11 +3681,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertStringPreparedStatement59);
 
-    if (valueString!=null) {
-      _contentValues.put("value_string", valueString);
-    } else {
-      _contentValues.putNull("value_string");
-    }
+    _contentValues.put("value_string", valueString);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3957,11 +3746,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertTimePreparedStatement60);
 
-    if (valueTime!=null) {
-      _contentValues.put("value_time", SQLTimeUtils.write(valueTime));
-    } else {
-      _contentValues.putNull("value_time");
-    }
+    _contentValues.put("value_time", SQLTimeUtils.write(valueTime));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -4026,11 +3811,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertTimeZonePreparedStatement61);
 
-    if (valueTimeZone!=null) {
-      _contentValues.put("value_time_zone", TimeZoneUtils.write(valueTimeZone));
-    } else {
-      _contentValues.putNull("value_time_zone");
-    }
+    _contentValues.put("value_time_zone", TimeZoneUtils.write(valueTimeZone));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -4095,11 +3876,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertURLPreparedStatement62);
 
-    if (valueUrl!=null) {
-      _contentValues.put("value_url", UrlUtils.write(valueUrl));
-    } else {
-      _contentValues.putNull("value_url");
-    }
+    _contentValues.put("value_url", UrlUtils.write(valueUrl));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -6755,7 +6532,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // query SQL is statically defined
     String _sql=SELECT_ONE_CHAR_SQL15;
     // add where arguments
-    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
+    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf(valueChar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -6940,7 +6717,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // query SQL is statically defined
     String _sql=SELECT_ONE_CHAR_TYPE_SQL16;
     // add where arguments
-    _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
+    _contentValues.addWhereArgs(String.valueOf(valueCharType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -7865,7 +7642,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // query SQL is statically defined
     String _sql=SELECT_ONE_ENUM_TYPE_SQL21;
     // add where arguments
-    _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
+    _contentValues.addWhereArgs((valueEnumType==null?"":EnumUtils.write(valueEnumType)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -9530,7 +9307,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // query SQL is statically defined
     String _sql=SELECT_ONE_SHORT_SQL30;
     // add where arguments
-    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
+    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf(valueShort)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -9715,7 +9492,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     // query SQL is statically defined
     String _sql=SELECT_ONE_SHORT_TYPE_SQL31;
     // add where arguments
-    _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
+    _contentValues.addWhereArgs(String.valueOf(valueShortType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -11475,178 +11252,46 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement63);
     _contentValues.put("value_bool_type", value.valueBoolType);
-    if (value.valueBool!=null) {
-      _contentValues.put("value_bool", value.valueBool);
-    } else {
-      _contentValues.putNull("value_bool");
-    }
+    _contentValues.put("value_bool", value.valueBool);
     _contentValues.put("value_byte_type", value.valueByteType);
-    if (value.valueByte!=null) {
-      _contentValues.put("value_byte", value.valueByte);
-    } else {
-      _contentValues.putNull("value_byte");
-    }
-    _contentValues.put("value_short_type", (int)value.valueShortType);
-    if (value.valueShort!=null) {
-      _contentValues.put("value_short", (int)value.valueShort);
-    } else {
-      _contentValues.putNull("value_short");
-    }
+    _contentValues.put("value_byte", value.valueByte);
+    _contentValues.put("value_short_type", value.valueShortType);
+    _contentValues.put("value_short", value.valueShort);
     _contentValues.put("value_int_type", value.valueIntType);
-    if (value.valueInt!=null) {
-      _contentValues.put("value_int", value.valueInt);
-    } else {
-      _contentValues.putNull("value_int");
-    }
-    if (value.valueString!=null) {
-      _contentValues.put("value_string", value.valueString);
-    } else {
-      _contentValues.putNull("value_string");
-    }
-    _contentValues.put("value_char_type", (int)value.valueCharType);
-    if (value.valueChar!=null) {
-      _contentValues.put("value_char", (int)value.valueChar);
-    } else {
-      _contentValues.putNull("value_char");
-    }
+    _contentValues.put("value_int", value.valueInt);
+    _contentValues.put("value_string", value.valueString);
+    _contentValues.put("value_char_type", value.valueCharType);
+    _contentValues.put("value_char", value.valueChar);
     _contentValues.put("value_float_type", value.valueFloatType);
-    if (value.valueFloat!=null) {
-      _contentValues.put("value_float", value.valueFloat);
-    } else {
-      _contentValues.putNull("value_float");
-    }
-    if (value.valueBigInteger!=null) {
-      _contentValues.put("value_big_integer", value.valueBigInteger.toString());
-    } else {
-      _contentValues.putNull("value_big_integer");
-    }
-    if (value.valueBigDecimal!=null) {
-      _contentValues.put("value_big_decimal", value.valueBigDecimal.toPlainString());
-    } else {
-      _contentValues.putNull("value_big_decimal");
-    }
-    if (value.valueEnumType!=null) {
-      _contentValues.put("value_enum_type", value.valueEnumType.toString());
-    } else {
-      _contentValues.putNull("value_enum_type");
-    }
+    _contentValues.put("value_float", value.valueFloat);
+    _contentValues.put("value_big_integer", value.valueBigInteger);
+    _contentValues.put("value_big_decimal", value.valueBigDecimal);
+    _contentValues.put("value_enum_type", EnumUtils.write(value.valueEnumType));
     _contentValues.put("value_long_type", value.valueLongType);
-    if (value.valueLong!=null) {
-      _contentValues.put("value_long", value.valueLong);
-    } else {
-      _contentValues.putNull("value_long");
-    }
+    _contentValues.put("value_long", value.valueLong);
     _contentValues.put("value_double_type", value.valueDoubleType);
-    if (value.valueDouble!=null) {
-      _contentValues.put("value_double", value.valueDouble);
-    } else {
-      _contentValues.putNull("value_double");
-    }
-    if (value.valueLocale!=null) {
-      _contentValues.put("value_locale", LocaleUtils.write(value.valueLocale));
-    } else {
-      _contentValues.putNull("value_locale");
-    }
-    if (value.valueCalendar!=null) {
-      _contentValues.put("value_calendar", CalendarUtils.write(value.valueCalendar));
-    } else {
-      _contentValues.putNull("value_calendar");
-    }
-    if (value.valueDate!=null) {
-      _contentValues.put("value_date", DateUtils.write(value.valueDate));
-    } else {
-      _contentValues.putNull("value_date");
-    }
-    if (value.valueUrl!=null) {
-      _contentValues.put("value_url", UrlUtils.write(value.valueUrl));
-    } else {
-      _contentValues.putNull("value_url");
-    }
-    if (value.valueTime!=null) {
-      _contentValues.put("value_time", SQLTimeUtils.write(value.valueTime));
-    } else {
-      _contentValues.putNull("value_time");
-    }
-    if (value.valueCurrency!=null) {
-      _contentValues.put("value_currency", CurrencyUtils.write(value.valueCurrency));
-    } else {
-      _contentValues.putNull("value_currency");
-    }
-    if (value.valueTimeZone!=null) {
-      _contentValues.put("value_time_zone", TimeZoneUtils.write(value.valueTimeZone));
-    } else {
-      _contentValues.putNull("value_time_zone");
-    }
-    if (value.valueTimeList!=null) {
-      _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(value.valueTimeList));
-    } else {
-      _contentValues.putNull("value_time_list");
-    }
-    if (value.valueStrinList!=null) {
-      _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(value.valueStrinList));
-    } else {
-      _contentValues.putNull("value_strin_list");
-    }
-    if (value.valueLongList!=null) {
-      _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(value.valueLongList));
-    } else {
-      _contentValues.putNull("value_long_list");
-    }
-    if (value.valueByteArray!=null) {
-      _contentValues.put("value_byte_array", value.valueByteArray);
-    } else {
-      _contentValues.putNull("value_byte_array");
-    }
-    if (value.valueLongTypeArray!=null) {
-      _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(value.valueLongTypeArray));
-    } else {
-      _contentValues.putNull("value_long_type_array");
-    }
-    if (value.valueLongArray!=null) {
-      _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(value.valueLongArray));
-    } else {
-      _contentValues.putNull("value_long_array");
-    }
-    if (value.valueBeanArray!=null) {
-      _contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(value.valueBeanArray));
-    } else {
-      _contentValues.putNull("value_bean_array");
-    }
-    if (value.valueStringArray!=null) {
-      _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(value.valueStringArray));
-    } else {
-      _contentValues.putNull("value_string_array");
-    }
-    if (value.valueCharList!=null) {
-      _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(value.valueCharList));
-    } else {
-      _contentValues.putNull("value_char_list");
-    }
-    if (value.valueCharTypeArray!=null) {
-      _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(value.valueCharTypeArray));
-    } else {
-      _contentValues.putNull("value_char_type_array");
-    }
-    if (value.valueCharArray!=null) {
-      _contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(value.valueCharArray));
-    } else {
-      _contentValues.putNull("value_char_array");
-    }
-    if (value.valueMapStringBean!=null) {
-      _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(value.valueMapStringBean));
-    } else {
-      _contentValues.putNull("value_map_string_bean");
-    }
-    if (value.valueLinkedMapStringBean!=null) {
-      _contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(value.valueLinkedMapStringBean));
-    } else {
-      _contentValues.putNull("value_linked_map_string_bean");
-    }
-    if (value.valueSetString!=null) {
-      _contentValues.put("value_set_string", Bean64Table.serializeValueSetString(value.valueSetString));
-    } else {
-      _contentValues.putNull("value_set_string");
-    }
+    _contentValues.put("value_double", value.valueDouble);
+    _contentValues.put("value_locale", LocaleUtils.write(value.valueLocale));
+    _contentValues.put("value_calendar", CalendarUtils.write(value.valueCalendar));
+    _contentValues.put("value_date", DateUtils.write(value.valueDate));
+    _contentValues.put("value_url", UrlUtils.write(value.valueUrl));
+    _contentValues.put("value_time", SQLTimeUtils.write(value.valueTime));
+    _contentValues.put("value_currency", CurrencyUtils.write(value.valueCurrency));
+    _contentValues.put("value_time_zone", TimeZoneUtils.write(value.valueTimeZone));
+    _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(value.valueTimeList));
+    _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(value.valueStrinList));
+    _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(value.valueLongList));
+    _contentValues.put("value_byte_array", value.valueByteArray);
+    _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(value.valueLongTypeArray));
+    _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(value.valueLongArray));
+    _contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(value.valueBeanArray));
+    _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(value.valueStringArray));
+    _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(value.valueCharList));
+    _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(value.valueCharTypeArray));
+    _contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(value.valueCharArray));
+    _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(value.valueMapStringBean));
+    _contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(value.valueLinkedMapStringBean));
+    _contentValues.put("value_set_string", Bean64Table.serializeValueSetString(value.valueSetString));
 
     _contentValues.addWhereArgs(String.valueOf(value.id));
 
@@ -11971,11 +11616,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
       updateOnePreparedStatement68 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement68);
-    if (valueSetString!=null) {
-      _contentValues.put("value_set_string", serializer5(valueSetString));
-    } else {
-      _contentValues.putNull("value_set_string");
-    }
+    _contentValues.put("value_set_string", serializer5(valueSetString));
 
     _contentValues.addWhereArgs(String.valueOf(id));
 
@@ -12432,7 +12073,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneCharPreparedStatement75);
     _contentValues.put("id", id);
 
-    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf((int)valueChar)));
+    _contentValues.addWhereArgs((valueChar==null?"":String.valueOf(valueChar)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -12497,7 +12138,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneCharTypePreparedStatement76);
     _contentValues.put("id", id);
 
-    _contentValues.addWhereArgs(String.valueOf((int)valueCharType));
+    _contentValues.addWhereArgs(String.valueOf(valueCharType));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -12822,7 +12463,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneEnumTypePreparedStatement81);
     _contentValues.put("id", id);
 
-    _contentValues.addWhereArgs((valueEnumType==null?"":valueEnumType.toString()));
+    _contentValues.addWhereArgs((valueEnumType==null?"":EnumUtils.write(valueEnumType)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -13407,7 +13048,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneShortPreparedStatement90);
     _contentValues.put("id", id);
 
-    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf((int)valueShort)));
+    _contentValues.addWhereArgs((valueShort==null?"":String.valueOf(valueShort)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -13472,7 +13113,7 @@ public class Bean64DaoImpl extends AbstractDao implements Bean64Dao {
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOneShortTypePreparedStatement91);
     _contentValues.put("id", id);
 
-    _contentValues.addWhereArgs(String.valueOf((int)valueShortType));
+    _contentValues.addWhereArgs(String.valueOf(valueShortType));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

@@ -65,41 +65,13 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("id", bean.id);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.username!=null) {
-      _contentValues.put("username", bean.username);
-    } else {
-      _contentValues.putNull("username");
-    }
-    if (bean.email!=null) {
-      _contentValues.put("email", bean.email);
-    } else {
-      _contentValues.putNull("email");
-    }
-    if (bean.address!=null) {
-      _contentValues.put("address", UserTable.serializeAddress(bean.address));
-    } else {
-      _contentValues.putNull("address");
-    }
-    if (bean.phone!=null) {
-      _contentValues.put("phone", bean.phone);
-    } else {
-      _contentValues.putNull("phone");
-    }
-    if (bean.website!=null) {
-      _contentValues.put("website", bean.website);
-    } else {
-      _contentValues.putNull("website");
-    }
-    if (bean.company!=null) {
-      _contentValues.put("company", UserTable.serializeCompany(bean.company));
-    } else {
-      _contentValues.putNull("company");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("username", bean.username);
+    _contentValues.put("email", bean.email);
+    _contentValues.put("address", UserTable.serializeAddress(bean.address));
+    _contentValues.put("phone", bean.phone);
+    _contentValues.put("website", bean.website);
+    _contentValues.put("company", UserTable.serializeCompany(bean.company));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

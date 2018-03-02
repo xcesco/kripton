@@ -163,7 +163,7 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, database.getVersion());
+      Logger.info("Create database '%s' version %s",this.name, this.version);
     }
     // log section END
     // log section BEGIN

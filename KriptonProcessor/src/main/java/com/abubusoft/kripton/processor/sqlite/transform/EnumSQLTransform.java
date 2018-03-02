@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
@@ -39,12 +40,12 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
-		methodBuilder.addCode("$L.toString()", getter(beanName, beanClass, property));
+		methodBuilder.addCode("$T.write($L)", EnumUtils.class, getter(beanName, beanClass, property));
 	}
 
 	@Override
 	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
-		methodBuilder.addCode("$L.toString()", paramName);
+		methodBuilder.addCode("$T.write($L)", EnumUtils.class, paramName);
 	}
 	
 	@Override

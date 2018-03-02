@@ -79,31 +79,11 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("area", bean.area);
-    if (bean.code!=null) {
-      _contentValues.put("code", bean.code);
-    } else {
-      _contentValues.putNull("code");
-    }
-    if (bean.callingCode!=null) {
-      _contentValues.put("calling_code", bean.callingCode);
-    } else {
-      _contentValues.putNull("calling_code");
-    }
-    if (bean.region!=null) {
-      _contentValues.put("region", bean.region);
-    } else {
-      _contentValues.putNull("region");
-    }
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.translatedName!=null) {
-      _contentValues.put("translated_name", CountryTable.serializeTranslatedName(bean.translatedName));
-    } else {
-      _contentValues.putNull("translated_name");
-    }
+    _contentValues.put("code", bean.code);
+    _contentValues.put("calling_code", bean.callingCode);
+    _contentValues.put("region", bean.region);
+    _contentValues.put("name", bean.name);
+    _contentValues.put("translated_name", CountryTable.serializeTranslatedName(bean.translatedName));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

@@ -47,6 +47,7 @@ public class DateUtils {
 	}
 
 	public static String write(Date value) {
+		if (value==null) return null;
 		String text = ThreadLocalDateFormatter.format(value, FULL);
 		return text;
 	}

@@ -156,16 +156,8 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put(bean.name);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.surname!=null) {
-      _contentValues.put(bean.surname);
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(bean.name);
+    _contentValues.put(bean.surname);
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
@@ -202,16 +194,8 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
       updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
-    if (bean.name!=null) {
-      _contentValues.put(bean.name);
-    } else {
-      _contentValues.putNull();
-    }
-    if (bean.surname!=null) {
-      _contentValues.put(bean.surname);
-    } else {
-      _contentValues.putNull();
-    }
+    _contentValues.put(bean.name);
+    _contentValues.put(bean.surname);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 

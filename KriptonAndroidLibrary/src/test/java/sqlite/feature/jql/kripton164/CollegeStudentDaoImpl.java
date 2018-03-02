@@ -48,11 +48,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (student.surname!=null) {
-      _contentValues.put("surname", student.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
+    _contentValues.put("surname", student.surname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -112,11 +108,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
   @Override
   public void insertBeanFromSelect(CollegeStudent bean) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
+    _contentValues.put("surname", bean.surname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
