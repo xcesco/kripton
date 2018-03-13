@@ -1,16 +1,11 @@
 package com.abubusoft.kripton.quickstart;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
-import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
-import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.quickstart.network.NetworkClient;
 import com.abubusoft.kripton.quickstart.service.QuickStartService;
 import com.abubusoft.kripton.retrofit2.KriptonBinderConverterFactory;
-import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDaoFactory;
-import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDataSource;
 
 import retrofit2.Retrofit;
 
@@ -25,6 +20,8 @@ public class QuickStartApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(NetworkClient.instance())

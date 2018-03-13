@@ -15,9 +15,29 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public abstract class Version {
 
+	{
+		// load version from generated pom.properties
+		InputStream resourceAsStream = this.getClass().getResourceAsStream("/META-INF/maven/com.abubusoft/kripton-processor/pom.properties");
+		Properties props = new Properties();
+		try {
+			props.load(resourceAsStream);
+			VERSION = (String) props.get("version");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+
+		}
+	}
+
+	private static String VERSION = "development";
+
 	public static String getVersion() {
-		return "3.5.0";
+		return VERSION;
 	}
 }

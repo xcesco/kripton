@@ -11,14 +11,14 @@ android {
         }
     }
 
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.abubusoft.kripton.kripton.quickstart"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 302
-        versionName "3.0.2"
+        targetSdkVersion 27
+        versionCode 350
+        versionName "3.5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -39,7 +39,7 @@ android {
     }
 }
 
-def kriptonVersion = "3.0.2"
+def kriptonVersion = "3.5.0"
 def retrofitLoggingInterceptor = "3.4.1"
 def glideVersion = "3.7.0"
 
@@ -48,9 +48,9 @@ dependencies {
     annotationProcessor "com.abubusoft:kripton-processor:${kriptonVersion}"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
     implementation "com.abubusoft:kripton-android-library:${kriptonVersion}"
     implementation "com.abubusoft:kripton-retrofit-converter:${kriptonVersion}"
     implementation "com.squareup.okhttp3:logging-interceptor:${retrofitLoggingInterceptor}"

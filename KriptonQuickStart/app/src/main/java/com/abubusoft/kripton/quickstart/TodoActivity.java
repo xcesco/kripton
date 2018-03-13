@@ -65,6 +65,13 @@ public class TodoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        BindQuickStartDataSource.instance().execute(daoFactory -> {
+            PersonDao dao=daoFactory.getPersonDao();
+            dao.insert(person);
+
+            return TransactionResult.COMMIT;
+        });
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             userId = (long) bundle.get("userId");
