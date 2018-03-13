@@ -20,10 +20,12 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public abstract class Version {
+	
+	private static String VERSION = "development";
 
-	{
+	static {
 		// load version from generated pom.properties
-		InputStream resourceAsStream = this.getClass().getResourceAsStream("/META-INF/maven/com.abubusoft/kripton-processor/pom.properties");
+		InputStream resourceAsStream = Version.class.getResourceAsStream("/META-INF/maven/com.abubusoft/kripton-processor/pom.properties");
 		Properties props = new Properties();
 		try {
 			props.load(resourceAsStream);
@@ -35,7 +37,7 @@ public abstract class Version {
 		}
 	}
 
-	private static String VERSION = "development";
+	
 
 	public static String getVersion() {
 		return VERSION;
