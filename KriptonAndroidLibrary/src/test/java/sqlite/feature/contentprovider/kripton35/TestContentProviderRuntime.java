@@ -63,7 +63,7 @@ public class TestContentProviderRuntime extends BaseAndroidTest {
 		contentValues.put(PersonTable.COLUMN_CITY, 1);
 
 		for (int i = 0; i < rows; i++) {
-			Uri uri = Uri.parse(BindPersonContentProvider.URI + "/persons");
+			Uri uri = BindPersonContentProvider.URI_PERSON_INSERT_BEAN;
 			Uri resultURI = getApplicationContext().getContentResolver().insert(uri, contentValues);
 			assertTrue(Long.parseLong(resultURI.toString().replace("content://sqlite.feature.contentprovider.kripton35/persons/", "")) > 0);
 		}

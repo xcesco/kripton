@@ -15,7 +15,7 @@
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-processor</artifactId>
 	<packaging>jar</packaging>
-	<version>3.5.0</version>
+	<version>3.6.0</version>
 
 	<!-- Property version 2.0.0 -->
 	<properties>
@@ -29,7 +29,7 @@
 		<jackson.version>2.9.4</jackson.version>
 		<retrofit.version>2.3.0</retrofit.version>
 		<rx.version>2.1.5</rx.version>
-	
+
 		<kripton.debug>false</kripton.debug>
 		<antlr.version>4.7</antlr.version>
 
@@ -128,7 +128,7 @@
 			<artifactId>javapoet</artifactId>
 			<version>${javapoet.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -140,12 +140,12 @@
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
-		
+
 		<!-- RX dependencies - BEGIN -->
 		<dependency>
 			<groupId>io.reactivex.rxjava2</groupId>
 			<artifactId>rxjava</artifactId>
-			<version>${rx.version}</version>							
+			<version>${rx.version}</version>
 		</dependency>
 		<!-- RX dependencies - END -->
 
@@ -404,6 +404,20 @@
 					</formats>
 					<check />
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>templating-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<id>generate-verion-class</id>
+						<goals>
+							<goal>filter-sources</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
