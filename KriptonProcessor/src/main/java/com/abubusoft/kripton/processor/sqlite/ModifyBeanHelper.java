@@ -27,7 +27,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -35,6 +34,7 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.GenericSQLHelper.SubjectType;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
@@ -194,9 +194,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (method.getParent().getParent().generateRx) {
 			if (updateMode) {
-				methodBuilder.addStatement("subject.onNext($T.createUpdate(result))", SQLiteModification.class);
+				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.UPDATE);
 			} else {
-				methodBuilder.addStatement("subject.onNext($T.createDelete(result))", SQLiteModification.class);
+				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.DELETE);
 			}
 		}
 

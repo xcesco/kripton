@@ -23,13 +23,13 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
+import com.abubusoft.kripton.processor.sqlite.GenericSQLHelper.SubjectType;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
@@ -137,7 +137,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}			
 			
 			if (method.getParent().getParent().generateRx) {
-				methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
+				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);				
 			}
 
 			// define return value

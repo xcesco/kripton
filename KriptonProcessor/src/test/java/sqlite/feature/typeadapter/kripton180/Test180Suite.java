@@ -19,12 +19,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import sqlite.feature.typeadapter.kripton180.bean.TestKripton180Bean;
+import sqlite.feature.typeadapter.kripton180.bean.insertselect.TestKripton180BeanInsertSelectCompile;
 import sqlite.feature.typeadapter.kripton180.raw.TestKripton180Raw;
 
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(
 		{
+			TestKripton180BeanInsertSelectCompile.class,
 			TestKripton180Bean.class,
 			TestKripton180Raw.class
 			})

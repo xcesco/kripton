@@ -10,14 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.quickstart.model.Todo;
-import com.abubusoft.quickstart.R;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartAsyncTask;
-import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDaoFactory;
 import com.abubusoft.kripton.quickstart.persistence.BindQuickStartDataSource;
 import com.abubusoft.kripton.quickstart.persistence.TodoDaoImpl;
+import com.abubusoft.quickstart.R;
 
 import java.util.List;
 
@@ -64,13 +62,6 @@ public class TodoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        BindQuickStartDataSource.instance().execute(daoFactory -> {
-            PersonDao dao=daoFactory.getPersonDao();
-            dao.insert(person);
-
-            return TransactionResult.COMMIT;
-        });
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

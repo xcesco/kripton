@@ -409,7 +409,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("INSERT OR REPLACE INTO person (personName) SELECT person_name FROM person WHERE person_name=?");
+      Logger.info("INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -435,7 +435,7 @@ public class InsertBeanPersonDaoImpl extends AbstractDao implements InsertBeanPe
     // log section END
     // insert operation
     // generate SQL for insert
-    String _sql=String.format("INSERT OR REPLACE INTO person (%s) SELECT person_name FROM person WHERE person_name=${bean.personName}", _contentValues.keyList(), _contentValues.keyValueList());
+    String _sql=String.format("INSERT OR REPLACE INTO person (%s) SELECT person_name FROM person WHERE person_name=?", _contentValues.keyList());
     long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
     bean.id=result;
   }

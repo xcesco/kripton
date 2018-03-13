@@ -41,9 +41,9 @@ public class TestConversion extends AbstractBaseTest {
 	
 		 	JsonPlaceHolderService service = retrofit.create(JsonPlaceHolderService.class);
 	
-	        Response<List<Post>> response = service.getAllPost().execute();
+	        //Response<List<Post>> response = service.getAllPost().execute();
 	        
-	        log(response.toString());
+	        //log(response.toString());
 	        
 	        //log(""+list);
 	}

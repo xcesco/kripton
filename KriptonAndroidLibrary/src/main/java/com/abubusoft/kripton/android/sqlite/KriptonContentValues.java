@@ -28,7 +28,7 @@ import android.database.sqlite.SQLiteStatement;
 
 public final class KriptonContentValues {
 	public enum ParamType {
-		BOOLEAN, BYTE_ARRAY, DOUBLE, FLOAT, INTEGER, LONG, SHORT, STRING, NULL, BYTE
+		BOOLEAN, BYTE_ARRAY, DOUBLE, FLOAT, INTEGER, LONG, SHORT, STRING, NULL, BYTE, CHARACTER
 	};
 
 	private ContentValues values;
@@ -250,17 +250,17 @@ public final class KriptonContentValues {
 			if (value == null) {
 				this.compiledStatement.bindNull(compiledStatementBindIndex++);
 			} else {
-				compiledStatement.bindLong(compiledStatementBindIndex++, (int) value);
+				compiledStatement.bindLong(compiledStatementBindIndex++, Character.getNumericValue(value));
 			}
 		} else if (values != null) {
-			values.put(key, (int)value);
+			values.put(key, Character.getNumericValue(value));
 			return;
 		}
 
 		names.add(key);
 		// values.put(key, value);
 		args.add(value);
-		valueType.add(ParamType.INTEGER);
+		valueType.add(ParamType.CHARACTER);
 	}
 
 	/**
@@ -579,6 +579,9 @@ public final class KriptonContentValues {
 				break;
 			case INTEGER:
 				statement.bindLong(index, (int) value);
+				break;
+			case CHARACTER:
+				statement.bindLong(index, Character.getNumericValue((char)value));
 				break;
 			case LONG:
 				statement.bindLong(index, (long) value);

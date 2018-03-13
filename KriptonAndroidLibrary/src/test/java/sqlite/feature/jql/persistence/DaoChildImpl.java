@@ -413,7 +413,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("insert into child (name, parentId) select name, parent_id from child where _id=? or _id=? or _id=?");
+      Logger.info("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -670,7 +670,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("update or replace child set parentId=${parentId}, name=(select _id from person where _id=? )  where parent_id=?");
+      Logger.info("update or replace child set parent_id=${parentId}, name=(select _id from person where _id=? )  where parent_id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -695,7 +695,7 @@ public class DaoChildImpl extends AbstractDao implements DaoChild {
     }
     // log section END
 
-    database().execSQL("update or replace child set parentId=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
+    database().execSQL("update or replace child set parent_id=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
   }
 
   public static void clearCompiledStatements() {

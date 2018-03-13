@@ -140,7 +140,7 @@ public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudent
     // log section END
     // insert operation
     // generate SQL for insert
-    String _sql=String.format("INSERT OR REPLACE INTO students (%s) SELECT surname FROM students WHERE surname=${bean.surname}", _contentValues.keyList(), _contentValues.keyValueList());
+    String _sql=String.format("INSERT OR REPLACE INTO students (%s) SELECT surname FROM students WHERE surname=?", _contentValues.keyList());
     long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
     bean.id=result;
   }

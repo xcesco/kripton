@@ -122,7 +122,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student}</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -254,7 +254,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -416,7 +416,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -587,7 +587,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -734,7 +734,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>UPDATE Person SET personSurname=${bean.personSurname}, student = ${bean.student}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personSurname=${bean.personSurname}, student = ${bean.student}</pre>
+   * <pre>UPDATE person SET person_surname=${bean.personSurname}, student = ${bean.student}</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -924,7 +924,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>UPDATE Person SET personName=${bean.personname} where student = (select student from Person where id=${bean.id})</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${bean.personname} where student = (select student from person where id=${bean.id})</pre>
+   * <pre>UPDATE person SET person_name=${bean.personname} where student = (select student from person where id=${bean.id})</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1086,7 +1086,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1257,7 +1257,7 @@ public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPe
    * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>

@@ -3,6 +3,7 @@ package com.abubusoft.kripton.processor.sqlite;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -20,6 +21,29 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
 public abstract class GenericSQLHelper {
+	
+	public enum SubjectType {
+		INSERT("Insert"),
+		UPDATE("Update"),
+		DELETE("Delete");
+		
+		private SubjectType(String value) {
+			this.value=value;
+		}
+		
+		private String value;
+		
+		public String value() {
+			return value;
+		}
+	}
+	
+	public static void generateSubjectNext(MethodSpec.Builder methodBuilder, SubjectType subjectType) {
+		methodBuilder.beginControlFlow("if (result>0)");
+		methodBuilder.addStatement("subject.onNext($T.create$L(result))", SQLiteModification.class, subjectType.value());
+		methodBuilder.endControlFlow();
+	}
+	
 	/**
 	 * @param methodBuilder
 	 * @param method

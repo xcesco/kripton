@@ -26,7 +26,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -36,6 +35,7 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.GenericSQLHelper.SubjectType;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
@@ -63,7 +63,6 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);			
 		} else {
 			String psName=method.buildPreparedStatementName();
-			// generate SQL for insert
 			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());
 			
 			methodBuilder.beginControlFlow("if ($L==null)",psName);
@@ -96,7 +95,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		}
 		
 		if (method.getParent().getParent().generateRx) {
-			methodBuilder.addStatement("subject.onNext($T.createInsert(result))", SQLiteModification.class);
+			GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);		
 		}
 
 		if (primaryKey != null) {

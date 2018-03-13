@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
+import java.util.Set;
+
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.Finder;
@@ -51,13 +53,25 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	}
 
 	@Override
-	public String onColumnName(String columnName) {
-		return null;
+	public String onColumnName(String columnName) {		
+		if (currentSchema != null) {
+			Set<SQLProperty> props = currentSchema.getPropertyBySimpleName(columnName);
+			AssertKripton.assertTrueOrUnknownPropertyInJQLException(props != null && props.size()>0, currentMethod, columnName);
+			return props.iterator().next().columnName;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public String onColumnNameToUpdate(String columnName) {
-		return null;
+		if (currentSchema != null) {
+			Set<SQLProperty> props = currentSchema.getPropertyBySimpleName(columnName);
+			AssertKripton.assertTrueOrUnknownPropertyInJQLException(props != null && props.size()>0, currentMethod, columnName);
+			return props.iterator().next().columnName;
+		} else {
+			return null;
+		}
 	}
 
 	@Override

@@ -181,7 +181,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>UPDATE perSon SET student = ${student}, PersonnAme=${personName}  where personSurname=${personSurname}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET student = ${student}, PersonnAme=${personName}  where person_surname=${personSurname}</pre>
+   * <pre>UPDATE person SET student = ${student}, person_name=${personName}  where person_surname=${personSurname}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -283,7 +283,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("UPDATE person SET Personname=${personName}, student = (select student from person where person_surname=?)");
+      Logger.info("UPDATE person SET person_name=${personName}, student = (select student from person where person_surname=?)");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -308,7 +308,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
     }
     // log section END
 
-    database().execSQL("UPDATE person SET Personname=?, student = (select student from person where person_surname=?)", _contentValues.whereArgsAsArray());
+    database().execSQL("UPDATE person SET person_name=?, student = (select student from person where person_surname=?)", _contentValues.whereArgsAsArray());
   }
 
   /**
@@ -381,7 +381,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>UPDATE Person SET personname=${personName} where student= (select student from Person where personsurname=${surname})</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personname=${personName} where student= (select student from person where person_surname=${surname})</pre>
+   * <pre>UPDATE person SET person_name=${personName} where student= (select student from person where person_surname=${surname})</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -523,7 +523,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>UPDATE Person SET personName=${personName} WHERE id=${id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${personName} WHERE id=${id}</pre>
+   * <pre>UPDATE person SET person_name=${personName} WHERE id=${id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -685,7 +685,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>UPDATE Person SET personName=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -857,7 +857,7 @@ public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPers
    * <pre>UPDATE Person SET personName=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET personName=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${personName} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>

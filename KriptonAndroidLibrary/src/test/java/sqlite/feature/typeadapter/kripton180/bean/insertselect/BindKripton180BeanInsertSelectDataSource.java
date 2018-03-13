@@ -5,10 +5,26 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Maybe;
+import io.reactivex.MaybeEmitter;
+import io.reactivex.MaybeOnSubscribe;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
@@ -40,6 +56,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    */
   protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(this);
 
+  protected Scheduler globalSubscribeOn;
+
+  protected Scheduler globalObserveOn;
+
   /**
    * Used only in transactions (that can be executed one for time */
   private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
@@ -51,6 +71,272 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   @Override
   public EmployeeBeanInsertSelectDaoImpl getEmployeeBeanInsertSelectDao() {
     return employeeBeanInsertSelectDao;
+  }
+
+  public BindKripton180BeanInsertSelectDataSource globalSubscribeOn(Scheduler scheduler) {
+    this.globalSubscribeOn=scheduler;
+    return this;
+  }
+
+  public BindKripton180BeanInsertSelectDataSource globalObserveOn(Scheduler scheduler) {
+    this.globalObserveOn=scheduler;
+    return this;
+  }
+
+  public <T> Observable<T> execute(final BindKripton180BeanInsertSelectDataSource.ObservableTransaction<T> transaction) {
+    ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
+      @Override
+      public void subscribe(ObservableEmitter<T> emitter) {
+        boolean needToOpened=!BindKripton180BeanInsertSelectDataSource.this.isOpenInWriteMode();
+        @SuppressWarnings("resource")
+        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        try {
+          connection.beginTransaction();
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter)) {
+            connection.setTransactionSuccessful();
+          }
+          emitter.onComplete();
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          try {
+            connection.endTransaction();
+          } catch(Throwable e) {
+          }
+          if (needToOpened) { close(); }
+        }
+        return;
+      }
+    };
+    Observable<T> result=Observable.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
+    return result;
+  }
+
+  public <T> Single<T> execute(final BindKripton180BeanInsertSelectDataSource.SingleTransaction<T> transaction) {
+    SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
+      @Override
+      public void subscribe(SingleEmitter<T> emitter) {
+        boolean needToOpened=!BindKripton180BeanInsertSelectDataSource.this.isOpenInWriteMode();
+        @SuppressWarnings("resource")
+        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        try {
+          connection.beginTransaction();
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter)) {
+            connection.setTransactionSuccessful();
+          }
+          // no onComplete;
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          try {
+            connection.endTransaction();
+          } catch(Throwable e) {
+          }
+          if (needToOpened) { close(); }
+        }
+        return;
+      }
+    };
+    Single<T> result=Single.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
+    return result;
+  }
+
+  public <T> Flowable<T> execute(final BindKripton180BeanInsertSelectDataSource.FlowableTransaction<T> transaction) {
+    FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
+      @Override
+      public void subscribe(FlowableEmitter<T> emitter) {
+        boolean needToOpened=!BindKripton180BeanInsertSelectDataSource.this.isOpenInWriteMode();
+        @SuppressWarnings("resource")
+        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        try {
+          connection.beginTransaction();
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter)) {
+            connection.setTransactionSuccessful();
+          }
+          emitter.onComplete();
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          try {
+            connection.endTransaction();
+          } catch(Throwable e) {
+          }
+          if (needToOpened) { close(); }
+        }
+        return;
+      }
+    };
+    Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
+    return result;
+  }
+
+  public <T> Maybe<T> execute(final BindKripton180BeanInsertSelectDataSource.MaybeTransaction<T> transaction) {
+    MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
+      @Override
+      public void subscribe(MaybeEmitter<T> emitter) {
+        boolean needToOpened=!BindKripton180BeanInsertSelectDataSource.this.isOpenInWriteMode();
+        @SuppressWarnings("resource")
+        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        try {
+          connection.beginTransaction();
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter)) {
+            connection.setTransactionSuccessful();
+          }
+          // no onComplete;
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          try {
+            connection.endTransaction();
+          } catch(Throwable e) {
+          }
+          if (needToOpened) { close(); }
+        }
+        return;
+      }
+    };
+    Maybe<T> result=Maybe.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
+    return result;
+  }
+
+  public <T> Observable<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.ObservableBatch<T> batch,
+      final boolean writeMode) {
+    ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
+      @Override
+      public void subscribe(ObservableEmitter<T> emitter) {
+        boolean needToOpened=writeMode?!BindKripton180BeanInsertSelectDataSource.this.isOpenInWriteMode(): !BindKripton180BeanInsertSelectDataSource.this.isOpen();
+        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        try {
+          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
+          emitter.onComplete();
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          if (needToOpened) { close(); }
+        }
+        return;
+      }
+    };
+    Observable<T> result=Observable.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
+    return result;
+  }
+
+  public <T> Observable<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.ObservableBatch<T> batch) {
+    return executeBatch(batch, false);
+  }
+
+  public <T> Single<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.SingleBatch<T> batch,
+      final boolean writeMode) {
+    SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
+      @Override
+      public void subscribe(SingleEmitter<T> emitter) {
+        boolean needToOpened=writeMode?!BindKripton180BeanInsertSelectDataSource.this.isOpenInWriteMode(): !BindKripton180BeanInsertSelectDataSource.this.isOpen();
+        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        try {
+          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
+          // no onComplete;
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          if (needToOpened) { close(); }
+        }
+        return;
+      }
+    };
+    Single<T> result=Single.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
+    return result;
+  }
+
+  public <T> Single<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.SingleBatch<T> batch) {
+    return executeBatch(batch, false);
+  }
+
+  public <T> Flowable<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.FlowableBatch<T> batch,
+      final boolean writeMode) {
+    FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
+      @Override
+      public void subscribe(FlowableEmitter<T> emitter) {
+        boolean needToOpened=writeMode?!BindKripton180BeanInsertSelectDataSource.this.isOpenInWriteMode(): !BindKripton180BeanInsertSelectDataSource.this.isOpen();
+        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        try {
+          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
+          emitter.onComplete();
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          if (needToOpened) { close(); }
+        }
+        return;
+      }
+    };
+    Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
+    return result;
+  }
+
+  public <T> Flowable<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.FlowableBatch<T> batch) {
+    return executeBatch(batch, false);
+  }
+
+  public <T> Maybe<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.MaybeBatch<T> batch,
+      final boolean writeMode) {
+    MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
+      @Override
+      public void subscribe(MaybeEmitter<T> emitter) {
+        boolean needToOpened=writeMode?!BindKripton180BeanInsertSelectDataSource.this.isOpenInWriteMode(): !BindKripton180BeanInsertSelectDataSource.this.isOpen();
+        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        try {
+          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
+          // no onComplete;
+        } catch(Throwable e) {
+          Logger.error(e.getMessage());
+          e.printStackTrace();
+          emitter.onError(e);
+        } finally {
+          if (needToOpened) { close(); }
+        }
+        return;
+      }
+    };
+    Maybe<T> result=Maybe.create(emitter);
+    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
+    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
+    return result;
+  }
+
+  public <T> Maybe<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.MaybeBatch<T> batch) {
+    return executeBatch(batch, false);
+  }
+
+  public PublishSubject<SQLiteModification> employeeSubject() {
+    return employeeBeanInsertSelectDao.subject();
   }
 
   /**
@@ -266,6 +552,43 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    */
   public static SQLiteTable[] tables() {
     return TABLES;
+  }
+
+  public interface ObservableBatch<T> {
+    void onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
+        ObservableEmitter<T> emitter);
+  }
+
+  public interface ObservableTransaction<T> {
+    TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
+        ObservableEmitter<T> emitter);
+  }
+
+  public interface SingleBatch<T> {
+    void onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory, SingleEmitter<T> emitter);
+  }
+
+  public interface SingleTransaction<T> {
+    TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
+        SingleEmitter<T> emitter);
+  }
+
+  public interface FlowableBatch<T> {
+    void onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory, FlowableEmitter<T> emitter);
+  }
+
+  public interface FlowableTransaction<T> {
+    TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
+        FlowableEmitter<T> emitter);
+  }
+
+  public interface MaybeBatch<T> {
+    void onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory, MaybeEmitter<T> emitter);
+  }
+
+  public interface MaybeTransaction<T> {
+    TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
+        MaybeEmitter<T> emitter);
   }
 
   /**

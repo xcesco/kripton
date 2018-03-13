@@ -4,8 +4,10 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * <p>
@@ -17,6 +19,8 @@ import com.abubusoft.kripton.common.Triple;
  *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeRawInsertSelectDaoImpl extends AbstractDao implements EmployeeRawInsertSelectDao {
+  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+
   public EmployeeRawInsertSelectDaoImpl(SQLContext context) {
     super(context);
   }
@@ -81,7 +85,7 @@ public class EmployeeRawInsertSelectDaoImpl extends AbstractDao implements Emplo
     if (_context.isLogEnabled()) {
       // log for insert -- BEGIN 
 
-      Logger.info("INSERT INTO employees (fieldBoolean, fieldByte, fieldCharacter, fieldShort, fieldInteger, fieldLong, fieldFloat, fieldDouble, fieldString, fieldByteArray) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+      Logger.info("INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -107,6 +111,10 @@ public class EmployeeRawInsertSelectDaoImpl extends AbstractDao implements Emplo
     // log section END
 
     database().execSQL("INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?", _contentValues.whereArgsAsArray());
+  }
+
+  public PublishSubject<SQLiteModification> subject() {
+    return subject;
   }
 
   public static void clearCompiledStatements() {

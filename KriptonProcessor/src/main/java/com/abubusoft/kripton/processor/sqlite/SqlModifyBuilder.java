@@ -29,7 +29,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
@@ -37,11 +36,11 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.sqlite.GenericSQLHelper.SubjectType;
 import com.abubusoft.kripton.processor.sqlite.core.GenerationPartMarks;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
@@ -387,7 +386,7 @@ public abstract class SqlModifyBuilder {
 			methodBuilder.addStatement("int result = database().delete($S, _sqlWhereStatement, _contentValues.whereArgsAsArray())", daoDefinition.getEntity().getTableName());
 
 			if (method.getParent().getParent().generateRx) {
-				methodBuilder.addStatement("subject.onNext($T.createDelete(result))", SQLiteModification.class);
+				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.DELETE);
 			}
 			break;
 		case UPDATE_BEAN:
@@ -402,7 +401,7 @@ public abstract class SqlModifyBuilder {
 			}
 
 			if (method.getParent().getParent().generateRx) {
-				methodBuilder.addStatement("subject.onNext($T.createUpdate(result))", SQLiteModification.class);
+				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.UPDATE);
 			}
 
 			break;

@@ -22,7 +22,8 @@ import org.junit.runners.Suite;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestKripton180Runtime.class
+		TestKripton180Runtime.class,
+		TestKripton180BeanInsertSelectRuntime.class
 		 })
 //@formatter:on
 public class TestKripton180Suite {

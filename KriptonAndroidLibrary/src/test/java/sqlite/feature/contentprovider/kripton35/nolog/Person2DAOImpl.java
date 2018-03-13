@@ -961,7 +961,7 @@ public class Person2DAOImpl extends AbstractDao implements Person2DAO {
    * <pre>UPDATE Person SET parentId=${person.parentId}, city=${person.city}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET parentId=${person.parentId}, city=${person.city}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
+   * <pre>UPDATE person SET alias_parent_id=${person.parentId}, city=${person.city}, birth_city=${person.birthCity}, birth_day=${person.birthDay}, value=${person.value}, name=${person.name}, surname=${person.surname} WHERE id=${person.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
