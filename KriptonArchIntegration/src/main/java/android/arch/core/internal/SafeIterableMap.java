@@ -279,6 +279,12 @@ public class SafeIterableMap<K, V> implements Iterable<Map.Entry<K, V>> {
         Entry<K, V> backward(Entry<K, V> entry) {
             return entry.mPrevious;
         }
+
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
     }
 
     private static class DescendingIterator<K, V> extends ListIterator<K, V> {
@@ -296,6 +302,12 @@ public class SafeIterableMap<K, V> implements Iterable<Map.Entry<K, V>> {
         Entry<K, V> backward(Entry<K, V> entry) {
             return entry.mNext;
         }
+
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
     }
 
     private class IteratorWithAdditions implements Iterator<Map.Entry<K, V>>, SupportRemove<K, V> {
@@ -328,6 +340,12 @@ public class SafeIterableMap<K, V> implements Iterable<Map.Entry<K, V>> {
             }
             return mCurrent;
         }
+
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
     }
 
     interface SupportRemove<K, V> {
