@@ -114,28 +114,28 @@
 			<groupId>org.robolectric</groupId>
 			<artifactId>robolectric</artifactId>
 			<version>${robolectric.version}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>5.0.0_r2-robolectric-0</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
 			<version>4.1.1.4</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>

@@ -207,21 +207,25 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.version);
+      if (options.inMemory) {
+        Logger.info("Create database in memory");
+      } else {
+        Logger.info("Create database '%s' version %s",this.name, this.version);
+      }
     }
     // log section END
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(StudentTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
@@ -274,16 +278,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(StudentTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);

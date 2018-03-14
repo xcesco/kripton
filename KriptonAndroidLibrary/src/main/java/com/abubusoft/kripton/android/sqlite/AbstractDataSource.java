@@ -214,7 +214,7 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
 		DataSourceOptions optionsValue = (options == null) ? DataSourceOptions.builder().build() : options;
 
-		this.name = name;
+		this.name = options.inMemory ? null : name;
 		this.version = version;
 		this.context = new SQLContextImpl(this);
 		this.options = optionsValue;

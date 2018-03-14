@@ -3,14 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-arch-integration</artifactId>
-	<version>3.6.0</version>
+	
+	<!-- same version of archtype -->
+	<version>1.1.0</version>
 
 	<name>Kripton Arch Integration</name>
 	<description>Kripton Arch Integration Library</description>
 	
 	<url>https://github.com/xcesco/kripton</url>
-
-	<!-- Property version 1.6.2-SNAPSHOT -->
+	
 	<properties>
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
@@ -68,29 +69,13 @@
 		</developer>
 	</developers>
 
-
-
-
-	<dependencies>
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-android-library</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		
+	<dependencies>			
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
-		<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>antlr4-runtime</artifactId>
-			<version>${antlr.version}</version>
-		</dependency>
-
+	
 		<!-- TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -116,28 +101,28 @@
 			<groupId>org.robolectric</groupId>
 			<artifactId>robolectric</artifactId>
 			<version>${robolectric.version}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>5.0.0_r2-robolectric-0</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
 			<version>4.1.1.4</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>

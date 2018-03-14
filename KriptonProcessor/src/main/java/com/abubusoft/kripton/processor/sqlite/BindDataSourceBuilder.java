@@ -516,12 +516,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.addComment("log section BEGIN");
 			methodBuilder.beginControlFlow("if (this.logEnabled)");
 
-			if (schema.isInMemory()) {
-				methodBuilder.addStatement("$T.info(\"Create database in memory\")", Logger.class);
-			} else {
-				methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, this.version)", Logger.class);
-			}
-
+			methodBuilder.beginControlFlow("if (options.inMemory)");				
+			methodBuilder.addStatement("$T.info(\"Create database in memory\")", Logger.class);
+			methodBuilder.nextControlFlow("else");
+			methodBuilder.addStatement("$T.info(\"Create database '%s' version %s\",this.name, this.version)", Logger.class);
+			methodBuilder.endControlFlow();
+			
 			// generate log section - END
 			methodBuilder.endControlFlow();
 			methodBuilder.addComment("log section END");

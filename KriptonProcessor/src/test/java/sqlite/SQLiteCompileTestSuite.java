@@ -32,6 +32,7 @@ import sqlite.feature.indexes.IndexTestSuite;
 import sqlite.feature.javadoc.TestJavadocFeatureSuite;
 import sqlite.feature.join.TestJoinFeatureSuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
+import sqlite.feature.livedata.TestLiveDataSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
@@ -95,6 +96,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestForeignKeyActionSuite.class, 
 			TestRXSuite.class,
 			TestCompileSpeed.class,
+			TestLiveDataSuite.class,
 			TestJoinFeatureSuite.class,
 			
 			// bug-fix			

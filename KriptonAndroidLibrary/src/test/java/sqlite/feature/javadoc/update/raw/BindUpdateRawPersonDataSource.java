@@ -169,7 +169,11 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.version);
+      if (options.inMemory) {
+        Logger.info("Create database in memory");
+      } else {
+        Logger.info("Create database '%s' version %s",this.name, this.version);
+      }
     }
     // log section END
     // log section BEGIN

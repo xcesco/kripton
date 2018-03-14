@@ -16,14 +16,14 @@
 
 package android.arch.lifecycle;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import android.arch.core.executor.ArchTaskExecutor;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * A LiveData class that can be invalidated & computed on demand.
