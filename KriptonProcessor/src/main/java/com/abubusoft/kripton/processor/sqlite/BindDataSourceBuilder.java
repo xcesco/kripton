@@ -40,7 +40,7 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource.AbstractExecutable;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource.OnErrorListener;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -339,9 +339,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		String daoFactoryName = BindDaoFactoryBuilder.generateDaoFactoryName(schema);
 		TypeSpec.Builder clazzBuilder = TypeSpec.classBuilder("DataSourceSingleThread").addSuperinterface(TypeUtility.typeName(daoFactoryName));
 
-		clazzBuilder.addMethod(MethodSpec.constructorBuilder().addStatement("_context=new $T($L.this)", SQLContextSingleThreadImpl.class, dataSourceName).build());
+		clazzBuilder.addMethod(MethodSpec.constructorBuilder().addStatement("_context=new $T($L.this)", SQLContextInTransactionImpl.class, dataSourceName).build());
 
-		clazzBuilder.addField(FieldSpec.builder(SQLContextSingleThreadImpl.class, "_context", Modifier.PRIVATE).build());
+		clazzBuilder.addField(FieldSpec.builder(SQLContextInTransactionImpl.class, "_context", Modifier.PRIVATE).build());
 
 		// all dao
 		for (SQLDaoDefinition dao : schema.getCollection()) {

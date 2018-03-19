@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -354,7 +354,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   }
 
   class DataSourceSingleThread implements BindArtistDaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private ArtistDaoImpl _artistDao;
 
@@ -363,7 +363,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
     private TrackDaoImpl _trackDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindArtistDataSource.this);
+      _context=new SQLContextInTransactionImpl(BindArtistDataSource.this);
     }
 
     /**

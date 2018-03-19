@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -277,12 +277,12 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   }
 
   class DataSourceSingleThread implements BindSimpleDaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private SimpleAddressDaoImpl _simpleAddressDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindSimpleDataSource.this);
+      _context=new SQLContextInTransactionImpl(BindSimpleDataSource.this);
     }
 
     /**

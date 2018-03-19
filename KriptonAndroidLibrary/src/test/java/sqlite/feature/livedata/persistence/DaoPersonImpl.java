@@ -1,7 +1,9 @@
 package sqlite.feature.livedata.persistence;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDao;
@@ -64,36 +66,22 @@ public class DaoPersonImpl extends AbstractDao implements DaoPerson {
 
 			}
 		};
-
-		//TODO: to decide how to define a task executor for live data
-		subject.subscribe(new Observer<SQLiteModification>() {
-
-			@Override
-			public void onSubscribe(Disposable d) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onNext(SQLiteModification t) {
-				//TODO next next next, but we need to invalidate 
-				builder.invalidate();
-			}
-
-			@Override
-			public void onError(Throwable e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onComplete() {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
+		
+		registryLiveData(builder);
+		
 		return builder.getLiveData();
+	}
+	
+	Set<ComputableLiveData<?>> cld=new HashSet<>();
+	
+	void registryLiveData(ComputableLiveData<?> value) {		
+		cld.add(value);
+	}
+	
+	void invalidateLiveData() {
+		for (ComputableLiveData<?> item: cld) {
+			item.invalidate();
+		}
 	}
 
 	/**

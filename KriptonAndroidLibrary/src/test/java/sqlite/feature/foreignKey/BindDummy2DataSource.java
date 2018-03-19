@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -328,14 +328,14 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   }
 
   class DataSourceSingleThread implements BindDummy2DaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private DaoBeanA_3Impl _daoBeanA_3;
 
     private DaoBeanA_4Impl _daoBeanA_4;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindDummy2DataSource.this);
+      _context=new SQLContextInTransactionImpl(BindDummy2DataSource.this);
     }
 
     /**

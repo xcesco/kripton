@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -301,12 +301,12 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   }
 
   class DataSourceSingleThread implements BindBean64BDaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private Bean64BDaoImpl _bean64BDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindBean64BDataSource.this);
+      _context=new SQLContextInTransactionImpl(BindBean64BDataSource.this);
     }
 
     /**

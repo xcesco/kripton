@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteModification;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -625,12 +625,12 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   }
 
   class DataSourceSingleThread implements BindKripton180RawInsertSelectDaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private EmployeeRawInsertSelectDaoImpl _employeeRawInsertSelectDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindKripton180RawInsertSelectDataSource.this);
+      _context=new SQLContextInTransactionImpl(BindKripton180RawInsertSelectDataSource.this);
     }
 
     /**

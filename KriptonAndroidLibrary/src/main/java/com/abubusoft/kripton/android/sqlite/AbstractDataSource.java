@@ -52,6 +52,23 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		}
 	};
 
+	@Override
+	public void onSessionOpened() {
+		this.context.onSessionOpened();
+
+	}
+
+	@Override
+	public <D extends AbstractDao> void onSessionSQLEvent(D dao) {
+		this.context.onSessionSQLEvent(dao);
+	}
+
+	@Override
+	public void onSessionClosed() {
+		this.context.onSessionClosed();
+
+	}
+
 	/**
 	 * Get error listener, in transations
 	 * 

@@ -5,24 +5,28 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 /**
- * Works on single thread. No thread local is needed
+ * Works on single thread. No thread local is needed.
+ * 
+ * Moreover, notification events for rx and arch system are done only at the end of transaction
+ * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class SQLContextSingleThreadImpl implements SQLContext {	
+public class SQLContextInTransactionImpl extends AbstractSQLContext {	
 	private StringBuilder sqlBuilder;
 	private KriptonContentValues contentValuesForUpdate;
 	private AbstractDataSource dataSource;
 	private KriptonContentValues contentValues;	
 
-	public SQLContextSingleThreadImpl(AbstractDataSource dataSource) {		
+	public SQLContextInTransactionImpl(AbstractDataSource dataSource) {		
 		this.dataSource=dataSource;
 		this.contentValues=new KriptonContentValues();
 		this.contentValuesForUpdate=new KriptonContentValues();
 		this.sqlBuilder=new StringBuilder();
 	}
 	
-	public SQLContextSingleThreadImpl bindToThread() {				
+	
+	public SQLContextInTransactionImpl bindToThread() {				
 		return this;
 	}
 

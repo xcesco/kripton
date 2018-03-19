@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -363,7 +363,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   class DataSourceSingleThread implements BindSchoolDaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private DaoProfessorImpl _daoProfessor;
 
@@ -374,7 +374,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     private DaoStudentImpl _daoStudent;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindSchoolDataSource.this);
+      _context=new SQLContextInTransactionImpl(BindSchoolDataSource.this);
     }
 
     /**

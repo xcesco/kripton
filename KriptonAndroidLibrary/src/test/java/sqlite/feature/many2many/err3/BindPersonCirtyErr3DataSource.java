@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -356,7 +356,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   }
 
   class DataSourceSingleThread implements BindPersonCirtyErr3DaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private PersonErr3DaoImpl _personErr3Dao;
 
@@ -365,7 +365,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     private PersonCityErr1DaoImpl _personCityErr1Dao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindPersonCirtyErr3DataSource.this);
+      _context=new SQLContextInTransactionImpl(BindPersonCirtyErr3DataSource.this);
     }
 
     /**

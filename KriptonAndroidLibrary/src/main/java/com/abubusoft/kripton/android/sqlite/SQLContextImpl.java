@@ -10,14 +10,14 @@ import android.database.sqlite.SQLiteStatement;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class SQLContextImpl implements SQLContext {
-	
+public class SQLContextImpl extends AbstractSQLContext {
+
 	private AbstractDataSource dataSource;
-	
+
 	public SQLContextImpl(AbstractDataSource dataSource) {
-		this.dataSource=dataSource;
+		this.dataSource = dataSource;
 	}
-	
+
 	private final ThreadLocal<KriptonContentValues> contentValues = new ThreadLocal<KriptonContentValues>() {
 
 		@Override
@@ -76,4 +76,6 @@ public class SQLContextImpl implements SQLContext {
 
 		return content;
 	}
+
+
 }

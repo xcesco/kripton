@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -302,12 +302,12 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   }
 
   class DataSourceSingleThread implements BindPerson1DaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private Dao1PersonImpl _dao1Person;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindPerson1DataSource.this);
+      _context=new SQLContextInTransactionImpl(BindPerson1DataSource.this);
     }
 
     /**

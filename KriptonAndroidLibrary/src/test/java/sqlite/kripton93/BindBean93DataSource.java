@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextSingleThreadImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -301,12 +301,12 @@ public class BindBean93DataSource extends AbstractDataSource implements BindBean
   }
 
   class DataSourceSingleThread implements BindBean93DaoFactory {
-    private SQLContextSingleThreadImpl _context;
+    private SQLContextInTransactionImpl _context;
 
     private Bean93DaoImpl _bean93Dao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextSingleThreadImpl(BindBean93DataSource.this);
+      _context=new SQLContextInTransactionImpl(BindBean93DataSource.this);
     }
 
     /**
