@@ -37,7 +37,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   /**
    * <p>dao instance</p>
    */
-  protected StringDaoImpl stringDao = new StringDaoImpl(this);
+  protected StringDaoImpl stringDao = new StringDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

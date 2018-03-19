@@ -67,5 +67,12 @@ public class SQLContextInTransactionImpl extends AbstractSQLContext {
 	public boolean isLogEnabled() {
 		return dataSource.logEnabled;
 	}
+	
+	@Override
+	public boolean isSessionSupported() {	
+		return true;
+	}
+
+
 
 }

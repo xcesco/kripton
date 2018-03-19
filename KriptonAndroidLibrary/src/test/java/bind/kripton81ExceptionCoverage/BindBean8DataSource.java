@@ -37,7 +37,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   /**
    * <p>dao instance</p>
    */
-  protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(this);
+  protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

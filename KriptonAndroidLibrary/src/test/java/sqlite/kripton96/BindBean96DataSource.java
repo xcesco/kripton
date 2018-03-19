@@ -37,7 +37,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
   /**
    * <p>dao instance</p>
    */
-  protected Bean96DaoImpl bean96Dao = new Bean96DaoImpl(this);
+  protected Bean96DaoImpl bean96Dao = new Bean96DaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

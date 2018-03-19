@@ -43,17 +43,17 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   /**
    * <p>dao instance</p>
    */
-  protected PersonDaoImpl personDao = new PersonDaoImpl(this);
+  protected PersonDaoImpl personDao = new PersonDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected CityDaoImpl cityDao = new CityDaoImpl(this);
+  protected CityDaoImpl cityDao = new CityDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonCityDaoImpl personCityDao = new PersonCityDaoImpl(this);
+  protected PersonCityDaoImpl personCityDao = new PersonCityDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

@@ -54,7 +54,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   /**
    * <p>dao instance</p>
    */
-  protected EmployeeRawInsertSelectDaoImpl employeeRawInsertSelectDao = new EmployeeRawInsertSelectDaoImpl(this);
+  protected EmployeeRawInsertSelectDaoImpl employeeRawInsertSelectDao = new EmployeeRawInsertSelectDaoImpl(context);
 
   protected Scheduler globalSubscribeOn;
 

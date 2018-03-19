@@ -38,7 +38,7 @@ public class BindUpdateBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>dao instance</p>
    */
-  protected UpdateBeanPersonDaoImpl updateBeanPersonDao = new UpdateBeanPersonDaoImpl(this);
+  protected UpdateBeanPersonDaoImpl updateBeanPersonDao = new UpdateBeanPersonDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

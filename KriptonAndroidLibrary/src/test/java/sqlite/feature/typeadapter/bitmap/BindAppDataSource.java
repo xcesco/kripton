@@ -37,7 +37,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>dao instance</p>
    */
-  protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
+  protected DaoPersonImpl daoPerson = new DaoPersonImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

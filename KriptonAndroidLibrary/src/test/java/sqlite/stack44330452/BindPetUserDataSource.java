@@ -40,12 +40,12 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   /**
    * <p>dao instance</p>
    */
-  protected UserDaoImpl userDao = new UserDaoImpl(this);
+  protected UserDaoImpl userDao = new UserDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected PetDaoImpl petDao = new PetDaoImpl(this);
+  protected PetDaoImpl petDao = new PetDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

@@ -38,22 +38,22 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new DeviceTable(), new UserDeviceTable()};
+  static final SQLiteTable[] TABLES = {new DeviceTable(), new UserTable(), new UserDeviceTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected DeviceDaoImpl deviceDao = new DeviceDaoImpl(this);
+  protected DeviceDaoImpl deviceDao = new DeviceDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected UserDaoImpl userDao = new UserDaoImpl(this);
+  protected UserDaoImpl userDao = new UserDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected UserDeviceDaoImpl userDeviceDao = new UserDeviceDaoImpl(this);
+  protected UserDeviceDaoImpl userDeviceDao = new UserDeviceDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */
@@ -203,16 +203,16 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(DeviceTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);
@@ -259,16 +259,16 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(UserTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(DeviceTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(UserTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);

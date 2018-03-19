@@ -37,7 +37,7 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   /**
    * <p>dao instance</p>
    */
-  protected Bean64BDaoImpl bean64BDao = new Bean64BDaoImpl(this);
+  protected Bean64BDaoImpl bean64BDao = new Bean64BDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

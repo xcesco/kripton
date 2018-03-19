@@ -37,7 +37,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
   /**
    * <p>dao instance</p>
    */
-  protected ByteDaoImpl byteDao = new ByteDaoImpl(this);
+  protected ByteDaoImpl byteDao = new ByteDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

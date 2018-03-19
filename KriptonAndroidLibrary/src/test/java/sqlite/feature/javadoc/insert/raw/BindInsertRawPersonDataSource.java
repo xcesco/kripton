@@ -38,7 +38,7 @@ public class BindInsertRawPersonDataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected InsertRawPersonDaoImpl insertRawPersonDao = new InsertRawPersonDaoImpl(this);
+  protected InsertRawPersonDaoImpl insertRawPersonDao = new InsertRawPersonDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

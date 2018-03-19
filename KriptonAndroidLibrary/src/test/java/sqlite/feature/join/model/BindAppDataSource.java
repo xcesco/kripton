@@ -38,22 +38,22 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new BookTable(), new LoanTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new LoanTable(), new BookTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected BookDaoImpl bookDao = new BookDaoImpl(this);
+  protected BookDaoImpl bookDao = new BookDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected UserDaoImpl userDao = new UserDaoImpl(this);
+  protected UserDaoImpl userDao = new UserDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected LoanDaoImpl loanDao = new LoanDaoImpl(this);
+  protected LoanDaoImpl loanDao = new LoanDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

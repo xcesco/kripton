@@ -37,7 +37,7 @@ public class BindDummy03DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>dao instance</p>
    */
-  protected DaoBean03Impl daoBean03 = new DaoBean03Impl(this);
+  protected DaoBean03Impl daoBean03 = new DaoBean03Impl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

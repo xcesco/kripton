@@ -21,7 +21,7 @@ import sqlite.feature.livedata.data.PersonTable;
  * @see AppDataSource
  * @see BindAppDaoFactory
  * @see DaoPerson
- * @see DaoPersonImpl
+ * @see DaoPersonWorkImpl
  * @see Person
  */
 public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
@@ -38,7 +38,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>dao instance</p>
    */
-  protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
+  protected DaoPersonWorkImpl daoPerson = new DaoPersonWorkImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */
@@ -49,7 +49,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   @Override
-  public DaoPersonImpl getDaoPerson() {
+  public DaoPersonWorkImpl getDaoPerson() {
     return daoPerson;
   }
 
@@ -77,7 +77,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
+      DataSourceSingleThread currentContext=_daoFactorySingleThread.bindToThread();
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentContext)) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -244,7 +245,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   public void clearCompiledStatements() {
-    DaoPersonImpl.clearCompiledStatements();
+    DaoPersonWorkImpl.clearCompiledStatements();
   }
 
   /**
@@ -304,7 +305,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   class DataSourceSingleThread implements BindAppDaoFactory {
     private SQLContextInTransactionImpl _context;
 
-    private DaoPersonImpl _daoPerson;
+    private DaoPersonWorkImpl _daoPerson;
 
     DataSourceSingleThread() {
       _context=new SQLContextInTransactionImpl(BindAppDataSource.this);
@@ -314,9 +315,9 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      *
      * retrieve dao DaoPerson
      */
-    public DaoPersonImpl getDaoPerson() {
+    public DaoPersonWorkImpl getDaoPerson() {
       if (_daoPerson==null) {
-        _daoPerson=new DaoPersonImpl(_context);
+        _daoPerson=new DaoPersonWorkImpl(_context);
       }
       return _daoPerson;
     }

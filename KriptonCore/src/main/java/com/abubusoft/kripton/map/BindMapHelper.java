@@ -43,7 +43,6 @@ public abstract class BindMapHelper {
 
 			if (!skipRead) {
 				parser.nextToken();
-
 			}
 
 			if (parser.currentToken() != JsonToken.START_OBJECT) {

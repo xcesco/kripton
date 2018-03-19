@@ -38,7 +38,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
   /**
    * <p>dao instance</p>
    */
-  protected EmployeeRawDaoImpl employeeRawDao = new EmployeeRawDaoImpl(this);
+  protected EmployeeRawDaoImpl employeeRawDao = new EmployeeRawDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

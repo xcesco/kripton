@@ -5,7 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 /**
- * SQL context for queries execution.
+ * SQL context for queries execution. There are two kind of SQLContext:
+ * <ul>
+ * <li>Standard context:</li>
+ * <li></li>
+ * </ul>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -38,19 +42,28 @@ public interface SQLContext {
 	 * @return
 	 */
 	SQLiteDatabase database();
-	
+
 	/**
 	 * Fired when transaction or shared connection is opened
 	 */
 	void onSessionOpened();
-	
+
 	/**
-	 * Notify operation like INSERT, UPDATE and DELETE was done on DAO pass as parameter 
-	 
+	 * In the standar SQLContext you can not use session (transaction and shared
+	 * connection), but this is allow to support LiveData.
+	 * 
+	 * @return
+	 */
+	boolean isSessionSupported();
+
+	/**
+	 * Notify operation like INSERT, UPDATE and DELETE was done on DAO pass as
+	 * parameter
+	 * 
 	 * @param dao
 	 */
-	<D extends AbstractDao> void onSessionSQLEvent(D dao);
-	
+	<D extends AbstractDao> void onSQLEvent(D dao, SQLiteModification eventType);
+
 	/**
 	 * Fired when transaction or shared connection is closed
 	 */

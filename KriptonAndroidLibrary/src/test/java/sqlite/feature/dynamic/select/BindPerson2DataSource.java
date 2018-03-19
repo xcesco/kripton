@@ -38,7 +38,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
   /**
    * <p>dao instance</p>
    */
-  protected PersonDAO2Impl personDAO2 = new PersonDAO2Impl(this);
+  protected PersonDAO2Impl personDAO2 = new PersonDAO2Impl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

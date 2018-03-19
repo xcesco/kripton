@@ -37,7 +37,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   /**
    * <p>dao instance</p>
    */
-  protected DoubleDaoImpl doubleDao = new DoubleDaoImpl(this);
+  protected DoubleDaoImpl doubleDao = new DoubleDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

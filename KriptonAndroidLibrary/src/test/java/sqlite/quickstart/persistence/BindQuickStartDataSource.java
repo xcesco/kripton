@@ -45,27 +45,27 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new PostTable(), new CommentTable(), new TodoTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new CommentTable(), new TodoTable(), new PostTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected UserDaoImpl userDao = new UserDaoImpl(this);
+  protected UserDaoImpl userDao = new UserDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected PostDaoImpl postDao = new PostDaoImpl(this);
+  protected PostDaoImpl postDao = new PostDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected CommentDaoImpl commentDao = new CommentDaoImpl(this);
+  protected CommentDaoImpl commentDao = new CommentDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected TodoDaoImpl todoDao = new TodoDaoImpl(this);
+  protected TodoDaoImpl todoDao = new TodoDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

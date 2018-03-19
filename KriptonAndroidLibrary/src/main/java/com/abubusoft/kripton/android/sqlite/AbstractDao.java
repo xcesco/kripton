@@ -34,6 +34,11 @@ public abstract class AbstractDao implements AutoCloseable {
 		this._context = context;
 	}
 
+	/**
+	 * This attribute is with _ prefix, because it's used on Dao's method and we
+	 * won't to mix it with method's parameters (that usually does not have _
+	 * prefix).
+	 */
 	protected SQLContext _context;
 
 	/**
@@ -54,7 +59,7 @@ public abstract class AbstractDao implements AutoCloseable {
 	protected KriptonContentValues contentValues() {
 		return _context.contentValues(null);
 	}
-	
+
 	protected KriptonContentValues contentValuesForUpdate() {
 		return _context.contentValuesForUpdate(null);
 	}
@@ -66,7 +71,7 @@ public abstract class AbstractDao implements AutoCloseable {
 	protected KriptonContentValues contentValuesForContentProvider(ContentValues values) {
 		return _context.contentValuesForContentProvider(values);
 	}
-	
+
 	protected StringBuilder sqlBuilder() {
 		return _context.sqlBuilder();
 	}

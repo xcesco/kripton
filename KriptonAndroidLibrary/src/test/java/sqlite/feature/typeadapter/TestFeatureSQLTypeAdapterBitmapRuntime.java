@@ -63,7 +63,8 @@ public class TestFeatureSQLTypeAdapterBitmapRuntime extends BaseAndroidTest {
 
 				List<Person> list = daoFactory.getDaoPerson().list();
 				
-				for (Person person:list) {										 
+				for (Person person:list) {
+					// use					
 					saveImage((new File("src/test/resources/imgs/img0.png")).getAbsolutePath(), person.image);
 				}
 				return TransactionResult.COMMIT;

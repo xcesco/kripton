@@ -38,7 +38,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>dao instance</p>
    */
-  protected DeleteBeanPersonDaoImpl deleteBeanPersonDao = new DeleteBeanPersonDaoImpl(this);
+  protected DeleteBeanPersonDaoImpl deleteBeanPersonDao = new DeleteBeanPersonDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

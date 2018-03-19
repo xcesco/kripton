@@ -37,7 +37,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   /**
    * <p>dao instance</p>
    */
-  protected IntDaoImpl intDao = new IntDaoImpl(this);
+  protected IntDaoImpl intDao = new IntDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

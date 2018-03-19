@@ -37,7 +37,7 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>dao instance</p>
    */
-  protected DaoBean05Impl daoBean05 = new DaoBean05Impl(this);
+  protected DaoBean05Impl daoBean05 = new DaoBean05Impl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

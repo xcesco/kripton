@@ -77,5 +77,10 @@ public class SQLContextImpl extends AbstractSQLContext {
 		return content;
 	}
 
+	@Override
+	public boolean isSessionSupported() {	
+		return false;
+	}
+
 
 }

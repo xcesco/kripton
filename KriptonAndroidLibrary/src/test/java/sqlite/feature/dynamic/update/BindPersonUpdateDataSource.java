@@ -38,7 +38,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
   /**
    * <p>dao instance</p>
    */
-  protected PersonUpdateDAOImpl personUpdateDAO = new PersonUpdateDAOImpl(this);
+  protected PersonUpdateDAOImpl personUpdateDAO = new PersonUpdateDAOImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

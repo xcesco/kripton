@@ -37,7 +37,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   /**
    * <p>dao instance</p>
    */
-  protected FirstAidDaoImpl firstAidDao = new FirstAidDaoImpl(this);
+  protected FirstAidDaoImpl firstAidDao = new FirstAidDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

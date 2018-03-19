@@ -37,7 +37,7 @@ public class BindDummy06DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>dao instance</p>
    */
-  protected DaoBeanUpdateOKImpl daoBeanUpdateOK = new DaoBeanUpdateOKImpl(this);
+  protected DaoBeanUpdateOKImpl daoBeanUpdateOK = new DaoBeanUpdateOKImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

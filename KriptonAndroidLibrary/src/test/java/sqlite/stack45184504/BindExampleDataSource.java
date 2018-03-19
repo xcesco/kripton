@@ -37,7 +37,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
   /**
    * <p>dao instance</p>
    */
-  protected FileBeanDaoImpl fileBeanDao = new FileBeanDaoImpl(this);
+  protected FileBeanDaoImpl fileBeanDao = new FileBeanDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

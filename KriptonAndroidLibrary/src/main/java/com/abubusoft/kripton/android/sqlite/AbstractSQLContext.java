@@ -8,7 +8,7 @@ public abstract class AbstractSQLContext implements SQLContext {
 	 * in a transation or shared connection, it gives the instance of DAO has
 	 * modified its table.
 	 */
-	protected HashSet<AbstractDao> daosSubjectToModification = new HashSet<>();
+	protected HashSet<String> daosSubjectToModification = new HashSet<>();
 	
 	@Override
 	public void onSessionOpened() {
@@ -17,8 +17,9 @@ public abstract class AbstractSQLContext implements SQLContext {
 	}
 
 	@Override
-	public <D extends AbstractDao> void onSessionSQLEvent(D dao) {
-		this.daosSubjectToModification.add(dao);
+	public <D extends AbstractDao> void onSQLEvent(D dao, SQLiteModification eventType) {
+		this.daosSubjectToModification.add(dao.getClass().getName());
+		
 	}
 
 	@Override

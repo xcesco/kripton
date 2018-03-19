@@ -37,7 +37,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   /**
    * <p>dao instance</p>
    */
-  protected SimpleAddressDaoImpl simpleAddressDao = new SimpleAddressDaoImpl(this);
+  protected SimpleAddressDaoImpl simpleAddressDao = new SimpleAddressDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

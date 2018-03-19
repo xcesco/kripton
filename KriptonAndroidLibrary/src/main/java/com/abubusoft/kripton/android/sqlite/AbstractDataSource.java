@@ -43,7 +43,7 @@ import android.database.sqlite.SQLiteStatement;
  * @author Francesco Benincasa (info@abubusoft.com)
  * 
  */
-public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
+public abstract class AbstractDataSource implements AutoCloseable {
 
 	protected OnErrorListener onErrorListener = new OnErrorListener() {
 		@Override
@@ -52,18 +52,16 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 		}
 	};
 
-	@Override
 	public void onSessionOpened() {
 		this.context.onSessionOpened();
 
 	}
 
-	@Override
-	public <D extends AbstractDao> void onSessionSQLEvent(D dao) {
-		this.context.onSessionSQLEvent(dao);
+	public <D extends AbstractDao> void onSQLEvent(D dao, SQLiteModification eventType) {
+		this.context.onSQLEvent(dao, eventType);
+		
 	}
 
-	@Override
 	public void onSessionClosed() {
 		this.context.onSessionClosed();
 
@@ -155,27 +153,23 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
 	protected SQLContextImpl context;
 
-	public SQLContext context() {
+	protected SQLContext context() {
 		return context;
 	}
 
-	@Override
-	public KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
+	protected KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
 		return context.contentValuesForUpdate(compiledStatement);
 	}
 
-	@Override
-	public KriptonContentValues contentValues(SQLiteStatement compiledStatement) {
+	protected KriptonContentValues contentValues(SQLiteStatement compiledStatement) {
 		return context.contentValues(compiledStatement);
 	}
 
-	@Override
-	public KriptonContentValues contentValuesForContentProvider(ContentValues values) {
+	protected KriptonContentValues contentValuesForContentProvider(ContentValues values) {
 		return context.contentValuesForContentProvider(values);
 	}
 
-	@Override
-	public StringBuilder sqlBuilder() {
+	protected StringBuilder sqlBuilder() {
 		return context.sqlBuilder();
 	}
 
@@ -233,7 +227,10 @@ public abstract class AbstractDataSource implements AutoCloseable, SQLContext {
 
 		this.name = options.inMemory ? null : name;
 		this.version = version;
+		
+		// create new SQLContext
 		this.context = new SQLContextImpl(this);
+		
 		this.options = optionsValue;
 		this.logEnabled = optionsValue.logEnabled;
 	}

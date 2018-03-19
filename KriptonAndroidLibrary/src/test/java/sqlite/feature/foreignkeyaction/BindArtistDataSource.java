@@ -38,22 +38,22 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new TrackTable(), new AlbumTable(), new ArtistTable()};
+  static final SQLiteTable[] TABLES = {new TrackTable(), new ArtistTable(), new AlbumTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected ArtistDaoImpl artistDao = new ArtistDaoImpl(this);
+  protected ArtistDaoImpl artistDao = new ArtistDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected AlbumDaoImpl albumDao = new AlbumDaoImpl(this);
+  protected AlbumDaoImpl albumDao = new AlbumDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected TrackDaoImpl trackDao = new TrackDaoImpl(this);
+  protected TrackDaoImpl trackDao = new TrackDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

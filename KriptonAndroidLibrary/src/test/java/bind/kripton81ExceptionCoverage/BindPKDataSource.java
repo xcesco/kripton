@@ -37,7 +37,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   /**
    * <p>dao instance</p>
    */
-  protected PKDaoImpl pKDao = new PKDaoImpl(this);
+  protected PKDaoImpl pKDao = new PKDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

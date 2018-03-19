@@ -38,7 +38,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected UpdateRawPersonDaoImpl updateRawPersonDao = new UpdateRawPersonDaoImpl(this);
+  protected UpdateRawPersonDaoImpl updateRawPersonDao = new UpdateRawPersonDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

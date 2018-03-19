@@ -37,7 +37,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected CollegeStudentDaoImpl collegeStudentDao = new CollegeStudentDaoImpl(this);
+  protected CollegeStudentDaoImpl collegeStudentDao = new CollegeStudentDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

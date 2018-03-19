@@ -41,22 +41,22 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new CountryTable(), new PhoneNumberTable(), new PrefixConfigTable()};
+  static final SQLiteTable[] TABLES = {new CountryTable(), new PrefixConfigTable(), new PhoneNumberTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(this);
+  protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected PrefixConfigDaoImpl prefixConfigDao = new PrefixConfigDaoImpl(this);
+  protected PrefixConfigDaoImpl prefixConfigDao = new PrefixConfigDaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected CountryDaoImpl countryDao = new CountryDaoImpl(this);
+  protected CountryDaoImpl countryDao = new CountryDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */
@@ -212,16 +212,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -268,16 +268,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);

@@ -37,7 +37,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   /**
    * <p>dao instance</p>
    */
-  protected SchoolLunchDAOImpl schoolLunchDAO = new SchoolLunchDAOImpl(this);
+  protected SchoolLunchDAOImpl schoolLunchDAO = new SchoolLunchDAOImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

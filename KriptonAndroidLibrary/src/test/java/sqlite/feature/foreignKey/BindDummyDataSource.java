@@ -35,17 +35,17 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new BeanA_2Table(), new BeanA_1Table()};
+  static final SQLiteTable[] TABLES = {new BeanA_1Table(), new BeanA_2Table()};
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoBeanA_1Impl daoBeanA_1 = new DaoBeanA_1Impl(this);
+  protected DaoBeanA_1Impl daoBeanA_1 = new DaoBeanA_1Impl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoBeanA_2Impl daoBeanA_2 = new DaoBeanA_2Impl(this);
+  protected DaoBeanA_2Impl daoBeanA_2 = new DaoBeanA_2Impl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

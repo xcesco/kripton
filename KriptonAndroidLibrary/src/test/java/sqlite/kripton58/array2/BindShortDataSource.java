@@ -37,7 +37,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   /**
    * <p>dao instance</p>
    */
-  protected ShortDaoImpl shortDao = new ShortDaoImpl(this);
+  protected ShortDaoImpl shortDao = new ShortDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

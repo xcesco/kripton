@@ -37,7 +37,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   /**
    * <p>dao instance</p>
    */
-  protected CharDaoImpl charDao = new CharDaoImpl(this);
+  protected CharDaoImpl charDao = new CharDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

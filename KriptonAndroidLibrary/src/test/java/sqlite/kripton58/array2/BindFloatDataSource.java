@@ -37,7 +37,7 @@ public class BindFloatDataSource extends AbstractDataSource implements BindFloat
   /**
    * <p>dao instance</p>
    */
-  protected FloatDaoImpl floatDao = new FloatDaoImpl(this);
+  protected FloatDaoImpl floatDao = new FloatDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

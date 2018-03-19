@@ -38,7 +38,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>dao instance</p>
    */
-  protected SelectBeanPersonDaoImpl selectBeanPersonDao = new SelectBeanPersonDaoImpl(this);
+  protected SelectBeanPersonDaoImpl selectBeanPersonDao = new SelectBeanPersonDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

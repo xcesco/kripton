@@ -38,7 +38,7 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>dao instance</p>
    */
-  protected InsertBeanPersonDaoImpl insertBeanPersonDao = new InsertBeanPersonDaoImpl(this);
+  protected InsertBeanPersonDaoImpl insertBeanPersonDao = new InsertBeanPersonDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

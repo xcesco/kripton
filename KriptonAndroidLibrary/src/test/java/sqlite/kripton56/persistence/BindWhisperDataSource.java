@@ -38,7 +38,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * <p>dao instance</p>
    */
-  protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);
+  protected DaoMessageImpl daoMessage = new DaoMessageImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

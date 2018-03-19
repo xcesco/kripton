@@ -37,7 +37,7 @@ public class BindIntegerDataSource extends AbstractDataSource implements BindInt
   /**
    * <p>dao instance</p>
    */
-  protected IntegerDaoImpl integerDao = new IntegerDaoImpl(this);
+  protected IntegerDaoImpl integerDao = new IntegerDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

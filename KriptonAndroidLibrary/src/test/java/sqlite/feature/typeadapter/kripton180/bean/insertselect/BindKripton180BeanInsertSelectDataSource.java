@@ -54,7 +54,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   /**
    * <p>dao instance</p>
    */
-  protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(this);
+  protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(context);
 
   protected Scheduler globalSubscribeOn;
 

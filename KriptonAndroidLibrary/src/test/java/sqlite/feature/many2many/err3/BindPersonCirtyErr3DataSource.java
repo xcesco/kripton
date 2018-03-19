@@ -45,17 +45,17 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected PersonErr3DaoImpl personErr3Dao = new PersonErr3DaoImpl(this);
+  protected PersonErr3DaoImpl personErr3Dao = new PersonErr3DaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected CityErr3DaoImpl cityErr3Dao = new CityErr3DaoImpl(this);
+  protected CityErr3DaoImpl cityErr3Dao = new CityErr3DaoImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonCityErr1DaoImpl personCityErr1Dao = new PersonCityErr1DaoImpl(this);
+  protected PersonCityErr1DaoImpl personCityErr1Dao = new PersonCityErr1DaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

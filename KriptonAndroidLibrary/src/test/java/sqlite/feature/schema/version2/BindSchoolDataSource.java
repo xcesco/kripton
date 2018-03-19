@@ -41,27 +41,27 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new Seminar2StudentTable(), new ProfessorTable(), new StudentTable(), new SeminarTable()};
+  static final SQLiteTable[] TABLES = {new SeminarTable(), new StudentTable(), new Seminar2StudentTable(), new ProfessorTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(this);
+  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(this);
+  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(this);
+  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
+  protected DaoStudentImpl daoStudent = new DaoStudentImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */
@@ -216,16 +216,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(StudentTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
@@ -278,16 +278,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);

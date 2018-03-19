@@ -38,7 +38,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected DeleteRawPersonDaoImpl deleteRawPersonDao = new DeleteRawPersonDaoImpl(this);
+  protected DeleteRawPersonDaoImpl deleteRawPersonDao = new DeleteRawPersonDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

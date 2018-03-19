@@ -37,7 +37,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>dao instance</p>
    */
-  protected DaoChannelImpl daoChannel = new DaoChannelImpl(this);
+  protected DaoChannelImpl daoChannel = new DaoChannelImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

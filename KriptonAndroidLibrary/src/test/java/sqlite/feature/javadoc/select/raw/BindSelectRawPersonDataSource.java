@@ -38,7 +38,7 @@ public class BindSelectRawPersonDataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected SelectRawPersonDaoImpl selectRawPersonDao = new SelectRawPersonDaoImpl(this);
+  protected SelectRawPersonDaoImpl selectRawPersonDao = new SelectRawPersonDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

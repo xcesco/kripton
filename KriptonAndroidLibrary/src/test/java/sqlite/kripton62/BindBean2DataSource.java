@@ -37,7 +37,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   /**
    * <p>dao instance</p>
    */
-  protected BeanDao2Impl beanDao2 = new BeanDao2Impl(this);
+  protected BeanDao2Impl beanDao2 = new BeanDao2Impl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

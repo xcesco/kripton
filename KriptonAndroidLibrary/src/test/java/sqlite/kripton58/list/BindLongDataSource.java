@@ -37,7 +37,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   /**
    * <p>dao instance</p>
    */
-  protected LongDaoImpl longDao = new LongDaoImpl(this);
+  protected LongDaoImpl longDao = new LongDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

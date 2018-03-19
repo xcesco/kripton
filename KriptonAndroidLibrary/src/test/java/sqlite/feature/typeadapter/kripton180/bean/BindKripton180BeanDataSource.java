@@ -38,7 +38,7 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
   /**
    * <p>dao instance</p>
    */
-  protected EmployeeBeanDaoImpl employeeBeanDao = new EmployeeBeanDaoImpl(this);
+  protected EmployeeBeanDaoImpl employeeBeanDao = new EmployeeBeanDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

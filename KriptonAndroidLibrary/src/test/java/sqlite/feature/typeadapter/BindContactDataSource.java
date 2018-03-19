@@ -37,7 +37,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
   /**
    * <p>dao instance</p>
    */
-  protected ContactDaoImpl contactDao = new ContactDaoImpl(this);
+  protected ContactDaoImpl contactDao = new ContactDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */

@@ -37,7 +37,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   /**
    * <p>dao instance</p>
    */
-  protected CheeseDaoImpl cheeseDao = new CheeseDaoImpl(this);
+  protected CheeseDaoImpl cheeseDao = new CheeseDaoImpl(context);
 
   /**
    * Used only in transactions (that can be executed one for time */
