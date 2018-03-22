@@ -13,9 +13,9 @@ import com.abubusoft.kripton.android.SQLiteModificationType;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class SQLiteModification {
+public class SQLiteEvent {
 
-	public SQLiteModification(SQLiteModificationType operationType, long value) {
+	public SQLiteEvent(SQLiteModificationType operationType, long value) {
 		this.operationType = operationType;
 		this.value = value;
 	}
@@ -23,15 +23,15 @@ public class SQLiteModification {
 	public final SQLiteModificationType operationType;
 	public final long value;
 
-	public static SQLiteModification createInsert(long result) {
-		return new SQLiteModification(SQLiteModificationType.INSERT, result);
+	public static SQLiteEvent createInsert(long result) {
+		return new SQLiteEvent(SQLiteModificationType.INSERT, result);
 	}
 
-	public static SQLiteModification createUpdate(long result) {
-		return new SQLiteModification(SQLiteModificationType.UPDATE, result);
+	public static SQLiteEvent createUpdate(long result) {
+		return new SQLiteEvent(SQLiteModificationType.UPDATE, result);
 	}
 
-	public static SQLiteModification createDelete(long result) {
-		return new SQLiteModification(SQLiteModificationType.DELETE, result);
+	public static SQLiteEvent createDelete(long result) {
+		return new SQLiteEvent(SQLiteModificationType.DELETE, result);
 	}
 }

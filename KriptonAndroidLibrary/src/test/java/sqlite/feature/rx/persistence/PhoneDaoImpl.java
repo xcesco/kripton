@@ -3,11 +3,11 @@ package sqlite.feature.rx.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -26,7 +26,7 @@ import sqlite.feature.rx.model.PhoneNumber;
  *  @see PhoneDao
  *  @see sqlite.feature.rx.model.PhoneNumberTable
  */
-public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
+public class PhoneDaoImpl extends Dao implements PhoneDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ?";
@@ -39,7 +39,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
 
   private static final String SELECT_ALL_SQL3 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number";
 
-  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public PhoneDaoImpl(SQLContext context) {
     super(context);
@@ -117,7 +117,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createInsert(result));
+      subject.onNext(SQLiteEvent.createInsert(result));
     }
     bean.id=result;
 
@@ -244,7 +244,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
   }
@@ -291,7 +291,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
   }
@@ -448,7 +448,7 @@ public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
     }
   }
 
-  public PublishSubject<SQLiteModification> subject() {
+  public PublishSubject<SQLiteEvent> subject() {
     return subject;
   }
 

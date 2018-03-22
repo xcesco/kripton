@@ -2,7 +2,7 @@ package sqlite.feature.dynamic.kripton121;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
@@ -20,7 +20,7 @@ import sqlite.feature.dynamic.Person;
  *  @see Person1DAO
  *  @see sqlite.feature.dynamic.PersonTable
  */
-public class Person1DAOImpl extends AbstractDao implements Person1DAO {
+public class Person1DAOImpl extends Dao implements Person1DAO {
   public Person1DAOImpl(SQLContext context) {
     super(context);
   }

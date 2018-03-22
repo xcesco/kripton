@@ -57,11 +57,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	}
 
-	public <D extends AbstractDao> void onSQLEvent(D dao, SQLiteModification eventType) {
-		this.context.onSQLEvent(dao, eventType);
-		
-	}
-
 	public void onSessionClosed() {
 		this.context.onSessionClosed();
 

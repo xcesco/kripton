@@ -2,7 +2,7 @@ package sqlite.kripton56.persistence;
 
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -20,7 +20,7 @@ import sqlite.kripton56.entities.OwnerType;
  *  @see DaoMessage
  *  @see sqlite.kripton56.entities.MessageEntityTable
  */
-public class DaoMessageImpl extends AbstractDao implements DaoMessage {
+public class DaoMessageImpl extends Dao implements DaoMessage {
   private static SQLiteStatement updateByIdPreparedStatement0;
 
   public DaoMessageImpl(SQLContext context) {

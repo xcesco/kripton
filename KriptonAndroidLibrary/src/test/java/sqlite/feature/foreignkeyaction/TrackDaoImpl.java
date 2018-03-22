@@ -3,7 +3,7 @@ package sqlite.feature.foreignkeyaction;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see TrackDao
  *  @see TrackTable
  */
-public class TrackDaoImpl extends AbstractDao implements TrackDao {
+public class TrackDaoImpl extends Dao implements TrackDao {
   private static final String SELECT_BY_ID_SQL5 = "SELECT id, album_id FROM track WHERE id=?";
 
   private static final String SELECT_ALL_SQL6 = "SELECT id, album_id FROM track";

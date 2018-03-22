@@ -12,13 +12,14 @@ import android.database.sqlite.SQLiteStatement;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class SQLContextInTransactionImpl extends AbstractSQLContext {	
+public class SQLContextInSessionImpl extends AbstractSQLContext {	
 	private StringBuilder sqlBuilder;
 	private KriptonContentValues contentValuesForUpdate;
 	private AbstractDataSource dataSource;
 	private KriptonContentValues contentValues;	
 
-	public SQLContextInTransactionImpl(AbstractDataSource dataSource) {		
+	public SQLContextInSessionImpl(AbstractDataSource dataSource) {
+		super(true);
 		this.dataSource=dataSource;
 		this.contentValues=new KriptonContentValues();
 		this.contentValuesForUpdate=new KriptonContentValues();
@@ -26,7 +27,7 @@ public class SQLContextInTransactionImpl extends AbstractSQLContext {
 	}
 	
 	
-	public SQLContextInTransactionImpl bindToThread() {				
+	public SQLContextInSessionImpl bindToThread() {				
 		return this;
 	}
 
@@ -67,12 +68,6 @@ public class SQLContextInTransactionImpl extends AbstractSQLContext {
 	public boolean isLogEnabled() {
 		return dataSource.logEnabled;
 	}
-	
-	@Override
-	public boolean isSessionSupported() {	
-		return true;
-	}
-
 
 
 }

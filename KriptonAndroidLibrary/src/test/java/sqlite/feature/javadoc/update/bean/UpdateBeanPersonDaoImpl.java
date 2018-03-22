@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -24,7 +24,7 @@ import sqlite.feature.javadoc.Person;
  *  @see UpdateBeanPersonDao
  *  @see sqlite.feature.javadoc.PersonTable
  */
-public class UpdateBeanPersonDaoImpl extends AbstractDao implements UpdateBeanPersonDao {
+public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao {
   private static SQLiteStatement updateAllBeansPreparedStatement0;
 
   private static final Set<String> updateAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");

@@ -3,11 +3,11 @@ package sqlite.feature.rx.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
@@ -22,7 +22,7 @@ import sqlite.feature.rx.model.Person;
  *  @see PersonDao
  *  @see sqlite.feature.rx.model.PersonTable
  */
-public class PersonDaoImpl extends AbstractDao implements PersonDao {
+public class PersonDaoImpl extends Dao implements PersonDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_ID_SQL11 = "SELECT id, name, age FROM person WHERE id = ?";
@@ -31,7 +31,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
 
   private static SQLiteStatement updateByIdPreparedStatement2;
 
-  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public PersonDaoImpl(SQLContext context) {
     super(context);
@@ -103,7 +103,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createInsert(result));
+      subject.onNext(SQLiteEvent.createInsert(result));
     }
     bean.id=result;
 
@@ -221,7 +221,7 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
   }
@@ -268,12 +268,12 @@ public class PersonDaoImpl extends AbstractDao implements PersonDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
   }
 
-  public PublishSubject<SQLiteModification> subject() {
+  public PublishSubject<SQLiteEvent> subject() {
     return subject;
   }
 

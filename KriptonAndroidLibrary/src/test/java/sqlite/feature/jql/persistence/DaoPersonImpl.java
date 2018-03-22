@@ -3,7 +3,7 @@ package sqlite.feature.jql.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import sqlite.feature.jql.entities.Person;
  *  @see DaoPerson
  *  @see sqlite.feature.jql.entities.PersonTable
  */
-public class DaoPersonImpl extends AbstractDao implements DaoPerson {
+public class DaoPersonImpl extends Dao implements DaoPerson {
   private static final String SELECT_ALL_SQL5 = "SELECT _id, name, image FROM person";
 
   private static SQLiteStatement insertBeanPreparedStatement0;

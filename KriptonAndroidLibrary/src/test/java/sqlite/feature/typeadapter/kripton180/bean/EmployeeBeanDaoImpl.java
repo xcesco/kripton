@@ -3,7 +3,7 @@ package sqlite.feature.typeadapter.kripton180.bean;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -33,7 +33,7 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
  *  @see EmployeeBeanDao
  *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
-public class EmployeeBeanDaoImpl extends AbstractDao implements EmployeeBeanDao {
+public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
 
   private static final String SELECT_BY_ID_J_Q_L_SQL2 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";

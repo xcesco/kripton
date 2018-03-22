@@ -3,11 +3,11 @@ package sqlite.feature.rx.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
@@ -22,7 +22,7 @@ import sqlite.feature.rx.model.PrefixConfig;
  *  @see PrefixConfigDao
  *  @see sqlite.feature.rx.model.PrefixConfigTable
  */
-public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao {
+public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ?";
@@ -35,7 +35,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
 
   private static SQLiteStatement updatePreparedStatement3;
 
-  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public PrefixConfigDaoImpl(SQLContext context) {
     super(context);
@@ -111,7 +111,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createInsert(result));
+      subject.onNext(SQLiteEvent.createInsert(result));
     }
     bean.id=result;
 
@@ -235,7 +235,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
   }
@@ -282,7 +282,7 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
   }
@@ -420,12 +420,12 @@ public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao 
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement3, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createUpdate(result));
+      subject.onNext(SQLiteEvent.createUpdate(result));
     }
     return result;
   }
 
-  public PublishSubject<SQLiteModification> subject() {
+  public PublishSubject<SQLiteEvent> subject() {
     return subject;
   }
 

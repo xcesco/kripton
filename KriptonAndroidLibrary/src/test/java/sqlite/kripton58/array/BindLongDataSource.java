@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -301,12 +301,12 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   }
 
   class DataSourceSingleThread implements BindLongDaoFactory {
-    private SQLContextInTransactionImpl _context;
+    private SQLContextInSessionImpl _context;
 
     private LongDaoImpl _longDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInTransactionImpl(BindLongDataSource.this);
+      _context=new SQLContextInSessionImpl(BindLongDataSource.this);
     }
 
     /**

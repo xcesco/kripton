@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -26,7 +26,7 @@ import java.util.Set;
  *  @see CheeseDao
  *  @see CheeseTable
  */
-public class CheeseDaoImpl extends AbstractDao implements CheeseDao {
+public class CheeseDaoImpl extends Dao implements CheeseDao {
   private static final String COUNT_SQL1 = "SELECT count(*) FROM cheeses";
 
   private static SQLiteStatement insertPreparedStatement0;

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -34,7 +34,7 @@ import java.util.Map;
  *  @see Bean84ADao
  *  @see Bean84ATable
  */
-public class Bean84ADaoImpl extends AbstractDao implements Bean84ADao {
+public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   private static final String SELECT_ALL_SQL1 = "SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a";
 
   private static final String SELECT_BY_ID_SQL2 = "SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=?";

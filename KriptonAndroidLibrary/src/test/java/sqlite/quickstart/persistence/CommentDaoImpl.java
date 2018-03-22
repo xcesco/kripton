@@ -3,7 +3,7 @@ package sqlite.quickstart.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import sqlite.quickstart.model.Comment;
  *  @see CommentDao
  *  @see sqlite.quickstart.model.CommentTable
  */
-public class CommentDaoImpl extends AbstractDao implements CommentDao {
+public class CommentDaoImpl extends Dao implements CommentDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_POST_ID_SQL5 = "SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?";

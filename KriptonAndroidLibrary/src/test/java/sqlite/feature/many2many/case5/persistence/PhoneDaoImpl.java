@@ -3,7 +3,7 @@ package sqlite.feature.many2many.case5.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -24,7 +24,7 @@ import sqlite.feature.many2many.case5.model.PhoneNumber;
  *  @see PhoneDao
  *  @see sqlite.feature.many2many.case5.model.PhoneNumberTable
  */
-public class PhoneDaoImpl extends AbstractDao implements PhoneDao {
+public class PhoneDaoImpl extends Dao implements PhoneDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ?";

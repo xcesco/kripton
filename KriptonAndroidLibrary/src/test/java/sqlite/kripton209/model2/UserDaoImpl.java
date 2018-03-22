@@ -3,7 +3,7 @@ package sqlite.kripton209.model2;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see UserDao
  *  @see UserTable
  */
-public class UserDaoImpl extends AbstractDao implements UserDao {
+public class UserDaoImpl extends Dao implements UserDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String GET_ALL_USERS_SQL3 = "SELECT id, user_name FROM user";

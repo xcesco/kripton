@@ -2,16 +2,17 @@ package sqlite.feature.livedata.persistence;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
@@ -34,9 +35,9 @@ import sqlite.feature.livedata.persistence.BindAppDataSource.Batch;
  * @see DaoPerson
  * @see sqlite.feature.livedata.data.PersonTable
  */
-public class DaoPersonWorkImpl extends AbstractDao implements DaoPerson {
+public class DaoPersonWorkImpl extends Dao implements DaoPerson {
 
-	private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+	private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
 	private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
@@ -75,14 +76,12 @@ public class DaoPersonWorkImpl extends AbstractDao implements DaoPerson {
 		
 		return builder.getLiveData();
 	}
-	
-	static final Set<WeakReference<ComputableLiveData<?>>> cld=new HashSet<>();
-	
-	void registryLiveData(ComputableLiveData<?> value) {		
+		
+	static void registryLiveData(ComputableLiveData<?> value) {		
 		cld.add(new WeakReference<ComputableLiveData<?>>(value));
 	}
 	
-	void invalidateLiveData() {
+	static void invalidateLiveData() {
 		for (WeakReference<ComputableLiveData<?>> item: cld) {
 			if (item.get()!=null) {
 				item.get().invalidate();
@@ -155,7 +154,7 @@ public class DaoPersonWorkImpl extends AbstractDao implements DaoPerson {
 	    // insert operation
 	    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
 	    
-	    this._context.onSQLEvent("sqlite.feature.livedata.persistence.DaoPersonImpl", SQLiteModification.createInsert(result));
+	    this._context.onSQLEvent("sqlite.feature.livedata.persistence.DaoPersonImpl", SQLiteEvent.createInsert(result));
 	    
 	    bean.id=result;
 	  }
@@ -218,8 +217,12 @@ public class DaoPersonWorkImpl extends AbstractDao implements DaoPerson {
 	      }
 	      // log for where parameters -- END
 	    }
+	    
+	    
 	    // log section END
 	    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+	    
+	    _context.onSQLEvent(this, SQLiteEvent.createUpdate(result));
 	  }
 
 	/**

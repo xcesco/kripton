@@ -3,7 +3,7 @@ package sqlite.feature.many2many.case4.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see GeneratedPerson2PhoneDao
  *  @see PersonPhoneNumberTable
  */
-public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2PhoneDao {
+public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao {
   private static final String SELECT_BY_ID_SQL11 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=?";
 
   private static final String SELECT_BY_PERSON_ID_SQL12 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=?";

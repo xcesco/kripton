@@ -10,7 +10,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.One;
 
@@ -53,10 +53,10 @@ public class TestRx extends BaseAndroidTest {
 	public void testDatabase() {
 		final BindXenoDataSource ds = prepareDataSource();
 
-		Disposable s1 = ds.getCountryDao().subject().subscribe(new Consumer<SQLiteModification>() {
+		Disposable s1 = ds.getCountryDao().subject().subscribe(new Consumer<SQLiteEvent>() {
 
 			@Override
-			public void accept(SQLiteModification t) throws Exception {
+			public void accept(SQLiteEvent t) throws Exception {
 				log("---->  MAP " + Thread.currentThread().getName());
 				log("S1 ---------------------- receive country %s %s", t.operationType, t.value);
 
@@ -102,10 +102,10 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 
-		Disposable s2 = ds.countrySubject().observeOn(Schedulers.io()).map(new Function<SQLiteModification, List<Country>>() {
+		Disposable s2 = ds.countrySubject().observeOn(Schedulers.io()).map(new Function<SQLiteEvent, List<Country>>() {
 
 			@Override
-			public List<Country> apply(SQLiteModification t) throws Exception {
+			public List<Country> apply(SQLiteEvent t) throws Exception {
 				log("---->  MAP " + Thread.currentThread().getName());
 
 				return ds.executeBatch(new BindXenoDataSource.Batch<List<Country>>() {

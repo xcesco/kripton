@@ -2,7 +2,7 @@ package sqlite.feature.join.model;
 
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -19,7 +19,7 @@ import com.abubusoft.kripton.common.Triple;
  *  @see LoanDao
  *  @see LoanTable
  */
-public class LoanDaoImpl extends AbstractDao implements LoanDao {
+public class LoanDaoImpl extends Dao implements LoanDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   public LoanDaoImpl(SQLContext context) {

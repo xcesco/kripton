@@ -3,7 +3,7 @@ package sqlite.feature.many2many.err3;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see GeneratedPersonCityErr1Dao
  *  @see PersonCityErr3Table
  */
-public class PersonCityErr1DaoImpl extends AbstractDao implements GeneratedPersonCityErr1Dao {
+public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr1Dao {
   private static final String SELECT_BY_ID_SQL5 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE id=?";
 
   private static final String SELECT_BY_PERSON_ID_SQL6 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE person_id=?";

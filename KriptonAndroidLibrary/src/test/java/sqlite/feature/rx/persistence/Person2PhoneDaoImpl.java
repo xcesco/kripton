@@ -3,11 +3,11 @@ package sqlite.feature.rx.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
@@ -23,7 +23,7 @@ import java.util.List;
  *  @see GeneratedPerson2PhoneDao
  *  @see PersonPhoneNumberTable
  */
-public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2PhoneDao {
+public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao {
   private static final String SELECT_BY_ID_SQL12 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=?";
 
   private static final String SELECT_BY_PERSON_ID_SQL13 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=?";
@@ -38,7 +38,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
 
   private static SQLiteStatement insertPreparedStatement3;
 
-  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public Person2PhoneDaoImpl(SQLContext context) {
     super(context);
@@ -303,7 +303,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result;
   }
@@ -351,7 +351,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByPersonIdPreparedStatement1, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result;
   }
@@ -399,7 +399,7 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByPhoneNumberIdPreparedStatement2, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result;
   }
@@ -470,14 +470,14 @@ public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createInsert(result));
+      subject.onNext(SQLiteEvent.createInsert(result));
     }
     bean.id=result;
 
     return (int)result;
   }
 
-  public PublishSubject<SQLiteModification> subject() {
+  public PublishSubject<SQLiteEvent> subject() {
     return subject;
   }
 

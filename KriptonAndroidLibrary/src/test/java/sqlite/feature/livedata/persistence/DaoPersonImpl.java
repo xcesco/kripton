@@ -1,4 +1,4 @@
-package sqlite.feature.many2many;
+package sqlite.feature.livedata.persistence;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
@@ -11,48 +11,56 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
+import sqlite.feature.livedata.data.Person;
 
 /**
  * <p>
- * DAO implementation for entity <code>City</code>, based on interface <code>CityDao</code>
+ * DAO implementation for entity <code>Person</code>, based on interface <code>DaoPerson</code>
  * </p>
  *
- *  @see City
- *  @see CityDao
- *  @see CityTable
+ *  @see Person
+ *  @see DaoPerson
+ *  @see sqlite.feature.livedata.data.PersonTable
  */
-public class CityDaoImpl extends Dao implements CityDao {
-  private static final String SELECT_ALL_SQL3 = "SELECT id, name FROM cities";
+public class DaoPersonImpl extends Dao implements DaoPerson {
+  private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_ID_SQL4 = "SELECT id, name FROM cities WHERE id=?";
+  private static SQLiteStatement updatePreparedStatement1;
 
-  private static SQLiteStatement deleteByIdPreparedStatement1;
-
-  public CityDaoImpl(SQLContext context) {
+  public DaoPersonImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name FROM cities</pre>
+   * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * </dl>
+   *
+   * @param name
+   * 	is binded to <code>${name}</code>
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<City> selectAll() {
+  public List<Person> select(String name) {
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL3;
+    String _sql=SELECT_SQL1;
     // add where arguments
+    _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -74,20 +82,22 @@ public class CityDaoImpl extends Dao implements CityDao {
       }
       // log section END
 
-      ArrayList<City> resultList=new ArrayList<City>(_cursor.getCount());
-      City resultBean=null;
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
+      Person resultBean=null;
 
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
 
         do
          {
-          resultBean=new City();
+          resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
           if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -99,29 +109,30 @@ public class CityDaoImpl extends Dao implements CityDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO cities (name) VALUES (${name})</pre>
+   * <pre>INSERT INTO person (name, surname) VALUES (${bean.name}, ${bean.surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * </dl>
    *
    * @param bean
    * 	is mapped to parameter <strong>bean</strong>
    *
-   * @return <strong>id</strong> of inserted record
    */
   @Override
-  public long insert(City bean) {
+  public void insert(Person bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO cities (name) VALUES (?)";
+      String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -134,7 +145,7 @@ public class CityDaoImpl extends Dao implements CityDao {
         _columnValueBuffer.append(_columnSeparator+":"+columnName);
         _columnSeparator=", ";
       }
-      Logger.info("INSERT INTO cities (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+      Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -161,99 +172,38 @@ public class CityDaoImpl extends Dao implements CityDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
-
-    return result;
   }
 
   /**
-   * <h2>Select SQL:</h2>
+   * <h2>SQL update:</h2>
+   * <pre>UPDATE person SET name=:name, surname=:surname WHERE id=${bean.id}</pre>
    *
-   * <pre>SELECT id, name FROM cities WHERE id=${id}</pre>
-   *
-   * <h2>Projected columns:</h2>
+   * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * </dl>
    *
-   * <h2>Query's parameters:</h2>
+   * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
-   * @return selected bean or <code>null</code>.
+   * @param bean
+   * 	is used as ${bean}
    */
   @Override
-  public City selectById(long id) {
-    KriptonContentValues _contentValues=contentValues();
-    // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL4;
-    // add where arguments
-    _contentValues.addWhereArgs(String.valueOf(id));
-    String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
-    if (_context.isLogEnabled()) {
-      // manage log
-      Logger.info(_sql);
-
-      // log for where parameters -- BEGIN
-      int _whereParamCounter=0;
-      for (String _whereParamItem: _contentValues.whereArgs()) {
-        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
-      }
-      // log for where parameters -- END
-    }
-    // log section END
-    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
-      // log section BEGIN
-      if (_context.isLogEnabled()) {
-        Logger.info("Rows found: %s",_cursor.getCount());
-      }
-      // log section END
-
-      City resultBean=null;
-
-      if (_cursor.moveToFirst()) {
-
-        int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-
-        resultBean=new City();
-
-        resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-
-      }
-      return resultBean;
-    }
-  }
-
-  /**
-   * <h2>SQL delete</h2>
-   * <pre>DELETE FROM cities WHERE id=${id}</pre>
-   *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>
-   *
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   *
-   * @return number of deleted records
-   */
-  @Override
-  public int deleteById(long id) {
-    if (deleteByIdPreparedStatement1==null) {
+  public void update(Person bean) {
+    if (updatePreparedStatement1==null) {
       // generate static SQL for statement
-      String _sql="DELETE FROM cities WHERE id=?";
-      deleteByIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
+      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    KriptonContentValues _contentValues=contentValuesForUpdate(deleteByIdPreparedStatement1);
-    _contentValues.addWhereArgs(String.valueOf(id));
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
+
+    _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -261,7 +211,19 @@ public class CityDaoImpl extends Dao implements CityDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM cities WHERE id=?");
+      Logger.info("UPDATE person SET name=:name, surname=:surname WHERE id=?");
+
+      // log for content values -- BEGIN
+      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+      for (int i = 0; i < _contentValues.size(); i++) {
+        _contentValue = _contentValues.get(i);
+        if (_contentValue.value1==null) {
+          Logger.info("==> :%s = <null>", _contentValue.value0);
+        } else {
+          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+        }
+      }
+      // log for content values -- END
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -271,8 +233,7 @@ public class CityDaoImpl extends Dao implements CityDao {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
-    return result;
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
   }
 
   public static void clearCompiledStatements() {
@@ -280,9 +241,9 @@ public class CityDaoImpl extends Dao implements CityDao {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
     }
-    if (deleteByIdPreparedStatement1!=null) {
-      deleteByIdPreparedStatement1.close();
-      deleteByIdPreparedStatement1=null;
+    if (updatePreparedStatement1!=null) {
+      updatePreparedStatement1.close();
+      updatePreparedStatement1=null;
     }
   }
 }

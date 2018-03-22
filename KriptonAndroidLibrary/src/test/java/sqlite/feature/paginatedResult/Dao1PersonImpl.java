@@ -3,7 +3,7 @@ package sqlite.feature.paginatedResult;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
@@ -25,7 +25,7 @@ import sqlite.feature.paginatedResult.model.Person;
  *  @see Dao1Person
  *  @see sqlite.feature.paginatedResult.model.PersonTable
  */
-public class Dao1PersonImpl extends AbstractDao implements Dao1Person {
+public class Dao1PersonImpl extends Dao implements Dao1Person {
   private static SQLiteStatement insertOnePreparedStatement0;
 
   private static final String SELECT_ALL_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name";

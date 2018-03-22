@@ -3,7 +3,7 @@ package sqlite.kripton48.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -19,7 +19,7 @@ import sqlite.kripton48.entities.Bean02;
  *  @see DaoBean02
  *  @see sqlite.kripton48.entities.Bean02Table
  */
-public class DaoBean02Impl extends AbstractDao implements DaoBean02 {
+public class DaoBean02Impl extends Dao implements DaoBean02 {
   private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean02 WHERE id=?";
 
   private static SQLiteStatement deleteOnePreparedStatement0;

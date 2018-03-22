@@ -3,7 +3,7 @@ package sqlite.kripton186.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -20,7 +20,7 @@ import sqlite.kripton186.model.PrefixConfig;
  *  @see PrefixConfigDao
  *  @see sqlite.kripton186.model.PrefixConfigTable
  */
-public class PrefixConfigDaoImpl extends AbstractDao implements PrefixConfigDao {
+public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ?";

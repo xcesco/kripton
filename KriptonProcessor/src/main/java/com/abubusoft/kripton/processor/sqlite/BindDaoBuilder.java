@@ -31,9 +31,9 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
@@ -114,7 +114,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDao.class, packageName, classTableName);
 
-		builder = TypeSpec.classBuilder(classTableName).superclass(AbstractDao.class)
+		builder = TypeSpec.classBuilder(classTableName).superclass(Dao.class)
 				.addSuperinterface(typeName(value.getElement()))
 				.addModifiers(Modifier.PUBLIC);
 		
@@ -154,7 +154,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		
 		// generate subject
 		if (currentDaoDefinition.getParent().generateRx) {			
-			ParameterizedTypeName subjectTypeName=ParameterizedTypeName.get(ClassName.get(PublishSubject.class), ClassName.get(SQLiteModification.class));
+			ParameterizedTypeName subjectTypeName=ParameterizedTypeName.get(ClassName.get(PublishSubject.class), ClassName.get(SQLiteEvent.class));
 			
 			// subject
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("subject").addModifiers(Modifier.PUBLIC);

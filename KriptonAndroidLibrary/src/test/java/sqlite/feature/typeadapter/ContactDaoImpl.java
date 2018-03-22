@@ -3,7 +3,7 @@ package sqlite.feature.typeadapter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -26,7 +26,7 @@ import java.util.List;
  *  @see ContactDao
  *  @see ContactTable
  */
-public class ContactDaoImpl extends AbstractDao implements ContactDao {
+public class ContactDaoImpl extends Dao implements ContactDao {
   private static final String SELECT_BY_SURNAME_WITH_ADAPTER_SQL1 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
 
   private static final String SELECT_BY_SURNAME_SQL2 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";

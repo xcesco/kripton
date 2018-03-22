@@ -6,7 +6,7 @@ import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -30,7 +30,7 @@ import java.nio.charset.StandardCharsets;
  *  @see Bean84BDao
  *  @see Bean84BTable
  */
-public class Bean84BDaoImpl extends AbstractDao implements Bean84BDao {
+public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, column_bean FROM bean84_b WHERE id = ?";
 
   private static final String SELECT_BY_BEAN_SQL2 = "SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?";

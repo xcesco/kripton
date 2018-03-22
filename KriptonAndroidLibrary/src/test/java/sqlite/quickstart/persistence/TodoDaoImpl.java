@@ -3,7 +3,7 @@ package sqlite.quickstart.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import sqlite.quickstart.model.Todo;
  *  @see TodoDao
  *  @see sqlite.quickstart.model.TodoTable
  */
-public class TodoDaoImpl extends AbstractDao implements TodoDao {
+public class TodoDaoImpl extends Dao implements TodoDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_USER_ID_SQL7 = "SELECT id, user_id, title, completed FROM todo WHERE user_id = ?";

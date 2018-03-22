@@ -2,7 +2,7 @@ package sqlite.stack44330452;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
@@ -18,7 +18,7 @@ import java.util.List;
  *  @see UserDao
  *  @see UserTable
  */
-public class UserDaoImpl extends AbstractDao implements UserDao {
+public class UserDaoImpl extends Dao implements UserDao {
   private static final String LOAD_USER_SQL1 = "SELECT id FROM user";
 
   public UserDaoImpl(SQLContext context) {

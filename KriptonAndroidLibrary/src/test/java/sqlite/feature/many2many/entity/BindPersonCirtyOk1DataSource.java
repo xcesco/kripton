@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -356,7 +356,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   }
 
   class DataSourceSingleThread implements BindPersonCirtyOk1DaoFactory {
-    private SQLContextInTransactionImpl _context;
+    private SQLContextInSessionImpl _context;
 
     private PersonOk1DaoImpl _personOk1Dao;
 
@@ -365,7 +365,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     private PersonCityOk1DaoImpl _personCityOk1Dao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInTransactionImpl(BindPersonCirtyOk1DataSource.this);
+      _context=new SQLContextInSessionImpl(BindPersonCirtyOk1DataSource.this);
     }
 
     /**

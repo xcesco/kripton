@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -23,7 +23,7 @@ import java.util.Set;
  *  @see UpdateRawPersonDao
  *  @see sqlite.feature.javadoc.PersonTable
  */
-public class UpdateRawPersonDaoImpl extends AbstractDao implements UpdateRawPersonDao {
+public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
   private static SQLiteStatement updateAllBeansPreparedStatement0;
 
   private static SQLiteStatement updateAllBeansJQLPreparedStatement1;

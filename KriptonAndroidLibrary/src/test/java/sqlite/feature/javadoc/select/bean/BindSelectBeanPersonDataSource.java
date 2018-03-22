@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -302,12 +302,12 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   }
 
   class DataSourceSingleThread implements BindSelectBeanPersonDaoFactory {
-    private SQLContextInTransactionImpl _context;
+    private SQLContextInSessionImpl _context;
 
     private SelectBeanPersonDaoImpl _selectBeanPersonDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInTransactionImpl(BindSelectBeanPersonDataSource.this);
+      _context=new SQLContextInSessionImpl(BindSelectBeanPersonDataSource.this);
     }
 
     /**

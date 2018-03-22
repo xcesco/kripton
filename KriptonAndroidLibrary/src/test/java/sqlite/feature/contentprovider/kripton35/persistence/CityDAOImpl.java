@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -25,7 +25,7 @@ import sqlite.feature.contentprovider.kripton35.entities.City;
  *  @see CityDAO
  *  @see sqlite.feature.contentprovider.kripton35.entities.CityTable
  */
-public class CityDAOImpl extends AbstractDao implements CityDAO {
+public class CityDAOImpl extends Dao implements CityDAO {
   private static SQLiteStatement insertBeanPreparedStatement0;
 
   private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "name");

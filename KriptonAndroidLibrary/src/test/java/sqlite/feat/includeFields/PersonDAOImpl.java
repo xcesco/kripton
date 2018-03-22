@@ -3,7 +3,7 @@ package sqlite.feat.includeFields;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import java.util.List;
  *  @see PersonDAO
  *  @see PersonTable
  */
-public class PersonDAOImpl extends AbstractDao implements PersonDAO {
+public class PersonDAOImpl extends Dao implements PersonDAO {
   private static final String SELECT_INCLUDE_ONE_SQL1 = "SELECT name, id FROM person WHERE type_name=? ORDER BY name";
 
   private static final String SELECT_EXCLUDE_ONE_SQL2 = "SELECT surname, birth_city, birth_day, type_name FROM person ORDER BY name";

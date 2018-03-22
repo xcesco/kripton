@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -33,7 +33,7 @@ import java.util.List;
  *  @see ByteDao
  *  @see ByteBeanTable
  */
-public class ByteDaoImpl extends AbstractDao implements ByteDao {
+public class ByteDaoImpl extends Dao implements ByteDao {
   private static final String SELECT_ONE_SQL1 = "SELECT id, value, value2 FROM byte_bean";
 
   private static final String SELECT_ONE_SQL2 = "SELECT id, value, value2 FROM byte_bean WHERE value=?";

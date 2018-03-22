@@ -3,7 +3,7 @@ package sqlite.feature.jql.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import sqlite.feature.jql.entities.Child;
  *  @see DaoChild
  *  @see sqlite.feature.jql.entities.ChildTable
  */
-public class DaoChildImpl extends AbstractDao implements DaoChild {
+public class DaoChildImpl extends Dao implements DaoChild {
   private static final String SELECT_ALL_SQL1 = "SELECT _id, name, parent_id FROM child";
 
   private static SQLiteStatement insertBeanPreparedStatement0;

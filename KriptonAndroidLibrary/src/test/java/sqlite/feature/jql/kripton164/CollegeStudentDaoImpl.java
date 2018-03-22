@@ -2,7 +2,7 @@ package sqlite.feature.jql.kripton164;
 
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -18,7 +18,7 @@ import com.abubusoft.kripton.common.Triple;
  *  @see CollegeStudentDao
  *  @see CollegeStudentTable
  */
-public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudentDao {
+public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   public CollegeStudentDaoImpl(SQLContext context) {

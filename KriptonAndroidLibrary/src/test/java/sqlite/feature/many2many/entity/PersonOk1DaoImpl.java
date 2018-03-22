@@ -3,7 +3,7 @@ package sqlite.feature.many2many.entity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import sqlite.feature.many2many.Person;
  *  @see PersonOk1Dao
  *  @see sqlite.feature.many2many.PersonTable
  */
-public class PersonOk1DaoImpl extends AbstractDao implements PersonOk1Dao {
+public class PersonOk1DaoImpl extends Dao implements PersonOk1Dao {
   private static final String SELECT_ALL_SQL1 = "SELECT id, name FROM persons";
 
   private static SQLiteStatement insertPreparedStatement0;

@@ -2,7 +2,7 @@ package sqlite.kripton41;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
@@ -16,7 +16,7 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see DaoBeanSelectOK
  *  @see Bean01Table
  */
-public class DaoBeanSelectOKImpl extends AbstractDao implements DaoBeanSelectOK {
+public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
   private static final String SELECT_DISTANCE_SQL1 = "SELECT count(*) FROM bean01 WHERE id=? and value=?";
 
   public DaoBeanSelectOKImpl(SQLContext context) {

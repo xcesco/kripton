@@ -3,7 +3,7 @@ package sqlite.feature.javadoc.select.bean;
 import android.database.Cursor;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -24,7 +24,7 @@ import sqlite.feature.javadoc.Person;
  *  @see SelectBeanPersonDao
  *  @see sqlite.feature.javadoc.PersonTable
  */
-public class SelectBeanPersonDaoImpl extends AbstractDao implements SelectBeanPersonDao {
+public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao {
   private static final String SELECT_ALL_BEANS_SQL1 = "SELECT id, person_name, person_surname, student FROM person";
 
   private static final Set<String> selectAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");

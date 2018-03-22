@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -411,7 +411,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   class DataSourceSingleThread implements BindXenoDaoFactory {
-    private SQLContextInTransactionImpl _context;
+    private SQLContextInSessionImpl _context;
 
     private PhoneDaoImpl _phoneDao;
 
@@ -424,7 +424,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     private PersonDaoImpl _personDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInTransactionImpl(BindXenoDataSource.this);
+      _context=new SQLContextInSessionImpl(BindXenoDataSource.this);
     }
 
     /**

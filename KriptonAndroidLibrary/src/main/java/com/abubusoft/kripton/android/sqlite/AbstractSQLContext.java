@@ -1,25 +1,21 @@
 package com.abubusoft.kripton.android.sqlite;
 
-import java.util.HashSet;
-
 public abstract class AbstractSQLContext implements SQLContext {
-
-	/**
-	 * in a transation or shared connection, it gives the instance of DAO has
-	 * modified its table.
-	 */
-	protected HashSet<String> daosSubjectToModification = new HashSet<>();
 	
+	protected AbstractSQLContext(boolean session) {
+		this.session=session;
+	}
+	
+	private final boolean session;
+
 	@Override
-	public void onSessionOpened() {
-		this.daosSubjectToModification.clear();
+	public void onSessionOpened() {		
 		
 	}
 
 	@Override
-	public <D extends AbstractDao> void onSQLEvent(D dao, SQLiteModification eventType) {
-		this.daosSubjectToModification.add(dao.getClass().getName());
-		
+	public boolean isSessionOpened() {
+		return session;
 	}
 
 	@Override
@@ -27,4 +23,6 @@ public abstract class AbstractSQLContext implements SQLContext {
 		// TODO Auto-generated method stub
 		
 	}
+
+		
 }

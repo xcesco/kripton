@@ -6,7 +6,7 @@ import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -55,7 +55,7 @@ import java.util.TimeZone;
  *  @see BeanDao
  *  @see BeanTable
  */
-public class BeanDaoImpl extends AbstractDao implements BeanDao {
+public class BeanDaoImpl extends Dao implements BeanDao {
   private static SQLiteStatement deletePreparedStatement0;
 
   private static SQLiteStatement deletePreparedStatement1;

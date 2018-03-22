@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -35,7 +35,7 @@ import java.util.List;
  *  @see DaoBean05
  *  @see Bean05Table
  */
-public class DaoBean05Impl extends AbstractDao implements DaoBean05 {
+public class DaoBean05Impl extends Dao implements DaoBean05 {
   private static final String SELECT_ONE_SQL1 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
 
   private static final String SELECT_ONE_SQL2 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and text=?";

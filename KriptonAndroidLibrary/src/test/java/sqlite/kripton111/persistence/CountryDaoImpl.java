@@ -3,7 +3,7 @@ package sqlite.kripton111.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import sqlite.kripton111.model.Country;
  *  @see CountryDao
  *  @see sqlite.kripton111.model.CountryTable
  */
-public class CountryDaoImpl extends AbstractDao implements CountryDao {
+public class CountryDaoImpl extends Dao implements CountryDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_ID_SQL6 = "SELECT id, area, code, calling_code, region, name FROM country WHERE id = ?";

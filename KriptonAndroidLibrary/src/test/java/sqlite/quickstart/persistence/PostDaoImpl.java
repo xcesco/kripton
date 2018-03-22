@@ -3,7 +3,7 @@ package sqlite.quickstart.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import sqlite.quickstart.model.Post;
  *  @see PostDao
  *  @see sqlite.quickstart.model.PostTable
  */
-public class PostDaoImpl extends AbstractDao implements PostDao {
+public class PostDaoImpl extends Dao implements PostDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_USER_ID_SQL3 = "SELECT user_id, id, title, body FROM post WHERE user_id = ?";

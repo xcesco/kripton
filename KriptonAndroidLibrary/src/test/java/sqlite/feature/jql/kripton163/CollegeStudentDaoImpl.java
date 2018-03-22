@@ -2,7 +2,7 @@ package sqlite.feature.jql.kripton163;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
@@ -18,7 +18,7 @@ import java.util.List;
  *  @see CollegeStudentDao
  *  @see CollegeStudentTable
  */
-public class CollegeStudentDaoImpl extends AbstractDao implements CollegeStudentDao {
+public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
   private static final String GET_STUDENTS_SQL1 = "select * from students where first_name like ? || '%' ";
 
   private static final String GET_STUDENTS_RAW_SQL2 = "SELECT first_name, surname, id FROM students WHERE first_name like ? || '%' ";

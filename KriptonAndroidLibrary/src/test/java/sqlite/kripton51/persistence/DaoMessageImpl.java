@@ -3,7 +3,7 @@ package sqlite.kripton51.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -25,7 +25,7 @@ import sqlite.kripton51.internal.MessageType;
  *  @see DaoMessage
  *  @see sqlite.kripton51.entities.MessageEntityTable
  */
-public class DaoMessageImpl extends AbstractDao implements DaoMessage {
+public class DaoMessageImpl extends Dao implements DaoMessage {
   private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ?";
 
   private static SQLiteStatement updateByIdPreparedStatement0;

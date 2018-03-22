@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -34,7 +34,7 @@ import java.util.Set;
  *  @see DaoChannel
  *  @see ChannelTable
  */
-public class DaoChannelImpl extends AbstractDao implements DaoChannel {
+public class DaoChannelImpl extends Dao implements DaoChannel {
   private static SQLiteStatement deleteContactBean1PreparedStatement0;
 
   private static SQLiteStatement deleteContactBean2PreparedStatement1;

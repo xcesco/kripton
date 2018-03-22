@@ -3,8 +3,9 @@ package sqlite.feature.livedata.persistence;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
@@ -21,7 +22,7 @@ import sqlite.feature.livedata.data.PersonTable;
  * @see AppDataSource
  * @see BindAppDaoFactory
  * @see DaoPerson
- * @see DaoPersonWorkImpl
+ * @see DaoPersonImpl
  * @see Person
  */
 public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
@@ -38,18 +39,20 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>dao instance</p>
    */
-  protected DaoPersonWorkImpl daoPerson = new DaoPersonWorkImpl(context);
+  protected DaoPersonImpl daoPerson = new DaoPersonImpl(context);
+
+  protected final Dao[] DAOS = {daoPerson};
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindAppDataSource(DataSourceOptions options) {
     super("app.db", 1, options);
   }
 
   @Override
-  public DaoPersonWorkImpl getDaoPerson() {
+  public DaoPersonImpl getDaoPerson() {
     return daoPerson;
   }
 
@@ -77,8 +80,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      DataSourceSingleThread currentContext=_daoFactorySingleThread.bindToThread();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentContext)) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
       }
     } catch(Throwable e) {
@@ -244,8 +246,13 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     }
   }
 
+  @Override
+  public Dao[] daos() {
+    return DAOS;
+  }
+
   public void clearCompiledStatements() {
-    DaoPersonWorkImpl.clearCompiledStatements();
+    DaoPersonImpl.clearCompiledStatements();
   }
 
   /**
@@ -303,27 +310,31 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   class DataSourceSingleThread implements BindAppDaoFactory {
-    private SQLContextInTransactionImpl _context;
+    private SQLContextInSessionImpl _context;
 
-    private DaoPersonWorkImpl _daoPerson;
+    protected DaoPersonImpl _daoPerson;
+
+    protected final Dao[] DAOS = {_daoPerson.getLatestEvent()};
 
     DataSourceSingleThread() {
-      _context=new SQLContextInTransactionImpl(BindAppDataSource.this);
+      _context=new SQLContextInSessionImpl(BindAppDataSource.this);
+      _daoPerson=new DaoPersonImpl(_context);
     }
 
     /**
      *
      * retrieve dao DaoPerson
      */
-    public DaoPersonWorkImpl getDaoPerson() {
-      if (_daoPerson==null) {
-        _daoPerson=new DaoPersonWorkImpl(_context);
-      }
+    public DaoPersonImpl getDaoPerson() {
       return _daoPerson;
     }
 
+    @Override
+    public Dao[] daos() {
+      return DAOS;
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

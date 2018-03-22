@@ -3,7 +3,7 @@ package sqlite.feature.dynamic.update;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -24,7 +24,7 @@ import sqlite.feature.dynamic.Person;
  *  @see PersonUpdateDAO
  *  @see sqlite.feature.dynamic.PersonTable
  */
-public class PersonUpdateDAOImpl extends AbstractDao implements PersonUpdateDAO {
+public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   private static final String SELECT_ONE_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || '%' ";
 
   private static final String SELEC_ALL_SQL2 = "SELECT id, name, surname, birth_city, birth_day FROM person";

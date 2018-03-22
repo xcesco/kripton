@@ -3,12 +3,12 @@ package sqlite.feature.rx.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
@@ -26,7 +26,7 @@ import sqlite.feature.rx.model.CountryTable;
  *  @see CountryDao
  *  @see CountryTable
  */
-public class CountryDaoImpl extends AbstractDao implements CountryDao {
+public class CountryDaoImpl extends Dao implements CountryDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_ID_SQL6 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE id = ?";
@@ -43,7 +43,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
 
   private static final String SELECT_BY_COUNTRY_SQL10 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE code = ?";
 
-  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+  private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public CountryDaoImpl(SQLContext context) {
     super(context);
@@ -123,7 +123,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createInsert(result));
+      subject.onNext(SQLiteEvent.createInsert(result));
     }
     bean.id=result;
 
@@ -253,7 +253,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
   }
@@ -300,7 +300,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createDelete(result));
+      subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
   }
@@ -626,7 +626,7 @@ public class CountryDaoImpl extends AbstractDao implements CountryDao {
     }
   }
 
-  public PublishSubject<SQLiteModification> subject() {
+  public PublishSubject<SQLiteEvent> subject() {
     return subject;
   }
 

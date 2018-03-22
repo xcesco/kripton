@@ -2,7 +2,7 @@ package sqlite.feature.performance.simple;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *  @see SimpleAddressDao
  *  @see SimpleAddressItemTable
  */
-public class SimpleAddressDaoImpl extends AbstractDao implements SimpleAddressDao {
+public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, address, city, state, phone FROM simple_address_item WHERE id=?";
 
   private static SQLiteStatement deleteAllPreparedStatement0;

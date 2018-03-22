@@ -3,7 +3,7 @@ package sqlite.feature.foreignKey;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see DaoBeanA_2
  *  @see BeanA_2Table
  */
-public class DaoBeanA_2Impl extends AbstractDao implements DaoBeanA_2 {
+public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
   private static final String SELECT_ALL_SQL4 = "SELECT id, value_string2 FROM bean_a_2";
 
   private static final String SELECT_BY_ID_SQL5 = "SELECT id, value_string2 FROM bean_a_2 WHERE id=?";

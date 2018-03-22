@@ -2,7 +2,7 @@ package sqlite.kripton41;
 
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -17,7 +17,7 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see DaoBeanDeleteOK
  *  @see Bean01Table
  */
-public class DaoBeanDeleteOKImpl extends AbstractDao implements DaoBeanDeleteOK {
+public class DaoBeanDeleteOKImpl extends Dao implements DaoBeanDeleteOK {
   private static SQLiteStatement deleteDistancePreparedStatement0;
 
   public DaoBeanDeleteOKImpl(SQLContext context) {

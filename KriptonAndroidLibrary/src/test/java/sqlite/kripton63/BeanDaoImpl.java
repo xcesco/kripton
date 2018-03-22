@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -35,7 +35,7 @@ import java.util.Map;
  *  @see BeanDao
  *  @see Bean63Table
  */
-public class BeanDaoImpl extends AbstractDao implements BeanDao {
+public class BeanDaoImpl extends Dao implements BeanDao {
   private static final String SELECT_ONE_SQL1 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63";
 
   private static final String SELECT_ONE_SQL2 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?";

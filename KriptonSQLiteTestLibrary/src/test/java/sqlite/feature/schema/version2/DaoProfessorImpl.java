@@ -2,7 +2,7 @@ package sqlite.feature.schema.version2;
 
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -19,7 +19,7 @@ import com.abubusoft.kripton.common.Triple;
  *  @see DaoProfessor
  *  @see ProfessorTable
  */
-public class DaoProfessorImpl extends AbstractDao implements DaoProfessor {
+public class DaoProfessorImpl extends Dao implements DaoProfessor {
   private static SQLiteStatement insertPreparedStatement0;
 
   public DaoProfessorImpl(SQLContext context) {

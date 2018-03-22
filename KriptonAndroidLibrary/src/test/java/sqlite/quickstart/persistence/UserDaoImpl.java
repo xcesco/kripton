@@ -3,7 +3,7 @@ package sqlite.quickstart.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -23,7 +23,7 @@ import sqlite.quickstart.model.UserTable;
  *  @see UserDao
  *  @see UserTable
  */
-public class UserDaoImpl extends AbstractDao implements UserDao {
+public class UserDaoImpl extends Dao implements UserDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_ALL_SQL1 = "SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc";

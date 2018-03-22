@@ -15,6 +15,7 @@ public class SQLContextImpl extends AbstractSQLContext {
 	private AbstractDataSource dataSource;
 
 	public SQLContextImpl(AbstractDataSource dataSource) {
+		super(false);
 		this.dataSource = dataSource;
 	}
 
@@ -77,10 +78,6 @@ public class SQLContextImpl extends AbstractSQLContext {
 		return content;
 	}
 
-	@Override
-	public boolean isSessionSupported() {	
-		return false;
-	}
 
 
 }

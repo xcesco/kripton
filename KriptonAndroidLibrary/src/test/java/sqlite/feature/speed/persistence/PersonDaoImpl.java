@@ -2,7 +2,7 @@ package sqlite.feature.speed.persistence;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -19,7 +19,7 @@ import sqlite.feature.speed.model.Person;
  *  @see PersonDao
  *  @see sqlite.feature.speed.model.PersonTable
  */
-public class PersonDaoImpl extends AbstractDao implements PersonDao {
+public class PersonDaoImpl extends Dao implements PersonDao {
   private static final String SELECT_ALL_SQL1 = "SELECT id, name, surname FROM person";
 
   private static final String SELECT_BY_ID_SQL2 = "SELECT id, name, surname FROM person WHERE id=?";

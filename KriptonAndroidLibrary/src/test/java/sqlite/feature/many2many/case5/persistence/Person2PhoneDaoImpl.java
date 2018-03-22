@@ -1,6 +1,6 @@
 package sqlite.feature.many2many.case5.persistence;
 
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 
 /**
@@ -12,7 +12,7 @@ import com.abubusoft.kripton.android.sqlite.SQLContext;
  *  @see GeneratedPerson2PhoneDao
  *  @see PersonPhoneNumberTable
  */
-public class Person2PhoneDaoImpl extends AbstractDao implements GeneratedPerson2PhoneDao {
+public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao {
   public Person2PhoneDaoImpl(SQLContext context) {
     super(context);
   }

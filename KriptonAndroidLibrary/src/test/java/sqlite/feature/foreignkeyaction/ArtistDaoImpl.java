@@ -3,7 +3,7 @@ package sqlite.feature.foreignkeyaction;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see ArtistDao
  *  @see ArtistTable
  */
-public class ArtistDaoImpl extends AbstractDao implements ArtistDao {
+public class ArtistDaoImpl extends Dao implements ArtistDao {
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, name FROM artist WHERE id=?";
 
   private static final String SELECT_ALL_SQL2 = "SELECT id, name FROM artist";

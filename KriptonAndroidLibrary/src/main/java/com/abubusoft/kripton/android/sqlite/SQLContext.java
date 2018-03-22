@@ -54,15 +54,8 @@ public interface SQLContext {
 	 * 
 	 * @return
 	 */
-	boolean isSessionSupported();
+	boolean isSessionOpened();
 
-	/**
-	 * Notify operation like INSERT, UPDATE and DELETE was done on DAO pass as
-	 * parameter
-	 * 
-	 * @param dao
-	 */
-	<D extends AbstractDao> void onSQLEvent(D dao, SQLiteModification eventType);
 
 	/**
 	 * Fired when transaction or shared connection is closed

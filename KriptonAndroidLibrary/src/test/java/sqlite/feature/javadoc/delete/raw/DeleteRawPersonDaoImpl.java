@@ -3,7 +3,7 @@ package sqlite.feature.javadoc.delete.raw;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -18,7 +18,7 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see DeleteRawPersonDao
  *  @see sqlite.feature.javadoc.PersonTable
  */
-public class DeleteRawPersonDaoImpl extends AbstractDao implements DeleteRawPersonDao {
+public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
   private static SQLiteStatement deleteOneBeanPreparedStatement0;
 
   private static SQLiteStatement deleteOneBeanPreparedStatement1;

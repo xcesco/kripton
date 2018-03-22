@@ -3,7 +3,7 @@ package sqlite.kripton209.model2;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see GeneratedUserDeviceDao
  *  @see UserDeviceTable
  */
-public class UserDeviceDaoImpl extends AbstractDao implements GeneratedUserDeviceDao {
+public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   private static final String SELECT_BY_ID_SQL5 = "SELECT id, user_id, device_id FROM user_2_device WHERE id=?";
 
   private static final String SELECT_BY_USER_ID_SQL6 = "SELECT id, user_id, device_id FROM user_2_device WHERE user_id=?";

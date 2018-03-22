@@ -14,6 +14,7 @@ public interface DaoPerson {
 
 	@BindSqlSelect(where="name=${name}")
 	List<Person> select(String name);
+	//LiveData<List<Person>> select(String name);
 	
 	@BindSqlInsert
 	void insert(Person bean);

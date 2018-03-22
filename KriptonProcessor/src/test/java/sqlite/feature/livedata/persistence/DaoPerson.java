@@ -7,14 +7,14 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-import android.arch.lifecycle.LiveData;
 import sqlite.feature.livedata.data.Person;
 
 @BindDao(Person.class)
 public interface DaoPerson {
 
 	@BindSqlSelect(where="name=${name}")
-	LiveData<List<Person>> select(String name);
+	List<Person> select(String name);
+	//LiveData<List<Person>> select(String name);
 	
 	@BindSqlInsert
 	void insert(Person bean);

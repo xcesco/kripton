@@ -1,12 +1,12 @@
 package sqlite.feature.typeadapter.kripton180.bean.insertselect;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
-import com.abubusoft.kripton.android.sqlite.SQLiteModification;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
@@ -31,8 +31,8 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
  *  @see EmployeeBeanInsertSelectDao
  *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
-public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements EmployeeBeanInsertSelectDao {
-  private static final PublishSubject<SQLiteModification> subject = PublishSubject.create();
+public class EmployeeBeanInsertSelectDaoImpl extends Dao implements EmployeeBeanInsertSelectDao {
+  private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public EmployeeBeanInsertSelectDaoImpl(SQLContext context) {
     super(context);
@@ -109,12 +109,12 @@ public class EmployeeBeanInsertSelectDaoImpl extends AbstractDao implements Empl
     String _sql=String.format("INSERT INTO employees (%s) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?", _contentValues.keyList());
     long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteModification.createInsert(result));
+      subject.onNext(SQLiteEvent.createInsert(result));
     }
     bean.id=result;
   }
 
-  public PublishSubject<SQLiteModification> subject() {
+  public PublishSubject<SQLiteEvent> subject() {
     return subject;
   }
 

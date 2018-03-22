@@ -3,7 +3,7 @@ package sqlite.feature.many2many;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see GeneratedPersonCityDao
  *  @see PersonCityTable
  */
-public class PersonCityDaoImpl extends AbstractDao implements GeneratedPersonCityDao {
+public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
   private static final String SELECT_BY_ID_SQL5 = "SELECT id, person_id, city_id FROM person_city WHERE id=?";
 
   private static final String SELECT_BY_PERSON_ID_SQL6 = "SELECT id, person_id, city_id FROM person_city WHERE person_id=?";

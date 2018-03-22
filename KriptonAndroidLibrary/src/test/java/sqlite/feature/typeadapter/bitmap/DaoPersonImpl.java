@@ -3,7 +3,7 @@ package sqlite.feature.typeadapter.bitmap;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -22,7 +22,7 @@ import java.util.List;
  *  @see DaoPerson
  *  @see PersonTable
  */
-public class DaoPersonImpl extends AbstractDao implements DaoPerson {
+public class DaoPersonImpl extends Dao implements DaoPerson {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String LIST_SQL1 = "SELECT id, image FROM person";

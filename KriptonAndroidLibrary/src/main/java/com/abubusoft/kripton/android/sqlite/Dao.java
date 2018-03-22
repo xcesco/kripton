@@ -27,10 +27,10 @@ import android.database.sqlite.SQLiteStatement;
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
- */
-public abstract class AbstractDao implements AutoCloseable {
+ */ 
+public abstract class Dao implements AutoCloseable {
 
-	public AbstractDao(SQLContext context) {
+	public Dao(SQLContext context) {
 		this._context = context;
 	}
 
@@ -74,6 +74,67 @@ public abstract class AbstractDao implements AutoCloseable {
 
 	protected StringBuilder sqlBuilder() {
 		return _context.sqlBuilder();
+	}
+
+	/**
+	 * <p>
+	 * Invoked when a transation or a shared connection is opened
+	 * </p>
+	 */
+	protected void onSessionOpened() {
+		latestEvent = null;
+	}
+
+	/**
+	 * <p>
+	 * Invoked when a SQL event is fired
+	 * 
+	 * @param event
+	 */
+	protected void onEvent(SQLiteEvent event) {
+		latestEvent = event;
+	}
+
+	protected SQLiteEvent latestEvent;
+
+	/**
+	 * <p>
+	 * Retrieve latest event.
+	 * </p>
+	 * 
+	 * @return
+	 */
+	protected SQLiteEvent getLatestEvent() {
+		return latestEvent;
+	}
+
+	/**
+	 * <p>
+	 * Return true, if there is an event.
+	 * </p>
+	 * 
+	 * @return
+	 */
+	protected boolean hasLatestEvent() {
+		return latestEvent == null;
+	}
+	
+	/**
+	 * <p>clear latest event</p>
+	 */
+	protected void clearEvents() {
+		latestEvent=null;
+	}
+	
+	
+
+	/**
+	 * <p>
+	 * Invoked when a transation or a shared connection is closed
+	 * </p>
+	 */
+	protected void onSessionClosed() {
+		latestEvent = null;
 	}
 
 }

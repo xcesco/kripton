@@ -3,7 +3,7 @@ package sqlite.feature.join.model;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -21,7 +21,7 @@ import java.util.List;
  *  @see BookDao
  *  @see BookTable
  */
-public class BookDaoImpl extends AbstractDao implements BookDao {
+public class BookDaoImpl extends Dao implements BookDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String FIND_BOOKS_BORROWED_BY_USER_SQL1 = "SELECT * FROM book INNER JOIN loan ON loan.book_id == book.id WHERE loan.user_id == ? ";

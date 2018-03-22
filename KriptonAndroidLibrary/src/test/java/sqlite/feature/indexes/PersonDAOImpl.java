@@ -3,7 +3,7 @@ package sqlite.feature.indexes;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
@@ -24,7 +24,7 @@ import java.util.List;
  *  @see PersonDAO
  *  @see PersonTable
  */
-public class PersonDAOImpl extends AbstractDao implements PersonDAO {
+public class PersonDAOImpl extends Dao implements PersonDAO {
   private static SQLiteStatement insertOnePreparedStatement0;
 
   private static final String SELECT_ALL_SQL1 = "SELECT id, type_name, name_temp, date, name, surname, birth_city, birth_day FROM person ORDER BY type_name";

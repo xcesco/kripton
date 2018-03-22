@@ -3,7 +3,7 @@ package sqlite.feature.many2many.case4.persistence;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDao;
+import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -20,7 +20,7 @@ import sqlite.feature.many2many.case4.model.Person;
  *  @see PersonDao
  *  @see sqlite.feature.many2many.case4.model.PersonTable
  */
-public class PersonDaoImpl extends AbstractDao implements PersonDao {
+public class PersonDaoImpl extends Dao implements PersonDao {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static final String SELECT_BY_ID_SQL10 = "SELECT id, name, age FROM person WHERE id = ?";
