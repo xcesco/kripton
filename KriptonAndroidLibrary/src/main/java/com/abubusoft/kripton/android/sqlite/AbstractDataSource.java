@@ -20,6 +20,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -52,13 +53,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		}
 	};
 
-	public void onSessionOpened() {
+	protected void onSessionOpened() {
 		this.context.onSessionOpened();
 
 	}
 
-	public void onSessionClosed() {
-		this.context.onSessionClosed();
+	protected Set<String> onSessionClosed() {
+		return this.context.onSessionClosed();
 
 	}
 

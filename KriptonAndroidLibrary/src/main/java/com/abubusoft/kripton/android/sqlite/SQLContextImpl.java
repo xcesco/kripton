@@ -1,5 +1,8 @@
 package com.abubusoft.kripton.android.sqlite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -27,6 +30,7 @@ public class SQLContextImpl extends AbstractSQLContext {
 		}
 
 	};
+	
 
 	private final KriptonContentValues contentValuesForUpdate = new KriptonContentValues();
 
@@ -77,7 +81,5 @@ public class SQLContextImpl extends AbstractSQLContext {
 
 		return content;
 	}
-
-
 
 }

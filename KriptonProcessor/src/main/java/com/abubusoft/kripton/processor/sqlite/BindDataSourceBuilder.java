@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -355,7 +356,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		codeBlockBuilder.add("}");
 
 		if (generateFields) {
-			FieldSpec.Builder fbuilder = FieldSpec.builder(ArrayTypeName.of(Dao.class), "DAOS", Modifier.FINAL, Modifier.PROTECTED).initializer(codeBlockBuilder.build());
+			FieldSpec.Builder fbuilder = FieldSpec.builder(ArrayTypeName.of(Dao.class), "DAOS", Modifier.PROTECTED).initializer(codeBlockBuilder.build());
 			classBuilder.addField(fbuilder.build());
 
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("daos").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(ArrayTypeName.of(Dao.class));
@@ -391,7 +392,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 				clazzBuilder.addField(FieldSpec.builder(daoImplName, daoFieldName, Modifier.PROTECTED).build());
 				constructorBuilder.addStatement("$L=new $T(_context)", daoFieldName, daoImplName);
-				constructorBuilder.add addStatement("DAO=", daoFieldName, daoImplName);
+				constructorBuilder.addStatement("DAOS=new $T[$L]", Dao.class, schema.getEntitiesAsList().size());
+				for (int i=0;i<schema.getEntitiesAsList().size();i++) {
+					constructorBuilder.addStatement("DAOS[$L]=$L", i,daoFieldName);
+				}
 			}
 		}
 
@@ -399,7 +403,36 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		clazzBuilder.addMethod(constructorBuilder.build());
 
 		// build dao's array
+		{
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("daos")
+					.addAnnotation(Override.class)
+					.addModifiers(Modifier.PUBLIC)
+					.returns(ArrayTypeName.of(Dao.class));
+			methodBuilder.addStatement("return DAOS");
+			
+			clazzBuilder.addMethod(methodBuilder.build());
+		}
 		
+		// onSessionOpened
+		{
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onSessionOpened")					
+					.addModifiers(Modifier.PROTECTED)
+					.returns(Void.TYPE);
+			methodBuilder.addStatement("_context.onSessionOpened()");
+			
+			clazzBuilder.addMethod(methodBuilder.build());
+		}
+		
+		// onSessionClosed
+		{
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onSessionClosed")					
+					.addModifiers(Modifier.PROTECTED)
+					.returns(ParameterizedTypeName.get(Set.class, String.class));
+			methodBuilder.addStatement("return _context.onSessionClosed()");
+			
+			clazzBuilder.addMethod(methodBuilder.build());
+		}
+				
 
 		// build method bindToThread
 		{

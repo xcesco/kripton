@@ -2,6 +2,7 @@ package sqlite.feature.livedata.persistence;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -72,10 +73,12 @@ public class DaoPersonWorkImpl extends Dao implements DaoPerson {
 			}
 		};
 		
-		context.registryLiveData(builder);
+		registryLiveData(builder);
 		
 		return builder.getLiveData();
 	}
+	
+	static Collection<WeakReference<ComputableLiveData<?>>> cld=Collections.synchronizedCollection(new HashSet<WeakReference<ComputableLiveData<?>>>());
 		
 	static void registryLiveData(ComputableLiveData<?> value) {		
 		cld.add(new WeakReference<ComputableLiveData<?>>(value));
@@ -87,6 +90,10 @@ public class DaoPersonWorkImpl extends Dao implements DaoPerson {
 				item.get().invalidate();
 			}
 		}
+	}
+	
+	static void sendEvent() {
+		
 	}
 	
 	  /**
@@ -154,7 +161,7 @@ public class DaoPersonWorkImpl extends Dao implements DaoPerson {
 	    // insert operation
 	    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
 	    
-	    this._context.onSQLEvent("sqlite.feature.livedata.persistence.DaoPersonImpl", SQLiteEvent.createInsert(result));
+	    this._context.sendSQLEvent("DaoPerson");
 	    
 	    bean.id=result;
 	  }

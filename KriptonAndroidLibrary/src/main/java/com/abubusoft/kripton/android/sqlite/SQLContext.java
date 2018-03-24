@@ -1,5 +1,7 @@
 package com.abubusoft.kripton.android.sqlite;
 
+import java.util.Set;
+
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
@@ -54,11 +56,20 @@ public interface SQLContext {
 	 * 
 	 * @return
 	 */
-	boolean isSessionOpened();
+	boolean isInSession();
 
+	/**
+	 * Registry an SQL event for a DAO
+	 * 
+	 * @param daoKey
+	 */
+	void registrySQLEvent(String daoKey);
 
 	/**
 	 * Fired when transaction or shared connection is closed
+	 * 
+	 * @return
+	 * 		all daoKey that registry an event
 	 */
-	void onSessionClosed();
+	Set<String> onSessionClosed();
 }

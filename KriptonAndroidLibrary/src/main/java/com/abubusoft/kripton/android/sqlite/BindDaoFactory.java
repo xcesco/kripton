@@ -31,5 +31,6 @@ public interface BindDaoFactory {
 	 * @return
 	 */
 	Dao[] daos();
+	
 
 }
