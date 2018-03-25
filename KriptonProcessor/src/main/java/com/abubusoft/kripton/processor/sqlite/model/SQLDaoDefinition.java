@@ -198,6 +198,16 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 
 	public Set<TypeName> implementedInterface;
 
+	/**
+	 * Example: DAO_PERSON_UID
+	 */
+	public String daoUidName;
+
+	/**
+	 * Example: 0 to n
+	 */
+	public int daoUidValue;
+
 	public String generateJava2ContentSerializer(TypeName paramTypeName) {
 		if (!managedParams.containsKey(paramTypeName)) {
 			managedParams.put(paramTypeName, "" + (managedParams.size() + 1));

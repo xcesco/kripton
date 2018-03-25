@@ -34,9 +34,15 @@ public abstract class SelectBuilderUtility {
 	}
 
 	public enum SelectType {
-		BEAN(SelectBeanHelper.class, true), CURSOR(SelectRawHelper.class, false), LIST_BEAN(SelectBeanListHelper.class, true), LIST_SCALAR(SelectScalarListHelper.class, false), LISTENER_BEAN(
-				SelectBeanListenerHelper.class,
-				true), LISTENER_CURSOR(SelectRawListenerHelper.class, false), PAGED_RESULT(SelectPaginatedResultHelper.class, true), SCALAR(SelectScalarHelper.class, false);
+		BEAN(SelectBeanHelper.class, true), 
+		CURSOR(SelectRawHelper.class, false),
+		LIST_BEAN(SelectBeanListHelper.class, true), 
+		LIST_SCALAR(SelectScalarListHelper.class, false), 
+		LISTENER_BEAN(SelectBeanListenerHelper.class, true), 
+		LISTENER_CURSOR(SelectRawListenerHelper.class, false), 
+		PAGED_RESULT(SelectPaginatedResultHelper.class, true), 
+		SCALAR(SelectScalarHelper.class, false), 
+		LIVE_DATA(SelectBeanHelper.class, true);
 
 		private SelectCodeGenerator codeGenerator;
 
@@ -59,9 +65,9 @@ public abstract class SelectBuilderUtility {
 		/**
 		 * @return the codeGenerator
 		 */
-//		public SelectCodeGenerator getCodeGenerator() {
-//			return codeGenerator;
-//		}
+		// public SelectCodeGenerator getCodeGenerator() {
+		// return codeGenerator;
+		// }
 
 		/**
 		 * if true, map cursor fields to bean attributes.

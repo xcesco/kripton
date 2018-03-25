@@ -38,7 +38,6 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
-import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource.AbstractExecutable;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource.OnErrorListener;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
@@ -275,7 +274,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		generateOnConfigure(useForeignKey);
 
 		// generate
-		generateDaoArray(classBuilder, schema, "", true);
+		generateDaoUids(classBuilder, schema, "");
 
 		//
 		// generate prepared statement cleaner
@@ -344,27 +343,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * @param orderedEntities
 	 * @return 
 	 */
-	public static CodeBlock.Builder generateDaoArray(TypeSpec.Builder classBuilder, SQLiteDatabaseSchema schema, String prefix, boolean generateFields) {
-		CodeBlock.Builder codeBlockBuilder = CodeBlock.builder();
-		codeBlockBuilder.add("{");
-		String separator = "";
-		for (SQLDaoDefinition dao : schema.getCollection()) {
-			String daoFieldName = prefix + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getName());
-			codeBlockBuilder.add(separator + daoFieldName);
-			separator = ",";
-		}
-		codeBlockBuilder.add("}");
-
-		if (generateFields) {
-			FieldSpec.Builder fbuilder = FieldSpec.builder(ArrayTypeName.of(Dao.class), "DAOS", Modifier.PROTECTED).initializer(codeBlockBuilder.build());
-			classBuilder.addField(fbuilder.build());
-
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("daos").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).returns(ArrayTypeName.of(Dao.class));
-			methodBuilder.addStatement("return DAOS");
-			classBuilder.addMethod(methodBuilder.build());
-		}
+	public static void generateDaoUids(TypeSpec.Builder classBuilder, SQLiteDatabaseSchema schema, String prefix) {
 		
-		return codeBlockBuilder;
+		for (SQLDaoDefinition dao : schema.getCollection()) {			
+			
+			classBuilder.addField(FieldSpec.builder(Integer.TYPE, dao.daoUidName, Modifier.FINAL, Modifier.STATIC, Modifier.PUBLIC).initializer(""+dao.daoUidValue)
+					.addJavadoc("Unique identifier for Dao $L\n", dao.getName())
+					.build());		
+		}		
 	}
 
 	private void generateDataSourceSingleThread(SQLiteDatabaseSchema schema, String dataSourceName) {
@@ -387,31 +373,23 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			{
 				String daoFieldName = "_" + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getName());
 				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName()).addModifiers(Modifier.PUBLIC).addJavadoc("\nretrieve dao $L\n", dao.getName()).returns(daoImplName);
+				methodBuilder.beginControlFlow("if ($L==null)",daoFieldName);
+				methodBuilder.addStatement("$L=new $T(_context)",daoFieldName, daoImplName);
+				methodBuilder.endControlFlow();
 				methodBuilder.addStatement("return $L", daoFieldName);
 				clazzBuilder.addMethod(methodBuilder.build());
 
 				clazzBuilder.addField(FieldSpec.builder(daoImplName, daoFieldName, Modifier.PROTECTED).build());
-				constructorBuilder.addStatement("$L=new $T(_context)", daoFieldName, daoImplName);
-				constructorBuilder.addStatement("DAOS=new $T[$L]", Dao.class, schema.getEntitiesAsList().size());
-				for (int i=0;i<schema.getEntitiesAsList().size();i++) {
-					constructorBuilder.addStatement("DAOS[$L]=$L", i,daoFieldName);
-				}
+//				constructorBuilder.addStatement("$L=new $T(_context)", daoFieldName, daoImplName);
+//				constructorBuilder.addStatement("DAOS=new $T[$L]", Dao.class, schema.getEntitiesAsList().size());
+//				for (int i=0;i<schema.getEntitiesAsList().size();i++) {
+//					constructorBuilder.addStatement("DAOS[$L]=$L", i,daoFieldName);
+//				}
 			}
 		}
 
 		// constructor
 		clazzBuilder.addMethod(constructorBuilder.build());
-
-		// build dao's array
-		{
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("daos")
-					.addAnnotation(Override.class)
-					.addModifiers(Modifier.PUBLIC)
-					.returns(ArrayTypeName.of(Dao.class));
-			methodBuilder.addStatement("return DAOS");
-			
-			clazzBuilder.addMethod(methodBuilder.build());
-		}
 		
 		// onSessionOpened
 		{

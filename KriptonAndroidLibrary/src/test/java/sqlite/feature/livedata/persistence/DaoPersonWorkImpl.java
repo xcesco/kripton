@@ -92,8 +92,8 @@ public class DaoPersonWorkImpl extends Dao implements DaoPerson {
 		}
 	}
 	
-	static void sendEvent() {
-		
+	void sendEvent() {
+		_context.registrySQLEvent("sqlite.feature.livedata.persistence.DaoPersonWorkImpl");
 	}
 	
 	  /**

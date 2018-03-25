@@ -24,13 +24,5 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
  *
  */
 public interface BindDaoFactory {
-	
-	/**
-	 * <p>Retrieve the Dao array.</p>
-	 * 
-	 * @return
-	 */
-	Dao[] daos();
-	
 
 }

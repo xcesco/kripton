@@ -3,7 +3,6 @@ package sqlite.feature.livedata.persistence;
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
-import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
@@ -33,6 +32,11 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   static BindAppDataSource instance;
 
   /**
+   * Unique identifier for Dao DaoPerson
+   */
+  public static final int DAO_PERSON_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new PersonTable()};
@@ -41,8 +45,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    * <p>dao instance</p>
    */
   protected DaoPersonImpl daoPerson = new DaoPersonImpl(context);
-
-  protected Dao[] DAOS = {daoPerson};
 
   /**
    * Used only in transactions (that can be executed one for time */
@@ -81,11 +83,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     try {
       connection.beginTransaction();
-      DataSourceSingleThread ds = _daoFactorySingleThread.bindToThread();
-      ds.onSessionOpened();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(ds)) {    	  
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
         connection.setTransactionSuccessful();
-        Set<String> c = ds.onSessionClosed();
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -124,12 +123,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
     try {
       if (commands!=null) {
-    	DataSourceSingleThread ds = new DataSourceSingleThread();
-    	ds.onSessionOpened();
-        T result=commands.onExecute(ds);
-        Set<String> c = ds.onSessionClosed();
-        
-        return result;
+        return commands.onExecute(new DataSourceSingleThread());
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -255,11 +249,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     }
   }
 
-  @Override
-  public Dao[] daos() {
-    return DAOS;
-  }
-
   public void clearCompiledStatements() {
     DaoPersonImpl.clearCompiledStatements();
   }
@@ -325,9 +314,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindAppDataSource.this);
-      _daoPerson=new DaoPersonImpl(_context);
-      DAOS=new Dao[1];
-      DAOS[0]=_daoPerson;
     }
 
     /**
@@ -335,12 +321,10 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      * retrieve dao DaoPerson
      */
     public DaoPersonImpl getDaoPerson() {
+      if (_daoPerson==null) {
+        _daoPerson=new DaoPersonImpl(_context);
+      }
       return _daoPerson;
-    }
-
-    @Override
-    public Dao[] daos() {
-      return DAOS;
     }
 
     protected void onSessionOpened() {

@@ -127,7 +127,8 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 
 			// dao with external connections
 			{
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName()).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).addJavadoc("\nretrieve dao $L\n", dao.getName())
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + dao.getName())
+						.addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).addJavadoc("\nretrieve dao $L\n", dao.getName())
 						.returns(daoImplName);
 				classBuilder.addMethod(methodBuilder.build());
 			}

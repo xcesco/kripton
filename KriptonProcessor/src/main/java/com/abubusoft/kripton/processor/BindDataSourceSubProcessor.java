@@ -28,6 +28,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.ColumnType;
@@ -93,6 +94,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
 
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
@@ -166,6 +168,17 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				// info(msg);
 				error(null, msg);
 				return true;
+			}
+
+			// for each dao definition, we define its uid
+			int uid = 0;
+			for (SQLDaoDefinition daoDefinition : currentSchema.getCollection()) {
+				String daoFieldName = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, daoDefinition.getName()) + "_UID";
+
+				daoDefinition.daoUidName = daoFieldName;
+				daoDefinition.daoUidValue = uid;
+
+				uid++;
 			}
 
 			schemas.add(currentSchema);
@@ -704,7 +717,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);
 		if (contentProviderAnnotation != null) {
-
 			schema.generateContentProvider = true;
 			schema.contentProvider = new SQLiteModelContentProvider();
 			schema.contentProvider.authority = contentProviderAnnotation.authority();

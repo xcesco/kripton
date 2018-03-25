@@ -62,6 +62,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
+import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -122,7 +123,9 @@ public abstract class SqlSelectBuilder {
 			TypeName elementName = returnParameterizedTypeName.typeArguments.get(0);
 
 			Class<?> wrapperClazz = Class.forName(returnParameterizedClassName.toString());
-			if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
+			if (LiveData.class.isAssignableFrom(wrapperClazz)) {
+				selectResultType = SelectBuilderUtility.SelectType.LIVE_DATA;
+			} else if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
 				// method must have pageSize, statically or dynamically
 				// defined
 				AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
