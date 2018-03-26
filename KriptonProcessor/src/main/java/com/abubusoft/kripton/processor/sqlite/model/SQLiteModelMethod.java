@@ -41,6 +41,7 @@ import com.abubusoft.kripton.android.sqlite.NoAdapter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -57,7 +58,11 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+
+import android.arch.lifecycle.LiveData;
 
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement, JQLContext {
 
@@ -147,6 +152,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public String contentProviderEntryPathTemplate;
 
 	public PrependType dynamicWherePrepend;
+
+	/**
+	 * if true, means that this method returns live data
+	 */
+	public boolean liveDataEnabled;
 
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
@@ -247,8 +257,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		String preparedJql = getJQLDeclared();
 
 		this.jql = JQLBuilder.buildJQL(this, preparedJql);
-		//
+		
+		// live data support
+		manageLiveDataDefinition();
 
+		// content provider generation
 		BindContentProviderEntry annotation = element.getAnnotation(BindContentProviderEntry.class);
 		BindContentProviderPath annotationPath = parent.getElement().getAnnotation(BindContentProviderPath.class);
 		if (annotationPath != null && annotation != null) {
@@ -332,6 +345,33 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 		}
 
+	}
+
+	/**
+	 * @throws ClassNotFoundException
+	 */
+	private void manageLiveDataDefinition()  {
+		this.liveDataEnabled=false;
+		TypeName returnTypeName = getReturnClass();
+		if (returnTypeName instanceof ParameterizedTypeName) {
+			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
+			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;			
+			Class<?> wrapperClazz;
+			try {
+				wrapperClazz = Class.forName(returnParameterizedClassName.toString());
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				throw(new KriptonRuntimeException(e));
+			}
+			
+			if (LiveData.class.isAssignableFrom(wrapperClazz)) {
+				this.liveDataEnabled=true;
+				setReturnClass(returnParameterizedTypeName.typeArguments.get(0));
+				// ASSERT: we have a live data
+				//selectResultType = SelectBuilderUtility.SelectType.LIVE_DATA;
+				
+			}
+		}
 	}
 
 	public boolean hasAdapterForParam(String paramName) {

@@ -34,7 +34,6 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -62,7 +61,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
 
-import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.net.Uri;
 
@@ -103,6 +101,7 @@ public abstract class SqlSelectBuilder {
 		AssertKripton.failWithInvalidMethodSignException(pageSize < 0, method, "in @%s(pageSize) must be set with positive number", BindSqlSelect.class.getSimpleName());
 		AssertKripton.failWithInvalidMethodSignException(pageSize > 0 && method.hasDynamicPageSizeConditions(), method, "can not define @%s(pageSize) and mark a method parameter with @%s ",
 				BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());
+							
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
@@ -123,9 +122,7 @@ public abstract class SqlSelectBuilder {
 			TypeName elementName = returnParameterizedTypeName.typeArguments.get(0);
 
 			Class<?> wrapperClazz = Class.forName(returnParameterizedClassName.toString());
-			if (LiveData.class.isAssignableFrom(wrapperClazz)) {
-				selectResultType = SelectBuilderUtility.SelectType.LIVE_DATA;
-			} else if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
+			if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
 				// method must have pageSize, statically or dynamically
 				// defined
 				AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
@@ -161,6 +158,10 @@ public abstract class SqlSelectBuilder {
 
 		// generate select method
 		selectResultType.generate(builder, method, returnTypeName);
+		
+		if (method.liveDataEnabled) {
+			
+		}
 
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate UPDATE or DELETE for content provider to

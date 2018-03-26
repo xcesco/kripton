@@ -63,7 +63,8 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, daoDefinition.getEntity());
 
 		{
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+			MethodSpec.Builder methodBuilder=generateMethodBuilder(method);
+			
 			// create PaginatedResult
 
 			String separator = "";
@@ -94,6 +95,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		}
 
 	}
+
 
 	/**
 	 * Used to generate specialized Paged Result classes;

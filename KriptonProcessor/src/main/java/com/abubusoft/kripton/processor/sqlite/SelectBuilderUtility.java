@@ -41,8 +41,7 @@ public abstract class SelectBuilderUtility {
 		LISTENER_BEAN(SelectBeanListenerHelper.class, true), 
 		LISTENER_CURSOR(SelectRawListenerHelper.class, false), 
 		PAGED_RESULT(SelectPaginatedResultHelper.class, true), 
-		SCALAR(SelectScalarHelper.class, false), 
-		LIVE_DATA(SelectBeanHelper.class, true);
+		SCALAR(SelectScalarHelper.class, false);		
 
 		private SelectCodeGenerator codeGenerator;
 
