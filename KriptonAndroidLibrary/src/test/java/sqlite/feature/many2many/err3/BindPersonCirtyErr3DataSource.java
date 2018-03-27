@@ -10,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
-import java.util.Set;
 import sqlite.feature.many2many.CityTable;
 import sqlite.feature.many2many.PersonTable;
 
@@ -74,7 +73,8 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   protected PersonCityErr1DaoImpl personCityErr1Dao = new PersonCityErr1DaoImpl(context);
 
   /**
-   * Used only in transactions (that can be executed one for time */
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPersonCirtyErr3DataSource(DataSourceOptions options) {
@@ -97,7 +97,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
    *
    * @param transaction
    * 	transaction to execute
@@ -107,7 +107,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode.</p>
    *
    * @param transaction
    * 	transaction to execute
@@ -118,12 +118,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     boolean needToOpened=!this.isOpenInWriteMode();
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+    DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
+    currentDaoFactory.onSessionOpened();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
+        currentDaoFactory.onSessionClosed();
       }
     } catch(Throwable e) {
+      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -148,7 +152,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   }
 
   /**
-   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
+   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
    * @param commands
    * 	batch to execute
@@ -158,9 +162,11 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+    DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
+    currentDaoFactory.onSessionOpened();
     try {
       if (commands!=null) {
-        return commands.onExecute(new DataSourceSingleThread());
+        return commands.onExecute(currentDaoFactory);
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -168,6 +174,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       throw(e);
     } finally {
       if (needToOpened) { close(); }
+      currentDaoFactory.onSessionClosed();
     }
     return null;
   }
@@ -418,11 +425,12 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     }
 
     protected void onSessionOpened() {
-      _context.onSessionOpened();
     }
 
-    protected Set<Integer> onSessionClosed() {
-      return _context.onSessionClosed();
+    protected void onSessionClear() {
+    }
+
+    protected void onSessionClosed() {
     }
 
     public DataSourceSingleThread bindToThread() {

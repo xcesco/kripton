@@ -136,8 +136,13 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				methodBuilder.addStatement("long result = $T.insert($L, _contentValues)", KriptonDatabaseWrapper.class, psName);		
 			}			
 			
-			if (method.getParent().getParent().generateRx) {
+			if (daoDefinition.getParent().generateRx) {
 				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);				
+			}
+			
+			// support for livedata
+			if (daoDefinition.hasLiveData()) {
+				methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result)");
 			}
 
 			// define return value

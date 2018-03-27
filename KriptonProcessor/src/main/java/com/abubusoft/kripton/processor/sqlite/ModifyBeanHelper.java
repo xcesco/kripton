@@ -109,6 +109,12 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		methodBuilder.addCode("\n");
 
 		generateModifyQueryCommonPart(method, classBuilder, methodBuilder);
+		
+		SQLDaoDefinition daoDefinition = method.getParent();
+		// support for livedata
+		if (daoDefinition.hasLiveData()) {
+			methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result)");
+		}
 
 		// define return value
 		buildReturnCode(methodBuilder, updateMode, method, returnType);

@@ -9,8 +9,10 @@ import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import io.reactivex.subjects.PublishSubject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +38,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   private static SQLiteStatement updatePreparedStatement1;
 
   static Collection<WeakReference<ComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<ComputableLiveData<?>>>());
-  ;
+
+  private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public DaoPersonImpl(SQLContext context) {
     super(context);
@@ -220,7 +223,11 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    if (result>0) {
+      subject.onNext(SQLiteEvent.createInsert(result));
+    }
     bean.id=result;
+    registryEvent(result>0?1:0);
   }
 
   /**
@@ -283,14 +290,37 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+    if (result>0) {
+      subject.onNext(SQLiteEvent.createUpdate(result));
+    }
+    registryEvent(result);
   }
 
-  protected void sendEvent() {
-    _context.registrySQLEvent(BindAppDataSource.DAO_PERSON_UID);
+  protected void registryEvent(int affectedRows) {
+    if (affectedRows==0) {
+      return;
+    }
+    if (_context.isInSession()) {
+      _context.registrySQLEvent(BindAppDataSource.DAO_PERSON_UID);
+    } else {
+      invalidateLiveData();
+    }
   }
 
   protected void registryLiveData(ComputableLiveData<?> value) {
     liveDatas.add(new WeakReference<ComputableLiveData<?>>(value));
+  }
+
+  protected void invalidateLiveData() {
+    for (WeakReference<ComputableLiveData<?>> item: liveDatas) {
+      if (item.get()!=null) {
+        item.get().invalidate();
+      }
+    }
+  }
+
+  public PublishSubject<SQLiteEvent> subject() {
+    return subject;
   }
 
   public static void clearCompiledStatements() {

@@ -26,7 +26,6 @@ import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
-import java.util.Set;
 import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
 /**
@@ -67,7 +66,8 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   protected Scheduler globalObserveOn;
 
   /**
-   * Used only in transactions (that can be executed one for time */
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindKripton180RawInsertSelectDataSource(DataSourceOptions options) {
@@ -96,16 +96,20 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
         boolean needToOpened=!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode();
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
+        currentDaoFactory.onSessionOpened();
         try {
           connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter)) {
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
             connection.setTransactionSuccessful();
+            currentDaoFactory.onSessionClosed();
           }
           emitter.onComplete();
         } catch(Throwable e) {
           Logger.error(e.getMessage());
           e.printStackTrace();
           emitter.onError(e);
+          currentDaoFactory.onSessionClear();
         } finally {
           try {
             connection.endTransaction();
@@ -129,16 +133,20 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
         boolean needToOpened=!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode();
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
+        currentDaoFactory.onSessionOpened();
         try {
           connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter)) {
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
             connection.setTransactionSuccessful();
+            currentDaoFactory.onSessionClosed();
           }
           // no onComplete;
         } catch(Throwable e) {
           Logger.error(e.getMessage());
           e.printStackTrace();
           emitter.onError(e);
+          currentDaoFactory.onSessionClear();
         } finally {
           try {
             connection.endTransaction();
@@ -162,16 +170,20 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
         boolean needToOpened=!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode();
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
+        currentDaoFactory.onSessionOpened();
         try {
           connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter)) {
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
             connection.setTransactionSuccessful();
+            currentDaoFactory.onSessionClosed();
           }
           emitter.onComplete();
         } catch(Throwable e) {
           Logger.error(e.getMessage());
           e.printStackTrace();
           emitter.onError(e);
+          currentDaoFactory.onSessionClear();
         } finally {
           try {
             connection.endTransaction();
@@ -195,16 +207,20 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
         boolean needToOpened=!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode();
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+        DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
+        currentDaoFactory.onSessionOpened();
         try {
           connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(_daoFactorySingleThread.bindToThread(), emitter)) {
+          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
             connection.setTransactionSuccessful();
+            currentDaoFactory.onSessionClosed();
           }
           // no onComplete;
         } catch(Throwable e) {
           Logger.error(e.getMessage());
           e.printStackTrace();
           emitter.onError(e);
+          currentDaoFactory.onSessionClear();
         } finally {
           try {
             connection.endTransaction();
@@ -227,8 +243,10 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       public void subscribe(ObservableEmitter<T> emitter) {
         boolean needToOpened=writeMode?!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode(): !BindKripton180RawInsertSelectDataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
+        currentDaoFactory.onSessionOpened();
         try {
-          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
+          if (batch != null) { batch.onExecute(currentDaoFactory, emitter); }
           emitter.onComplete();
         } catch(Throwable e) {
           Logger.error(e.getMessage());
@@ -236,6 +254,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           emitter.onError(e);
         } finally {
           if (needToOpened) { close(); }
+          currentDaoFactory.onSessionClosed();
         }
         return;
       }
@@ -256,8 +275,10 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       public void subscribe(SingleEmitter<T> emitter) {
         boolean needToOpened=writeMode?!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode(): !BindKripton180RawInsertSelectDataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
+        currentDaoFactory.onSessionOpened();
         try {
-          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
+          if (batch != null) { batch.onExecute(currentDaoFactory, emitter); }
           // no onComplete;
         } catch(Throwable e) {
           Logger.error(e.getMessage());
@@ -265,6 +286,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           emitter.onError(e);
         } finally {
           if (needToOpened) { close(); }
+          currentDaoFactory.onSessionClosed();
         }
         return;
       }
@@ -285,8 +307,10 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       public void subscribe(FlowableEmitter<T> emitter) {
         boolean needToOpened=writeMode?!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode(): !BindKripton180RawInsertSelectDataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
+        currentDaoFactory.onSessionOpened();
         try {
-          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
+          if (batch != null) { batch.onExecute(currentDaoFactory, emitter); }
           emitter.onComplete();
         } catch(Throwable e) {
           Logger.error(e.getMessage());
@@ -294,6 +318,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           emitter.onError(e);
         } finally {
           if (needToOpened) { close(); }
+          currentDaoFactory.onSessionClosed();
         }
         return;
       }
@@ -314,8 +339,10 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       public void subscribe(MaybeEmitter<T> emitter) {
         boolean needToOpened=writeMode?!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode(): !BindKripton180RawInsertSelectDataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+        DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
+        currentDaoFactory.onSessionOpened();
         try {
-          if (batch != null) { batch.onExecute(new DataSourceSingleThread(), emitter); }
+          if (batch != null) { batch.onExecute(currentDaoFactory, emitter); }
           // no onComplete;
         } catch(Throwable e) {
           Logger.error(e.getMessage());
@@ -323,6 +350,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           emitter.onError(e);
         } finally {
           if (needToOpened) { close(); }
+          currentDaoFactory.onSessionClosed();
         }
         return;
       }
@@ -342,7 +370,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
    *
    * @param transaction
    * 	transaction to execute
@@ -352,7 +380,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode.</p>
    *
    * @param transaction
    * 	transaction to execute
@@ -363,12 +391,16 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
     boolean needToOpened=!this.isOpenInWriteMode();
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+    DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
+    currentDaoFactory.onSessionOpened();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
+        currentDaoFactory.onSessionClosed();
       }
     } catch(Throwable e) {
+      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -393,7 +425,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   }
 
   /**
-   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
+   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
    * @param commands
    * 	batch to execute
@@ -403,9 +435,11 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+    DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
+    currentDaoFactory.onSessionOpened();
     try {
       if (commands!=null) {
-        return commands.onExecute(new DataSourceSingleThread());
+        return commands.onExecute(currentDaoFactory);
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -413,6 +447,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       throw(e);
     } finally {
       if (needToOpened) { close(); }
+      currentDaoFactory.onSessionClosed();
     }
     return null;
   }
@@ -647,11 +682,12 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
     }
 
     protected void onSessionOpened() {
-      _context.onSessionOpened();
     }
 
-    protected Set<Integer> onSessionClosed() {
-      return _context.onSessionClosed();
+    protected void onSessionClear() {
+    }
+
+    protected void onSessionClosed() {
     }
 
     public DataSourceSingleThread bindToThread() {

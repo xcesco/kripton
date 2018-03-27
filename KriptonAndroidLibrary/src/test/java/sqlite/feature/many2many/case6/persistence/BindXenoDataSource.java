@@ -10,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
-import java.util.Set;
 import sqlite.feature.many2many.case6.model.CountryTable;
 import sqlite.feature.many2many.case6.model.PersonPhoneTable;
 import sqlite.feature.many2many.case6.model.PersonTable;
@@ -75,7 +74,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonPhoneTable(), new CountryTable(), new PersonTable(), new PhoneNumberTable(), new PrefixConfigTable()};
+  static final SQLiteTable[] TABLES = {new PrefixConfigTable(), new PersonTable(), new PhoneNumberTable(), new CountryTable(), new PersonPhoneTable()};
 
   /**
    * <p>dao instance</p>
@@ -103,7 +102,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   protected PersonDaoImpl personDao = new PersonDaoImpl(context);
 
   /**
-   * Used only in transactions (that can be executed one for time */
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindXenoDataSource(DataSourceOptions options) {
@@ -136,7 +136,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
    *
    * @param transaction
    * 	transaction to execute
@@ -146,7 +146,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode.</p>
    *
    * @param transaction
    * 	transaction to execute
@@ -157,12 +157,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     boolean needToOpened=!this.isOpenInWriteMode();
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+    DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
+    currentDaoFactory.onSessionOpened();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
+        currentDaoFactory.onSessionClosed();
       }
     } catch(Throwable e) {
+      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -187,7 +191,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
-   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
+   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
    * @param commands
    * 	batch to execute
@@ -197,9 +201,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+    DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
+    currentDaoFactory.onSessionOpened();
     try {
       if (commands!=null) {
-        return commands.onExecute(new DataSourceSingleThread());
+        return commands.onExecute(currentDaoFactory);
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -207,6 +213,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       throw(e);
     } finally {
       if (needToOpened) { close(); }
+      currentDaoFactory.onSessionClosed();
     }
     return null;
   }
@@ -260,10 +267,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
@@ -272,10 +279,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
@@ -284,10 +291,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -328,10 +335,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
@@ -340,10 +347,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
@@ -352,10 +359,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -509,11 +516,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
 
     protected void onSessionOpened() {
-      _context.onSessionOpened();
     }
 
-    protected Set<Integer> onSessionClosed() {
-      return _context.onSessionClosed();
+    protected void onSessionClear() {
+    }
+
+    protected void onSessionClosed() {
     }
 
     public DataSourceSingleThread bindToThread() {

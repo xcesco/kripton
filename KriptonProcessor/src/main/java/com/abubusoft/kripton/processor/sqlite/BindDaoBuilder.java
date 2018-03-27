@@ -55,7 +55,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -72,6 +71,12 @@ import io.reactivex.subjects.PublishSubject;
  *
  */
 public class BindDaoBuilder implements SQLiteModelElementVisitor {
+
+	public static final String METHOD_NAME_REGISTRY_EVENT = "registryEvent";
+
+	public static final String METHOD_NAME_INVALIDATE_LIVE_DATA = "invalidateLiveData";
+
+	public static final String METHOD_NAME_REGISTRY_LIVE_DATA = "registryLiveData";
 
 	/**
 	 * Suffix to add to DAO interface to define DAO implementation typeName.
@@ -156,10 +161,22 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		if (value.hasLiveData()) {
 			// method sendEvent
 			{
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("sendEvent").addModifiers(Modifier.PROTECTED);
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_REGISTRY_EVENT).addModifiers(Modifier.PROTECTED).addParameter(Integer.TYPE, "affectedRows");
+				methodBuilder.beginControlFlow("if (affectedRows==0)");
+				methodBuilder.addStatement("return");
+				methodBuilder.endControlFlow();
+				
+				methodBuilder.beginControlFlow("if (_context.isInSession())");
 				methodBuilder.addStatement("_context.registrySQLEvent($T.$L)", BindDataSourceBuilder.generateDataSourceName(value.getParent()), value.daoUidName);
+				methodBuilder.nextControlFlow("else");
+				methodBuilder.addStatement("invalidateLiveData()");
+				methodBuilder.endControlFlow();
+				
 				builder.addMethod(methodBuilder.build());
+			}
 
+			// field liveDatas
+			{
 				FieldSpec.Builder liveDataBuilder = FieldSpec
 						.builder(ParameterizedTypeName.get(ClassName.get(Collection.class),
 								ParameterizedTypeName.get(ClassName.get(WeakReference.class),
@@ -167,20 +184,32 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 								"liveDatas")
 						.addModifiers(Modifier.STATIC)
 						.initializer(CodeBlock.builder()
-								.addStatement("$T.synchronizedCollection(new $T())", Collections.class, ParameterizedTypeName.get(ClassName.get(HashSet.class), ParameterizedTypeName
+								.add("$T.synchronizedCollection(new $T())", Collections.class, ParameterizedTypeName.get(ClassName.get(HashSet.class), ParameterizedTypeName
 										.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class)))))
 								.build());
 				builder.addField(liveDataBuilder.build());
 			}
+			
+			// registryLiveData
 			{
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("registryLiveData").addModifiers(Modifier.PROTECTED)
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_REGISTRY_LIVE_DATA).addModifiers(Modifier.PROTECTED)
 						.addParameter(ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class)), "value");
 				methodBuilder.addStatement("liveDatas.add(new $T(value))",
 						ParameterizedTypeName.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class))));
 				builder.addMethod(methodBuilder.build());
 			}
 
-			// TODO invalidateLiveData
+			// invalidateLiveData
+			{
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_INVALIDATE_LIVE_DATA).addModifiers(Modifier.PROTECTED);
+				methodBuilder.beginControlFlow("for ($T item: liveDatas)",
+						ParameterizedTypeName.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class))));
+				methodBuilder.beginControlFlow("if (item.get()!=null)");
+				methodBuilder.addStatement("item.get().invalidate()");
+				methodBuilder.endControlFlow();
+				methodBuilder.endControlFlow();
+				builder.addMethod(methodBuilder.build());
+			}
 
 		}
 

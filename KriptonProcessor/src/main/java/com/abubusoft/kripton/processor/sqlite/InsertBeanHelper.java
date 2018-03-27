@@ -105,6 +105,11 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 				methodBuilder.addCode("$L.$L(result);\n", method.getParameters().get(0).value0, PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
 			}
 		}
+		
+		// support for livedata
+		if (daoDefinition.hasLiveData()) {
+			methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result>0?1:0)");
+		}
 
 		// define return value
 		if (returnType == TypeName.VOID) {

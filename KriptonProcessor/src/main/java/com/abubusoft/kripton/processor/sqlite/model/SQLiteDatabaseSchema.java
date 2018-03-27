@@ -46,9 +46,11 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public final String populatorClazz;
 
-	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
+	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL
+			.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
-	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
+	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL
+			.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	protected Map<String, SQLEntity> entities = new HashMap<String, SQLEntity>();
 
@@ -115,8 +117,9 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		return daoNameSet;
 	}
 
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask, boolean generateCursor, boolean generateRx,
-			List<String> daoIntoDataSource, boolean inMemory, String populator) {
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log,
+			boolean asyncTask, boolean generateCursor, boolean generateRx, List<String> daoIntoDataSource,
+			boolean inMemory, String populator) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -136,11 +139,14 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
 		List<? extends AnnotationMirror> annotationMirrors = item.getAnnotationMirrors();
 		for (AnnotationMirror annotationMirror : annotationMirrors) {
-			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
+			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
+					.getElementValues();
 
 			if (BindDataSource.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
-				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
-					// The 'entry.getKey()' here is the annotation attribute name.
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
+						.entrySet()) {
+					// The 'entry.getKey()' here is the annotation attribute
+					// name.
 					String key = entry.getKey().getSimpleName().toString();
 					entry.getValue().accept(valueVisitor, key);
 				}
@@ -253,7 +259,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 			set.add(item.columnName);
 		}
 
-		AssertKripton.assertTrueOrInvalidMethodSignException(result != null && set.size() == 1, method, "in JQL attribute can not translate property %s", propertyName);
+		AssertKripton.assertTrueOrInvalidMethodSignException(result != null && set.size() == 1, method,
+				"in JQL attribute can not translate property %s", propertyName);
 
 		return result;
 	}
@@ -272,7 +279,22 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public ClassName getGeneratedClass() {
 		String packageName = getElement().asType().toString();
-		return TypeUtility.className(packageName.substring(0, packageName.lastIndexOf(".")) + "." + getGeneratedClassName());
+		return TypeUtility
+				.className(packageName.substring(0, packageName.lastIndexOf(".")) + "." + getGeneratedClassName());
+	}
+
+	/**
+	 * Returns true if any DAO exposes a method with live data
+	 * @return
+	 */
+	public boolean hasLiveData() {
+		for (SQLDaoDefinition dao : getCollection()) {
+			if (dao.hasLiveData()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

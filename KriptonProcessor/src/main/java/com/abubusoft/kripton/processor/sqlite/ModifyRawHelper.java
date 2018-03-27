@@ -188,6 +188,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addCode("\n");
 
 			ModifyBeanHelper.generateModifyQueryCommonPart(method, classBuilder, methodBuilder);
+			
+			// support for livedata
+			if (daoDefinition.hasLiveData()) {
+				methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result)");
+			}
 
 			// return management
 			// if true, field must be associate to ben attributes

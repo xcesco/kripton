@@ -252,6 +252,13 @@
 		
 		<dependency>
 			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-arch-integration</artifactId>
+			<version>${arch.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton</artifactId>
 			<version>${project.version}</version>
 		</dependency>
