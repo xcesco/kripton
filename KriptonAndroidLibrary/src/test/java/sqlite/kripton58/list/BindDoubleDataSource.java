@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   static BindDoubleDataSource instance;
 
   /**
+   * Unique identifier for Dao DoubleDao
+   */
+  public static final int DOUBLE_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new DoubleBeanTable()};
@@ -41,7 +47,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindDoubleDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
@@ -303,7 +309,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   class DataSourceSingleThread implements BindDoubleDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private DoubleDaoImpl _doubleDao;
+    protected DoubleDaoImpl _doubleDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindDoubleDataSource.this);
@@ -320,8 +326,15 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
       return _doubleDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

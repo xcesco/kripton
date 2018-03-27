@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
   static BindExampleDataSource instance;
 
   /**
+   * Unique identifier for Dao FileBeanDao
+   */
+  public static final int FILE_BEAN_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new FileBeanTable()};
@@ -41,7 +47,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindExampleDataSource(DataSourceOptions options) {
     super("example.db", 1, options);
@@ -303,7 +309,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
   class DataSourceSingleThread implements BindExampleDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private FileBeanDaoImpl _fileBeanDao;
+    protected FileBeanDaoImpl _fileBeanDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindExampleDataSource.this);
@@ -320,8 +326,15 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
       return _fileBeanDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

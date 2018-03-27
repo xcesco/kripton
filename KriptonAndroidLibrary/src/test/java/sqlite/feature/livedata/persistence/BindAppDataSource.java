@@ -331,7 +331,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       _context.onSessionOpened();
     }
 
-    protected Set<String> onSessionClosed() {
+    protected Set<Integer> onSessionClosed() {
       return _context.onSessionClosed();
     }
 

@@ -49,6 +49,12 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 		super(elementUtils, filer, model);
 	}
 
+	/**
+	 * Given a schema, generate its daoFactory name
+	 * 
+	 * @param schema
+	 * @return
+	 */
 	public static String generateDaoFactoryName(SQLiteDatabaseSchema schema) {
 		String schemaName = schema.getName();
 		schemaName = PREFIX + schemaName;

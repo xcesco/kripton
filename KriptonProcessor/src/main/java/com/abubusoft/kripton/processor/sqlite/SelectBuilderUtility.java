@@ -16,8 +16,8 @@
 package com.abubusoft.kripton.processor.sqlite;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeSpec.Builder;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -28,7 +28,9 @@ import com.squareup.javapoet.TypeSpec;
 public abstract class SelectBuilderUtility {
 
 	public interface SelectCodeGenerator {
-		void generate(TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(TypeSpec.Builder builder, boolean mapFields, SQLiteModelMethod method);
+		
+		void generateLiveData(TypeSpec.Builder classBuilder, SQLiteModelMethod method);
 
 		void setSelectResultTye(SelectType selectResultType);
 	}
@@ -57,8 +59,8 @@ public abstract class SelectBuilderUtility {
 			}
 		}
 
-		public void generate(TypeSpec.Builder builder, SQLiteModelMethod method, TypeName returnType) {
-			codeGenerator.generate(builder, this.isMapFields(), method, returnType);
+		public void generate(TypeSpec.Builder builder, SQLiteModelMethod method) {
+			codeGenerator.generate(builder, this.isMapFields(), method);
 		}
 
 		/**
@@ -75,6 +77,10 @@ public abstract class SelectBuilderUtility {
 		 */
 		public boolean isMapFields() {
 			return mapFields;
+		}
+
+		public void generateLiveData(Builder builder, SQLiteModelMethod method) {
+			codeGenerator.generateLiveData(builder, method);			
 		}
 	}
 

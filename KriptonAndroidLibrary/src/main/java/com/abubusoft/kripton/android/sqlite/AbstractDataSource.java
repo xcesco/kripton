@@ -58,7 +58,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	}
 
-	protected Set<String> onSessionClosed() {
+	protected Set<Integer> onSessionClosed() {
 		return this.context.onSessionClosed();
 
 	}

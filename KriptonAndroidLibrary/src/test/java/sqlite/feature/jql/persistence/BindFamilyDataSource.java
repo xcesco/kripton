@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.jql.entities.ChildTable;
 import sqlite.feature.jql.entities.PersonTable;
 
@@ -35,9 +36,19 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   static BindFamilyDataSource instance;
 
   /**
+   * Unique identifier for Dao DaoChild
+   */
+  public static final int DAO_CHILD_UID = 0;
+
+  /**
+   * Unique identifier for Dao DaoPerson
+   */
+  public static final int DAO_PERSON_UID = 1;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new ChildTable(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable(), new ChildTable()};
 
   /**
    * <p>dao instance</p>
@@ -51,7 +62,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindFamilyDataSource(DataSourceOptions options) {
     super("familiy", 1, options);
@@ -332,9 +343,9 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   class DataSourceSingleThread implements BindFamilyDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private DaoChildImpl _daoChild;
+    protected DaoChildImpl _daoChild;
 
-    private DaoPersonImpl _daoPerson;
+    protected DaoPersonImpl _daoPerson;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindFamilyDataSource.this);
@@ -362,8 +373,15 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
       return _daoPerson;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

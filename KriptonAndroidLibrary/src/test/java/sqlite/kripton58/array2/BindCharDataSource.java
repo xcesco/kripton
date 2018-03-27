@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   static BindCharDataSource instance;
 
   /**
+   * Unique identifier for Dao CharDao
+   */
+  public static final int CHAR_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new CharBeanTable()};
@@ -41,7 +47,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindCharDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
@@ -303,7 +309,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   class DataSourceSingleThread implements BindCharDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private CharDaoImpl _charDao;
+    protected CharDaoImpl _charDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindCharDataSource.this);
@@ -320,8 +326,15 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
       return _charDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

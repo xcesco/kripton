@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.many2many.CityTable;
 import sqlite.feature.many2many.PersonTable;
 
@@ -38,9 +39,24 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   static BindPersonCirtyOk1DataSource instance;
 
   /**
+   * Unique identifier for Dao PersonOk1Dao
+   */
+  public static final int PERSON_OK1_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao CityOk1Dao
+   */
+  public static final int CITY_OK1_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao PersonCityOk1Dao
+   */
+  public static final int PERSON_CITY_OK1_DAO_UID = 2;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new CityTable(), new PersonCityOk1Table(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new PersonCityOk1Table(), new CityTable(), new PersonTable()};
 
   /**
    * <p>dao instance</p>
@@ -59,7 +75,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPersonCirtyOk1DataSource(DataSourceOptions options) {
     super("person.db", 1, options);
@@ -358,11 +374,11 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   class DataSourceSingleThread implements BindPersonCirtyOk1DaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private PersonOk1DaoImpl _personOk1Dao;
+    protected PersonOk1DaoImpl _personOk1Dao;
 
-    private CityOk1DaoImpl _cityOk1Dao;
+    protected CityOk1DaoImpl _cityOk1Dao;
 
-    private PersonCityOk1DaoImpl _personCityOk1Dao;
+    protected PersonCityOk1DaoImpl _personCityOk1Dao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindPersonCirtyOk1DataSource.this);
@@ -401,8 +417,15 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
       return _personCityOk1Dao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

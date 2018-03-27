@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.many2many.case5.model.CountryTable;
 import sqlite.feature.many2many.case5.model.PersonTable;
 import sqlite.feature.many2many.case5.model.PhoneNumberTable;
@@ -46,9 +47,34 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   static BindXenoDataSource instance;
 
   /**
+   * Unique identifier for Dao PhoneDao
+   */
+  public static final int PHONE_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao PrefixConfigDao
+   */
+  public static final int PREFIX_CONFIG_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao CountryDao
+   */
+  public static final int COUNTRY_DAO_UID = 2;
+
+  /**
+   * Unique identifier for Dao Person2PhoneDao
+   */
+  public static final int PERSON2_PHONE_DAO_UID = 3;
+
+  /**
+   * Unique identifier for Dao PersonDao
+   */
+  public static final int PERSON_DAO_UID = 4;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable(), new PhoneNumberTable(), new CountryTable(), new PrefixConfigTable(), new PersonPhoneNumberTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable(), new PrefixConfigTable(), new PhoneNumberTable(), new CountryTable(), new PersonPhoneNumberTable()};
 
   /**
    * <p>dao instance</p>
@@ -77,7 +103,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindXenoDataSource(DataSourceOptions options) {
     super("xeno.db", 1, options);
@@ -239,6 +265,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section END
@@ -249,12 +281,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
     // log section END
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
@@ -307,6 +333,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
+        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
         Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
@@ -317,12 +349,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       }
       // log section END
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
@@ -412,15 +438,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   class DataSourceSingleThread implements BindXenoDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private PhoneDaoImpl _phoneDao;
+    protected PhoneDaoImpl _phoneDao;
 
-    private PrefixConfigDaoImpl _prefixConfigDao;
+    protected PrefixConfigDaoImpl _prefixConfigDao;
 
-    private CountryDaoImpl _countryDao;
+    protected CountryDaoImpl _countryDao;
 
-    private Person2PhoneDaoImpl _person2PhoneDao;
+    protected Person2PhoneDaoImpl _person2PhoneDao;
 
-    private PersonDaoImpl _personDao;
+    protected PersonDaoImpl _personDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindXenoDataSource.this);
@@ -481,8 +507,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       return _personDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

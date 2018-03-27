@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.javadoc.PersonTable;
 
 /**
@@ -31,6 +32,11 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   static BindSelectBeanPersonDataSource instance;
 
   /**
+   * Unique identifier for Dao SelectBeanPersonDao
+   */
+  public static final int SELECT_BEAN_PERSON_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new PersonTable()};
@@ -42,7 +48,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindSelectBeanPersonDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
@@ -304,7 +310,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   class DataSourceSingleThread implements BindSelectBeanPersonDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private SelectBeanPersonDaoImpl _selectBeanPersonDao;
+    protected SelectBeanPersonDaoImpl _selectBeanPersonDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindSelectBeanPersonDataSource.this);
@@ -321,8 +327,15 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
       return _selectBeanPersonDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.javadoc.PersonTable;
 
 /**
@@ -31,6 +32,11 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   static BindDeleteRawPersonDataSource instance;
 
   /**
+   * Unique identifier for Dao DeleteRawPersonDao
+   */
+  public static final int DELETE_RAW_PERSON_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new PersonTable()};
@@ -42,7 +48,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindDeleteRawPersonDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
@@ -304,7 +310,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   class DataSourceSingleThread implements BindDeleteRawPersonDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private DeleteRawPersonDaoImpl _deleteRawPersonDao;
+    protected DeleteRawPersonDaoImpl _deleteRawPersonDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindDeleteRawPersonDataSource.this);
@@ -321,8 +327,15 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
       return _deleteRawPersonDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -36,9 +37,24 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   static BindAppDataSource instance;
 
   /**
+   * Unique identifier for Dao BookDao
+   */
+  public static final int BOOK_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao UserDao
+   */
+  public static final int USER_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao LoanDao
+   */
+  public static final int LOAN_DAO_UID = 2;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new LoanTable(), new BookTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new BookTable(), new LoanTable()};
 
   /**
    * <p>dao instance</p>
@@ -57,7 +73,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindAppDataSource(DataSourceOptions options) {
     super("library.db", 1, options);
@@ -356,11 +372,11 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   class DataSourceSingleThread implements BindAppDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private BookDaoImpl _bookDao;
+    protected BookDaoImpl _bookDao;
 
-    private UserDaoImpl _userDao;
+    protected UserDaoImpl _userDao;
 
-    private LoanDaoImpl _loanDao;
+    protected LoanDaoImpl _loanDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindAppDataSource.this);
@@ -399,8 +415,15 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       return _loanDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
   static BindDummy05DataSource instance;
 
   /**
+   * Unique identifier for Dao DaoBean05
+   */
+  public static final int DAO_BEAN05_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new Bean05Table()};
@@ -41,7 +47,7 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindDummy05DataSource(DataSourceOptions options) {
     super("dummy", 1, options);
@@ -303,7 +309,7 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
   class DataSourceSingleThread implements BindDummy05DaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private DaoBean05Impl _daoBean05;
+    protected DaoBean05Impl _daoBean05;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindDummy05DataSource.this);
@@ -320,8 +326,15 @@ public class BindDummy05DataSource extends AbstractDataSource implements BindDum
       return _daoBean05;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

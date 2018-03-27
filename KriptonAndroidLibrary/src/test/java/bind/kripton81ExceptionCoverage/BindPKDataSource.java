@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   static BindPKDataSource instance;
 
   /**
+   * Unique identifier for Dao PKDao
+   */
+  public static final int P_K_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new PKBeanTable()};
@@ -41,7 +47,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPKDataSource(DataSourceOptions options) {
     super("", 1, options);
@@ -303,7 +309,7 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
   class DataSourceSingleThread implements BindPKDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private PKDaoImpl _pKDao;
+    protected PKDaoImpl _pKDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindPKDataSource.this);
@@ -320,8 +326,15 @@ public class BindPKDataSource extends AbstractDataSource implements BindPKDaoFac
       return _pKDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

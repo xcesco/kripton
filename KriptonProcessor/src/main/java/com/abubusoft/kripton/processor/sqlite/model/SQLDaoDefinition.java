@@ -252,5 +252,13 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 	public TypeName getTypeName() {
 		return TypeUtility.typeName(TypeUtility.extractPackageName(this.element), name);
 	}
+	
+	public boolean hasLiveData() {		
+		for(SQLiteModelMethod item:collection) {
+			if (item.hasLiveData()) return true;
+		}
+		
+		return false;
+	}
 
 }

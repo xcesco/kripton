@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -36,9 +37,24 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
   static BindApp2DataSource instance;
 
   /**
+   * Unique identifier for Dao DeviceDao
+   */
+  public static final int DEVICE_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao UserDao
+   */
+  public static final int USER_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao UserDeviceDao
+   */
+  public static final int USER_DEVICE_DAO_UID = 2;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new DeviceTable(), new UserDeviceTable()};
+  static final SQLiteTable[] TABLES = {new DeviceTable(), new UserTable(), new UserDeviceTable()};
 
   /**
    * <p>dao instance</p>
@@ -57,7 +73,7 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindApp2DataSource(DataSourceOptions options) {
     super("app2.db", 1, options);
@@ -203,16 +219,16 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(DeviceTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);
@@ -259,16 +275,16 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(UserTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(DeviceTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(UserTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);
@@ -356,11 +372,11 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
   class DataSourceSingleThread implements BindApp2DaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private DeviceDaoImpl _deviceDao;
+    protected DeviceDaoImpl _deviceDao;
 
-    private UserDaoImpl _userDao;
+    protected UserDaoImpl _userDao;
 
-    private UserDeviceDaoImpl _userDeviceDao;
+    protected UserDeviceDaoImpl _userDeviceDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindApp2DataSource.this);
@@ -399,8 +415,15 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
       return _userDeviceDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   static BindShortDataSource instance;
 
   /**
+   * Unique identifier for Dao ShortDao
+   */
+  public static final int SHORT_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new ShortBeanTable()};
@@ -41,7 +47,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindShortDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
@@ -303,7 +309,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   class DataSourceSingleThread implements BindShortDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private ShortDaoImpl _shortDao;
+    protected ShortDaoImpl _shortDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindShortDataSource.this);
@@ -320,8 +326,15 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
       return _shortDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

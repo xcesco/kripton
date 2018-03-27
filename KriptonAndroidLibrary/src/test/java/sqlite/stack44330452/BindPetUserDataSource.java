@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -33,6 +34,16 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   static BindPetUserDataSource instance;
 
   /**
+   * Unique identifier for Dao UserDao
+   */
+  public static final int USER_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao PetDao
+   */
+  public static final int PET_DAO_UID = 1;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new PetTable(), new UserTable()};
@@ -49,7 +60,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPetUserDataSource(DataSourceOptions options) {
     super("pet.db", 1, options);
@@ -330,9 +341,9 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   class DataSourceSingleThread implements BindPetUserDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private UserDaoImpl _userDao;
+    protected UserDaoImpl _userDao;
 
-    private PetDaoImpl _petDao;
+    protected PetDaoImpl _petDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindPetUserDataSource.this);
@@ -360,8 +371,15 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
       return _petDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.speed.model.PersonTable;
 
 /**
@@ -31,6 +32,11 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   static BindPersonDataSource instance;
 
   /**
+   * Unique identifier for Dao PersonDao
+   */
+  public static final int PERSON_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new PersonTable()};
@@ -42,7 +48,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPersonDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
@@ -280,7 +286,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   class DataSourceSingleThread implements BindPersonDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private PersonDaoImpl _personDao;
+    protected PersonDaoImpl _personDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindPersonDataSource.this);
@@ -297,8 +303,15 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
       return _personDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

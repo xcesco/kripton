@@ -78,14 +78,14 @@ public class DaoPersonWorkImpl extends Dao implements DaoPerson {
 		return builder.getLiveData();
 	}
 	
-	static Collection<WeakReference<ComputableLiveData<?>>> cld=Collections.synchronizedCollection(new HashSet<WeakReference<ComputableLiveData<?>>>());
+	static Collection<WeakReference<ComputableLiveData<?>>> liveDatas=Collections.synchronizedCollection(new HashSet<WeakReference<ComputableLiveData<?>>>());
 		
 	static void registryLiveData(ComputableLiveData<?> value) {		
-		cld.add(new WeakReference<ComputableLiveData<?>>(value));
+		liveDatas.add(new WeakReference<ComputableLiveData<?>>(value));
 	}
 	
 	static void invalidateLiveData() {
-		for (WeakReference<ComputableLiveData<?>> item: cld) {
+		for (WeakReference<ComputableLiveData<?>> item: liveDatas) {
 			if (item.get()!=null) {
 				item.get().invalidate();
 			}
@@ -93,7 +93,11 @@ public class DaoPersonWorkImpl extends Dao implements DaoPerson {
 	}
 	
 	void sendEvent() {
-		_context.registrySQLEvent("sqlite.feature.livedata.persistence.DaoPersonWorkImpl");
+		if (_context.isInSession()) {
+			_context.registrySQLEvent(0);
+		} else {
+			invalidateLiveData();
+		}
 	}
 	
 	  /**

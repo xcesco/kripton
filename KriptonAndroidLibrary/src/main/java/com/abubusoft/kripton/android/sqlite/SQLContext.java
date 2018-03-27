@@ -63,7 +63,7 @@ public interface SQLContext {
 	 * 
 	 * @param daoKey
 	 */
-	void registrySQLEvent(String daoKey);
+	void registrySQLEvent(int daoKey);
 
 	/**
 	 * Fired when transaction or shared connection is closed
@@ -71,5 +71,5 @@ public interface SQLContext {
 	 * @return
 	 * 		all daoKey that registry an event
 	 */
-	Set<String> onSessionClosed();
+	Set<Integer> onSessionClosed();
 }

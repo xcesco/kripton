@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   static BindBean2DataSource instance;
 
   /**
+   * Unique identifier for Dao BeanDao2
+   */
+  public static final int BEAN_DAO2_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new Bean2Table()};
@@ -41,7 +47,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindBean2DataSource(DataSourceOptions options) {
     super("dummy", 1, options);
@@ -303,7 +309,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   class DataSourceSingleThread implements BindBean2DaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private BeanDao2Impl _beanDao2;
+    protected BeanDao2Impl _beanDao2;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindBean2DataSource.this);
@@ -320,8 +326,15 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
       return _beanDao2;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

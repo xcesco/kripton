@@ -206,7 +206,7 @@ public abstract class TypeUtility {
 	}
 
 	
-	public static TypeName mergeTypeNameWithSuffix(TypeName typeName, String typeNameSuffix) {
+	public static ClassName mergeTypeNameWithSuffix(TypeName typeName, String typeNameSuffix) {
 		ClassName className = className(typeName.toString());
 
 		return classNameWithSuffix(className.packageName(), className.simpleName(), typeNameSuffix);

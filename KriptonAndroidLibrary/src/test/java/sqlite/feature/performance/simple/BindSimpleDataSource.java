@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   static BindSimpleDataSource instance;
 
   /**
+   * Unique identifier for Dao SimpleAddressDao
+   */
+  public static final int SIMPLE_ADDRESS_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new SimpleAddressItemTable()};
@@ -41,7 +47,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindSimpleDataSource(DataSourceOptions options) {
     super("kripton.db", 1, options);
@@ -279,7 +285,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   class DataSourceSingleThread implements BindSimpleDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private SimpleAddressDaoImpl _simpleAddressDao;
+    protected SimpleAddressDaoImpl _simpleAddressDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindSimpleDataSource.this);
@@ -296,8 +302,15 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
       return _simpleAddressDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

@@ -50,6 +50,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
@@ -174,19 +175,31 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		return schemaName;
 	}
+	
+	/**
+	 * Generate dataSource name
+	 * @param schema
+	 * @return
+	 * 		associated class name
+	 */
+	public static ClassName generateDataSourceName(SQLiteDatabaseSchema schema) {				
+		String dataSourceName = schema.getName();
+		dataSourceName = PREFIX + dataSourceName;
+		
+		PackageElement pkg = BaseProcessor.elementUtils.getPackageOf(schema.getElement());
+		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
+		
+		return ClassName.get(packageName, dataSourceName);
+	}
 
 	public void buildDataSource(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, String daoFactoryName) throws Exception {
 		ClassName daoFactoryClazz = className(daoFactoryName);
 		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 
-		String dataSourceName = schema.getName();
-		dataSourceName = PREFIX + dataSourceName;
+		ClassName dataSourceClassName = generateDataSourceName(schema);
 
-		PackageElement pkg = elementUtils.getPackageOf(schema.getElement());
-		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
-
-		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, dataSourceName);
-		classBuilder = TypeSpec.classBuilder(dataSourceName).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactoryClazz)
+		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, dataSourceClassName);
+		classBuilder = TypeSpec.classBuilder(dataSourceClassName.simpleName()).addModifiers(Modifier.PUBLIC).superclass(AbstractDataSource.class).addSuperinterface(daoFactoryClazz)
 				.addSuperinterface(TypeUtility.typeName(schema.getElement().asType()));
 
 		classBuilder.addJavadoc("<p>\n");
@@ -210,7 +223,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// define static fields
 
 		// instance
-		classBuilder.addField(FieldSpec.builder(className(dataSourceName), "instance", Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
+		classBuilder.addField(FieldSpec.builder(dataSourceClassName, "instance", Modifier.STATIC).addJavadoc("<p>datasource singleton</p>\n").build());
 
 		// instance
 		// classBuilder.addField(FieldSpec.builder(Boolean.TYPE, "justCreated",
@@ -233,7 +246,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 
 		if (schema.generateRx) {
-			generateRx(className(dataSourceName), daoFactoryName);
+			generateRx(dataSourceClassName, daoFactoryName);
 
 			for (SQLDaoDefinition dao : schema.getCollection()) {
 				// subject
@@ -250,13 +263,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		generateMethodExecuteBatch(daoFactoryName);
 
 		// generate instance
-		generateInstance(schema, dataSourceName);
+		generateInstance(schema, dataSourceClassName.simpleName());
 
 		// generate open
-		generateOpen(dataSourceName);
+		generateOpen(dataSourceClassName.simpleName());
 
 		// generate openReadOnly
-		generateOpenReadOnly(dataSourceName);
+		generateOpenReadOnly(dataSourceClassName.simpleName());
 
 		// generate constructor
 		generateConstructor(schema);
@@ -289,10 +302,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 
 		// generate single thread datasource
-		generateDataSourceSingleThread(schema, dataSourceName);
+		generateDataSourceSingleThread(schema, dataSourceClassName.simpleName());
 
 		// build
-		generateBuild(dataSourceName, schema);
+		generateBuild(dataSourceClassName.simpleName(), schema);
 
 		{
 			Builder f = FieldSpec.builder(ArrayTypeName.of(SQLiteTable.class), "TABLES", Modifier.FINAL, Modifier.STATIC).addJavadoc("List of tables compose datasource\n");
@@ -323,7 +336,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 
 		TypeSpec typeSpec = classBuilder.build();
-		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
+		JavaWriterHelper.writeJava2File(filer, dataSourceClassName.packageName(), typeSpec);
 	}
 
 	/**
@@ -405,7 +418,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onSessionClosed")					
 					.addModifiers(Modifier.PROTECTED)
-					.returns(ParameterizedTypeName.get(Set.class, String.class));
+					.returns(ParameterizedTypeName.get(Set.class, Integer.class));
 			methodBuilder.addStatement("return _context.onSessionClosed()");
 			
 			clazzBuilder.addMethod(methodBuilder.build());

@@ -17,6 +17,10 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.lang.ref.WeakReference;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map.Entry;
 
 import javax.annotation.processing.Filer;
@@ -48,13 +52,17 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
+import com.squareup.javapoet.WildcardTypeName;
 
+import android.arch.lifecycle.ComputableLiveData;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -101,12 +109,12 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	@Override
 	public void visit(SQLDaoDefinition value) throws Exception {
 		currentDaoDefinition = value;
-		
+
 		// check if we need to generate or not
-		if (value.getElement().getAnnotation(BindDaoMany2Many.class)!=null && value.getElement().getAnnotation(BindGeneratedDao.class)==null) {
+		if (value.getElement().getAnnotation(BindDaoMany2Many.class) != null && value.getElement().getAnnotation(BindGeneratedDao.class) == null) {
 			return;
 		}
-				
+
 		String classTableName = daoName(value);
 
 		PackageElement pkg = elementUtils.getPackageOf(value.getElement());
@@ -114,17 +122,15 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDao.class, packageName, classTableName);
 
-		builder = TypeSpec.classBuilder(classTableName).superclass(Dao.class)
-				.addSuperinterface(typeName(value.getElement()))
-				.addModifiers(Modifier.PUBLIC);
-		
-		for (TypeName item: value.implementedInterface) {
+		builder = TypeSpec.classBuilder(classTableName).superclass(Dao.class).addSuperinterface(typeName(value.getElement())).addModifiers(Modifier.PUBLIC);
+
+		for (TypeName item : value.implementedInterface) {
 			builder.addSuperinterface(item);
 		}
 
 		BindTypeContext context = new BindTypeContext(builder, TypeUtility.typeName(packageName, classTableName), Modifier.PRIVATE);
-		String entityName=BindDataSourceSubProcessor.generateEntityName(value, value.getEntity());
-				
+		String entityName = BindDataSourceSubProcessor.generateEntityName(value, value.getEntity());
+
 		// javadoc for class
 		builder.addJavadoc("<p>");
 		builder.addJavadoc("\nDAO implementation for entity <code>$L</code>, based on interface <code>$L</code>\n", entityName, value.getElement().getSimpleName().toString());
@@ -146,44 +152,76 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			item.accept(this);
 		}
 
+		// generate live data support methods
+		if (value.hasLiveData()) {
+			// method sendEvent
+			{
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("sendEvent").addModifiers(Modifier.PROTECTED);
+				methodBuilder.addStatement("_context.registrySQLEvent($T.$L)", BindDataSourceBuilder.generateDataSourceName(value.getParent()), value.daoUidName);
+				builder.addMethod(methodBuilder.build());
+
+				FieldSpec.Builder liveDataBuilder = FieldSpec
+						.builder(ParameterizedTypeName.get(ClassName.get(Collection.class),
+								ParameterizedTypeName.get(ClassName.get(WeakReference.class),
+										ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class)))),
+								"liveDatas")
+						.addModifiers(Modifier.STATIC)
+						.initializer(CodeBlock.builder()
+								.addStatement("$T.synchronizedCollection(new $T())", Collections.class, ParameterizedTypeName.get(ClassName.get(HashSet.class), ParameterizedTypeName
+										.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class)))))
+								.build());
+				builder.addField(liveDataBuilder.build());
+			}
+			{
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("registryLiveData").addModifiers(Modifier.PROTECTED)
+						.addParameter(ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class)), "value");
+				methodBuilder.addStatement("liveDatas.add(new $T(value))",
+						ParameterizedTypeName.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class))));
+				builder.addMethod(methodBuilder.build());
+			}
+
+			// TODO invalidateLiveData
+
+		}
+
 		// generate serializer params
 		for (Entry<TypeName, String> item : currentDaoDefinition.managedParams.entrySet()) {
 			ManagedPropertyPersistenceHelper.generateParamSerializer(context, item.getValue(), item.getKey(), PersistType.BYTE);
 			ManagedPropertyPersistenceHelper.generateParamParser(context, item.getValue(), item.getKey(), PersistType.BYTE);
 		}
-		
+
 		// generate subject
-		if (currentDaoDefinition.getParent().generateRx) {			
-			ParameterizedTypeName subjectTypeName=ParameterizedTypeName.get(ClassName.get(PublishSubject.class), ClassName.get(SQLiteEvent.class));
-			
+		if (currentDaoDefinition.getParent().generateRx) {
+			ParameterizedTypeName subjectTypeName = ParameterizedTypeName.get(ClassName.get(PublishSubject.class), ClassName.get(SQLiteEvent.class));
+
 			// subject
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("subject").addModifiers(Modifier.PUBLIC);
 			methodBuilder.addStatement("return subject").returns(subjectTypeName);
 			builder.addMethod(methodBuilder.build());
-			
+
 			// subject instance
-			FieldSpec.Builder fieldBuilder = FieldSpec.builder(subjectTypeName, "subject", Modifier.PRIVATE, Modifier.FINAL, Modifier.STATIC).initializer("$T.create()",ClassName.get(PublishSubject.class));			
+			FieldSpec.Builder fieldBuilder = FieldSpec.builder(subjectTypeName, "subject", Modifier.PRIVATE, Modifier.FINAL, Modifier.STATIC).initializer("$T.create()",
+					ClassName.get(PublishSubject.class));
 			builder.addField(fieldBuilder.build());
 		}
-		
+
 		// generate prepared statement cleaner
 		{
 
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(Void.TYPE);
-			for (String item: value.preparedStatementNames) {
+			for (String item : value.preparedStatementNames) {
 				methodBuilder.beginControlFlow("if ($L!=null)", item);
-					methodBuilder.addStatement("$L.close()", item);	
-					methodBuilder.addStatement("$L=null",item);
-				methodBuilder.endControlFlow();								
-			}			
-			
-			builder.addMethod(methodBuilder.build());					
+				methodBuilder.addStatement("$L.close()", item);
+				methodBuilder.addStatement("$L=null", item);
+				methodBuilder.endControlFlow();
+			}
+
+			builder.addMethod(methodBuilder.build());
 		}
-		
-		
+
 		TypeSpec typeSpec = builder.build();
 
-		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);		
+		JavaWriterHelper.writeJava2File(filer, packageName, typeSpec);
 	}
 
 	/**
@@ -196,7 +234,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		return classTableName;
 	}
 
-	public static TypeName daoTypeName(SQLDaoDefinition value) {				
+	public static TypeName daoTypeName(SQLDaoDefinition value) {
 		return TypeUtility.mergeTypeNameWithSuffix(value.getTypeName(), SUFFIX);
 	}
 

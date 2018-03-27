@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.quickstart.model.CommentTable;
 import sqlite.quickstart.model.PostTable;
 import sqlite.quickstart.model.TodoTable;
@@ -43,9 +44,29 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   static BindQuickStartDataSource instance;
 
   /**
+   * Unique identifier for Dao UserDao
+   */
+  public static final int USER_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao PostDao
+   */
+  public static final int POST_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao CommentDao
+   */
+  public static final int COMMENT_DAO_UID = 2;
+
+  /**
+   * Unique identifier for Dao TodoDao
+   */
+  public static final int TODO_DAO_UID = 3;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new CommentTable(), new TodoTable(), new PostTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new PostTable(), new CommentTable(), new TodoTable()};
 
   /**
    * <p>dao instance</p>
@@ -69,7 +90,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindQuickStartDataSource(DataSourceOptions options) {
     super("kripton.quickstart.db", 1, options);
@@ -386,13 +407,13 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   class DataSourceSingleThread implements BindQuickStartDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private UserDaoImpl _userDao;
+    protected UserDaoImpl _userDao;
 
-    private PostDaoImpl _postDao;
+    protected PostDaoImpl _postDao;
 
-    private CommentDaoImpl _commentDao;
+    protected CommentDaoImpl _commentDao;
 
-    private TodoDaoImpl _todoDao;
+    protected TodoDaoImpl _todoDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindQuickStartDataSource.this);
@@ -442,8 +463,15 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
       return _todoDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

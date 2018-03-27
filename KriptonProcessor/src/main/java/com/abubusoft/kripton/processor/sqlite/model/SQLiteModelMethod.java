@@ -156,7 +156,16 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * if true, means that this method returns live data
 	 */
-	public boolean liveDataEnabled;
+	private boolean liveDataEnabled;
+	
+	public boolean hasLiveData() {
+		return liveDataEnabled;
+	}
+
+	/**
+	 * return type of the original method. Defined only for LiveData methods.
+	 */
+	public ParameterizedTypeName liveDataReturnClass;
 
 	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
@@ -259,7 +268,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		this.jql = JQLBuilder.buildJQL(this, preparedJql);
 		
 		// live data support
-		manageLiveDataDefinition();
+		this.liveDataEnabled=SQLiteModelMethod.isLiveData(this);
+		if (liveDataEnabled) {
+			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) getReturnClass();
+			this.liveDataReturnClass=returnParameterizedTypeName;					
+			setReturnClass(returnParameterizedTypeName.typeArguments.get(0));
+		}
 
 		// content provider generation
 		BindContentProviderEntry annotation = element.getAnnotation(BindContentProviderEntry.class);
@@ -350,9 +364,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * @throws ClassNotFoundException
 	 */
-	private void manageLiveDataDefinition()  {
-		this.liveDataEnabled=false;
-		TypeName returnTypeName = getReturnClass();
+	public static boolean isLiveData(SQLiteModelMethod methodDefinition)  {
+		boolean result=false;
+		
+		TypeName returnTypeName = methodDefinition.getReturnClass();
 		if (returnTypeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
 			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;			
@@ -365,13 +380,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			}
 			
 			if (LiveData.class.isAssignableFrom(wrapperClazz)) {
-				this.liveDataEnabled=true;
-				setReturnClass(returnParameterizedTypeName.typeArguments.get(0));
-				// ASSERT: we have a live data
-				//selectResultType = SelectBuilderUtility.SelectType.LIVE_DATA;
-				
+				result=true;							
 			}
 		}
+		
+		return result;
 	}
 
 	public boolean hasAdapterForParam(String paramName) {

@@ -11,11 +11,11 @@ public abstract class AbstractSQLContext implements SQLContext {
 	
 	private final boolean session;
 	
-	private final ThreadLocal<Set<String>> daoWithEvents = new ThreadLocal<Set<String>>() {
+	private final ThreadLocal<Set<Integer>> daoWithEvents = new ThreadLocal<Set<Integer>>() {
 
 		@Override
-		protected Set<String> initialValue() {
-			return new HashSet<String>();
+		protected Set<Integer> initialValue() {
+			return new HashSet<Integer>();
 		}
 
 	};
@@ -31,14 +31,14 @@ public abstract class AbstractSQLContext implements SQLContext {
 	}
 	
 	@Override
-	public void registrySQLEvent(String daoKey) {
+	public void registrySQLEvent(int daoKey) {
 		if (session) {
 			daoWithEvents.get().add(daoKey);
 		}
 	}
 
 	@Override
-	public Set<String> onSessionClosed() {
+	public Set<Integer> onSessionClosed() {
 		return daoWithEvents.get();		
 	}
 		

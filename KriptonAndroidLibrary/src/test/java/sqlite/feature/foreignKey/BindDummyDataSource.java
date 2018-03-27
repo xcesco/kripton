@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -33,9 +34,19 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   static BindDummyDataSource instance;
 
   /**
+   * Unique identifier for Dao DaoBeanA_1
+   */
+  public static final int DAO_BEAN_A_1_UID = 0;
+
+  /**
+   * Unique identifier for Dao DaoBeanA_2
+   */
+  public static final int DAO_BEAN_A_2_UID = 1;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new BeanA_1Table(), new BeanA_2Table()};
+  static final SQLiteTable[] TABLES = {new BeanA_2Table(), new BeanA_1Table()};
 
   /**
    * <p>dao instance</p>
@@ -49,7 +60,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindDummyDataSource(DataSourceOptions options) {
     super("test.db", 1, options);
@@ -330,9 +341,9 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   class DataSourceSingleThread implements BindDummyDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private DaoBeanA_1Impl _daoBeanA_1;
+    protected DaoBeanA_1Impl _daoBeanA_1;
 
-    private DaoBeanA_2Impl _daoBeanA_2;
+    protected DaoBeanA_2Impl _daoBeanA_2;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindDummyDataSource.this);
@@ -360,8 +371,15 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
       return _daoBeanA_2;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

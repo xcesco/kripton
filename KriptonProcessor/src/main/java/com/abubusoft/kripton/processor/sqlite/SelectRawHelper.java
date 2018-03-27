@@ -34,7 +34,7 @@ import com.squareup.javapoet.TypeSpec;
 public class SelectRawHelper extends AbstractSelectCodeGenerator {
 
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
-		generateCommonPart(method, classBuilder, methodBuilder, fieldList, mapFields, GenerationType.NO_CLOSE_CURSOR);
+		generateCommonPart(method, classBuilder, methodBuilder, fieldList, mapFields, GenerationType.NO_CLOSE_CURSOR, null);
 	}
 	
 	/*

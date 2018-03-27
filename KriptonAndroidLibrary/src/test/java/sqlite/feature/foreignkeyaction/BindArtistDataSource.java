@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -36,9 +37,24 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   static BindArtistDataSource instance;
 
   /**
+   * Unique identifier for Dao ArtistDao
+   */
+  public static final int ARTIST_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao AlbumDao
+   */
+  public static final int ALBUM_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao TrackDao
+   */
+  public static final int TRACK_DAO_UID = 2;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new TrackTable(), new ArtistTable(), new AlbumTable()};
+  static final SQLiteTable[] TABLES = {new TrackTable(), new AlbumTable(), new ArtistTable()};
 
   /**
    * <p>dao instance</p>
@@ -57,7 +73,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindArtistDataSource(DataSourceOptions options) {
     super("artist.db", 1, options);
@@ -356,11 +372,11 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   class DataSourceSingleThread implements BindArtistDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private ArtistDaoImpl _artistDao;
+    protected ArtistDaoImpl _artistDao;
 
-    private AlbumDaoImpl _albumDao;
+    protected AlbumDaoImpl _albumDao;
 
-    private TrackDaoImpl _trackDao;
+    protected TrackDaoImpl _trackDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindArtistDataSource.this);
@@ -399,8 +415,15 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
       return _trackDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

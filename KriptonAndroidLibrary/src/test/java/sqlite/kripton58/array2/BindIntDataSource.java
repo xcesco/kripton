@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   static BindIntDataSource instance;
 
   /**
+   * Unique identifier for Dao IntDao
+   */
+  public static final int INT_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new IntBeanTable()};
@@ -41,7 +47,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindIntDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
@@ -303,7 +309,7 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
   class DataSourceSingleThread implements BindIntDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private IntDaoImpl _intDao;
+    protected IntDaoImpl _intDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindIntDataSource.this);
@@ -320,8 +326,15 @@ public class BindIntDataSource extends AbstractDataSource implements BindIntDaoF
       return _intDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

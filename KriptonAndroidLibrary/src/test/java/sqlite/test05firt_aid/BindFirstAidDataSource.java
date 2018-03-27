@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   static BindFirstAidDataSource instance;
 
   /**
+   * Unique identifier for Dao FirstAidDao
+   */
+  public static final int FIRST_AID_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new FirstAidTable()};
@@ -41,7 +47,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindFirstAidDataSource(DataSourceOptions options) {
     super("firstaid.db", 1, options);
@@ -303,7 +309,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   class DataSourceSingleThread implements BindFirstAidDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private FirstAidDaoImpl _firstAidDao;
+    protected FirstAidDaoImpl _firstAidDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindFirstAidDataSource.this);
@@ -320,8 +326,15 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
       return _firstAidDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

@@ -56,7 +56,7 @@ import com.squareup.javapoet.TypeSpec;
 public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCodeGenerator {
 
 	@Override
-	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {
 		SQLDaoDefinition daoDefinition = method.getParent();
 		String pagedResultName = buildSpecializedPagedResultClass(classBuilder, method);
 
@@ -76,7 +76,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			}
 			methodBuilder.addCode(");\n");
 
-			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT);
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT, null);
 			methodBuilder.addStatement("return paginatedResult");
 
 			classBuilder.addMethod(methodBuilder.build());
@@ -88,8 +88,8 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(daoDefinition.getEntityClassName())),
 					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
 
-			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN,
-					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"), JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN,null,
+					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"),  JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
 			generateSpecializedPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields());
 			classBuilder.addMethod(methodBuilder.build());
 		}

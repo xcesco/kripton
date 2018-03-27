@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
   static BindDummy08DataSource instance;
 
   /**
+   * Unique identifier for Dao DaoBeanDeleteOK
+   */
+  public static final int DAO_BEAN_DELETE_O_K_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new Bean01Table()};
@@ -41,7 +47,7 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindDummy08DataSource(DataSourceOptions options) {
     super("dummy1", 1, options);
@@ -303,7 +309,7 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
   class DataSourceSingleThread implements BindDummy08DaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private DaoBeanDeleteOKImpl _daoBeanDeleteOK;
+    protected DaoBeanDeleteOKImpl _daoBeanDeleteOK;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindDummy08DataSource.this);
@@ -320,8 +326,15 @@ public class BindDummy08DataSource extends AbstractDataSource implements BindDum
       return _daoBeanDeleteOK;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

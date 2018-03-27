@@ -26,6 +26,7 @@ import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
 /**
@@ -47,6 +48,11 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   static BindKripton180BeanInsertSelectDataSource instance;
 
   /**
+   * Unique identifier for Dao EmployeeBeanInsertSelectDao
+   */
+  public static final int EMPLOYEE_BEAN_INSERT_SELECT_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new EmployeeTable()};
@@ -62,7 +68,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindKripton180BeanInsertSelectDataSource(DataSourceOptions options) {
     super("kripton180.db", 1, options);
@@ -83,7 +89,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return this;
   }
 
-  public <T> Observable<T> execute(final BindKripton180BeanInsertSelectDataSource.ObservableTransaction<T> transaction) {
+  public <T> Observable<T> execute(final ObservableTransaction<T> transaction) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
@@ -116,7 +122,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  public <T> Single<T> execute(final BindKripton180BeanInsertSelectDataSource.SingleTransaction<T> transaction) {
+  public <T> Single<T> execute(final SingleTransaction<T> transaction) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
@@ -149,7 +155,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  public <T> Flowable<T> execute(final BindKripton180BeanInsertSelectDataSource.FlowableTransaction<T> transaction) {
+  public <T> Flowable<T> execute(final FlowableTransaction<T> transaction) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
@@ -182,7 +188,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  public <T> Maybe<T> execute(final BindKripton180BeanInsertSelectDataSource.MaybeTransaction<T> transaction) {
+  public <T> Maybe<T> execute(final MaybeTransaction<T> transaction) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
@@ -215,8 +221,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  public <T> Observable<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.ObservableBatch<T> batch,
-      final boolean writeMode) {
+  public <T> Observable<T> executeBatch(final ObservableBatch<T> batch, final boolean writeMode) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
@@ -241,12 +246,11 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  public <T> Observable<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.ObservableBatch<T> batch) {
+  public <T> Observable<T> executeBatch(final ObservableBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  public <T> Single<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.SingleBatch<T> batch,
-      final boolean writeMode) {
+  public <T> Single<T> executeBatch(final SingleBatch<T> batch, final boolean writeMode) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
@@ -271,12 +275,11 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  public <T> Single<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.SingleBatch<T> batch) {
+  public <T> Single<T> executeBatch(final SingleBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  public <T> Flowable<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.FlowableBatch<T> batch,
-      final boolean writeMode) {
+  public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch, final boolean writeMode) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
@@ -301,12 +304,11 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  public <T> Flowable<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.FlowableBatch<T> batch) {
+  public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  public <T> Maybe<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.MaybeBatch<T> batch,
-      final boolean writeMode) {
+  public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch, final boolean writeMode) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
@@ -331,7 +333,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  public <T> Maybe<T> executeBatch(final BindKripton180BeanInsertSelectDataSource.MaybeBatch<T> batch) {
+  public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
@@ -627,7 +629,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   class DataSourceSingleThread implements BindKripton180BeanInsertSelectDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private EmployeeBeanInsertSelectDaoImpl _employeeBeanInsertSelectDao;
+    protected EmployeeBeanInsertSelectDaoImpl _employeeBeanInsertSelectDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindKripton180BeanInsertSelectDataSource.this);
@@ -644,8 +646,15 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
       return _employeeBeanInsertSelectDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

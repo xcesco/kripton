@@ -26,6 +26,7 @@ import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.rx.model.CountryTable;
 import sqlite.feature.rx.model.PersonTable;
 import sqlite.feature.rx.model.PhoneNumberTable;
@@ -62,9 +63,34 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   static BindXenoDataSource instance;
 
   /**
+   * Unique identifier for Dao PhoneDao
+   */
+  public static final int PHONE_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao PrefixConfigDao
+   */
+  public static final int PREFIX_CONFIG_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao CountryDao
+   */
+  public static final int COUNTRY_DAO_UID = 2;
+
+  /**
+   * Unique identifier for Dao Person2PhoneDao
+   */
+  public static final int PERSON2_PHONE_DAO_UID = 3;
+
+  /**
+   * Unique identifier for Dao PersonDao
+   */
+  public static final int PERSON_DAO_UID = 4;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PrefixConfigTable(), new PhoneNumberTable(), new PersonTable(), new CountryTable(), new PersonPhoneNumberTable()};
+  static final SQLiteTable[] TABLES = {new PrefixConfigTable(), new CountryTable(), new PersonTable(), new PhoneNumberTable(), new PersonPhoneNumberTable()};
 
   /**
    * <p>dao instance</p>
@@ -97,7 +123,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindXenoDataSource(DataSourceOptions options) {
     super("xeno.db", 1, options);
@@ -138,7 +164,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return this;
   }
 
-  public <T> Observable<T> execute(final BindXenoDataSource.ObservableTransaction<T> transaction) {
+  public <T> Observable<T> execute(final ObservableTransaction<T> transaction) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
@@ -171,7 +197,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return result;
   }
 
-  public <T> Single<T> execute(final BindXenoDataSource.SingleTransaction<T> transaction) {
+  public <T> Single<T> execute(final SingleTransaction<T> transaction) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
@@ -204,7 +230,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return result;
   }
 
-  public <T> Flowable<T> execute(final BindXenoDataSource.FlowableTransaction<T> transaction) {
+  public <T> Flowable<T> execute(final FlowableTransaction<T> transaction) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
@@ -237,7 +263,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return result;
   }
 
-  public <T> Maybe<T> execute(final BindXenoDataSource.MaybeTransaction<T> transaction) {
+  public <T> Maybe<T> execute(final MaybeTransaction<T> transaction) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
@@ -270,8 +296,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return result;
   }
 
-  public <T> Observable<T> executeBatch(final BindXenoDataSource.ObservableBatch<T> batch,
-      final boolean writeMode) {
+  public <T> Observable<T> executeBatch(final ObservableBatch<T> batch, final boolean writeMode) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
@@ -296,12 +321,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return result;
   }
 
-  public <T> Observable<T> executeBatch(final BindXenoDataSource.ObservableBatch<T> batch) {
+  public <T> Observable<T> executeBatch(final ObservableBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  public <T> Single<T> executeBatch(final BindXenoDataSource.SingleBatch<T> batch,
-      final boolean writeMode) {
+  public <T> Single<T> executeBatch(final SingleBatch<T> batch, final boolean writeMode) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
@@ -326,12 +350,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return result;
   }
 
-  public <T> Single<T> executeBatch(final BindXenoDataSource.SingleBatch<T> batch) {
+  public <T> Single<T> executeBatch(final SingleBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  public <T> Flowable<T> executeBatch(final BindXenoDataSource.FlowableBatch<T> batch,
-      final boolean writeMode) {
+  public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch, final boolean writeMode) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
@@ -356,12 +379,11 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return result;
   }
 
-  public <T> Flowable<T> executeBatch(final BindXenoDataSource.FlowableBatch<T> batch) {
+  public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  public <T> Maybe<T> executeBatch(final BindXenoDataSource.MaybeBatch<T> batch,
-      final boolean writeMode) {
+  public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch, final boolean writeMode) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
@@ -386,7 +408,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     return result;
   }
 
-  public <T> Maybe<T> executeBatch(final BindXenoDataSource.MaybeBatch<T> batch) {
+  public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
@@ -541,10 +563,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    database.execSQL(CountryTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
@@ -553,10 +575,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(CountryTable.CREATE_TABLE_SQL);
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
@@ -609,10 +631,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      database.execSQL(CountryTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
@@ -621,10 +643,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(CountryTable.CREATE_TABLE_SQL);
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
@@ -746,15 +768,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   class DataSourceSingleThread implements BindXenoDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private PhoneDaoImpl _phoneDao;
+    protected PhoneDaoImpl _phoneDao;
 
-    private PrefixConfigDaoImpl _prefixConfigDao;
+    protected PrefixConfigDaoImpl _prefixConfigDao;
 
-    private CountryDaoImpl _countryDao;
+    protected CountryDaoImpl _countryDao;
 
-    private Person2PhoneDaoImpl _person2PhoneDao;
+    protected Person2PhoneDaoImpl _person2PhoneDao;
 
-    private PersonDaoImpl _personDao;
+    protected PersonDaoImpl _personDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindXenoDataSource.this);
@@ -815,8 +837,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       return _personDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

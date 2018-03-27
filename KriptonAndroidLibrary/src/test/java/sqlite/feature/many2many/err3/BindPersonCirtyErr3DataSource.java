@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.many2many.CityTable;
 import sqlite.feature.many2many.PersonTable;
 
@@ -38,6 +39,21 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   static BindPersonCirtyErr3DataSource instance;
 
   /**
+   * Unique identifier for Dao PersonErr3Dao
+   */
+  public static final int PERSON_ERR3_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao CityErr3Dao
+   */
+  public static final int CITY_ERR3_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao PersonCityErr1Dao
+   */
+  public static final int PERSON_CITY_ERR1_DAO_UID = 2;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new PersonCityErr3Table(), new CityTable(), new PersonTable()};
@@ -59,7 +75,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPersonCirtyErr3DataSource(DataSourceOptions options) {
     super("person.db", 1, options);
@@ -358,11 +374,11 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   class DataSourceSingleThread implements BindPersonCirtyErr3DaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private PersonErr3DaoImpl _personErr3Dao;
+    protected PersonErr3DaoImpl _personErr3Dao;
 
-    private CityErr3DaoImpl _cityErr3Dao;
+    protected CityErr3DaoImpl _cityErr3Dao;
 
-    private PersonCityErr1DaoImpl _personCityErr1Dao;
+    protected PersonCityErr1DaoImpl _personCityErr1Dao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindPersonCirtyErr3DataSource.this);
@@ -401,8 +417,15 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       return _personCityErr1Dao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

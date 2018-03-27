@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   static BindSchoolLunchDataSource instance;
 
   /**
+   * Unique identifier for Dao SchoolLunchDAO
+   */
+  public static final int SCHOOL_LUNCH_D_A_O_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new SchoolLunchTable()};
@@ -41,7 +47,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindSchoolLunchDataSource(DataSourceOptions options) {
     super("school.db", 1, options);
@@ -303,7 +309,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   class DataSourceSingleThread implements BindSchoolLunchDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private SchoolLunchDAOImpl _schoolLunchDAO;
+    protected SchoolLunchDAOImpl _schoolLunchDAO;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindSchoolLunchDataSource.this);
@@ -320,8 +326,15 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
       return _schoolLunchDAO;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

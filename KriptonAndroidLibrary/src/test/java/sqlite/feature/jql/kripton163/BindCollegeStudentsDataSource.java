@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   static BindCollegeStudentsDataSource instance;
 
   /**
+   * Unique identifier for Dao CollegeStudentDao
+   */
+  public static final int COLLEGE_STUDENT_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new CollegeStudentTable()};
@@ -41,7 +47,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindCollegeStudentsDataSource(DataSourceOptions options) {
     super("students.db", 1, options);
@@ -303,7 +309,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   class DataSourceSingleThread implements BindCollegeStudentsDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private CollegeStudentDaoImpl _collegeStudentDao;
+    protected CollegeStudentDaoImpl _collegeStudentDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindCollegeStudentsDataSource.this);
@@ -320,8 +326,15 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
       return _collegeStudentDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

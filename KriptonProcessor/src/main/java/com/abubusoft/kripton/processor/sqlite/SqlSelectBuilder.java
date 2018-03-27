@@ -20,8 +20,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.util.Elements;
-
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -31,7 +29,6 @@ import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -100,8 +97,7 @@ public abstract class SqlSelectBuilder {
 
 		AssertKripton.failWithInvalidMethodSignException(pageSize < 0, method, "in @%s(pageSize) must be set with positive number", BindSqlSelect.class.getSimpleName());
 		AssertKripton.failWithInvalidMethodSignException(pageSize > 0 && method.hasDynamicPageSizeConditions(), method, "can not define @%s(pageSize) and mark a method parameter with @%s ",
-				BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());
-							
+				BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName());							
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
@@ -157,15 +153,16 @@ public abstract class SqlSelectBuilder {
 		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method, "'%s' as return type is not supported", returnTypeName);
 
 		// generate select method
-		selectResultType.generate(builder, method, returnTypeName);
+		selectResultType.generate(builder, method);
 		
-		if (method.liveDataEnabled) {
-			
+		if (method.hasLiveData()) {
+			// generate
+			selectResultType.generateLiveData(builder, method);
 		}
 
 		if (method.contentProviderEntryPathEnabled) {
 			// we need to generate UPDATE or DELETE for content provider to
-			generateSelectForContentProvider(BaseProcessor.elementUtils, builder, method, selectResultType);
+			generateSelectForContentProvider(builder, method, selectResultType);
 		}
 	}
 
@@ -189,7 +186,7 @@ public abstract class SqlSelectBuilder {
 	 * @param method
 	 * @param selectResultType
 	 */
-	private static void generateSelectForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
+	private static void generateSelectForContentProvider(Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
 		final SQLDaoDefinition daoDefinition = method.getParent();
 		final SQLEntity entity = daoDefinition.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();

@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -36,6 +37,21 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   static BindPersonCirtyDataSource instance;
 
   /**
+   * Unique identifier for Dao PersonDao
+   */
+  public static final int PERSON_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao CityDao
+   */
+  public static final int CITY_DAO_UID = 1;
+
+  /**
+   * Unique identifier for Dao PersonCityDao
+   */
+  public static final int PERSON_CITY_DAO_UID = 2;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new CityTable(), new PersonTable(), new PersonCityTable()};
@@ -57,7 +73,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPersonCirtyDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
@@ -356,11 +372,11 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   class DataSourceSingleThread implements BindPersonCirtyDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private PersonDaoImpl _personDao;
+    protected PersonDaoImpl _personDao;
 
-    private CityDaoImpl _cityDao;
+    protected CityDaoImpl _cityDao;
 
-    private PersonCityDaoImpl _personCityDao;
+    protected PersonCityDaoImpl _personCityDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindPersonCirtyDataSource.this);
@@ -399,8 +415,15 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
       return _personCityDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

@@ -1,5 +1,7 @@
 package sqlite.feature.livedata.persistence;
 
+import android.arch.lifecycle.ComputableLiveData;
+import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
@@ -9,7 +11,11 @@ import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import sqlite.feature.livedata.data.Person;
 
@@ -28,6 +34,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   private static SQLiteStatement insertPreparedStatement0;
 
   private static SQLiteStatement updatePreparedStatement1;
+
+  static Collection<WeakReference<ComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<ComputableLiveData<?>>>());
+  ;
 
   public DaoPersonImpl(SQLContext context) {
     super(context);
@@ -54,8 +63,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	is binded to <code>${name}</code>
    * @return collection of bean or empty collection.
    */
-  @Override
-  public List<Person> select(String name) {
+  protected List<Person> selectForLiveData(String name) {
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_SQL1;
@@ -105,6 +113,47 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
       return resultList;
     }
+  }
+
+  /**
+   * <h2>Live data</h2>
+   * <p>This method open a connection internally.</p>
+   *
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * </dl>
+   *
+   * @param name
+   * 	is binded to <code>${name}</code>
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public LiveData<List<Person>> select(final String name) {
+    final ComputableLiveData<List<Person>> builder=new ComputableLiveData<List<Person>>() {
+      @Override
+      protected List<Person> compute() {
+        return BindAppDataSource.instance().executeBatch(new BindAppDataSource.Batch<List<Person>>() {
+          @Override
+          public List<Person> onExecute(BindAppDaoFactory daoFactory) {
+            return daoFactory.getDaoPerson().selectForLiveData(name);
+          }
+        });
+      }
+    };
+    registryLiveData(builder);
+    return builder.getLiveData();
   }
 
   /**
@@ -234,6 +283,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+  }
+
+  protected void sendEvent() {
+    _context.registrySQLEvent(BindAppDataSource.DAO_PERSON_UID);
+  }
+
+  protected void registryLiveData(ComputableLiveData<?> value) {
+    liveDatas.add(new WeakReference<ComputableLiveData<?>>(value));
   }
 
   public static void clearCompiledStatements() {

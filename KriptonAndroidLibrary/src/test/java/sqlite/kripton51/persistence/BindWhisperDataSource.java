@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.kripton51.entities.MessageEntityTable;
 
 /**
@@ -31,6 +32,11 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   static BindWhisperDataSource instance;
 
   /**
+   * Unique identifier for Dao DaoMessage
+   */
+  public static final int DAO_MESSAGE_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new MessageEntityTable()};
@@ -42,7 +48,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindWhisperDataSource(DataSourceOptions options) {
     super("whisper", 1, options);
@@ -304,7 +310,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   class DataSourceSingleThread implements BindWhisperDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private DaoMessageImpl _daoMessage;
+    protected DaoMessageImpl _daoMessage;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindWhisperDataSource.this);
@@ -321,8 +327,15 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
       return _daoMessage;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

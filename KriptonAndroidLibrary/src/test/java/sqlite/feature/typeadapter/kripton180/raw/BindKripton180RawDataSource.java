@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
 /**
@@ -31,6 +32,11 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
   static BindKripton180RawDataSource instance;
 
   /**
+   * Unique identifier for Dao EmployeeRawDao
+   */
+  public static final int EMPLOYEE_RAW_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new EmployeeTable()};
@@ -42,7 +48,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindKripton180RawDataSource(DataSourceOptions options) {
     super("kripton180.db", 1, options);
@@ -304,7 +310,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
   class DataSourceSingleThread implements BindKripton180RawDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private EmployeeRawDaoImpl _employeeRawDao;
+    protected EmployeeRawDaoImpl _employeeRawDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindKripton180RawDataSource.this);
@@ -321,8 +327,15 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
       return _employeeRawDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

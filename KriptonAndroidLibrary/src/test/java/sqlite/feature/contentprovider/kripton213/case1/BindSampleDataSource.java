@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   static BindSampleDataSource instance;
 
   /**
+   * Unique identifier for Dao CheeseDao
+   */
+  public static final int CHEESE_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new CheeseTable()};
@@ -41,7 +47,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindSampleDataSource(DataSourceOptions options) {
     super("sample.db", 1, options);
@@ -323,7 +329,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   class DataSourceSingleThread implements BindSampleDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private CheeseDaoImpl _cheeseDao;
+    protected CheeseDaoImpl _cheeseDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindSampleDataSource.this);
@@ -340,8 +346,15 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
       return _cheeseDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

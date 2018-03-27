@@ -10,6 +10,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -30,6 +31,11 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
   static BindBean84BDataSource instance;
 
   /**
+   * Unique identifier for Dao Bean84BDao
+   */
+  public static final int BEAN84_B_DAO_UID = 0;
+
+  /**
    * List of tables compose datasource
    */
   static final SQLiteTable[] TABLES = {new Bean84BTable()};
@@ -41,7 +47,7 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
 
   /**
    * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindBean84BDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
@@ -303,7 +309,7 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
   class DataSourceSingleThread implements BindBean84BDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    private Bean84BDaoImpl _bean84BDao;
+    protected Bean84BDaoImpl _bean84BDao;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindBean84BDataSource.this);
@@ -320,8 +326,15 @@ public class BindBean84BDataSource extends AbstractDataSource implements BindBea
       return _bean84BDao;
     }
 
+    protected void onSessionOpened() {
+      _context.onSessionOpened();
+    }
+
+    protected Set<Integer> onSessionClosed() {
+      return _context.onSessionClosed();
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }
