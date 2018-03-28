@@ -4,7 +4,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextInTransactionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
@@ -38,28 +39,54 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   static BindSchoolDataSource instance;
 
   /**
-   * <p>dao instance</p>
+   * Unique identifier for Dao DaoProfessor
    */
-  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(this);
+  public static final int DAO_PROFESSOR_UID = 0;
+
+  /**
+   * Unique identifier for Dao DaoSeminar
+   */
+  public static final int DAO_SEMINAR_UID = 1;
+
+  /**
+   * Unique identifier for Dao DaoSeminar2Student
+   */
+  public static final int DAO_SEMINAR2_STUDENT_UID = 2;
+
+  /**
+   * Unique identifier for Dao DaoStudent
+   */
+  public static final int DAO_STUDENT_UID = 3;
+
+  /**
+   * List of tables compose datasource
+   */
+  static final SQLiteTable[] TABLES = {new SeminarTable(), new StudentTable(), new Seminar2StudentTable(), new ProfessorTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(this);
+  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(this);
+  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(context);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
+  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(context);
 
   /**
-   * Used only in transactions (that can be executed one for time */
-  private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+   * <p>dao instance</p>
+   */
+  protected DaoStudentImpl daoStudent = new DaoStudentImpl(context);
+
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindSchoolDataSource(DataSourceOptions options) {
     super("school", 2, options);
@@ -86,7 +113,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
    *
    * @param transaction
    * 	transaction to execute
@@ -96,7 +123,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. The database will be open in write mode.</p>
+   * <p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode.</p>
    *
    * @param transaction
    * 	transaction to execute
@@ -107,12 +134,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     boolean needToOpened=!this.isOpenInWriteMode();
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
+    DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
+    currentDaoFactory.onSessionOpened();
     try {
       connection.beginTransaction();
-      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
+      if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
+        currentDaoFactory.onSessionClosed();
       }
     } catch(Throwable e) {
+      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -137,7 +168,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. Thedrawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
+   * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
    * @param commands
    * 	batch to execute
@@ -147,9 +178,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
     if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
+    DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
+    currentDaoFactory.onSessionOpened();
     try {
       if (commands!=null) {
-        return commands.onExecute(new DataSourceSingleThread());
+        return commands.onExecute(currentDaoFactory);
       }
     } catch(Throwable e) {
       Logger.error(e.getMessage());
@@ -157,6 +190,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       throw(e);
     } finally {
       if (needToOpened) { close(); }
+      currentDaoFactory.onSessionClosed();
     }
     return null;
   }
@@ -166,7 +200,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    */
   public static synchronized BindSchoolDataSource instance() {
     if (instance==null) {
-      instance=new BindSchoolDataSource(null);
+      DataSourceOptions options=DataSourceOptions.builder()
+      	.build();
+      instance=new BindSchoolDataSource(options);
     }
     return instance;
   }
@@ -199,7 +235,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // generate tables
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("Create database '%s' version %s",this.name, this.getVersion());
+      if (options.inMemory) {
+        Logger.info("Create database in memory");
+      } else {
+        Logger.info("Create database '%s' version %s",this.name, this.version);
+      }
     }
     // log section END
     // log section BEGIN
@@ -226,10 +266,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     }
     // log section END
     database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
-   
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
+    justCreated=true;
   }
 
   /**
@@ -321,8 +361,6 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     if (instance==null) {
       instance=new BindSchoolDataSource(options);
     }
-    instance.openWritableDatabase();
-    instance.close();
     return instance;
   }
 
@@ -331,6 +369,13 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    */
   public static synchronized BindSchoolDataSource build() {
     return build(DataSourceOptions.builder().build());
+  }
+
+  /**
+   * List of tables compose datasource:
+   */
+  public static SQLiteTable[] tables() {
+    return TABLES;
   }
 
   /**
@@ -363,18 +408,18 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   class DataSourceSingleThread implements BindSchoolDaoFactory {
-    private SQLContextInTransactionImpl _context;
+    private SQLContextInSessionImpl _context;
 
-    private DaoProfessorImpl _daoProfessor;
+    protected DaoProfessorImpl _daoProfessor;
 
-    private DaoSeminarImpl _daoSeminar;
+    protected DaoSeminarImpl _daoSeminar;
 
-    private DaoSeminar2StudentImpl _daoSeminar2Student;
+    protected DaoSeminar2StudentImpl _daoSeminar2Student;
 
-    private DaoStudentImpl _daoStudent;
+    protected DaoStudentImpl _daoStudent;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInTransactionImpl(BindSchoolDataSource.this);
+      _context=new SQLContextInSessionImpl(BindSchoolDataSource.this);
     }
 
     /**
@@ -421,8 +466,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       return _daoStudent;
     }
 
+    protected void onSessionOpened() {
+    }
+
+    protected void onSessionClear() {
+    }
+
+    protected void onSessionClosed() {
+    }
+
     public DataSourceSingleThread bindToThread() {
-      _context.bindToThread();
       return this;
     }
   }

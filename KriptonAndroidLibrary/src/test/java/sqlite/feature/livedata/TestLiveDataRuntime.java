@@ -15,12 +15,17 @@
  *******************************************************************************/
 package sqlite.feature.livedata;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
+import sqlite.feature.livedata.data.Person;
 import sqlite.feature.livedata.persistence.BindAppDaoFactory;
 import sqlite.feature.livedata.persistence.BindAppDataSource;
 
@@ -32,14 +37,26 @@ public class TestLiveDataRuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRun() {
-		BindAppDataSource ds=BindAppDataSource.build(DataSourceOptions.builder().inMemory(true).build());
+		BindAppDataSource ds=BindAppDataSource.instance();// .build(DataSourceOptions.builder().inMemory(false).build());
+		
+		
+		LiveData<List<Person>> liveData = ds.getDaoPerson().select("Manero");		
+		liveData.observeForever(new Observer<List<Person>>() {
+			
+			@Override
+			public void onChanged(List<Person> t) {
+				System.out.println("*********** "+t.size());				
+			}
+		});
 		
 		ds.execute(new BindAppDataSource.Transaction() {
 			
 			@Override
 			public TransactionResult onExecute(BindAppDaoFactory daoFactory) {
-
-				daoFactory.getDaoPerson().select("Manero");
+				Person person=new Person();
+				person.name="Manero";
+				person.surname="Tonj";
+				daoFactory.getDaoPerson().insert(person);
 				return TransactionResult.COMMIT;
 			}
 		});

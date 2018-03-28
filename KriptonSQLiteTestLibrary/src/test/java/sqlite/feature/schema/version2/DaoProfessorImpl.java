@@ -52,21 +52,9 @@ public class DaoProfessorImpl extends Dao implements DaoProfessor {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.birthDate!=null) {
-      _contentValues.put("birth_date", DateUtils.write(bean.birthDate));
-    } else {
-      _contentValues.putNull("birth_date");
-    }
-    if (bean.surname!=null) {
-      _contentValues.put("surname", bean.surname);
-    } else {
-      _contentValues.putNull("surname");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("birth_date", DateUtils.write(bean.birthDate));
+    _contentValues.put("surname", bean.surname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

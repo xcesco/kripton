@@ -50,16 +50,8 @@ public class DaoStudentImpl extends Dao implements DaoStudent {
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    if (bean.name!=null) {
-      _contentValues.put("name", bean.name);
-    } else {
-      _contentValues.putNull("name");
-    }
-    if (bean.location!=null) {
-      _contentValues.put("location", bean.location);
-    } else {
-      _contentValues.putNull("location");
-    }
+    _contentValues.put("name", bean.name);
+    _contentValues.put("location", bean.location);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

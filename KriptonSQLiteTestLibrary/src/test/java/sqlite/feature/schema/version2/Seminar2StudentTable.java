@@ -1,5 +1,7 @@
 package sqlite.feature.schema.version2;
 
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+
 /**
  * <p>
  * Entity <code>Seminar2Student</code> is associated to table <code>seminar_2_student</code>
@@ -7,7 +9,7 @@ package sqlite.feature.schema.version2;
  * </p>
  *  @see Seminar2Student
  */
-public class Seminar2StudentTable {
+public class Seminar2StudentTable implements SQLiteTable {
   /**
    * Costant represents typeName of table seminar_2_student
    */
@@ -51,4 +53,25 @@ public class Seminar2StudentTable {
    *  @see Seminar2Student#seminarId
    */
   public static final String COLUMN_SEMINAR_ID = "seminar_id";
+
+  /**
+   * Columns array
+   */
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_STUDENT_ID, COLUMN_SEMINAR_ID};
+
+  /**
+   * Columns array
+   */
+  @Override
+  public String[] columns() {
+    return COLUMNS;
+  }
+
+  /**
+   * table name
+   */
+  @Override
+  public String name() {
+    return TABLE_NAME;
+  }
 }

@@ -55,7 +55,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new CityTable(), new PersonCityOk1Table(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new PersonCityOk1Table(), new CityTable(), new PersonTable()};
 
   /**
    * <p>dao instance</p>

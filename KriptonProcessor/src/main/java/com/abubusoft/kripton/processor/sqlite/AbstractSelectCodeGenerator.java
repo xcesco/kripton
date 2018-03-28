@@ -27,6 +27,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
@@ -55,7 +56,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-import android.arch.lifecycle.ComputableLiveData;
 import android.database.Cursor;
 
 public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator {
@@ -162,7 +162,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			    .build();
 				
 		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("")
-			    .addSuperinterface(ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), method.getReturnClass()))
+			    .addSuperinterface(ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), method.getReturnClass()))
 			    .addMethod(MethodSpec.methodBuilder("compute")
 			        .addAnnotation(Override.class)
 			        .addModifiers(Modifier.PROTECTED)			        
@@ -171,7 +171,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			        .build())
 			    .build();
 				
-		methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(ComputableLiveData.class), method.getReturnClass()),liveDataBuilder);
+		methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), method.getReturnClass()),liveDataBuilder);
 		methodBuilder.addStatement("registryLiveData(builder)");
 		methodBuilder.addStatement("return builder.getLiveData()");
 

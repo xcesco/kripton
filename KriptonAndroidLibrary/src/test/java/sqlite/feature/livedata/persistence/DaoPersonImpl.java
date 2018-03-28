@@ -1,6 +1,5 @@
 package sqlite.feature.livedata.persistence;
 
-import android.arch.lifecycle.ComputableLiveData;
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
@@ -10,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
+import com.abubusoft.kripton.android.sqlite.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import io.reactivex.subjects.PublishSubject;
@@ -37,7 +37,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   private static SQLiteStatement updatePreparedStatement1;
 
-  static Collection<WeakReference<ComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<ComputableLiveData<?>>>());
+  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<KriptonComputableLiveData<?>>>());
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
@@ -144,7 +144,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public LiveData<List<Person>> select(final String name) {
-    final ComputableLiveData<List<Person>> builder=new ComputableLiveData<List<Person>>() {
+    final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
       @Override
       protected List<Person> compute() {
         return BindAppDataSource.instance().executeBatch(new BindAppDataSource.Batch<List<Person>>() {
@@ -307,12 +307,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  protected void registryLiveData(ComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<ComputableLiveData<?>>(value));
+  protected void registryLiveData(KriptonComputableLiveData<?> value) {
+    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
   }
 
   protected void invalidateLiveData() {
-    for (WeakReference<ComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

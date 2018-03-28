@@ -234,6 +234,14 @@
 
 	<dependencies>
 	
+	<!-- https://mvnrepository.com/artifact/com.almworks.sqlite4java/sqlite4java -->
+<dependency>
+    <groupId>com.almworks.sqlite4java</groupId>
+    <artifactId>sqlite4java</artifactId>
+    <version>1.0.392</version>
+</dependency>
+	
+	
 		<!-- RX dependencies - BEGIN -->
 		<dependency>
 			<groupId>io.reactivex.rxjava2</groupId>
@@ -249,46 +257,46 @@
 			<version>${arch.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-arch-integration</artifactId>
-			<version>${arch.version}</version>
-			<scope>test</scope>
-		</dependency>
+
+<!-- 	<dependency> -->
+<!-- 		<groupId>com.abubusoft</groupId> -->
+<!-- 		<artifactId>kripton-arch-integration</artifactId> -->
+<!-- 		<version>${arch.version}</version> -->
+<!-- 		<scope>test</scope> -->
+<!-- 	</dependency> -->
 		
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton</artifactId>
-			<version>${project.version}</version>
+			<version>${project.version}</version>			
 		</dependency>
 
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>robolectric</artifactId>
 			<version>${robolectric.version}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>5.0.0_r2-robolectric-0</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
 			<version>4.1.1.4</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- TEST DEPENDENCIES -->
@@ -302,7 +310,7 @@
 		<dependency>
 			<groupId>org.unitils</groupId>
 			<artifactId>unitils-core</artifactId>
-			<version>${unitils.version}</version>
+			<version>${unitils.version}</version>			
 			<exclusions>
 				<exclusion>
 					<artifactId>junit</artifactId>
