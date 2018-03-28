@@ -23,6 +23,7 @@
 	<module>KriptonDataFormatProperties</module>	
 	<module>KriptonDataFormatYaml</module>
 	<module>KriptonDataFormatSmile</module>
+	<module>KriptonArchIntegration</module>
     <module>KriptonAndroidLibrary</module>
 	<module>KriptonProcessor</module>
 	<module>KriptonRetrofitConverter</module>
