@@ -232,16 +232,7 @@
 		</plugins>
 	</build>
 
-	<dependencies>
-	
-	<!-- https://mvnrepository.com/artifact/com.almworks.sqlite4java/sqlite4java -->
-<dependency>
-    <groupId>com.almworks.sqlite4java</groupId>
-    <artifactId>sqlite4java</artifactId>
-    <version>1.0.392</version>
-</dependency>
-	
-	
+	<dependencies>			
 		<!-- RX dependencies - BEGIN -->
 		<dependency>
 			<groupId>io.reactivex.rxjava2</groupId>
@@ -255,7 +246,7 @@
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-arch-integration</artifactId>
 			<version>${arch.version}</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 
 <!-- 	<dependency> -->
