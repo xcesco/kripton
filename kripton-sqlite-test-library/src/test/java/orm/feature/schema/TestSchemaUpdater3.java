@@ -9,8 +9,8 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.orm.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLiteSchemaVerifierHelper;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTestHelper;
+import com.abubusoft.kripton.android.orm.SQLiteSchemaVerifierHelper;
+import com.abubusoft.kripton.android.orm.SQLiteUpdateTestHelper;
 
 import base.BaseAndroidTest;
 import orm.feature.schema.version2.BindSchoolDataSource;

@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.sqlite;
+package com.abubusoft.kripton.android.orm;
 
 import java.io.InputStream;
 import java.util.ArrayList;

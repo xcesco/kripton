@@ -8,9 +8,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.abubusoft.kripton.android.orm.SQLiteSchemaVerifierHelper;
 import com.abubusoft.kripton.android.orm.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.sqlite.SQLiteSchemaVerifierHelper;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTestDatabase;
+import com.abubusoft.kripton.android.orm.SQLiteUpdateTestDatabase;
 
 import android.database.sqlite.SQLiteDatabase;
 import base.BaseAndroidTest;

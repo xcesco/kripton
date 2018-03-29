@@ -2,7 +2,6 @@ package orm.feature.schema.version2;
 
 import android.database.sqlite.SQLiteDatabase;
 import sqlite.feature.schema.version2.BindSchoolDaoFactory;
-import sqlite.feature.schema.version2.BindSchoolDataSource;
 import sqlite.feature.schema.version2.DaoProfessor;
 import sqlite.feature.schema.version2.DaoProfessorImpl;
 import sqlite.feature.schema.version2.DaoSeminar;

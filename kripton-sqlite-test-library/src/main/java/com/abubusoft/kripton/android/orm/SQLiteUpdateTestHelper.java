@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.sqlite;
+package com.abubusoft.kripton.android.orm;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.orm.AbstractDataSource;
-import com.abubusoft.kripton.android.sqlite.internals.MigrationSQLChecker;
+import com.abubusoft.kripton.android.orm.internals.MigrationSQLChecker;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_stmtContext;

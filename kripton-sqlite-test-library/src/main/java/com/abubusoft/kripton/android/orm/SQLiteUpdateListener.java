@@ -1,4 +1,4 @@
-package com.abubusoft.kripton.android.sqlite;
+package com.abubusoft.kripton.android.orm;
 
 import android.database.sqlite.SQLiteDatabase;
 

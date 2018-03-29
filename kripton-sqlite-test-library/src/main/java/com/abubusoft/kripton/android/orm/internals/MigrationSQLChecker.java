@@ -16,7 +16,7 @@
 /**
  * 
  */
-package com.abubusoft.kripton.android.sqlite.internals;
+package com.abubusoft.kripton.android.orm.internals;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -25,7 +25,7 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import com.abubusoft.kripton.android.sqlite.AssertKripton;
+import com.abubusoft.kripton.android.orm.AssertKripton;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlLexer;
