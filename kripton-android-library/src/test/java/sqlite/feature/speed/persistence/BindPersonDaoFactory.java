@@ -1,6 +1,6 @@
 package sqlite.feature.speed.persistence;
 
-import com.abubusoft.kripton.android.orm.BindDaoFactory;
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
 /**
  * <p>

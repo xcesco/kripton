@@ -1,6 +1,6 @@
 package sqlite.feature.many2many;
 
-import com.abubusoft.kripton.android.orm.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
 /**
  * <p>

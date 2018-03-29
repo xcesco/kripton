@@ -22,11 +22,11 @@ import java.util.Set;
 
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.orm.KriptonContentValues;
-import com.abubusoft.kripton.android.orm.OnReadBeanListener;
-import com.abubusoft.kripton.android.orm.OnReadCursorListener;
-import com.abubusoft.kripton.android.orm.PaginatedResult;
-import com.abubusoft.kripton.android.orm.SqlUtils;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;

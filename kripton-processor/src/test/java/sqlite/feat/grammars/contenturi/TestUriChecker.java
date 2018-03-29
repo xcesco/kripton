@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.android.orm.ContentProviderURIParamsExtractor;
+import com.abubusoft.kripton.android.sqlite.ContentProviderURIParamsExtractor;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;

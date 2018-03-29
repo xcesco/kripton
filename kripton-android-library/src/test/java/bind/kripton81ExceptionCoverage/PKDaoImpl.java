@@ -2,10 +2,10 @@ package bind.kripton81ExceptionCoverage;
 
 import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.orm.Dao;
-import com.abubusoft.kripton.android.orm.KriptonContentValues;
-import com.abubusoft.kripton.android.orm.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.orm.SQLContext;
+import com.abubusoft.kripton.android.sqlite.Dao;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 

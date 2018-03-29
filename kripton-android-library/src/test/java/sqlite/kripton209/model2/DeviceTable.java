@@ -1,6 +1,6 @@
 package sqlite.kripton209.model2;
 
-import com.abubusoft.kripton.android.orm.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
 /**
  * <p>

@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.orm.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
 @BindDao(Err1Person.class)
 public interface Err1PersonDAO {

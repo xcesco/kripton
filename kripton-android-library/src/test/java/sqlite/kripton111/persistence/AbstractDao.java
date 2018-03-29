@@ -19,7 +19,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.orm.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
 public interface AbstractDao<E> {
 

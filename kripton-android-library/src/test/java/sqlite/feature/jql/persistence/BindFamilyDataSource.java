@@ -2,14 +2,13 @@ package sqlite.feature.jql.persistence;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.orm.AbstractDataSource;
-import com.abubusoft.kripton.android.orm.DataSourceOptions;
-import com.abubusoft.kripton.android.orm.SQLContextInSessionImpl;
-import com.abubusoft.kripton.android.orm.SQLiteTable;
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTaskHelper;
-import com.abubusoft.kripton.android.orm.TransactionResult;
-
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
 import sqlite.feature.jql.entities.ChildTable;
 import sqlite.feature.jql.entities.PersonTable;
@@ -48,7 +47,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable(), new ChildTable()};
+  static final SQLiteTable[] TABLES = {new ChildTable(), new PersonTable()};
 
   /**
    * <p>dao instance</p>

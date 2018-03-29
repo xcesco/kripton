@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.Test;
 import org.robolectric.util.Logger;
 
-import com.abubusoft.kripton.android.orm.TransactionResult;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import base.BaseAndroidTest;
 import sqlite.kripton58.list.BindLongDataSource.Transaction;

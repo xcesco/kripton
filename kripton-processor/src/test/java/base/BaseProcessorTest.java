@@ -122,7 +122,7 @@ public class BaseProcessorTest {
 
 	public enum PathSourceType {
 		SRC_TEST_JAVA("src/test/java/"), SRC_TEST_EXPECTED("src/test/expected/"), TARGET_TEST_RESULT("target/test/generated/"), DEST_TEST_ANDROID_LIBRARY(
-				"../KriptonAndroidLibrary/src/test/java/"), DEST_TEST_JAVA_LIBRARY("../Kripton/src/test/java/");
+				"../kripton-android-library/src/test/java/"), DEST_TEST_JAVA_LIBRARY("../kripton/src/test/java/");
 
 		private PathSourceType(String path) {
 			this.path = path;

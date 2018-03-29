@@ -28,8 +28,8 @@ import java.util.Set;
 import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.orm.PaginatedResult;
-import com.abubusoft.kripton.android.orm.SQLTypeAdapterUtils;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;

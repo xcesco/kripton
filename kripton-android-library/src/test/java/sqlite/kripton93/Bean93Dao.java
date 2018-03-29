@@ -20,7 +20,7 @@ import java.util.List;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.orm.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
 @BindDao(Bean93.class)
 public interface Bean93Dao {

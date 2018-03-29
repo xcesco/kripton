@@ -25,7 +25,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.orm.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
 import base.BaseAndroidTest;
 import sqlite.feature.paginatedResult.model.Person;

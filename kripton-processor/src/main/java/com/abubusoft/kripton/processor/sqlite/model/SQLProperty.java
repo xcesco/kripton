@@ -24,8 +24,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
-import com.abubusoft.kripton.android.orm.ForeignKeyAction;
-import com.abubusoft.kripton.android.orm.NoForeignKey;
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
+import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;

@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import com.abubusoft.kripton.android.orm.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 import base.BaseAndroidTest;
 

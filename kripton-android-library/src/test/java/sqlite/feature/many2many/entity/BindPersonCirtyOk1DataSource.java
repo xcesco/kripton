@@ -2,14 +2,13 @@ package sqlite.feature.many2many.entity;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.orm.AbstractDataSource;
-import com.abubusoft.kripton.android.orm.DataSourceOptions;
-import com.abubusoft.kripton.android.orm.SQLContextInSessionImpl;
-import com.abubusoft.kripton.android.orm.SQLiteTable;
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTaskHelper;
-import com.abubusoft.kripton.android.orm.TransactionResult;
-
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
 import sqlite.feature.many2many.CityTable;
 import sqlite.feature.many2many.PersonTable;
@@ -56,7 +55,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonCityOk1Table(), new CityTable(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new CityTable(), new PersonCityOk1Table(), new PersonTable()};
 
   /**
    * <p>dao instance</p>

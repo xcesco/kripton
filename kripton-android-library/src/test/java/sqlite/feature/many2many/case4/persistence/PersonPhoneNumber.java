@@ -3,8 +3,7 @@ package sqlite.feature.many2many.case4.persistence;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.android.orm.ForeignKeyAction;
-
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import sqlite.feature.many2many.case4.model.Person;
 import sqlite.feature.many2many.case4.model.PhoneNumber;
 

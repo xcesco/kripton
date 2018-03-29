@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.orm.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 @BindDao(Contact.class)
 public interface ContactDao {

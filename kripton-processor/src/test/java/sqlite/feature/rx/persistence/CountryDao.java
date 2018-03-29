@@ -3,7 +3,7 @@ package sqlite.feature.rx.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.orm.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
 import sqlite.feature.rx.model.Country;
 

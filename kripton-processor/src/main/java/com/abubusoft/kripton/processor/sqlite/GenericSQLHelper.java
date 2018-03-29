@@ -3,7 +3,7 @@ package com.abubusoft.kripton.processor.sqlite;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abubusoft.kripton.android.orm.SQLiteEvent;
+import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;

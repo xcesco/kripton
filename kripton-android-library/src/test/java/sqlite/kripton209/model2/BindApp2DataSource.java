@@ -2,14 +2,13 @@ package sqlite.kripton209.model2;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.orm.AbstractDataSource;
-import com.abubusoft.kripton.android.orm.DataSourceOptions;
-import com.abubusoft.kripton.android.orm.SQLContextInSessionImpl;
-import com.abubusoft.kripton.android.orm.SQLiteTable;
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTaskHelper;
-import com.abubusoft.kripton.android.orm.TransactionResult;
-
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new DeviceTable(), new UserTable(), new UserDeviceTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new DeviceTable(), new UserDeviceTable()};
 
   /**
    * <p>dao instance</p>
@@ -228,16 +227,16 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(DeviceTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(UserTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(DeviceTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);
@@ -284,16 +283,16 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(DeviceTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(UserTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(DeviceTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);

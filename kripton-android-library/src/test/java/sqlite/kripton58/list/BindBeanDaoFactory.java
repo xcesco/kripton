@@ -1,6 +1,6 @@
 package sqlite.kripton58.list;
 
-import com.abubusoft.kripton.android.orm.BindDaoFactory;
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
 /**
  * <p>

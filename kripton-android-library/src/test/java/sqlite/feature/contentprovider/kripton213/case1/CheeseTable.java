@@ -1,6 +1,6 @@
 package sqlite.feature.contentprovider.kripton213.case1;
 
-import com.abubusoft.kripton.android.orm.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
 /**
  * <p>

@@ -20,7 +20,7 @@ import java.util.Date;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.orm.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
 @BindDao(Err4Person.class)
 public interface Err4PersonDAO {

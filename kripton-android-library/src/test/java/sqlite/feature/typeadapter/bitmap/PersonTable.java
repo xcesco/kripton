@@ -1,6 +1,6 @@
 package sqlite.feature.typeadapter.bitmap;
 
-import com.abubusoft.kripton.android.orm.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
 /**
  * <p>

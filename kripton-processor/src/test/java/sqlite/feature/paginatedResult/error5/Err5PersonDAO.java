@@ -17,7 +17,7 @@ package sqlite.feature.paginatedResult.error5;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.orm.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
 import sqlite.feature.paginatedResult.error4.Err4Person;
 import sqlite.feature.paginatedResult.model.Person;

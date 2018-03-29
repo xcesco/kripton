@@ -1,6 +1,6 @@
 package sqlite.feature.many2many.case4.persistence;
 
-import com.abubusoft.kripton.android.orm.BindDaoFactory;
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
 /**
  * <p>

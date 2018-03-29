@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.abubusoft.kripton.android.orm.TransactionResult;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;

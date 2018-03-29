@@ -2,14 +2,13 @@ package sqlite.kripton111.persistence;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.orm.AbstractDataSource;
-import com.abubusoft.kripton.android.orm.DataSourceOptions;
-import com.abubusoft.kripton.android.orm.SQLContextInSessionImpl;
-import com.abubusoft.kripton.android.orm.SQLiteTable;
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTaskHelper;
-import com.abubusoft.kripton.android.orm.TransactionResult;
-
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
 import sqlite.kripton111.model.CountryTable;
 import sqlite.kripton111.model.PhoneNumberTable;
@@ -57,7 +56,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PrefixConfigTable(), new CountryTable(), new PhoneNumberTable()};
+  static final SQLiteTable[] TABLES = {new CountryTable(), new PhoneNumberTable(), new PrefixConfigTable()};
 
   /**
    * <p>dao instance</p>
@@ -231,12 +230,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
     }
     // log section END
@@ -247,6 +240,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
     // log section END
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -287,12 +286,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
       }
       // log section END
@@ -303,6 +296,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       }
       // log section END
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);

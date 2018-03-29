@@ -1,6 +1,6 @@
 package sqlite.feature.foreignkeyaction;
 
-import com.abubusoft.kripton.android.orm.BindDaoFactory;
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
 /**
  * <p>

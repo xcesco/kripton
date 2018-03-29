@@ -2,7 +2,7 @@ package sqlite.feature.foreignkeyaction.err2;
 
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.android.orm.ForeignKeyAction;
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 
 @BindTable
 public class Album {

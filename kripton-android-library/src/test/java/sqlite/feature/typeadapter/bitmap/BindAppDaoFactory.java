@@ -1,6 +1,6 @@
 package sqlite.feature.typeadapter.bitmap;
 
-import com.abubusoft.kripton.android.orm.BindDaoFactory;
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
 /**
  * <p>

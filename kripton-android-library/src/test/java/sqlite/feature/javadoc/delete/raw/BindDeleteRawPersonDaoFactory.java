@@ -1,6 +1,6 @@
 package sqlite.feature.javadoc.delete.raw;
 
-import com.abubusoft.kripton.android.orm.BindDaoFactory;
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
 /**
  * <p>

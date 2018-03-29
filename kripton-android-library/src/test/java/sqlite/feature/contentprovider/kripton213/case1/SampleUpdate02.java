@@ -3,7 +3,7 @@
  */
 package sqlite.feature.contentprovider.kripton213.case1;
 
-import com.abubusoft.kripton.android.orm.SQLiteUpdateTask;
+import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 
 import android.database.sqlite.SQLiteDatabase;
 

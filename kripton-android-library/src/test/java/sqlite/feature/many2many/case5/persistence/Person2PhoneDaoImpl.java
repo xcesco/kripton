@@ -1,7 +1,7 @@
 package sqlite.feature.many2many.case5.persistence;
 
-import com.abubusoft.kripton.android.orm.Dao;
-import com.abubusoft.kripton.android.orm.SQLContext;
+import com.abubusoft.kripton.android.sqlite.Dao;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 
 /**
  * <p>

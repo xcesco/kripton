@@ -5,7 +5,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
-import com.abubusoft.kripton.android.orm.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
 import sqlite.feature.javadoc.Person;
 

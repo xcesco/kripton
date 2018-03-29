@@ -28,8 +28,8 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.orm.ConflictAlgorithmType;
-import com.abubusoft.kripton.android.orm.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
 import sqlite.feature.contentprovider.kripton35.entities.Person;
 

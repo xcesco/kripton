@@ -27,7 +27,7 @@ public class Bean87A_1BindMap extends AbstractMapper<Bean87A_1> {
 
     // Serialized Field:
 
-    // field valueDate (mapped with "valueDate") 
+    // field valueDate (mapped with "valueDate")
     if (object.valueDate!=null)  {
       fieldCount++;
       // using type adapter bind.feature.typeAdapter.kripton87.DateLongTypeAdapter

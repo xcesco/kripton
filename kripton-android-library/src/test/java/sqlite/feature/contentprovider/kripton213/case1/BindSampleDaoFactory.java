@@ -1,6 +1,6 @@
 package sqlite.feature.contentprovider.kripton213.case1;
 
-import com.abubusoft.kripton.android.orm.BindDaoFactory;
+import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
 /**
  * <p>

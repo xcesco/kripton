@@ -25,7 +25,7 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.BindAsyncTaskType;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.orm.TransactionResult;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import base.BaseAndroidTest;
 

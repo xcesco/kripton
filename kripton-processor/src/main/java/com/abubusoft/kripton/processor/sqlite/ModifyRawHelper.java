@@ -22,8 +22,8 @@ import java.util.List;
 
 import javax.lang.model.element.Modifier;
 
-import com.abubusoft.kripton.android.orm.KriptonContentValues;
-import com.abubusoft.kripton.android.orm.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;

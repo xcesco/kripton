@@ -3,7 +3,7 @@ package sqlite.feature.many2many;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.android.orm.ForeignKeyAction;
+import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 
 /**
  * <p>

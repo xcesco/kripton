@@ -1,6 +1,6 @@
 package sqlite.feature.many2many.case4.persistence;
 
-import com.abubusoft.kripton.android.orm.SQLiteTable;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
 /**
  * <p>

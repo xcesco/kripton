@@ -19,8 +19,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import com.abubusoft.kripton.android.orm.OnReadBeanListener;
-import com.abubusoft.kripton.android.orm.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;

@@ -20,7 +20,7 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.Set;
 
-import com.abubusoft.kripton.android.orm.OnReadCursorListener;
+import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;

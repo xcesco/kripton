@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import com.abubusoft.kripton.android.orm.TransactionResult;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import android.database.sqlite.SQLiteConstraintException;
 import base.BaseAndroidTest;

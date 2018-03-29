@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.abubusoft.kripton.android.orm.TransactionResult;
+import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import base.BaseAndroidTest;
 import sqlite.kripton64.BindBean64ADataSource.Transaction;
