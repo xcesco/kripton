@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.abubusoft</groupId>
+		<artifactId>kripton-parent</artifactId>
+		<version>4.0.0</version>
+		<relativePath>../kripton-parent/pom.xml</relativePath>
+	</parent>
+
+	<name>Kripton Retrofit Converter</name>	
+	<artifactId>kripton-retrofit-converter</artifactId>	
+	<packaging>jar</packaging>
+
+	<description>Kripton adapter for Retrofit library</description>
+		
+	<dependencies>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+		</dependency>
+		
+	
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.squareup.retrofit2</groupId>
+			<artifactId>retrofit</artifactId>
+			<version>${retrofit.version}</version>
+		</dependency>
+
+		<!-- TEST DEPENDENCIES -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-core</artifactId>
+			<version>${unitils.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+</project>

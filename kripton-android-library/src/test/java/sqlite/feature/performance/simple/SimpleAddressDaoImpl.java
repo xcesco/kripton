@@ -1,0 +1,223 @@
+package sqlite.feature.performance.simple;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
+
+import java.util.ArrayList;
+
+import com.abubusoft.kripton.android.orm.Dao;
+import com.abubusoft.kripton.android.orm.KriptonContentValues;
+import com.abubusoft.kripton.android.orm.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.orm.SQLContext;
+
+/**
+ * <p>
+ * DAO implementation for entity <code>SimpleAddressItem</code>, based on interface <code>SimpleAddressDao</code>
+ * </p>
+ *
+ *  @see SimpleAddressItem
+ *  @see SimpleAddressDao
+ *  @see SimpleAddressItemTable
+ */
+public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, address, city, state, phone FROM simple_address_item WHERE id=?";
+
+  private static SQLiteStatement deleteAllPreparedStatement0;
+
+  private static final String SELECT_ALL_SQL2 = "SELECT id, name, address, city, state, phone FROM simple_address_item";
+
+  private static SQLiteStatement insertPreparedStatement1;
+
+  public SimpleAddressDaoImpl(SQLContext context) {
+    super(context);
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, address, city, state, phone FROM simple_address_item WHERE id=${id}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>address</dt><dd>is associated to bean's property <strong>address</strong></dd>
+   * 	<dt>city</dt><dd>is associated to bean's property <strong>city</strong></dd>
+   * 	<dt>state</dt><dd>is associated to bean's property <strong>state</strong></dd>
+   * 	<dt>phone</dt><dd>is associated to bean's property <strong>phone</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * </dl>
+   *
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @return selected bean or <code>null</code>.
+   */
+  @Override
+  public SimpleAddressItem selectById(long id) {
+    KriptonContentValues _contentValues=contentValues();
+    // query SQL is statically defined
+    String _sql=SELECT_BY_ID_SQL1;
+    // add where arguments
+    _contentValues.addWhereArgs(String.valueOf(id));
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+
+      SimpleAddressItem resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("address");
+        int index3=_cursor.getColumnIndex("city");
+        int index4=_cursor.getColumnIndex("state");
+        int index5=_cursor.getColumnIndex("phone");
+
+        resultBean=new SimpleAddressItem();
+
+        resultBean.setId(_cursor.getLong(index0));
+        if (!_cursor.isNull(index1)) { resultBean.setName(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.setAddress(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.setCity(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.setState(_cursor.getString(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.setPhone(_cursor.getLong(index5)); }
+
+      }
+      return resultBean;
+    }
+  }
+
+  /**
+   * <h2>SQL delete</h2>
+   * <pre>DELETE FROM simple_address_item</pre>
+   *
+   *
+   * <h2>Where parameters:</h2>
+   * <dl>
+   * </dl>
+   *
+   */
+  @Override
+  public void deleteAll() {
+    if (deleteAllPreparedStatement0==null) {
+      // generate static SQL for statement
+      String _sql="DELETE FROM simple_address_item";
+      deleteAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
+    KriptonContentValues _contentValues=contentValuesForUpdate(deleteAllPreparedStatement0);
+
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement0, _contentValues);
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT id, name, address, city, state, phone FROM simple_address_item</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>address</dt><dd>is associated to bean's property <strong>address</strong></dd>
+   * 	<dt>city</dt><dd>is associated to bean's property <strong>city</strong></dd>
+   * 	<dt>state</dt><dd>is associated to bean's property <strong>state</strong></dd>
+   * 	<dt>phone</dt><dd>is associated to bean's property <strong>phone</strong></dd>
+   * </dl>
+   *
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public ArrayList<SimpleAddressItem> selectAll() {
+    KriptonContentValues _contentValues=contentValues();
+    // query SQL is statically defined
+    String _sql=SELECT_ALL_SQL2;
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+
+      ArrayList<SimpleAddressItem> resultList=new ArrayList<SimpleAddressItem>(_cursor.getCount());
+      SimpleAddressItem resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("address");
+        int index3=_cursor.getColumnIndex("city");
+        int index4=_cursor.getColumnIndex("state");
+        int index5=_cursor.getColumnIndex("phone");
+
+        do
+         {
+          resultBean=new SimpleAddressItem();
+
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setName(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setAddress(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setCity(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setState(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.setPhone(_cursor.getLong(index5)); }
+
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+  }
+
+  /**
+   * <p>SQL insert:</p>
+   * <pre>INSERT INTO simple_address_item (name, address, city, state, phone) VALUES (${bean.name}, ${bean.address}, ${bean.city}, ${bean.state}, ${bean.phone})</pre>
+   *
+   * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
+   *
+   * <p><strong>Inserted columns:</strong></p>
+   * <dl>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
+   * 	<dt>city</dt><dd>is mapped to <strong>${bean.city}</strong></dd>
+   * 	<dt>state</dt><dd>is mapped to <strong>${bean.state}</strong></dd>
+   * 	<dt>phone</dt><dd>is mapped to <strong>${bean.phone}</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   */
+  @Override
+  public void insert(SimpleAddressItem bean) {
+    if (insertPreparedStatement1==null) {
+      // generate static SQL for statement
+      String _sql="INSERT INTO simple_address_item (name, address, city, state, phone) VALUES (?, ?, ?, ?, ?)";
+      insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+    }
+    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
+    _contentValues.put(bean.getName());
+    _contentValues.put(bean.getAddress());
+    _contentValues.put(bean.getCity());
+    _contentValues.put(bean.getState());
+    _contentValues.put(bean.getPhone());
+
+    // insert operation
+    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    bean.setId(result);
+  }
+
+  public static void clearCompiledStatements() {
+    if (deleteAllPreparedStatement0!=null) {
+      deleteAllPreparedStatement0.close();
+      deleteAllPreparedStatement0=null;
+    }
+    if (insertPreparedStatement1!=null) {
+      insertPreparedStatement1.close();
+      insertPreparedStatement1=null;
+    }
+  }
+}

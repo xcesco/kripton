@@ -1,0 +1,22 @@
+package sqlite.kripton84;
+
+import com.abubusoft.kripton.android.orm.BindDaoFactory;
+
+/**
+ * <p>
+ * Represents dao factory interface for Bean84BDataSource.
+ * This class expose database interface through Dao attribute.
+ * </p>
+ *
+ * @see Bean84BDataSource
+ * @see Bean84BDao
+ * @see Bean84BDaoImpl
+ * @see Bean84B
+ */
+public interface BindBean84BDaoFactory extends BindDaoFactory {
+  /**
+   *
+   * retrieve dao Bean84BDao
+   */
+  Bean84BDaoImpl getBean84BDao();
+}

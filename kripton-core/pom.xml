@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.abubusoft</groupId>
+		<artifactId>kripton-parent</artifactId>
+		<version>4.0.0</version>
+		<relativePath>../kripton-parent/pom.xml</relativePath>
+	</parent>
+	
+	<artifactId>kripton-core</artifactId>	
+	<name>Kripton Core</name>
+	<packaging>jar</packaging>
+	<description>Kripton Persistence Library - core module </description>
+
+</project>
