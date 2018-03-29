@@ -36,15 +36,15 @@ public class KriptonLibrary {
 	
 	private static ExecutorService executerService;
 	
-	public static final int THREAD_POOL_SIZE=3;
-
+	public static final int THREAD_POOL_SIZE_DEFAULT=2;
+	
 	/**
 	 * Method to invoke during application initialization
 	 * 
 	 * @param contextValue
 	 */
 	public static void init(Context contextValue) {
-		init(contextValue, THREAD_POOL_SIZE);
+		init(contextValue, null);
 	}
 	
 	/**
@@ -52,11 +52,11 @@ public class KriptonLibrary {
 	 * 
 	 * @param contextValue
 	 */
-	public static void init(Context contextValue, int threadPoolSize) {
+	public static void init(Context contextValue, ExecutorService executorService) {
 		context = contextValue;
 		
 		//Schedulers.from(Executors.newFixedThreadPool(3));
-		executerService=Executors.newFixedThreadPool(threadPoolSize);
+		executerService=Executors.newFixedThreadPool(THREAD_POOL_SIZE_DEFAULT);
 	}
 	
 }

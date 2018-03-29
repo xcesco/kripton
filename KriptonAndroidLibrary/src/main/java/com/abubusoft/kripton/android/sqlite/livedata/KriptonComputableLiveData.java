@@ -18,7 +18,7 @@ package com.abubusoft.kripton.android.sqlite.livedata;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.android.sqlite.executors.KriptonTaskExecutor;
 
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.MainThread;
@@ -50,8 +50,8 @@ public abstract class KriptonComputableLiveData<T> {
     public KriptonComputableLiveData() {
         mLiveData = new KriptonLiveData<T>() {
             @Override
-            protected void onActive() {
-            	KriptonLibrary.executorService().execute(mRefreshRunnable);
+            protected void onActive() {            	            	
+            	KriptonTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
                 // TODO if we make this class public, we should accept an executor
                 //ArchTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
             }
@@ -114,9 +114,8 @@ public abstract class KriptonComputableLiveData<T> {
             boolean isActive = mLiveData.hasActiveObservers();
             if (mInvalid.compareAndSet(false, true)) {
                 if (isActive) {
-                	KriptonLibrary.executorService().submit(mRefreshRunnable);
-                    // TODO if we make this class public, we should accept an executor.                	
-                    //ArchTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
+                	// TODO if we make this class public, we should accept an executor.                	
+                	KriptonTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
                 }
             }
         }
@@ -129,7 +128,7 @@ public abstract class KriptonComputableLiveData<T> {
      */
     public void invalidate() {
     	//KriptonLibrary.executorService().(mInvalidationRunnable);
-        ArchTaskExecutor.getInstance().executeOnMainThread(mInvalidationRunnable);
+    	KriptonTaskExecutor.getInstance().executeOnMainThread(mInvalidationRunnable);
     }
 
     @WorkerThread
