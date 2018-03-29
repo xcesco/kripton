@@ -66,6 +66,12 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-retrofit-converter</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 		<!-- RX dependencies - BEGIN -->
 		<dependency>
 			<groupId>io.reactivex.rxjava2</groupId>

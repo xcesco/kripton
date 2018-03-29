@@ -11,13 +11,7 @@
 
 	<artifactId>kripton-example-01</artifactId>
 
-	<dependencies>
-		<!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit -->
-		<dependency>
-			<groupId>com.squareup.retrofit2</groupId>
-			<artifactId>retrofit</artifactId>
-			<version>${retrofit.version}</version>
-		</dependency>
+	<dependencies>		
 
 		<dependency>
 			<groupId>com.abubusoft</groupId>

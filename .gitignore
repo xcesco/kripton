@@ -54,3 +54,4 @@ build
 .idea
 /bin/
 /.classpath
+/kripton-parent/.classpath
