@@ -62,8 +62,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-import android.arch.lifecycle.LiveData;
-
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement, JQLContext {
 
 	interface OnFoundDynamicParameter {
@@ -379,7 +377,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				throw(new KriptonRuntimeException(e));
 			}
 			
-			if (LiveData.class.isAssignableFrom(wrapperClazz)) {
+			if ("android.arch.lifecycle.LiveData".equals(wrapperClazz.getName())) {
 				result=true;							
 			}
 		}

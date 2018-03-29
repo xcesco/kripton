@@ -45,7 +45,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new BeanA_1Table(), new BeanA_2Table()};
+  static final SQLiteTable[] TABLES = {new BeanA_2Table(), new BeanA_1Table()};
 
   /**
    * <p>dao instance</p>
@@ -96,6 +96,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
    */
   public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
+    boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -104,10 +105,9 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
-        currentDaoFactory.onSessionClosed();
+        success=true;
       }
     } catch(Throwable e) {
-      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -118,6 +118,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
         Logger.warn("error closing transaction %s", e.getMessage());
       }
       if (needToOpened) { close(); }
+      if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
   }
 

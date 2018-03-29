@@ -116,6 +116,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
    */
   public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
+    boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -124,10 +125,9 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
-        currentDaoFactory.onSessionClosed();
+        success=true;
       }
     } catch(Throwable e) {
-      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -138,6 +138,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
         Logger.warn("error closing transaction %s", e.getMessage());
       }
       if (needToOpened) { close(); }
+      if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
   }
 

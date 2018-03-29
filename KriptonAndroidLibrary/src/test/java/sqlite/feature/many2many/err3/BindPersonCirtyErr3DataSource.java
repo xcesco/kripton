@@ -116,6 +116,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
    */
   public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
+    boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -124,10 +125,9 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
-        currentDaoFactory.onSessionClosed();
+        success=true;
       }
     } catch(Throwable e) {
-      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -138,6 +138,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
         Logger.warn("error closing transaction %s", e.getMessage());
       }
       if (needToOpened) { close(); }
+      if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
   }
 
@@ -228,16 +229,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(CityTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(CityTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);
@@ -284,16 +285,16 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(CityTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(CityTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonCityErr3Table.CREATE_TABLE_SQL);

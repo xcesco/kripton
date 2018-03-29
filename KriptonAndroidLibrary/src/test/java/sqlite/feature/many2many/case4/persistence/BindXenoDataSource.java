@@ -154,6 +154,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    */
   public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
+    boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -162,10 +163,9 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
-        currentDaoFactory.onSessionClosed();
+        success=true;
       }
     } catch(Throwable e) {
-      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -176,6 +176,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
         Logger.warn("error closing transaction %s", e.getMessage());
       }
       if (needToOpened) { close(); }
+      if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
   }
 

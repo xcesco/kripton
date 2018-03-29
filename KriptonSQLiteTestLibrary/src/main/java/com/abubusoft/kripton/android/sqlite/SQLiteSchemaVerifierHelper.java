@@ -32,9 +32,9 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.commons.IOUtils;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper.OnResultListener;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper.QueryType;
+import com.abubusoft.kripton.android.sqlite.commons.IOUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;

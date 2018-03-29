@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import android.arch.lifecycle.LiveData;
@@ -36,7 +35,7 @@ import sqlite.feature.livedata.persistence.BindAppDataSource;
 public class TestLiveDataRuntime extends BaseAndroidTest {
 
 	@Test
-	public void testRun() {
+	public void testRun() throws InterruptedException {
 		BindAppDataSource ds=BindAppDataSource.instance();// .build(DataSourceOptions.builder().inMemory(false).build());
 		
 		
@@ -49,6 +48,8 @@ public class TestLiveDataRuntime extends BaseAndroidTest {
 			}
 		});
 		
+		
+		Thread.sleep(1);
 		ds.execute(new BindAppDataSource.Transaction() {
 			
 			@Override

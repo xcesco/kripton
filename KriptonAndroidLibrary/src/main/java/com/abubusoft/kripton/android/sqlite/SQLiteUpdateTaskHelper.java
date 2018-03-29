@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.commons.IOUtils;
+import com.abubusoft.kripton.android.sqlite.commons.IOUtils;
 import com.abubusoft.kripton.common.StringUtils;
 
 import android.content.Context;

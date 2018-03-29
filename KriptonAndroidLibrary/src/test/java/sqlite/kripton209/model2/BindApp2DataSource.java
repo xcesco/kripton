@@ -53,7 +53,7 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new DeviceTable(), new UserDeviceTable()};
+  static final SQLiteTable[] TABLES = {new DeviceTable(), new UserTable(), new UserDeviceTable()};
 
   /**
    * <p>dao instance</p>
@@ -114,6 +114,7 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
    */
   public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
+    boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -122,10 +123,9 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
-        currentDaoFactory.onSessionClosed();
+        success=true;
       }
     } catch(Throwable e) {
-      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -136,6 +136,7 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
         Logger.warn("error closing transaction %s", e.getMessage());
       }
       if (needToOpened) { close(); }
+      if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
   }
 
@@ -226,16 +227,16 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(DeviceTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);
@@ -282,16 +283,16 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(UserTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(DeviceTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(UserTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);

@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,6 @@ import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * <p>Resolver for type variables used in class or interface hierarchy.</p> 
@@ -65,7 +64,6 @@ public class TypeVariableResolver {
 		return active;
 	}
 	
-	@SuppressWarnings({ "unchecked"})
 	public static TypeVariableResolver build(TypeElement element)
 	{
 		List<TypeName> typeArgs = TypeUtility.getTypeArguments(element);

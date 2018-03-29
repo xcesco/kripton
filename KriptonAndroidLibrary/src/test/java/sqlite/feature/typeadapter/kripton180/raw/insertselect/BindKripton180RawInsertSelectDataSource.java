@@ -94,6 +94,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
         boolean needToOpened=!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode();
+        boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -102,7 +103,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           connection.beginTransaction();
           if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
             connection.setTransactionSuccessful();
-            currentDaoFactory.onSessionClosed();
+            success=true;
           }
           emitter.onComplete();
         } catch(Throwable e) {
@@ -116,6 +117,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           } catch(Throwable e) {
           }
           if (needToOpened) { close(); }
+          if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
       }
@@ -131,6 +133,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
         boolean needToOpened=!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode();
+        boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -139,7 +142,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           connection.beginTransaction();
           if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
             connection.setTransactionSuccessful();
-            currentDaoFactory.onSessionClosed();
+            success=true;
           }
           // no onComplete;
         } catch(Throwable e) {
@@ -153,6 +156,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           } catch(Throwable e) {
           }
           if (needToOpened) { close(); }
+          if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
       }
@@ -168,6 +172,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
         boolean needToOpened=!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode();
+        boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -176,7 +181,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           connection.beginTransaction();
           if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
             connection.setTransactionSuccessful();
-            currentDaoFactory.onSessionClosed();
+            success=true;
           }
           emitter.onComplete();
         } catch(Throwable e) {
@@ -190,6 +195,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           } catch(Throwable e) {
           }
           if (needToOpened) { close(); }
+          if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
       }
@@ -205,6 +211,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
         boolean needToOpened=!BindKripton180RawInsertSelectDataSource.this.isOpenInWriteMode();
+        boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
         DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -213,7 +220,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           connection.beginTransaction();
           if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
             connection.setTransactionSuccessful();
-            currentDaoFactory.onSessionClosed();
+            success=true;
           }
           // no onComplete;
         } catch(Throwable e) {
@@ -227,6 +234,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
           } catch(Throwable e) {
           }
           if (needToOpened) { close(); }
+          if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
         }
         return;
       }
@@ -389,6 +397,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
    */
   public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
+    boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -397,10 +406,9 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
-        currentDaoFactory.onSessionClosed();
+        success=true;
       }
     } catch(Throwable e) {
-      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -411,6 +419,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
         Logger.warn("error closing transaction %s", e.getMessage());
       }
       if (needToOpened) { close(); }
+      if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
   }
 

@@ -223,10 +223,10 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 		this.name = options.inMemory ? null : name;
 		this.version = version;
-		
+
 		// create new SQLContext
 		this.context = new SQLContextImpl(this);
-		
+
 		this.options = optionsValue;
 		this.logEnabled = optionsValue.logEnabled;
 	}
@@ -358,8 +358,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * @return true if database is opened, otherwise false
 	 */
 	public boolean isOpen() {
-		return database != null && database.isOpen();// &&
-														// database.isDbLockedByCurrentThread();
+		return database != null && database.isOpen() && database.isDbLockedByCurrentThread();
 	}
 
 	/**
@@ -372,7 +371,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	public boolean isOpenInWriteMode() {
 		// return database != null && database.isOpen() &&
 		// !database.isReadOnly() && database.isDbLockedByCurrentThread();
-		return database != null && !database.isReadOnly();
+		return database != null && !database.isReadOnly() && database.isDbLockedByCurrentThread();
 	}
 
 	/**
@@ -421,7 +420,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 					sqliteHelper.setWriteAheadLoggingEnabled(true);
 					database = sqliteHelper.getReadableDatabase();
 				}
-
 				if (logEnabled)
 					Logger.info("database OPEN %s (connections: %s)", status.get(), (openCounter.intValue() - 1));
 			} else {
@@ -452,7 +450,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 			status.set(TypeStatus.READ_AND_WRITE_OPENED);
 
 			if (openCounter.incrementAndGet() == 1) {
-
 				// open new write database
 				if (database == null) {
 					sqliteHelper.setWriteAheadLoggingEnabled(true);

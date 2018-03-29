@@ -94,6 +94,7 @@
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-arch-integration</artifactId>
 			<version>${kripton.arch.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -160,6 +161,7 @@
 			<groupId>io.reactivex.rxjava2</groupId>
 			<artifactId>rxjava</artifactId>
 			<version>${rx.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<!-- RX dependencies - END -->
 
@@ -190,6 +192,7 @@
 			<groupId>org.robolectric</groupId>
 			<artifactId>android-all</artifactId>
 			<version>${roboletricAndroidAll.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.robolectric/robolectric -->
@@ -197,6 +200,7 @@
 			<groupId>org.robolectric</groupId>
 			<artifactId>robolectric</artifactId>
 			<version>${robolectric.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- TEST DEPENDENCIES -->
@@ -212,13 +216,13 @@
 			<groupId>org.unitils</groupId>
 			<artifactId>unitils-core</artifactId>
 			<version>${unitils.version}</version>
+			<scope>test</scope>
 			<exclusions>
 				<exclusion>
 					<artifactId>junit</artifactId>
 					<groupId>junit</groupId>
 				</exclusion>
-			</exclusions>
-			<scope>test</scope>
+			</exclusions>			
 		</dependency>
 
 	</dependencies>
