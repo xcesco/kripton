@@ -52,3 +52,5 @@ target
 /kripton-parent.iml
 build
 .idea
+/bin/
+/.classpath
