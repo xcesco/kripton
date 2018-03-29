@@ -18,7 +18,8 @@ package com.abubusoft.kripton.android.sqlite.livedata;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import android.arch.core.executor.ArchTaskExecutor;
+import com.abubusoft.kripton.android.KriptonLibrary;
+
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -50,8 +51,9 @@ public abstract class KriptonComputableLiveData<T> {
         mLiveData = new KriptonLiveData<T>() {
             @Override
             protected void onActive() {
+            	KriptonLibrary.executorService().execute(mRefreshRunnable);
                 // TODO if we make this class public, we should accept an executor
-                ArchTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
+                //ArchTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
             }
         };
     }
@@ -112,8 +114,9 @@ public abstract class KriptonComputableLiveData<T> {
             boolean isActive = mLiveData.hasActiveObservers();
             if (mInvalid.compareAndSet(false, true)) {
                 if (isActive) {
-                    // TODO if we make this class public, we should accept an executor.
-                    ArchTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
+                	KriptonLibrary.executorService().submit(mRefreshRunnable);
+                    // TODO if we make this class public, we should accept an executor.                	
+                    //ArchTaskExecutor.getInstance().executeOnDiskIO(mRefreshRunnable);
                 }
             }
         }
@@ -125,6 +128,7 @@ public abstract class KriptonComputableLiveData<T> {
      * When there are active observers, this will trigger a call to {@link #compute()}.
      */
     public void invalidate() {
+    	//KriptonLibrary.executorService().(mInvalidationRunnable);
         ArchTaskExecutor.getInstance().executeOnMainThread(mInvalidationRunnable);
     }
 

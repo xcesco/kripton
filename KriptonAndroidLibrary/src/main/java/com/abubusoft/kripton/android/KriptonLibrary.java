@@ -15,6 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import android.content.Context;
 
 /**
@@ -27,7 +30,13 @@ public class KriptonLibrary {
 
 	public static Context context() { return context; };
 	
+	public static ExecutorService executorService() { return executerService; };
+	
 	private static Context context;
+	
+	private static ExecutorService executerService;
+	
+	public static final int THREAD_POOL_SIZE=3;
 
 	/**
 	 * Method to invoke during application initialization
@@ -35,7 +44,19 @@ public class KriptonLibrary {
 	 * @param contextValue
 	 */
 	public static void init(Context contextValue) {
+		init(contextValue, THREAD_POOL_SIZE);
+	}
+	
+	/**
+	 * Method to invoke during application initialization
+	 * 
+	 * @param contextValue
+	 */
+	public static void init(Context contextValue, int threadPoolSize) {
 		context = contextValue;
+		
+		//Schedulers.from(Executors.newFixedThreadPool(3));
+		executerService=Executors.newFixedThreadPool(threadPoolSize);
 	}
 	
 }
