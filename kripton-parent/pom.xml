@@ -40,7 +40,7 @@
 		
 		<!-- dependencies version -->
 		<jackson.version>2.9.4</jackson.version>
-		<retrofit.version>2.3.0</retrofit.version>
+		<retrofit.version>2.4.0</retrofit.version>
 		<rx.version>2.1.5</rx.version>		
 		
 		<!-- test version -->
