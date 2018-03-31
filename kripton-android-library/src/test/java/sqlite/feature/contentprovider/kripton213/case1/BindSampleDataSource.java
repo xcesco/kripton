@@ -148,19 +148,10 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   public static synchronized BindSampleDataSource instance() {
     if (instance==null) {
       DataSourceOptions options=DataSourceOptions.builder()
+      	.log(true)
       	.addUpdateTask(1, new SampleUpdate02())
-      	.populator(new SamplePopulator())
       	.build();
       instance=new BindSampleDataSource(options);
-      // force database DDL run
-      if (options.populator!=null) {
-        instance.openWritableDatabase();
-        instance.close();
-        if (instance.justCreated) {
-          // run populator
-          options.populator.execute();
-        }
-      }
     }
     return instance;
   }
@@ -278,15 +269,6 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   public static synchronized BindSampleDataSource build(DataSourceOptions options) {
     if (instance==null) {
       instance=new BindSampleDataSource(options);
-    }
-    // force database DDL run
-    if (options.populator!=null) {
-      instance.openWritableDatabase();
-      instance.close();
-      if (instance.justCreated) {
-        // run populator
-        options.populator.execute();
-      }
     }
     return instance;
   }

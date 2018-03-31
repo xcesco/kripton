@@ -15,17 +15,15 @@ package sqlite.feature.contentprovider.kripton213.case1;
  * limitations under the License.
  */
 
-
-
 import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindDataSourceUpdateTask;
 
+
 @BindContentProvider(authority = "com.abubusoft.contentprovidersample.provider")
-@BindDataSource(daoSet = {CheeseDao.class},fileName = "sample.db", version = 1, updateTasks={
-		@BindDataSourceUpdateTask(version=1, task=SampleUpdate02.class)
-},
-populator=SamplePopulator.class)
+@BindDataSourceOptions(updateTasks = { @BindDataSourceUpdateTask(version = 1, task = SampleUpdate02.class) }, populator = SamplePopulator.class)
+@BindDataSource(daoSet = { CheeseDao.class }, fileName = "sample.db", version = 1)
 public interface SampleDataSource {
 
 }

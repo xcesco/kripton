@@ -1,4 +1,4 @@
-package sqlite.feature.jql.persistence;
+package sqlite.feature.datasourceoptions.kripton234;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -10,49 +10,34 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import java.util.List;
-import sqlite.feature.jql.entities.ChildTable;
-import sqlite.feature.jql.entities.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource FamilyDataSource.
+ * Represents implementation of datasource AppWithConfigDataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see FamilyDataSource
- * @see BindFamilyDaoFactory
- * @see DaoChild
- * @see DaoChildImpl
- * @see Child
+ * @see AppWithConfigDataSource
+ * @see BindAppWithConfigDaoFactory
  * @see DaoPerson
  * @see DaoPersonImpl
  * @see Person
  */
-public class BindFamilyDataSource extends AbstractDataSource implements BindFamilyDaoFactory, FamilyDataSource {
+public class BindAppWithConfigDataSource extends AbstractDataSource implements BindAppWithConfigDaoFactory, AppWithConfigDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static BindFamilyDataSource instance;
-
-  /**
-   * Unique identifier for Dao DaoChild
-   */
-  public static final int DAO_CHILD_UID = 0;
+  static BindAppWithConfigDataSource instance;
 
   /**
    * Unique identifier for Dao DaoPerson
    */
-  public static final int DAO_PERSON_UID = 1;
+  public static final int DAO_PERSON_UID = 0;
 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable(), new ChildTable()};
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoChildImpl daoChild = new DaoChildImpl(context);
+  static final SQLiteTable[] TABLES = {new PersonTable()};
 
   /**
    * <p>dao instance</p>
@@ -64,13 +49,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  protected BindFamilyDataSource(DataSourceOptions options) {
-    super("familiy", 1, options);
-  }
-
-  @Override
-  public DaoChildImpl getDaoChild() {
-    return daoChild;
+  protected BindAppWithConfigDataSource(DataSourceOptions options) {
+    super("app.db", 1, options);
   }
 
   @Override
@@ -165,11 +145,13 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * instance
    */
-  public static synchronized BindFamilyDataSource instance() {
+  public static synchronized BindAppWithConfigDataSource instance() {
     if (instance==null) {
       DataSourceOptions options=DataSourceOptions.builder()
+      	.inMemory(false)
+      	.log(false)
       	.build();
-      instance=new BindFamilyDataSource(options);
+      instance=new BindAppWithConfigDataSource(options);
     }
     return instance;
   }
@@ -178,8 +160,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindFamilyDataSource open() {
-    BindFamilyDataSource instance=instance();
+  public static BindAppWithConfigDataSource open() {
+    BindAppWithConfigDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -188,8 +170,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindFamilyDataSource openReadOnly() {
-    BindFamilyDataSource instance=instance();
+  public static BindAppWithConfigDataSource openReadOnly() {
+    BindAppWithConfigDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -215,12 +197,6 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",ChildTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(ChildTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -265,12 +241,6 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",ChildTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(ChildTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -283,14 +253,12 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 
   public void clearCompiledStatements() {
-    DaoChildImpl.clearCompiledStatements();
     DaoPersonImpl.clearCompiledStatements();
   }
 
@@ -298,9 +266,9 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * Build instance.
    * @return dataSource instance.
    */
-  public static synchronized BindFamilyDataSource build(DataSourceOptions options) {
+  public static synchronized BindAppWithConfigDataSource build(DataSourceOptions options) {
     if (instance==null) {
-      instance=new BindFamilyDataSource(options);
+      instance=new BindAppWithConfigDataSource(options);
     }
     return instance;
   }
@@ -308,7 +276,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * Build instance with default config.
    */
-  public static synchronized BindFamilyDataSource build() {
+  public static synchronized BindAppWithConfigDataSource build() {
     return build(DataSourceOptions.builder().build());
   }
 
@@ -322,7 +290,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindFamilyDaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindAppWithConfigDaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
@@ -332,7 +300,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindFamilyDaoFactory daoFactory);
+    TransactionResult onExecute(BindAppWithConfigDaoFactory daoFactory);
   }
 
   /**
@@ -345,29 +313,16 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindFamilyDaoFactory daoFactory);
+    T onExecute(BindAppWithConfigDaoFactory daoFactory);
   }
 
-  class DataSourceSingleThread implements BindFamilyDaoFactory {
+  class DataSourceSingleThread implements BindAppWithConfigDaoFactory {
     private SQLContextInSessionImpl _context;
-
-    protected DaoChildImpl _daoChild;
 
     protected DaoPersonImpl _daoPerson;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInSessionImpl(BindFamilyDataSource.this);
-    }
-
-    /**
-     *
-     * retrieve dao DaoChild
-     */
-    public DaoChildImpl getDaoChild() {
-      if (_daoChild==null) {
-        _daoChild=new DaoChildImpl(_context);
-      }
-      return _daoChild;
+      _context=new SQLContextInSessionImpl(BindAppWithConfigDataSource.this);
     }
 
     /**

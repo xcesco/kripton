@@ -18,10 +18,10 @@
 	</parent>
 
 	<name>Kripton Annotation Processor Library</name>
-	
+
 	<artifactId>kripton-processor</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<dependencies>
 
 		<dependency>
@@ -156,13 +156,13 @@
 					<artifactId>junit</artifactId>
 					<groupId>junit</groupId>
 				</exclusion>
-			</exclusions>			
+			</exclusions>
 		</dependency>
 
 	</dependencies>
 
-	<profiles>		
-		
+	<profiles>
+
 		<profile>
 			<id>default-tools.jar</id>
 			<activation>

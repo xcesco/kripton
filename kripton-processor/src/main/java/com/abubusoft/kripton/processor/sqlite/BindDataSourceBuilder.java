@@ -362,7 +362,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// constructor
 		MethodSpec.Builder methodBuilder = MethodSpec.constructorBuilder()
 				.addParameter(DataSourceOptions.class, "options").addModifiers(Modifier.PROTECTED);
-		methodBuilder.addStatement("super($S, $L, options)", schema.isInMemory() ? null : schema.fileName,
+		methodBuilder.addStatement("super($S, $L, options)", schema.configInMemory ? null : schema.fileName,
 				schema.version);
 		classBuilder.addMethod(methodBuilder.build());
 	}
@@ -537,18 +537,31 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		methodBuilder.beginControlFlow("if (instance==null)");
 		methodBuilder.addCode("$T options=$T.builder()", DataSourceOptions.class, DataSourceOptions.class);
-		if (schema.getDefaultTasks() != null && schema.getDefaultTasks().size() > 0) {
-			for (Pair<Integer, String> task : schema.getDefaultTasks()) {
+		
+		if (schema.configCursorFactoryClazz != null) {
+			methodBuilder.addCode("\n\t.cursorFactory(new $T())", TypeUtility.className(schema.configCursorFactoryClazz));
+		}
+		if (schema.configDatabaseErrorHandlerClazz != null) {
+			methodBuilder.addCode("\n\t.errorHandler(new $T())", TypeUtility.className(schema.configDatabaseErrorHandlerClazz));
+		}
+		if (schema.configDatabaseLifecycleHandlerClazz != null) {
+			methodBuilder.addCode("\n\t.databaseLifecycleHandler(new $T())", TypeUtility.className(schema.configDatabaseLifecycleHandlerClazz));
+		}
+		if (schema.configPopulatorClazz != null) {
+			methodBuilder.addCode("\n\t.populator(new $T())", TypeUtility.className(schema.configPopulatorClazz));
+		}
+		
+		methodBuilder.addCode("\n\t.inMemory($L)", schema.configInMemory);
+		
+		methodBuilder.addCode("\n\t.log($L)", schema.configLogEnabled);		
+		
+		if (schema.configUpdateTasks != null && schema.configUpdateTasks.size() > 0) {
+			for (Pair<Integer, String> task : schema.configUpdateTasks) {
 				methodBuilder.addCode("\n\t.addUpdateTask($L, new $T())", task.value0,
 						TypeUtility.className(task.value1));
 			}
 		}
-		if (schema.populatorClazz != null) {
-			methodBuilder.addCode("\n\t.populator(new $T())", TypeUtility.className(schema.populatorClazz));
-		}
-		if (schema.isInMemory()) {
-			methodBuilder.addCode("\n\t.inMemory(true)");
-		}
+		
 		methodBuilder.addCode("\n\t.build();\n", DataSourceOptions.class, DataSourceOptions.class);
 		methodBuilder.addStatement("instance=new $L(options)", schemaName);
 
@@ -567,7 +580,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * @param methodBuilder
 	 */
 	private void generatePopulate(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder) {
-		if (schema.populatorClazz != null) {
+		if (schema.configPopulatorClazz != null) {
 			methodBuilder.addComment("force database DDL run");
 			methodBuilder.beginControlFlow("if (options.populator!=null)");
 

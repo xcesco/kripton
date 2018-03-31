@@ -28,7 +28,6 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.ColumnType;
@@ -39,6 +38,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
@@ -47,6 +47,10 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
+import com.abubusoft.kripton.android.sqlite.NoCursorFactory;
+import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
+import com.abubusoft.kripton.android.sqlite.NoDatabaseLifecycleHandler;
+import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
@@ -94,7 +98,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.FieldSpec;
 
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
@@ -120,6 +123,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		annotations.add(BindType.class);
 		annotations.add(BindDataSource.class);
+		annotations.add(BindDataSourceOptions.class);		
 		annotations.add(BindTable.class);
 		annotations.add(BindDao.class);
 		annotations.add(BindDaoMany2Many.class);
@@ -706,13 +710,30 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		boolean generateAsyncTask = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_ASYNC_TASK);
 		boolean generateCursorWrapper = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_CURSOR_WRAPPER);
 		boolean generateRx = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.GENERATE_RX);
-		boolean inMemory = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSource.class, AnnotationAttributeType.IN_MEMORY);
+		
 		// get all dao used within SQLDatabaseSchema annotation
 		List<String> daoIntoDataSource = AnnotationUtility.extractAsClassNameArray(elementUtils, databaseSchema, BindDataSource.class, AnnotationAttributeType.DAO_SET);
-		String populatorClass = AnnotationUtility.extractAsClassName(databaseSchema, BindDataSource.class, AnnotationAttributeType.POPULATOR);
-
+		
+		
+		String configCursorFactory=NoCursorFactory.class.getName();
+		String configDatabaseErrorHandler=NoDatabaseErrorHandler.class.getName();
+		String configDatabaseLifecycleHandler=NoDatabaseLifecycleHandler.class.getName();
+		boolean configInMemory = false;
+		boolean configLogEnabled=true;
+		String configPopulatorClass=NoPopulator.class.getName();
+		
+		// manage for annotated data-source options
+		BindDataSourceOptions dataSourceOptionsAnnotation = databaseSchema.getAnnotation(BindDataSourceOptions.class);
+		if (dataSourceOptionsAnnotation!=null) {
+			configInMemory = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSourceOptions.class, AnnotationAttributeType.IN_MEMORY);
+			configLogEnabled = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSourceOptions.class, AnnotationAttributeType.LOG_ENABLED);
+			configPopulatorClass = AnnotationUtility.extractAsClassName(databaseSchema, BindDataSourceOptions.class, AnnotationAttributeType.POPULATOR);
+		}
+		
 		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper,
-				generateRx, daoIntoDataSource, inMemory, populatorClass);
+				generateRx, daoIntoDataSource, 
+				configCursorFactory, configDatabaseErrorHandler, configDatabaseLifecycleHandler, configInMemory, configLogEnabled, configPopulatorClass
+				);
 
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);

@@ -29,7 +29,10 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.NoCursorFactory;
+import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
+import com.abubusoft.kripton.android.sqlite.NoDatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -44,7 +47,7 @@ import com.squareup.javapoet.ClassName;
 
 public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElement> {
 
-	public final String populatorClazz;
+	public final String configPopulatorClazz;
 
 	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL
 			.converterTo(CaseFormat.LOWER_UNDERSCORE);
@@ -105,13 +108,18 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public boolean generateRx;
 
-	private ArrayList<Pair<Integer, String>> defaultTasks;
+	public final ArrayList<Pair<Integer, String>> configUpdateTasks;
 
-	private boolean inMemory;
+	public final boolean configInMemory;
 
-	public ArrayList<Pair<Integer, String>> getDefaultTasks() {
-		return defaultTasks;
-	}
+	public final String configCursorFactoryClazz;
+
+	public final boolean configLogEnabled;
+
+	public final String configDatabaseErrorHandlerClazz;
+
+	public final String configDatabaseLifecycleHandlerClazz;
+
 
 	public List<String> getDaoNameSet() {
 		return daoNameSet;
@@ -119,7 +127,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log,
 			boolean asyncTask, boolean generateCursor, boolean generateRx, List<String> daoIntoDataSource,
-			boolean inMemory, String populator) {
+			String configCursorFactoryClass, String configDatabaseErrorHandlerClass, String configDatabaseLifecycleHandlerClass, boolean configInMemory, boolean configLogEnabled, String configPopulatorClass) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -133,8 +141,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		this.generateRx = generateRx;
 		this.contentProvider = null;
 		this.generatedEntities = new LinkedHashSet<GeneratedTypeElement>();
-		this.daoNameSet = daoIntoDataSource;
-		this.inMemory = inMemory;
+		this.daoNameSet = daoIntoDataSource;		
 
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
 		List<? extends AnnotationMirror> annotationMirrors = item.getAnnotationMirrors();
@@ -142,7 +149,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
 					.getElementValues();
 
-			if (BindDataSource.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
+			if (BindDataSourceOptions.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
 				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
 						.entrySet()) {
 					// The 'entry.getKey()' here is the annotation attribute
@@ -154,24 +161,25 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 		}
 
-		this.defaultTasks = valueVisitor.getTasks();
+		this.configLogEnabled = configLogEnabled;
+		this.configInMemory = configInMemory;
+		this.configUpdateTasks = valueVisitor.getTasks();
 
-		if (!NoPopulator.class.getName().equals(populator)) {
-			this.populatorClazz = populator;
+		this.configCursorFactoryClazz=fillClazz(configCursorFactoryClass, NoCursorFactory.class);
+		this.configDatabaseErrorHandlerClazz=fillClazz(configDatabaseErrorHandlerClass, NoDatabaseErrorHandler.class);
+		this.configDatabaseLifecycleHandlerClazz=fillClazz(configDatabaseLifecycleHandlerClass, NoDatabaseLifecycleHandler.class);
+		this.configPopulatorClazz=fillClazz(configPopulatorClass, NoPopulator.class);
+		
+	}
+
+	private String fillClazz(String configClazz, Class<?> clazz) {
+		if (!clazz.getName().equals(configClazz)) {
+			return configClazz;
 		} else {
-			this.populatorClazz = null;
+			return null;
 		}
-
 	}
-
-	public boolean isInMemory() {
-		return inMemory;
-	}
-
-	public void setInMemory(boolean inMemory) {
-		this.inMemory = inMemory;
-	}
-
+	
 	public void clear() {
 		entities.clear();
 		entitiesBySimpleName.clear();

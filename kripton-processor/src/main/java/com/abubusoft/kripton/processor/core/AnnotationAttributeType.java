@@ -91,7 +91,7 @@ public enum AnnotationAttributeType {
 	
 	UPDATE_TASKS("updateTasks"),
 	
-	POPULATOR("populator");
+	POPULATOR("populator"), LOG_ENABLED("logEnabled");
 
 	private String value;
 

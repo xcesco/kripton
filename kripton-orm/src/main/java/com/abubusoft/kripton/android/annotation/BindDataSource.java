@@ -20,9 +20,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.android.sqlite.NoPopulator;
-import com.abubusoft.kripton.android.sqlite.SQLitePopulator;
-
 /**
  * <p>
  * Decorate an interface to define a database schema. This definition is needed
@@ -112,26 +109,5 @@ public @interface BindDataSource {
 	 * @return true if you want to generate rx support
 	 */
 	boolean rx() default false;
-
-	/**
-	 * if true, generate database in memory
-	 * 
-	 * @return true if you want to generate database in memory
-	 */
-	boolean inMemory() default false;
-
-	/**
-	 * When a datasource instance is created, these are the executed tasks.
-	 * 
-	 * @return
-	 */
-	BindDataSourceUpdateTask[] updateTasks() default {};
-
-	/**
-	 * {@link SQLitePopulator#execute()} is executed after database creation.
-	 * 
-	 * @return
-	 */
-	Class<? extends SQLitePopulator> populator() default NoPopulator.class;
 
 }
