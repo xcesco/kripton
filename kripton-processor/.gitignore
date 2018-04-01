@@ -1,0 +1,8 @@
+/target/
+/.settings/
+/target/
+/schemas/
+/.classpath
+/.project
+/kripton-processor.iml
+/bin/

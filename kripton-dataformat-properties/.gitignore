@@ -1,0 +1,6 @@
+/target/
+/.settings/
+/.classpath
+/.project
+/kripton-dataformat-properties.iml
+/bin/
