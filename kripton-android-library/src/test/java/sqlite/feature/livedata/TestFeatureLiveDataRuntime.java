@@ -34,13 +34,15 @@ import sqlite.feature.livedata.data.Person;
 import sqlite.feature.livedata.data.PersonTable;
 import sqlite.feature.livedata.persistence1.BindApp1ContentProvider;
 import sqlite.feature.livedata.persistence1.BindApp1DataSource;
+//import sqlite.feature.livedata.persistence1.BindApp1ContentProvider;
+//import sqlite.feature.livedata.persistence1.BindApp1DataSource;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class TestFeatureLiveDataRuntime extends BaseAndroidTest {
-	
+
 	@Before
 	public void setupContentProvider() {
 		ProviderInfo info = new ProviderInfo();

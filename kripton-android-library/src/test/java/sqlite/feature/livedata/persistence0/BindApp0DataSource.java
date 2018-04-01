@@ -1,4 +1,4 @@
-package sqlite.feature.livedata.persistence;
+package sqlite.feature.livedata.persistence0;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -32,21 +32,21 @@ import sqlite.feature.livedata.data.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource AppDataSource.
+ * Represents implementation of datasource App0DataSource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see AppDataSource
- * @see BindAppDaoFactory
- * @see DaoPerson
- * @see DaoPersonImpl
+ * @see App0DataSource
+ * @see BindApp0DaoFactory
+ * @see DaoPerson0
+ * @see DaoPerson0Impl
  * @see Person
  */
-public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
+public class BindApp0DataSource extends AbstractDataSource implements BindApp0DaoFactory, App0DataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static volatile BindAppDataSource instance;
+  static volatile BindApp0DataSource instance;
 
   /**
    * <p>Mutex to manage multithread access to instance</p>
@@ -54,9 +54,9 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   private static final Object mutex = new Object();
 
   /**
-   * Unique identifier for Dao DaoPerson
+   * Unique identifier for Dao DaoPerson0
    */
-  public static final int DAO_PERSON_UID = 0;
+  public static final int DAO_PERSON0_UID = 0;
 
   /**
    * List of tables compose datasource
@@ -66,7 +66,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>dao instance</p>
    */
-  protected DaoPersonImpl daoPerson = new DaoPersonImpl(context);
+  protected DaoPerson0Impl daoPerson0 = new DaoPerson0Impl(context);
 
   protected Scheduler globalSubscribeOn;
 
@@ -77,21 +77,21 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  protected BindAppDataSource(DataSourceOptions options) {
+  protected BindApp0DataSource(DataSourceOptions options) {
     super("app.db", 1, options);
   }
 
   @Override
-  public DaoPersonImpl getDaoPerson() {
-    return daoPerson;
+  public DaoPerson0Impl getDaoPerson0() {
+    return daoPerson0;
   }
 
-  public BindAppDataSource globalSubscribeOn(Scheduler scheduler) {
+  public BindApp0DataSource globalSubscribeOn(Scheduler scheduler) {
     this.globalSubscribeOn=scheduler;
     return this;
   }
 
-  public BindAppDataSource globalObserveOn(Scheduler scheduler) {
+  public BindApp0DataSource globalObserveOn(Scheduler scheduler) {
     this.globalObserveOn=scheduler;
     return this;
   }
@@ -100,7 +100,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
-        boolean needToOpened=!BindAppDataSource.this.isOpenInWriteMode();
+        boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
         boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -139,7 +139,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
-        boolean needToOpened=!BindAppDataSource.this.isOpenInWriteMode();
+        boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
         boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -178,7 +178,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
-        boolean needToOpened=!BindAppDataSource.this.isOpenInWriteMode();
+        boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
         boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -217,7 +217,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
-        boolean needToOpened=!BindAppDataSource.this.isOpenInWriteMode();
+        boolean needToOpened=!BindApp0DataSource.this.isOpenInWriteMode();
         boolean success=false;
         @SuppressWarnings("resource")
         SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
@@ -256,7 +256,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
       public void subscribe(ObservableEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindAppDataSource.this.isOpenInWriteMode(): !BindAppDataSource.this.isOpen();
+        boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
@@ -288,7 +288,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
       public void subscribe(SingleEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindAppDataSource.this.isOpenInWriteMode(): !BindAppDataSource.this.isOpen();
+        boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
@@ -320,7 +320,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
       public void subscribe(FlowableEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindAppDataSource.this.isOpenInWriteMode(): !BindAppDataSource.this.isOpen();
+        boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
@@ -352,7 +352,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
       public void subscribe(MaybeEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindAppDataSource.this.isOpenInWriteMode(): !BindAppDataSource.this.isOpen();
+        boolean needToOpened=writeMode?!BindApp0DataSource.this.isOpenInWriteMode(): !BindApp0DataSource.this.isOpen();
         if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
         DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
         currentDaoFactory.onSessionOpened();
@@ -381,7 +381,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   public PublishSubject<SQLiteEvent> personSubject() {
-    return daoPerson.subject();
+    return daoPerson0.subject();
   }
 
   /**
@@ -471,8 +471,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindAppDataSource instance() {
-    BindAppDataSource result=instance;
+  public static BindApp0DataSource instance() {
+    BindApp0DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
         result=instance;
@@ -481,7 +481,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
           	.inMemory(false)
           	.log(true)
           	.build();
-          instance=result=new BindAppDataSource(options);
+          instance=result=new BindApp0DataSource(options);
           SQLiteDatabase database=instance.openWritableDatabase();
           try {
           } catch(Throwable e) {
@@ -500,8 +500,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindAppDataSource open() {
-    BindAppDataSource instance=instance();
+  public static BindApp0DataSource open() {
+    BindApp0DataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -510,8 +510,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindAppDataSource openReadOnly() {
-    BindAppDataSource instance=instance();
+  public static BindApp0DataSource openReadOnly() {
+    BindApp0DataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -599,19 +599,19 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   public void clearCompiledStatements() {
-    DaoPersonImpl.clearCompiledStatements();
+    DaoPerson0Impl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static BindAppDataSource build(DataSourceOptions options) {
-    BindAppDataSource result=instance;
+  public static BindApp0DataSource build(DataSourceOptions options) {
+    BindApp0DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
         result=instance;
         if (result==null) {
-          instance=result=new BindAppDataSource(options);
+          instance=result=new BindApp0DataSource(options);
           SQLiteDatabase database=instance.openWritableDatabase();
           try {
           } catch(Throwable e) {
@@ -621,11 +621,11 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
             instance.close();
           }
         } else {
-          throw new KriptonRuntimeException("Datasource BindAppDataSource is already builded");
+          throw new KriptonRuntimeException("Datasource BindApp0DataSource is already builded");
         }
       }
     } else {
-      throw new KriptonRuntimeException("Datasource BindAppDataSource is already builded");
+      throw new KriptonRuntimeException("Datasource BindApp0DataSource is already builded");
     }
     return result;
   }
@@ -638,41 +638,41 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   public interface ObservableBatch<T> {
-    void onExecute(BindAppDaoFactory daoFactory, ObservableEmitter<T> emitter);
+    void onExecute(BindApp0DaoFactory daoFactory, ObservableEmitter<T> emitter);
   }
 
   public interface ObservableTransaction<T> {
-    TransactionResult onExecute(BindAppDaoFactory daoFactory, ObservableEmitter<T> emitter);
+    TransactionResult onExecute(BindApp0DaoFactory daoFactory, ObservableEmitter<T> emitter);
   }
 
   public interface SingleBatch<T> {
-    void onExecute(BindAppDaoFactory daoFactory, SingleEmitter<T> emitter);
+    void onExecute(BindApp0DaoFactory daoFactory, SingleEmitter<T> emitter);
   }
 
   public interface SingleTransaction<T> {
-    TransactionResult onExecute(BindAppDaoFactory daoFactory, SingleEmitter<T> emitter);
+    TransactionResult onExecute(BindApp0DaoFactory daoFactory, SingleEmitter<T> emitter);
   }
 
   public interface FlowableBatch<T> {
-    void onExecute(BindAppDaoFactory daoFactory, FlowableEmitter<T> emitter);
+    void onExecute(BindApp0DaoFactory daoFactory, FlowableEmitter<T> emitter);
   }
 
   public interface FlowableTransaction<T> {
-    TransactionResult onExecute(BindAppDaoFactory daoFactory, FlowableEmitter<T> emitter);
+    TransactionResult onExecute(BindApp0DaoFactory daoFactory, FlowableEmitter<T> emitter);
   }
 
   public interface MaybeBatch<T> {
-    void onExecute(BindAppDaoFactory daoFactory, MaybeEmitter<T> emitter);
+    void onExecute(BindApp0DaoFactory daoFactory, MaybeEmitter<T> emitter);
   }
 
   public interface MaybeTransaction<T> {
-    TransactionResult onExecute(BindAppDaoFactory daoFactory, MaybeEmitter<T> emitter);
+    TransactionResult onExecute(BindApp0DaoFactory daoFactory, MaybeEmitter<T> emitter);
   }
 
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindAppDaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindApp0DaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
@@ -682,7 +682,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindAppDaoFactory daoFactory);
+    TransactionResult onExecute(BindApp0DaoFactory daoFactory);
   }
 
   /**
@@ -695,27 +695,27 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindAppDaoFactory daoFactory);
+    T onExecute(BindApp0DaoFactory daoFactory);
   }
 
-  class DataSourceSingleThread implements BindAppDaoFactory {
+  class DataSourceSingleThread implements BindApp0DaoFactory {
     private SQLContextInSessionImpl _context;
 
-    protected DaoPersonImpl _daoPerson;
+    protected DaoPerson0Impl _daoPerson0;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInSessionImpl(BindAppDataSource.this);
+      _context=new SQLContextInSessionImpl(BindApp0DataSource.this);
     }
 
     /**
      *
-     * retrieve dao DaoPerson
+     * retrieve dao DaoPerson0
      */
-    public DaoPersonImpl getDaoPerson() {
-      if (_daoPerson==null) {
-        _daoPerson=new DaoPersonImpl(_context);
+    public DaoPerson0Impl getDaoPerson0() {
+      if (_daoPerson0==null) {
+        _daoPerson0=new DaoPerson0Impl(_context);
       }
-      return _daoPerson;
+      return _daoPerson0;
     }
 
     protected void onSessionOpened() {
@@ -731,8 +731,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     protected void onSessionClosed() {
       // support for live data
       Set<Integer> daosWithEvents=_context.onSessionClosed();
-      if (_daoPerson!=null && daosWithEvents.contains(DAO_PERSON_UID)) {
-        _daoPerson.invalidateLiveData();
+      if (_daoPerson0!=null && daosWithEvents.contains(DAO_PERSON0_UID)) {
+        _daoPerson0.invalidateLiveData();
       }
     }
 
