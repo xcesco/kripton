@@ -1,4 +1,4 @@
-package sqlite.feature.livedata.persistence;
+package sqlite.feature.livedata.persistence0;
 
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
@@ -23,14 +23,14 @@ import sqlite.feature.livedata.data.Person;
 
 /**
  * <p>
- * DAO implementation for entity <code>Person</code>, based on interface <code>DaoPerson</code>
+ * DAO implementation for entity <code>Person</code>, based on interface <code>DaoPerson0</code>
  * </p>
  *
  *  @see Person
- *  @see DaoPerson
+ *  @see DaoPerson0
  *  @see sqlite.feature.livedata.data.PersonTable
  */
-public class DaoPersonImpl extends Dao implements DaoPerson {
+public class DaoPerson0Impl extends Dao implements DaoPerson0 {
   private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
   private static SQLiteStatement insertPreparedStatement0;
@@ -41,7 +41,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
-  public DaoPersonImpl(SQLContext context) {
+  public DaoPerson0Impl(SQLContext context) {
     super(context);
   }
 
@@ -147,10 +147,10 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
       @Override
       protected List<Person> compute() {
-        return BindAppDataSource.instance().executeBatch(new BindAppDataSource.Batch<List<Person>>() {
+        return BindApp0DataSource.instance().executeBatch(new BindApp0DataSource.Batch<List<Person>>() {
           @Override
-          public List<Person> onExecute(BindAppDaoFactory daoFactory) {
-            return daoFactory.getDaoPerson().selectForLiveData(name);
+          public List<Person> onExecute(BindApp0DaoFactory daoFactory) {
+            return daoFactory.getDaoPerson0().selectForLiveData(name);
           }
         });
       }
@@ -227,6 +227,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       subject.onNext(SQLiteEvent.createInsert(result));
     }
     bean.id=result;
+    // support for livedata
     registryEvent(result>0?1:0);
   }
 
@@ -293,6 +294,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     if (result>0) {
       subject.onNext(SQLiteEvent.createUpdate(result));
     }
+    // support for livedata
     registryEvent(result);
   }
 
@@ -301,7 +303,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       return;
     }
     if (_context.isInSession()) {
-      _context.registrySQLEvent(BindAppDataSource.DAO_PERSON_UID);
+      _context.registrySQLEvent(BindApp0DataSource.DAO_PERSON0_UID);
     } else {
       invalidateLiveData();
     }

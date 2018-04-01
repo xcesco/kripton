@@ -26,8 +26,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
 import sqlite.feature.livedata.data.Person;
-import sqlite.feature.livedata.persistence.BindAppDaoFactory;
-import sqlite.feature.livedata.persistence.BindAppDataSource;
+import sqlite.feature.livedata.persistence0.BindApp0DaoFactory;
+import sqlite.feature.livedata.persistence0.BindApp0DataSource;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -37,12 +37,12 @@ public class TestLiveDataRuntime extends BaseAndroidTest {
 
 	@Test
 	public void testRun() throws InterruptedException {
-		BindAppDataSource ds=BindAppDataSource.instance();// .build(DataSourceOptions.builder().inMemory(false).build());
+		BindApp0DataSource ds=BindApp0DataSource.instance();// .build(DataSourceOptions.builder().inMemory(false).build());
 		
 		System.out.println("aa"+KriptonTaskExecutor.getInstance().isMainThread());
 		
 		
-		LiveData<List<Person>> liveData = ds.getDaoPerson().select("Manero");		
+		LiveData<List<Person>> liveData = ds.getDaoPerson0().select("Manero");
 		liveData.observeForever(new Observer<List<Person>>() {
 			
 			@Override
@@ -51,14 +51,14 @@ public class TestLiveDataRuntime extends BaseAndroidTest {
 			}
 		});
 		
-		ds.execute(new BindAppDataSource.Transaction() {
+		ds.execute(new BindApp0DataSource.Transaction() {
 			
 			@Override
-			public TransactionResult onExecute(BindAppDaoFactory daoFactory) {
+			public TransactionResult onExecute(BindApp0DaoFactory daoFactory) {
 				Person person=new Person();
 				person.name="Manero";
 				person.surname="Tonj";
-				daoFactory.getDaoPerson().insert(person);
+				daoFactory.getDaoPerson0().insert(person);
 				return TransactionResult.COMMIT;
 			}
 		});

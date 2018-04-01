@@ -58,7 +58,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindApp1DataSource(DataSourceOptions options) {
-    super("app.db", 1, options);
+    super("app.db", 2, options);
   }
 
   @Override
