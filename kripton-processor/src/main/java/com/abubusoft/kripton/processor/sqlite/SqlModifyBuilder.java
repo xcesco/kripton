@@ -406,6 +406,12 @@ public abstract class SqlModifyBuilder {
 
 			break;
 		}
+		
+		// support for livedata
+		if (daoDefinition.hasLiveData()) {
+			methodBuilder.addComment("support for livedata");
+			methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result)");
+		}
 
 		methodBuilder.addStatement("return result");
 

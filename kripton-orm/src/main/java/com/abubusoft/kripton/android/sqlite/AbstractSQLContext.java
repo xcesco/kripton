@@ -1,16 +1,16 @@
-	package com.abubusoft.kripton.android.sqlite;
+package com.abubusoft.kripton.android.sqlite;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public abstract class AbstractSQLContext implements SQLContext {
-	
+
 	protected AbstractSQLContext(boolean session) {
-		this.session=session;
+		this.session = session;
 	}
-	
+
 	private final boolean session;
-	
+
 	private final ThreadLocal<Set<Integer>> daoWithEvents = new ThreadLocal<Set<Integer>>() {
 
 		@Override
@@ -21,7 +21,7 @@ public abstract class AbstractSQLContext implements SQLContext {
 	};
 
 	@Override
-	public void onSessionOpened() {		
+	public void onSessionOpened() {
 		daoWithEvents.get().clear();
 	}
 
@@ -29,17 +29,15 @@ public abstract class AbstractSQLContext implements SQLContext {
 	public boolean isInSession() {
 		return session;
 	}
-	
+
 	@Override
 	public void registrySQLEvent(int daoKey) {
-		if (session) {
-			daoWithEvents.get().add(daoKey);
-		}
+		daoWithEvents.get().add(daoKey);
 	}
 
 	@Override
 	public Set<Integer> onSessionClosed() {
-		return daoWithEvents.get();		
+		return daoWithEvents.get();
 	}
-		
+
 }

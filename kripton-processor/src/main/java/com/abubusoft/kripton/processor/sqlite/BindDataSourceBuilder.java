@@ -38,6 +38,8 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource.AbstractExecutable;
+import com.abubusoft.kripton.android.sqlite.AbstractDataSource.OnErrorListener;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
@@ -45,8 +47,6 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
-import com.abubusoft.kripton.android.sqlite.AbstractDataSource.AbstractExecutable;
-import com.abubusoft.kripton.android.sqlite.AbstractDataSource.OnErrorListener;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
@@ -268,7 +268,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		generateMethodExecuteBatch(daoFactoryName);
 
 		// generate instance
-		generateInstance(schema, dataSourceClassName.simpleName(), true);
+		generateInstanceOrBuild(schema, dataSourceClassName.simpleName(), true);
 
 		// generate open
 		generateOpen(dataSourceClassName.simpleName());
@@ -310,7 +310,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		generateDataSourceSingleThread(schema, dataSourceClassName.simpleName());
 
 		// generate build		
-		generateInstance(schema, dataSourceClassName.simpleName(), false);
+		generateInstanceOrBuild(schema, dataSourceClassName.simpleName(), false);
 		
 
 		{
@@ -467,42 +467,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		return "_" + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getName());
 	}
 
-	private void generateBuild(String dataSourceName, SQLiteDatabaseSchema schema) {
-		{ // build with parameter
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("build").addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED).addParameter(DataSourceOptions.class, "options")
-					.returns(TypeUtility.mergeTypeName(PREFIX, schema.getElement()));
-
-			methodBuilder.addJavadoc("Build instance.\n");
-			methodBuilder.addJavadoc("@return dataSource instance.\n");
-
-			methodBuilder.beginControlFlow("if (instance==null)");
-			methodBuilder.addStatement("instance=new $L(options)", dataSourceName);
-			methodBuilder.endControlFlow();
-
-			generatePopulate(schema, methodBuilder);
-
-			methodBuilder.addCode("return instance;\n");
-
-			classBuilder.addMethod(methodBuilder.build());
-		}
-
-		{ // build without parameter
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("build").returns(TypeUtility.mergeTypeName(PREFIX, schema.getElement())).addModifiers(Modifier.PUBLIC, Modifier.STATIC,
-					Modifier.SYNCHRONIZED);
-
-			methodBuilder.addJavadoc("Build instance with default config.\n");
-			methodBuilder.addStatement("return build(DataSourceOptions.builder().build())");
-
-			classBuilder.addMethod(methodBuilder.build());
-		}
-
-	}
-
 	/**
 	 * Generate inner code for instance and build methods. Inspired by {@link https://www.journaldev.com/171/thread-safety-in-java-singleton-classes-with-example-code}
 	 * @param schemaName
 	 */
-	private void generateInstance(SQLiteDatabaseSchema schema, String schemaName, boolean instance) {
+	private void generateInstanceOrBuild(SQLiteDatabaseSchema schema, String schemaName, boolean instance) {
 		// instance
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(instance ? "instance" : "build").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
 

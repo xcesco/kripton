@@ -20,6 +20,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.android.sqlite.executors.KriptonTaskExecutor;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
@@ -38,6 +39,8 @@ public class TestLiveDataRuntime extends BaseAndroidTest {
 	public void testRun() throws InterruptedException {
 		BindAppDataSource ds=BindAppDataSource.instance();// .build(DataSourceOptions.builder().inMemory(false).build());
 		
+		System.out.println("aa"+KriptonTaskExecutor.getInstance().isMainThread());
+		
 		
 		LiveData<List<Person>> liveData = ds.getDaoPerson().select("Manero");		
 		liveData.observeForever(new Observer<List<Person>>() {
@@ -48,8 +51,6 @@ public class TestLiveDataRuntime extends BaseAndroidTest {
 			}
 		});
 		
-		
-		Thread.sleep(1);
 		ds.execute(new BindAppDataSource.Transaction() {
 			
 			@Override
@@ -61,6 +62,8 @@ public class TestLiveDataRuntime extends BaseAndroidTest {
 				return TransactionResult.COMMIT;
 			}
 		});
+		
+		Thread.sleep(1000);
 	}
 	
 }

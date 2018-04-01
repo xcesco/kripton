@@ -109,17 +109,6 @@ public class InsertRawHelper implements InsertCodeGenerator {
 				// it does not need to be converted in string
 				SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, item.value0, item.value1, property);
 				methodBuilder.addCode(");\n");
-//				if (nullable) {
-//					methodBuilder.nextControlFlow("else");					
-//					
-//					if (method.isLogEnabled()) {
-//						methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
-//					} else {
-//						methodBuilder.addStatement("_contentValues.putNull()");
-//					}
-//					
-//					methodBuilder.endControlFlow();
-//				}
 
 			}
 			methodBuilder.addCode("\n");
@@ -142,6 +131,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			
 			// support for livedata
 			if (daoDefinition.hasLiveData()) {
+				methodBuilder.addComment("support for livedata");
 				methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result)");
 			}
 

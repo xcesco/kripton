@@ -191,6 +191,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			
 			// support for livedata
 			if (daoDefinition.hasLiveData()) {
+				methodBuilder.addComment("support for livedata");
 				methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result)");
 			}
 

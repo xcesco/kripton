@@ -147,9 +147,8 @@ public abstract class SqlInsertBuilder {
 				count++;
 			}
 		}
-		
-		AssertKripton.failWithInvalidMethodSignException(method.getParameters().size()==0,
-				method, " INSERT operations require at least one parameter");
+
+		AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() == 0, method, " INSERT operations require at least one parameter");
 
 		if (count == 0) {
 			// method to insert raw data: no bean is used
@@ -162,8 +161,8 @@ public abstract class SqlInsertBuilder {
 					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.FIELDS.getValue());
 
 			// check excludeFields attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0,
-					method, " can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
+			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0, method,
+					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 
 			// check if there is only one parameter
 			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() != 1 && TypeUtility.isEquals(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()),
@@ -235,7 +234,7 @@ public abstract class SqlInsertBuilder {
 
 		// retrieve content values
 		methodBuilder.addStatement("$T _contentValues=contentValuesForContentProvider(contentValues)", KriptonContentValues.class);
-		
+
 		// generate column check
 		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.values().keySet()", true, null);
 
@@ -269,11 +268,17 @@ public abstract class SqlInsertBuilder {
 			conflictString2 = ", " + conflictAlgorithmType.getConflictAlgorithm();
 			methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 		}
-		
+
 		methodBuilder.addComment("insert operation");
 		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
 		if (method.getParent().getParent().generateRx) {
 			GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);
+		}
+
+		// support for livedata
+		if (daoDefinition.hasLiveData()) {
+			methodBuilder.addComment("support for livedata");
+			methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT + "(result>0?1:0)");
 		}
 
 		methodBuilder.addStatement("return result");
