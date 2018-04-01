@@ -35,6 +35,7 @@
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-android-library</artifactId>
 			<version>${kripton.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>

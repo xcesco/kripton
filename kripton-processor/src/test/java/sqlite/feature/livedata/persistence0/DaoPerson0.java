@@ -1,4 +1,4 @@
-package sqlite.feature.livedata.persistence;
+package sqlite.feature.livedata.persistence0;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import android.arch.lifecycle.LiveData;
 import sqlite.feature.livedata.data.Person;
 
 @BindDao(Person.class)
-public interface DaoPerson {
+public interface DaoPerson0 {
 
 	@BindSqlSelect(where="name=${name}")
 	//List<Person> select(String name);

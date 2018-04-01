@@ -21,8 +21,10 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.livedata.data.Person;
-import sqlite.feature.livedata.persistence.AppDataSource;
-import sqlite.feature.livedata.persistence.DaoPerson;
+import sqlite.feature.livedata.persistence0.AppDataSource0;
+import sqlite.feature.livedata.persistence0.DaoPerson0;
+import sqlite.feature.livedata.persistence1.AppDataSource1;
+import sqlite.feature.livedata.persistence1.DaoPerson1;
 
 @RunWith(JUnit4.class)
 public class TestLiveDataCompile extends AbstractBindSQLiteProcessorTest {
@@ -30,8 +32,14 @@ public class TestLiveDataCompile extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testOK() throws Throwable {				
 		//formatter:off
-		buildDataSourceProcessorTest(
-				Person.class, DaoPerson.class, AppDataSource.class);
+		buildDataSourceProcessorTest(Person.class, DaoPerson0.class, AppDataSource0.class);
+		//formatter:on
+	}
+	
+	@Test
+	public void testCompile1() throws Throwable {				
+		//formatter:off
+		buildDataSourceProcessorTest(Person.class, DaoPerson1.class, AppDataSource1.class);
 		//formatter:on
 	}
 
