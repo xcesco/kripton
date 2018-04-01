@@ -56,3 +56,4 @@ build
 /.classpath
 /kripton-parent/.classpath
 /kripton-orm/.classpath
+/kripton-project.iml
