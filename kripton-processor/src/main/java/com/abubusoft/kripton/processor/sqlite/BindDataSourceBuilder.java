@@ -292,7 +292,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		generateOnConfigure(useForeignKey);
 
 		// generate
-		generateDaoUids(classBuilder, schema, "");
+		generateDaoUids(classBuilder, schema);
 
 		//
 		// generate prepared statement cleaner
@@ -356,13 +356,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * Generate dao arrays
-	 * 
+	 * Generate Dao's UID. If specified, prefix will be used to
+	 * @param classBuilder
 	 * @param schema
-	 * @param orderedEntities
-	 * @return
 	 */
-	public static void generateDaoUids(TypeSpec.Builder classBuilder, SQLiteDatabaseSchema schema, String prefix) {
+	public static void generateDaoUids(TypeSpec.Builder classBuilder, SQLiteDatabaseSchema schema) {
 
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 
@@ -468,7 +466,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * Generate inner code for instance and build methods. Inspired by {@link https://www.journaldev.com/171/thread-safety-in-java-singleton-classes-with-example-code}
+	 * Generate inner code for instance and build methods. Inspired by <a href="https://www.journaldev.com/171/thread-safety-in-java-singleton-classes-with-example-code">this link<</a>
+	 *
 	 * @param schemaName
 	 */
 	private void generateInstanceOrBuild(SQLiteDatabaseSchema schema, String schemaName, boolean instance) {
@@ -962,10 +961,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * <p>
 	 * Generate RX observable support
 	 * </p>
-	 * 
+	 *
 	 * @param dataSourceName
-	 * 
-	 * @param dataSource
+	 * @param daoFactory
 	 */
 	public void generateRx(ClassName dataSourceName, String daoFactory) {
 		classBuilder.addField(FieldSpec.builder(Scheduler.class, "globalSubscribeOn", Modifier.PROTECTED).build());
@@ -1057,8 +1055,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * <p>
 	 * Generate transaction an execute method
 	 * </p>
-	 * 
-	 * @param dataSource
+	 *
+	 * @param daoFactory
 	 */
 	public void generateMethodExecuteTransaction(String daoFactory) {
 		// create interface
@@ -1146,8 +1144,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * <p>
 	 * Generate transaction an execute method
 	 * </p>
-	 * 
-	 * @param dataSource
+	 *
+	 * @param daoFactory
 	 */
 	public void generateMethodExecuteBatch(String daoFactory) {
 		// create interface
