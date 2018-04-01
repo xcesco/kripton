@@ -27,6 +27,7 @@ import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
 import sqlite.feature.multithread.TestRuntimeMultithreadSuite;
 import sqlite.feature.paginatedResult.TestPaginatedResultRuntimeSuite;
 import sqlite.feature.schema.TestSchemaRuntimeSuite;
+import sqlite.feature.speed.TestSpeedRuntime;
 import sqlite.kripton209.Test209RuntimeSuite;
 import sqlite.kripton58.list.Test58RuntimeSuite;
 import sqlite.kripton64.Test64RuntimeSuite;
@@ -61,6 +62,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	Test58RuntimeSuite.class,
 	TestQuickstartRuntimeSuite.class,
 	TestFeatJQLRuntimeSuite.class,
+	TestSpeedRuntime.class,
 	
 	TestStack45184504RuntimeSuite.class,
 	TestStack44330452RuntimeSuite.class,

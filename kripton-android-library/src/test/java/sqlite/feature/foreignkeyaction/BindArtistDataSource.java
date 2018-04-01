@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
 /**
@@ -33,7 +34,12 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   /**
    * <p>datasource singleton</p>
    */
-  static BindArtistDataSource instance;
+  static volatile BindArtistDataSource instance;
+
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
+  private static final Object mutex = new Object();
 
   /**
    * Unique identifier for Dao ArtistDao
@@ -179,15 +185,31 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   }
 
   /**
-   * instance
+   * <p>Retrieve instance.</p>
    */
-  public static synchronized BindArtistDataSource instance() {
-    if (instance==null) {
-      DataSourceOptions options=DataSourceOptions.builder()
-      	.build();
-      instance=new BindArtistDataSource(options);
+  public static BindArtistDataSource instance() {
+    BindArtistDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.inMemory(false)
+          	.log(true)
+          	.build();
+          instance=result=new BindArtistDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        }
+      }
     }
-    return instance;
+    return result;
   }
 
   /**
@@ -268,7 +290,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database);
+        task.execute(database, previousVersion, previousVersion+1);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
@@ -324,21 +346,31 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   }
 
   /**
-   * Build instance.
-   * @return dataSource instance.
+   * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static synchronized BindArtistDataSource build(DataSourceOptions options) {
-    if (instance==null) {
-      instance=new BindArtistDataSource(options);
+  public static BindArtistDataSource build(DataSourceOptions options) {
+    BindArtistDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          instance=result=new BindArtistDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        } else {
+          throw new KriptonRuntimeException("Datasource BindArtistDataSource is already builded");
+        }
+      }
+    } else {
+      throw new KriptonRuntimeException("Datasource BindArtistDataSource is already builded");
     }
-    return instance;
-  }
-
-  /**
-   * Build instance with default config.
-   */
-  public static synchronized BindArtistDataSource build() {
-    return build(DataSourceOptions.builder().build());
+    return result;
   }
 
   /**

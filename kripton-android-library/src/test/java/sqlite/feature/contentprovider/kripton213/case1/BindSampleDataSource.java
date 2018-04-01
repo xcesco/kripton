@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
 /**
@@ -27,7 +28,12 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   /**
    * <p>datasource singleton</p>
    */
-  static BindSampleDataSource instance;
+  static volatile BindSampleDataSource instance;
+
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
+  private static final Object mutex = new Object();
 
   /**
    * Unique identifier for Dao CheeseDao
@@ -143,17 +149,38 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   }
 
   /**
-   * instance
+   * <p>Retrieve instance.</p>
    */
-  public static synchronized BindSampleDataSource instance() {
-    if (instance==null) {
-      DataSourceOptions options=DataSourceOptions.builder()
-      	.log(true)
-      	.addUpdateTask(1, new SampleUpdate02())
-      	.build();
-      instance=new BindSampleDataSource(options);
+  public static BindSampleDataSource instance() {
+    BindSampleDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.populator(new SamplePopulator())
+          	.inMemory(false)
+          	.log(true)
+          	.addUpdateTask(1, new SampleUpdate02())
+          	.build();
+          instance=result=new BindSampleDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator
+              options.populator.execute(database);
+            }
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        }
+      }
     }
-    return instance;
+    return result;
   }
 
   /**
@@ -222,7 +249,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database);
+        task.execute(database, previousVersion, previousVersion+1);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
@@ -263,21 +290,36 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   }
 
   /**
-   * Build instance.
-   * @return dataSource instance.
+   * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static synchronized BindSampleDataSource build(DataSourceOptions options) {
-    if (instance==null) {
-      instance=new BindSampleDataSource(options);
+  public static BindSampleDataSource build(DataSourceOptions options) {
+    BindSampleDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          instance=result=new BindSampleDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator
+              options.populator.execute(database);
+            }
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        } else {
+          throw new KriptonRuntimeException("Datasource BindSampleDataSource is already builded");
+        }
+      }
+    } else {
+      throw new KriptonRuntimeException("Datasource BindSampleDataSource is already builded");
     }
-    return instance;
-  }
-
-  /**
-   * Build instance with default config.
-   */
-  public static synchronized BindSampleDataSource build() {
-    return build(DataSourceOptions.builder().build());
+    return result;
   }
 
   /**

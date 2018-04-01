@@ -311,7 +311,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database);
+        task.execute(database, previousVersion, previousVersion+1);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);

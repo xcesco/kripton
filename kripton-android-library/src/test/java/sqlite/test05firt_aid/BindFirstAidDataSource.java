@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
 /**
@@ -27,7 +28,12 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   /**
    * <p>datasource singleton</p>
    */
-  static BindFirstAidDataSource instance;
+  static volatile BindFirstAidDataSource instance;
+
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
+  private static final Object mutex = new Object();
 
   /**
    * Unique identifier for Dao FirstAidDao
@@ -143,15 +149,31 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   }
 
   /**
-   * instance
+   * <p>Retrieve instance.</p>
    */
-  public static synchronized BindFirstAidDataSource instance() {
-    if (instance==null) {
-      DataSourceOptions options=DataSourceOptions.builder()
-      	.build();
-      instance=new BindFirstAidDataSource(options);
+  public static BindFirstAidDataSource instance() {
+    BindFirstAidDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.inMemory(false)
+          	.log(true)
+          	.build();
+          instance=result=new BindFirstAidDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        }
+      }
     }
-    return instance;
+    return result;
   }
 
   /**
@@ -220,7 +242,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database);
+        task.execute(database, previousVersion, previousVersion+1);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
@@ -261,21 +283,31 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   }
 
   /**
-   * Build instance.
-   * @return dataSource instance.
+   * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static synchronized BindFirstAidDataSource build(DataSourceOptions options) {
-    if (instance==null) {
-      instance=new BindFirstAidDataSource(options);
+  public static BindFirstAidDataSource build(DataSourceOptions options) {
+    BindFirstAidDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          instance=result=new BindFirstAidDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        } else {
+          throw new KriptonRuntimeException("Datasource BindFirstAidDataSource is already builded");
+        }
+      }
+    } else {
+      throw new KriptonRuntimeException("Datasource BindFirstAidDataSource is already builded");
     }
-    return instance;
-  }
-
-  /**
-   * Build instance with default config.
-   */
-  public static synchronized BindFirstAidDataSource build() {
-    return build(DataSourceOptions.builder().build());
+    return result;
   }
 
   /**

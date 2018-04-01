@@ -13,9 +13,8 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class SampleUpdate02 implements SQLiteUpdateTask {
 
-	
 	@Override
-	public void execute(SQLiteDatabase database) {
+	public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
 		// TODO Auto-generated method stub
 		
 	}

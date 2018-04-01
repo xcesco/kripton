@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 import sqlite.feature.javadoc.PersonTable;
 
@@ -28,7 +29,12 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>datasource singleton</p>
    */
-  static BindInsertBeanPersonDataSource instance;
+  static volatile BindInsertBeanPersonDataSource instance;
+
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
+  private static final Object mutex = new Object();
 
   /**
    * Unique identifier for Dao InsertBeanPersonDao
@@ -144,15 +150,31 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
   }
 
   /**
-   * instance
+   * <p>Retrieve instance.</p>
    */
-  public static synchronized BindInsertBeanPersonDataSource instance() {
-    if (instance==null) {
-      DataSourceOptions options=DataSourceOptions.builder()
-      	.build();
-      instance=new BindInsertBeanPersonDataSource(options);
+  public static BindInsertBeanPersonDataSource instance() {
+    BindInsertBeanPersonDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.inMemory(false)
+          	.log(true)
+          	.build();
+          instance=result=new BindInsertBeanPersonDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        }
+      }
     }
-    return instance;
+    return result;
   }
 
   /**
@@ -221,7 +243,7 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database);
+        task.execute(database, previousVersion, previousVersion+1);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
@@ -262,21 +284,31 @@ public class BindInsertBeanPersonDataSource extends AbstractDataSource implement
   }
 
   /**
-   * Build instance.
-   * @return dataSource instance.
+   * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static synchronized BindInsertBeanPersonDataSource build(DataSourceOptions options) {
-    if (instance==null) {
-      instance=new BindInsertBeanPersonDataSource(options);
+  public static BindInsertBeanPersonDataSource build(DataSourceOptions options) {
+    BindInsertBeanPersonDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          instance=result=new BindInsertBeanPersonDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        } else {
+          throw new KriptonRuntimeException("Datasource BindInsertBeanPersonDataSource is already builded");
+        }
+      }
+    } else {
+      throw new KriptonRuntimeException("Datasource BindInsertBeanPersonDataSource is already builded");
     }
-    return instance;
-  }
-
-  /**
-   * Build instance with default config.
-   */
-  public static synchronized BindInsertBeanPersonDataSource build() {
-    return build(DataSourceOptions.builder().build());
+    return result;
   }
 
   /**

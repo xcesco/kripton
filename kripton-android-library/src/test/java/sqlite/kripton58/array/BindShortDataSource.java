@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
 /**
@@ -27,7 +28,12 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   /**
    * <p>datasource singleton</p>
    */
-  static BindShortDataSource instance;
+  static volatile BindShortDataSource instance;
+
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
+  private static final Object mutex = new Object();
 
   /**
    * Unique identifier for Dao ShortDao
@@ -143,15 +149,31 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   }
 
   /**
-   * instance
+   * <p>Retrieve instance.</p>
    */
-  public static synchronized BindShortDataSource instance() {
-    if (instance==null) {
-      DataSourceOptions options=DataSourceOptions.builder()
-      	.build();
-      instance=new BindShortDataSource(options);
+  public static BindShortDataSource instance() {
+    BindShortDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.inMemory(false)
+          	.log(true)
+          	.build();
+          instance=result=new BindShortDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        }
+      }
     }
-    return instance;
+    return result;
   }
 
   /**
@@ -220,7 +242,7 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database);
+        task.execute(database, previousVersion, previousVersion+1);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
@@ -261,21 +283,31 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
   }
 
   /**
-   * Build instance.
-   * @return dataSource instance.
+   * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static synchronized BindShortDataSource build(DataSourceOptions options) {
-    if (instance==null) {
-      instance=new BindShortDataSource(options);
+  public static BindShortDataSource build(DataSourceOptions options) {
+    BindShortDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          instance=result=new BindShortDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        } else {
+          throw new KriptonRuntimeException("Datasource BindShortDataSource is already builded");
+        }
+      }
+    } else {
+      throw new KriptonRuntimeException("Datasource BindShortDataSource is already builded");
     }
-    return instance;
-  }
-
-  /**
-   * Build instance with default config.
-   */
-  public static synchronized BindShortDataSource build() {
-    return build(DataSourceOptions.builder().build());
+    return result;
   }
 
   /**

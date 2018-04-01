@@ -71,27 +71,29 @@ public enum AnnotationAttributeType {
 
 	ON_UPDATE("onUpdate"),
 
-	MULTIPLICITY_RESULT("multiplicityResult"), JQL("jql"), ID_NAME("idName"), 
-	
+	MULTIPLICITY_RESULT("multiplicityResult"), JQL("jql"), ID_NAME("idName"),
+
 	RELATIONSHIP("relationship"),
-	
+
 	IN_MEMORY("inMemory"),
-	
+
 	ENTITY_1("entity1"),
-	
+
 	ENTITY_2("entity2"),
-	
-	TABLE_NAME("tableName"), 
-	
+
+	TABLE_NAME("tableName"),
+
 	DAO("dao"),
-	
+
 	GENERATE_RX("rx"),
-	
+
 	METHODS("methods"), TASK("task"),
-	
+
 	UPDATE_TASKS("updateTasks"),
-	
-	POPULATOR("populator"), LOG_ENABLED("logEnabled");
+
+	POPULATOR("populator"),
+
+	LOG_ENABLED("logEnabled"), CURSOR_FACTORY("cursorFactory"), DATABASE_LIFECYCLE_HANDLER("databaseLifecycleHandler");
 
 	private String value;
 

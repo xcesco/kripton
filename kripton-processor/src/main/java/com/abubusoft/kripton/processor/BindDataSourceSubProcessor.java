@@ -728,6 +728,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			configInMemory = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSourceOptions.class, AnnotationAttributeType.IN_MEMORY);
 			configLogEnabled = AnnotationUtility.extractAsBoolean(databaseSchema, BindDataSourceOptions.class, AnnotationAttributeType.LOG_ENABLED);
 			configPopulatorClass = AnnotationUtility.extractAsClassName(databaseSchema, BindDataSourceOptions.class, AnnotationAttributeType.POPULATOR);
+			configCursorFactory = AnnotationUtility.extractAsClassName(databaseSchema, BindDataSourceOptions.class, AnnotationAttributeType.CURSOR_FACTORY);
+			configDatabaseLifecycleHandler = AnnotationUtility.extractAsClassName(databaseSchema, BindDataSourceOptions.class, AnnotationAttributeType.DATABASE_LIFECYCLE_HANDLER);
 		}
 		
 		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName, schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper,

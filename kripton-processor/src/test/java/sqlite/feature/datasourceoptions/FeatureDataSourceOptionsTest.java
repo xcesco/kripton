@@ -23,6 +23,10 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.datasourceoptions.kripton234.AppWithConfigDataSource;
 import sqlite.feature.datasourceoptions.kripton234.DaoPerson;
 import sqlite.feature.datasourceoptions.kripton234.Person;
+import sqlite.feature.datasourceoptions.kripton234.PersonCursorFactory;
+import sqlite.feature.datasourceoptions.kripton234.PersonLifecycleHandler;
+import sqlite.feature.datasourceoptions.kripton234.PersonPopulator;
+import sqlite.feature.datasourceoptions.kripton234.PersonUpdateTask;
 
 @RunWith(JUnit4.class)
 public class FeatureDataSourceOptionsTest extends AbstractBindSQLiteProcessorTest {
@@ -32,7 +36,7 @@ public class FeatureDataSourceOptionsTest extends AbstractBindSQLiteProcessorTes
 	 */
 	@Test
 	public void testMainScenario() throws Throwable {
-		buildDataSourceProcessorTest(AppWithConfigDataSource.class, DaoPerson.class, Person.class, PersonPopulator.class);
+		buildDataSourceProcessorTest(AppWithConfigDataSource.class, DaoPerson.class, Person.class, PersonPopulator.class, PersonCursorFactory.class, PersonUpdateTask.class, PersonLifecycleHandler.class);
 	}
 	
 	/**

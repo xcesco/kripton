@@ -47,7 +47,7 @@ public class DataSourceOptions {
 
 	public final SQLitePopulator populator;
 
-	public final boolean inMemory;		
+	public final boolean inMemory;
 
 	public static Builder builder() {
 		return new Builder();
@@ -81,14 +81,14 @@ public class DataSourceOptions {
 			this.databaseLifecycleHandler = value;
 			return this;
 		}
-		
+
 		public Builder populator(SQLitePopulator populator) {
-			this.populator=populator;
+			this.populator = populator;
 			return this;
 		}
-		
+
 		public Builder inMemory(boolean inMemory) {
-			this.inMemory=inMemory;
+			this.inMemory = inMemory;
 			return this;
 		}
 
@@ -100,7 +100,7 @@ public class DataSourceOptions {
 		 * @param resRawId
 		 * @return
 		 */
-		public Builder addUpdateTask(int currentVersion, Context context, int resRawId) {			
+		public Builder addUpdateTask(int currentVersion, Context context, int resRawId) {
 			return addUpdateTask(currentVersion, context.getResources().openRawResource(resRawId));
 		}
 
@@ -113,25 +113,26 @@ public class DataSourceOptions {
 		 * 		sql command to execute
 		 * @return
 		 */
-		public Builder addUpdateTask(int currentVersion, final List<String> sqlCommandList) {
+		public Builder addUpdateTask(final int currentVersion, final List<String> sqlCommandList) {
 			SQLiteUpdateTask task = new SQLiteUpdateTask() {
 
 				@Override
-				public void execute(SQLiteDatabase database) {
+				public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
 					for (String item : sqlCommandList) {
 						Logger.info(item);
 						database.execSQL(item);
 					}
+					
 				}
-			};
+			};				
 
 			this.updateTasks.add(new Pair<>(currentVersion, task));
 
 			return this;
 		}
-		
+
 		public Builder addUpdateTask(int version, SQLiteUpdateTask task) {
-			
+
 			this.updateTasks.add(new Pair<>(version, task));
 			return this;
 		}
@@ -148,7 +149,7 @@ public class DataSourceOptions {
 		public Builder addUpdateTask(int currentVersion, InputStream inputStream) {
 			SQLiteUpdateTaskFromFile task = new SQLiteUpdateTaskFromFile(inputStream);
 
-			this.updateTasks.add(new Pair<>(currentVersion, task));			
+			this.updateTasks.add(new Pair<>(currentVersion, task));
 
 			return this;
 		}
@@ -158,14 +159,15 @@ public class DataSourceOptions {
 		}
 	}
 
-	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks, boolean log, SQLitePopulator populator, boolean inMemory) {
+	private DataSourceOptions(CursorFactory factory, DatabaseErrorHandler errorHandler, DatabaseLifecycleHandler databaseLifecycleHandler, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks,
+			boolean log, SQLitePopulator populator, boolean inMemory) {
 		this.logEnabled = log;
 		this.factory = factory;
 		this.errorHandler = errorHandler;
 		this.databaseLifecycleHandler = databaseLifecycleHandler;
 		this.updateTasks = updateTasks;
-		this.populator=populator;
-		this.inMemory=inMemory;
+		this.populator = populator;
+		this.inMemory = inMemory;
 	}
 
 }

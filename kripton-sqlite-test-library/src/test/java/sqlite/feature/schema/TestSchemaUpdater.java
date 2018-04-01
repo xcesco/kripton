@@ -28,7 +28,7 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 				.addVersionUpdateTask(2, new SQLiteUpdateTask() {
 
 					@Override
-					public void execute(SQLiteDatabase database) {
+					public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
 						SQLiteSchemaVerifierHelper.renameAllTablesWithPrefix(database, "tmp_");
 						SQLiteSchemaVerifierHelper.executeSQL(database, stream);
 						SQLiteSchemaVerifierHelper.dropTablesWithPrefix(database, "tmp_");

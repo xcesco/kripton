@@ -44,7 +44,7 @@ public class SQLiteUpdateTaskFromFile implements SQLiteUpdateTask {
 	}
 
 	@Override
-	public void execute(SQLiteDatabase database) {
+	public void execute(SQLiteDatabase database, int previuosVersion, int currentVersion) {
 		List<String> executionList=null;
 	
 		if (inputStream==null) {

@@ -24,6 +24,7 @@ import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
 import sqlite.feat.includeFields.IncludeFieldsTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
+import sqlite.feature.datasourceoptions.FeatureDataSourceOptionsTest;
 import sqlite.feature.dynamic.TestDynamicSuite;
 import sqlite.feature.foreignKey.TestForeignKeySuite;
 import sqlite.feature.foreignkeyaction.TestForeignKeyActionSuite;
@@ -137,6 +138,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestStack44633883Suite.class,
 			TestStack45184504Suite.class,	
 			Test205Suite.class,
+			FeatureDataSourceOptionsTest.class,
 						
 			TestPerformanceSuite.class,
 			TestSelectSuite.class,

@@ -52,7 +52,7 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 				.addUpdateTask(4, new SQLiteUpdateTask() {
 					
 					@Override
-					public void execute(SQLiteDatabase database) {
+					public void execute(SQLiteDatabase database, int previousVersion, int currentVersion) {
 						Logger.info("just in case, 3 and 4 are the same!");			
 						
 					}

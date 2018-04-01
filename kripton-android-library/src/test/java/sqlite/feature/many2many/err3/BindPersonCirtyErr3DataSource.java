@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 import sqlite.feature.many2many.CityTable;
 import sqlite.feature.many2many.PersonTable;
@@ -35,7 +36,12 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   /**
    * <p>datasource singleton</p>
    */
-  static BindPersonCirtyErr3DataSource instance;
+  static volatile BindPersonCirtyErr3DataSource instance;
+
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
+  private static final Object mutex = new Object();
 
   /**
    * Unique identifier for Dao PersonErr3Dao
@@ -181,15 +187,31 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   }
 
   /**
-   * instance
+   * <p>Retrieve instance.</p>
    */
-  public static synchronized BindPersonCirtyErr3DataSource instance() {
-    if (instance==null) {
-      DataSourceOptions options=DataSourceOptions.builder()
-      	.build();
-      instance=new BindPersonCirtyErr3DataSource(options);
+  public static BindPersonCirtyErr3DataSource instance() {
+    BindPersonCirtyErr3DataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.inMemory(false)
+          	.log(true)
+          	.build();
+          instance=result=new BindPersonCirtyErr3DataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        }
+      }
     }
-    return instance;
+    return result;
   }
 
   /**
@@ -270,7 +292,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database);
+        task.execute(database, previousVersion, previousVersion+1);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
@@ -326,21 +348,31 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   }
 
   /**
-   * Build instance.
-   * @return dataSource instance.
+   * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static synchronized BindPersonCirtyErr3DataSource build(DataSourceOptions options) {
-    if (instance==null) {
-      instance=new BindPersonCirtyErr3DataSource(options);
+  public static BindPersonCirtyErr3DataSource build(DataSourceOptions options) {
+    BindPersonCirtyErr3DataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          instance=result=new BindPersonCirtyErr3DataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        } else {
+          throw new KriptonRuntimeException("Datasource BindPersonCirtyErr3DataSource is already builded");
+        }
+      }
+    } else {
+      throw new KriptonRuntimeException("Datasource BindPersonCirtyErr3DataSource is already builded");
     }
-    return instance;
-  }
-
-  /**
-   * Build instance with default config.
-   */
-  public static synchronized BindPersonCirtyErr3DataSource build() {
-    return build(DataSourceOptions.builder().build());
+    return result;
   }
 
   /**

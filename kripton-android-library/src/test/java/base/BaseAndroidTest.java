@@ -40,6 +40,7 @@ public abstract class BaseAndroidTest {
 
 	@Before
 	public void setup() {
+		//final String value = System.getProperty(KRIPTON_DEBUG_MODE);
 		final String value = System.getProperty(KRIPTON_DEBUG_MODE);
 		if ("false".equals(value)) {
 			ShadowLog.stream = new PrintStream(new NullOutputStream());

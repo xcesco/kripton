@@ -164,7 +164,7 @@ public class SQLiteUpdateTestDatabase {
 				List<SQLiteUpdateTask> task = findTask(oldVersion, newVersion);
 
 				for (SQLiteUpdateTask item : task) {
-					item.execute(db);
+					item.execute(db, oldVersion, oldVersion+1);
 					oldVersion++;
 				}
 			}

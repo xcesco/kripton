@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
 /**
@@ -27,7 +28,12 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
   /**
    * <p>datasource singleton</p>
    */
-  static BindAppWithConfigDataSource instance;
+  static volatile BindAppWithConfigDataSource instance;
+
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
+  private static final Object mutex = new Object();
 
   /**
    * Unique identifier for Dao DaoPerson
@@ -143,17 +149,40 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
   }
 
   /**
-   * instance
+   * <p>Retrieve instance.</p>
    */
-  public static synchronized BindAppWithConfigDataSource instance() {
-    if (instance==null) {
-      DataSourceOptions options=DataSourceOptions.builder()
-      	.inMemory(false)
-      	.log(false)
-      	.build();
-      instance=new BindAppWithConfigDataSource(options);
+  public static BindAppWithConfigDataSource instance() {
+    BindAppWithConfigDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.cursorFactory(new PersonCursorFactory())
+          	.databaseLifecycleHandler(new PersonLifecycleHandler())
+          	.populator(new PersonPopulator())
+          	.inMemory(false)
+          	.log(true)
+          	.addUpdateTask(2, new PersonUpdateTask())
+          	.build();
+          instance=result=new BindAppWithConfigDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator
+              options.populator.execute(database);
+            }
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        }
+      }
     }
-    return instance;
+    return result;
   }
 
   /**
@@ -222,7 +251,7 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
           Logger.info("Begin update database from version %s to %s", previousVersion, previousVersion+1);
         }
         // log section END
-        task.execute(database);
+        task.execute(database, previousVersion, previousVersion+1);
         // log section BEGIN
         if (this.logEnabled) {
           Logger.info("End update database from version %s to %s", previousVersion, previousVersion+1);
@@ -263,21 +292,36 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
   }
 
   /**
-   * Build instance.
-   * @return dataSource instance.
+   * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static synchronized BindAppWithConfigDataSource build(DataSourceOptions options) {
-    if (instance==null) {
-      instance=new BindAppWithConfigDataSource(options);
+  public static BindAppWithConfigDataSource build(DataSourceOptions options) {
+    BindAppWithConfigDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          instance=result=new BindAppWithConfigDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator
+              options.populator.execute(database);
+            }
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        } else {
+          throw new KriptonRuntimeException("Datasource BindAppWithConfigDataSource is already builded");
+        }
+      }
+    } else {
+      throw new KriptonRuntimeException("Datasource BindAppWithConfigDataSource is already builded");
     }
-    return instance;
-  }
-
-  /**
-   * Build instance with default config.
-   */
-  public static synchronized BindAppWithConfigDataSource build() {
-    return build(DataSourceOptions.builder().build());
+    return result;
   }
 
   /**

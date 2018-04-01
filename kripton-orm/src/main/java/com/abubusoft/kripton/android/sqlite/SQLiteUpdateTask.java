@@ -32,6 +32,6 @@ public interface SQLiteUpdateTask {
 	 * method to execute to launch build update from previous version to current version
 	 * @param database
 	 */
-	void execute(SQLiteDatabase database);
+	void execute(SQLiteDatabase database, int previousVersion ,int currentVersion);
 
 }
