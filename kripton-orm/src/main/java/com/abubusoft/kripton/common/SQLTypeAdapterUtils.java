@@ -13,57 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton;
+package com.abubusoft.kripton.common;
 
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.android.BindSQLTypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-public abstract class TypeAdapterUtils {
+public abstract class SQLTypeAdapterUtils {
 
 	static ReentrantLock lock = new ReentrantLock();
 
 	@SuppressWarnings("rawtypes")
-	private static HashMap<Class<? extends BindTypeAdapter>, BindTypeAdapter> cache = new HashMap<>();
-
-	@SuppressWarnings("unchecked")
-	public static <D, J> J toJava(Class<? extends BindTypeAdapter<J, D>> clazz, D value) {
-		BindTypeAdapter<J, D> adapter = cache.get(clazz);
+	private static HashMap<Class<? extends BindSQLTypeAdapter>, ? extends BindSQLTypeAdapter> cache = new HashMap<>();
+	
+	public static <E extends BindSQLTypeAdapter<?, ?>> E getAdapter(Class<E> clazz) {
+		E adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
 		}
 
-		return adapter.toJava(value);
+		return adapter;
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <D, J> D toData(Class<? extends BindTypeAdapter<J, D>> clazz, J javaValue) {
-		BindTypeAdapter<J, D> adapter = cache.get(clazz);
+	public static <D, J> D toData(Class<? extends BindSQLTypeAdapter<J, D>> clazz, J javaValue) {
+		BindSQLTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
 		}
 
 		return adapter.toData(javaValue);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <D, J> String toString(Class<? extends BindSQLTypeAdapter<J, D>> clazz, J javaValue) {
+		BindSQLTypeAdapter<J, D> adapter = cache.get(clazz);
+
+		if (adapter == null) {
+			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
+		}
+
+		String value=adapter.toString(javaValue);
+		return value==null ? "" : value;
 	}
 
 }

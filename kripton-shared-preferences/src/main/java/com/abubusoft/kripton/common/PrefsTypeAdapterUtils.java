@@ -15,52 +15,37 @@
  *******************************************************************************/
 package com.abubusoft.kripton.common;
 
+import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.android.sharedprefs.BindPrefsTypeAdapter;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.abubusoft.kripton.BindTypeAdapter;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-
-public abstract class TypeAdapterUtils {
+public abstract class PrefsTypeAdapterUtils {
 
 	static ReentrantLock lock = new ReentrantLock();
 
 	@SuppressWarnings("rawtypes")
-	private static HashMap<Class<? extends BindTypeAdapter>, BindTypeAdapter> cache = new HashMap<>();
+	private static HashMap<Class<? extends BindPrefsTypeAdapter>, BindPrefsTypeAdapter> cache = new HashMap<>();
 
 	@SuppressWarnings("unchecked")
-	public static <D, J> J toJava(Class<? extends BindTypeAdapter<J, D>> clazz, D value) {
-		BindTypeAdapter<J, D> adapter = cache.get(clazz);
+	public static <D, J> J toJava(Class<? extends BindPrefsTypeAdapter<J, D>> clazz, D value) {
+		BindPrefsTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
 		}
 
 		return adapter.toJava(value);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <D, J> D toData(Class<? extends BindTypeAdapter<J, D>> clazz, J javaValue) {
-		BindTypeAdapter<J, D> adapter = cache.get(clazz);
+	public static <D, J> D toData(Class<? extends BindPrefsTypeAdapter<J, D>> clazz, J javaValue) {
+		BindPrefsTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
 		}
 
 		return adapter.toData(javaValue);

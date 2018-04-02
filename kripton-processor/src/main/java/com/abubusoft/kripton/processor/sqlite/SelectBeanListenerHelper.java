@@ -23,7 +23,7 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import java.util.Set;
 
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
+import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;

@@ -27,7 +27,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.abubusoft.kripton.android.sqlite.SQLTypeAdapterUtils;
+import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
