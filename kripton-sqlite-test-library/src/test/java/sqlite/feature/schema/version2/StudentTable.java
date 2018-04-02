@@ -2,8 +2,6 @@ package sqlite.feature.schema.version2;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-import sqlite.feature.schema.version2.Student;
-
 /**
  * <p>
  * Entity <code>Student</code> is associated to table <code>student</code>

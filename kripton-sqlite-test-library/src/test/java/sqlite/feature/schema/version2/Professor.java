@@ -1,12 +1,10 @@
 package sqlite.feature.schema.version2;
 
-import java.util.Date;
-
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
-import sqlite.feature.schema.version2.Entity;
+import java.util.Date;
 
 @BindType
 @BindTable(indexes={"surname"})
