@@ -230,11 +230,6 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		classBuilder.addField(FieldSpec.builder(Object.class, "mutex", Modifier.STATIC, Modifier.FINAL, Modifier.PRIVATE).addJavadoc("<p>Mutex to manage multithread access to instance</p>\n")
 				.initializer("new Object()").build());
 
-		// instance
-		// classBuilder.addField(FieldSpec.builder(Boolean.TYPE, "justCreated",
-		// Modifier.PRIVATE).addJavadoc("<p>True if dataSource is just
-		// created</p>\n").build());
-
 		for (SQLDaoDefinition dao : schema.getCollection()) {
 			// TypeName daoInterfaceName =
 			// BindDaoBuilder.daoInterfaceTypeName(dao);

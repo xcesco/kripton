@@ -65,7 +65,6 @@ public class BindTypeSubProcessor extends BaseProcessor {
 
 			AssertKripton.assertTrueOrInvalidKindForAnnotationException(item.getKind() == ElementKind.CLASS, item, BindType.class);
 			BindEntityBuilder.parse(model, (TypeElement) item);
-			//itemCounter.addAndGet(1);
 		}
 		
 
