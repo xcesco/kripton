@@ -1,10 +1,6 @@
 package sqlite.feature.schema.version2;
 
 import android.database.sqlite.SQLiteStatement;
-import sqlite.feature.schema.version2.DaoStudent;
-import sqlite.feature.schema.version2.Student;
-import sqlite.feature.schema.version2.StudentTable;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;

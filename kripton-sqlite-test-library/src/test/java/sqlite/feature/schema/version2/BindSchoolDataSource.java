@@ -1,33 +1,9 @@
 package sqlite.feature.schema.version2;
 
 import android.database.sqlite.SQLiteDatabase;
-import sqlite.feature.schema.version2.BindSchoolDaoFactory;
-import sqlite.feature.schema.version2.DaoProfessor;
-import sqlite.feature.schema.version2.DaoProfessorImpl;
-import sqlite.feature.schema.version2.DaoSeminar;
-import sqlite.feature.schema.version2.DaoSeminar2Student;
-import sqlite.feature.schema.version2.DaoSeminar2StudentImpl;
-import sqlite.feature.schema.version2.DaoSeminarImpl;
-import sqlite.feature.schema.version2.DaoStudent;
-import sqlite.feature.schema.version2.DaoStudentImpl;
-import sqlite.feature.schema.version2.Professor;
-import sqlite.feature.schema.version2.ProfessorTable;
-import sqlite.feature.schema.version2.SchoolDataSource;
-import sqlite.feature.schema.version2.Seminar;
-import sqlite.feature.schema.version2.Seminar2Student;
-import sqlite.feature.schema.version2.Seminar2StudentTable;
-import sqlite.feature.schema.version2.SeminarTable;
-import sqlite.feature.schema.version2.Student;
-import sqlite.feature.schema.version2.StudentTable;
-
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
-import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
-import com.abubusoft.kripton.android.sqlite.SQLiteTable;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
-import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.android.sqlite.*;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import java.util.List;
 
@@ -56,7 +32,12 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * <p>datasource singleton</p>
    */
-  static BindSchoolDataSource instance;
+  static volatile BindSchoolDataSource instance;
+
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
+  private static final Object mutex = new Object();
 
   /**
    * Unique identifier for Dao DaoProfessor
@@ -81,7 +62,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new SeminarTable(), new StudentTable(), new Seminar2StudentTable(), new ProfessorTable()};
+  static final SQLiteTable[] TABLES = {new Seminar2StudentTable(), new ProfessorTable(), new StudentTable(), new SeminarTable()};
 
   /**
    * <p>dao instance</p>
@@ -150,8 +131,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @param onErrorListener
    * 	error listener
    */
-  public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
+  public void execute(Transaction transaction, OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
+    boolean success=false;
     @SuppressWarnings("resource")
     SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
     DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
@@ -160,10 +142,9 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       connection.beginTransaction();
       if (transaction!=null && TransactionResult.COMMIT == transaction.onExecute(currentDaoFactory)) {
         connection.setTransactionSuccessful();
-        currentDaoFactory.onSessionClosed();
+        success=true;
       }
     } catch(Throwable e) {
-      currentDaoFactory.onSessionClear();
       Logger.error(e.getMessage());
       e.printStackTrace();
       if (onErrorListener!=null) onErrorListener.onError(e);
@@ -174,6 +155,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
         Logger.warn("error closing transaction %s", e.getMessage());
       }
       if (needToOpened) { close(); }
+      if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
   }
 
@@ -216,15 +198,31 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * instance
+   * <p>Retrieve instance.</p>
    */
-  public static synchronized BindSchoolDataSource instance() {
-    if (instance==null) {
-      DataSourceOptions options=DataSourceOptions.builder()
-      	.build();
-      instance=new BindSchoolDataSource(options);
+  public static BindSchoolDataSource instance() {
+    BindSchoolDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.inMemory(false)
+          	.log(true)
+          	.build();
+          instance=result=new BindSchoolDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        }
+      }
     }
-    return instance;
+    return result;
   }
 
   /**
@@ -264,16 +262,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(StudentTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
@@ -326,16 +324,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(StudentTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
@@ -374,21 +372,31 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   }
 
   /**
-   * Build instance.
-   * @return dataSource instance.
+   * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static synchronized BindSchoolDataSource build(DataSourceOptions options) {
-    if (instance==null) {
-      instance=new BindSchoolDataSource(options);
+  public static BindSchoolDataSource build(DataSourceOptions options) {
+    BindSchoolDataSource result=instance;
+    if (result==null) {
+      synchronized(mutex) {
+        result=instance;
+        if (result==null) {
+          instance=result=new BindSchoolDataSource(options);
+          SQLiteDatabase database=instance.openWritableDatabase();
+          try {
+          } catch(Throwable e) {
+            Logger.error(e.getMessage());
+            e.printStackTrace();
+          } finally {
+            instance.close();
+          }
+        } else {
+          throw new KriptonRuntimeException("Datasource BindSchoolDataSource is already builded");
+        }
+      }
+    } else {
+      throw new KriptonRuntimeException("Datasource BindSchoolDataSource is already builded");
     }
-    return instance;
-  }
-
-  /**
-   * Build instance with default config.
-   */
-  public static synchronized BindSchoolDataSource build() {
-    return build(DataSourceOptions.builder().build());
+    return result;
   }
 
   /**
@@ -401,7 +409,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindSchoolDaoFactory> {
+  public interface Transaction extends AbstractExecutable<BindSchoolDaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
