@@ -1,33 +1,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.abubusoft</groupId>
-	<artifactId>kripton-project</artifactId>
-	<version>4.0.0-rc.1</version>
+    <groupId>com.abubusoft</groupId>
+    <artifactId>kripton-project</artifactId>
+    <version>4.0.0-rc.1</version>
 
-	<packaging>pom</packaging>
-	<name>Kripton (Parent)</name>
-	<description>Kripton persistence library - project</description>
-	<url>https://github.com/xcesco/kripton</url>
+    <packaging>pom</packaging>
+    <name>Kripton (Parent)</name>
+    <description>Kripton persistence library - project</description>
+    <url>https://github.com/xcesco/kripton</url>
 
 
-	<modules>
-		<module>kripton-parent</module>
-		<module>kripton-core</module>
-		<module>kripton</module>
-		<module>kripton-dataformat-cbor</module>
-		<module>kripton-dataformat-properties</module>
-		<module>kripton-dataformat-yaml</module>
-		<module>kripton-dataformat-smile</module>
-		<module>kripton-arch-integration</module>
-		<module>kripton-android-core</module>
-		<module>kripton-orm</module>
-		<module>kripton-shared-preferences</module>
-		<module>kripton-retrofit-converter</module>
-		<module>kripton-android-library</module>
-		<module>kripton-processor</module>
-		<module>kripton-sqlite-test-library</module>
-	</modules>
+    <modules>
+        <module>kripton-parent</module>
+        <module>kripton-core</module>
+        <module>kripton</module>
+        <module>kripton-dataformat-cbor</module>
+        <module>kripton-dataformat-properties</module>
+        <module>kripton-dataformat-yaml</module>
+        <module>kripton-dataformat-smile</module>
+        <module>kripton-arch-integration</module>
+        <module>kripton-android-core</module>
+        <module>kripton-orm</module>
+        <module>kripton-shared-preferences</module>
+        <module>kripton-retrofit-converter</module>
+        <module>kripton-android-library</module>
+        <module>kripton-processor</module>
+        <module>kripton-sqlite-test-library</module>
+    </modules>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                    <check/>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

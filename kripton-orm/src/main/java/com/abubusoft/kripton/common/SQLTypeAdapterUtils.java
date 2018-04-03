@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.android.sqlite;
+package com.abubusoft.kripton.common;
 
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
@@ -26,22 +26,13 @@ public abstract class SQLTypeAdapterUtils {
 	static ReentrantLock lock = new ReentrantLock();
 
 	@SuppressWarnings("rawtypes")
-	private static HashMap<Class<? extends BindSQLTypeAdapter>, BindSQLTypeAdapter> cache = new HashMap<>();
+	private static HashMap<Class<? extends BindSQLTypeAdapter>, ? extends BindSQLTypeAdapter> cache = new HashMap<>();
 	
 	public static <E extends BindSQLTypeAdapter<?, ?>> E getAdapter(Class<E> clazz) {
-		@SuppressWarnings("unchecked")
-		E adapter = (E) cache.get(clazz);
+		BindSQLTypeAdapter<?, ?> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
 		}
 
 		return adapter;
@@ -52,15 +43,7 @@ public abstract class SQLTypeAdapterUtils {
 		BindSQLTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
 		}
 
 		return adapter.toData(javaValue);
@@ -71,15 +54,7 @@ public abstract class SQLTypeAdapterUtils {
 		BindSQLTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
 		}
 
 		String value=adapter.toString(javaValue);

@@ -25,7 +25,6 @@ public abstract class TypeAdapterUtils {
 
 	static ReentrantLock lock = new ReentrantLock();
 
-	@SuppressWarnings("rawtypes")
 	private static HashMap<Class<? extends BindTypeAdapter>, BindTypeAdapter> cache = new HashMap<>();
 
 	@SuppressWarnings("unchecked")
@@ -33,15 +32,7 @@ public abstract class TypeAdapterUtils {
 		BindTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = generateAdapter(cache, lock, clazz);
 		}
 
 		return adapter.toJava(value);
@@ -52,18 +43,23 @@ public abstract class TypeAdapterUtils {
 		BindTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			try {
-				lock.lock();
-				adapter = clazz.newInstance();
-				cache.put(clazz, adapter);
-			} catch(Throwable e) {
-				throw(new KriptonRuntimeException(e));
-			} finally {
-				lock.unlock();
-			}
+			adapter = generateAdapter(cache, lock, clazz);
 		}
 
 		return adapter.toData(javaValue);
 	}
 
+	static <D extends BindTypeAdapter> D generateAdapter(HashMap<Class<? extends BindTypeAdapter>, ? extends BindTypeAdapter> cache, ReentrantLock lock, Class<D> clazz) {
+		D adapter = null;
+		try {
+			lock.lock();
+			adapter = clazz.newInstance();
+			cache.put(clazz, adapter);
+		} catch (Throwable e) {
+			throw (new KriptonRuntimeException(e));
+		} finally {
+			lock.unlock();			
+		}
+		return adapter;
+	}
 }

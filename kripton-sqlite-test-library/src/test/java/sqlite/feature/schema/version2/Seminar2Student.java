@@ -7,9 +7,6 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
-import sqlite.feature.schema.version2.Seminar;
-import sqlite.feature.schema.version2.Student;
-
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
  *

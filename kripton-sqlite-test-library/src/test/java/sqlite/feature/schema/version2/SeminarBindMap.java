@@ -11,8 +11,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-import sqlite.feature.schema.version2.Seminar;
-
 /**
  * This class is binder map for Seminar
  *
