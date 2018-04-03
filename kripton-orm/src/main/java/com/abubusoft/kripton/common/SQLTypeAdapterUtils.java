@@ -29,7 +29,7 @@ public abstract class SQLTypeAdapterUtils {
 	private static HashMap<Class<? extends BindSQLTypeAdapter>, ? extends BindSQLTypeAdapter> cache = new HashMap<>();
 	
 	public static <E extends BindSQLTypeAdapter<?, ?>> E getAdapter(Class<E> clazz) {
-		E adapter = cache.get(clazz);
+		BindSQLTypeAdapter<?, ?> adapter = cache.get(clazz);
 
 		if (adapter == null) {
 			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
