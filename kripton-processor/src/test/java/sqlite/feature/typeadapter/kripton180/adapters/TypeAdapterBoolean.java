@@ -1,8 +1,8 @@
 package sqlite.feature.typeadapter.kripton180.adapters;
 
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-public class TypeAdapterBoolean implements BindSQLTypeAdapter<String, Boolean> {
+public class TypeAdapterBoolean implements SqlTypeAdapter<String, Boolean> {
 
 	@Override
 	public String toJava(Boolean dataValue) {

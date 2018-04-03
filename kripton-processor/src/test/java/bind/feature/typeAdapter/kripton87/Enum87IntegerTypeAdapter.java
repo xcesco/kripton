@@ -15,11 +15,11 @@
  *******************************************************************************/
 package bind.feature.typeAdapter.kripton87;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 
 import bind.feature.typeAdapter.kripton87.Enum87A;
 
-public class Enum87IntegerTypeAdapter implements BindTypeAdapter<Enum87A, Integer> {
+public class Enum87IntegerTypeAdapter implements TypeAdapter<Enum87A, Integer> {
 
 	@Override
 	public Enum87A toJava(Integer dataValue) {

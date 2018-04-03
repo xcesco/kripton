@@ -20,7 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
@@ -32,5 +32,5 @@ public @interface BindSqlAdapter {
 	 * 
 	 * @return
 	 */
-	Class<? extends BindSQLTypeAdapter<?, ?>> adapter();
+	Class<? extends SqlTypeAdapter<?, ?>> adapter();
 }

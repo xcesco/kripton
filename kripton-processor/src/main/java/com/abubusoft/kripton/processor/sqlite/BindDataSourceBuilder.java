@@ -60,8 +60,8 @@ import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ArrayTypeName;
@@ -213,7 +213,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
 		classBuilder.addJavadoc("@see $T\n", className(schema.getName()));
 		classBuilder.addJavadoc("@see $T\n", daoFactoryClazz);
-		for (SQLDaoDefinition dao : schema.getCollection()) {
+		for (SQLiteDaoDefinition dao : schema.getCollection()) {
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
 			classBuilder.addJavadoc("@see $T\n", dao.getElement());
 			classBuilder.addJavadoc("@see $T\n", daoImplName);
@@ -230,7 +230,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		classBuilder.addField(FieldSpec.builder(Object.class, "mutex", Modifier.STATIC, Modifier.FINAL, Modifier.PRIVATE).addJavadoc("<p>Mutex to manage multithread access to instance</p>\n")
 				.initializer("new Object()").build());
 
-		for (SQLDaoDefinition dao : schema.getCollection()) {
+		for (SQLiteDaoDefinition dao : schema.getCollection()) {
 			// TypeName daoInterfaceName =
 			// BindDaoBuilder.daoInterfaceTypeName(dao);
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
@@ -248,7 +248,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		if (schema.generateRx) {
 			generateRx(dataSourceClassName, daoFactoryName);
 
-			for (SQLDaoDefinition dao : schema.getCollection()) {
+			for (SQLiteDaoDefinition dao : schema.getCollection()) {
 				// subject
 				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getEntitySimplyClassName() + "Subject"))
 						.addModifiers(Modifier.PUBLIC);
@@ -275,7 +275,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		generateConstructor(schema);
 
 		// before use entities, order them with dependencies respect
-		List<SQLEntity> orderedEntities = generateOrderedEntitiesList(schema);
+		List<SQLiteEntity> orderedEntities = generateOrderedEntitiesList(schema);
 
 		// onCreate
 		boolean useForeignKey = generateOnCreate(schema, orderedEntities);
@@ -294,7 +294,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		{
 
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("clearCompiledStatements").addModifiers(Modifier.PUBLIC).returns(Void.TYPE);
-			for (SQLDaoDefinition dao : schema.getCollection()) {
+			for (SQLiteDaoDefinition dao : schema.getCollection()) {
 				methodBuilder.addStatement("$T.clearCompiledStatements()", TypeUtility.className(dao.getElement().getQualifiedName().toString() + "Impl"));
 			}
 
@@ -314,7 +314,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			String s = "";
 
 			c.add("{");
-			for (SQLEntity entity : schema.getEntities()) {
+			for (SQLiteEntity entity : schema.getEntities()) {
 				String tableName = BindTableGenerator.getTableClassName(entity.getName());
 
 				c.add(s + "new $T()", TypeUtility.className(tableName));
@@ -357,7 +357,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 */
 	public static void generateDaoUids(TypeSpec.Builder classBuilder, SQLiteDatabaseSchema schema) {
 
-		for (SQLDaoDefinition dao : schema.getCollection()) {
+		for (SQLiteDaoDefinition dao : schema.getCollection()) {
 
 			classBuilder.addField(FieldSpec.builder(Integer.TYPE, dao.daoUidName, Modifier.FINAL, Modifier.STATIC, Modifier.PUBLIC).initializer("" + dao.daoUidValue)
 					.addJavadoc("Unique identifier for Dao $L\n", dao.getName()).build());
@@ -377,7 +377,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		constructorBuilder.addStatement("_context=new $T($L.this)", SQLContextInSessionImpl.class, dataSourceName);
 
 		// all dao
-		for (SQLDaoDefinition dao : schema.getCollection()) {
+		for (SQLiteDaoDefinition dao : schema.getCollection()) {
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
 
 			// dao with external connections
@@ -427,7 +427,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 				methodBuilder.addComment("support for live data");
 				methodBuilder.addStatement("$T daosWithEvents=_context.onSessionClosed()", ParameterizedTypeName.get(Set.class, Integer.class));
 
-				for (SQLDaoDefinition dao : schema.getCollection()) {
+				for (SQLiteDaoDefinition dao : schema.getCollection()) {
 					// TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
 					String daoFieldName = extractDaoFieldNameForInternalDataSource(dao);
 					methodBuilder.beginControlFlow("if ($L!=null && daosWithEvents.contains($L))", daoFieldName, dao.daoUidName);
@@ -456,7 +456,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 	}
 
-	private String extractDaoFieldNameForInternalDataSource(SQLDaoDefinition dao) {
+	private String extractDaoFieldNameForInternalDataSource(SQLiteDaoDefinition dao) {
 		return "_" + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getName());
 	}
 
@@ -594,7 +594,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * @param schema
 	 * @param orderedEntities
 	 */
-	private boolean generateOnCreate(SQLiteDatabaseSchema schema, List<SQLEntity> orderedEntities) {
+	private boolean generateOnCreate(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
 		boolean useForeignKey = false;
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 		methodBuilder.addParameter(SQLiteDatabase.class, "database");
@@ -615,7 +615,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.endControlFlow();
 			methodBuilder.addComment("log section END");
 		}
-		for (SQLEntity item : orderedEntities) {
+		for (SQLiteEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
@@ -669,7 +669,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * @param schema
 	 * @param orderedEntities
 	 */
-	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLEntity> orderedEntities) {
+	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 		methodBuilder.addParameter(SQLiteDatabase.class, "database");
 		methodBuilder.addParameter(Integer.TYPE, "previousVersion");
@@ -730,7 +730,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("// generate tables\n");
 
-		for (SQLEntity item : orderedEntities) {
+		for (SQLiteEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
 				// generate log section - BEGIN
 				methodBuilder.addComment("log section BEGIN");
@@ -790,27 +790,27 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		classBuilder.addMethod(methodBuilder.build());
 	}
 
-	private List<SQLEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
-		List<SQLEntity> entities = schema.getEntitiesAsList();
-		Collections.sort(entities, new Comparator<SQLEntity>() {
+	private List<SQLiteEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
+		List<SQLiteEntity> entities = schema.getEntitiesAsList();
+		Collections.sort(entities, new Comparator<SQLiteEntity>() {
 
 			@Override
-			public int compare(SQLEntity lhs, SQLEntity rhs) {
+			public int compare(SQLiteEntity lhs, SQLiteEntity rhs) {
 				return lhs.getTableName().compareTo(rhs.getTableName());
 			}
 		});
 
-		List<SQLEntity> list = schema.getEntitiesAsList();
+		List<SQLiteEntity> list = schema.getEntitiesAsList();
 
-		EntityUtility<SQLEntity> sorder = new EntityUtility<SQLEntity>(list) {
+		EntityUtility<SQLiteEntity> sorder = new EntityUtility<SQLiteEntity>(list) {
 
 			@Override
-			public Collection<SQLEntity> getDependencies(SQLEntity item) {
+			public Collection<SQLiteEntity> getDependencies(SQLiteEntity item) {
 				return item.referedEntities;
 			}
 
 			@Override
-			public void generateError(SQLEntity item) {
+			public void generateError(SQLiteEntity item) {
 				throw new CircularRelationshipException(item);
 			}
 		};

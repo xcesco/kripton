@@ -26,8 +26,8 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -50,8 +50,8 @@ public abstract class CodeBuilderUtility {
 	 * @return primary key.
 	 */
 	public static List<SQLProperty> extractUsedProperties(Builder methodBuilder, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
+		SQLiteEntity entity = daoDefinition.getEntity();
 		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();
 
 		Set<String> foundColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
@@ -74,7 +74,7 @@ public abstract class CodeBuilderUtility {
 			Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
 		// all check is already done
 
-		SQLEntity entity = method.getParent().getEntity();
+		SQLiteEntity entity = method.getParent().getEntity();
 
 		String entityName = method.getParameters().get(0).value0;
 		TypeName entityClassName = typeName(entity.getElement());

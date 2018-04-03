@@ -3,13 +3,13 @@ package sqlite.feature.typeadapter.bitmap;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-public class BitmapTypeAdapter implements BindSQLTypeAdapter<Bitmap, byte[]> {
+public class BitmapTypeAdapter implements SqlTypeAdapter<Bitmap, byte[]> {
 
 	@Override
 	public Bitmap toJava(byte[] dataValue) {

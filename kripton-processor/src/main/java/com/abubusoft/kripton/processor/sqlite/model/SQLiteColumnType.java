@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.sharedprefs.model;
+package com.abubusoft.kripton.processor.sqlite.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PrefModel {
-	protected List<PrefEntity> entities = new ArrayList<PrefEntity>();
-
-	public List<PrefEntity> getEntities() {
-		return entities;
-	}
-
-	public void entityAdd(PrefEntity item) {
-		entities.add(item);
-	}
+public enum SQLiteColumnType {
+	BLOB, TEXT, INTEGER, REAL;
 
 }

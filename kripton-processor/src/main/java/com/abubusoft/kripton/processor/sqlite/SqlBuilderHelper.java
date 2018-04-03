@@ -39,7 +39,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerIm
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.FieldSpec;
@@ -99,7 +99,7 @@ public abstract class SqlBuilderHelper {
 	 * @param listener
 	 */
 	static void forEachColumnInContentValue(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, String columnSetString, boolean generateColumnNameCheck, OnColumnListener listener) {
-		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
 		methodBuilder.beginControlFlow("for (String columnName:$L)", columnSetString);
 		if (generateColumnNameCheck) {
 			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName + "ColumnSet");
@@ -475,7 +475,7 @@ public abstract class SqlBuilderHelper {
 	 * @param methodBuilder
 	 */
 	public static void generateLog(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
-		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
 
 		// log is enabled
 		if (daoDefinition.isLogEnabled()) {

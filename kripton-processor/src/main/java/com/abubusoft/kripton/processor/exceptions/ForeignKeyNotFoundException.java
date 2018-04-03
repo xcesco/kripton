@@ -3,7 +3,7 @@
  */
 package com.abubusoft.kripton.processor.exceptions;
 
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.squareup.javapoet.ClassName;
 
 /**
@@ -12,7 +12,7 @@ import com.squareup.javapoet.ClassName;
  */
 public class ForeignKeyNotFoundException extends KriptonProcessorException {
 
-	public ForeignKeyNotFoundException(SQLEntity currentEntity, ClassName entity) {		
+	public ForeignKeyNotFoundException(SQLiteEntity currentEntity, ClassName entity) {		
 		super(String.format("Entity '%s' is used to rapresents a many-to-many relationship and it need a foreign key to '%s'", currentEntity.getName(), entity.toString()));
 	}
 

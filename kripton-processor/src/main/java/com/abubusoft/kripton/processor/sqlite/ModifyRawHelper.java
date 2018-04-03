@@ -37,8 +37,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -54,8 +54,8 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
+		SQLiteEntity entity = daoDefinition.getEntity();
 
 		// separate params used for update bean and params used in
 		// whereCondition

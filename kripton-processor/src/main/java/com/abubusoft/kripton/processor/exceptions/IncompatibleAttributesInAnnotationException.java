@@ -18,7 +18,7 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 
 public class IncompatibleAttributesInAnnotationException extends KriptonProcessorException {
  
@@ -27,7 +27,7 @@ public class IncompatibleAttributesInAnnotationException extends KriptonProcesso
 		super(msg);
 	}
 	
-	public IncompatibleAttributesInAnnotationException(SQLDaoDefinition daoDefinition, ModelMethod method, ModelAnnotation annotation, AnnotationAttributeType attribute1, AnnotationAttributeType attribute2)
+	public IncompatibleAttributesInAnnotationException(SQLiteDaoDefinition daoDefinition, ModelMethod method, ModelAnnotation annotation, AnnotationAttributeType attribute1, AnnotationAttributeType attribute2)
 	{
 		super("In class '"+daoDefinition.getElement().getQualifiedName().toString()+"' method '"+method.getName()+"' has annotation @"+annotation.getSimpleName()+" with incompatible attributes '"+attribute1.getValue()+ "' and '"+attribute2.getValue()+"'. Remove one of those.");
 	}

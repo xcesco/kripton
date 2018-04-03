@@ -34,7 +34,7 @@ import javax.lang.model.type.TypeMirror;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -71,7 +71,7 @@ public abstract class PrefsTransformer {
 	 * 
 	 * @return transform
 	 */
-	public static PrefsTransform lookup(PrefProperty property) {
+	public static PrefsTransform lookup(PrefsProperty property) {
 		TypeMirror typeMirror = property.getElement().asType();
 
 		TypeName typeName = typeName(typeMirror);

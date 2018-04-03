@@ -18,18 +18,19 @@ package com.abubusoft.kripton.common;
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public abstract class TypeAdapterUtils {
 
 	static ReentrantLock lock = new ReentrantLock();
 
-	private static HashMap<Class<? extends BindTypeAdapter>, BindTypeAdapter> cache = new HashMap<>();
+	@SuppressWarnings("rawtypes")
+	private static HashMap<Class<? extends TypeAdapter>, TypeAdapter> cache = new HashMap<>();
 
 	@SuppressWarnings("unchecked")
-	public static <D, J> J toJava(Class<? extends BindTypeAdapter<J, D>> clazz, D value) {
-		BindTypeAdapter<J, D> adapter = cache.get(clazz);
+	public static <D, J> J toJava(Class<? extends TypeAdapter<J, D>> clazz, D value) {
+		TypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
 			adapter = generateAdapter(cache, lock, clazz);
@@ -39,8 +40,8 @@ public abstract class TypeAdapterUtils {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <D, J> D toData(Class<? extends BindTypeAdapter<J, D>> clazz, J javaValue) {
-		BindTypeAdapter<J, D> adapter = cache.get(clazz);
+	public static <D, J> D toData(Class<? extends TypeAdapter<J, D>> clazz, J javaValue) {
+		TypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
 			adapter = generateAdapter(cache, lock, clazz);
@@ -49,7 +50,8 @@ public abstract class TypeAdapterUtils {
 		return adapter.toData(javaValue);
 	}
 
-	static <D extends BindTypeAdapter> D generateAdapter(HashMap<Class<? extends BindTypeAdapter>, ? extends BindTypeAdapter> cache, ReentrantLock lock, Class<D> clazz) {
+	@SuppressWarnings("rawtypes")
+	static <D extends TypeAdapter> D generateAdapter(HashMap<Class<? extends TypeAdapter>, TypeAdapter> cache, ReentrantLock lock, Class<D> clazz) {
 		D adapter = null;
 		try {
 			lock.lock();

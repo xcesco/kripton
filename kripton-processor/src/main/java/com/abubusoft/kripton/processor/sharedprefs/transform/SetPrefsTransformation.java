@@ -24,7 +24,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -32,7 +32,7 @@ import com.squareup.javapoet.TypeName;
 public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		boolean isStringSet = isStringSet(property);
 
 		if (readAll) {
@@ -84,7 +84,7 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 		boolean isStringSet = isStringSet(property);
@@ -106,7 +106,7 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 	 * @param property
 	 * @return
 	 */
-	public static boolean isStringSet(PrefProperty property) {
+	public static boolean isStringSet(PrefsProperty property) {
 		boolean isStringSet = false;
 		// it is parameterized type name for sure
 		TypeName typeName = TypeUtility.typeName(property.getElement().asType());

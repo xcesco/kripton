@@ -34,8 +34,8 @@ import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerat
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -50,8 +50,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteDaoDefinition daoDefinition = method.getParent();
+		final SQLiteEntity entity = daoDefinition.getEntity();
 
 		//boolean nullable;
 
@@ -157,8 +157,8 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 * @return string sql
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType) {
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteDaoDefinition daoDefinition = method.getParent();
+		final SQLiteEntity entity = daoDefinition.getEntity();
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();

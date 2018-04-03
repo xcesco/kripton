@@ -1,7 +1,7 @@
 package com.abubusoft.kripton.android.sqlite;
 
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-public interface NoAdapter extends BindSQLTypeAdapter<Object, Object> {
+public interface NoAdapter extends SqlTypeAdapter<Object, Object> {
 
 }

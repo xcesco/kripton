@@ -36,8 +36,8 @@ import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -57,7 +57,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {
-		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
 		String pagedResultName = buildSpecializedPagedResultClass(classBuilder, method);
 
 		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, daoDefinition.getEntity());
@@ -104,8 +104,8 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 
 	@Override
 	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
+		SQLiteEntity entity = daoDefinition.getEntity();
 		// List<SQLProperty> fields = fieldList.value1;
 
 		TypeName entityClass = typeName(entity.getElement());

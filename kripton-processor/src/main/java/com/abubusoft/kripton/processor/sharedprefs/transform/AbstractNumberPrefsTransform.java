@@ -21,7 +21,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.math.BigInteger;
 
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -35,9 +35,10 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 	
 	protected String METHOD_CONVERSION;
 	protected Class<?> clazz;
-
+	
 	public AbstractNumberPrefsTransform()
 	{
+		super(false);
 		defaultValue="0";
 		clazz=BigInteger.class;
 		METHOD_CONVERSION="toString";
@@ -46,7 +47,7 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 	protected String defaultValue;
 	
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
 			methodBuilder.beginControlFlow("");
 		}
@@ -75,7 +76,7 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		if (beanClass!=null)
 		{
 			methodBuilder.addCode("if ($L!=null) ", getter(beanName, beanClass, property));

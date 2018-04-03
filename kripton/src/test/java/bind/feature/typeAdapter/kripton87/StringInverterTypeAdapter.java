@@ -15,9 +15,9 @@
  *******************************************************************************/
 package bind.feature.typeAdapter.kripton87;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 
-public class StringInverterTypeAdapter implements BindTypeAdapter<String, String> {
+public class StringInverterTypeAdapter implements TypeAdapter<String, String> {
 
 	@Override
 	public String toJava(String dataValue) {

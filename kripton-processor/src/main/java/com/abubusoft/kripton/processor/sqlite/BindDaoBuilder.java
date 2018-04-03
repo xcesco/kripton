@@ -47,7 +47,7 @@ import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -86,7 +86,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	protected Elements elementUtils;
 	protected Filer filer;
 	private Builder builder;
-	private SQLDaoDefinition currentDaoDefinition;
+	private SQLiteDaoDefinition currentDaoDefinition;
 
 	public BindDaoBuilder(Elements elementUtils, Filer filer) {
 		this.elementUtils = elementUtils;
@@ -96,7 +96,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindDaoBuilder visitor = new BindDaoBuilder(elementUtils, filer);
 
-		for (SQLDaoDefinition item : schema.getCollection()) {
+		for (SQLiteDaoDefinition item : schema.getCollection()) {
 			item.accept(visitor);
 		}
 	}
@@ -104,7 +104,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	public static void generateSecondRound(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindDaoBuilder visitor = new BindDaoBuilder(elementUtils, filer);
 
-		for (SQLDaoDefinition item : schema.getCollection()) {
+		for (SQLiteDaoDefinition item : schema.getCollection()) {
 			if (item.isGenerated()) {
 				item.accept(visitor);
 			}
@@ -112,7 +112,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	}
 
 	@Override
-	public void visit(SQLDaoDefinition value) throws Exception {
+	public void visit(SQLiteDaoDefinition value) throws Exception {
 		currentDaoDefinition = value;
 
 		// check if we need to generate or not
@@ -257,17 +257,17 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	 * @param value
 	 * @return typeName of dao
 	 */
-	public static String daoName(SQLDaoDefinition value) {
+	public static String daoName(SQLiteDaoDefinition value) {
 		String classTableName = value.getName();
 		classTableName = classTableName + SUFFIX;
 		return classTableName;
 	}
 
-	public static TypeName daoTypeName(SQLDaoDefinition value) {
+	public static TypeName daoTypeName(SQLiteDaoDefinition value) {
 		return TypeUtility.mergeTypeNameWithSuffix(value.getTypeName(), SUFFIX);
 	}
 
-	public static TypeName daoInterfaceTypeName(SQLDaoDefinition value) {
+	public static TypeName daoInterfaceTypeName(SQLiteDaoDefinition value) {
 		return value.getTypeName();
 	}
 

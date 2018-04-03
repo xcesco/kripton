@@ -36,7 +36,7 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
@@ -437,7 +437,7 @@ public abstract class SQLTransformer {
 
 	}
 
-	public static SQLColumnType columnType(ModelProperty property) {
+	public static SQLiteColumnType columnType(ModelProperty property) {
 		SQLTransform transform = lookup(property.getElement().asType());
 
 		if (transform == null) {
@@ -447,7 +447,7 @@ public abstract class SQLTransformer {
 
 	}
 
-	public static SQLColumnType columnType(TypeName property) {
+	public static SQLiteColumnType columnType(TypeName property) {
 		SQLTransform transform = lookup(property);
 
 		if (transform == null) {

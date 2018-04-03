@@ -19,7 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -32,6 +32,7 @@ import com.squareup.javapoet.TypeName;
 public class DoublePrefsTransform extends AbstractPrefsTransform {
 
 	public DoublePrefsTransform(boolean nullable) {
+		super(false);
 		this.nullable = nullable;
 
 		if (nullable) {
@@ -46,7 +47,7 @@ public class DoublePrefsTransform extends AbstractPrefsTransform {
 	protected String defaultValue;
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
 			methodBuilder.beginControlFlow("");
 		}
@@ -75,7 +76,7 @@ public class DoublePrefsTransform extends AbstractPrefsTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		if (nullable) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}

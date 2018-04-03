@@ -18,7 +18,6 @@ package com.abubusoft.kripton.processor.sqlite.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
@@ -29,9 +28,8 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
-import com.squareup.javapoet.TypeName;
 
-public class SQLEntity extends ModelClass<SQLProperty> implements Finder<SQLProperty> {
+public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLProperty> {
 
 	private String tableName;
 
@@ -39,9 +37,9 @@ public class SQLEntity extends ModelClass<SQLProperty> implements Finder<SQLProp
 	 * Set of entities for which there's a foreign in this entities. In other
 	 * words, represents entities from which this entity depends.
 	 */
-	public Set<SQLEntity> referedEntities = new HashSet<>();
+	public Set<SQLiteEntity> referedEntities = new HashSet<>();
 
-	public SQLEntity(SQLiteDatabaseSchema model, BindEntity bindEntity) {
+	public SQLiteEntity(SQLiteDatabaseSchema model, BindEntity bindEntity) {
 		super(bindEntity.getElement());
 		
 		this.annotations=bindEntity.getAnnotations();

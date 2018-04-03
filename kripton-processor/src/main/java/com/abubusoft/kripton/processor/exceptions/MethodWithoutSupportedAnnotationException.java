@@ -20,13 +20,13 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.processor.core.ModelMethod;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 
 public class MethodWithoutSupportedAnnotationException extends KriptonProcessorException {
 
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public MethodWithoutSupportedAnnotationException(SQLDaoDefinition daoDefinition, ModelMethod method) {
+	public MethodWithoutSupportedAnnotationException(SQLiteDaoDefinition daoDefinition, ModelMethod method) {
 		super("Method '" + method.getName() + "' of DAO '" + daoDefinition.getName() + "' is not marked with any valid annotation (" +BindSqlInsert.class.getSimpleName() + ", "
 				+ BindSqlUpdate.class.getSimpleName() + ", " + BindSqlDelete.class.getSimpleName() + ", " + BindSqlSelect.class.getSimpleName() + ", "
 				+ ")");

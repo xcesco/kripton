@@ -1,11 +1,11 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa.
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,19 +15,18 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.lang.model.element.TypeElement;
+public class PrefsModel {
+	protected List<PrefsEntity> entities = new ArrayList<PrefsEntity>();
 
-import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelClass;
-
-public class PrefEntity extends ModelClass<PrefProperty> {
-
-	public PrefEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
-		super(name, beanElement, annotationList);
-		
+	public List<PrefsEntity> getEntities() {
+		return entities;
 	}
 
+	public void entityAdd(PrefsEntity item) {
+		entities.add(item);
+	}
 
 }

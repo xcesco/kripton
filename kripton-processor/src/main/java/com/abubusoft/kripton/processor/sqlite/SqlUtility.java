@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
@@ -45,7 +45,7 @@ public class SqlUtility {
 	 * @param entity
 	 * @return Pair<String, List<String>>
 	 */
-	public static Pair<String, List<Pair<String, TypeName>>> extractParametersFromString(String value, SQLiteModelMethod method, SQLEntity entity) {
+	public static Pair<String, List<Pair<String, TypeName>>> extractParametersFromString(String value, SQLiteModelMethod method, SQLiteEntity entity) {
 		String whereStatement = value;
 		Pair<String, List<Pair<String, TypeName>>> result = new Pair<String, List<Pair<String, TypeName>>>();
 		result.value1 = new ArrayList<Pair<String, TypeName>>();

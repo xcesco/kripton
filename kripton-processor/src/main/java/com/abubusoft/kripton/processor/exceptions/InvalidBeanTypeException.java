@@ -17,14 +17,14 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
 public class InvalidBeanTypeException extends KriptonProcessorException {
 
 	private static final long serialVersionUID = 8462705406839489618L;
 
-	public InvalidBeanTypeException(SQLDaoDefinition daoDefinition)
+	public InvalidBeanTypeException(SQLiteDaoDefinition daoDefinition)
 	{
 		super(String.format("In class '%s' is used @%s annotation for unmanaged bean type '%s'. Please check if it has @%s annotation.", daoDefinition.getName(), BindDao.class.getSimpleName(), daoDefinition.getEntityClassName(), BindType.class.getSimpleName()));
 	}

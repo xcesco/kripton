@@ -3,13 +3,13 @@
  */
 package sqlite.feature.typeadapter;
 
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class EnumAdapterType implements BindSQLTypeAdapter<ContactType, Integer> {
+public class EnumAdapterType implements SqlTypeAdapter<ContactType, Integer> {
 
 	@Override
 	public ContactType toJava(Integer dataValue) {

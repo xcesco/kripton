@@ -26,7 +26,7 @@ public class StringPrefsTransform extends AbstractPrimitivePrefsTransform {
 	
 	public StringPrefsTransform()
 	{
-		super(false);
+		super(false, true);
 		SIMPLE_TYPE="";
 		PREFS_CONVERT="";
 		PREFS_TYPE="String";

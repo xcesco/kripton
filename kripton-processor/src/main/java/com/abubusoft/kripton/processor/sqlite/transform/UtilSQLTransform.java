@@ -22,8 +22,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -47,7 +47,7 @@ public class UtilSQLTransform<U> extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLiteDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$T.read($L.getString($L))", utilClazz, cursorName, indexName);
 	}
 
@@ -73,8 +73,8 @@ public class UtilSQLTransform<U> extends AbstractSQLTransform {
 	}
 
 	@Override
-	public SQLColumnType getColumnType() {
-		return SQLColumnType.TEXT;
+	public SQLiteColumnType getColumnType() {
+		return SQLiteColumnType.TEXT;
 	}
 
 }

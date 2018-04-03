@@ -35,7 +35,7 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.squareup.javapoet.ArrayTypeName;
@@ -212,7 +212,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 	}
 
 	public static void generateParamSerializer(BindTypeContext context, String propertyName, TypeName parameterTypeName, PersistType persistType) {
-		propertyName = SQLDaoDefinition.PARAM_SERIALIZER_PREFIX + propertyName;
+		propertyName = SQLiteDaoDefinition.PARAM_SERIALIZER_PREFIX + propertyName;
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(propertyName).addJavadoc("for param $L serialization\n", propertyName).addParameter(ParameterSpec.builder(parameterTypeName, "value").build());
 
@@ -273,7 +273,7 @@ public abstract class ManagedPropertyPersistenceHelper {
 	}
 
 	public static void generateParamParser(BindTypeContext context, String methodName, TypeName parameterTypeName, PersistType persistType) {
-		methodName = SQLDaoDefinition.PARAM_PARSER_PREFIX + methodName;
+		methodName = SQLiteDaoDefinition.PARAM_PARSER_PREFIX + methodName;
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName).addJavadoc("for param $L parsing\n", methodName).returns(parameterTypeName);
 		methodBuilder.addModifiers(context.modifiers);

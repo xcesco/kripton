@@ -45,7 +45,7 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
@@ -186,7 +186,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		List<FieldSpec> listFieldIndex = new ArrayList<>();
 		List<FieldSpec> listFieldAlias = new ArrayList<>();
 
-		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+		for (SQLiteDaoDefinition daoDefinition : schema.getCollection()) {
 			String pathConstantName = "PATH_" + daoConstantConverter.convert(daoDefinition.getEntitySimplyClassName());
 
 			if (!daoDefinition.contentProviderEnabled)
@@ -569,7 +569,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 */
 	private boolean hasOperationOfType(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, JQLType jqlType) {
 		boolean hasOperation = false;
-		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+		for (SQLiteDaoDefinition daoDefinition : schema.getCollection()) {
 
 			if (daoDefinition.getElement().getAnnotation(BindContentProviderPath.class) == null)
 				continue;
@@ -659,7 +659,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 		methodBuilder.addStatement("$T returnCursor=null", Cursor.class);
 
-		for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+		for (SQLiteDaoDefinition daoDefinition : schema.getCollection()) {
 			for (SQLiteModelMethod daoMethod : daoDefinition.getCollection()) {
 				if (daoMethod.jql.operationType != JQLType.SELECT)
 					continue;

@@ -20,8 +20,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -54,7 +54,7 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 	}
 
 	@Override
-	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLiteDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		String methodName = daoDefinition.generateJava2ContentParser(paramTypeName);
 
 		methodBuilder.addCode("$L($L.getBlob($L))", methodName, cursorName, indexName);
@@ -72,8 +72,8 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 	}
 
 	@Override
-	public SQLColumnType getColumnType() {
-		return SQLColumnType.BLOB;
+	public SQLiteColumnType getColumnType() {
+		return SQLiteColumnType.BLOB;
 	}
 
 }

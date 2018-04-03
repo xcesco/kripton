@@ -55,8 +55,8 @@ import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -77,7 +77,7 @@ import com.squareup.javapoet.TypeSpec;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class BindTableGenerator extends AbstractBuilder implements ModelElementVisitor<SQLEntity, SQLProperty> {
+public class BindTableGenerator extends AbstractBuilder implements ModelElementVisitor<SQLiteEntity, SQLProperty> {
 
 	public static final String SUFFIX = "Table";
 
@@ -99,7 +99,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, Set<GeneratedTypeElement> generatedEntities) throws Exception {
 		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, schema);
 
-		for (SQLEntity item : schema.getEntities()) {
+		for (SQLiteEntity item : schema.getEntities()) {
 			visitor.visit(schema, item);
 		}
 
@@ -189,13 +189,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			// foreign key
 			String foreignClassName = item.foreignClassName;
 			if (item.hasForeignKeyClassName()) {
-				SQLEntity reference = model.getEntity(foreignClassName);
+				SQLiteEntity reference = model.getEntity(foreignClassName);
 
 				if (reference == null) {
 					// check if we have a DAO associated into DataSource
 					// definition
 					boolean found = false;
-					for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+					for (SQLiteDaoDefinition daoDefinition : schema.getCollection()) {
 						if (daoDefinition.getEntityClassName().equals(foreignClassName)) {
 							found = true;
 						}
@@ -304,7 +304,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		return entityName + SUFFIX;
 	}
 
-	public static ClassName tableClassName(SQLDaoDefinition dao, SQLEntity entity) {
+	public static ClassName tableClassName(SQLiteDaoDefinition dao, SQLiteEntity entity) {
 		String entityName = BindDataSourceSubProcessor.generateEntityQualifiedName(dao, entity);
 
 		// return TypeUtility.className(entity.getName() + SUFFIX);
@@ -313,7 +313,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	}
 
 	@Override
-	public void visit(SQLiteDatabaseSchema schema, SQLEntity entity) throws Exception {
+	public void visit(SQLiteDatabaseSchema schema, SQLiteEntity entity) throws Exception {
 		int indexCounter = 0;
 
 		// generate the class name that represents the table
@@ -391,13 +391,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			// foreign key
 			String foreignClassName = item.foreignClassName;
 			if (item.hasForeignKeyClassName()) {
-				SQLEntity reference = model.getEntity(foreignClassName);
+				SQLiteEntity reference = model.getEntity(foreignClassName);
 
 				if (reference == null) {
 					// check if we have a DAO associated into DataSource
 					// definition
 					boolean found = false;
-					for (SQLDaoDefinition daoDefinition : schema.getCollection()) {
+					for (SQLiteDaoDefinition daoDefinition : schema.getCollection()) {
 						if (daoDefinition.getEntityClassName().equals(foreignClassName)) {
 							found = true;
 						}
@@ -539,7 +539,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				.addStatement("return TABLE_NAME").build());
 	}
 
-	public static Pair<String, String> buldIndexes(final SQLEntity entity, boolean unique, int counter) {
+	public static Pair<String, String> buldIndexes(final SQLiteEntity entity, boolean unique, int counter) {
 		Pair<String, String> result = new Pair<>();
 		result.value0 = "";
 		result.value1 = "";

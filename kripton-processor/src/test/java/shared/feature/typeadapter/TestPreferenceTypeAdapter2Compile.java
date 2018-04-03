@@ -13,9 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.sqlite.model;
+package shared.feature.typeadapter;
 
-public enum SQLColumnType {
-	BLOB, TEXT, INTEGER, REAL;
+import java.io.IOException;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import shared.AbstractBindSharedPreferenceProcessorTest;
+import shared.feature.typeadapter.case2.App2Preferences;
+import shared.feature.typeadapter.case2.IntTypeAdapter;
+
+@RunWith(JUnit4.class)
+public class TestPreferenceTypeAdapter2Compile extends AbstractBindSharedPreferenceProcessorTest {
+
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(App2Preferences.class, IntTypeAdapter.class);
+	}
 
 }

@@ -35,8 +35,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStateme
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
@@ -60,8 +60,8 @@ public abstract class JavadocUtility {
 
 	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, List<String> sqlParams, final SQLiteModelMethod method, ModelAnnotation annotation, Set<JQLProjection> fieldList,
 			SelectType selectResultType, JavadocPart... javadocParts) {
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteDaoDefinition daoDefinition = method.getParent();
+		final SQLiteEntity entity = daoDefinition.getEntity();
 		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
 				
 		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {

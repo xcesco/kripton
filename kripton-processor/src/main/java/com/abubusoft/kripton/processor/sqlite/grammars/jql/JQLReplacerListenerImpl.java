@@ -9,8 +9,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStateme
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -18,9 +18,9 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 public class JQLReplacerListenerImpl implements JQLReplacerListener {
 
 	protected SQLiteModelMethod currentMethod;
-	protected SQLDaoDefinition currentDaoDefinition;
+	protected SQLiteDaoDefinition currentDaoDefinition;
 	protected SQLiteDatabaseSchema currentSchema;
-	protected SQLEntity currentEntity;
+	protected SQLiteEntity currentEntity;
 
 	public JQLReplacerListenerImpl(SQLiteModelMethod method) {
 		this.currentMethod = method;

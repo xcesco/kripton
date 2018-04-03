@@ -41,8 +41,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -110,7 +110,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		generateModifyQueryCommonPart(method, classBuilder, methodBuilder);
 		
-		SQLDaoDefinition daoDefinition = method.getParent();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
 		// support for livedata
 		if (daoDefinition.hasLiveData()) {
 			methodBuilder.addComment("support for livedata");
@@ -215,8 +215,8 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 * @param analyzer
 	 */
 	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, SqlAnalyzer analyzer) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
+		SQLiteEntity entity = daoDefinition.getEntity();
 
 		String beanParamName = method.getParameters().get(0).value0;
 		SQLProperty property;

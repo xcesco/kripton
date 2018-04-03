@@ -17,7 +17,7 @@ package bind.feature.typeAdapter.kripton87;
 
 import java.math.BigDecimal;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 
 import bind.feature.typeAdapter.kripton87.Enum87A;
 
@@ -25,7 +25,7 @@ import bind.feature.typeAdapter.kripton87.Enum87A;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class Enum87BigIntegerTypeAdapter implements BindTypeAdapter<Enum87A, BigDecimal> {
+public class Enum87BigIntegerTypeAdapter implements TypeAdapter<Enum87A, BigDecimal> {
 
 	@Override
 	public Enum87A toJava(BigDecimal dataValue) {

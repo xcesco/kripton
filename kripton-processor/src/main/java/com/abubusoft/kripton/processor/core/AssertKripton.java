@@ -40,7 +40,7 @@ import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownParamUsedInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
@@ -193,7 +193,7 @@ public abstract class AssertKripton {
 		}
 	}
 
-	public static void asserTrueOrForeignKeyNotFound(boolean expression, SQLEntity currentEntity, ClassName entity) {
+	public static void asserTrueOrForeignKeyNotFound(boolean expression, SQLiteEntity currentEntity, ClassName entity) {
 		if (!expression) {
 
 			throw (new ForeignKeyNotFoundException(currentEntity, entity));
@@ -201,7 +201,7 @@ public abstract class AssertKripton {
 
 	}
 
-	public static void asserTrueOrMissedAnnotationOnClassException(boolean expression, SQLEntity entity, String foreignClassName) {
+	public static void asserTrueOrMissedAnnotationOnClassException(boolean expression, SQLiteEntity entity, String foreignClassName) {
 		if (!expression) {
 			String msg = String.format("Entity '%s' refers a bean '%s' without @%s annotation", entity.getSimpleName(), foreignClassName, BindType.class.getSimpleName());
 			throw (new MissedAnnotationOnClass(msg));
@@ -217,7 +217,7 @@ public abstract class AssertKripton {
 
 	}
 
-	public static void asserTrueOrUnspecifiedBeanException(boolean expression, SQLiteDatabaseSchema schema, SQLEntity entity, String foreignClassName) {
+	public static void asserTrueOrUnspecifiedBeanException(boolean expression, SQLiteDatabaseSchema schema, SQLiteEntity entity, String foreignClassName) {
 		if (!expression) {
 			String msg = String.format("In dao definition '%s' is referred a bean definition '%s' that is not defined in '%s' schema", entity.getSimpleName(), foreignClassName,
 					schema.getElement().getQualifiedName().toString());

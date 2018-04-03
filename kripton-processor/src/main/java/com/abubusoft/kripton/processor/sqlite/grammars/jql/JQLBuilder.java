@@ -72,8 +72,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Conflict_a
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
@@ -109,7 +109,7 @@ public abstract class JQLBuilder {
 	}
 
 	public static JQL buildJQL(SQLiteModelMethod method, String preparedJql) {
-		final SQLDaoDefinition dao = method.getParent();
+		final SQLiteDaoDefinition dao = method.getParent();
 		Map<JQLDynamicStatementType, String> dynamicReplace = new HashMap<>();
 		final JQL result = new JQL();
 
@@ -172,7 +172,7 @@ public abstract class JQLBuilder {
 	 * @return
 	 */
 	private static JQL buildJQLDelete(SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
-		final SQLDaoDefinition dao = method.getParent();
+		final SQLiteDaoDefinition dao = method.getParent();
 
 		if (StringUtils.hasText(preparedJql)) {
 			// in DELETE SQL only where statement can contains bind parameter
@@ -300,7 +300,7 @@ public abstract class JQLBuilder {
 			// use annotation's attribute value and exclude and bean definition
 			// to
 			final Class<? extends Annotation> annotation = BindSqlInsert.class;
-			final SQLDaoDefinition dao = method.getParent();
+			final SQLiteDaoDefinition dao = method.getParent();
 			final boolean includePrimaryKey = AnnotationUtility.extractAsBoolean(method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
 
 			// define field list
@@ -400,7 +400,7 @@ public abstract class JQLBuilder {
 
 	private static JQL buildJQLSelect(final SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlSelect.class;
-		final SQLDaoDefinition dao = method.getParent();
+		final SQLiteDaoDefinition dao = method.getParent();
 
 		if (StringUtils.hasText(preparedJql)) {
 			result.value = preparedJql;		
@@ -603,7 +603,7 @@ public abstract class JQLBuilder {
 			}
 
 		} else {
-			final SQLDaoDefinition dao = method.getParent();
+			final SQLiteDaoDefinition dao = method.getParent();
 			Set<String> fields;
 			ModifyType modifyType = SqlModifyBuilder.detectModifyType(method, JQLType.UPDATE);
 			if (modifyType == ModifyType.UPDATE_BEAN) {
@@ -657,8 +657,8 @@ public abstract class JQLBuilder {
 	 * @return
 	 */
 	private static <A extends Annotation> LinkedHashSet<String> extractFieldsFromAnnotation(final SQLiteModelMethod method, Class<A> annotationClazz, final boolean includePrimaryKey) {
-		final SQLDaoDefinition dao = method.getParent();
-		final SQLEntity entity = method.getParent().getEntity();
+		final SQLiteDaoDefinition dao = method.getParent();
+		final SQLiteEntity entity = method.getParent().getEntity();
 
 		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(), annotationClazz, AnnotationAttributeType.FIELDS);
 		List<String> annotatedExcludedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(), annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS);
@@ -891,7 +891,7 @@ public abstract class JQLBuilder {
 		return builder.toString();
 	}
 
-	private static void forEachFields(SQLDaoDefinition dao, OnPropertyListener listener) {
+	private static void forEachFields(SQLiteDaoDefinition dao, OnPropertyListener listener) {
 		for (SQLProperty item : dao.getEntity().getCollection()) {
 			listener.onProperty(item);
 		}

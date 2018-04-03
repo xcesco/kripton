@@ -45,8 +45,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection.Project
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableStatementListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -81,8 +81,8 @@ public abstract class SqlSelectBuilder {
 	 * @throws ClassNotFoundException
 	 */
 	public static void generateSelect(Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
+		SQLiteEntity entity = daoDefinition.getEntity();
 
 		SelectBuilderUtility.SelectType selectResultType = null;
 
@@ -187,8 +187,8 @@ public abstract class SqlSelectBuilder {
 	 * @param selectResultType
 	 */
 	private static void generateSelectForContentProvider(Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteDaoDefinition daoDefinition = method.getParent();
+		final SQLiteEntity entity = daoDefinition.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);

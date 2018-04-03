@@ -19,7 +19,6 @@ import java.util.List;
 
 import javax.lang.model.element.Element;
 
-import com.squareup.javapoet.TypeName;
 import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
@@ -33,6 +32,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
+import com.squareup.javapoet.TypeName;
 
 public class SQLProperty extends ManagedModelProperty {
 
@@ -54,17 +54,20 @@ public class SQLProperty extends ManagedModelProperty {
         onUpdateAction=ForeignKeyAction.NO_ACTION;
     }
 
-	public SQLProperty(SQLEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
+	public SQLProperty(SQLiteEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
         parentTypeName=TypeUtility.className(getParent().getName());
 
-		// @BindAdapter
+		// @BindSqlAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-			typeAdapter.dataType = detectRealtType(entity.getElement(), typeAdapter.adapterClazz);
+			typeAdapter.dataType = detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
 			SQLTransform transform = SQLTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
+			
+			// check type adapter
+			checkTypeAdapter(entity, element.asType(), typeAdapter, annotationBindAdapter);
 
 			if (!transform.isTypeAdapterAware()) {
 				String msg = String.format("In class '%s', property '%s' is of type '%s' and it can not be annotated with @%s", element.asType().toString(), getName(), getPropertyType().getTypeName(),

@@ -20,8 +20,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -60,7 +60,7 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
+	public void generateReadValueFromCursor(Builder methodBuilder, SQLiteDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		methodBuilder.addCode("$L.getString($L)", cursorName, indexName);
 	}
 
@@ -75,7 +75,7 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 	}
 
 	@Override
-	public SQLColumnType getColumnType() {
-		return SQLColumnType.TEXT;
+	public SQLiteColumnType getColumnType() {
+		return SQLiteColumnType.TEXT;
 	}
 }

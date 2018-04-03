@@ -19,7 +19,7 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.gette
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
@@ -34,6 +34,7 @@ public class EnumPrefsTransform extends AbstractPrefsTransform {
 	private TypeName typeName;
 
 	public EnumPrefsTransform(TypeName typeName) {
+		super(false);
 		this.typeName = typeName;
 		defaultValue = "null";
 	}
@@ -41,7 +42,7 @@ public class EnumPrefsTransform extends AbstractPrefsTransform {
 	protected String defaultValue;
 
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
 			methodBuilder.beginControlFlow("");
 		}
@@ -70,7 +71,7 @@ public class EnumPrefsTransform extends AbstractPrefsTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		methodBuilder.addStatement("$L.putString($S,$L.toString() )", editorName, property.getPreferenceKey(), getter(beanName, beanClass, property));		
 		methodBuilder.nextControlFlow("else");

@@ -42,8 +42,8 @@ import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefEntity;
-import com.abubusoft.kripton.processor.sharedprefs.model.PrefProperty;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefsEntity;
+import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 import com.abubusoft.kripton.processor.sharedprefs.transform.SetPrefsTransformation;
@@ -51,6 +51,7 @@ import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 
@@ -79,7 +80,7 @@ public abstract class BindSharedPreferencesBuilder {
 	 * 
 	 * @throws IOException
 	 */
-	public static String generate(Elements elementUtils, Filer filer, PrefEntity entity) throws IOException {
+	public static String generate(Elements elementUtils, Filer filer, PrefsEntity entity) throws IOException {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		String beanClassName = entity.getSimpleName().toString();
 		String suffix;
@@ -142,11 +143,11 @@ public abstract class BindSharedPreferencesBuilder {
 		generateSingleReadMethod(entity);
 		
 		// generate all needed writer and reader
-		List<PrefProperty> fields = entity.getCollection();
-		List<PrefProperty> filteredFields=new ArrayList<>();
+		List<PrefsProperty> fields = entity.getCollection();
+		List<PrefsProperty> filteredFields=new ArrayList<>();
 		
 		// we need to avoid generation of persists values
-		for (PrefProperty item: fields) {
+		for (PrefsProperty item: fields) {
 			if (SetPrefsTransformation.isStringSet(item)) {
 				continue;
 			} else {
@@ -172,19 +173,26 @@ public abstract class BindSharedPreferencesBuilder {
 	 * 
 	 * @param entity
 	 */
-	private static void generateEditor(PrefEntity entity) {
+	private static void generateEditor(PrefsEntity entity) {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 		Builder innerClassBuilder = TypeSpec.classBuilder("BindEditor").addModifiers(Modifier.PUBLIC).addJavadoc("editor class for shared preferences\n").superclass(typeName("AbstractEditor"));
 		innerClassBuilder.addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).build());
 
 		PrefsTransform transform;
 		// write method
-		for (PrefProperty item : entity.getCollection()) {
+		for (PrefsProperty item : entity.getCollection()) {
 			MethodSpec.Builder builder = MethodSpec.methodBuilder("put" + converter.convert(item.getName())).addModifiers(Modifier.PUBLIC).addParameter(typeName(item.getElement()), "value")
 					.addJavadoc("modifier for property $L\n", item.getName()).returns(typeName("BindEditor"));
 
-			transform = PrefsTransformer.lookup(item);
-			transform.generateWriteProperty(builder, "editor", null, "value", item); // generateReadProperty(method, "prefs", typeName(item.getElement().asType()), "bean", item, true);
+			TypeName type;
+			if (item.hasTypeAdapter()) {
+				type=typeName(item.typeAdapter.dataType);	
+			} else {
+				type=TypeUtility.typeName(item.getElement());
+			}
+			
+			transform = PrefsTransformer.lookup(type);
+			transform.generateWriteProperty(builder, "editor", null, "value", item);
 			builder.addCode("\n");
 
 			builder.addStatement("return this");
@@ -248,7 +256,7 @@ public abstract class BindSharedPreferencesBuilder {
 		builder.addMethod(method.build());
 	}
 
-	private static void generateResetMethod(PrefEntity entity) {
+	private static void generateResetMethod(PrefsEntity entity) {
 		// write method
 		MethodSpec.Builder method = MethodSpec.methodBuilder("reset").addModifiers(Modifier.PUBLIC).addJavadoc("reset shared preferences\n").returns(Void.TYPE);
 		method.addStatement("$T bean=new $T()", entity.getElement(), entity.getElement());
@@ -259,14 +267,14 @@ public abstract class BindSharedPreferencesBuilder {
 	/**
 	 * @param entity
 	 */
-	private static void generateWriteMethod(PrefEntity entity) {
+	private static void generateWriteMethod(PrefsEntity entity) {
 		// write method
 		MethodSpec.Builder method = MethodSpec.methodBuilder("write").addJavadoc("write bean entirely\n\n").addJavadoc("@param bean bean to entirely write\n").addModifiers(Modifier.PUBLIC).addParameter(typeName(entity.getName()), "bean")
 				.returns(Void.TYPE);
 		method.addStatement("$T editor=prefs.edit()", SharedPreferences.Editor.class);
 
 		PrefsTransform transform;
-		for (PrefProperty item : entity.getCollection()) {
+		for (PrefsProperty item : entity.getCollection()) {
 
 			transform = PrefsTransformer.lookup(item);
 			transform.generateWriteProperty(method, "editor", typeName(entity.getElement()), "bean", item);
@@ -277,14 +285,14 @@ public abstract class BindSharedPreferencesBuilder {
 		builder.addMethod(method.build());
 	}
 
-	private static void generateReadMethod(PrefEntity entity) {
+	private static void generateReadMethod(PrefsEntity entity) {
 		// read method
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("read").addModifiers(Modifier.PUBLIC).addJavadoc("read bean entirely\n\n").addJavadoc("@return read bean\n").returns(typeName(entity.getName()));
 		methodBuilder.addStatement("$T bean=new $T()", typeName(entity.getName()), typeName(entity.getName()));
 
 		PrefsTransform transform;
 
-		for (PrefProperty item : entity.getCollection()) {
+		for (PrefsProperty item : entity.getCollection()) {
 			transform = PrefsTransformer.lookup(item);									
 			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "bean", item, true);
 			methodBuilder.addCode("\n");
@@ -295,11 +303,11 @@ public abstract class BindSharedPreferencesBuilder {
 		builder.addMethod(methodBuilder.build());
 	}
 
-	private static void generateSingleReadMethod(PrefEntity entity) {
+	private static void generateSingleReadMethod(PrefsEntity entity) {
 		// read method
 		PrefsTransform transform;
 
-		for (PrefProperty item : entity.getCollection()) {
+		for (PrefsProperty item : entity.getCollection()) {
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(item.getName()).addModifiers(Modifier.PUBLIC).addJavadoc("read property $L\n\n", item.getName()).addJavadoc("@return property $L value\n", item.getName())
 					.returns(item.getPropertyType().getTypeName());
 

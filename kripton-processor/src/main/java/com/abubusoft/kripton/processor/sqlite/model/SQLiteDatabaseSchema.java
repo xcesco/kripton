@@ -45,7 +45,7 @@ import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.sqlite.FindTasksVisitor;
 import com.squareup.javapoet.ClassName;
 
-public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElement> {
+public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeElement> {
 
 	public final String configPopulatorClazz;
 
@@ -55,9 +55,9 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL
 			.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
-	protected Map<String, SQLEntity> entities = new HashMap<String, SQLEntity>();
+	protected Map<String, SQLiteEntity> entities = new HashMap<String, SQLiteEntity>();
 
-	protected Map<String, SQLEntity> entitiesBySimpleName = new HashMap<String, SQLEntity>();
+	protected Map<String, SQLiteEntity> entitiesBySimpleName = new HashMap<String, SQLiteEntity>();
 
 	public List<String> sqlForCreate = new ArrayList<String>();
 
@@ -185,7 +185,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		entitiesBySimpleName.clear();
 	}
 
-	public void addEntity(SQLEntity value) {
+	public void addEntity(SQLiteEntity value) {
 		entities.put(value.getName(), value);
 		entitiesBySimpleName.put(value.getSimpleName().toString().toLowerCase(), value);
 		Set<SQLProperty> listEntity = null;
@@ -215,15 +215,15 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 
 	}
 
-	public Collection<SQLEntity> getEntities() {
+	public Collection<SQLiteEntity> getEntities() {
 		return entities.values();
 	}
 
-	public List<SQLEntity> getEntitiesAsList() {
+	public List<SQLiteEntity> getEntitiesAsList() {
 		return new ArrayList<>(entities.values());
 	}
 
-	public SQLEntity getEntity(String entityClassName) {
+	public SQLiteEntity getEntity(String entityClassName) {
 		return entities.get(entityClassName);
 	}
 
@@ -231,7 +231,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 		if (entityName == null)
 			return null;
 
-		SQLEntity result = entitiesBySimpleName.get(entityName.toLowerCase());
+		SQLiteEntity result = entitiesBySimpleName.get(entityName.toLowerCase());
 		if (result != null)
 			return result;
 
@@ -296,7 +296,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLDaoDefinition, TypeElem
 	 * @return
 	 */
 	public boolean hasLiveData() {
-		for (SQLDaoDefinition dao : getCollection()) {
+		for (SQLiteDaoDefinition dao : getCollection()) {
 			if (dao.hasLiveData()) {
 				return true;
 			}

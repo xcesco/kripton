@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
@@ -43,8 +43,8 @@ public class LongSQLTransform extends WrappedSQLTransformation {
 	}
 
 	@Override
-	public SQLColumnType getColumnType() {
-		return SQLColumnType.INTEGER;
+	public SQLiteColumnType getColumnType() {
+		return SQLiteColumnType.INTEGER;
 	}
 
 }

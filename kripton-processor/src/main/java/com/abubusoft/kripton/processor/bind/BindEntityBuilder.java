@@ -19,7 +19,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAdapter;
@@ -68,7 +67,7 @@ public abstract class BindEntityBuilder {
 
 	private static AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 
-	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).add(BindSqlAdapter.class).build();
+	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
 
 	public static BindEntity parse(final BindModel model, TypeElement element) {
 		final Elements elementUtils = BaseProcessor.elementUtils;
@@ -136,7 +135,7 @@ public abstract class BindEntityBuilder {
 				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());
 				
 				// check if there is an adapter
-				if ((property.getAnnotation(BindAdapter.class)!= null) || (property.getAnnotation(BindSqlAdapter.class)!=null)) {
+				if ((property.getAnnotation(BindAdapter.class)!= null)) {
 					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
 
 					if (!transform.isTypeAdapterSupported()) {

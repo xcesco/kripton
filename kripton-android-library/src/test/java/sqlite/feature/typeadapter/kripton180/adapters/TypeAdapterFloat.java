@@ -1,8 +1,8 @@
 package sqlite.feature.typeadapter.kripton180.adapters;
 
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-public class TypeAdapterFloat implements BindSQLTypeAdapter<String, Float> {
+public class TypeAdapterFloat implements SqlTypeAdapter<String, Float> {
 
 	@Override
 	public String toJava(Float dataValue) {

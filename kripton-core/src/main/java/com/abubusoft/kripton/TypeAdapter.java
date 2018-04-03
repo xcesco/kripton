@@ -13,7 +13,7 @@ package com.abubusoft.kripton;
  * @param <D>
  * 		data format
  */
-public interface BindTypeAdapter<J, D> {
+public interface TypeAdapter<J, D> {
 
 	/**
 	 * Convert a persisted value of type D in type J, used in a Java bean instance

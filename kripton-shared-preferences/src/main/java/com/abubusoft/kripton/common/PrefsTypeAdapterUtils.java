@@ -15,37 +15,74 @@
  *******************************************************************************/
 package com.abubusoft.kripton.common;
 
-import com.abubusoft.kripton.BindTypeAdapter;
-import com.abubusoft.kripton.android.sharedprefs.BindPrefsTypeAdapter;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
+
+import com.abubusoft.kripton.android.sharedprefs.PreferenceTypeAdapter;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public abstract class PrefsTypeAdapterUtils {
 
 	static ReentrantLock lock = new ReentrantLock();
 
 	@SuppressWarnings("rawtypes")
-	private static HashMap<Class<? extends BindPrefsTypeAdapter>, BindPrefsTypeAdapter> cache = new HashMap<>();
+	private static HashMap<Class<? extends PreferenceTypeAdapter>, PreferenceTypeAdapter> cache = new HashMap<>();
 
-	@SuppressWarnings("unchecked")
-	public static <D, J> J toJava(Class<? extends BindPrefsTypeAdapter<J, D>> clazz, D value) {
-		BindPrefsTypeAdapter<J, D> adapter = cache.get(clazz);
+	public static <D, J> J toJava(Class<? extends PreferenceTypeAdapter<J, D>> clazz, D value) {
+		@SuppressWarnings("unchecked")
+		PreferenceTypeAdapter<J, D> adapter = cache.get(clazz);
 
 		if (adapter == null) {
-			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
+			adapter = generateAdapter(clazz);
 		}
 
 		return adapter.toJava(value);
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <D, J> D toData(Class<? extends BindPrefsTypeAdapter<J, D>> clazz, J javaValue) {
-		BindPrefsTypeAdapter<J, D> adapter = cache.get(clazz);
+	public static <E extends PreferenceTypeAdapter<?, ?>> E getAdapter(Class<E> clazz) {
+		@SuppressWarnings("unchecked")
+		E adapter = (E) cache.get(clazz);
 
 		if (adapter == null) {
-			adapter = TypeAdapterUtils.generateAdapter(cache, lock, clazz);
+			adapter = generateAdapter(clazz);
+		}
+
+		return adapter;
+	}
+
+	/**
+	 * @param clazz
+	 * @param adapter
+	 * @return
+	 */
+	private static <E extends PreferenceTypeAdapter<?, ?>> E generateAdapter(Class<E> clazz) {
+		E adapter;
+		try {
+			lock.lock();
+			adapter = clazz.newInstance();
+			cache.put(clazz, adapter);
+		} catch (Throwable e) {
+			throw (new KriptonRuntimeException(e));
+		} finally {
+			lock.unlock();
+		}
+		return adapter;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <D, J> D toData(Class<? extends PreferenceTypeAdapter<J, D>> clazz, J javaValue) {
+		PreferenceTypeAdapter<J, D> adapter = cache.get(clazz);
+
+		if (adapter == null) {
+			try {
+				lock.lock();
+				adapter = clazz.newInstance();
+				cache.put(clazz, adapter);
+			} catch (Throwable e) {
+				throw (new KriptonRuntimeException(e));
+			} finally {
+				lock.unlock();
+			}
 		}
 
 		return adapter.toData(javaValue);

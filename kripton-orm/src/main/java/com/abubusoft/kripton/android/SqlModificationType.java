@@ -1,6 +1,6 @@
 package com.abubusoft.kripton.android;
 
-public enum SQLiteModificationType {
+public enum SqlModificationType {
 	INSERT,
 	UPDATE,
 	DELETE	

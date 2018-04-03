@@ -26,6 +26,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.BaseProcessor;
@@ -47,11 +48,31 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 			return TypeUtility.typeName(dataType);
 		}
 	}
+	
+	protected void checkTypeAdapter(@SuppressWarnings("rawtypes") ModelEntity entity, TypeMirror propertyType, TypeAdapter typeAdapter, ModelAnnotation annotation) {
+		AssertKripton.fail(!this.detectSourceType(entity.getElement(), typeAdapter.adapterClazz).equals(propertyType.toString()),
+				"In class '%s', property '%s' uses @%s that manages type '%s' instead of '%s'", entity.getElement().asType(), getName(),
+				annotation.getSimpleName(), element.asType().toString(), this.detectSourceType(entity.getElement(), typeAdapter.adapterClazz), getPropertyType().getTypeName());
 
-	protected String detectRealtType(Element element, String adapterClazz) {
+	}
+
+	protected String detectDestinationType(Element element, String adapterClazz) {
 		TypeElement a = BaseProcessor.elementUtils.getTypeElement(adapterClazz);
 		for (Element i : BaseProcessor.elementUtils.getAllMembers(a)) {
 			if (i.getKind() == ElementKind.METHOD && "toData".equals(i.getSimpleName().toString())) {
+				ExecutableElement method = (ExecutableElement) i;
+				return TypeUtility.typeName(method.getReturnType()).toString();
+			}
+		}
+
+		AssertKripton.fail("In '%s', class '%s' can not be used as type adapter", element, adapterClazz);
+		return null;
+	}
+	
+	String detectSourceType(Element element, String adapterClazz) {
+		TypeElement a = BaseProcessor.elementUtils.getTypeElement(adapterClazz);
+		for (Element i : BaseProcessor.elementUtils.getAllMembers(a)) {
+			if (i.getKind() == ElementKind.METHOD && "toJava".equals(i.getSimpleName().toString())) {
 				ExecutableElement method = (ExecutableElement) i;
 				return TypeUtility.typeName(method.getReturnType()).toString();
 			}

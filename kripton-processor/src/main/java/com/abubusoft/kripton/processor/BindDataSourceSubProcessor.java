@@ -89,10 +89,10 @@ import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
 import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelContentProvider;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.google.common.base.CaseFormat;
@@ -176,7 +176,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 			// for each dao definition, we define its uid
 			int uid = 0;
-			for (SQLDaoDefinition daoDefinition : currentSchema.getCollection()) {
+			for (SQLiteDaoDefinition daoDefinition : currentSchema.getCollection()) {
 				String daoFieldName = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, daoDefinition.getName()) + "_UID";
 
 				daoDefinition.daoUidName = daoFieldName;
@@ -286,10 +286,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	private void analyzeForeignKey(SQLiteDatabaseSchema schema) {
-		for (SQLEntity entity : schema.getEntities()) {
+		for (SQLiteEntity entity : schema.getEntities()) {
 			for (SQLProperty property : entity.getCollection()) {
 				if (property.hasForeignKeyClassName()) {
-					SQLEntity reference = schema.getEntity(property.foreignClassName);
+					SQLiteEntity reference = schema.getEntity(property.foreignClassName);
 
 					AssertKripton.asserTrueOrUnspecifiedBeanException(reference != null, schema, entity, property.foreignClassName);
 
@@ -301,7 +301,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			}
 		}
 
-		for (SQLDaoDefinition dao : schema.getCollection()) {
+		for (SQLiteDaoDefinition dao : schema.getCollection()) {
 			if (dao.getElement().getAnnotation(BindDaoMany2Many.class) != null) {
 				ClassName entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1));
 				ClassName entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(dao.getElement(), BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2));
@@ -357,7 +357,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
 		// assert: bean is present
-		final SQLEntity currentEntity = new SQLEntity(schema, bindEntity);
+		final SQLiteEntity currentEntity = new SQLiteEntity(schema, bindEntity);
 		if (schema.contains(currentEntity.getName())) {
 			// bean already defined in datasource
 			return true;
@@ -365,15 +365,15 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 		{
-			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLEntity, SQLProperty>() {
+			PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<SQLiteEntity, SQLProperty>() {
 				@Override
-				public SQLProperty createProperty(SQLEntity entity, Element propertyElement) {
+				public SQLProperty createProperty(SQLiteEntity entity, Element propertyElement) {
 					return new SQLProperty(entity, propertyElement, AnnotationUtility.buildAnnotationList(propertyElement));
 				}
-			}, propertyAnnotationFilter, new PropertyCreatedListener<SQLEntity, SQLProperty>() {
+			}, propertyAnnotationFilter, new PropertyCreatedListener<SQLiteEntity, SQLProperty>() {
 
 				@Override
-				public boolean onProperty(SQLEntity entity, SQLProperty property) {
+				public boolean onProperty(SQLiteEntity entity, SQLProperty property) {
 					if (property.hasAnnotation(BindDisabled.class)) {
 						if (bindAllFields) {
 							return false;
@@ -496,10 +496,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param m2mEntity
 	 * @param currentEntity
 	 */
-	private void checkForeignKeyForM2M(SQLiteDatabaseSchema currentSchema, final SQLEntity currentEntity, ClassName m2mEntity) {
+	private void checkForeignKeyForM2M(SQLiteDatabaseSchema currentSchema, final SQLiteEntity currentEntity, ClassName m2mEntity) {
 		// check for m2m relationship
 		if (m2mEntity != null) {
-			SQLEntity temp = currentSchema.getEntity(m2mEntity.toString());
+			SQLiteEntity temp = currentSchema.getEntity(m2mEntity.toString());
 			AssertKripton.asserTrueOrForeignKeyNotFound(currentEntity.referedEntities.contains(temp), currentEntity, m2mEntity);
 		}
 	}
@@ -568,7 +568,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		boolean generated = daoElement.getAnnotation(BindGeneratedDao.class) != null;
 
-		final SQLDaoDefinition currentDaoDefinition = new SQLDaoDefinition(schema, daoItem, (TypeElement) daoElement, entity.getClassName().toString(), generated);
+		final SQLiteDaoDefinition currentDaoDefinition = new SQLiteDaoDefinition(schema, daoItem, (TypeElement) daoElement, entity.getClassName().toString(), generated);
 
 		// content provider management
 		BindContentProviderPath daoContentProviderPath = daoElement.getAnnotation(BindContentProviderPath.class);
@@ -615,7 +615,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param currentDaoDefinition
 	 * @param daoElement
 	 */
-	private void fillMethods(final SQLDaoDefinition currentDaoDefinition, Element daoElement) {
+	private void fillMethods(final SQLiteDaoDefinition currentDaoDefinition, Element daoElement) {
 		// create method for dao
 		SqlBuilderHelper.forEachMethods((TypeElement) daoElement, new MethodFoundListener() {
 
@@ -660,7 +660,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				addWithCheckMethod(currentDaoDefinition, currentMethod);
 			}
 
-			private void addWithCheckMethod(SQLDaoDefinition currentDaoDefinition, SQLiteModelMethod newMethod) {
+			private void addWithCheckMethod(SQLiteDaoDefinition currentDaoDefinition, SQLiteModelMethod newMethod) {
 				SQLiteModelMethod oldMethod = currentDaoDefinition.findPropertyByName(newMethod.getName());
 
 				// ASSERT: same name and same number
@@ -769,7 +769,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @param entity
 	 * @return
 	 */
-	public static String generateEntityName(SQLDaoDefinition dao, SQLEntity entity) {
+	public static String generateEntityName(SQLiteDaoDefinition dao, SQLiteEntity entity) {
 		String entityName;
 		if (entity == null) {
 			M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(dao.getElement());
@@ -780,7 +780,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		return entityName;
 	}
 
-	public static String generateEntityQualifiedName(SQLDaoDefinition dao, SQLEntity entity) {
+	public static String generateEntityQualifiedName(SQLiteDaoDefinition dao, SQLiteEntity entity) {
 		String entityName;
 		if (entity == null) {
 			M2MEntity m2mEntity = M2MEntity.extractEntityManagedByDAO(dao.getElement());

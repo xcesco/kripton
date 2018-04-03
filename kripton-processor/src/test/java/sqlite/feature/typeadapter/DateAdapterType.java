@@ -2,9 +2,9 @@ package sqlite.feature.typeadapter;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-public class DateAdapterType implements BindSQLTypeAdapter<Date, Long> {
+public class DateAdapterType implements SqlTypeAdapter<Date, Long> {
 
 	@Override
 	public Date toJava(Long dataValue) {

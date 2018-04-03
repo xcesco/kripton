@@ -16,8 +16,8 @@
 package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLColumnType;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -48,7 +48,7 @@ public interface SQLTransform {
 	 * @param cursorName
 	 * @param indexName
 	 */
-	void generateReadValueFromCursor(Builder methodBuilder, SQLDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName);
+	void generateReadValueFromCursor(Builder methodBuilder, SQLiteDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName);
 
 	/**
 	 * Generate default value, null or 0 or ''
@@ -124,7 +124,7 @@ public interface SQLTransform {
 	 * 
 	 * @return column type
 	 */
-	SQLColumnType getColumnType();
+	SQLiteColumnType getColumnType();
 	
 	/**
 	 * if true, transform can be used as convertion type in a type adapter.

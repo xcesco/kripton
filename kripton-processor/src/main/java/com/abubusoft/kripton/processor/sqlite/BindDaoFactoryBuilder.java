@@ -26,7 +26,7 @@ import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.MethodSpec;
@@ -116,7 +116,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
 		classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(schema.getElement()));
 
-		for (SQLDaoDefinition dao : schema.getCollection()) {
+		for (SQLiteDaoDefinition dao : schema.getCollection()) {
 			TypeName daoName = BindDaoBuilder.daoInterfaceTypeName(dao);
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
 
@@ -128,7 +128,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 			classBuilder.addJavadoc("@see $T\n", TypeUtility.typeName(entity));
 		}
 
-		for (SQLDaoDefinition dao : schema.getCollection()) {
+		for (SQLiteDaoDefinition dao : schema.getCollection()) {
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
 
 			// dao with external connections

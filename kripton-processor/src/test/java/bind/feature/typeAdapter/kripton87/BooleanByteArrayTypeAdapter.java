@@ -15,9 +15,9 @@
  *******************************************************************************/
 package bind.feature.typeAdapter.kripton87;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 
-public class BooleanByteArrayTypeAdapter implements BindTypeAdapter<Boolean, Long> {
+public class BooleanByteArrayTypeAdapter implements TypeAdapter<Boolean, Long> {
 
 	@Override
 	public Boolean toJava(Long dataValue) {

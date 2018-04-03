@@ -1,8 +1,8 @@
 package sqlite.feature.typeadapter.kripton180.adapters;
 
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-public class TypeAdapterChar implements BindSQLTypeAdapter<String, Character> {
+public class TypeAdapterChar implements SqlTypeAdapter<String, Character> {
 
 	@Override
 	public String toJava(Character dataValue) {

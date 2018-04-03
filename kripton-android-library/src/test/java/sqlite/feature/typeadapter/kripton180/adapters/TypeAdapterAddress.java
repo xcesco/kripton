@@ -1,11 +1,11 @@
 package sqlite.feature.typeadapter.kripton180.adapters;
 
 import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.android.BindSQLTypeAdapter;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
 import sqlite.feature.typeadapter.kripton180.Address;
 
-public class TypeAdapterAddress implements BindSQLTypeAdapter<Address, String> {
+public class TypeAdapterAddress implements SqlTypeAdapter<Address, String> {
 
 	@Override
 	public Address toJava(String dataValue) {

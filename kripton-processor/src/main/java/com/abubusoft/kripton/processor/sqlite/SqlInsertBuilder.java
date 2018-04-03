@@ -37,8 +37,8 @@ import com.abubusoft.kripton.processor.sqlite.GenericSQLHelper.SubjectType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
@@ -135,8 +135,8 @@ public abstract class SqlInsertBuilder {
 	}
 
 	public static InsertType detectInsertType(SQLiteModelMethod method) {
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
+		SQLiteEntity entity = daoDefinition.getEntity();
 
 		InsertType insertResultType = null;
 
@@ -193,8 +193,8 @@ public abstract class SqlInsertBuilder {
 	 * @param insertResultType
 	 */
 	private static void generateInsertForContentProvider(TypeSpec.Builder classBuilder, final SQLiteModelMethod method, InsertType insertResultType) {
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteDaoDefinition daoDefinition = method.getParent();
+		final SQLiteEntity entity = daoDefinition.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);

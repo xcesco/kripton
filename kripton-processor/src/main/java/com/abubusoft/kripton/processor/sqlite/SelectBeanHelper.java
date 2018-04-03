@@ -24,8 +24,8 @@ import java.util.Set;
 
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -43,8 +43,8 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 
 	@Override
 	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder,  Set<JQLProjection> fieldList, boolean mapFields) {
-		SQLDaoDefinition daoDefinition=method.getParent();
-		SQLEntity entity=daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition=method.getParent();
+		SQLiteEntity entity=daoDefinition.getEntity();
 		
 		//List<SQLProperty> fields = fieldList.value1;
 

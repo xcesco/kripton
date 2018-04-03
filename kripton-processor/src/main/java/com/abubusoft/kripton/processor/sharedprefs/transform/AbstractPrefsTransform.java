@@ -24,5 +24,19 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
  *
  */
 public abstract class AbstractPrefsTransform implements PrefsTransform {
+	
+	public AbstractPrefsTransform(boolean typeAdapterAware) {
+		this.typeAdapterAware=typeAdapterAware;
+	}
+	
+	private boolean typeAdapterAware;
 
+	/**
+	 * if true, transform can be used as type in a type adapter.
+	 * 
+	 * @return
+	 */
+	public boolean isTypeAdapterAware() {
+		return typeAdapterAware;
+	}
 }

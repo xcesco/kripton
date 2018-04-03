@@ -111,7 +111,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	protected Map<String, String> parameterName2Adapter;
 
-	private WeakReference<SQLDaoDefinition> parent;
+	private WeakReference<SQLiteDaoDefinition> parent;
 
 	public long nextCounter() {
 		return getParent().nextCounter();
@@ -165,13 +165,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	public ParameterizedTypeName liveDataReturnClass;
 
-	public SQLiteModelMethod(SQLDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
+	public SQLiteModelMethod(SQLiteDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 
 		// before proceed convert typevariable in right typename
 		parent.resolveTypeVariable(this);
 
-		this.parent = new WeakReference<SQLDaoDefinition>(parent);
+		this.parent = new WeakReference<SQLiteDaoDefinition>(parent);
 
 		// detect type of operation
 
@@ -292,7 +292,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			parent.contentProviderCounter++;
 
-			final SQLEntity entity = this.getParent().getEntity();
+			final SQLiteEntity entity = this.getParent().getEntity();
 
 			String contentProviderUri = contentProviderUri();
 
@@ -472,7 +472,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @param parent
 	 * @param element
 	 */
-	private <A extends Annotation> void findStringDynamicStatement(SQLDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
+	private <A extends Annotation> void findStringDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
 
 		int counter = 0;
@@ -503,7 +503,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @param parent
 	 * @param element
 	 */
-	private <A extends Annotation> void findIntDynamicStatement(SQLDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
+	private <A extends Annotation> void findIntDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
 
 		int counter = 0;
@@ -583,7 +583,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * @return the parent
 	 */
-	public SQLDaoDefinition getParent() {
+	public SQLiteDaoDefinition getParent() {
 		return parent.get();
 	}
 
@@ -653,7 +653,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	public String findEntityProperty() {
-		SQLEntity entity = getParent().getEntity();
+		SQLiteEntity entity = getParent().getEntity();
 
 		for (Pair<String, TypeName> item : this.parameters) {
 			if (item.value1.equals(TypeUtility.typeName(entity.getElement()))) {

@@ -8,7 +8,7 @@ import java.util.Set;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -18,7 +18,7 @@ public class GeneratedTypeElement implements Finder<SQLProperty> {
 	public String packageName;
 	public TypeSpec typeSpec;
 	protected String tableName;
-	public Set<SQLEntity> referedEntities=new HashSet<>();
+	public Set<SQLiteEntity> referedEntities=new HashSet<>();
 	public List<String> index=new ArrayList<>();
 	
 	public List<SQLProperty> properties=new ArrayList<SQLProperty>();

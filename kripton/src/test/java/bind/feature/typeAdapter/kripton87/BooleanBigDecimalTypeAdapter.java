@@ -17,13 +17,13 @@ package bind.feature.typeAdapter.kripton87;
 
 import java.math.BigDecimal;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 
 /**
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public class BooleanBigDecimalTypeAdapter implements BindTypeAdapter<Boolean, BigDecimal> {
+public class BooleanBigDecimalTypeAdapter implements TypeAdapter<Boolean, BigDecimal> {
 
 	@Override
 	public Boolean toJava(BigDecimal dataValue) {

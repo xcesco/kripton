@@ -17,9 +17,9 @@ package bind.feature.typeAdapter.kripton87;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 
-public class DateLongTypeAdapter implements BindTypeAdapter<Date, Long> {
+public class DateLongTypeAdapter implements TypeAdapter<Date, Long> {
 
 	@Override
 	public Date toJava(Long dataValue) {

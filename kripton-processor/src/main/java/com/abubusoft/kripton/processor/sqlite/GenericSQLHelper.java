@@ -12,8 +12,8 @@ import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -51,7 +51,7 @@ public abstract class GenericSQLHelper {
 	 * @param schema
 	 */
 	public static void generateGenericExecSQL(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method) {
-		final SQLDaoDefinition daoDefinition = method.getParent();		
+		final SQLiteDaoDefinition daoDefinition = method.getParent();		
 
 		boolean nullable;
 		final List<String> paramsList = new ArrayList<String>();
@@ -99,7 +99,7 @@ public abstract class GenericSQLHelper {
 
 				
 		// update/insert columns
-		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = daoDefinition.getEntity();
 		for (String item : contentValueList) {
 			// ASSERT: property is always in entity
 			String propertyName = method.findParameterNameByAlias(item);

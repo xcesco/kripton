@@ -51,8 +51,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplaceVariableSta
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.model.SQLDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLEntity;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ArrayTypeName;
@@ -168,8 +168,8 @@ public abstract class SqlModifyBuilder {
 	 */
 	public static ModifyType detectModifyType(SQLiteModelMethod method, JQLType jqlType) {
 		// Elements elementUtils = BaseProcessor.elementUtils;
-		SQLDaoDefinition daoDefinition = method.getParent();
-		SQLEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition = method.getParent();
+		SQLiteEntity entity = daoDefinition.getEntity();
 
 		ModifyType updateResultType = null;
 
@@ -233,8 +233,8 @@ public abstract class SqlModifyBuilder {
 	 * @param updateResultType
 	 */
 	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, ModifyType updateResultType) {
-		final SQLDaoDefinition daoDefinition = method.getParent();
-		final SQLEntity entity = daoDefinition.getEntity();
+		final SQLiteDaoDefinition daoDefinition = method.getParent();
+		final SQLiteEntity entity = daoDefinition.getEntity();
 		
 		final Set<String> columns = new LinkedHashSet<>();
 

@@ -31,7 +31,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
 
-public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
+public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
 
 	public static final String PARAM_PARSER_PREFIX = "parser";
 
@@ -101,7 +101,7 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		return entitySimplyClassName;
 	}
 
-	public SQLDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element,
+	public SQLiteDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element,
 			String entityClassName, boolean generated) {
 		super(element.getSimpleName().toString(), element);
 		this.generated = generated;
@@ -138,7 +138,7 @@ public class SQLDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement
 		visitor.visit(this);
 	}
 
-	public SQLEntity getEntity() {
+	public SQLiteEntity getEntity() {
 		return getParent().getEntity(getEntityClassName());
 	}
 

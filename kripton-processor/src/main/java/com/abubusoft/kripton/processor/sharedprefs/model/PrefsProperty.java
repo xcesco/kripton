@@ -20,6 +20,7 @@ import java.util.List;
 import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.android.annotation.BindPreference;
+import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
 import com.abubusoft.kripton.android.sharedprefs.PreferenceType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -29,12 +30,16 @@ import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
+import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
+import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
+import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 
-public class PrefProperty extends ManagedModelProperty {
+public class PrefsProperty extends ManagedModelProperty {
 
 	private static Converter<String, String> converter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
-
-	public PrefProperty(@SuppressWarnings("rawtypes") ModelEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
+	
+	public PrefsProperty(@SuppressWarnings("rawtypes") ModelEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
 		String name = AnnotationUtility.extractAsString(element, BindPreference.class, AnnotationAttributeType.VALUE);
@@ -43,6 +48,24 @@ public class PrefProperty extends ManagedModelProperty {
 		}
 
 		preferenceKey = name;
+
+		// @BindPreferenceAdapter
+		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindPreferenceAdapter.class);
+		if (annotationBindAdapter != null) {
+			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
+			typeAdapter.dataType = detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
+
+			// check type adapter
+			checkTypeAdapter(entity, element.asType(), typeAdapter, annotationBindAdapter);
+			
+			PrefsTransform transform = PrefsTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
+
+			if (!transform.isTypeAdapterAware()) {
+				String msg = String.format("In class '%s', property '%s' is of type '%s' and it can not be annotated with @%s", element.asType().toString(), getName(), getPropertyType().getTypeName(),
+						BindPreferenceAdapter.class.getSimpleName());
+				throw (new IncompatibleAnnotationException(msg));
+			}
+		}
 	}
 
 	protected String preferenceKey;

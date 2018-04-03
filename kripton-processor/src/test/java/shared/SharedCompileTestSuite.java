@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import shared.feature.stringset.TestStringSetSuite;
+import shared.feature.typeadapter.TestPreferenceTypeAdapterSuite;
 import shared.kripton198.Test198Suite;
 import shared.kripton45.Test45Suite;
 import shared.kripton46.Test46Compile;
@@ -33,7 +34,8 @@ import shared.kripton50.TestKripton50;
 	Test47Suite.class, 
 	TestKripton50.class,
 	Test198Suite.class,
-	TestStringSetSuite.class
+	TestStringSetSuite.class,
+	TestPreferenceTypeAdapterSuite.class
 	 })
 // @formatter:on
 public class SharedCompileTestSuite {
