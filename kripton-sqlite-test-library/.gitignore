@@ -1,2 +1,5 @@
-/.project
+/bin/
 /.classpath
+/.project
+/.settings/
+/kripton-sqlite-test-library.iml

@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.abubusoft</groupId>
+		<artifactId>kripton-parent</artifactId>
+		<version>4.0.0-rc.1</version>
+		<relativePath>../kripton-parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>kripton-orm</artifactId>
+
+	<name>Kripton ORM</name>
+	<description>Kripton Persistence Library - ORM module</description>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-android-core</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+
+
+		<!-- RX dependencies - BEGIN -->
+		<dependency>
+			<groupId>io.reactivex.rxjava2</groupId>
+			<artifactId>rxjava</artifactId>
+			<version>${rx.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- RX dependencies - END -->
+
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-arch-integration</artifactId>
+			<version>${kripton.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.robolectric</groupId>
+			<artifactId>robolectric</artifactId>
+			<version>${robolectric.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.robolectric</groupId>
+			<artifactId>android-all</artifactId>
+			<version>5.0.0_r2-robolectric-0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>4.1.1.4</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>support-v4</artifactId>
+			<version>r7</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- TEST DEPENDENCIES -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils-core</artifactId>
+			<version>${unitils.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

@@ -1,0 +1,78 @@
+/*******************************************************************************
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+package base;
+
+import java.io.PrintStream;
+
+import org.apache.commons.io.output.NullOutputStream;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
+
+import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+
+import android.content.Context;
+
+@Config(manifest = Config.NONE)
+@RunWith(RobolectricTestRunner.class)
+public abstract class BaseAndroidTest {
+
+	private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
+
+	@Before
+	public void setup() {
+		//final String value = System.getProperty(KRIPTON_DEBUG_MODE);
+		final String value = System.getProperty(KRIPTON_DEBUG_MODE);
+		if ("false".equals(value)) {
+			ShadowLog.stream = new PrintStream(new NullOutputStream());
+			// we are in test, but we don't see log on System.out
+			System.setOut(new PrintStream(new NullOutputStream()));
+			System.setErr(new PrintStream(new NullOutputStream()));
+		} else {
+			ShadowLog.stream = System.out;
+		}
+
+		KriptonLibrary.init(RuntimeEnvironment.application);
+	}
+	
+	protected Context getApplicationContext() {
+		return RuntimeEnvironment.application;
+	}
+
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
+
+	public <E> void expectedKriptonRuntimeExceptionWithCause(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
+		expectedEx.expect(KriptonRuntimeException.class);
+		expectedEx.expectMessage(clazzException.getSimpleName());
+	}
+
+	public <E> void expectedException(Class<? extends Throwable> clazzException) throws InstantiationException, IllegalAccessException {
+		expectedEx.expect(clazzException);
+	}
+	
+	public void log(String format, Object ...objects)
+	{
+		System.out.println(String.format(format, objects));
+	}
+
+}

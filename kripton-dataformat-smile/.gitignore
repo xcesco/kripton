@@ -1,2 +1,5 @@
-/.project
+/.settings/
 /.classpath
+/.project
+/kripton-dataformat-smile.iml
+/bin/

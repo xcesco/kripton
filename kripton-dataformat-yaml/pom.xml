@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.abubusoft</groupId>
+		<artifactId>kripton-parent</artifactId>
+		<version>4.0.0-rc.1</version>
+		<relativePath>../kripton-parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>kripton-dataformat-yaml</artifactId>
+	<name>Kripton YAML data format</name>
+	<description>This is jar need to support YAML format.</description>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

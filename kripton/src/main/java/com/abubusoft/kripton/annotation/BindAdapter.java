@@ -20,7 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 
 /**
  * <p>
@@ -45,5 +45,5 @@ public @interface BindAdapter {
 	 * 
 	 * @return instance of class converter
 	 */
-	public Class<? extends BindTypeAdapter<?, ?>> adapter();
+	public Class<? extends TypeAdapter<?, ?>> adapter();
 }

@@ -1,2 +1,8 @@
-/.project
+/gen/
+/bin/
+/target/
+
+/.settings/
 /.classpath
+/.project
+/kripton-android-library.iml

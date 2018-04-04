@@ -1,2 +1,6 @@
-/.project
+/target/
+/.settings/
 /.classpath
+/.project
+/kripton-core.iml
+/bin/
