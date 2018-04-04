@@ -59,7 +59,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new TrackTable(), new ArtistTable(), new AlbumTable()};
+  static final SQLiteTable[] TABLES = {new TrackTable(), new AlbumTable(), new ArtistTable()};
 
   /**
    * <p>dao instance</p>
