@@ -19,8 +19,10 @@ import java.util.List;
 
 import javax.lang.model.element.Element;
 
+import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
@@ -186,11 +188,12 @@ public class BindProperty extends ModelProperty {
 		jacksonInfo = new JacksonInfo();
 		
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindAdapter.class);
-		//ModelAnnotation annotationBindSqlAdapter = this.getAnnotation(BindSqlAdapter.class);		
-		//AssertKripton.assertTrueOfInvalidDefinition((annotationBindAdapter==null && annotationBindSqlAdapter==null) || (annotationBindAdapter==null)!=(annotationBindSqlAdapter==null) , this, "@BindAdapter and @BindSqlAdapter can not be used together");
-		//if (annotationBindAdapter==null) {
-			//annotationBindAdapter=annotationBindSqlAdapter;
-		//}		
+		// this is needed for table generation in sqlite
+		ModelAnnotation annotationBindSqlAdapter = this.getAnnotation(BindSqlAdapter.class);		
+		AssertKripton.assertTrueOfInvalidDefinition((annotationBindAdapter==null && annotationBindSqlAdapter==null) || (annotationBindAdapter==null)!=(annotationBindSqlAdapter==null) , this, "@BindAdapter and @BindSqlAdapter can not be used together");
+		if (annotationBindAdapter==null) {
+			annotationBindAdapter=annotationBindSqlAdapter;
+		}		
 		
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);

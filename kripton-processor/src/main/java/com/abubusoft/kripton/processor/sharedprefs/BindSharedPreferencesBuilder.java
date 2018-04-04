@@ -275,8 +275,12 @@ public abstract class BindSharedPreferencesBuilder {
 
 		PrefsTransform transform;
 		for (PrefsProperty item : entity.getCollection()) {
-
-			transform = PrefsTransformer.lookup(item);
+			if (item.hasTypeAdapter()) {
+				transform = PrefsTransformer.lookup(item.typeAdapter.getDataTypeTypename());
+			} else {
+				transform = PrefsTransformer.lookup(item);
+			}
+			
 			transform.generateWriteProperty(method, "editor", typeName(entity.getElement()), "bean", item);
 			method.addCode("\n");
 		}
@@ -293,7 +297,12 @@ public abstract class BindSharedPreferencesBuilder {
 		PrefsTransform transform;
 
 		for (PrefsProperty item : entity.getCollection()) {
-			transform = PrefsTransformer.lookup(item);									
+			if (item.hasTypeAdapter()) {
+				transform = PrefsTransformer.lookup(item.typeAdapter.getDataTypeTypename());
+			} else {
+				transform = PrefsTransformer.lookup(item);
+			}
+												
 			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "bean", item, true);
 			methodBuilder.addCode("\n");
 		}
@@ -311,7 +320,12 @@ public abstract class BindSharedPreferencesBuilder {
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(item.getName()).addModifiers(Modifier.PUBLIC).addJavadoc("read property $L\n\n", item.getName()).addJavadoc("@return property $L value\n", item.getName())
 					.returns(item.getPropertyType().getTypeName());
 
-			transform = PrefsTransformer.lookup(item);
+			if (item.hasTypeAdapter()) {
+				transform = PrefsTransformer.lookup(item.typeAdapter.getDataTypeTypename());
+			} else {
+				transform = PrefsTransformer.lookup(item);
+			}
+						
 			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "defaultBean", item, false);
 			methodBuilder.addCode("\n");
 

@@ -61,7 +61,7 @@ public class PrefsProperty extends ManagedModelProperty {
 			PrefsTransform transform = PrefsTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
 
 			if (!transform.isTypeAdapterAware()) {
-				String msg = String.format("In class '%s', property '%s' is of type '%s' and it can not be annotated with @%s", element.asType().toString(), getName(), getPropertyType().getTypeName(),
+				String msg = String.format("In class '%s', property '%s' is converted in unsupported target type '%s' by @%s", entity.getElement().toString(), getName(), TypeUtility.typeName(typeAdapter.dataType),
 						BindPreferenceAdapter.class.getSimpleName());
 				throw (new IncompatibleAnnotationException(msg));
 			}

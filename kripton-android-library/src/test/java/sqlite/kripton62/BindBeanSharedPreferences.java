@@ -99,7 +99,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
      {
-      Set<String> temp=prefs.getStringSet("value_string_set", null);
+      Set<String> temp=prefs.getStringSet("value_string_set", defaultBean.valueStringSet);
       bean.valueStringSet=new HashSet<String>(temp);
     }
 
@@ -274,7 +274,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    * @return property valueStringSet value
    */
   public HashSet<String> valueStringSet() {
-    Set<String> temp=prefs.getStringSet("value_string_set", null);
+    Set<String> temp=prefs.getStringSet("value_string_set", defaultBean.valueStringSet);
     return new HashSet<String>(temp);
 
   }

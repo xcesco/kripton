@@ -21,8 +21,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
+
 import shared.AbstractBindSharedPreferenceProcessorTest;
 import shared.feature.typeadapter.case1.App1Preferences;
+import shared.feature.typeadapter.case1.App1WithErrorPreferences;
 import shared.feature.typeadapter.case2.IntTypeAdapter;
 
 @RunWith(JUnit4.class)
@@ -31,6 +34,12 @@ public class TestPreferenceTypeAdapter1Compile extends AbstractBindSharedPrefere
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(App1Preferences.class, IntTypeAdapter.class);
+	}
+	
+	@Test
+	public void testCompileWithError() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(KriptonProcessorException.class);
+		buildSharedPreferencesProcessorTest(App1WithErrorPreferences.class, IntTypeAdapter.class);
 	}
 
 }

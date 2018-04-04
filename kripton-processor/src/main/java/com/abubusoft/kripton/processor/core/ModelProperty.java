@@ -50,7 +50,17 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 	
 	protected void checkTypeAdapter(@SuppressWarnings("rawtypes") ModelEntity entity, TypeMirror propertyType, TypeAdapter typeAdapter, ModelAnnotation annotation) {
-		AssertKripton.fail(!this.detectSourceType(entity.getElement(), typeAdapter.adapterClazz).equals(propertyType.toString()),
+		TypeName sourceType = TypeUtility.typeName(this.detectSourceType(entity.getElement(), typeAdapter.adapterClazz));
+		TypeName uboxSourceType=sourceType;
+		
+		if (TypeUtility.isTypeWrappedPrimitive(sourceType)) {
+			uboxSourceType=sourceType.unbox();
+		}
+		
+		boolean expr=uboxSourceType.toString().equals(propertyType.toString()) || sourceType.toString().equals(propertyType.toString());
+		
+		
+		AssertKripton.fail(!expr,
 				"In class '%s', property '%s' uses @%s that manages type '%s' instead of '%s'", entity.getElement().asType(), getName(),
 				annotation.getSimpleName(), element.asType().toString(), this.detectSourceType(entity.getElement(), typeAdapter.adapterClazz), getPropertyType().getTypeName());
 

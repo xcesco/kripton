@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared.feature.typeadapter;
+package shared.feature.typeadapter.case1;
 
 import java.util.HashSet;
 
@@ -21,8 +21,10 @@ import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
+import shared.feature.typeadapter.case2.IntTypeAdapter;
+
 @BindSharedPreferences
-public class AppPreferences {
+public class App1Preferences {
 
 	@BindPreference
 	public HashSet<String> valueSet;
@@ -32,8 +34,8 @@ public class AppPreferences {
 	@BindPreference
 	public String password;*/
 	
-	@BindPreferenceAdapter(adapter=SampleTypeAdapter.class)
+	@BindPreferenceAdapter(adapter=IntTypeAdapter.class)
 	@BindPreference
-	public String wrong;
+	public int right;
 		
 }

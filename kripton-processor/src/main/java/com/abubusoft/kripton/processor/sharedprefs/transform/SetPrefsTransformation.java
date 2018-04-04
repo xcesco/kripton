@@ -22,6 +22,7 @@ import java.util.Set;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.PrefsTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
@@ -31,28 +32,62 @@ import com.squareup.javapoet.TypeName;
 
 public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 
+	public SetPrefsTransformation() {
+		super(true);
+	}
+
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName,
+			PrefsProperty property, boolean readAll) {
 		boolean isStringSet = isStringSet(property);
+
+		String tempPre = "";
+		String tempPost = "";
+		
+		String tempPreDefaultValue = "";
+		String tempPostDefaultValue = "";
 
 		if (readAll) {
 			methodBuilder.beginControlFlow("");
 		}
 
+		if (property.hasTypeAdapter()) {
+			// this comment is needed to include $T for PrefsTypeAdapterUtils
+			methodBuilder.addComment("Use $T to convert objects", PrefsTypeAdapterUtils.class);
+			tempPre = String.format("%s.getAdapter(%s.class).toJava(", PrefsTypeAdapterUtils.class.getSimpleName(),
+					TypeUtility.className(property.typeAdapter.adapterClazz).simpleName());
+			tempPost = ")";
+			
+			tempPreDefaultValue = String.format("%s.getAdapter(%s.class).toData(", PrefsTypeAdapterUtils.class.getSimpleName(),
+					TypeUtility.className(property.typeAdapter.adapterClazz).simpleName());
+			tempPostDefaultValue = ")";
+		}
+
 		if (isStringSet) {
-			methodBuilder.addStatement("$T<String> temp=$L.getStringSet($S, null)", Set.class, preferenceName, property.getPreferenceKey());
+			methodBuilder.addStatement("$T<String> temp=$L.getStringSet($S, "+tempPreDefaultValue+"defaultBean."+getter(beanClass, property)+tempPostDefaultValue+")", Set.class, preferenceName,
+					property.getPreferenceKey());
 			if (readAll) {
-				methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
+				methodBuilder.addCode(
+						"$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
 			} else {
 				methodBuilder.addCode("return ");
 			}
 
-			ParameterizedTypeName typeName = (ParameterizedTypeName) TypeUtility.typeName(property.getElement().asType());
+			methodBuilder.addCode(tempPre);
+
+			ParameterizedTypeName typeName;
+			if (property.hasTypeAdapter()) {
+				typeName = (ParameterizedTypeName) TypeUtility.typeName(property.typeAdapter.dataType);
+			} else {
+				typeName = (ParameterizedTypeName) TypeUtility.typeName(property.getElement().asType());
+			}
 			if (TypeUtility.isEquals(typeName.rawType, Set.class.getCanonicalName())) {
 				methodBuilder.addCode("temp");
 			} else {
 				methodBuilder.addCode("new $T<String>(temp)", typeName.rawType);
 			}
+
+			methodBuilder.addCode(tempPost);
 
 			if (readAll) {
 				methodBuilder.addCode((!property.isPublicField() ? ")" : ""));
@@ -60,9 +95,11 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 
 			methodBuilder.addCode(";\n");
 		} else {
-			methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getPreferenceKey());
+			methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName,
+					property.getPreferenceKey());
 			if (readAll) {
-				methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
+				methodBuilder.addCode(
+						"$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
 			} else {
 				methodBuilder.addCode("return ");
 			}
@@ -84,20 +121,34 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 	}
 
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName,
+			PrefsProperty property) {
 		Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
+
+		String tempPre = "";
+		String tempPost = "";
+
+		if (property.hasTypeAdapter()) {
+			// this comment is needed to include $T for PrefsTypeAdapterUtils
+			methodBuilder.addComment("Use $T to convert objects", PrefsTypeAdapterUtils.class);
+			tempPre = String.format("%s.getAdapter(%s.class).toData(", PrefsTypeAdapterUtils.class.getSimpleName(),
+					TypeUtility.className(property.typeAdapter.adapterClazz).simpleName());
+			tempPost = ")";
+		}
 
 		boolean isStringSet = isStringSet(property);
 
 		if (!isStringSet) {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-			methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getName()), getter(beanName, beanClass, property));
+			methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getName()),
+					getter(beanName, beanClass, property));
 			methodBuilder.addStatement("$L.putString($S,temp)", editorName, property.getPreferenceKey());
 			methodBuilder.nextControlFlow(" else ");
 			methodBuilder.addStatement("$L.remove($S)", editorName, property.getPreferenceKey());
 			methodBuilder.endControlFlow();
 		} else {
-			methodBuilder.addStatement("$L.putStringSet($S,$L)", editorName, property.getPreferenceKey(), getter(beanName, beanClass, property));
+			methodBuilder.addStatement("$L.putStringSet($S," + tempPre + "$L" + tempPost + ")", editorName,
+					property.getPreferenceKey(), getter(beanName, beanClass, property));
 		}
 
 	}
@@ -108,8 +159,16 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 	 */
 	public static boolean isStringSet(PrefsProperty property) {
 		boolean isStringSet = false;
+
+		TypeName typeName;
+		if (property.hasTypeAdapter()) {
+			typeName = TypeUtility.typeName(property.typeAdapter.dataType);
+		} else {
+			typeName = TypeUtility.typeName(property.getElement().asType());
+		}
+
 		// it is parameterized type name for sure
-		TypeName typeName = TypeUtility.typeName(property.getElement().asType());
+
 		if (typeName instanceof ParameterizedTypeName && TypeUtility.isSet(typeName)) {
 			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
 			if (TypeUtility.isEquals(parameterizedTypeName.typeArguments.get(0), String.class.getCanonicalName())) {

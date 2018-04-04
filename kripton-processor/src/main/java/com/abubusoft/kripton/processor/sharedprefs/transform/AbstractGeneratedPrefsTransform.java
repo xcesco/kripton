@@ -31,6 +31,10 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 		super(false);
 	}
 
+	public AbstractGeneratedPrefsTransform(boolean targetTypeSupported) {
+		super(targetTypeSupported);
+	}
+
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	@Override

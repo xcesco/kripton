@@ -1,7 +1,6 @@
 package sqlite.feature.typeadapter.bitmap;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;

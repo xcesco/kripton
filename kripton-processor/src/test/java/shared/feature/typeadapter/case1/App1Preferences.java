@@ -36,6 +36,6 @@ public class App1Preferences {
 	
 	@BindPreferenceAdapter(adapter=IntTypeAdapter.class)
 	@BindPreference
-	public String wrong;
+	public int right;
 		
 }

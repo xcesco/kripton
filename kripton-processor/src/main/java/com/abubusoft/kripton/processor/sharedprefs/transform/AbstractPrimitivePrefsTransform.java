@@ -57,14 +57,18 @@ abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 			methodBuilder.addCode("return ");
 		}
 
+		String tempPre="";
+		String tempPost="";
 		if (property.hasTypeAdapter()) {
 			methodBuilder.addCode("$T.getAdapter($T.class).toJava(", PrefsTypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz));
+			tempPre=String.format("%s.getAdapter(%s.class).toData(", PrefsTypeAdapterUtils.class.getSimpleName(), TypeUtility.className(property.typeAdapter.adapterClazz).simpleName());
+			tempPost=")";
 		}
 		if (nullable) {
-			methodBuilder.addCode(SIMPLE_TYPE + "$L.get" + PREFS_TYPE + "($S, " + SIMPLE_TYPE + "($L==null?" + PREFS_DEFAULT_VALUE + ":$L))", preferenceName, property.getPreferenceKey(), getter(beanName, beanClass, property),
+			methodBuilder.addCode(SIMPLE_TYPE + "$L.get" + PREFS_TYPE + "($S, " + SIMPLE_TYPE + "($L==null?" + PREFS_DEFAULT_VALUE + ":"+tempPre+"$L"+tempPost+"))", preferenceName, property.getPreferenceKey(), getter(beanName, beanClass, property),
 					getter(beanName, beanClass, property));
 		} else {
-			methodBuilder.addCode(SIMPLE_TYPE + "$L.get" + PREFS_TYPE + "($S, " + SIMPLE_TYPE + "$L)", preferenceName, property.getPreferenceKey(), getter(beanName, beanClass, property));
+			methodBuilder.addCode(SIMPLE_TYPE + "$L.get" + PREFS_TYPE + "($S, " + SIMPLE_TYPE + tempPre+"$L"+tempPost+")", preferenceName, property.getPreferenceKey(), getter(beanName, beanClass, property));
 		}
 
 		if (readAll) {

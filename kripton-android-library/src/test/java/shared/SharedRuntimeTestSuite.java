@@ -19,6 +19,7 @@ package shared;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import shared.feature.typeadapter.TestTypeAdapterCase2Runtime;
 import shared.kripton45.Test45Suite;
 import shared.kripton47.Test47Suite;
 
@@ -26,7 +27,9 @@ import shared.kripton47.Test47Suite;
 // @formatter:off
 @Suite.SuiteClasses({ 
 	Test45Suite.class,
-	Test47Suite.class
+	Test47Suite.class,
+	
+	TestTypeAdapterCase2Runtime.class
 	 })
 // @formatter:on
 public class SharedRuntimeTestSuite {

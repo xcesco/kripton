@@ -1,4 +1,4 @@
-package shared.feature.typeadapter;
+package shared.feature.typeadapter.case1;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -7,30 +7,31 @@ import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.PrefsTypeAdapterUtils;
 import java.util.HashSet;
 import java.util.Set;
+import shared.feature.typeadapter.case2.IntTypeAdapter;
 
 /**
- * This class is the shared preference binder defined for AppPreferences
+ * This class is the shared preference binder defined for App1Preferences
  *
- * @see AppPreferences
+ * @see App1Preferences
  */
-public class BindAppPreferences extends AbstractSharedPreference {
+public class BindApp1Preferences extends AbstractSharedPreference {
   /**
    * instance of shared preferences
    */
-  private static BindAppPreferences instance;
+  private static BindApp1Preferences instance;
 
   /**
    * working instance of bean
    */
-  private final AppPreferences defaultBean;
+  private final App1Preferences defaultBean;
 
   /**
    * constructor
    */
-  private BindAppPreferences() {
+  private BindApp1Preferences() {
     // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
-    defaultBean=new AppPreferences();
+    defaultBean=new App1Preferences();
   }
 
   /**
@@ -43,7 +44,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   /**
    * force to refresh values
    */
-  public BindAppPreferences refresh() {
+  public BindApp1Preferences refresh() {
     // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
     return this;
@@ -53,7 +54,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * reset shared preferences
    */
   public void reset() {
-    AppPreferences bean=new AppPreferences();
+    App1Preferences bean=new App1Preferences();
     write(bean);
   }
 
@@ -62,14 +63,14 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return read bean
    */
-  public AppPreferences read() {
-    AppPreferences bean=new AppPreferences();
+  public App1Preferences read() {
+    App1Preferences bean=new App1Preferences();
      {
-      Set<String> temp=prefs.getStringSet("value_set", null);
+      Set<String> temp=prefs.getStringSet("value_set", defaultBean.valueSet);
       bean.valueSet=new HashSet<String>(temp);
     }
 
-    bean.wrong=PrefsTypeAdapterUtils.getAdapter(SampleTypeAdapter.class).toJava(prefs.getString("wrong", bean.wrong));
+    bean.right=PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("right", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(bean.right)));
 
     return bean;
   }
@@ -79,11 +80,11 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @param bean bean to entirely write
    */
-  public void write(AppPreferences bean) {
+  public void write(App1Preferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
     editor.putStringSet("value_set",bean.valueSet);
 
-    editor.putString("wrong",PrefsTypeAdapterUtils.getAdapter(SampleTypeAdapter.class).toData(bean.wrong));
+    editor.putString("right",PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(bean.right));
 
 
     editor.commit();
@@ -95,26 +96,26 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property valueSet value
    */
   public HashSet<String> valueSet() {
-    Set<String> temp=prefs.getStringSet("value_set", null);
+    Set<String> temp=prefs.getStringSet("value_set", defaultBean.valueSet);
     return new HashSet<String>(temp);
 
   }
 
   /**
-   * read property wrong
+   * read property right
    *
-   * @return property wrong value
+   * @return property right value
    */
-  public String wrong() {
-    return PrefsTypeAdapterUtils.getAdapter(SampleTypeAdapter.class).toJava(prefs.getString("wrong", defaultBean.wrong));
+  public int right() {
+    return PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("right", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(defaultBean.right)));
   }
 
   /**
    * get instance of shared preferences
    */
-  public static synchronized BindAppPreferences instance() {
+  public static synchronized BindApp1Preferences instance() {
     if (instance==null) {
-      instance=new BindAppPreferences();
+      instance=new BindApp1Preferences();
     }
     return instance;
   }
@@ -136,10 +137,10 @@ public class BindAppPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property wrong
+     * modifier for property right
      */
-    public BindEditor putWrong(String value) {
-      editor.putString("wrong",PrefsTypeAdapterUtils.getAdapter(SampleTypeAdapter.class).toData(value));
+    public BindEditor putRight(int value) {
+      editor.putString("right",PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(value));
 
       return this;
     }

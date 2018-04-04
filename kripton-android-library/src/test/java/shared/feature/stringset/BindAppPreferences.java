@@ -64,7 +64,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   public AppPreferences read() {
     AppPreferences bean=new AppPreferences();
      {
-      Set<String> temp=prefs.getStringSet("value_set", null);
+      Set<String> temp=prefs.getStringSet("value_set", defaultBean.valueSet);
       bean.valueSet=new HashSet<String>(temp);
     }
 
@@ -91,7 +91,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property valueSet value
    */
   public HashSet<String> valueSet() {
-    Set<String> temp=prefs.getStringSet("value_set", null);
+    Set<String> temp=prefs.getStringSet("value_set", defaultBean.valueSet);
     return new HashSet<String>(temp);
 
   }

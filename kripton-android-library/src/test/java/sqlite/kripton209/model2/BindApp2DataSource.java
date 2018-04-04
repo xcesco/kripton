@@ -59,7 +59,7 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new DeviceTable(), new UserTable(), new UserDeviceTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new DeviceTable(), new UserDeviceTable()};
 
   /**
    * <p>dao instance</p>
@@ -249,16 +249,16 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(DeviceTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(UserTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(DeviceTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);
@@ -305,16 +305,16 @@ public class BindApp2DataSource extends AbstractDataSource implements BindApp2Da
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(DeviceTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(UserTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(DeviceTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);

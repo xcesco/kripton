@@ -158,7 +158,7 @@ public abstract class PropertyUtility {
 		return true;
 	}
 
-	static String getter(TypeName beanClass, ModelProperty property) {
+	public static String getter(TypeName beanClass, ModelProperty property) {
 		if (property.isPublicField())
 			return property.getName();
 

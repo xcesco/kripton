@@ -24,7 +24,10 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestPreferenceTypeAdapterCompile.class
+		TestPreferenceTypeAdapterCompile.class,
+		TestPreferenceTypeAdapter1Compile.class,
+		TestPreferenceTypeAdapter2Compile.class,
+		TestPreferenceTypeAdapter3Compile.class		
 		 })
 //@formatter:on
 public class TestPreferenceTypeAdapterSuite extends BaseProcessorTest {
