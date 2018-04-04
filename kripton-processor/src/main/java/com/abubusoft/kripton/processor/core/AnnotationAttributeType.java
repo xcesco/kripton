@@ -93,7 +93,7 @@ public enum AnnotationAttributeType {
 
 	POPULATOR("populator"),
 
-	LOG_ENABLED("logEnabled"), CURSOR_FACTORY("cursorFactory"), DATABASE_LIFECYCLE_HANDLER("databaseLifecycleHandler");
+	LOG_ENABLED("logEnabled"), CURSOR_FACTORY("cursorFactory"), DATABASE_LIFECYCLE_HANDLER("databaseLifecycleHandler"), TYPE_ADAPTERS("typeAdapters");
 
 	private String value;
 

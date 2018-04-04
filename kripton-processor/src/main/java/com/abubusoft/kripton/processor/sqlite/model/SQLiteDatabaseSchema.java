@@ -29,6 +29,7 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.NoCursorFactory;
 import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
@@ -42,6 +43,7 @@ import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
+import com.abubusoft.kripton.processor.sqlite.FindSqlTypeAdapterVisitor;
 import com.abubusoft.kripton.processor.sqlite.FindTasksVisitor;
 import com.squareup.javapoet.ClassName;
 
@@ -120,6 +122,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 
 	public final String configDatabaseLifecycleHandlerClazz;
 
+	private ArrayList<String> globalSqlTypeAdapter;
+
 
 	public List<String> getDaoNameSet() {
 		return daoNameSet;
@@ -144,6 +148,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		this.daoNameSet = daoIntoDataSource;		
 
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
+		FindSqlTypeAdapterVisitor typeAdapterVisitors=new FindSqlTypeAdapterVisitor();
 		List<? extends AnnotationMirror> annotationMirrors = item.getAnnotationMirrors();
 		for (AnnotationMirror annotationMirror : annotationMirrors) {
 			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
@@ -157,9 +162,18 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 					String key = entry.getKey().getSimpleName().toString();
 					entry.getValue().accept(valueVisitor, key);
 				}
+			} else if (BindDataSource.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
+						.entrySet()) {
+					String key = entry.getKey().getSimpleName().toString();
+					entry.getValue().accept(typeAdapterVisitors, key);
+				}
 			}
 
 		}
+		
+		//TODO add supported type and check about types
+		this.globalSqlTypeAdapter=typeAdapterVisitors.getAdapters();
 
 		this.configLogEnabled = configLogEnabled;
 		this.configInMemory = configInMemory;
