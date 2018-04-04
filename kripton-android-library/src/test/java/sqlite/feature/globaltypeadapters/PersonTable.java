@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER);";
 
   /**
    * <p>
@@ -41,9 +41,16 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
+   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.
+   *
+   *  @see Person#birthDay
+   */
+  public static final String COLUMN_BIRTH_DAY = "birth_day";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_BIRTH_DAY};
 
   /**
    * Columns array

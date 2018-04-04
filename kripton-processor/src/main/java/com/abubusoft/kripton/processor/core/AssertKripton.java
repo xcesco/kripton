@@ -234,4 +234,11 @@ public abstract class AssertKripton {
 		
 	}
 
+	public static void assertTrueOrInvalidGlobalTypeApdaterException(boolean expression, SQLiteDatabaseSchema sqLiteDatabaseSchema, String typeAdapter, String typeAdapter2) {
+		if (!expression) {
+			String msg = String.format("In data source '%s', there are two or more global type adapter that cover type '%s': '%s' and '%s'", sqLiteDatabaseSchema.getElement().getQualifiedName(), TypeAdapterHelper.detectSourceType(typeAdapter),  typeAdapter, typeAdapter2);
+			throw (new InvalidDefinition(msg));
+		}
+	}
+
 }

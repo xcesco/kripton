@@ -29,6 +29,7 @@ import sqlite.feature.dynamic.TestDynamicSuite;
 import sqlite.feature.foreignKey.TestForeignKeySuite;
 import sqlite.feature.foreignkeyaction.TestForeignKeyActionSuite;
 import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
+import sqlite.feature.globaltypeadapters.TestGlobalSqlTypeAdaptersSuite;
 import sqlite.feature.indexes.IndexTestSuite;
 import sqlite.feature.javadoc.TestJavadocFeatureSuite;
 import sqlite.feature.join.TestJoinFeatureSuite;
@@ -94,6 +95,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			IndexTestSuite.class,
 			TestTypeAdapterSuite.class,			
 			TestCompileMany2ManySuite.class,
+			TestGlobalSqlTypeAdaptersSuite.class,
 			TestForeignKeyActionSuite.class, 
 			TestRXSuite.class,
 			TestCompileSpeed.class,

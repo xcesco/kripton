@@ -16,12 +16,11 @@ public class FindSqlTypeAdapterVisitor extends SimpleAnnotationValueVisitor7<Voi
 
 	boolean inAdapter = false;
 	
-	ArrayList<String> adapters=new ArrayList<String>();  
+	List<String> adapters=new ArrayList<String>();  
 
-	public ArrayList<String> getAdapters() {
+	public List<String> getAdapters() {
 		return adapters;
 	}
-
 
 	@Override
 	public Void visitAnnotation(AnnotationMirror a, String p) {
@@ -46,7 +45,7 @@ public class FindSqlTypeAdapterVisitor extends SimpleAnnotationValueVisitor7<Voi
 		//System.out.printf(">> %s classValue: %s\n", p, t.toString());
 			
 		if (inAdapter && AnnotationAttributeType.ADAPTER.getValue().equals(p)) {
-			// add value
+			// add value			
 			adapters.add(t.toString());			
 		}
 		

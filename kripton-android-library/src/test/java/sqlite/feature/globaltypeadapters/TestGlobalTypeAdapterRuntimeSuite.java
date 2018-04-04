@@ -15,29 +15,16 @@
  *******************************************************************************/
 package sqlite.feature.globaltypeadapters;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.runners.Suite;
 
-import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
-
-import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.globaltypeadapters.model1.Date2Long;
-import sqlite.feature.globaltypeadapters.model1.Person1DataSource;
-import sqlite.feature.globaltypeadapters.model1.Person1ErrDataSource;
-
-@RunWith(JUnit4.class)
-public class TestGlobalSqlTypeAdapters extends AbstractBindSQLiteProcessorTest {
-
-	@Test
-	public void compile() throws Throwable {
-		buildDataSourceProcessorTest(DaoPerson.class, Person.class, Date2Long.class, Person1DataSource.class);
-	}
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestGlobalTypeAdapterRuntime.class		
+		 })
+//@formatter:on
+public class TestGlobalTypeAdapterRuntimeSuite  {
 	
-	@Test
-	public void compileWithError() throws Throwable {
-		this.expectedException(InvalidDefinition.class);
-		buildDataSourceProcessorTest(DaoPerson.class, Person.class, Date2Long.class, Person1ErrDataSource.class);
-	}
-
 }

@@ -26,6 +26,7 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
+import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
 import com.squareup.javapoet.TypeName;
@@ -197,7 +198,7 @@ public class BindProperty extends ModelProperty {
 		
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-			typeAdapter.dataType = detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
+			typeAdapter.dataType = TypeAdapterHelper.detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
 			
 			// check type adapter
 			checkTypeAdapter(entity, element.asType(), typeAdapter, annotationBindAdapter);

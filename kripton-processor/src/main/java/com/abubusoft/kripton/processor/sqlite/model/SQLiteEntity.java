@@ -39,12 +39,15 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	 */
 	public Set<SQLiteEntity> referedEntities = new HashSet<>();
 
-	public SQLiteEntity(SQLiteDatabaseSchema model, BindEntity bindEntity) {
+	public SQLiteDatabaseSchema schema;
+
+	public SQLiteEntity(SQLiteDatabaseSchema schema, BindEntity bindEntity) {
 		super(bindEntity.getElement());
 		
 		this.annotations=bindEntity.getAnnotations();
+		this.schema=schema;
 
-		buildTableName(BaseProcessor.elementUtils, model);
+		buildTableName(BaseProcessor.elementUtils, schema);
 	}
 
 
@@ -87,9 +90,9 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 		return tableName;
 	}
 
-	private String buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
+	private String buildTableName(Elements elementUtils, SQLiteDatabaseSchema schema) {
 		tableName = getSimpleName();
-		tableName = model.classNameConverter.convert(tableName);
+		tableName = schema.classNameConverter.convert(tableName);
 
 		String temp = AnnotationUtility.extractAsString(getElement(), BindTable.class, AnnotationAttributeType.NAME);
 		if (StringUtils.hasText(temp)) {

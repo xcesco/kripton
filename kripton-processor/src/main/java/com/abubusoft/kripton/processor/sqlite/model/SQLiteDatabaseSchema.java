@@ -41,6 +41,7 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelBucket;
+import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.sqlite.FindSqlTypeAdapterVisitor;
@@ -51,11 +52,9 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 
 	public final String configPopulatorClazz;
 
-	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL
-			.converterTo(CaseFormat.LOWER_UNDERSCORE);
+	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
-	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL
-			.converterTo(CaseFormat.LOWER_UNDERSCORE);
+	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	protected Map<String, SQLiteEntity> entities = new HashMap<String, SQLiteEntity>();
 
@@ -122,16 +121,15 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 
 	public final String configDatabaseLifecycleHandlerClazz;
 
-	private ArrayList<String> globalSqlTypeAdapter;
-
+	public final Map<String, String> globalSqlTypeAdapter = new HashMap<String, String>();
 
 	public List<String> getDaoNameSet() {
 		return daoNameSet;
 	}
 
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log,
-			boolean asyncTask, boolean generateCursor, boolean generateRx, List<String> daoIntoDataSource,
-			String configCursorFactoryClass, String configDatabaseErrorHandlerClass, String configDatabaseLifecycleHandlerClass, boolean configInMemory, boolean configLogEnabled, String configPopulatorClass) {
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask, boolean generateCursor, boolean generateRx,
+			List<String> daoIntoDataSource, String configCursorFactoryClass, String configDatabaseErrorHandlerClass, String configDatabaseLifecycleHandlerClass, boolean configInMemory,
+			boolean configLogEnabled, String configPopulatorClass) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -145,45 +143,50 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		this.generateRx = generateRx;
 		this.contentProvider = null;
 		this.generatedEntities = new LinkedHashSet<GeneratedTypeElement>();
-		this.daoNameSet = daoIntoDataSource;		
+		this.daoNameSet = daoIntoDataSource;
 
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
-		FindSqlTypeAdapterVisitor typeAdapterVisitors=new FindSqlTypeAdapterVisitor();
+		FindSqlTypeAdapterVisitor typeAdapterVisitors = new FindSqlTypeAdapterVisitor();
 		List<? extends AnnotationMirror> annotationMirrors = item.getAnnotationMirrors();
 		for (AnnotationMirror annotationMirror : annotationMirrors) {
-			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
-					.getElementValues();
+			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
 
 			if (BindDataSourceOptions.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
-				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
-						.entrySet()) {
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
 					// The 'entry.getKey()' here is the annotation attribute
 					// name.
 					String key = entry.getKey().getSimpleName().toString();
 					entry.getValue().accept(valueVisitor, key);
 				}
 			} else if (BindDataSource.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
-				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
-						.entrySet()) {
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
 					String key = entry.getKey().getSimpleName().toString();
 					entry.getValue().accept(typeAdapterVisitors, key);
 				}
 			}
 
 		}
-		
-		//TODO add supported type and check about types
-		this.globalSqlTypeAdapter=typeAdapterVisitors.getAdapters();
+
+		// TODO add supported type and check about types
+		{
+			List<String> list = typeAdapterVisitors.getAdapters();
+			for (String typeAdapter : list) {
+				String sourceType = TypeAdapterHelper.detectSourceType(typeAdapter);
+				AssertKripton.assertTrueOrInvalidGlobalTypeApdaterException(!globalSqlTypeAdapter.containsKey(sourceType), this, typeAdapter, globalSqlTypeAdapter.get(sourceType));
+
+				globalSqlTypeAdapter.put(sourceType, typeAdapter);
+			}
+		}
 
 		this.configLogEnabled = configLogEnabled;
 		this.configInMemory = configInMemory;
 		this.configUpdateTasks = valueVisitor.getTasks();
 
-		this.configCursorFactoryClazz=fillClazz(configCursorFactoryClass, NoCursorFactory.class);
-		this.configDatabaseErrorHandlerClazz=fillClazz(configDatabaseErrorHandlerClass, NoDatabaseErrorHandler.class);
-		this.configDatabaseLifecycleHandlerClazz=fillClazz(configDatabaseLifecycleHandlerClass, NoDatabaseLifecycleHandler.class);
-		this.configPopulatorClazz=fillClazz(configPopulatorClass, NoPopulator.class);
-		
+		this.configCursorFactoryClazz = fillClazz(configCursorFactoryClass, NoCursorFactory.class);
+		this.configDatabaseErrorHandlerClazz = fillClazz(configDatabaseErrorHandlerClass, NoDatabaseErrorHandler.class);
+		this.configDatabaseLifecycleHandlerClazz = fillClazz(configDatabaseLifecycleHandlerClass, NoDatabaseLifecycleHandler.class);
+		this.configPopulatorClazz = fillClazz(configPopulatorClass, NoPopulator.class);
+
 	}
 
 	private String fillClazz(String configClazz, Class<?> clazz) {
@@ -193,7 +196,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 			return null;
 		}
 	}
-	
+
 	public void clear() {
 		entities.clear();
 		entitiesBySimpleName.clear();
@@ -281,8 +284,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 			set.add(item.columnName);
 		}
 
-		AssertKripton.assertTrueOrInvalidMethodSignException(result != null && set.size() == 1, method,
-				"in JQL attribute can not translate property %s", propertyName);
+		AssertKripton.assertTrueOrInvalidMethodSignException(result != null && set.size() == 1, method, "in JQL attribute can not translate property %s", propertyName);
 
 		return result;
 	}
@@ -301,12 +303,12 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 
 	public ClassName getGeneratedClass() {
 		String packageName = getElement().asType().toString();
-		return TypeUtility
-				.className(packageName.substring(0, packageName.lastIndexOf(".")) + "." + getGeneratedClassName());
+		return TypeUtility.className(packageName.substring(0, packageName.lastIndexOf(".")) + "." + getGeneratedClassName());
 	}
 
 	/**
 	 * Returns true if any DAO exposes a method with live data
+	 * 
 	 * @return
 	 */
 	public boolean hasLiveData() {

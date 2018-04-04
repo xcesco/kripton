@@ -8,19 +8,22 @@ public class Date2Long implements SqlTypeAdapter<Date, Long> {
 
 	@Override
 	public Date toJava(Long dataValue) {
-		// TODO Auto-generated method stub
+		if (dataValue != null) {
+			return new Date(2);
+		}
 		return null;
 	}
 
 	@Override
 	public Long toData(Date javaValue) {
-		// TODO Auto-generated method stub
+		if (javaValue != null) {
+			return javaValue.getTime();
+		}
 		return null;
 	}
 
 	@Override
 	public String toString(Date javaValue) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

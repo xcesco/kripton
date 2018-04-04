@@ -29,6 +29,7 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelEntity;
+import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
@@ -53,7 +54,7 @@ public class PrefsProperty extends ManagedModelProperty {
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindPreferenceAdapter.class);
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-			typeAdapter.dataType = detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
+			typeAdapter.dataType = TypeAdapterHelper.detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
 
 			// check type adapter
 			checkTypeAdapter(entity, element.asType(), typeAdapter, annotationBindAdapter);
