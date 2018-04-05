@@ -17,7 +17,7 @@ public class KriptonPropertiesContext extends AbstractJacksonContext {
 	}
 	
 	@Override
-	public JsonFactory createInnerFactory()
+	protected JsonFactory createInnerFactory()
 	{
 		return new JavaPropsFactory();
 	}

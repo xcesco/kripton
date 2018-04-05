@@ -31,13 +31,18 @@ import java.lang.Exception;
 import java.lang.Override;
 import java.util.HashSet;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for BeanAttribute76Set
+ * This class is binder map for BeanAttribute76Set.
  *
  * @see BeanAttribute76Set
  */
 @BindMap(BeanAttribute76Set.class)
 public class BeanAttribute76SetBindMap extends AbstractMapper<BeanAttribute76Set> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(BeanAttribute76Set object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -65,6 +70,9 @@ public class BeanAttribute76SetBindMap extends AbstractMapper<BeanAttribute76Set
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(BeanAttribute76Set object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -98,7 +106,12 @@ public class BeanAttribute76SetBindMap extends AbstractMapper<BeanAttribute76Set
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(BeanAttribute76Set object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -132,7 +145,11 @@ public class BeanAttribute76SetBindMap extends AbstractMapper<BeanAttribute76Set
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the bean attribute 76 set
+   * @throws Exception the exception
    */
   @Override
   public BeanAttribute76Set parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -175,7 +192,11 @@ public class BeanAttribute76SetBindMap extends AbstractMapper<BeanAttribute76Set
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the bean attribute 76 set
+   * @throws Exception the exception
    */
   @Override
   public BeanAttribute76Set parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -223,7 +244,12 @@ public class BeanAttribute76SetBindMap extends AbstractMapper<BeanAttribute76Set
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the bean attribute 76 set
+   * @throws Exception the exception
    */
   @Override
   public BeanAttribute76Set parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

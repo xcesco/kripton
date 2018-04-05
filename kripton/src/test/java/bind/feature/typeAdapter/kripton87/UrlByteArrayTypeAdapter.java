@@ -20,8 +20,15 @@ import java.net.URL;
 
 import com.abubusoft.kripton.TypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UrlByteArrayTypeAdapter.
+ */
 public class UrlByteArrayTypeAdapter implements TypeAdapter<URL, byte[]> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public URL toJava(byte[] dataValue) {
 		try {
@@ -31,6 +38,9 @@ public class UrlByteArrayTypeAdapter implements TypeAdapter<URL, byte[]> {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public byte[] toData(URL javaValue) {
 		return javaValue.toExternalForm().getBytes();

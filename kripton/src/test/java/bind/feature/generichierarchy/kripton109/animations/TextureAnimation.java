@@ -17,6 +17,9 @@ package bind.feature.generichierarchy.kripton109.animations;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+/**
+ * The Class TextureAnimation.
+ */
 @BindType
 public class TextureAnimation extends Animation<TextureKeyFrame> {
 

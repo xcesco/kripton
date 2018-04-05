@@ -15,17 +15,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for LoggerSettings
+ * This class is binder map for LoggerSettings.
  *
  * @see LoggerSettings
  */
 @BindMap(LoggerSettings.class)
 public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
-  /**
-   * LoggerAppenderSettingsBindMap */
+  
+  /** LoggerAppenderSettingsBindMap. */
   private LoggerAppenderSettingsBindMap loggerAppenderSettingsBindMap = BinderUtils.mapperFor(LoggerAppenderSettings.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(LoggerSettings object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -63,6 +67,9 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(LoggerSettings object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -107,7 +114,12 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(LoggerSettings object, XMLSerializer xmlSerializer,
@@ -151,7 +163,11 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the logger settings
+   * @throws Exception the exception
    */
   @Override
   public LoggerSettings parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -201,7 +217,11 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the logger settings
+   * @throws Exception the exception
    */
   @Override
   public LoggerSettings parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -256,7 +276,12 @@ public class LoggerSettingsBindMap extends AbstractMapper<LoggerSettings> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the logger settings
+   * @throws Exception the exception
    */
   @Override
   public LoggerSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

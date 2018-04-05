@@ -14,17 +14,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for TextureAnimation
+ * This class is binder map for TextureAnimation.
  *
  * @see TextureAnimation
  */
 @BindMap(TextureAnimation.class)
 public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
-  /**
-   * TextureKeyFrameBindMap */
+  
+  /** TextureKeyFrameBindMap. */
   private TextureKeyFrameBindMap textureKeyFrameBindMap = BinderUtils.mapperFor(TextureKeyFrame.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(TextureAnimation object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -70,6 +74,9 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(TextureAnimation object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -120,7 +127,12 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(TextureAnimation object, XMLSerializer xmlSerializer,
@@ -173,7 +185,11 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the texture animation
+   * @throws Exception the exception
    */
   @Override
   public TextureAnimation parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -230,7 +246,11 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the texture animation
+   * @throws Exception the exception
    */
   @Override
   public TextureAnimation parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -292,7 +312,12 @@ public class TextureAnimationBindMap extends AbstractMapper<TextureAnimation> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the texture animation
+   * @throws Exception the exception
    */
   @Override
   public TextureAnimation parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

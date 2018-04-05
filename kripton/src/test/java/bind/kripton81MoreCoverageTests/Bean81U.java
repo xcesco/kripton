@@ -22,16 +22,25 @@ import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean81U.
+ */
 @BindType
 public class Bean81U {
+	
+	/** The id. */
 	public long id;
 	
+	/** The value map string integer. */
 	@BindXml(mapEntryType=MapEntryType.TAG, elementTag="map")
 	public Map<String, Integer> valueMapStringInteger;
 	
+	/** The value byte array. */
 	@BindXml(xmlType=XmlType.VALUE_CDATA)
 	public byte[] valueByteArray;
 	
+	/** The value integer. */
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Integer valueInteger;
 			

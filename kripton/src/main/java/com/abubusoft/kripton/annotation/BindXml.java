@@ -25,7 +25,7 @@ import com.abubusoft.kripton.xml.XmlType;
 
 /**
  * 
- * <p>This annotation specify information to bind with xml format</p>
+ * <p>Specifies information to bind with xml format</p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  * 

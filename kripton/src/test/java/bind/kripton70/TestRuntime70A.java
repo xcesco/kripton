@@ -21,8 +21,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime70A.
+ */
 public class TestRuntime70A extends AbstractBaseTest {
 	
+	/**
+	 * Test run 70 A 1.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun70A_1() throws Exception {
 		assertNotNull(Bean70ABindMap.class.toString());
@@ -35,8 +44,9 @@ public class TestRuntime70A extends AbstractBaseTest {
 	}
 
 	/**
-	 * test file bean empty
-	 * @throws Exception 
+	 * test file bean empty.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testRun70A_2() throws Exception {
@@ -49,8 +59,9 @@ public class TestRuntime70A extends AbstractBaseTest {
 	}
 	
 	/**
-	 * test file bean null
-	 * @throws Exception 
+	 * test file bean null.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testRun70A_3() throws Exception {

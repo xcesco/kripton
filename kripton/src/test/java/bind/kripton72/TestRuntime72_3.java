@@ -22,11 +22,16 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime72_3.
+ */
 public class TestRuntime72_3 extends AbstractBaseTest {
 
 	/**
-	 * Test all collection null
-	 * @throws Exception 
+	 * Test all collection null.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testWithNullCollectionsRun() throws Exception

@@ -15,6 +15,12 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.test3;
 
+/**
+ * The Class Class2.
+ *
+ * @param <A> the generic type
+ * @param <B> the generic type
+ */
 public class Class2<A, B> extends Class1<A, B, String> {
 
 }

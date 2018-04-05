@@ -26,8 +26,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime87A.
+ */
 public class TestRuntime87A extends AbstractBaseTest {
 
+	/**
+	 * Test runtime 1.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime1() throws Exception  {
 		assertTrue(Bean87A_1BindMap.class.getName()!=null);
@@ -39,6 +48,11 @@ public class TestRuntime87A extends AbstractBaseTest {
 		check(bean);
 	}		
 	
+	/**
+	 * Creates the bean A.
+	 *
+	 * @return the bean 87 A 1
+	 */
 	private Bean87A_1 createBeanA() {
 		Bean87A_1 result=new Bean87A_1();
 		
@@ -48,6 +62,11 @@ public class TestRuntime87A extends AbstractBaseTest {
 		return result;
 	}	
 	
+	/**
+	 * Test runtime 2.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime2() throws Exception  {
 		assertTrue(Bean87A_2BindMap.class.getName()!=null);
@@ -60,6 +79,11 @@ public class TestRuntime87A extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime 3.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime3() throws Exception  {
 		assertTrue(Bean87A_3BindMap.class.getName()!=null);
@@ -74,6 +98,11 @@ public class TestRuntime87A extends AbstractBaseTest {
 		check(bean);
 	}	
 	
+	/**
+	 * Test runtime 5.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime5() throws Exception  {
 		assertTrue(Bean87A_5BindMap.class.getName()!=null);
@@ -87,6 +116,11 @@ public class TestRuntime87A extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime 6.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime6() throws Exception  {
 		assertTrue(Bean87A_6BindMap.class.getName()!=null);
@@ -100,6 +134,11 @@ public class TestRuntime87A extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime 7.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime7() throws Exception  {
 		assertTrue(Bean87A_7BindMap.class.getName()!=null);
@@ -113,6 +152,12 @@ public class TestRuntime87A extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Creates the bean A 2.
+	 *
+	 * @return the bean 87 A 2
+	 * @throws MalformedURLException the malformed URL exception
+	 */
 	private Bean87A_2 createBeanA_2() throws MalformedURLException {
 		Bean87A_2 result=new Bean87A_2();
 		
@@ -124,6 +169,12 @@ public class TestRuntime87A extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean A 3.
+	 *
+	 * @return the bean 87 A 3
+	 * @throws MalformedURLException the malformed URL exception
+	 */
 	private Bean87A_3 createBeanA_3() throws MalformedURLException {
 		Bean87A_3 result=new Bean87A_3();
 		
@@ -135,6 +186,12 @@ public class TestRuntime87A extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean A 5.
+	 *
+	 * @return the bean 87 A 5
+	 * @throws MalformedURLException the malformed URL exception
+	 */
 	private Bean87A_5 createBeanA_5() throws MalformedURLException {
 		Bean87A_5 result=new Bean87A_5();
 		
@@ -145,6 +202,12 @@ public class TestRuntime87A extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean A 6.
+	 *
+	 * @return the bean 87 A 6
+	 * @throws MalformedURLException the malformed URL exception
+	 */
 	private Bean87A_6 createBeanA_6() throws MalformedURLException {
 		Bean87A_6 result=new Bean87A_6();
 		
@@ -155,6 +218,12 @@ public class TestRuntime87A extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean A 7.
+	 *
+	 * @return the bean 87 A 7
+	 * @throws MalformedURLException the malformed URL exception
+	 */
 	private Bean87A_7 createBeanA_7() throws MalformedURLException {
 		Bean87A_7 result=new Bean87A_7();
 		

@@ -17,13 +17,23 @@ package bind.feature.typeAdapter.kripton87;
 
 import com.abubusoft.kripton.TypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StringInverterTypeAdapter.
+ */
 public class StringInverterTypeAdapter implements TypeAdapter<String, String> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public String toJava(String dataValue) {
 		return new StringBuilder(dataValue).reverse().toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public String toData(String javaValue) {
 		return new StringBuilder(javaValue).reverse().toString();

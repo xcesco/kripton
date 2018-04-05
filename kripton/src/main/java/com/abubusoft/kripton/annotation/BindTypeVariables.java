@@ -20,6 +20,39 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * <p>
+ * When a class has a parent hierarchy with generics, This annotation allows to
+ * specify used type variable.
+ * </p>
+ * <p>
+ * For example, suppose you have the following situation:
+ * </p>
+ * 
+ * <pre>
+ *  {@literal @}BindType
+ *  public class TiledMapAnimation extends Parallel2Animation&lt;TranslationFrame, TextureKeyFrame&gt;
+ *  {
+ *  }
+ *  
+ *  public abstract class Parallel2Animation&lt;K0 extends KeyFrame, K1 extends KeyFrame&gt; extends Animation&lt;K0&gt; { ... }
+ * </pre>
+ * 
+ * <p>
+ * To bind <code>TiledMapAnimation</code> you have simply to use
+ * {@literal @}BindTypeVariables in this way:
+ * 
+ * <pre>
+ * {@literal @}BindType
+ * {@literal @}BindTypeVariables({"K0", "K1"})
+ * public class TiledMapAnimation extends Parallel2Animation&lt;TranslationFrame, TextureKeyFrame&gt; { ... }
+ * 
+ * public abstract class Parallel2Animation&lt;K0 extends KeyFrame, K1 extends KeyFrame&gt; extends Animation&lt;K0&gt; { ... }
+ * </pre>
+ * 
+ * @author Francesco Benincasa (info@abubusoft.com)
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindTypeVariables {
@@ -35,11 +68,11 @@ public @interface BindTypeVariables {
 	 * 
 	 * <pre>
 	 *  {@literal @}BindType
-	 *  public class TiledMapAnimation extends Parallel2Animation<TranslationFrame, TextureKeyFrame>
+	 *  public class TiledMapAnimation extends Parallel2Animation&lt;TranslationFrame, TextureKeyFrame&gt;
 	 *  {
 	 *  }
 	 *  
-	 *  public abstract class Parallel2Animation<K0 extends KeyFrame, K1 extends KeyFrame> extends Animation<K0> { ... }
+	 *  public abstract class Parallel2Animation&lt;K0 extends KeyFrame, K1 extends KeyFrame&gt; extends Animation&lt;K0&gt; { ... }
 	 * </pre>
 	 * 
 	 * <p>
@@ -49,9 +82,9 @@ public @interface BindTypeVariables {
 	 * <pre>
 	 * {@literal @}BindType
 	 * {@literal @}BindTypeVariables({"K0", "K1"})
-	 * public class TiledMapAnimation extends Parallel2Animation<TranslationFrame, TextureKeyFrame> { ... }
+	 * public class TiledMapAnimation extends Parallel2Animation&lt;TranslationFrame, TextureKeyFrame&gt; { ... }
 	 * 
-	 * public abstract class Parallel2Animation<K0 extends KeyFrame, K1 extends KeyFrame> extends Animation<K0> { ... }
+	 * public abstract class Parallel2Animation&lt;K0 extends KeyFrame, K1 extends KeyFrame&gt; extends Animation&lt;K0&gt; { ... }
 	 * </pre>
 	 * 
 	 * 
@@ -69,7 +102,7 @@ public @interface BindTypeVariables {
 	 * </p>
 	 * 
 	 * <pre>
-	 * public class Class1<A, B, C> {
+	 * public class Class1&lt;A, B, C&gt; {
 	 * 
 	 * 	public A valueA;
 	 * 
@@ -78,21 +111,21 @@ public @interface BindTypeVariables {
 	 * 	public C valueC;
 	 * }
 	 * 
-	 * public class Class2<A, B> extends Class1<A, B, String> {
+	 * public class Class2&lt;A, B&gt; extends Class1&lt;A, B, String&gt; {
 	 * }
 	 * 
 	 * {@literal @}BindType
 	 * {@literal @}BintTypeVariable(value = { "A", "B", "C" }, typeParameters = { Integer.class, Date.class, String.class })
-	 * public class Class3 extends Class2<Integer, Date> {
+	 * public class Class3 extends Class2&lt;Integer, Date&gt; {
 	 * 
 	 * }
 	 * </pre>
 	 * 
 	 * <p>
 	 * Class <code>Class2</code> hide the third parameter <code>C</code>, so in
-	 * class
-	 * <code>Class3</cod> is not possible define entire collection of type variables. <code>typeParameters</code>
-	 * allows to specify directly type parameters used in class hierarchy.
+	 * class <code>Class3</code> is not possible define entire collection of
+	 * type variables. <code>typeParameters</code> allows to specify directly
+	 * type parameters used in class hierarchy.
 	 * </p>
 	 * 
 	 * 

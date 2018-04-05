@@ -1,4 +1,4 @@
-/* Copyright (c) 2002,2003, Stefan Haustein, Oberhausen, Rhld., Germany
+/** Copyright (c) 2002,2003, Stefan Haustein, Oberhausen, Rhld., Germany
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,16 +37,25 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.xml.internal.StringPool;
 
+// TODO: Auto-generated Javadoc
 /**
  * An XML pull parser with limited support for parsing internal DTDs.
  */
 public class XMLParser implements XmlPullParser, Closeable {
 
+	/** The Constant PROPERTY_XMLDECL_VERSION. */
 	private static final String PROPERTY_XMLDECL_VERSION = "http://xmlpull.org/v1/doc/properties.html#xmldecl-version";
+	
+	/** The Constant PROPERTY_XMLDECL_STANDALONE. */
 	private static final String PROPERTY_XMLDECL_STANDALONE = "http://xmlpull.org/v1/doc/properties.html#xmldecl-standalone";
+	
+	/** The Constant PROPERTY_LOCATION. */
 	private static final String PROPERTY_LOCATION = "http://xmlpull.org/v1/doc/properties.html#location";
+	
+	/** The Constant FEATURE_RELAXED. */
 	private static final String FEATURE_RELAXED = "http://xmlpull.org/v1/doc/features.html#relaxed";
 
+	/** The Constant DEFAULT_ENTITIES. */
 	private static final Map<String, String> DEFAULT_ENTITIES = new HashMap<String, String>();
 	static {
 		DEFAULT_ENTITIES.put("lt", "<");
@@ -56,44 +65,110 @@ public class XMLParser implements XmlPullParser, Closeable {
 		DEFAULT_ENTITIES.put("quot", "\"");
 	}
 
+	/** The Constant ELEMENTDECL. */
 	private static final int ELEMENTDECL = 11;
+	
+	/** The Constant ENTITYDECL. */
 	private static final int ENTITYDECL = 12;
+	
+	/** The Constant ATTLISTDECL. */
 	private static final int ATTLISTDECL = 13;
+	
+	/** The Constant NOTATIONDECL. */
 	private static final int NOTATIONDECL = 14;
+	
+	/** The Constant PARAMETER_ENTITY_REF. */
 	private static final int PARAMETER_ENTITY_REF = 15;
+	
+	/** The Constant START_COMMENT. */
 	private static final char[] START_COMMENT = { '<', '!', '-', '-' };
+	
+	/** The Constant END_COMMENT. */
 	private static final char[] END_COMMENT = { '-', '-', '>' };
+	
+	/** The Constant COMMENT_DOUBLE_DASH. */
 	private static final char[] COMMENT_DOUBLE_DASH = { '-', '-' };
+	
+	/** The Constant START_CDATA. */
 	private static final char[] START_CDATA = { '<', '!', '[', 'C', 'D', 'A', 'T', 'A', '[' };
+	
+	/** The Constant END_CDATA. */
 	private static final char[] END_CDATA = { ']', ']', '>' };
+	
+	/** The Constant START_PROCESSING_INSTRUCTION. */
 	private static final char[] START_PROCESSING_INSTRUCTION = { '<', '?' };
+	
+	/** The Constant END_PROCESSING_INSTRUCTION. */
 	private static final char[] END_PROCESSING_INSTRUCTION = { '?', '>' };
+	
+	/** The Constant START_DOCTYPE. */
 	private static final char[] START_DOCTYPE = { '<', '!', 'D', 'O', 'C', 'T', 'Y', 'P', 'E' };
+	
+	/** The Constant SYSTEM. */
 	private static final char[] SYSTEM = { 'S', 'Y', 'S', 'T', 'E', 'M' };
+	
+	/** The Constant PUBLIC. */
 	private static final char[] PUBLIC = { 'P', 'U', 'B', 'L', 'I', 'C' };
+	
+	/** The Constant START_ELEMENT. */
 	private static final char[] START_ELEMENT = { '<', '!', 'E', 'L', 'E', 'M', 'E', 'N', 'T' };
+	
+	/** The Constant START_ATTLIST. */
 	private static final char[] START_ATTLIST = { '<', '!', 'A', 'T', 'T', 'L', 'I', 'S', 'T' };
+	
+	/** The Constant START_ENTITY. */
 	private static final char[] START_ENTITY = { '<', '!', 'E', 'N', 'T', 'I', 'T', 'Y' };
+	
+	/** The Constant START_NOTATION. */
 	private static final char[] START_NOTATION = { '<', '!', 'N', 'O', 'T', 'A', 'T', 'I', 'O', 'N' };
+	
+	/** The Constant EMPTY. */
 	private static final char[] EMPTY = new char[] { 'E', 'M', 'P', 'T', 'Y' };
+	
+	/** The Constant ANY. */
 	private static final char[] ANY = new char[] { 'A', 'N', 'Y' };
+	
+	/** The Constant NDATA. */
 	private static final char[] NDATA = new char[] { 'N', 'D', 'A', 'T', 'A' };
+	
+	/** The Constant NOTATION. */
 	private static final char[] NOTATION = new char[] { 'N', 'O', 'T', 'A', 'T', 'I', 'O', 'N' };
+	
+	/** The Constant REQUIRED. */
 	private static final char[] REQUIRED = new char[] { 'R', 'E', 'Q', 'U', 'I', 'R', 'E', 'D' };
+	
+	/** The Constant IMPLIED. */
 	private static final char[] IMPLIED = new char[] { 'I', 'M', 'P', 'L', 'I', 'E', 'D' };
+	
+	/** The Constant FIXED. */
 	private static final char[] FIXED = new char[] { 'F', 'I', 'X', 'E', 'D' };
 
+	/** The Constant UNEXPECTED_EOF. */
 	static final private String UNEXPECTED_EOF = "Unexpected EOF";
+	
+	/** The Constant ILLEGAL_TYPE. */
 	static final private String ILLEGAL_TYPE = "Wrong event type";
+	
+	/** The Constant XML_DECLARATION. */
 	static final private int XML_DECLARATION = 998;
 
+	/** The location. */
 	// general
 	private String location;
 
+	/** The version. */
 	private String version;
+	
+	/** The standalone. */
 	private Boolean standalone;
+	
+	/** The root element name. */
 	private String rootElementName;
+	
+	/** The system id. */
 	private String systemId;
+	
+	/** The public id. */
 	private String publicId;
 
 	/**
@@ -108,8 +183,14 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * manually.
 	 */
 	private boolean processDocDecl;
+	
+	/** The process nsp. */
 	private boolean processNsp;
+	
+	/** The relaxed. */
 	private boolean relaxed;
+	
+	/** The keep namespace attributes. */
 	private boolean keepNamespaceAttributes;
 
 	/**
@@ -131,40 +212,76 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 */
 	private Map<String, Map<String, String>> defaultAttributes;
 
+	/** The depth. */
 	private int depth;
+	
+	/** The element stack. */
 	private String[] elementStack = new String[16];
+	
+	/** The nsp stack. */
 	private String[] nspStack = new String[8];
+	
+	/** The nsp counts. */
 	private int[] nspCounts = new int[4];
 
 	// source
 
+	/** The reader. */
 	private Reader reader;
+	
+	/** The encoding. */
 	private String encoding;
+	
+	/** The next content source. */
 	private ContentSource nextContentSource;
+	
+	/** The buffer. */
 	private char[] buffer = new char[8192];
+	
+	/** The position. */
 	private int position = 0;
+	
+	/** The limit. */
 	private int limit = 0;
 
+	/** The buffer start line. */
 	/*
 	 * Track the number of newlines and columns preceding the current buffer. To
 	 * compute the line and column of a position in the buffer, compute the line
 	 * and column in the buffer and add the preceding values.
 	 */
 	private int bufferStartLine;
+	
+	/** The buffer start column. */
 	private int bufferStartColumn;
 
 	// the current token
 
+	/** The type. */
 	private int type;
+	
+	/** The is whitespace. */
 	private boolean isWhitespace;
+	
+	/** The namespace. */
 	private String namespace;
+	
+	/** The prefix. */
 	private String prefix;
+	
+	/** The name. */
 	private String name;
+	
+	/** The text. */
 	private String text;
 
+	/** The degenerated. */
 	private boolean degenerated;
+	
+	/** The attribute count. */
 	private int attributeCount;
 
+	/** The attributes. */
 	/*
 	 * The current element's attributes arranged in groups of 4: i + 0 =
 	 * attribute namespace URI i + 1 = attribute namespace prefix i + 2 =
@@ -173,10 +290,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 */
 	private String[] attributes = new String[16];
 
+	/** The error. */
 	private String error;
 
+	/** The unresolved. */
 	private boolean unresolved;
 
+	/** The string pool. */
 	public final StringPool stringPool = new StringPool();
 
 	/**
@@ -190,6 +310,11 @@ public class XMLParser implements XmlPullParser, Closeable {
 		this.keepNamespaceAttributes = true;
 	}
 
+	/**
+	 * Adjust nsp.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean adjustNsp() {
 		boolean any = false;
 
@@ -283,6 +408,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return any;
 	}
 
+	/**
+	 * Ensure capacity.
+	 *
+	 * @param arr the arr
+	 * @param required the required
+	 * @return the string[]
+	 */
 	private String[] ensureCapacity(String[] arr, int required) {
 		if (arr.length >= required) {
 			return arr;
@@ -292,28 +424,47 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return bigger;
 	}
 
+	/**
+	 * Check relaxed.
+	 *
+	 * @param errorMessage the error message
+	 */
 	private void checkRelaxed(String errorMessage) {
 		if (!relaxed) {
-			throw new KriptonRuntimeException(errorMessage, true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException(errorMessage, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 		if (error == null) {
 			error = "Error: " + errorMessage;
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#next()
+	 */
 	@Override
 	public int next() throws KriptonRuntimeException, IOException {
 		return next(false);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#nextToken()
+	 */
 	@Override
 	public int nextToken() throws KriptonRuntimeException, IOException {
 		return next(true);
 	}
 
+	/**
+	 * Next.
+	 *
+	 * @param justOneToken the just one token
+	 * @return the int
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private int next(boolean justOneToken) throws IOException, KriptonRuntimeException {
 		if (reader == null) {
-			throw new KriptonRuntimeException("setInput() must be called first.", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("setInput() must be called first.", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 
 		if (type == END_TAG) {
@@ -416,11 +567,11 @@ public class XMLParser implements XmlPullParser, Closeable {
 				break;
 
 			default:
-				throw new KriptonRuntimeException("Unexpected token", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("Unexpected token", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 			}
 
 			if (depth == 0 && (type == ENTITY_REF || type == TEXT || type == CDSECT)) {
-				throw new KriptonRuntimeException("Unexpected token", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("Unexpected token", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 			}
 
 			if (justOneToken) {
@@ -450,9 +601,12 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * Reads text until the specified delimiter is encountered. Consumes the
 	 * text and the delimiter.
 	 *
-	 * @param returnText
-	 *            true to return the read text excluding the delimiter; false to
+	 * @param delimiter the delimiter
+	 * @param returnText            true to return the read text excluding the delimiter; false to
 	 *            return null.
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private String readUntil(char[] delimiter, boolean returnText) throws IOException, KriptonRuntimeException {
 		int start = position;
@@ -507,6 +661,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 
 	/**
 	 * Returns true if an XML declaration was read.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private void readXmlDeclaration() throws IOException, KriptonRuntimeException {
 		if (bufferStartLine != 0 || bufferStartColumn != 0 || position != 0) {
@@ -549,6 +706,14 @@ public class XMLParser implements XmlPullParser, Closeable {
 		text = null;
 	}
 
+	/**
+	 * Read comment.
+	 *
+	 * @param returnText the return text
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private String readComment(boolean returnText) throws IOException, KriptonRuntimeException {
 		read(START_COMMENT);
 
@@ -558,7 +723,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 
 		String commentText = readUntil(COMMENT_DOUBLE_DASH, returnText);
 		if (peekCharacter() != '>') {
-			throw new KriptonRuntimeException("Comments may not contain --", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("Comments may not contain --", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 		position++;
 		return commentText;
@@ -567,6 +732,10 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Read the document's DTD. Although this parser is non-validating, the DTD
 	 * must be parsed to capture entity values and default attribute values.
+	 *
+	 * @param saveDtdText the save dtd text
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private void readDoctype(boolean saveDtdText) throws IOException, KriptonRuntimeException {
 		read(START_DOCTYPE);
@@ -600,11 +769,17 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Reads an external ID of one of these two forms: SYSTEM "quoted system
 	 * name" PUBLIC "quoted public id" "quoted system name"
-	 *
+	 * 
 	 * If the system name is not required, this also supports lone public IDs of
 	 * this form: PUBLIC "quoted public id"
-	 *
+	 * 
 	 * Returns true if any ID was read.
+	 *
+	 * @param requireSystemName the require system name
+	 * @param assignFields the assign fields
+	 * @return true, if successful
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private boolean readExternalId(boolean requireSystemName, boolean assignFields) throws IOException, KriptonRuntimeException {
 		skip();
@@ -641,11 +816,19 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return true;
 	}
 
+	/** The Constant SINGLE_QUOTE. */
 	private static final char[] SINGLE_QUOTE = new char[] { '\'' };
+	
+	/** The Constant DOUBLE_QUOTE. */
 	private static final char[] DOUBLE_QUOTE = new char[] { '"' };
 
 	/**
 	 * Reads a quoted string, performing no entity escaping of the contents.
+	 *
+	 * @param returnText the return text
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private String readQuotedId(boolean returnText) throws IOException, KriptonRuntimeException {
 		int quote = peekCharacter();
@@ -655,12 +838,18 @@ public class XMLParser implements XmlPullParser, Closeable {
 		} else if (quote == '\'') {
 			delimiter = SINGLE_QUOTE;
 		} else {
-			throw new KriptonRuntimeException("Expected a quoted string", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("Expected a quoted string", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 		position++;
 		return readUntil(delimiter, returnText);
 	}
 
+	/**
+	 * Read internal subset.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private void readInternalSubset() throws IOException, KriptonRuntimeException {
 		read('[');
 
@@ -699,10 +888,10 @@ public class XMLParser implements XmlPullParser, Closeable {
 				break;
 
 			case PARAMETER_ENTITY_REF:
-				throw new KriptonRuntimeException("Parameter entity references are not supported", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("Parameter entity references are not supported", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 
 			default:
-				throw new KriptonRuntimeException("Unexpected token", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("Unexpected token", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 			}
 		}
 	}
@@ -711,6 +900,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * Read an element declaration. This contains a name and a content spec.
 	 * <!ELEMENT foo EMPTY > <!ELEMENT foo (bar?,(baz|quux)) > <!ELEMENT foo
 	 * (#PCDATA|bar)* >
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private void readElementDeclaration() throws IOException, KriptonRuntimeException {
 		read(START_ELEMENT);
@@ -726,12 +918,15 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * of names or other content specs. The following operators are supported:
 	 * sequence: (a,b,c) choice: (a|b|c) optional: a? one or more: a+ any
 	 * number: a*
-	 *
+	 * 
 	 * The special name '#PCDATA' is permitted but only if it is the first
 	 * element of the first group: (#PCDATA|a|b)
-	 *
+	 * 
 	 * The top-level element must be either a choice, a sequence, or one of the
 	 * special names EMPTY and ANY.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private void readContentSpec() throws IOException, KriptonRuntimeException {
 		// this implementation is very lenient; it scans for balanced parens
@@ -758,22 +953,25 @@ public class XMLParser implements XmlPullParser, Closeable {
 		} else if (c == ANY[0]) {
 			read(ANY);
 		} else {
-			throw new KriptonRuntimeException("Expected element content spec", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("Expected element content spec", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 	}
 
 	/**
 	 * Reads an attribute list declaration such as the following: <!ATTLIST foo
 	 * bar CDATA #IMPLIED quux (a|b|c) "c" baz NOTATION (a|b|c) #FIXED "c">
-	 *
+	 * 
 	 * Each attribute has a name, type and default.
-	 *
+	 * 
 	 * Types are one of the built-in types (CDATA, ID, IDREF, IDREFS, ENTITY,
 	 * ENTITIES, NMTOKEN, or NMTOKENS), an enumerated type "(list|of|options)"
 	 * or NOTATION followed by an enumerated type.
-	 *
+	 * 
 	 * The default is either #REQUIRED, #IMPLIED, #FIXED, a quoted value, or
 	 * #FIXED with a quoted value.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private void readAttributeListDeclaration() throws IOException, KriptonRuntimeException {
 		read(START_ATTLIST);
@@ -794,7 +992,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 			// attribute type
 			skip();
 			if (position + 1 >= limit && !fillBuffer(2)) {
-				throw new KriptonRuntimeException("Malformed attribute list", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("Malformed attribute list", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 			}
 			if (buffer[position] == NOTATION[0] && buffer[position + 1] == NOTATION[1]) {
 				read(NOTATION);
@@ -814,7 +1012,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 					} else if (c == '|') {
 						position++;
 					} else {
-						throw new KriptonRuntimeException("Malformed attribute type", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+						throw new KriptonRuntimeException("Malformed attribute type", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 					}
 				}
 			} else {
@@ -834,7 +1032,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 				} else if (c == 'F') {
 					read(FIXED);
 				} else {
-					throw new KriptonRuntimeException("Malformed attribute type", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+					throw new KriptonRuntimeException("Malformed attribute type", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 				}
 				skip();
 				c = peekCharacter();
@@ -849,6 +1047,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 		}
 	}
 
+	/**
+	 * Define attribute default.
+	 *
+	 * @param elementName the element name
+	 * @param attributeName the attribute name
+	 * @param value the value
+	 */
 	private void defineAttributeDefault(String elementName, String attributeName, String value) {
 		if (defaultAttributes == null) {
 			defaultAttributes = new HashMap<String, Map<String, String>>();
@@ -864,15 +1069,18 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Read an entity declaration. The value of internal entities are inline:
 	 * <!ENTITY foo "bar">
-	 *
+	 * 
 	 * The values of external entities must be retrieved by URL or path:
 	 * <!ENTITY foo SYSTEM "http://host/file"> <!ENTITY foo PUBLIC
 	 * "-//Android//Foo//EN" "http://host/file"> <!ENTITY foo SYSTEM
 	 * "../file.png" NDATA png>
-	 *
+	 * 
 	 * Entities may be general or parameterized. Parameterized entities are
 	 * marked by a percent sign. Such entities may only be used in the DTD:
 	 * <!ENTITY % foo "bar">
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private void readEntityDeclaration() throws IOException, KriptonRuntimeException {
 		read(START_ENTITY);
@@ -907,7 +1115,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 				readName();
 			}
 		} else {
-			throw new KriptonRuntimeException("Expected entity value or external ID", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("Expected entity value or external ID", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 
 		if (generalEntity && processDocDecl) {
@@ -921,17 +1129,29 @@ public class XMLParser implements XmlPullParser, Closeable {
 		read('>');
 	}
 
+	/**
+	 * Read notation declaration.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private void readNotationDeclaration() throws IOException, KriptonRuntimeException {
 		read(START_NOTATION);
 		skip();
 		readName();
 		if (!readExternalId(false, false)) {
-			throw new KriptonRuntimeException("Expected external ID or public ID for notation", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("Expected external ID or public ID for notation", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 		skip();
 		read('>');
 	}
 
+	/**
+	 * Read end tag.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private void readEndTag() throws IOException, KriptonRuntimeException {
 		read('<');
 		read('/');
@@ -952,10 +1172,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 			prefix = elementStack[sp + 1];
 			name = elementStack[sp + 2];
 		} else if (!relaxed) {
-			throw new KriptonRuntimeException("expected: /" + elementStack[sp + 3] + " read: " + name, true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("expected: /" + elementStack[sp + 3] + " read: " + name, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#hasNext()
+	 */
 	@Override
 	public boolean hasNext() {
 		return getEventType() != END_DOCUMENT;
@@ -963,6 +1186,11 @@ public class XMLParser implements XmlPullParser, Closeable {
 
 	/**
 	 * Returns the type of the next token.
+	 *
+	 * @param inDeclaration the in declaration
+	 * @return the int
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private int peekType(boolean inDeclaration) throws IOException, KriptonRuntimeException {
 		if (position >= limit && !fillBuffer(1)) {
@@ -974,7 +1202,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 			return ENTITY_REF; // &
 		case '<':
 			if (position + 3 >= limit && !fillBuffer(4)) {
-				throw new KriptonRuntimeException("Dangling <", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("Dangling <", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 			}
 
 			switch (buffer[position + 1]) {
@@ -1009,7 +1237,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 				case 'N':
 					return NOTATIONDECL; // <!N
 				}
-				throw new KriptonRuntimeException("Unexpected <!", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("Unexpected <!", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 			default:
 				return START_TAG; // <
 			}
@@ -1021,7 +1249,12 @@ public class XMLParser implements XmlPullParser, Closeable {
 	}
 
 	/**
-	 * Sets name and attributes
+	 * Sets name and attributes.
+	 *
+	 * @param xmldecl the xmldecl
+	 * @param throwOnResolveFailure the throw on resolve failure
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private void parseStartTag(boolean xmldecl, boolean throwOnResolveFailure) throws IOException, KriptonRuntimeException {
 		if (!xmldecl) {
@@ -1088,7 +1321,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 				} else if (relaxed) {
 					delimiter = ' ';
 				} else {
-					throw new KriptonRuntimeException("attr value delimiter missing!", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+					throw new KriptonRuntimeException("attr value delimiter missing!", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 				}
 
 				attributes[i + 3] = readValue(delimiter, true, throwOnResolveFailure, ValueContext.ATTRIBUTE);
@@ -1151,6 +1384,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * Reads an entity reference from the buffer, resolves it, and writes the
 	 * resolved entity to {@code out}. If the entity cannot be read or resolved,
 	 * {@code out} will contain the partial entity reference.
+	 *
+	 * @param out the out
+	 * @param isEntityToken the is entity token
+	 * @param throwOnResolveFailure the throw on resolve failure
+	 * @param valueContext the value context
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private void readEntity(StringBuilder out, boolean isEntityToken, boolean throwOnResolveFailure, ValueContext valueContext) throws IOException, KriptonRuntimeException {
 		int start = out.length();
@@ -1178,7 +1418,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 				return;
 
 			} else {
-				throw new KriptonRuntimeException("unterminated entity ref", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("unterminated entity ref", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 			}
 		}
 
@@ -1252,7 +1492,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * not resolved.
 	 */
 	enum ValueContext {
-		ATTRIBUTE, TEXT, ENTITY_DECLARATION
+		
+		/** The attribute. */
+		ATTRIBUTE, 
+ /** The text. */
+ TEXT, 
+ /** The entity declaration. */
+ ENTITY_DECLARATION
 	}
 
 	/**
@@ -1260,9 +1506,14 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * effect of setting isWhitespace to false if a non-whitespace character is
 	 * encountered.
 	 *
-	 * @param delimiter
-	 *            {@code <} for text, {@code "} and {@code '} for quoted
+	 * @param delimiter            {@code <} for text, {@code "} and {@code '} for quoted
 	 *            attributes, or a space for unquoted attributes.
+	 * @param resolveEntities the resolve entities
+	 * @param throwOnResolveFailure the throw on resolve failure
+	 * @param valueContext the value context
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private String readValue(char delimiter, boolean resolveEntities, boolean throwOnResolveFailure, ValueContext valueContext) throws IOException, KriptonRuntimeException {
 
@@ -1367,7 +1618,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 
 			} else {
 				// if (c == '%')
-				throw new KriptonRuntimeException("This parser doesn't support parameter entities", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("This parser doesn't support parameter entities", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 
 			}
 
@@ -1384,6 +1635,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 		}
 	}
 
+	/**
+	 * Read.
+	 *
+	 * @param expected the expected
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private void read(char expected) throws IOException, KriptonRuntimeException {
 		int c = peekCharacter();
 		if (c != expected) {
@@ -1392,6 +1650,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 		position++;
 	}
 
+	/**
+	 * Read.
+	 *
+	 * @param chars the chars
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private void read(char[] chars) throws IOException, KriptonRuntimeException {
 		if (position + chars.length >= limit && !fillBuffer(chars.length)) {
 			checkRelaxed("expected: '" + new String(chars) + "' but was EOF");
@@ -1410,6 +1675,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 		position += chars.length;
 	}
 
+	/**
+	 * Peek character.
+	 *
+	 * @return the int
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private int peekCharacter() throws IOException, KriptonRuntimeException {
 		if (position < limit || fillBuffer(1)) {
 			return buffer[position];
@@ -1420,12 +1692,17 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Returns true once {@code limit - position >= minimum}. If the data is
 	 * exhausted before that many characters are available, this returns false.
+	 *
+	 * @param minimum the minimum
+	 * @return true, if successful
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private boolean fillBuffer(int minimum) throws IOException, KriptonRuntimeException {
 		// If we've exhausted the current content source, remove it
 		while (nextContentSource != null) {
 			if (position < limit) {
-				throw new KriptonRuntimeException("Unbalanced entity!", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+				throw new KriptonRuntimeException("Unbalanced entity!", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 			}
 			popContentSource();
 			if (limit - position >= minimum) {
@@ -1468,6 +1745,10 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Returns an element or attribute name. This is always non-empty for
 	 * non-relaxed parsers.
+	 *
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
 	 */
 	private String readName() throws IOException, KriptonRuntimeException {
 		if (position >= limit && !fillBuffer(1)) {
@@ -1530,6 +1811,12 @@ public class XMLParser implements XmlPullParser, Closeable {
 		}
 	}
 
+	/**
+	 * Skip.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws KriptonRuntimeException the kripton runtime exception
+	 */
 	private void skip() throws IOException, KriptonRuntimeException {
 		while (position < limit || fillBuffer(1)) {
 			int c = buffer[position];
@@ -1542,6 +1829,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 
 	// public part starts here...
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#setInput(java.io.Reader)
+	 */
 	@Override
 	public void setInput(Reader reader) {
 		this.reader = reader;
@@ -1567,6 +1857,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		documentEntities = null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#setInput(java.io.InputStream, java.lang.String)
+	 */
 	@Override
 	public void setInput(InputStream is, String charset) {
 		position = 0;
@@ -1691,10 +1984,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 				System.arraycopy(buffer, 1, buffer, 0, limit);
 			}
 		} catch (Exception e) {
-			throw new KriptonRuntimeException("Invalid stream or encoding: " + e, true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), e);
+			throw new KriptonRuntimeException("Invalid stream or encoding: " + e, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), e);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.io.Closeable#close()
+	 */
 	@Override
 	public void close() throws IOException {
 		if (reader != null) {
@@ -1702,6 +1998,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getFeature(java.lang.String)
+	 */
 	@Override
 	public boolean getFeature(String feature) {
 		if (XmlPullParser.FEATURE_PROCESS_NAMESPACES.equals(feature)) {
@@ -1715,11 +2014,17 @@ public class XMLParser implements XmlPullParser, Closeable {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getInputEncoding()
+	 */
 	@Override
 	public String getInputEncoding() {
 		return encoding;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#defineEntityReplacementText(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void defineEntityReplacementText(String entity, String value) {
 		if (processDocDecl) {
@@ -1734,6 +2039,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		documentEntities.put(entity, value.toCharArray());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getProperty(java.lang.String)
+	 */
 	@Override
 	public Object getProperty(String property) {
 		if (property.equals(PROPERTY_XMLDECL_VERSION)) {
@@ -1750,6 +2058,8 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Returns the root element's name if it was declared in the DTD. This
 	 * equals the first tag's name for valid documents.
+	 * 
+	 * @return string
 	 */
 	public String getRootElementName() {
 		return rootElementName;
@@ -1758,6 +2068,8 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Returns the document's system ID if it was declared. This is typically a
 	 * string like {@code http://www.w3.org/TR/html4/strict.dtd}.
+	 * 
+	 * @return string
 	 */
 	public String getSystemId() {
 		return systemId;
@@ -1766,11 +2078,16 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Returns the document's public ID if it was declared. This is typically a
 	 * string like {@code -//W3C//DTD HTML 4.01//EN}.
+	 * 
+	 * @return string
 	 */
 	public String getPublicId() {
 		return publicId;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getNamespaceCount(int)
+	 */
 	@Override
 	public int getNamespaceCount(int depth) {
 		if (depth > this.depth) {
@@ -1779,16 +2096,25 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return nspCounts[depth];
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getNamespacePrefix(int)
+	 */
 	@Override
 	public String getNamespacePrefix(int pos) {
 		return nspStack[pos * 2];
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getNamespaceUri(int)
+	 */
 	@Override
 	public String getNamespaceUri(int pos) {
 		return nspStack[(pos * 2) + 1];
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getNamespace(java.lang.String)
+	 */
 	@Override
 	public String getNamespace(String prefix) {
 		if ("xml".equals(prefix)) {
@@ -1810,11 +2136,17 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getDepth()
+	 */
 	@Override
 	public int getDepth() {
 		return depth;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getPositionDescription()
+	 */
 	@Override
 	public String getPositionDescription() {
 		StringBuilder buf = new StringBuilder(type < TYPES.length ? TYPES[type] : "unknown");
@@ -1869,6 +2201,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return buf.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getLineNumber()
+	 */
 	@Override
 	public int getLineNumber() {
 		int result = bufferStartLine;
@@ -1880,6 +2215,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return result + 1; // the first line is '1'
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getColumnNumber()
+	 */
 	@Override
 	public int getColumnNumber() {
 		int result = bufferStartColumn;
@@ -1893,14 +2231,20 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return result + 1; // the first column is '1'
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#isWhitespace()
+	 */
 	@Override
 	public boolean isWhitespace() {
 		if (type != TEXT && type != IGNORABLE_WHITESPACE && type != CDSECT) {
-			throw new KriptonRuntimeException(ILLEGAL_TYPE, true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException(ILLEGAL_TYPE, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 		return isWhitespace;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getText()
+	 */
 	@Override
 	public String getText() {
 		if (type < TEXT || (type == ENTITY_REF && unresolved)) {
@@ -1912,6 +2256,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getTextCharacters(int[])
+	 */
 	@Override
 	public char[] getTextCharacters(int[] poslen) {
 		String text = getText();
@@ -1926,44 +2273,68 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getNamespace()
+	 */
 	@Override
 	public String getNamespace() {
 		return namespace;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getName()
+	 */
 	@Override
 	public String getName() {
 		return name;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getPrefix()
+	 */
 	@Override
 	public String getPrefix() {
 		return prefix;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#isEmptyElementTag()
+	 */
 	@Override
 	public boolean isEmptyElementTag() {
 		if (type != START_TAG) {
-			throw new KriptonRuntimeException(ILLEGAL_TYPE, true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException(ILLEGAL_TYPE, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 		return degenerated;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeCount()
+	 */
 	@Override
 	public int getAttributeCount() {
 		return attributeCount;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeType(int)
+	 */
 	@Override
 	public String getAttributeType(int index) {
 		return "CDATA";
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#isAttributeDefault(int)
+	 */
 	@Override
 	public boolean isAttributeDefault(int index) {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeNamespace(int)
+	 */
 	@Override
 	public String getAttributeNamespace(int index) {
 		if (index >= attributeCount) {
@@ -1972,6 +2343,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return attributes[index * 4];
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeName(int)
+	 */
 	@Override
 	public String getAttributeName(int index) {
 		if (index >= attributeCount) {
@@ -1980,6 +2354,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return attributes[(index * 4) + 2];
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributePrefix(int)
+	 */
 	@Override
 	public String getAttributePrefix(int index) {
 		if (index >= attributeCount) {
@@ -1988,6 +2365,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return attributes[(index * 4) + 1];
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeValue(int)
+	 */
 	@Override
 	public String getAttributeValue(int index) {
 		if (index >= attributeCount) {
@@ -1996,6 +2376,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return attributes[(index * 4) + 3];
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeValue(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public String getAttributeValue(String namespace, String name) {
 		for (int i = (attributeCount * 4) - 4; i >= 0; i -= 4) {
@@ -2007,6 +2390,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeIndex(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public int getAttributeIndex(String namespace, String name) {
 		for (int i = (attributeCount * 4) - 4; i >= 0; i -= 4) {
@@ -2018,6 +2404,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 		return -1;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getEventType()
+	 */
 	@Override
 	public int getEventType() {
 		return type;
@@ -2025,6 +2414,9 @@ public class XMLParser implements XmlPullParser, Closeable {
 
 	// utility methods to make XML parsing easier ...
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#nextTag()
+	 */
 	@Override
 	public int nextTag() throws KriptonRuntimeException, IOException {
 		next();
@@ -2033,23 +2425,29 @@ public class XMLParser implements XmlPullParser, Closeable {
 		}
 
 		if (type != END_TAG && type != START_TAG) {
-			throw new KriptonRuntimeException("unexpected type", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("unexpected type", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 
 		return type;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#require(int, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void require(int type, String namespace, String name) throws KriptonRuntimeException, IOException {
 		if (type != this.type || (namespace != null && !namespace.equals(getNamespace())) || (name != null && !name.equals(getName()))) {
-			throw new KriptonRuntimeException("expected: " + TYPES[type] + " {" + namespace + "}" + name, true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("expected: " + TYPES[type] + " {" + namespace + "}" + name, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#nextText()
+	 */
 	@Override
 	public String nextText() throws IOException {
 		if (type != START_TAG) {
-			throw new KriptonRuntimeException("precondition: START_TAG", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("precondition: START_TAG", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 
 		next();
@@ -2063,12 +2461,15 @@ public class XMLParser implements XmlPullParser, Closeable {
 		}
 
 		if (type != END_TAG) {
-			throw new KriptonRuntimeException("END_TAG expected", true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("END_TAG expected", true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#setFeature(java.lang.String, boolean)
+	 */
 	@Override
 	public void setFeature(String feature, boolean value) {
 		if (XmlPullParser.FEATURE_PROCESS_NAMESPACES.equals(feature)) {
@@ -2078,10 +2479,13 @@ public class XMLParser implements XmlPullParser, Closeable {
 		} else if (FEATURE_RELAXED.equals(feature)) {
 			relaxed = value;
 		} else {
-			throw new KriptonRuntimeException("unsupported feature: " + feature, true,this.getLineNumber(), this.getColumnNumber() ,getPositionDescription(), null);
+			throw new KriptonRuntimeException("unsupported feature: " + feature, true, this.getLineNumber(), this.getColumnNumber(), getPositionDescription(), null);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#setProperty(java.lang.String, java.lang.Object)
+	 */
 	@Override
 	public void setProperty(String property, Object value) {
 		if (property.equals(PROPERTY_LOCATION)) {
@@ -2130,11 +2534,27 @@ public class XMLParser implements XmlPullParser, Closeable {
 	 * sequence by reading each buffer in sequence.
 	 */
 	static class ContentSource {
+		
+		/** The next. */
 		private final ContentSource next;
+		
+		/** The buffer. */
 		private final char[] buffer;
+		
+		/** The position. */
 		private final int position;
+		
+		/** The limit. */
 		private final int limit;
 
+		/**
+		 * Instantiates a new content source.
+		 *
+		 * @param next the next
+		 * @param buffer the buffer
+		 * @param position the position
+		 * @param limit the limit
+		 */
 		ContentSource(ContentSource next, char[] buffer, int position, int limit) {
 			this.next = next;
 			this.buffer = buffer;
@@ -2146,6 +2566,8 @@ public class XMLParser implements XmlPullParser, Closeable {
 	/**
 	 * Prepends the characters of {@code newBuffer} to be read before the
 	 * current buffer.
+	 *
+	 * @param newBuffer the new buffer
 	 */
 	private void pushContentSource(char[] newBuffer) {
 		nextContentSource = new ContentSource(nextContentSource, buffer, position, limit);
@@ -2164,66 +2586,105 @@ public class XMLParser implements XmlPullParser, Closeable {
 		nextContentSource = nextContentSource.next;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#hasText()
+	 */
 	@Override
 	public boolean hasText() {
 		return StringUtils.hasText(getText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementText()
+	 */
 	@Override
 	public String getElementText() throws IOException {
 		return nextText();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementAsBoolean()
+	 */
 	@Override
 	public boolean getElementAsBoolean() throws IOException {
 		return Boolean.parseBoolean(nextText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementAsInt()
+	 */
 	@Override
 	public int getElementAsInt() throws Exception {
 		return Integer.parseInt(nextText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementAsLong()
+	 */
 	@Override
 	public long getElementAsLong() throws Exception {
 		return Long.parseLong(nextText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementAsFloat()
+	 */
 	@Override
 	public float getElementAsFloat() throws Exception {
 		return Float.parseFloat(nextText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementAsDouble()
+	 */
 	@Override
 	public double getElementAsDouble() throws Exception {
 		return Double.parseDouble(nextText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementAsInteger()
+	 */
 	@Override
 	public BigInteger getElementAsInteger() throws Exception {
 		return new BigInteger(nextText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementAsDecimal()
+	 */
 	@Override
 	public BigDecimal getElementAsDecimal() throws Exception {
 		return new BigDecimal(nextText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#isEmptyElement()
+	 */
 	@Override
 	public boolean isEmptyElement() {
 		return isEmptyElementTag();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getElementAsBinary()
+	 */
 	@Override
 	public byte[] getElementAsBinary() throws IOException {
 		return Base64Utils.decode(nextText());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeAsDecimal(int)
+	 */
 	@Override
 	public BigDecimal getAttributeAsDecimal(int index) {
 		return new BigDecimal(getAttributeValue(index).trim());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.xml.XmlPullParser#getAttributeAsInteger(int)
+	 */
 	@Override
 	public BigInteger getAttributeAsInteger(int index) {
 		return new BigInteger(getAttributeValue(index).trim());

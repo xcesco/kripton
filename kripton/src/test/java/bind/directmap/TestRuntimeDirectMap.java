@@ -30,8 +30,17 @@ import com.abubusoft.kripton.map.BindMapVisitor.VisitorStatusType;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntimeDirectMap.
+ */
 public class TestRuntimeDirectMap extends AbstractBaseTest {
 
+	/**
+	 * Test run.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun() throws Exception {
 		KriptonJsonContext context = KriptonBinder.jsonBind();

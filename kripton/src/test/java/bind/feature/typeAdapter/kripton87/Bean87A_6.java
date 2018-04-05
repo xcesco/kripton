@@ -20,17 +20,24 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean87A_6.
+ */
 @BindType
 public class Bean87A_6 {
 
+	/** The attribute string. */
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	@BindAdapter(adapter = StringUrlTypeAdapter.class)
 	public String attributeString;
 
+	/** The element string. */
 	@BindXml(xmlType = XmlType.TAG)
 	@BindAdapter(adapter = StringUrlTypeAdapter.class)
 	public String elementString;
 
+	/** The data string. */
 	@BindXml(xmlType = XmlType.VALUE)
 	@BindAdapter(adapter = StringUrlTypeAdapter.class)
 	public String dataString;

@@ -26,11 +26,16 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime72A_1.
+ */
 public class TestRuntime72A_1 extends AbstractBaseTest {
 
 	/**
-	 * Test all elements filled
-	 * @throws Exception 
+	 * Test all elements filled.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testAllFilledRun() throws Exception {

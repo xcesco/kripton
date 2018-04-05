@@ -19,20 +19,28 @@ import com.abubusoft.kripton.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class KriptonYamlContext.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonYamlContext extends AbstractJacksonContext {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#getSupportedFormat()
+	 */
 	@Override
 	public BinderType getSupportedFormat()
 	{
 		return BinderType.YAML;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.AbstractJacksonContext#createInnerFactory()
+	 */
 	@Override
-	public JsonFactory createInnerFactory()
+	protected JsonFactory createInnerFactory()
 	{
 		return new YAMLFactory();
 	}

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton;
 
 import java.io.File;
@@ -9,6 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Binder context is interface used to define a persistence context. Every
@@ -19,17 +35,14 @@ import java.util.Map;
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-/**
- * @author Francesco Benincasa (info@abubusoft.com)
- *
- */
 public interface BinderContext {
 
 	/**
 	 * return true if class can be persisted.
-	 * 
+	 *
 	 * @param cls
-	 * @return
+	 *            the cls
+	 * @return true or false
 	 */
 	boolean canPersist(Class<?> cls);
 
@@ -47,7 +60,9 @@ public interface BinderContext {
 	 * Parse a byte array to create an instance of <code>objectClazz</code>
 	 * class.
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            byte array as input
 	 * @param objectClazz
@@ -60,7 +75,9 @@ public interface BinderContext {
 	 * <p>
 	 * Parse a file to create an instance of <code>objectClazz</code> class.
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param objectClazz
@@ -74,7 +91,9 @@ public interface BinderContext {
 	 * Parse an input stream to create an instance of <code>objectClazz</code>
 	 * class.
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param objectClazz
@@ -87,7 +106,9 @@ public interface BinderContext {
 	 * <p>
 	 * Use a reader to create an instance of <code>objectClazz</code> class.
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param objectClazz
@@ -100,8 +121,10 @@ public interface BinderContext {
 	 * <p>
 	 * Parse a string to create an instance of <code>objectClazz</code> class.
 	 * </p>
-	 * 
-	 * @param source
+	 *
+	 * @param <E>
+	 *            the element type
+	 * @param buffer
 	 *            input
 	 * @param objectClazz
 	 *            class of object to create
@@ -113,7 +136,11 @@ public interface BinderContext {
 	 * <p>
 	 * Parse a string to fill a collection of <code>objectClazz</code> instance.
 	 * </p>
-	 * 
+	 *
+	 * @param <L>
+	 *            the generic type
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param collection
@@ -130,7 +157,11 @@ public interface BinderContext {
 	 * Parse a byte array to fill a collection of <code>objectClazz</code>
 	 * instance.
 	 * </p>
-	 * 
+	 *
+	 * @param <L>
+	 *            the generic type
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param collection
@@ -147,7 +178,11 @@ public interface BinderContext {
 	 * Parse an inputstream to fill a collection of <code>objectClazz</code>
 	 * instance.
 	 * </p>
-	 * 
+	 *
+	 * @param <L>
+	 *            the generic type
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param collection
@@ -163,7 +198,11 @@ public interface BinderContext {
 	 * <p>
 	 * Use a reader to fill a collection of <code>objectClazz</code> instance.
 	 * </p>
-	 * 
+	 *
+	 * @param <L>
+	 *            the generic type
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param collection
@@ -180,7 +219,9 @@ public interface BinderContext {
 	 * Parse a byte array to create and populate a list of
 	 * <code>objectClazz</code> instance.
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param objectClazz
@@ -194,7 +235,9 @@ public interface BinderContext {
 	 * Parse a string to create and populate a list of <code>objectClazz</code>
 	 * instance.
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param objectClazz
@@ -211,7 +254,7 @@ public interface BinderContext {
 	 * 
 	 * @param source
 	 *            input
-	 * @return map of key/value.</code>
+	 * @return map of key/value.
 	 */
 	Map<String, Object> parseMap(String source);
 
@@ -223,7 +266,7 @@ public interface BinderContext {
 	 * 
 	 * @param source
 	 *            input
-	 * @return map of key/value.</code>
+	 * @return map of key/value.
 	 */
 	Map<String, Object> parseMap(InputStream source);
 
@@ -235,7 +278,7 @@ public interface BinderContext {
 	 * 
 	 * @param source
 	 *            input
-	 * @return map of key/value.</code>
+	 * @return map of key/value.
 	 */
 	Map<String, Object> parseMap(Reader source);
 
@@ -244,7 +287,9 @@ public interface BinderContext {
 	 * Parse a inputstream to create and populate a list of
 	 * <code>objectClazz</code> instance.
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param objectClazz
@@ -258,7 +303,9 @@ public interface BinderContext {
 	 * Use a reader to create and populate a list of <code>objectClazz</code>
 	 * instance.
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param source
 	 *            input
 	 * @param objectClazz
@@ -272,7 +319,9 @@ public interface BinderContext {
 	 * Serialize on a string the object passed as parameter. The used data
 	 * format is the one supported by the binding context
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param object
 	 *            object to serialize
 	 * @return output
@@ -284,7 +333,9 @@ public interface BinderContext {
 	 * Serialize on a file the object passed as parameter. The used data format
 	 * is the one supported by the binding context
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param object
 	 *            object to serialize
 	 * @param output
@@ -297,7 +348,9 @@ public interface BinderContext {
 	 * Serialize on an outputstream the object passed as parameter. The used
 	 * data format is the one supported by the binding context
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param object
 	 *            object to serialize
 	 * @param output
@@ -310,7 +363,9 @@ public interface BinderContext {
 	 * Serialize on an writer the object passed as parameter. The used data
 	 * format is the one supported by the binding context
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param object
 	 *            object to serialize
 	 * @param output
@@ -323,12 +378,13 @@ public interface BinderContext {
 	 * Serialize a collection on a string. The used data format is the one
 	 * supported by the binding context
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param list
 	 *            list to serialize
 	 * @param objectClazz
 	 *            type of object to persist
-	 * 
 	 * @return output
 	 */
 	<E> String serializeCollection(Collection<E> list, Class<E> objectClazz);
@@ -338,14 +394,15 @@ public interface BinderContext {
 	 * Serialize a collection on an output stream. The used data format is the
 	 * one supported by the binding context
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param list
 	 *            list to serialize
 	 * @param objectClazz
 	 *            type of object to persist
 	 * @param output
 	 *            output
-	 * 
 	 */
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, OutputStream output);
 
@@ -354,14 +411,15 @@ public interface BinderContext {
 	 * Serialize a collection on an file. The used data format is the one
 	 * supported by the binding context
 	 * </p>
-	 * 
+	 *
+	 * @param <E>
+	 *            the element type
 	 * @param list
 	 *            list to serialize
 	 * @param objectClazz
 	 *            type of object to persist
 	 * @param output
 	 *            output
-	 * 
 	 */
 	<E> void serializeCollection(Collection<E> list, Class<E> objectClazz, File output);
 

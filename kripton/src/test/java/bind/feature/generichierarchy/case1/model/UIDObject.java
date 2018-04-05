@@ -17,6 +17,7 @@ package bind.feature.generichierarchy.case1.model;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
 /**
  * Classe che rappresenta un oggetto identificabile da un UID.
  * 
@@ -25,12 +26,18 @@ import java.io.Serializable;
  */
 public class UIDObject implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5883323667838359782L;
 
+	/** The uid. */
 	protected String uid;
 
+	/** The update time. */
 	protected long updateTime;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -50,14 +57,27 @@ public class UIDObject implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Gets the uid.
+	 *
+	 * @return the uid
+	 */
 	public String getUid() {
 		return uid;
 	}
 
+	/**
+	 * Gets the update time.
+	 *
+	 * @return the update time
+	 */
 	public long getUpdateTime() {
 		return updateTime;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,14 +87,27 @@ public class UIDObject implements Serializable {
 		return result;
 	}
 	
+	/**
+	 * Sets the uid.
+	 *
+	 * @param uid the new uid
+	 */
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
 
+	/**
+	 * Sets the update time.
+	 *
+	 * @param updateTime the new update time
+	 */
 	public void setUpdateTime(long updateTime) {
 		this.updateTime = updateTime;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "UIDObject [uid=" + uid + ", updateTime=" + updateTime + "]";

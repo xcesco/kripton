@@ -22,14 +22,21 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean81L.
+ */
 @BindType
 public class Bean81L {
 	
+	/** The id. */
 	public long id;
 	
+	/** The value big decimal. */
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BigDecimal valueBigDecimal;
 	
+	/** The value big integer. */
 	@BindXml(xmlType=XmlType.VALUE_CDATA)
 	public BigInteger valueBigInteger;
 		

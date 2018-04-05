@@ -19,19 +19,24 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MockKeyFrame.
+ */
 @BindType
 public class MockKeyFrame extends KeyFrame {
 		
+	/** The val. */
 	@Bind
 	public int val;
 	
 	/**
-	 * Costruisce frame
-	 * 
-	 * @param typeName
-	 * @param value
-	 * @param duration
-	 * @return
+	 * Costruisce frame.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 * @param duration the duration
+	 * @return the mock key frame
 	 */
 	public static MockKeyFrame build(String name, int value, long duration)
 	{

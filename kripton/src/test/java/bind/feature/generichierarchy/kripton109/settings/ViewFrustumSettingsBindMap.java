@@ -12,13 +12,18 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for ViewFrustumSettings
+ * This class is binder map for ViewFrustumSettings.
  *
  * @see ViewFrustumSettings
  */
 @BindMap(ViewFrustumSettings.class)
 public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettings> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(ViewFrustumSettings object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -59,6 +64,9 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(ViewFrustumSettings object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -96,7 +104,12 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(ViewFrustumSettings object, XMLSerializer xmlSerializer,
@@ -147,7 +160,11 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the view frustum settings
+   * @throws Exception the exception
    */
   @Override
   public ViewFrustumSettings parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -204,7 +221,11 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the view frustum settings
+   * @throws Exception the exception
    */
   @Override
   public ViewFrustumSettings parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -261,7 +282,12 @@ public class ViewFrustumSettingsBindMap extends AbstractMapper<ViewFrustumSettin
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the view frustum settings
+   * @throws Exception the exception
    */
   @Override
   public ViewFrustumSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws

@@ -23,8 +23,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime81C.
+ */
 public class TestRuntime81C extends AbstractBaseTest {
 
+	/**
+	 * Test runtime.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime() throws Exception {
 		assertTrue(Bean81CBindMap.class.getName()!=null);
@@ -36,6 +45,11 @@ public class TestRuntime81C extends AbstractBaseTest {
 		check(bean);
 	}
 
+	/**
+	 * Creates the bean.
+	 *
+	 * @return the bean 81 C
+	 */
 	private Bean81C createBean() {
 		Bean81C result=new Bean81C();
 		

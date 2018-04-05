@@ -17,7 +17,6 @@ package bind.kripton81MoreCoverageTests;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -25,8 +24,19 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime81A.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ */
 public class TestRuntime81A extends AbstractBaseTest {
 
+	/**
+	 * Test runtime.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime() throws Exception {
 		assertTrue(Bean81ABindMap.class.getName()!=null);
@@ -40,6 +50,11 @@ public class TestRuntime81A extends AbstractBaseTest {
 		check(bean);
 	}
 
+	/**
+	 * Creates the bean.
+	 *
+	 * @return the bean 81 A
+	 */
 	private Bean81A createBean() {
 		Bean81A result=new Bean81A();
 		

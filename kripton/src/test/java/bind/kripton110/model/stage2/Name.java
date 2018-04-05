@@ -18,12 +18,20 @@ package bind.kripton110.model.stage2;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Name.
+ */
 @BindType
 public class Name {
 
+	/** The common. */
 	public String common;
+	
+	/** The official. */
 	public String official;
 
+	/** The native. */
 	@Bind("native")
 	public Native _native;
 

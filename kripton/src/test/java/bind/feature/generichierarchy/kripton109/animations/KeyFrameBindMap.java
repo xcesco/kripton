@@ -11,13 +11,18 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for KeyFrame
+ * This class is binder map for KeyFrame.
  *
  * @see KeyFrame
  */
 @BindMap(KeyFrame.class)
 public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(KeyFrame object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -39,6 +44,9 @@ public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(KeyFrame object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -61,7 +69,12 @@ public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(KeyFrame object, XMLSerializer xmlSerializer, int currentEventType)
@@ -86,7 +99,11 @@ public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the key frame
+   * @throws Exception the exception
    */
   @Override
   public KeyFrame parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -123,7 +140,11 @@ public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the key frame
+   * @throws Exception the exception
    */
   @Override
   public KeyFrame parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -160,7 +181,12 @@ public class KeyFrameBindMap extends AbstractMapper<KeyFrame> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the key frame
+   * @throws Exception the exception
    */
   @Override
   public KeyFrame parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

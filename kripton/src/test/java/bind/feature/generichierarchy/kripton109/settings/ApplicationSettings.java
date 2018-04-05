@@ -18,39 +18,55 @@ package bind.feature.generichierarchy.kripton109.settings;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationSettings.
+ */
 @BindType
 public class ApplicationSettings {
 
+	/**
+	 * Instantiates a new application settings.
+	 */
 	public ApplicationSettings() {
 		resetConfig = false;
 		gestureListenerClazz = "org.abubu.argon.android.listener.ArgonGestureDefaultListenerImpl";
 		upgradePolicyClazz = "org.abubu.elio.application.ApplicationUpgradePolicyImpl";
 	}
 
+	/** The activity clazz. */
 	@Bind("applicationActivityClazz")
 	public String activityClazz;
 
+	/** The clazz. */
 	@Bind("applicationClazz")
 	public String clazz;
 
+	/** The config clazz. */
 	@Bind("applicationConfigClazz")
 	public String configClazz;
 
+	/** The reset config. */
 	@Bind("applicationResetConfig")
 	public Boolean resetConfig;
 
+	/** The gesture listener clazz. */
 	@Bind("applicationGestureListenerClazz")
 	public String gestureListenerClazz;
 
+	/** The upgrade policy clazz. */
 	@Bind("applicationUpgradePolicyClazz")
 	public String upgradePolicyClazz;
 
+	/** The splash screen timeout. */
 	@Bind("applicationSplashScreenTimeout")
 	public int splashScreenTimeout = 3000;
 
+	/** The startup task clazz. */
 	@Bind("applicationStartupTaskClazz")
 	public String startupTaskClazz;
 
+	/** The mode. */
 	@Bind("applicationMode")
 	public ModeType mode;
 

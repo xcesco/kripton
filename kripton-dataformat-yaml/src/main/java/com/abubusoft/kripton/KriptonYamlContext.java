@@ -17,7 +17,7 @@ public class KriptonYamlContext extends AbstractJacksonContext {
 	}
 	
 	@Override
-	public JsonFactory createInnerFactory()
+	protected JsonFactory createInnerFactory()
 	{
 		return new YAMLFactory();
 	}

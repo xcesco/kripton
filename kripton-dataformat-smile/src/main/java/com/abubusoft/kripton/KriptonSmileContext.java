@@ -16,7 +16,7 @@ public class KriptonSmileContext extends AbstractJacksonContext {
 	}
 	
 	@Override
-	public JsonFactory createInnerFactory()
+	protected JsonFactory createInnerFactory()
 	{
 		return new SmileFactory();
 	}

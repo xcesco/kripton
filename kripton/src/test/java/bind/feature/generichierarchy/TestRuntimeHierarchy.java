@@ -22,8 +22,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntimeHierarchy.
+ */
 public class TestRuntimeHierarchy extends AbstractBaseTest {
 
+	/**
+	 * Test run.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun() throws Exception {
 		Channel channel=new Channel();

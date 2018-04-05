@@ -28,8 +28,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime81GHILMNOP.
+ */
 public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 
+	/**
+	 * Creates the bean G.
+	 *
+	 * @return the bean 81 G
+	 */
 	private Bean81G createBeanG() {
 		Bean81G result=new Bean81G();
 		
@@ -39,6 +48,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean H.
+	 *
+	 * @return the bean 81 H
+	 */
 	private Bean81H createBeanH() {
 		Bean81H result=new Bean81H();
 		
@@ -48,6 +62,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean I.
+	 *
+	 * @return the bean 81 I
+	 */
 	private Bean81I createBeanI() {
 		Bean81I result=new Bean81I();
 		
@@ -57,6 +76,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean L.
+	 *
+	 * @return the bean 81 L
+	 */
 	private Bean81L createBeanL() {
 		Bean81L result=new Bean81L();
 		
@@ -66,6 +90,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean M.
+	 *
+	 * @return the bean 81 M
+	 */
 	private Bean81M createBeanM() {
 		Bean81M result=new Bean81M();
 		
@@ -75,6 +104,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean N.
+	 *
+	 * @return the bean 81 N
+	 */
 	private Bean81N createBeanN() {
 		Bean81N result=new Bean81N();
 		
@@ -84,6 +118,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean O.
+	 *
+	 * @return the bean 81 O
+	 */
 	private Bean81O createBeanO() {
 		Bean81O result=new Bean81O();
 		
@@ -93,6 +132,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean P.
+	 *
+	 * @return the bean 81 P
+	 */
 	private Bean81P createBeanP() {
 		Bean81P result=new Bean81P();
 		
@@ -102,6 +146,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return result;
 	}
 
+	/**
+	 * Creates the bean R.
+	 *
+	 * @return the bean 81 R
+	 */
 	private Bean81R createBeanR() {
 		Bean81R bean = new Bean81R();
 		
@@ -114,6 +163,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return bean;
 	}
 	
+	/**
+	 * Creates the bean S.
+	 *
+	 * @return the bean 81 S
+	 */
 	private Bean81S createBeanS() {
 		Bean81S bean = new Bean81S();
 		
@@ -126,6 +180,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return bean;
 	}
 	
+	/**
+	 * Creates the bean T.
+	 *
+	 * @return the bean 81 T
+	 */
 	private Bean81T createBeanT() {
 		Bean81T bean = new Bean81T();
 		
@@ -138,6 +197,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return bean;
 	}
 	
+	/**
+	 * Creates the bean U.
+	 *
+	 * @return the bean 81 U
+	 */
 	private Bean81U createBeanU() {
 		Bean81U bean = new Bean81U();
 		
@@ -150,6 +214,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		return bean;
 	}
 	
+	/**
+	 * Test runtime G.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeG() throws Exception {
 		assertTrue(Bean81GBindMap.class.getName()!=null);
@@ -164,6 +233,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	
+	/**
+	 * Test runtime H.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeH() throws Exception {
 		assertTrue(Bean81HBindMap.class.getName()!=null);
@@ -178,6 +252,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 	}
 	
 	
+	/**
+	 * Test runtime I.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeI() throws Exception {
 		assertTrue(Bean81IBindMap.class.getName()!=null);
@@ -191,6 +270,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime L.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeL() throws Exception {
 		assertTrue(Bean81LBindMap.class.getName()!=null);
@@ -204,6 +288,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime M.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeM() throws Exception  {
 		assertTrue(Bean81MBindMap.class.getName()!=null);
@@ -217,6 +306,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime N.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeN() throws Exception  {
 		assertTrue(Bean81NBindMap.class.getName()!=null);
@@ -230,6 +324,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime O.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeO() throws Exception  {
 		assertTrue(Bean81OBindMap.class.getName()!=null);
@@ -243,6 +342,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime P.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeP() throws Exception  {
 		assertTrue(Bean81PBindMap.class.getName()!=null);
@@ -256,6 +360,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 
+	/**
+	 * Test runtime R.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeR() throws Exception  {
 		assertTrue(Bean81RBindMap.class.getName()!=null);
@@ -271,6 +380,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime S.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeS() throws Exception  {
 		assertTrue(Bean81SBindMap.class.getName()!=null);
@@ -286,6 +400,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime T.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeT() throws Exception  {
 		assertTrue(Bean81TBindMap.class.getName()!=null);
@@ -301,6 +420,11 @@ public class TestRuntime81GHILMNOP extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime U.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntimeU() throws Exception  {
 		assertTrue(Bean81UBindMap.class.getName()!=null);

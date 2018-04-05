@@ -19,8 +19,19 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntimeEnum.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ */
 public class TestRuntimeEnum extends AbstractBaseTest {
 
+	/**
+	 * Test run.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun() throws Exception {
 		Bean bean = new Bean();

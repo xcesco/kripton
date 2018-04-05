@@ -10,21 +10,24 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Native
+ * This class is binder map for Native.
  *
  * @see Native
  */
 @BindMap(Native.class)
 public class NativeBindMap extends AbstractMapper<Native> {
-  /**
-   * NldBindMap */
+  
+  /** NldBindMap. */
   private NldBindMap nldBindMap = BinderUtils.mapperFor(Nld.class);
 
-  /**
-   * PapBindMap */
+  /** PapBindMap. */
   private PapBindMap papBindMap = BinderUtils.mapperFor(Pap.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(Native object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -50,6 +53,9 @@ public class NativeBindMap extends AbstractMapper<Native> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(Native object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -81,7 +87,12 @@ public class NativeBindMap extends AbstractMapper<Native> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(Native object, XMLSerializer xmlSerializer, int currentEventType)
@@ -112,7 +123,11 @@ public class NativeBindMap extends AbstractMapper<Native> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the native
+   * @throws Exception the exception
    */
   @Override
   public Native parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -151,7 +166,11 @@ public class NativeBindMap extends AbstractMapper<Native> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the native
+   * @throws Exception the exception
    */
   @Override
   public Native parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -190,7 +209,12 @@ public class NativeBindMap extends AbstractMapper<Native> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the native
+   * @throws Exception the exception
    */
   @Override
   public Native parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

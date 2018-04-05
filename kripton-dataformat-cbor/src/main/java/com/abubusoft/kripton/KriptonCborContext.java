@@ -16,7 +16,7 @@ public class KriptonCborContext extends AbstractJacksonContext {
 	}
 	
 	@Override
-	public JsonFactory createInnerFactory()
+	protected JsonFactory createInnerFactory()
 	{
 		return new CBORFactory();
 	}

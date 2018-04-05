@@ -19,20 +19,28 @@ import com.abubusoft.kripton.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.dataformat.javaprop.JavaPropsFactory;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class KriptonPropertiesContext.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonPropertiesContext extends AbstractJacksonContext {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#getSupportedFormat()
+	 */
 	@Override
 	public BinderType getSupportedFormat()
 	{
 		return BinderType.PROPERTIES;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.AbstractJacksonContext#createInnerFactory()
+	 */
 	@Override
-	public JsonFactory createInnerFactory()
+	protected JsonFactory createInnerFactory()
 	{
 		return new JavaPropsFactory();
 	}

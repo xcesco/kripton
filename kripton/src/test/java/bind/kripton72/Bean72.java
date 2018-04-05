@@ -24,68 +24,107 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean72.
+ */
 @BindType
 public class Bean72 {
 	
+	/**
+	 * Instantiates a new bean 72.
+	 */
 	public Bean72()
 	{
 		
 	}
 	
+	/**
+	 * Instantiates a new bean 72.
+	 *
+	 * @param name the name
+	 */
 	public Bean72(String name)
 	{
 		this.name=name;
 	}
 	
+	/** The name. */
 	public String name;
 	
+	/** The value bean set. */
 	@BindXml(elementTag="item")
 	public HashSet<Bean72> valueBeanSet;
 	
+	/** The value big decimal set. */
 	@Bind(enabled=true)
 	public HashSet<BigDecimal> valueBigDecimalSet;
 	
+	/** The value big integer set. */
 	@Bind(enabled=true)
 	@BindXml(elementTag="item")
 	public HashSet<BigInteger> valueBigIntegerSet;
 	
+	/** The value byte set. */
 	@BindXml(elementTag="item")
 	public Set<Byte> valueByteSet;
 	
+	/** The value character set. */
 	@BindXml(elementTag="item")
 	public HashSet<Character> valueCharacterSet;
 	
+	/** The value double set. */
 	@BindXml(elementTag="item")
 	public Set<Double> valueDoubleSet;
 	
+	/** The value enum set. */
 	public HashSet<Enum72> valueEnumSet;
 	
+	/** The value float set. */
 	@BindXml(elementTag="item")
 	public Set<Float> valueFloatSet;
 	
+	/** The value int set. */
 	@BindXml(elementTag="item")
 	private Set<Integer> valueIntSet;
 	
+	/**
+	 * Gets the value int set.
+	 *
+	 * @return the value int set
+	 */
 	public Set<Integer> getValueIntSet() {
 		return valueIntSet;
 	}
 
+	/**
+	 * Sets the value int set.
+	 *
+	 * @param valueIntSet the new value int set
+	 */
 	public void setValueIntSet(Set<Integer> valueIntSet) {
 		this.valueIntSet = valueIntSet;
 	}
 
+	/** The value long set. */
 	@BindXml(elementTag="item")
 	public Set<Long> valueLongSet;
 
+	/** The value short set. */
 	@BindXml(elementTag="item")
 	public Set<Short> valueShortSet;
 	
+	/** The value string set. */
 	@BindXml(elementTag="item")
 	public Set<String> valueStringSet;
 	
+	/** The zalue string final. */
 	@Bind(enabled=true)
 	public String zalueStringFinal;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -107,6 +146,9 @@ public class Bean72 {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

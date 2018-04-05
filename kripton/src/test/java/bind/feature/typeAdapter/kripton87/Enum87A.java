@@ -18,10 +18,18 @@
  */
 package bind.feature.typeAdapter.kripton87;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Enum Enum87A.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public enum Enum87A {
-	VALUE_1, VALUE_2, VALUE_3;
+	
+	/** The value 1. */
+	VALUE_1, 
+ /** The value 2. */
+ VALUE_2, 
+ /** The value 3. */
+ VALUE_3;
 }

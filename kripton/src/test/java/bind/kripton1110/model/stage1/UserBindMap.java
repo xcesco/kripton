@@ -32,25 +32,27 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for User
+ * This class is binder map for User.
  *
  * @see User
  */
 @BindMap(User.class)
 public class UserBindMap extends AbstractMapper<User> {
-  /**
-   * FriendBindMap */
+  
+  /** FriendBindMap. */
   private FriendBindMap friendBindMap = BinderUtils.mapperFor(Friend.class);
 
-  /**
-   * ImageBindMap */
+  /** ImageBindMap. */
   private ImageBindMap imageBindMap = BinderUtils.mapperFor(Image.class);
 
-  /**
-   * NameBindMap */
+  /** NameBindMap. */
   private NameBindMap nameBindMap = BinderUtils.mapperFor(Name.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(User object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -243,6 +245,9 @@ public class UserBindMap extends AbstractMapper<User> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(User object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -453,7 +458,12 @@ public class UserBindMap extends AbstractMapper<User> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(User object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -680,7 +690,11 @@ public class UserBindMap extends AbstractMapper<User> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the user
+   * @throws Exception the exception
    */
   @Override
   public User parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -875,7 +889,11 @@ public class UserBindMap extends AbstractMapper<User> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the user
+   * @throws Exception the exception
    */
   @Override
   public User parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -1092,7 +1110,12 @@ public class UserBindMap extends AbstractMapper<User> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the user
+   * @throws Exception the exception
    */
   @Override
   public User parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

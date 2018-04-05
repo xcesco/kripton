@@ -20,8 +20,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime42.
+ */
 public class TestRuntime42 extends AbstractBaseTest {
 
+	/**
+	 * Test run.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun() throws Exception {
 		Assert.assertNotNull(new RestaurantBindMap());

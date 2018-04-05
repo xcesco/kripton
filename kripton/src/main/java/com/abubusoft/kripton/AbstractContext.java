@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton;
 
 import java.io.File;
@@ -21,15 +36,28 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import com.fasterxml.jackson.core.util.BufferRecycler;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Abstract context. Contains basic method to work with persistence on different
+ * data formats.
+ * 
+ * @author Francesco Benincasa (info@abubusoft.com)
+ *
+ */
 public abstract class AbstractContext implements BinderContext {
 
+	/** The Constant buffer. */
 	static final ThreadLocal<BufferRecycler> buffer = new ThreadLocal<BufferRecycler>() {
 
 	};
 
+	/** The Constant OBJECT_MAPPERS. */
 	@SuppressWarnings("rawtypes")
 	static final Map<Class, BinderMapper> OBJECT_MAPPERS = new ConcurrentHashMap<>();
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#canPersist(java.lang.Class)
+	 */
 	public boolean canPersist(Class<?> cls) {
 		Object mapper = OBJECT_MAPPERS.get(cls);
 		if (mapper == null) {
@@ -41,7 +69,7 @@ public abstract class AbstractContext implements BinderContext {
 			try {
 				Class<?> mapperClass = (Class<?>) Class.forName(mapperClassName);
 				mapper = mapperClass.newInstance();
-				// mapper.				
+				// mapper.
 
 				return true;
 			} catch (ClassNotFoundException e) {
@@ -57,6 +85,14 @@ public abstract class AbstractContext implements BinderContext {
 
 	}
 
+	/**
+	 * Gets the mapper.
+	 *
+	 * @param <E> the element type
+	 * @param <M> the generic type
+	 * @param cls the cls
+	 * @return the mapper
+	 */
 	@SuppressWarnings("unchecked")
 	static <E, M extends BinderMapper<E>> M getMapper(Class<E> cls) {
 		M mapper = (M) OBJECT_MAPPERS.get(cls);
@@ -88,8 +124,11 @@ public abstract class AbstractContext implements BinderContext {
 	 * This method will be used by bean mapper to persists embedded objects.
 	 * </p>
 	 *
-	 * @param cls
-	 *            The class for which the JsonMapper should be fetched.
+	 * @param <T> the generic type
+	 * @param <M> the generic type
+	 * @param cls            The class for which the JsonMapper should be fetched.
+	 * @return the m
+	 * @throws NoSuchMapperException the no such mapper exception
 	 */
 	static <T, M extends BinderMapper<T>> M mapperFor(Class<T> cls) throws NoSuchMapperException {
 		M mapper = getMapper(cls);
@@ -101,26 +140,102 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
-	abstract ParserWrapper createParser(byte[] data);
+	/**
+	 * Create a parser. It need to be public because it is used in generated
+	 * classes.
+	 * 
+	 * @param data data
+	 * @return
+	 * 	parser
+	 */
+	public abstract ParserWrapper createParser(byte[] data);
 
-	abstract ParserWrapper createParser(File file);
+	/**
+	 * Create a parser. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param file the file
+	 * @return 	parser
+	 */
+	public abstract ParserWrapper createParser(File file);
 
-	abstract ParserWrapper createParser(InputStream in);
+	/**
+	 * Create a parser. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param in the in
+	 * @return 	parser
+	 */
+	public abstract ParserWrapper createParser(InputStream in);
 
-	abstract ParserWrapper createParser(Reader reader);
+	/**
+	 * Create a parser. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param reader the reader
+	 * @return 	parser
+	 */
+	public abstract ParserWrapper createParser(Reader reader);
 
-	abstract ParserWrapper createParser(String content);
+	/**
+	 * Create a parser. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param content the content
+	 * @return 	parser
+	 */
+	public abstract ParserWrapper createParser(String content);
 
-	abstract SerializerWrapper createSerializer(File file);
+	/**
+	 * Create a serializer. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param file the file
+	 * @return 	serializer
+	 */
+	public abstract SerializerWrapper createSerializer(File file);
 
-	abstract SerializerWrapper createSerializer(File file, JsonEncoding encoding);
+	/**
+	 * Create a serializer. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param file the file
+	 * @param encoding the encoding
+	 * @return 	serializer
+	 */	
+	public abstract SerializerWrapper createSerializer(File file, JsonEncoding encoding);
 
-	abstract SerializerWrapper createSerializer(OutputStream out);
+	/**
+	 * Create a serializer. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param out the out
+	 * @return 	serializer
+	 */
+	public abstract SerializerWrapper createSerializer(OutputStream out);
 
-	abstract SerializerWrapper createSerializer(OutputStream out, JsonEncoding encoding);
+	/**
+	 * Create a serializer. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param out the out
+	 * @param encoding the encoding
+	 * @return 	serializer
+	 */
+	public abstract SerializerWrapper createSerializer(OutputStream out, JsonEncoding encoding);
 
-	abstract SerializerWrapper createSerializer(Writer writer);
+	/**
+	 * Create a serializer. It need to be public because it is used in generated
+	 * classes.
+	 *
+	 * @param writer the writer
+	 * @return 	serializer
+	 */
+	public abstract SerializerWrapper createSerializer(Writer writer);
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parse(byte[], java.lang.Class)
+	 */
 	@Override
 	public <E> E parse(byte[] source, Class<E> objectClazz) {
 		try (ParserWrapper parserWrapper = createParser(source)) {
@@ -132,6 +247,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parse(java.io.File, java.lang.Class)
+	 */
 	@Override
 	public <E> E parse(File source, Class<E> objectClazz) {
 		try (ParserWrapper parserWrapper = createParser(source)) {
@@ -143,6 +261,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parse(java.io.InputStream, java.lang.Class)
+	 */
 	@Override
 	public <E> E parse(InputStream source, Class<E> objectClazz) {
 		try (ParserWrapper parserWrapper = createParser(source)) {
@@ -154,6 +275,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parse(java.io.Reader, java.lang.Class)
+	 */
 	@Override
 	public <E> E parse(Reader source, Class<E> objectClazz) {
 		try (ParserWrapper parserWrapper = createParser(source)) {
@@ -165,6 +289,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parse(java.lang.String, java.lang.Class)
+	 */
 	@Override
 	public <E> E parse(String source, Class<E> objectClazz) {
 		try (ParserWrapper parserWrapper = createParser(source)) {
@@ -176,6 +303,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseCollection(byte[], java.util.Collection, java.lang.Class)
+	 */
 	@Override
 	public <L extends Collection<E>, E> L parseCollection(byte[] source, L collection, Class<E> type) {
 		if (collection == null || type == null)
@@ -190,6 +320,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseCollection(java.io.InputStream, java.util.Collection, java.lang.Class)
+	 */
 	@Override
 	public <L extends Collection<E>, E> L parseCollection(InputStream source, L collection, Class<E> objectClazz) {
 		if (collection == null || objectClazz == null)
@@ -204,6 +337,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseCollection(java.io.Reader, java.util.Collection, java.lang.Class)
+	 */
 	@Override
 	public <L extends Collection<E>, E> L parseCollection(Reader source, L collection, Class<E> objectClazz) {
 		if (collection == null || objectClazz == null)
@@ -218,6 +354,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseCollection(java.lang.String, java.util.Collection, java.lang.Class)
+	 */
 	@Override
 	public <L extends Collection<E>, E> L parseCollection(String source, L collection, Class<E> type) {
 		if (collection == null || type == null)
@@ -232,26 +371,41 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseList(byte[], java.lang.Class)
+	 */
 	@Override
 	public <E> List<E> parseList(byte[] source, Class<E> objectClazz) {
 		return parseCollection(source, new ArrayList<E>(), objectClazz);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseList(java.io.InputStream, java.lang.Class)
+	 */
 	@Override
 	public <E> List<E> parseList(InputStream source, Class<E> objectClazz) {
 		return parseCollection(source, new ArrayList<E>(), objectClazz);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseList(java.io.Reader, java.lang.Class)
+	 */
 	@Override
 	public <E> List<E> parseList(Reader source, Class<E> objectClazz) {
 		return parseCollection(source, new ArrayList<E>(), objectClazz);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseList(java.lang.String, java.lang.Class)
+	 */
 	@Override
 	public <E> List<E> parseList(String source, Class<E> objectClazz) {
 		return parseCollection(source, new ArrayList<E>(), objectClazz);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseMap(java.io.InputStream)
+	 */
 	@Override
 	public Map<String, Object> parseMap(InputStream source) {
 		Map<String, Object> map = new LinkedHashMap<>();
@@ -265,6 +419,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseMap(java.io.Reader)
+	 */
 	@Override
 	public Map<String, Object> parseMap(Reader source) {
 		Map<String, Object> map = new LinkedHashMap<>();
@@ -278,6 +435,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#parseMap(java.lang.String)
+	 */
 	@Override
 	public Map<String, Object> parseMap(String source) {
 		Map<String, Object> map = new LinkedHashMap<>();
@@ -291,6 +451,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#serialize(java.lang.Object)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> String serialize(E object) {
@@ -309,6 +472,9 @@ public abstract class AbstractContext implements BinderContext {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#serialize(java.lang.Object, java.io.File)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> void serialize(E object, File output) {
@@ -323,6 +489,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#serialize(java.lang.Object, java.io.OutputStream)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> void serialize(E object, OutputStream source) {
@@ -337,6 +506,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#serialize(java.lang.Object, java.io.Writer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E> void serialize(E object, Writer output) {
@@ -351,6 +523,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#serializeCollection(java.util.Collection, java.lang.Class)
+	 */
 	@Override
 	public <E> String serializeCollection(Collection<E> collection, Class<E> objectClazz) {
 		if (collection == null)
@@ -366,6 +541,9 @@ public abstract class AbstractContext implements BinderContext {
 		return source.getAndClear();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#serializeCollection(java.util.Collection, java.lang.Class, java.io.File)
+	 */
 	@Override
 	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, File output) {
 		if (collection == null)
@@ -379,6 +557,9 @@ public abstract class AbstractContext implements BinderContext {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#serializeCollection(java.util.Collection, java.lang.Class, java.io.OutputStream)
+	 */
 	@Override
 	public <E> void serializeCollection(Collection<E> collection, Class<E> objectClazz, OutputStream output) {
 		if (collection == null)
