@@ -24,13 +24,19 @@ import com.abubusoft.kripton.xml.XmlType;
 
 import bind.feature.generichierarchy.kripton109.settings.logger.ElioLoggerLevelType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LoggerSettings.
+ */
 @BindType
 public class LoggerSettings {
 
+	/** The level. */
 	@Bind
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public ElioLoggerLevelType level = ElioLoggerLevelType.NONE;
 
+	/** The appenders. */
 	@Bind
 	@BindXml
 	public ArrayList<LoggerAppenderSettings> appenders = new ArrayList<LoggerAppenderSettings>();

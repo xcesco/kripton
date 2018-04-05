@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton60;
 
 import com.abubusoft.kripton.BinderUtils;
@@ -23,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Bean</code> is associated to table <code>bean</code>
@@ -31,27 +47,14 @@ import java.util.Set;
  *  @see Bean
  */
 public class BeanTable implements SQLiteTable {
-  /**
-   * Costant represents typeName of table bean
-   */
+  
+  /** Costant represents typeName of table bean. */
   public static final String TABLE_NAME = "bean";
 
-  /**
-   * <p>
-   * DDL to create table bean
-   * </p>
-   *
-   * <pre>CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
-   */
+  /** <p> DDL to create table bean </p>  <pre>CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean (value_bool_type INTEGER, value_bool INTEGER, value_byte_type INTEGER, value_byte INTEGER, value_short_type INTEGER, value_short INTEGER, value_int_type INTEGER, value_int INTEGER, value_string TEXT, value_char_type INTEGER, value_char INTEGER, value_float_type REAL, value_float REAL, value_big_integer TEXT, value_big_decimal TEXT, value_enum_type TEXT, value_long_type INTEGER, value_long INTEGER, value_double_type REAL, value_double REAL, value_locale TEXT, value_calendar TEXT, value_date TEXT, value_url TEXT, value_time TEXT, value_currency TEXT, value_time_zone TEXT, value_time_list BLOB, value_strin_list BLOB, value_long_list BLOB, value_byte_array BLOB, value_long_type_array BLOB, value_long_array BLOB, value_bean_array BLOB, value_string_array BLOB, value_char_list BLOB, value_char_type_array BLOB, value_char_array BLOB, value_map_string_bean BLOB, value_linked_map_string_bean BLOB, value_set_string BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT);";
 
-  /**
-   * <p>
-   * DDL to drop table bean
-   * </p>
-   *
-   * <pre>DROP TABLE IF EXISTS bean;</pre>
-   */
+  /** <p> DDL to drop table bean </p>  <pre>DROP TABLE IF EXISTS bean;</pre>. */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean;";
 
   /**
@@ -348,17 +351,17 @@ public class BeanTable implements SQLiteTable {
    */
   public static final String COLUMN_ID = "id";
 
-  /**
-   * BeanBindMap */
+  /** BeanBindMap. */
   private static BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_VALUE_BOOL_TYPE, COLUMN_VALUE_BOOL, COLUMN_VALUE_BYTE_TYPE, COLUMN_VALUE_BYTE, COLUMN_VALUE_SHORT_TYPE, COLUMN_VALUE_SHORT, COLUMN_VALUE_INT_TYPE, COLUMN_VALUE_INT, COLUMN_VALUE_STRING, COLUMN_VALUE_CHAR_TYPE, COLUMN_VALUE_CHAR, COLUMN_VALUE_FLOAT_TYPE, COLUMN_VALUE_FLOAT, COLUMN_VALUE_BIG_INTEGER, COLUMN_VALUE_BIG_DECIMAL, COLUMN_VALUE_ENUM_TYPE, COLUMN_VALUE_LONG_TYPE, COLUMN_VALUE_LONG, COLUMN_VALUE_DOUBLE_TYPE, COLUMN_VALUE_DOUBLE, COLUMN_VALUE_LOCALE, COLUMN_VALUE_CALENDAR, COLUMN_VALUE_DATE, COLUMN_VALUE_URL, COLUMN_VALUE_TIME, COLUMN_VALUE_CURRENCY, COLUMN_VALUE_TIME_ZONE, COLUMN_VALUE_TIME_LIST, COLUMN_VALUE_STRIN_LIST, COLUMN_VALUE_LONG_LIST, COLUMN_VALUE_BYTE_ARRAY, COLUMN_VALUE_LONG_TYPE_ARRAY, COLUMN_VALUE_LONG_ARRAY, COLUMN_VALUE_BEAN_ARRAY, COLUMN_VALUE_STRING_ARRAY, COLUMN_VALUE_CHAR_LIST, COLUMN_VALUE_CHAR_TYPE_ARRAY, COLUMN_VALUE_CHAR_ARRAY, COLUMN_VALUE_MAP_STRING_BEAN, COLUMN_VALUE_LINKED_MAP_STRING_BEAN, COLUMN_VALUE_SET_STRING, COLUMN_ID};
 
   /**
-   * for attribute valueTimeList serialization
+   * for attribute valueTimeList serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueTimeList(List<Time> value) {
     if (value==null) {
@@ -395,7 +398,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueTimeList parsing
+   * for attribute valueTimeList parsing.
+   *
+   * @param input the input
+   * @return the list
    */
   public static List<Time> parseValueTimeList(byte[] input) {
     if (input==null) {
@@ -429,7 +435,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueStrinList serialization
+   * for attribute valueStrinList serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueStrinList(LinkedList<String> value) {
     if (value==null) {
@@ -466,7 +475,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueStrinList parsing
+   * for attribute valueStrinList parsing.
+   *
+   * @param input the input
+   * @return the linked list
    */
   public static LinkedList<String> parseValueStrinList(byte[] input) {
     if (input==null) {
@@ -500,7 +512,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueLongList serialization
+   * for attribute valueLongList serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueLongList(LinkedList<Long> value) {
     if (value==null) {
@@ -537,7 +552,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueLongList parsing
+   * for attribute valueLongList parsing.
+   *
+   * @param input the input
+   * @return the linked list
    */
   public static LinkedList<Long> parseValueLongList(byte[] input) {
     if (input==null) {
@@ -571,21 +589,30 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueByteArray serialization
+   * for attribute valueByteArray serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueByteArray(byte[] value) {
     return value;
   }
 
   /**
-   * for attribute valueByteArray parsing
+   * for attribute valueByteArray parsing.
+   *
+   * @param input the input
+   * @return the byte[]
    */
   public static byte[] parseValueByteArray(byte[] input) {
     return input;
   }
 
   /**
-   * for attribute valueLongTypeArray serialization
+   * for attribute valueLongTypeArray serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueLongTypeArray(long[] value) {
     if (value==null) {
@@ -618,7 +645,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueLongTypeArray parsing
+   * for attribute valueLongTypeArray parsing.
+   *
+   * @param input the input
+   * @return the long[]
    */
   public static long[] parseValueLongTypeArray(byte[] input) {
     if (input==null) {
@@ -652,7 +682,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueLongArray serialization
+   * for attribute valueLongArray serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueLongArray(Long[] value) {
     if (value==null) {
@@ -689,7 +722,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueLongArray parsing
+   * for attribute valueLongArray parsing.
+   *
+   * @param input the input
+   * @return the long[]
    */
   public static Long[] parseValueLongArray(byte[] input) {
     if (input==null) {
@@ -723,7 +759,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueBeanArray serialization
+   * for attribute valueBeanArray serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueBeanArray(Bean[] value) {
     if (value==null) {
@@ -760,7 +799,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueBeanArray parsing
+   * for attribute valueBeanArray parsing.
+   *
+   * @param input the input
+   * @return the bean[]
    */
   public static Bean[] parseValueBeanArray(byte[] input) {
     if (input==null) {
@@ -794,7 +836,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueStringArray serialization
+   * for attribute valueStringArray serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueStringArray(String[] value) {
     if (value==null) {
@@ -831,7 +876,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueStringArray parsing
+   * for attribute valueStringArray parsing.
+   *
+   * @param input the input
+   * @return the string[]
    */
   public static String[] parseValueStringArray(byte[] input) {
     if (input==null) {
@@ -865,7 +913,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueCharList serialization
+   * for attribute valueCharList serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueCharList(LinkedList<Character> value) {
     if (value==null) {
@@ -902,7 +953,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueCharList parsing
+   * for attribute valueCharList parsing.
+   *
+   * @param input the input
+   * @return the linked list
    */
   public static LinkedList<Character> parseValueCharList(byte[] input) {
     if (input==null) {
@@ -936,7 +990,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueCharTypeArray serialization
+   * for attribute valueCharTypeArray serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueCharTypeArray(char[] value) {
     if (value==null) {
@@ -969,7 +1026,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueCharTypeArray parsing
+   * for attribute valueCharTypeArray parsing.
+   *
+   * @param input the input
+   * @return the char[]
    */
   public static char[] parseValueCharTypeArray(byte[] input) {
     if (input==null) {
@@ -1003,7 +1063,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueCharArray serialization
+   * for attribute valueCharArray serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueCharArray(Character[] value) {
     if (value==null) {
@@ -1040,7 +1103,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueCharArray parsing
+   * for attribute valueCharArray parsing.
+   *
+   * @param input the input
+   * @return the character[]
    */
   public static Character[] parseValueCharArray(byte[] input) {
     if (input==null) {
@@ -1074,7 +1140,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueMapStringBean serialization
+   * for attribute valueMapStringBean serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueMapStringBean(Map<String, Bean> value) {
     if (value==null) {
@@ -1116,7 +1185,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueMapStringBean parsing
+   * for attribute valueMapStringBean parsing.
+   *
+   * @param input the input
+   * @return the map
    */
   public static Map<String, Bean> parseValueMapStringBean(byte[] input) {
     if (input==null) {
@@ -1155,7 +1227,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueLinkedMapStringBean serialization
+   * for attribute valueLinkedMapStringBean serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueLinkedMapStringBean(LinkedHashMap<String, Bean> value) {
     if (value==null) {
@@ -1197,7 +1272,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueLinkedMapStringBean parsing
+   * for attribute valueLinkedMapStringBean parsing.
+   *
+   * @param input the input
+   * @return the linked hash map
    */
   public static LinkedHashMap<String, Bean> parseValueLinkedMapStringBean(byte[] input) {
     if (input==null) {
@@ -1236,7 +1314,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueSetString serialization
+   * for attribute valueSetString serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueSetString(Set<String> value) {
     if (value==null) {
@@ -1270,7 +1351,10 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueSetString parsing
+   * for attribute valueSetString parsing.
+   *
+   * @param input the input
+   * @return the sets the
    */
   public static Set<String> parseValueSetString(byte[] input) {
     if (input==null) {
@@ -1304,7 +1388,9 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -1312,7 +1398,9 @@ public class BeanTable implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

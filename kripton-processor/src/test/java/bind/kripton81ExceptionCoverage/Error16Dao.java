@@ -21,9 +21,19 @@ import java.util.List;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Error16Dao.
+ */
 @BindDao(Error16Bean.class)
 public interface Error16Dao {
 
+	/**
+	 * Select all.
+	 *
+	 * @param date the date
+	 * @return the list
+	 */
 	@BindSqlSelect(excludedFields = { "date1" }, where = "date=${date}")
 	public List<Error16Bean> selectAll(Date date);
 }

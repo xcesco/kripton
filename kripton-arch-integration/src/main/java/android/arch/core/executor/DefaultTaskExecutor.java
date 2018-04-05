@@ -24,22 +24,36 @@ import android.support.annotation.RestrictTo;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+// TODO: Auto-generated Javadoc
 /**
- * @hide
+ * The Class DefaultTaskExecutor.
+ *
+ * 
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class DefaultTaskExecutor extends TaskExecutor {
+    
+    /** The m lock. */
     private final Object mLock = new Object();
+    
+    /** The m disk IO. */
     private ExecutorService mDiskIO = Executors.newFixedThreadPool(2);
 
+    /** The m main handler. */
     @Nullable
     private volatile Handler mMainHandler;
 
+    /* (non-Javadoc)
+     * @see android.arch.core.executor.TaskExecutor#executeOnDiskIO(java.lang.Runnable)
+     */
     @Override
     public void executeOnDiskIO(Runnable runnable) {
         mDiskIO.execute(runnable);
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.core.executor.TaskExecutor#postToMainThread(java.lang.Runnable)
+     */
     @Override
     public void postToMainThread(Runnable runnable) {
         if (mMainHandler == null) {
@@ -53,6 +67,9 @@ public class DefaultTaskExecutor extends TaskExecutor {
         mMainHandler.post(runnable);
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.core.executor.TaskExecutor#isMainThread()
+     */
     @Override
     public boolean isMainThread() {
         return Looper.getMainLooper().getThread() == Thread.currentThread();

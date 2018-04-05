@@ -21,12 +21,21 @@ import org.junit.Test;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author xcesco
+ * The Class Test93.
  *
+ * @author xcesco
  */
 public class Test93 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {		
 		buildDataSourceProcessorTest(Bean93DataSource.class, Bean93Dao.class, Bean93.class);

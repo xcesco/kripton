@@ -24,18 +24,33 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CalendarUtils.
+ */
 public class CalendarUtils {
 
+	/** The full. */
 	public static String FULL = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
+	/** The long. */
 	public static String LONG = "yyyy-MM-dd HH:mm:ss z";
 
+	/** The normal. */
 	public static String NORMAL = "yyyy-MM-dd z";
 
+	/** The short. */
 	public static String SHORT = "yyyy-MM-dd";
 
+	/** The time zone. */
 	public static String TIME_ZONE = "GMT";
 	
+	/**
+	 * Read.
+	 *
+	 * @param value the value
+	 * @return the calendar
+	 */
 	public static Calendar read(String value) {
 		Date date=DateUtils.read(value);
 		
@@ -46,11 +61,23 @@ public class CalendarUtils {
 	}
 
 
+	/**
+	 * Write.
+	 *
+	 * @param value the value
+	 * @return the string
+	 */
 	public static String write(Calendar value) {
 		if (value==null) return null;
 		return DateUtils.write(value.getTime());
 	}
 
+	/**
+	 * Gets the pattern.
+	 *
+	 * @param text the text
+	 * @return the pattern
+	 */
 	static String getPattern(String text) {
 		int length = text.length();
 
@@ -66,14 +93,24 @@ public class CalendarUtils {
 		return SHORT;
 	}
 
+	/**
+	 * The Class ThreadLocalDateFormatter.
+	 */
 	public static class ThreadLocalDateFormatter {
 
+		/** The Constant FORMATTERS. */
 		private static final ThreadLocal<Map<String, DateFormat>> FORMATTERS = new ThreadLocal<Map<String, DateFormat>>() {
 			protected Map<String, DateFormat> initialValue() {
 				return new HashMap<String, DateFormat>();
 			}
 		};
 
+		/**
+		 * Gets the formatter.
+		 *
+		 * @param pattern the pattern
+		 * @return the formatter
+		 */
 		static private final DateFormat getFormatter(final String pattern) {
 			Map<String, DateFormat> formatterMap = FORMATTERS.get();
 			DateFormat df = formatterMap.get(pattern);
@@ -87,27 +124,22 @@ public class CalendarUtils {
 		}
 
 		/**
-		 * static public and thread-safe method to parse a date from the given string
-		 * 
-		 * @param strDate
-		 *            : input string to parse
-		 * @param pattern
-		 *            : date format pattern fo the input string
+		 * static public and thread-safe method to parse a date from the given string.
+		 *
+		 * @param strDate            : input string to parse
+		 * @param pattern            : date format pattern fo the input string
 		 * @return Date value of the input string
-		 * @throws ParseException
-		 *             if parse exception happened
+		 * @throws ParseException             if parse exception happened
 		 */
 		static public Date parse(final String strDate, final String pattern) throws ParseException {
 			return getFormatter(pattern).parse(strDate);
 		}
 
 		/**
-		 * A thread-safe method to format a given Date based-on the given pattern
-		 * 
-		 * @param theDate
-		 *            , Date to be formatted
-		 * @param pattern
-		 *            , pattern used to format the date
+		 * A thread-safe method to format a given Date based-on the given pattern.
+		 *
+		 * @param theDate            , Date to be formatted
+		 * @param pattern            , pattern used to format the date
 		 * @return String of formatted date
 		 */
 		static public String format(final Date theDate, final String pattern) {

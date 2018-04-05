@@ -19,21 +19,37 @@ import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class App4WithErrPreferences.
+ */
 @BindSharedPreferences
 public class App4WithErrPreferences {
 	
+	/** The field string public. */
 	@BindPreferenceAdapter(adapter=Set2ListTypeAdapter.class)
 	@BindPreference
 	public String fieldStringPublic;
 	
+	/** The field string private. */
 	@BindPreferenceAdapter(adapter=Set2ListTypeAdapter.class)
 	@BindPreference
 	private String fieldStringPrivate;
 
+	/**
+	 * Gets the field string private.
+	 *
+	 * @return the field string private
+	 */
 	public String getFieldStringPrivate() {
 		return fieldStringPrivate;
 	}
 
+	/**
+	 * Sets the field string private.
+	 *
+	 * @param fieldStringPrivate the new field string private
+	 */
 	public void setFieldStringPrivate(String fieldStringPrivate) {
 		this.fieldStringPrivate = fieldStringPrivate;
 	}

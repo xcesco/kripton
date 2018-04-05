@@ -33,14 +33,18 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class SelectBeanHelper.
+ *
  * @author Francesco Benincasa (info@abubusoft.com)
- *
- *
  * @since 17/mag/2016
  */
 public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generateSpecializedPart(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
+	 */
 	@Override
 	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder,  Set<JQLProjection> fieldList, boolean mapFields) {
 		SQLiteDaoDefinition daoDefinition=method.getParent();

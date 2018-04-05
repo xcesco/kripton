@@ -1,57 +1,59 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.rx.model;
 
 import android.database.Cursor;
 import java.util.LinkedList;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Cursor implementation for entity <code>Country</code>
- * </p>
- *  @see Country
+ * </p>.
+ *
+ * @see Country
  */
 public class BindCountryCursor {
-  /**
-   * Cursor used to read database
-   */
+  
+  /** Cursor used to read database. */
   protected Cursor cursor;
 
-  /**
-   * Index for column "id"
-   */
+  /** Index for column "id". */
   protected int index0;
 
-  /**
-   * Index for column "area"
-   */
+  /** Index for column "area". */
   protected int index1;
 
-  /**
-   * Index for column "code"
-   */
+  /** Index for column "code". */
   protected int index2;
 
-  /**
-   * Index for column "callingCode"
-   */
+  /** Index for column "callingCode". */
   protected int index3;
 
-  /**
-   * Index for column "region"
-   */
+  /** Index for column "region". */
   protected int index4;
 
-  /**
-   * Index for column "name"
-   */
+  /** Index for column "name". */
   protected int index5;
 
-  /**
-   * Index for column "translatedName"
-   */
+  /** Index for column "translatedName". */
   protected int index6;
 
   /**
-   * <p>Constructor</p>
+   * <p>Constructor</p>.
    *
    * @param cursor cursor used to read from database
    */
@@ -60,9 +62,10 @@ public class BindCountryCursor {
   }
 
   /**
-   * <p>Wrap cursor with this class</p>
+   * <p>Wrap cursor with this class</p>.
    *
    * @param cursor cursor to include
+   * @return the bind country cursor
    */
   public BindCountryCursor wrap(Cursor cursor) {
     this.cursor=cursor;
@@ -143,9 +146,10 @@ public class BindCountryCursor {
   }
 
   /**
-   * <p>Create a binded cursor starting from a cursor</p>
+   * <p>Create a binded cursor starting from a cursor</p>.
    *
    * @param cursor to wrap
+   * @return the bind country cursor
    */
   public static BindCountryCursor create(Cursor cursor) {
     return new BindCountryCursor(cursor);
@@ -153,10 +157,13 @@ public class BindCountryCursor {
 
   /**
    * <p>Listener for row read from database.</p>
+   *
+   * @see OnCountryEvent
    */
   public interface OnCountryListener {
+    
     /**
-     * Method executed for each row extracted from database
+     * Method executed for each row extracted from database.
      *
      * @param bean loaded from database. Only selected columns/fields are valorized
      * @param rowPosition position of row

@@ -21,12 +21,28 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.kripton48.entities.Bean02;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBean02.
+ */
 @BindDao(Bean02.class)
 public interface DaoBean02 {
 
+	/**
+	 * Select one.
+	 *
+	 * @param id the id
+	 * @return the bean 02
+	 */
 	@BindSqlSelect(where="id=${id}")
 	Bean02 selectOne(long id);
 	
+	/**
+	 * Delete one.
+	 *
+	 * @param id the id
+	 * @return the long
+	 */
 	@BindSqlDelete(where="id=${id}")
 	long deleteOne(long id);
 	

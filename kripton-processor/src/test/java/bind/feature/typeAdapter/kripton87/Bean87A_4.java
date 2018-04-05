@@ -20,17 +20,24 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean87A_4.
+ */
 @BindType
 public class Bean87A_4 {
 
+	/** The attribute boolean. */
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public boolean attributeBoolean;
 
+	/** The element boolean. */
 	@BindXml(xmlType = XmlType.TAG)
 	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public boolean elementBoolean;
 
+	/** The data boolean. */
 	@BindXml(xmlType = XmlType.VALUE)
 	@BindAdapter(adapter = BooleanBigDecimalTypeAdapter.class)
 	public boolean dataBoolean;

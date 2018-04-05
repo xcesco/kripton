@@ -16,6 +16,9 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+/**
+ * The Class ListPrefsTransformation.
+ */
 public class ListPrefsTransformation extends AbstractGeneratedPrefsTransform {
 
 }

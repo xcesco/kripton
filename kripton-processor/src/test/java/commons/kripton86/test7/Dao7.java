@@ -18,9 +18,18 @@ package commons.kripton86.test7;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Dao7.
+ */
 @BindDao(Bean7.class)
 public interface Dao7 {
 
+	/**
+	 * Select all.
+	 *
+	 * @return the bean 7
+	 */
 	@BindSqlSelect
 	Bean7 selectAll();
 		

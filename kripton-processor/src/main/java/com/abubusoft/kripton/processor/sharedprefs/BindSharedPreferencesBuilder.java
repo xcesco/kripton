@@ -59,26 +59,34 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class BindSharedPreferencesBuilder.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class BindSharedPreferencesBuilder {
 
+	/** The Constant PREFIX. */
 	protected static final String PREFIX = "Bind";
 
+	/** The Constant SUFFIX_SHARED_PREFERENCE. */
 	protected static final String SUFFIX_SHARED_PREFERENCE = "SharedPreferences";
 	
+	/** The Constant SUFFIX_PREFERENCE. */
 	protected static final String SUFFIX_PREFERENCE = "Preferences";
 
+	/** The builder. */
 	protected static Builder builder;
 
 	/**
-	 * Generate shared preference manager
-	 * 
+	 * Generate shared preference manager.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param entity the entity
 	 * @return typeName of generated class
-	 * 
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String generate(Elements elementUtils, Filer filer, PrefsEntity entity) throws IOException {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
@@ -169,9 +177,9 @@ public abstract class BindSharedPreferencesBuilder {
 	
 
 	/**
-	 * create editor
-	 * 
-	 * @param entity
+	 * create editor.
+	 *
+	 * @param entity the entity
 	 */
 	private static void generateEditor(PrefsEntity entity) {
 		com.abubusoft.kripton.common.Converter<String, String> converter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
@@ -203,9 +211,9 @@ public abstract class BindSharedPreferencesBuilder {
 	}
 
 	/**
-	 * Generate instance of shared preferences
-	 * 
-	 * @param className
+	 * Generate instance of shared preferences.
+	 *
+	 * @param className the class name
 	 */
 	private static void generateInstance(String className) {
 		builder.addField(FieldSpec.builder(className(className), "instance", Modifier.PRIVATE, Modifier.STATIC).addJavadoc("instance of shared preferences\n").build());
@@ -221,8 +229,10 @@ public abstract class BindSharedPreferencesBuilder {
 	}
 
 	/**
-	 * @param sharedPreferenceName
-	 * @param beanClassName
+	 * Generate constructor.
+	 *
+	 * @param sharedPreferenceName the shared preference name
+	 * @param beanClassName the bean class name
 	 */
 	private static void generateConstructor(String sharedPreferenceName, String beanClassName) {
 		MethodSpec.Builder method = MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).addJavadoc("constructor\n");
@@ -240,8 +250,10 @@ public abstract class BindSharedPreferencesBuilder {
 	}
 	
 	/**
-	 * @param sharedPreferenceName
-	 * @param beanClassName
+	 * Generate refresh.
+	 *
+	 * @param sharedPreferenceName the shared preference name
+	 * @param className the class name
 	 */
 	private static void generateRefresh(String sharedPreferenceName, String className) {
 		MethodSpec.Builder method = MethodSpec.methodBuilder("refresh").addModifiers(Modifier.PUBLIC).addJavadoc("force to refresh values\n").returns(className(className));
@@ -256,6 +268,11 @@ public abstract class BindSharedPreferencesBuilder {
 		builder.addMethod(method.build());
 	}
 
+	/**
+	 * Generate reset method.
+	 *
+	 * @param entity the entity
+	 */
 	private static void generateResetMethod(PrefsEntity entity) {
 		// write method
 		MethodSpec.Builder method = MethodSpec.methodBuilder("reset").addModifiers(Modifier.PUBLIC).addJavadoc("reset shared preferences\n").returns(Void.TYPE);
@@ -265,7 +282,9 @@ public abstract class BindSharedPreferencesBuilder {
 	}
 
 	/**
-	 * @param entity
+	 * Generate write method.
+	 *
+	 * @param entity the entity
 	 */
 	private static void generateWriteMethod(PrefsEntity entity) {
 		// write method
@@ -289,6 +308,11 @@ public abstract class BindSharedPreferencesBuilder {
 		builder.addMethod(method.build());
 	}
 
+	/**
+	 * Generate read method.
+	 *
+	 * @param entity the entity
+	 */
 	private static void generateReadMethod(PrefsEntity entity) {
 		// read method
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("read").addModifiers(Modifier.PUBLIC).addJavadoc("read bean entirely\n\n").addJavadoc("@return read bean\n").returns(typeName(entity.getName()));
@@ -312,6 +336,11 @@ public abstract class BindSharedPreferencesBuilder {
 		builder.addMethod(methodBuilder.build());
 	}
 
+	/**
+	 * Generate single read method.
+	 *
+	 * @param entity the entity
+	 */
 	private static void generateSingleReadMethod(PrefsEntity entity) {
 		// read method
 		PrefsTransform transform;

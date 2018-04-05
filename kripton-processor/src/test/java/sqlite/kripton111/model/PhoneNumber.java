@@ -18,19 +18,29 @@ package sqlite.kripton111.model;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PhoneNumber.
+ */
 @BindType
 @BindTable(indexes={"actionType"})
 public class PhoneNumber {
 
+    /** The id. */
     public long id;
 
+    /** The action type. */
     public ActionType actionType;
 
+    /** The number. */
     public String number;
 
+    /** The country code. */
     public String countryCode;
 
+    /** The contact name. */
     public String contactName;
 
+    /** The contact id. */
     public String contactId;
 }

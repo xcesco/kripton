@@ -15,6 +15,11 @@
  *******************************************************************************/
 package sqlite.kripton58;
 
+/**
+ * The Interface BaseDao.
+ *
+ * @param <E> the element type
+ */
 public interface BaseDao<E> {
 /*
 	@BindSelect(where="id=${id}")

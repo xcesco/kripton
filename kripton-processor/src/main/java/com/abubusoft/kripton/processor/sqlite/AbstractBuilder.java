@@ -21,13 +21,31 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.TypeSpec.Builder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractBuilder.
+ */
 public abstract class AbstractBuilder {
 	
+	/** The element utils. */
 	protected Elements elementUtils;
+	
+	/** The filer. */
 	protected Filer filer;
+	
+	/** The class builder. */
 	protected Builder classBuilder;
+	
+	/** The model. */
 	protected SQLiteDatabaseSchema model;
 	
+	/**
+	 * Instantiates a new abstract builder.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param model the model
+	 */
 	public AbstractBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		this.model=model;
 		this.elementUtils = elementUtils;

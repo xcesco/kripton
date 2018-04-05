@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.abubusoft.kripton.common.UrlUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.net.URL object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.UrlUtils;
  */
 public class UrlBindTransform extends WrappedBindTransform {
 
+	/**
+	 * Instantiates a new url bind transform.
+	 */
 	public UrlBindTransform() {
 		super(UrlUtils.class);
 	}

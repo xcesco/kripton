@@ -23,10 +23,19 @@ import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundExcepti
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileErr2.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileErr2 extends AbstractBindSQLiteProcessorTest {
 	
 	
+	/**
+	 * Test must work.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test 
 	public void test_must_work() throws Throwable {
 		this.expectedException(MethodParameterNotFoundException.class);

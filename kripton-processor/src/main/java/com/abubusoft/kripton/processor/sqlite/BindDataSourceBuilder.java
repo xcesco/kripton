@@ -88,31 +88,41 @@ import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.subjects.PublishSubject;
 
+// TODO: Auto-generated Javadoc
 /**
- * Generates database class
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Generates database class.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BindDataSourceBuilder extends AbstractBuilder {
 
+	/** The Constant DATA_SOURCE_SINGLE_THREAD_NAME. */
 	private static final String DATA_SOURCE_SINGLE_THREAD_NAME = "DataSourceSingleThread";
 
+	/** The Constant PREFIX. */
 	public static final String PREFIX = "Bind";
 
+	/** The Constant SUFFIX. */
 	public static final String SUFFIX = "DataSource";
 
+	/**
+	 * Instantiates a new bind data source builder.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param model the model
+	 */
 	public BindDataSourceBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
 	/**
-	 * Generate database
-	 * 
-	 * @param elementUtils
-	 * @param filer
-	 * @param schema
-	 * @throws Exception
+	 * Generate database.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @throws Exception the exception
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindDaoFactoryBuilder visitor = new BindDaoFactoryBuilder(elementUtils, filer, schema);
@@ -126,9 +136,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param schema
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * Generate schema.
+	 *
+	 * @param schema the schema
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private static void generateSchema(SQLiteDatabaseSchema schema) throws FileNotFoundException, IOException {
 		// when we run in JUNIT of Kripton, we don't have to generate schemas
@@ -166,6 +178,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		bw.close();
 	}
 
+	/**
+	 * Define file name.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	static String defineFileName(SQLiteDatabaseSchema model) {
 		int lastIndex = model.fileName.lastIndexOf(".");
 		String schemaName = model.fileName;
@@ -180,9 +198,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * Generate dataSource name
-	 * 
-	 * @param schema
+	 * Generate dataSource name.
+	 *
+	 * @param schema the schema
 	 * @return associated class name
 	 */
 	public static ClassName generateDataSourceName(SQLiteDatabaseSchema schema) {
@@ -195,6 +213,15 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		return ClassName.get(packageName, dataSourceName);
 	}
 
+	/**
+	 * Builds the data source.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @param daoFactoryName the dao factory name
+	 * @throws Exception the exception
+	 */
 	public void buildDataSource(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, String daoFactoryName) throws Exception {
 		ClassName daoFactoryClazz = className(daoFactoryName);
 		Converter<String, String> convert = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
@@ -341,7 +368,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param schema
+	 * Generate constructor.
+	 *
+	 * @param schema the schema
 	 */
 	private void generateConstructor(SQLiteDatabaseSchema schema) {
 		// constructor
@@ -352,8 +381,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 	/**
 	 * Generate Dao's UID. If specified, prefix will be used to
-	 * @param classBuilder
-	 * @param schema
+	 *
+	 * @param classBuilder the class builder
+	 * @param schema the schema
 	 */
 	public static void generateDaoUids(TypeSpec.Builder classBuilder, SQLiteDatabaseSchema schema) {
 
@@ -364,6 +394,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 	}
 
+	/**
+	 * Generate data source single thread.
+	 *
+	 * @param schema the schema
+	 * @param dataSourceName the data source name
+	 */
 	private void generateDataSourceSingleThread(SQLiteDatabaseSchema schema, String dataSourceName) {
 		// class DataSourceSingleThread
 		String daoFactoryName = BindDaoFactoryBuilder.generateDaoFactoryName(schema);
@@ -456,6 +492,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 	}
 
+	/**
+	 * Extract dao field name for internal data source.
+	 *
+	 * @param dao the dao
+	 * @return the string
+	 */
 	private String extractDaoFieldNameForInternalDataSource(SQLiteDaoDefinition dao) {
 		return "_" + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getName());
 	}
@@ -463,7 +505,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate inner code for instance and build methods. Inspired by <a href="https://www.journaldev.com/171/thread-safety-in-java-singleton-classes-with-example-code">this link<</a>
 	 *
-	 * @param schemaName
+	 * @param schema the schema
+	 * @param schemaName the schema name
+	 * @param instance the instance
 	 */
 	private void generateInstanceOrBuild(SQLiteDatabaseSchema schema, String schemaName, boolean instance) {
 		// instance
@@ -532,9 +576,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param schema
-	 * @param methodBuilder
-	 * @param instance 
+	 * Generate populate.
+	 *
+	 * @param schema the schema
+	 * @param methodBuilder the method builder
+	 * @param instance the instance
 	 */
 	private void generatePopulate(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, boolean instance) {
 		
@@ -560,7 +606,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param schemaName
+	 * Generate open.
+	 *
+	 * @param schemaName the schema name
 	 */
 	private void generateOpen(String schemaName) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("open").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
@@ -577,7 +625,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param schemaName
+	 * Generate open read only.
+	 *
+	 * @param schemaName the schema name
 	 */
 	private void generateOpenReadOnly(String schemaName) {
 		// instance
@@ -595,8 +645,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param schema
-	 * @param orderedEntities
+	 * Generate on create.
+	 *
+	 * @param schema the schema
+	 * @param orderedEntities the ordered entities
+	 * @return true, if successful
 	 */
 	private boolean generateOnCreate(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
 		boolean useForeignKey = false;
@@ -670,8 +723,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param schema
-	 * @param orderedEntities
+	 * Generate on upgrade.
+	 *
+	 * @param schema the schema
+	 * @param orderedEntities the ordered entities
 	 */
 	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
@@ -773,7 +828,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param useForeignKey
+	 * Generate on configure.
+	 *
+	 * @param useForeignKey the use foreign key
 	 */
 	private void generateOnConfigure(boolean useForeignKey) {
 		// onConfigure
@@ -794,6 +851,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		classBuilder.addMethod(methodBuilder.build());
 	}
 
+	/**
+	 * Generate ordered entities list.
+	 *
+	 * @param schema the schema
+	 * @return the list
+	 */
 	private List<SQLiteEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
 		List<SQLiteEntity> entities = schema.getEntitiesAsList();
 		Collections.sort(entities, new Comparator<SQLiteEntity>() {
@@ -822,6 +885,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		return sorder.order();
 	}
 
+	/**
+	 * Generat execute transaction rx.
+	 *
+	 * @param dataSourceName the data source name
+	 * @param daoFactory the dao factory
+	 * @param rxType the rx type
+	 */
 	public void generatExecuteTransactionRx(ClassName dataSourceName, String daoFactory, RxType rxType) {
 		String parameterName = "transaction";
 		ParameterizedTypeName returnTypeName = ParameterizedTypeName.get(ClassName.get(rxType.clazz), TypeVariableName.get("T"));
@@ -873,6 +943,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 	}
 
+	/**
+	 * Generat execute batch rx.
+	 *
+	 * @param dataSourceName the data source name
+	 * @param daoFactory the dao factory
+	 * @param rxType the rx type
+	 */
 	public void generatExecuteBatchRx(ClassName dataSourceName, String daoFactory, RxType rxType) {
 		String parameterName = "batch";
 		// @formatter:off
@@ -959,10 +1036,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * <p>
 	 * Generate RX observable support
-	 * </p>
+	 * </p>.
 	 *
-	 * @param dataSourceName
-	 * @param daoFactory
+	 * @param dataSourceName the data source name
+	 * @param daoFactory the dao factory
 	 */
 	public void generateRx(ClassName dataSourceName, String daoFactory) {
 		classBuilder.addField(FieldSpec.builder(Scheduler.class, "globalSubscribeOn", Modifier.PROTECTED).build());
@@ -997,23 +1074,57 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 	}
 
+	/**
+	 * The Enum RxInterfaceType.
+	 */
 	private enum RxInterfaceType {
-		BATCH, TRANSACTION
+		
+		/** The batch. */
+		BATCH, 
+ /** The transaction. */
+ TRANSACTION
 	}
 
+	/**
+	 * The Enum RxType.
+	 */
 	private enum RxType {
-		OBSERVABLE(Observable.class, true), SINGLE(Single.class, false), MAYBE(Maybe.class, false), FLOWABLE(Flowable.class, true);
+		
+		/** The observable. */
+		OBSERVABLE(Observable.class, true), 
+ /** The single. */
+ SINGLE(Single.class, false), 
+ /** The maybe. */
+ MAYBE(Maybe.class, false), 
+ /** The flowable. */
+ FLOWABLE(Flowable.class, true);
 
+		/**
+		 * Instantiates a new rx type.
+		 *
+		 * @param clazz the clazz
+		 * @param onComplete the on complete
+		 */
 		private RxType(Class<?> clazz, boolean onComplete) {
 			this.clazz = clazz;
 			this.onComplete = onComplete;
 		}
 
+		/** The clazz. */
 		public Class<?> clazz;
+		
+		/** The on complete. */
 		public boolean onComplete;
 
 	}
 
+	/**
+	 * Generate rx interface.
+	 *
+	 * @param daoFactory the dao factory
+	 * @param interfaceType the interface type
+	 * @param clazz the clazz
+	 */
 	private void generateRxInterface(String daoFactory, RxInterfaceType interfaceType, Class<?> clazz) {
 		// create interfaces
 		{
@@ -1053,9 +1164,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * <p>
 	 * Generate transaction an execute method
-	 * </p>
+	 * </p>.
 	 *
-	 * @param daoFactory
+	 * @param daoFactory the dao factory
 	 */
 	public void generateMethodExecuteTransaction(String daoFactory) {
 		// create interface
@@ -1142,9 +1253,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * <p>
 	 * Generate transaction an execute method
-	 * </p>
+	 * </p>.
 	 *
-	 * @param daoFactory
+	 * @param daoFactory the dao factory
 	 */
 	public void generateMethodExecuteBatch(String daoFactory) {
 		// create interface

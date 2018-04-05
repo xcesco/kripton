@@ -23,9 +23,18 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.javadoc.delete.raw.DeleteRawPersonDao;
 import sqlite.feature.javadoc.delete.raw.DeleteRawPersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJavadocForDeleteRaw.
+ */
 @RunWith(JUnit4.class)
 public class TestJavadocForDeleteRaw extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile delete raw.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileDeleteRaw() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, DeleteRawPersonDao.class, DeleteRawPersonDataSource.class);

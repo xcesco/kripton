@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.speed;
 
 import java.util.ArrayList;
@@ -18,10 +33,17 @@ import sqlite.feature.speed.persistence.BindPersonDataSource;
 import sqlite.feature.speed.persistence.BindPersonDataSource.Transaction;
 import sqlite.feature.speed.persistence.PersonDaoImpl;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestSpeedRuntime.
+ */
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class TestSpeedRuntime extends BaseAndroidTest {
 
+	/**
+	 * Test single.
+	 */
 	@Test
 	public void testSingle() {
 		final One<Long> start = new One<>();
@@ -55,6 +77,9 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 
 	}
 
+	/**
+	 * Test transaction.
+	 */
 	@Test
 	public void testTransaction() {
 		final One<Long> start = new One<>();
@@ -101,6 +126,9 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 	}
 	
 	
+	/**
+	 * Test insert batch.
+	 */
 	@Test
 	public void testInsertBatch() {
 		final int ITEM_COUNTER=10;

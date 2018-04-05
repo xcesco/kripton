@@ -17,6 +17,9 @@ package bind.feature.generichierarchy.kripton109.animations;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+/**
+ * The Class Err2TiledMapAnimation.
+ */
 @BindType
 public class Err2TiledMapAnimation extends Parallel2Animation<TranslationFrame, TextureKeyFrame> {
 

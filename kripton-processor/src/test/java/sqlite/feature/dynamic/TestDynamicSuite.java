@@ -23,6 +23,9 @@ import sqlite.feature.dynamic.kripton121.Kripton121Test;
 import sqlite.feature.dynamic.select.SelectTest;
 import sqlite.feature.dynamic.update.UpdateTest;
 
+/**
+ * The Class TestDynamicSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

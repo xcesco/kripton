@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import java.math.BigInteger;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.math.BigInteger object
  * 
@@ -25,6 +26,9 @@ import java.math.BigInteger;
  */
 class BigIntegerPrefsTransform extends AbstractNumberPrefsTransform {
 	
+	/**
+	 * Instantiates a new big integer prefs transform.
+	 */
 	public BigIntegerPrefsTransform()
 	{
 		METHOD_CONVERSION="toString";

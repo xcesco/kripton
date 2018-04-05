@@ -22,20 +22,32 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.ClassName;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class NoDaoElementFound.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class NoDaoElementFound extends KriptonProcessorException {
 
+	/**
+	 * Instantiates a new no dao element found.
+	 */
 	public NoDaoElementFound() {
 		super(String.format("No bean with @%s annotation is present in to-compile sources", BindDao.class.getSimpleName().toString()));
 	}
 	
+	/**
+	 * Instantiates a new no dao element found.
+	 *
+	 * @param schema the schema
+	 * @param entityClassName the entity class name
+	 */
 	public NoDaoElementFound(SQLiteDatabaseSchema schema, ClassName entityClassName) {
 		super(String.format("No DAO definition found in data set '%s' for entity '%s'", schema.getElement().toString(), entityClassName.toString() ));
 	}
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 }

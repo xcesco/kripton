@@ -18,11 +18,17 @@
  */
 package bind.feature.generichierarchy.kripton109.settings;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa
+ * The Enum ProjectionType.
  *
+ * @author Francesco Benincasa
  */
 public enum ProjectionType {
+	
+	/** The orthogonal. */
 	ORTHOGONAL,
+	
+	/** The perspective. */
 	PERSPECTIVE;
 }

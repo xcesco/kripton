@@ -17,6 +17,9 @@ package sqlite.feature.paginatedResult;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface Person3DataSource.
+ */
 @BindDataSource(daoSet= { Dao3Person.class }, fileName = "person3.db", log=true)
 public interface Person3DataSource {
 

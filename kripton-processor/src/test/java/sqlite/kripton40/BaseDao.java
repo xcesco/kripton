@@ -18,11 +18,30 @@ package sqlite.kripton40;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface BaseDao.
+ *
+ * @param <E> the element type
+ */
 public interface BaseDao<E> {
 
+	/**
+	 * Select one.
+	 *
+	 * @param id the id
+	 * @return the e
+	 */
 	@BindSqlSelect(where="id=${id}")
 	E selectOne(long id);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param text the text
+	 * @param id the id
+	 * @return the long
+	 */
 	@BindSqlUpdate(where="id=${id}")
 	long updateOne(String text, long id);
 }

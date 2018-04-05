@@ -18,27 +18,23 @@ package shared.kripton47;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Security47.
+ */
 @BindType
 @BindSharedPreferences
 public class Security47 {
 
-    /**
-     * FCM-ID
-     */
+    /** FCM-ID. */
     public String fcmId;
 
-    /**
-     * Autorization token
-     */
+    /** Autorization token. */
     public DeviceAccessToken authorizationToken;
 
-    /**
-     * device UID
-     */
+    /** device UID. */
     public String deviceUid;
 
-    /**
-     * user identitfy
-     */
+    /** user identitfy. */
     public UserIdentity userIdentity;
 }

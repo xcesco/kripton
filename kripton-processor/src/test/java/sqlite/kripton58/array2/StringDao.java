@@ -25,33 +25,99 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface StringDao.
+ */
 @BindDao(StringBean.class)
 public interface StringDao {
 	
+	/**
+	 * Select one.
+	 *
+	 * @return the string bean
+	 */
 	@BindSqlSelect()
 	StringBean selectOne();	
 	
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the string bean
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	StringBean selectOne(String[] value, String[] value2);
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(String[] value, String[] value2, OnReadBeanListener<StringBean> listener);	
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(String[] value, String[] value2, OnReadCursorListener listener);
 	
+	/**
+	 * Select list.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<StringBean> selectList(String[] value, String[] value2);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, String[] value, String[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(long id, String[] value, String[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(StringBean bean);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlDelete(where = "value=${value} and value2=${value2}")
 	long delete(String[] value, String[] value2);
 	

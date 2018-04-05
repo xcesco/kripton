@@ -20,22 +20,36 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TextureRegion.
+ */
 @BindType
 public class TextureRegion {
 
+	/** The high X. */
 	@Bind
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public float highX;
+	
+	/** The low X. */
 	@Bind
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public float lowX;
+	
+	/** The high Y. */
 	@Bind
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public float highY;
+	
+	/** The low Y. */
 	@Bind
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public float lowY;
 
+	/**
+	 * Instantiates a new texture region.
+	 */
 	public TextureRegion() {
 		super();
 	}

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton63;
 
 import com.abubusoft.kripton.KriptonBinder;
@@ -14,6 +29,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Bean63</code> is associated to table <code>bean63</code>
@@ -22,27 +38,14 @@ import java.util.Map;
  *  @see Bean63
  */
 public class Bean63Table implements SQLiteTable {
-  /**
-   * Costant represents typeName of table bean63
-   */
+  
+  /** Costant represents typeName of table bean63. */
   public static final String TABLE_NAME = "bean63";
 
-  /**
-   * <p>
-   * DDL to create table bean63
-   * </p>
-   *
-   * <pre>CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_string_byte BLOB, value_map_enum_byte BLOB);</pre>
-   */
+  /** <p> DDL to create table bean63 </p>  <pre>CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_string_byte BLOB, value_map_enum_byte BLOB);</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_string_byte BLOB, value_map_enum_byte BLOB);";
 
-  /**
-   * <p>
-   * DDL to drop table bean63
-   * </p>
-   *
-   * <pre>DROP TABLE IF EXISTS bean63;</pre>
-   */
+  /** <p> DDL to drop table bean63 </p>  <pre>DROP TABLE IF EXISTS bean63;</pre>. */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean63;";
 
   /**
@@ -73,13 +76,14 @@ public class Bean63Table implements SQLiteTable {
    */
   public static final String COLUMN_VALUE_MAP_ENUM_BYTE = "value_map_enum_byte";
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE_MAP_STRING_BYTE, COLUMN_VALUE_MAP_ENUM_BYTE};
 
   /**
-   * for attribute valueMapStringByte serialization
+   * for attribute valueMapStringByte serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueMapStringByte(Map<String, Byte> value) {
     if (value==null) {
@@ -120,7 +124,10 @@ public class Bean63Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueMapStringByte parsing
+   * for attribute valueMapStringByte parsing.
+   *
+   * @param input the input
+   * @return the map
    */
   public static Map<String, Byte> parseValueMapStringByte(byte[] input) {
     if (input==null) {
@@ -159,7 +166,10 @@ public class Bean63Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueMapEnumByte serialization
+   * for attribute valueMapEnumByte serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValueMapEnumByte(HashMap<EnumType, Byte> value) {
     if (value==null) {
@@ -200,7 +210,10 @@ public class Bean63Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueMapEnumByte parsing
+   * for attribute valueMapEnumByte parsing.
+   *
+   * @param input the input
+   * @return the hash map
    */
   public static HashMap<EnumType, Byte> parseValueMapEnumByte(byte[] input) {
     if (input==null) {
@@ -242,7 +255,9 @@ public class Bean63Table implements SQLiteTable {
   }
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -250,7 +265,9 @@ public class Bean63Table implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

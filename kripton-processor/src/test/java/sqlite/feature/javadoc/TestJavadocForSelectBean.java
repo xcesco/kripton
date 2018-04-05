@@ -23,9 +23,18 @@ import sqlite.feature.javadoc.select.bean.SelectBeanPersonDao;
 import sqlite.feature.javadoc.select.bean.SelectBeanPersonDataSource;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJavadocForSelectBean.
+ */
 @RunWith(JUnit4.class)
 public class TestJavadocForSelectBean extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile select bean.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileSelectBean() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, SelectBeanPersonDao.class, SelectBeanPersonDataSource.class);

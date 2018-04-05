@@ -18,9 +18,18 @@ package sqlite.kripton38;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBean06.
+ */
 @BindDao(Bean06.class)
 public interface DaoBean06 {
 
+	/**
+	 * Delete one.
+	 *
+	 * @return the long
+	 */
 	@BindSqlDelete(where="pk=${idM}")
 	long deleteOne();
 	

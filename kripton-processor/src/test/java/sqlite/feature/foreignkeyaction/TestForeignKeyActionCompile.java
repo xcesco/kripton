@@ -23,13 +23,22 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class TestForeignKeyActionCompile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class TestForeignKeyActionCompile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test foreign key action.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testForeignKeyAction() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(BaseDao.class, Album.class, Artist.class, Track.class, AlbumDao.class, ArtistDao.class, TrackDao.class, ArtistDataSource.class);

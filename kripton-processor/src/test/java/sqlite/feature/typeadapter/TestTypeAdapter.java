@@ -21,9 +21,18 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestTypeAdapter.
+ */
 @RunWith(JUnit4.class)
 public class TestTypeAdapter extends AbstractBindSQLiteProcessorTest {
 	
+	/**
+	 * Test OK.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testOK() throws Throwable {
 		buildDataSourceProcessorTest(Contact.class, ContactDao.class, EnumAdapterType.class, ContactType.class, ContactDataSource.class, DateAdapterType.class, PasswordAdapterType.class);

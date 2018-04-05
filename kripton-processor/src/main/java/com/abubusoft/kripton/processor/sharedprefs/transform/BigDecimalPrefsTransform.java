@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import java.math.BigDecimal;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.math.BigDecimal object
  * 
@@ -25,6 +26,9 @@ import java.math.BigDecimal;
  */
 class BigDecimalPrefsTransform extends AbstractNumberPrefsTransform {
 	
+	/**
+	 * Instantiates a new big decimal prefs transform.
+	 */
 	public BigDecimalPrefsTransform()
 	{
 		METHOD_CONVERSION="toPlainString";

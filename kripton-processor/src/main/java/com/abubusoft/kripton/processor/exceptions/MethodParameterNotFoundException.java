@@ -17,12 +17,23 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MethodParameterNotFoundException.
+ */
 public class MethodParameterNotFoundException extends KriptonProcessorException {
 
+	/**
+	 * Instantiates a new method parameter not found exception.
+	 *
+	 * @param method the method
+	 * @param paramName the param name
+	 */
 	public MethodParameterNotFoundException(SQLiteModelMethod method, String paramName) {
 		super(String.format("In class '%s', annotation of method '%s' uses method parameter '%s' that does not exists", method.getParent().getName(), method.getName(), paramName));
 	}
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8862365033337349246L;
 
 }

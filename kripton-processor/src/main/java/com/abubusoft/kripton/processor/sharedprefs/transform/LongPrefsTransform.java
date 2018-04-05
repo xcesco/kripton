@@ -15,11 +15,17 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
+// TODO: Auto-generated Javadoc
 /**
- *
+ * The Class LongPrefsTransform.
  */
 class LongPrefsTransform extends AbstractPrimitivePrefsTransform {
 	
+	/**
+	 * Instantiates a new long prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public LongPrefsTransform(boolean nullable)
 	{
 		super(nullable);

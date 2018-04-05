@@ -18,10 +18,9 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
 /**
- * Transformer between a base64 encoded string and a byte[]
- * 
- * @author xcesco
+ * Transformer between a base64 encoded string and a byte[].
  *
+ * @author xcesco
  */
 public class ByteArrayPrefsTransform extends AbstractGeneratedPrefsTransform {
 

@@ -45,21 +45,28 @@ import com.squareup.javapoet.TypeVariableName;
 
 import android.os.AsyncTask;
 
+// TODO: Auto-generated Javadoc
 /**
- * Utility class to generate async task for database operations
+ * Utility class to generate async task for database operations.
  */
 public class BindAsyncTaskBuilder {
 
+	/** The Constant PREFIX. */
 	public static final String PREFIX = "Bind";
 
+	/** The Constant SUFFIX. */
 	public static final String SUFFIX = "AsyncTask";
 
+	/** The builder. */
 	private static Builder builder;
 
 	/**
-	 * Generate async task for database operations
-	 * 
-	 * @throws IOException
+	 * Generate async task for database operations.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws IOException {
 		String className = schema.getName();

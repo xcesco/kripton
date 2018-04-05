@@ -17,9 +17,14 @@ package bind.bindenum;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ErrBean.
+ */
 @BindType
 public class ErrBean {
 
+	/** The level. */
 	public ErrLogLevel level;
 
 }

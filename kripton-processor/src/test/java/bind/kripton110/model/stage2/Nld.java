@@ -17,12 +17,18 @@ package bind.kripton110.model.stage2;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Nld.
+ */
 @BindType
 public class Nld {
 
 
+/** The official. */
 public String official;
 
+/** The common. */
 public String common;
 
 }

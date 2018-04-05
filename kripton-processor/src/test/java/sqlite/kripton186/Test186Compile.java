@@ -33,9 +33,20 @@ import sqlite.kripton186.persistence.PhoneDao;
 import sqlite.kripton186.persistence.PrefixConfigDao;
 import sqlite.kripton186.persistence.XenoDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test186Compile.
+ */
 @RunWith(JUnit4.class)
 public class Test186Compile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test database.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testDatabase() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(XenoDataSource.class, PrefixConfigDao.class,PhoneDao.class,CountryDao.class,AbstractDao.class,Translation.class,PrefixConfig.class,PhoneNumber.class,Country.class,ActionType.class);

@@ -23,9 +23,18 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.javadoc.insert.raw.InsertRawPersonDao;
 import sqlite.feature.javadoc.insert.raw.InsertRawPersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJavadocForInsertRaw.
+ */
 @RunWith(JUnit4.class)
 public class TestJavadocForInsertRaw extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile insert raw.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileInsertRaw() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, InsertRawPersonDao.class, InsertRawPersonDataSource.class);

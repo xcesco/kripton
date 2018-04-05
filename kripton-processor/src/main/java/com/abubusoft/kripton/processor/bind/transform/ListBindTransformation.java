@@ -20,8 +20,17 @@ import java.util.List;
 
 import com.squareup.javapoet.ParameterizedTypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ListBindTransformation.
+ */
 public class ListBindTransformation extends AbstractCollectionBindTransform {
 
+	/**
+	 * Instantiates a new list bind transformation.
+	 *
+	 * @param clazz the clazz
+	 */
 	public ListBindTransformation(ParameterizedTypeName clazz) {
 		super(clazz, CollectionType.LIST);
 		collectionClazz=List.class;

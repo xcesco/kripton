@@ -25,33 +25,99 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface FloatDao.
+ */
 @BindDao(FloatBean.class)
 public interface FloatDao {
 	
+	/**
+	 * Select one.
+	 *
+	 * @return the float bean
+	 */
 	@BindSqlSelect()
 	FloatBean selectOne();	
 	
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the float bean
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	FloatBean selectOne(float[] value, Float[] value2);
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(float[] value, Float[] value2, OnReadBeanListener<FloatBean> listener);	
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(float[] value, Float[] value2, OnReadCursorListener listener);
 	
+	/**
+	 * Select list.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<FloatBean> selectList(float[] value, Float[] value2);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, float[] value, Float[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(long id, float[] value, Float[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(FloatBean bean);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlDelete(where = "value=${value} and value2=${value2}")
 	long delete(float[] value, Float[] value2);
 	

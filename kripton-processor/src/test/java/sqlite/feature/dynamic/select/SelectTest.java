@@ -27,26 +27,37 @@ import sqlite.feature.dynamic.Person;
 import sqlite.feature.dynamic.select.PersonDAO;
 import sqlite.feature.dynamic.select.PersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SelectTest.
+ */
 @RunWith(JUnit4.class)
 public class SelectTest extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * No @BindType is put in bean definition
-	 * @throws Throwable 
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void test01() throws Throwable {
 		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
 	}
 	
+	/**
+	 * Test dynamic where on jql.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void test_dynamic_where_on_jql() throws Throwable {
 		buildDataSourceProcessorTest(Person2DataSource.class, PersonDAO2.class, Person.class);
 	}
 	
 	/**
-	 * Use <code>BindSqlWhere</code> in insert method
-	 * @throws Throwable
+	 * Use <code>BindSqlWhere</code> in insert method.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr1() throws Throwable {
@@ -55,8 +66,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlWhere</code> in twice in SELECT
-	 * @throws Throwable
+	 * Use <code>BindSqlWhere</code> in twice in SELECT.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr2() throws Throwable {
@@ -65,8 +77,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlWhere</code> with no String parameter
-	 * @throws Throwable
+	 * Use <code>BindSqlWhere</code> with no String parameter.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr3() throws Throwable {
@@ -75,8 +88,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlWhere</code> with no String parameter
-	 * @throws Throwable
+	 * Use <code>BindSqlWhere</code> with no String parameter.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr4() throws Throwable {
@@ -85,8 +99,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlWhere</code> in insert method
-	 * @throws Throwable
+	 * Use <code>BindSqlWhere</code> in insert method.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr5() throws Throwable {
@@ -95,8 +110,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlWhere</code> in twice in SELECT
-	 * @throws Throwable
+	 * Use <code>BindSqlWhere</code> in twice in SELECT.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr6() throws Throwable {
@@ -105,8 +121,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlOrderBy</code> in insert method
-	 * @throws Throwable
+	 * Use <code>BindSqlOrderBy</code> in insert method.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr11() throws Throwable {
@@ -115,8 +132,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlOrderBy</code> in twice in SELECT
-	 * @throws Throwable
+	 * Use <code>BindSqlOrderBy</code> in twice in SELECT.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr12() throws Throwable {
@@ -125,8 +143,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlOrderBy</code> with no String parameter
-	 * @throws Throwable
+	 * Use <code>BindSqlOrderBy</code> with no String parameter.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr13() throws Throwable {
@@ -135,8 +154,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlOrderBy</code> with no String parameter
-	 * @throws Throwable
+	 * Use <code>BindSqlOrderBy</code> with no String parameter.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr14() throws Throwable {
@@ -145,8 +165,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlOrderBy</code> in insert method
-	 * @throws Throwable
+	 * Use <code>BindSqlOrderBy</code> in insert method.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr15() throws Throwable {
@@ -155,8 +176,9 @@ public class SelectTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use <code>BindSqlOrderBy</code> in twice in SELECT
-	 * @throws Throwable
+	 * Use <code>BindSqlOrderBy</code> in twice in SELECT.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr16() throws Throwable {

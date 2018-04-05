@@ -25,9 +25,20 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.dynamic.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Person1DAO.
+ */
 @BindDao(Person.class)
 public interface Person1DAO {
 
+	/**
+	 * Select one.
+	 *
+	 * @param where the where
+	 * @param orderBy the order by
+	 * @return the list
+	 */
 	@BindSqlSelect
 	List<Person> selectOne(@BindSqlDynamicWhere String where, @BindSqlDynamicOrderBy String orderBy);
 	

@@ -28,12 +28,17 @@ import sqlite.feature.dynamic.Person;
 import sqlite.feature.dynamic.update.PersonUpdateDAO;
 import sqlite.feature.dynamic.update.PersonUpdateDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UpdateTest.
+ */
 @RunWith(JUnit4.class)
 public class UpdateTest extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * No @BindType is put in bean definition
-	 * @throws Throwable 
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testOK() throws Throwable {
@@ -41,9 +46,9 @@ public class UpdateTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use raw update without parameters
-	 * 
-	 * @throws Throwable
+	 * Use raw update without parameters.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr1() throws Throwable {
@@ -52,9 +57,9 @@ public class UpdateTest extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Use bean update without parameters
-	 * 
-	 * @throws Throwable
+	 * Use bean update without parameters.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr2() throws Throwable {

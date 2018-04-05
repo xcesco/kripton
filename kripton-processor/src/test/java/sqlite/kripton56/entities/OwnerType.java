@@ -15,6 +15,16 @@
  *******************************************************************************/
 package sqlite.kripton56.entities;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum OwnerType.
+ */
 public enum OwnerType {
-	USER_MESSAGE, FRIEND_MESSAGE, SYSTEM_MESSAGE
+	
+	/** The user message. */
+	USER_MESSAGE, 
+ /** The friend message. */
+ FRIEND_MESSAGE, 
+ /** The system message. */
+ SYSTEM_MESSAGE
 }

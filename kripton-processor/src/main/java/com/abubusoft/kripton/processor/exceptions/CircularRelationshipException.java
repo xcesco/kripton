@@ -20,17 +20,25 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class CircularRelationshipException.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class CircularRelationshipException extends KriptonProcessorException {
 
+	/**
+	 * Instantiates a new circular relationship exception.
+	 *
+	 * @param entity the entity
+	 */
 	public CircularRelationshipException(SQLiteEntity entity)
 	{			
 		super("Table definition "+entity.getTableName()+" is in a circular dependency");
 	}
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7836720045039133374L;
 
 }

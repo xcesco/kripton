@@ -16,14 +16,19 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Byte object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Byte object.
  *
+ * @author xcesco
  */
 class ByteBindTransform extends AbstractPrimitiveBindTransform {
 
+	/**
+	 * Instantiates a new byte bind transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public ByteBindTransform(boolean nullable) {
 		super(nullable);
 		

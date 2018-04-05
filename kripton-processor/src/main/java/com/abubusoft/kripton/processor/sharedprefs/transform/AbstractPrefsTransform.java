@@ -19,22 +19,30 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class AbstractPrefsTransform.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class AbstractPrefsTransform implements PrefsTransform {
 	
+	/**
+	 * Instantiates a new abstract prefs transform.
+	 *
+	 * @param typeAdapterAware the type adapter aware
+	 */
 	public AbstractPrefsTransform(boolean typeAdapterAware) {
 		this.typeAdapterAware=typeAdapterAware;
 	}
 	
+	/** The type adapter aware. */
 	private boolean typeAdapterAware;
 
 	/**
 	 * if true, transform can be used as type in a type adapter.
-	 * 
-	 * @return
+	 *
+	 * @return true, if is type adapter aware
 	 */
 	public boolean isTypeAdapterAware() {
 		return typeAdapterAware;

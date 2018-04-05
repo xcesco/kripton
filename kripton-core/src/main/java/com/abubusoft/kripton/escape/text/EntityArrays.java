@@ -16,6 +16,7 @@
  */
 package com.abubusoft.kripton.escape.text;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class holding various entity data for HTML and XML - generally for use with
  * the LookupTranslator.
@@ -31,6 +32,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] ISO8859_1_ESCAPE() { return ISO8859_1_ESCAPE.clone(); }
+    
+    /** The Constant ISO8859_1_ESCAPE. */
     private static final String[][] ISO8859_1_ESCAPE = {
         {"\u00A0", "&nbsp;"}, // non-breaking space
         {"\u00A1", "&iexcl;"}, // inverted exclamation mark
@@ -135,6 +138,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] ISO8859_1_UNESCAPE() { return ISO8859_1_UNESCAPE.clone(); }
+    
+    /** The Constant ISO8859_1_UNESCAPE. */
     private static final String[][] ISO8859_1_UNESCAPE = invert(ISO8859_1_ESCAPE);
 
     /**
@@ -144,6 +149,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] HTML40_EXTENDED_ESCAPE() { return HTML40_EXTENDED_ESCAPE.clone(); }
+    
+    /** The Constant HTML40_EXTENDED_ESCAPE. */
     private static final String[][] HTML40_EXTENDED_ESCAPE = {
         // <!-- Latin Extended-B -->
         {"\u0192", "&fnof;"}, // latin small f with hook = function= florin, U+0192 ISOtech -->
@@ -346,6 +353,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] HTML40_EXTENDED_UNESCAPE() { return HTML40_EXTENDED_UNESCAPE.clone(); }
+    
+    /** The Constant HTML40_EXTENDED_UNESCAPE. */
     private static final String[][] HTML40_EXTENDED_UNESCAPE = invert(HTML40_EXTENDED_ESCAPE);
 
     /**
@@ -355,6 +364,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] BASIC_ESCAPE() { return BASIC_ESCAPE.clone(); }
+    
+    /** The Constant BASIC_ESCAPE. */
     private static final String[][] BASIC_ESCAPE = {
         {"\"", "&quot;"}, // " - double-quote
         {"&", "&amp;"},   // & - ampersand
@@ -367,6 +378,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] BASIC_UNESCAPE() { return BASIC_UNESCAPE.clone(); }
+    
+    /** The Constant BASIC_UNESCAPE. */
     private static final String[][] BASIC_UNESCAPE = invert(BASIC_ESCAPE);
 
     /**
@@ -374,6 +387,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] APOS_ESCAPE() { return APOS_ESCAPE.clone(); }
+    
+    /** The Constant APOS_ESCAPE. */
     private static final String[][] APOS_ESCAPE = {
         {"'", "&apos;"}, // XML apostrophe
     };
@@ -383,6 +398,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] APOS_UNESCAPE() { return APOS_UNESCAPE.clone(); }
+    
+    /** The Constant APOS_UNESCAPE. */
     private static final String[][] APOS_UNESCAPE = invert(APOS_ESCAPE);
 
     /**
@@ -392,6 +409,8 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] JAVA_CTRL_CHARS_ESCAPE() { return JAVA_CTRL_CHARS_ESCAPE.clone(); }
+    
+    /** The Constant JAVA_CTRL_CHARS_ESCAPE. */
     private static final String[][] JAVA_CTRL_CHARS_ESCAPE = {
         {"\b", "\\b"},
         {"\n", "\\n"},
@@ -405,10 +424,13 @@ public class EntityArrays {
      * @return the mapping table
      */
     public static String[][] JAVA_CTRL_CHARS_UNESCAPE() { return JAVA_CTRL_CHARS_UNESCAPE.clone(); }
+    
+    /** The Constant JAVA_CTRL_CHARS_UNESCAPE. */
     private static final String[][] JAVA_CTRL_CHARS_UNESCAPE = invert(JAVA_CTRL_CHARS_ESCAPE);
 
     /**
-     * Used to invert an escape array into an unescape array
+     * Used to invert an escape array into an unescape array.
+     *
      * @param array String[][] to be inverted
      * @return String[][] inverted array
      */

@@ -15,6 +15,18 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.animations.interpolations;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Interpolation.
+ */
 public interface Interpolation {
+	
+	/**
+	 * Gets the percentage.
+	 *
+	 * @param enlapsedTime the enlapsed time
+	 * @param duration the duration
+	 * @return the percentage
+	 */
 	float getPercentage(final float enlapsedTime, final float duration);
 }

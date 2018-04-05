@@ -26,15 +26,33 @@ import com.squareup.javapoet.TypeName;
 
 import bind.AbstractBindTypeProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test77.
+ */
 public class Test77 extends AbstractBindTypeProcessorTest {
 	
+	/**
+	 * The Class TestListTransform.
+	 */
 	public class TestListTransform extends ListBindTransformation
 	{
 
+		/**
+		 * Instantiates a new test list transform.
+		 *
+		 * @param clazz the clazz
+		 */
 		public TestListTransform(ParameterizedTypeName clazz) {
 			super(clazz);		
 		}
 		
+		/**
+		 * Test define collection class.
+		 *
+		 * @param collectionTypeName the collection type name
+		 * @return the class
+		 */
 		public Class<?> testDefineCollectionClass(ParameterizedTypeName collectionTypeName)
 		{
 			return this.defineCollectionClass(collectionTypeName);
@@ -42,13 +60,27 @@ public class Test77 extends AbstractBindTypeProcessorTest {
 		
 	}
 	
+	/**
+	 * The Class TestSetTransform.
+	 */
 	public class TestSetTransform extends SetBindTransformation
 	{
 
+		/**
+		 * Instantiates a new test set transform.
+		 *
+		 * @param clazz the clazz
+		 */
 		public TestSetTransform(ParameterizedTypeName clazz) {
 			super(clazz);		
 		}
 		
+		/**
+		 * Test define collection class.
+		 *
+		 * @param collectionTypeName the collection type name
+		 * @return the class
+		 */
 		public Class<?> testDefineCollectionClass(ParameterizedTypeName collectionTypeName)
 		{
 			return this.defineCollectionClass(collectionTypeName);
@@ -57,7 +89,7 @@ public class Test77 extends AbstractBindTypeProcessorTest {
 	}
 
 	/**
-	 * Test class not found exception on list transformation
+	 * Test class not found exception on list transformation.
 	 */
 	@Test(expected=KriptonClassNotFoundException.class)
 	public void testTestListTransformException(){
@@ -68,7 +100,7 @@ public class Test77 extends AbstractBindTypeProcessorTest {
 	}
 	
 	/**
-	 * Test class not found exception on set transformation
+	 * Test class not found exception on set transformation.
 	 */
 	@Test(expected=KriptonClassNotFoundException.class)
 	public void testTestSetTransformException(){

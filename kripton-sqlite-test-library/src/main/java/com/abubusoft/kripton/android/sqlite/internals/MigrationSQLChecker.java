@@ -31,10 +31,20 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlLexer;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MigrationSQLChecker.
+ */
 public class MigrationSQLChecker {
 
+	/** The instance. */
 	protected static MigrationSQLChecker instance;
 
+	/**
+	 * Gets the single instance of MigrationSQLChecker.
+	 *
+	 * @return single instance of MigrationSQLChecker
+	 */
 	public static final MigrationSQLChecker getInstance() {
 		if (instance == null) {
 			instance = new MigrationSQLChecker();
@@ -43,20 +53,44 @@ public class MigrationSQLChecker {
 		return instance;
 	}
 
+	/** The walker. */
 	ParseTreeWalker walker = new ParseTreeWalker();
 
+	/**
+	 * Instantiates a new migration SQL checker.
+	 */
 	private MigrationSQLChecker() {
 
 	}
 
+	/**
+	 * Analyze internal.
+	 *
+	 * @param <L> the generic type
+	 * @param jql the jql
+	 * @param listener the listener
+	 */
 	protected <L extends JqlBaseListener> void analyzeInternal(final String jql, L listener) {
 		walker.walk(listener, prepareParser(jql).value0);
 	}
 
+	/**
+	 * Analyze.
+	 *
+	 * @param <L> the generic type
+	 * @param sql the sql
+	 * @param listener the listener
+	 */
 	public <L extends JqlBaseListener> void analyze(final String sql, L listener) {
 		analyzeInternal(sql, listener);
 	}
 
+	/**
+	 * Prepare parser.
+	 *
+	 * @param jql the jql
+	 * @return the pair
+	 */
 	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final String jql) {
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);

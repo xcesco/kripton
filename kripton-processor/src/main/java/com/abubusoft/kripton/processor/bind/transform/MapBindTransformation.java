@@ -34,24 +34,43 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MapBindTransformation.
+ */
 public class MapBindTransformation extends AbstractBindTransform {
 
+	/** The nc. */
 	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 	//private ParameterizedTypeName mapTypeName;
 	//private TypeName keyTypeName;
 	//private TypeName valueTypeName;
 
+	/**
+	 * Instantiates a new map bind transformation.
+	 *
+	 * @param clazz the clazz
+	 */
 	public MapBindTransformation(ParameterizedTypeName clazz) {
 		//this.mapTypeName = clazz;
 		//this.keyTypeName = mapTypeName.typeArguments.get(0);
 		//this.valueTypeName = mapTypeName.typeArguments.get(1);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#isTypeAdapterSupported()
+	 */
 	public boolean isTypeAdapterSupported() {
 		return false;
 	}
 
+	/**
+	 * Define map class.
+	 *
+	 * @param mapTypeName the map type name
+	 * @return the class
+	 */
 	private Class<?> defineMapClass(ParameterizedTypeName mapTypeName) {
 		if (mapTypeName.rawType.toString().startsWith(Map.class.getCanonicalName())) {
 			// it's a list
@@ -65,6 +84,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnXml(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		// define key and value type
@@ -158,6 +180,9 @@ public class MapBindTransformation extends AbstractBindTransform {
 		//@formatter:on
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnXml(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		// define key and value type
@@ -214,16 +239,33 @@ public class MapBindTransformation extends AbstractBindTransform {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, false);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
 
+	/**
+	 * Generate serialize on jackson internal.
+	 *
+	 * @param context the context
+	 * @param methodBuilder the method builder
+	 * @param serializerName the serializer name
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 * @param onString the on string
+	 */
 	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		// define key and value type
 		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();
@@ -303,17 +345,34 @@ public class MapBindTransformation extends AbstractBindTransform {
 		//@formatter:on
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, false);
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, true);
 	}
 
+	/**
+	 * Generate parse on jackson internal.
+	 *
+	 * @param context the context
+	 * @param methodBuilder the method builder
+	 * @param parserName the parser name
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 * @param onString the on string
+	 */
 	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		// define key and value type
 		ParameterizedTypeName mapTypeName=(ParameterizedTypeName) property.getPropertyType().getTypeName();

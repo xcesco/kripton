@@ -33,27 +33,36 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
- * Generates database class
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Generates database class.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BindDaoFactoryBuilder extends AbstractBuilder {
 
+	/** The Constant PREFIX. */
 	public static final String PREFIX = "Bind";
 
+	/** The Constant SUFFIX. */
 	public static final String SUFFIX = "DaoFactory";
 
+	/**
+	 * Instantiates a new bind dao factory builder.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param model the model
+	 */
 	public BindDaoFactoryBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
 	/**
-	 * Given a schema, generate its daoFactory name
-	 * 
-	 * @param schema
-	 * @return
+	 * Given a schema, generate its daoFactory name.
+	 *
+	 * @param schema the schema
+	 * @return the string
 	 */
 	public static String generateDaoFactoryName(SQLiteDatabaseSchema schema) {
 		String schemaName = schema.getName();
@@ -65,15 +74,13 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * Build dao factory interface
-	 * 
-	 * @param elementUtils
-	 * @param filer
-	 * @param schema
-	 * 
+	 * Build dao factory interface.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
 	 * @return schema typeName
-	 * 
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public String buildDaoFactoryInterface(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		String schemaName = generateDaoFactoryName(schema);
@@ -90,15 +97,13 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * Build dao factory interface
-	 * 
-	 * @param elementUtils
-	 * @param filer
-	 * @param schema
-	 * 
+	 * Build dao factory interface.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
 	 * @return schema typeName
-	 * 
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public TypeSpec.Builder buildDaoFactoryInterfaceInternal(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		String schemaName = schema.getName();

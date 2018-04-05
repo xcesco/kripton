@@ -24,17 +24,36 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.quickstart.model.Comment;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 04/01/2017.
  */
 @BindDao(Comment.class)
 public interface CommentDao {
+    
+    /**
+     * Insert.
+     *
+     * @param bean the bean
+     */
     @BindSqlInsert(includePrimaryKey = true)
     void insert(Comment bean);
 
+    /**
+     * Select by post id.
+     *
+     * @param postId the post id
+     * @return the list
+     */
     @BindSqlSelect(where="postId = ${value}")
     List<Comment> selectByPostId(@BindSqlParam("value") long postId);
 
+    /**
+     * Select one by post id.
+     *
+     * @param postId the post id
+     * @return the comment
+     */
     @BindSqlSelect(where="id = ${value}")
     Comment selectOneByPostId(@BindSqlParam("value") long postId);
 

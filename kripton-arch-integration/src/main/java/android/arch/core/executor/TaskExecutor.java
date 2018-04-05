@@ -19,13 +19,14 @@ package android.arch.core.executor;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 
+// TODO: Auto-generated Javadoc
 /**
  * A task executor that can divide tasks into logical groups.
  * <p>
  * It holds a collection a executors for each group of task.
  * <p>
  * TODO: Don't use this from outside, we don't know what the API will look like yet.
- * @hide
+ * 
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class TaskExecutor {

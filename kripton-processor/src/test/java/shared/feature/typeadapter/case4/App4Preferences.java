@@ -21,21 +21,37 @@ import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class App4Preferences.
+ */
 @BindSharedPreferences
 public class App4Preferences {
 	
+	/** The field string public. */
 	@BindPreferenceAdapter(adapter=Set2ListTypeAdapter.class)
 	@BindPreference
 	public List<String> fieldStringPublic;
 	
+	/** The field string private. */
 	@BindPreferenceAdapter(adapter=Set2ListTypeAdapter.class)
 	@BindPreference
 	private List<String> fieldStringPrivate;
 
+	/**
+	 * Gets the field string private.
+	 *
+	 * @return the field string private
+	 */
 	public List<String> getFieldStringPrivate() {
 		return fieldStringPrivate;
 	}
 
+	/**
+	 * Sets the field string private.
+	 *
+	 * @param fieldStringPrivate the new field string private
+	 */
 	public void setFieldStringPrivate(List<String> fieldStringPrivate) {
 		this.fieldStringPrivate = fieldStringPrivate;
 	}

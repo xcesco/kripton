@@ -18,23 +18,36 @@
  */
 package com.abubusoft.kripton.common;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Triple.
  *
- * @param <V0>
- * @param <V1>
- * @param <V2>
+ * @author Francesco Benincasa (info@abubusoft.com)
+ * @param <V0> the generic type
+ * @param <V1> the generic type
+ * @param <V2> the generic type
  */
 public class Triple<V0, V1, V2> extends Pair<V0, V1> {
 
+	/**
+	 * Instantiates a new triple.
+	 */
 	public Triple() {
 
 	}
 
+	/**
+	 * Instantiates a new triple.
+	 *
+	 * @param v0 the v 0
+	 * @param v1 the v 1
+	 * @param v2 the v 2
+	 */
 	public Triple(V0 v0, V1 v1, V2 v2) {
 		super(v0, v1);
 		this.value2 = v2;
 	}
 
+	/** The value 2. */
 	public V2 value2;
 }

@@ -25,33 +25,99 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ByteDao.
+ */
 @BindDao(ByteBean.class)
 public interface ByteDao {
 	
+	/**
+	 * Select one.
+	 *
+	 * @return the byte bean
+	 */
 	@BindSqlSelect()
 	ByteBean selectOne();	
 	
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the byte bean
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	ByteBean selectOne(byte[] value, Byte[] value2);
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(byte[] value, Byte[] value2, OnReadBeanListener<ByteBean> listener);	
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(byte[] value, Byte[] value2, OnReadCursorListener listener);
 	
+	/**
+	 * Select list.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<ByteBean> selectList(byte[] value, Byte[] value2);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, byte[] value, Byte[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(long id, byte[] value, Byte[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(ByteBean bean);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlDelete(where = "value=${value} and value2=${value2}")
 	long delete(byte[] value, Byte[] value2);
 	

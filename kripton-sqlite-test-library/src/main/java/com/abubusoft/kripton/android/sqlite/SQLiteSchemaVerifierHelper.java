@@ -47,15 +47,18 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Sql_stmtCo
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class SQLiteSchemaVerifierHelper.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class SQLiteSchemaVerifierHelper {
 
 	/**
-	 * Delete database file
-	 * @param context
+	 * Delete database file.
+	 *
+	 * @param context the context
 	 */
 	public static void clearDatabase(Context context) {		
 		File dbFile=context.getDatabasePath(SQLiteUpdateTestDatabase.MIGRATION_TEST);
@@ -66,6 +69,14 @@ public abstract class SQLiteSchemaVerifierHelper {
 		
 	}
 
+	/**
+	 * Query.
+	 *
+	 * @param db the db
+	 * @param conditions the conditions
+	 * @param type the type
+	 * @param listener the listener
+	 */
 	private static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
 		SQLiteUpdateTaskHelper.query(db, conditions, type, listener);
 	}
@@ -73,10 +84,10 @@ public abstract class SQLiteSchemaVerifierHelper {
 	/**
 	 * Drop all entity of particular type (table or index). If prefix is
 	 * specified, the drop operation is applied only to entity with prefix.
-	 * 
-	 * @param db
-	 * @param type
-	 * @param prefix
+	 *
+	 * @param db the db
+	 * @param type the type
+	 * @param prefix the prefix
 	 */
 	private static void drop(SQLiteDatabase db, final QueryType type, String prefix) {
 		String dropSQL = StringUtils.hasText(prefix) ? "name like '" + prefix + "' || '%'" : null;
@@ -94,20 +105,20 @@ public abstract class SQLiteSchemaVerifierHelper {
 	}
 
 	/**
-	 * Retrieve all table as a Map of <name, sql>
-	 * 
-	 * @param db
-	 * @return
+	 * Retrieve all table as a Map of (name, sql).
+	 *
+	 * @param db the db
+	 * @return the all tables
 	 */
 	public static Map<String, String> getAllTables(SQLiteDatabase db) {
 		return SQLiteUpdateTaskHelper.getAllTables(db);
 	}
 
 	/**
-	 * Add to all schema's table a specifix prefix
-	 * 
-	 * @param db
-	 * @param prefix
+	 * Add to all schema's table a specifix prefix.
+	 *
+	 * @param db the db
+	 * @param prefix the prefix
 	 */
 	public static void renameAllTablesWithPrefix(SQLiteDatabase db, final String prefix) {
 		Logger.info("MASSIVE TABLE RENAME OPERATION: ADD PREFIX " + prefix);
@@ -124,38 +135,55 @@ public abstract class SQLiteSchemaVerifierHelper {
 	}
 
 	/**
-	 * Drop all table with specific prefix
-	 * 
-	 * @param db
-	 * @param prefix
+	 * Drop all table with specific prefix.
+	 *
+	 * @param db the db
+	 * @param prefix the prefix
 	 */
 	public static void dropTablesWithPrefix(SQLiteDatabase db, String prefix) {
 		Logger.info("MASSIVE TABLE DROP OPERATION%s", StringUtils.ifNotEmptyAppend(prefix, " WITH PREFIX "));
 		drop(db, QueryType.TABLE, prefix);
 	}
 
+	/**
+	 * Drop tables and indices.
+	 *
+	 * @param db the db
+	 */
 	public static void dropTablesAndIndices(SQLiteDatabase db) {
 		drop(db, QueryType.INDEX, null);
 		drop(db, QueryType.TABLE, null);
 	}
 
 	/**
-	 * 
-	 * Retrieve all indexes as a Map of <name, sql>
-	 * 
-	 * @param db
-	 * @return
+	 * Retrieve all indexes as a Map of (name, sql).
+	 *
+	 * @param db the db
+	 * @return the all indexes
 	 */
 	public static Map<String, String> getAllIndexes(SQLiteDatabase db) {
 		return SQLiteUpdateTaskHelper.getAllIndexes(db);
 	}
 
+	/**
+	 * Execute SQL.
+	 *
+	 * @param database the database
+	 * @param context the context
+	 * @param rawResourceId the raw resource id
+	 */
 	public static void executeSQL(final SQLiteDatabase database, Context context, int rawResourceId) {
 		String[] c = IOUtils.readTextFile(context, rawResourceId).split(";");
 		List<String> commands = Arrays.asList(c);
 		executeSQL(database, commands);
 	}
 
+	/**
+	 * Read SQL from file.
+	 *
+	 * @param fileName the file name
+	 * @return the list
+	 */
 	public static List<String> readSQLFromFile(String fileName) {
 		try {
 			return readSQLFromFile(new FileInputStream(fileName));
@@ -165,6 +193,12 @@ public abstract class SQLiteSchemaVerifierHelper {
 		}
 	}
 
+	/**
+	 * Read SQL from file.
+	 *
+	 * @param fileInputStream the file input stream
+	 * @return the list
+	 */
 	public static List<String> readSQLFromFile(InputStream fileInputStream) {
 		String content = IOUtils.readText(fileInputStream);
 
@@ -185,11 +219,23 @@ public abstract class SQLiteSchemaVerifierHelper {
 
 	}
 
+	/**
+	 * Execute SQL.
+	 *
+	 * @param database the database
+	 * @param fileInputStream the file input stream
+	 */
 	public static void executeSQL(final SQLiteDatabase database, InputStream fileInputStream) {
 		List<String> commands = readSQLFromFile(fileInputStream);
 		executeSQL(database, commands);
 	}
 
+	/**
+	 * Execute SQL.
+	 *
+	 * @param database the database
+	 * @param commands the commands
+	 */
 	public static void executeSQL(final SQLiteDatabase database, List<String> commands) {
 		for (String command : commands) {
 			executeSQL(database, command);
@@ -199,6 +245,12 @@ public abstract class SQLiteSchemaVerifierHelper {
 		// });
 	}
 
+	/**
+	 * Execute SQL.
+	 *
+	 * @param database the database
+	 * @param command the command
+	 */
 	public static void executeSQL(final SQLiteDatabase database, String command) {
 		// remove comments
 		command = command.replaceAll("\\/\\*.*\\*\\/", "");
@@ -211,19 +263,46 @@ public abstract class SQLiteSchemaVerifierHelper {
 
 	}
 
+	/**
+	 * Verify schema.
+	 *
+	 * @param database the database
+	 * @param inputStream the input stream
+	 */
 	public static void verifySchema(SQLiteDatabase database, InputStream inputStream) {
 		List<String> ddl = extractCommands(database, inputStream);
 		verifySchemaInternal(database, ddl);
 	}
 
+	/**
+	 * Verify schema.
+	 *
+	 * @param <H> the generic type
+	 * @param dataSource the data source
+	 * @param inputStream the input stream
+	 */
 	public static <H extends AbstractDataSource> void verifySchema(H dataSource, InputStream inputStream) {
 		verifySchema(dataSource.openWritableDatabase(), inputStream);
 	}
 
+	/**
+	 * Verify schema.
+	 *
+	 * @param database the database
+	 * @param context the context
+	 * @param rawId the raw id
+	 */
 	public static void verifySchema(SQLiteDatabase database, Context context, int rawId) {
 		verifySchema(database, context.getResources().openRawResource(rawId));
 	}
 
+	/**
+	 * Extract commands.
+	 *
+	 * @param database the database
+	 * @param inputStream the input stream
+	 * @return the list
+	 */
 	static List<String> extractCommands(SQLiteDatabase database, InputStream inputStream) {
 		final List<String> result = new ArrayList<>();
 		final String input = IOUtils.readText(inputStream);
@@ -251,10 +330,24 @@ public abstract class SQLiteSchemaVerifierHelper {
 		return result;
 	}
 
+	/**
+	 * Verify schema.
+	 *
+	 * @param <H> the generic type
+	 * @param dataSource the data source
+	 * @param context the context
+	 * @param rawId the raw id
+	 */
 	public static <H extends AbstractDataSource> void verifySchema(H dataSource, Context context, int rawId) {
 		verifySchema(dataSource.openWritableDatabase(), context, rawId);
 	}
 
+	/**
+	 * Verify schema internal.
+	 *
+	 * @param database the database
+	 * @param expectedSQL the expected SQL
+	 */
 	static void verifySchemaInternal(SQLiteDatabase database, List<String> expectedSQL) {
 		Set<String> actualSql = new HashSet<String>();
 		actualSql.addAll(SQLiteSchemaVerifierHelper.getAllTables(database).values());
@@ -299,10 +392,10 @@ public abstract class SQLiteSchemaVerifierHelper {
 	/**
 	 * Force a schema update for a datasource. Note that no DDL was execute
 	 * untill the database was opened.
-	 * 
-	 * @param dataSource
-	 * @param version
-	 *            to upgrade.
+	 *
+	 * @param <E> the element type
+	 * @param dataSource the data source
+	 * @param version            to upgrade.
 	 */
 	public static <E extends AbstractDataSource> void forceSchemaUpdate(E dataSource, int version) {
 		dataSource.forceClose();
@@ -314,6 +407,12 @@ public abstract class SQLiteSchemaVerifierHelper {
 		dataSource.openWritableDatabase();
 	}
 
+	/**
+	 * Clear database.
+	 *
+	 * @param <E> the element type
+	 * @param dataSource the data source
+	 */
 	public static <E extends AbstractDataSource> void clearDatabase(E dataSource) {
 		dataSource.openWritableDatabase();
 		File file = new File(dataSource.database.getPath(), dataSource.name);

@@ -21,14 +21,21 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * Test bean field
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Test bean field.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class TestDirectMap extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Person.class);

@@ -17,15 +17,31 @@ package sqlite.quickstart.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Address.
+ */
 @BindType
 public class Address {
 
+    /** The street. */
     public String street;
+    
+    /** The suite. */
     public String suite;
+    
+    /** The city. */
     public String city;
+    
+    /** The zipcode. */
     public String zipcode;
+    
+    /** The geo. */
     public Geo geo;
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return street + ", " +city + ", "+zipcode;

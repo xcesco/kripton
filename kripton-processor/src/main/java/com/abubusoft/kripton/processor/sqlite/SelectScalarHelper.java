@@ -30,12 +30,11 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
- * Manage query with only one value
- * 
+ * Manage query with only one value.
+ *
  * @author Francesco Benincasa (info@abubusoft.com)
- *
- *
  * @since 17/mag/2016
  */
 public class SelectScalarHelper extends AbstractSelectCodeGenerator {

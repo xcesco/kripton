@@ -23,21 +23,54 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBeanA_1.
+ */
 @BindDao(BeanA_1.class)
 public interface DaoBeanA_1 {
 
+	/**
+	 * Select all.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect
 	List<BeanA_1> selectAll();
 	
+	/**
+	 * Select by id.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
 	@BindSqlSelect(where="id=${id}")
 	List<BeanA_1> selectById(long id);
 	
+	/**
+	 * Select by string.
+	 *
+	 * @param value the value
+	 * @return the list
+	 */
 	@BindSqlSelect(fields="id",where="valueString=${dummy}")
 	List<BeanA_1> selectByString(@BindSqlParam("dummy") String value);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the int
+	 */
 	@BindSqlInsert
 	int insert(BeanA_1 bean);
 	
+	/**
+	 * Update.
+	 *
+	 * @param bean the bean
+	 * @return the int
+	 */
 	@BindSqlUpdate(where="valueString=${bean.valueString}")
 	int update(BeanA_1 bean);
 }

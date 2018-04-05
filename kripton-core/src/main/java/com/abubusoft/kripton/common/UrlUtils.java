@@ -18,17 +18,28 @@ package com.abubusoft.kripton.common;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UrlUtils.
+ */
 public class UrlUtils {
 
+	/**
+	 * Write.
+	 *
+	 * @param value the value
+	 * @return the string
+	 */
 	public static String write(URL value) {
 		if (value==null) return null;
 		return value.toString();
 	}
 	
 	/**
-	 * Convert a string to relative locale
-	 * @param localeString
-	 * @return
+	 * Convert a string to relative locale.
+	 *
+	 * @param string the string
+	 * @return the url
 	 */
 	public static URL read(String string) {
 		try {

@@ -15,9 +15,15 @@
  *******************************************************************************/
 package base;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BaseUserIdentity.
+ */
 public class BaseUserIdentity {
 
+	/** The saluto. */
 	public String saluto;
 	
+	/** The saluto package. */
 	String salutoPackage;
 }

@@ -49,20 +49,45 @@ import bind.feature.generichierarchy.kripton109.settings.TouchSupportType;
 import bind.feature.generichierarchy.kripton109.settings.ViewFrustumAlignType;
 import bind.feature.generichierarchy.kripton109.settings.ViewFrustumSettings;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompile109.
+ */
 public class TestCompile109 extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile settings.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompileSettings() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(ApplicationSettings.class, ArgonSettings.class, LoggerAppenderSettings.class, LoggerSettings.class, ModeType.class, OpenGLSettings.class, ProjectionType.class,
 				TouchSupportType.class, ViewFrustumAlignType.class, ViewFrustumSettings.class);
 	}
 
+	/**
+	 * Test compile animations.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompileAnimations() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Animation.class, MockAnimation.class, MockKeyFrame.class, MockParallel2.class, KeyFrame.class, TiledMapAnimation.class, Parallel2Animation.class, TextureAnimation.class,
 				TextureKeyFrame.class, Translation.class, TranslationFrame.class, Point3.class, Vector3.class, TextureRegion.class);
 	}
 
+	/**
+	 * Test err 1 compile animations.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testErr1CompileAnimations() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(KriptonProcessorException.class);
@@ -70,6 +95,13 @@ public class TestCompile109 extends AbstractBindTypeProcessorTest {
 				TranslationFrame.class, Point3.class, Vector3.class, TextureRegion.class);
 	}
 
+	/**
+	 * Test err 2 compile animations.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testErr2CompileAnimations() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(KriptonProcessorException.class);

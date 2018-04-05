@@ -26,19 +26,21 @@ import com.abubusoft.kripton.processor.exceptions.NoDaoElementFound;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test38Compile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class Test38Compile extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * id: Long id
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * id: Long id.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
@@ -46,11 +48,11 @@ public class Test38Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * id: long id
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * id: long id.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test02() throws IOException, InstantiationException, IllegalAccessException {
@@ -58,11 +60,12 @@ public class Test38Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
+	 * Test 03.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 * @BindColumn(ColumnType.PRIMARY_KEY) on Long id;
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
 	 */
 	@Test
 	public void test03() throws IOException, InstantiationException, IllegalAccessException {
@@ -71,11 +74,11 @@ public class Test38Compile extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No DAO definition with @BindDaoDefinition annotation was found for class
-	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testErrorNoDaoElementsFound() throws IOException, InstantiationException, IllegalAccessException {
@@ -85,11 +88,11 @@ public class Test38Compile extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No DAO definition with @BindDaoDefinition annotation was found for class
-	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test05() throws IOException, InstantiationException, IllegalAccessException {
@@ -97,6 +100,13 @@ public class Test38Compile extends AbstractBindSQLiteProcessorTest {
 		buildDataSourceProcessorTest(Dummy05DataSource.class, DaoBean05.class, Bean05.class, BaseDao.class, BeanType.class);
 	}
 
+	/**
+	 * Test error method parameter not found exception.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testErrorMethodParameterNotFoundException() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(MethodParameterNotFoundException.class);

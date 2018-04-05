@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.DateUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Date object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.DateUtils;
  */
 class DatePrefsTransform extends WrappedPrefsTransform {
 
+	/**
+	 * Instantiates a new date prefs transform.
+	 */
 	public DatePrefsTransform() {
 		super(DateUtils.class);
 	}

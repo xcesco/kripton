@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.retrofit2;
 
 import java.io.IOException;
@@ -15,11 +30,29 @@ import com.abubusoft.kripton.BinderContext;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class KriptonResponseBodyCollectionConverter.
+ *
+ * @param <T> the generic type
+ */
 final class KriptonResponseBodyCollectionConverter<T> implements Converter<ResponseBody, T> {
+	
+	/** The clazz. */
 	private Class<?> clazz;
+	
+	/** The bean clazz. */
 	private Class<?> beanClazz;
+	
+	/** The binder context. */
 	private BinderContext binderContext;
 
+	/**
+	 * Instantiates a new kripton response body collection converter.
+	 *
+	 * @param binderContext the binder context
+	 * @param collectionType the collection type
+	 */
 	KriptonResponseBodyCollectionConverter(BinderContext binderContext, ParameterizedType collectionType) {
 		this.binderContext = binderContext;
 		this.clazz = (Class<?>) collectionType.getRawType();
@@ -27,6 +60,12 @@ final class KriptonResponseBodyCollectionConverter<T> implements Converter<Respo
 		this.clazz = replaceInterface(clazz);
 	}
 
+	/**
+	 * Replace interface.
+	 *
+	 * @param clazz the clazz
+	 * @return the class
+	 */
 	private Class<?> replaceInterface(Class<?> clazz) {
 		if (clazz.equals(List.class)) {
 			return ArrayList.class;
@@ -43,6 +82,9 @@ final class KriptonResponseBodyCollectionConverter<T> implements Converter<Respo
 		return clazz;
 	}
 
+	/* (non-Javadoc)
+	 * @see retrofit2.Converter#convert(java.lang.Object)
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public T convert(ResponseBody value) throws IOException {

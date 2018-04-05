@@ -26,10 +26,9 @@ import java.lang.annotation.Target;
 /**
  * <p>
  * Marks a parameter as pageSize for SQL results
- * </p>
- * 
- * @author xcesco
+ * </p>.
  *
+ * @author xcesco
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)

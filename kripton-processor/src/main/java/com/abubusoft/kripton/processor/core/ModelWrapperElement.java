@@ -17,7 +17,16 @@ package com.abubusoft.kripton.processor.core;
 
 import javax.lang.model.element.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ModelWrapperElement.
+ */
 public interface ModelWrapperElement {
 
+	/**
+	 * Gets the element.
+	 *
+	 * @return the element
+	 */
 	Element getElement();
 }

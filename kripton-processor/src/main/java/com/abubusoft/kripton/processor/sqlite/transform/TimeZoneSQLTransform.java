@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.common.TimeZoneUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.TimeZone object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.TimeZoneUtils;
  */
 public class TimeZoneSQLTransform extends UtilSQLTransform<TimeZoneUtils> {
 
+	/**
+	 * Instantiates a new time zone SQL transform.
+	 */
 	public TimeZoneSQLTransform() {
 		super(TimeZoneUtils.class);
 	}

@@ -28,15 +28,33 @@ import shared.feature.typeadapter.case4.Set2ListTypeAdapter;
 import shared.feature.typeadapter.case4.App4Preferences;
 import shared.feature.typeadapter.case4.App4WithErrPreferences;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestPreferenceTypeAdapter4Compile.
+ */
 @RunWith(JUnit4.class)
 public class TestPreferenceTypeAdapter4Compile extends AbstractBindSharedPreferenceProcessorTest {
 
+	/**
+	 * Test compile with error.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompileWithError() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(KriptonProcessorException.class);
 		buildSharedPreferencesProcessorTest(App4WithErrPreferences.class, Set2ListTypeAdapter.class);
 	}
 	
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(App4Preferences.class, Set2ListTypeAdapter.class);

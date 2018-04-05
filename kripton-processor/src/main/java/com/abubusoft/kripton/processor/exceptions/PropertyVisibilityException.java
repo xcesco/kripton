@@ -16,10 +16,20 @@
 package com.abubusoft.kripton.processor.exceptions;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertyVisibilityException.
+ */
 public class PropertyVisibilityException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new property visibility exception.
+	 *
+	 * @param msg the msg
+	 */
 	public PropertyVisibilityException(String msg)
 	{
 		super(msg);

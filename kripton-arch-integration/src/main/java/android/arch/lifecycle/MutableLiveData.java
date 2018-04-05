@@ -16,18 +16,25 @@
 
 package android.arch.lifecycle;
 
+// TODO: Auto-generated Javadoc
 /**
- * {@link LiveData} which publicly exposes {@link #setValue(T)} and {@link #postValue(T)} method.
+ * LiveData which publicly exposes #setValue(T) and #postValue(T) method.
  *
  * @param <T> The type of data hold by this instance
  */
-@SuppressWarnings("WeakerAccess")
 public class MutableLiveData<T> extends LiveData<T> {
+    
+    /* (non-Javadoc)
+     * @see android.arch.lifecycle.LiveData#postValue(java.lang.Object)
+     */
     @Override
     public void postValue(T value) {
         super.postValue(value);
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.lifecycle.LiveData#setValue(java.lang.Object)
+     */
     @Override
     public void setValue(T value) {
         super.setValue(value);

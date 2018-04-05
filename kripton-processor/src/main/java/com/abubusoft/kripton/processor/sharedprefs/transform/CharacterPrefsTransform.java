@@ -16,14 +16,19 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Character object
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Transformer between a string and a Java Character object.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 class CharacterPrefsTransform extends AbstractPrimitivePrefsTransform {
 	
+	/**
+	 * Instantiates a new character prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public CharacterPrefsTransform(boolean nullable)
 	{
 		super(nullable);

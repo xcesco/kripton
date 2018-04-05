@@ -18,18 +18,32 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class UnsupportedFieldTypeException.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class UnsupportedFieldTypeException extends KriptonProcessorException {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8165503181899906671L;
 
+	/**
+	 * Instantiates a new unsupported field type exception.
+	 *
+	 * @param method the method
+	 * @param typeName the type name
+	 */
 	public UnsupportedFieldTypeException(SQLiteModelMethod method, TypeName typeName) {
 		super(String.format("In DAO '%s' method '%s' unsupported type '%s' is used", method.getParent().getName(), method.getName(), typeName));
 	}
 	
+	/**
+	 * Instantiates a new unsupported field type exception.
+	 *
+	 * @param typeName the type name
+	 */
 	public UnsupportedFieldTypeException(TypeName typeName) {
 		super(String.format("Unsupported type '%s' is used", typeName));
 	}

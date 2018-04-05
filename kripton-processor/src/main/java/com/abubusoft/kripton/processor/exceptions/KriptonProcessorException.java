@@ -20,22 +20,40 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class KriptonProcessorException.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonProcessorException extends RuntimeException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2217746400887102609L;
 
+	/**
+	 * Instantiates a new kripton processor exception.
+	 *
+	 * @param message the message
+	 */
 	public KriptonProcessorException(String message) {
 		super(message);
 	}
 
+	/**
+	 * Instantiates a new kripton processor exception.
+	 *
+	 * @param cause the cause
+	 */
 	public KriptonProcessorException(Throwable cause) {
 		super(cause);
 	}
 
+	/**
+	 * Gets the error code.
+	 *
+	 * @return the error code
+	 */
 	public String getErrorCode() {
 		if (BaseProcessor.JUNIT_TEST_MODE)
 			return getClass().getSimpleName() + ": ";

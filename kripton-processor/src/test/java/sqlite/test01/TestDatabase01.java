@@ -23,19 +23,21 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class TestDatabase01.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	
 	/**
-	 * No element annotaed 
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * No element annotaed .
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test//(expected = AssertionError.class)
 	public void test00() throws IOException, InstantiationException, IllegalAccessException {
@@ -43,11 +45,11 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * No @BindType is put in bean definition
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
@@ -55,11 +57,11 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * No @BindType is put in bean definition
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test02() throws IOException, InstantiationException, IllegalAccessException {
@@ -68,11 +70,11 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * No database schema with @BindDatabaseSchema was found
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * No database schema with @BindDatabaseSchema was found.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test03() throws IOException, InstantiationException, IllegalAccessException {
@@ -82,10 +84,10 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	/**
 	 * Class com.abubusoft.kripton.processor.test01.Bean04, used in
 	 * Dummy04DatabaseSchema DatabaseSchemaDefinition, has no property!
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test04() throws IOException, InstantiationException, IllegalAccessException {
@@ -93,28 +95,35 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * No database schema with @BindDatabaseSchema was found
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * No database schema with @BindDatabaseSchema was found.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test05() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy05Database.class, Bean04.class);
 	}
 
+	/**
+	 * Test 06.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test(expected = AssertionError.class)
 	public void test06() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy06Database.class, Bean06.class);
 	}
 
 	/**
-	 * No primary key
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * No primary key.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test07() throws IOException, InstantiationException, IllegalAccessException {
@@ -122,11 +131,11 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * No primary key
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * No primary key.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test08() throws IOException, InstantiationException, IllegalAccessException {
@@ -134,11 +143,11 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Primary key Long
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Primary key Long.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test09() throws IOException, InstantiationException, IllegalAccessException {
@@ -146,11 +155,11 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Too many primary keys
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Too many primary keys.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test10() throws IOException, InstantiationException, IllegalAccessException {
@@ -158,11 +167,11 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Too many primary keys
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Too many primary keys.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test11() throws IOException, InstantiationException, IllegalAccessException {
@@ -170,11 +179,11 @@ public class TestDatabase01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Twice database definitino
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Twice database definitino.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test12() throws IOException, InstantiationException, IllegalAccessException {

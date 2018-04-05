@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package bind.kripton81ExceptionCoverage;
 
 import android.database.Cursor;
@@ -9,32 +24,40 @@ import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean8</code>, based on interface <code>Bean8Dao</code>
- * </p>
+ * </p>.
  *
- *  @see Bean8
- *  @see Bean8Dao
- *  @see Bean8Table
+ * @see Bean8
+ * @see Bean8Dao
+ * @see Bean8Table
  */
 public class Bean8DaoImpl extends Dao implements Bean8Dao {
+  
+  /** The Constant SELECT_ALL_SQL1. */
   private static final String SELECT_ALL_SQL1 = "SELECT id, ignore2 FROM bean8";
 
+  /**
+   * Instantiates a new bean 8 dao impl.
+   *
+   * @param context the context
+   */
   public Bean8DaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, ignore2 FROM bean8</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>ignore2</dt><dd>is associated to bean's property <strong>ignore2</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of bean or empty collection.
    */
@@ -88,6 +111,9 @@ public class Bean8DaoImpl extends Dao implements Bean8Dao {
     }
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
   }
 }

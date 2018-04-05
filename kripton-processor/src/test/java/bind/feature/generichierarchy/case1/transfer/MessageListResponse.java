@@ -23,9 +23,14 @@ import com.abubusoft.kripton.annotation.BindType;
 import bind.feature.generichierarchy.case1.model.Message;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MessageListResponse.
+ */
 @BindType
 public class MessageListResponse extends RestListEntity<Message> {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 551529343234347332L;
 
 }

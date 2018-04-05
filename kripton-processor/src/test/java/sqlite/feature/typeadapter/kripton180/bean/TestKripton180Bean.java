@@ -41,9 +41,18 @@ import sqlite.feature.typeadapter.kripton180.bean.insertselect.Kripton180BeanIns
 import sqlite.feature.typeadapter.kripton180.raw.insertselect.EmployeeRawInsertSelectDao;
 import sqlite.feature.typeadapter.kripton180.raw.insertselect.Kripton180RawInsertSelectDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestKripton180Bean.
+ */
 @RunWith(JUnit4.class)
 public class TestKripton180Bean extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompile() throws Throwable {
 		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeBeanDao.class, Kripton180BeanDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
@@ -51,6 +60,11 @@ public class TestKripton180Bean extends AbstractBindSQLiteProcessorTest {
 				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
 	}
 	
+	/**
+	 * Test bean insert select.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testBeanInsertSelect() throws Throwable {
 		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeBeanInsertSelectDao.class, Kripton180BeanInsertSelectDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
@@ -58,6 +72,11 @@ public class TestKripton180Bean extends AbstractBindSQLiteProcessorTest {
 				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
 	}
 	
+	/**
+	 * Test raw insert select.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testRawInsertSelect() throws Throwable {
 		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeRawInsertSelectDao.class, Kripton180RawInsertSelectDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,

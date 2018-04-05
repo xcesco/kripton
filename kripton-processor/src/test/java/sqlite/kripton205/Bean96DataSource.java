@@ -18,6 +18,9 @@ package sqlite.kripton205;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
+/**
+ * The Interface Bean96DataSource.
+ */
 @BindDataSource(daoSet=Bean205Dao.class, fileName = "dummy" , version=1, asyncTask=true, cursorWrapper=true)
 public interface Bean96DataSource {
 

@@ -24,6 +24,7 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Allow to define specific behaviour of a field treated like a SQLite table
@@ -37,12 +38,13 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 @Target(ElementType.FIELD)
 public @interface BindColumn {
 
+	/** The nullable default. */
 	static boolean NULLABLE_DEFAULT = true;
 
 	/**
 	 * If true, indicates that attribute must be binded to a column on bean's
-	 * associated table
-	 * 
+	 * associated table.
+	 *
 	 * @return true to create a column for this attribute
 	 */
 	boolean enabled()
@@ -60,8 +62,8 @@ public @interface BindColumn {
 	default "";
 
 	/**
-	 * Type of column
-	 * 
+	 * Type of column.
+	 *
 	 * @return type of the column
 	 */
 	public ColumnType columnType()
@@ -69,8 +71,8 @@ public @interface BindColumn {
 	default ColumnType.STANDARD;
 
 	/**
-	 * if true, column can be set to null
-	 * 
+	 * if true, column can be set to null.
+	 *
 	 * @return if true, column can be set to null
 	 */
 	public boolean nullable() default NULLABLE_DEFAULT;
@@ -84,15 +86,15 @@ public @interface BindColumn {
 	public Class<?> foreignKey() default NoForeignKey.class;
 
 	/**
-	 * Action to take on foreign key constraint during DELETE operation
-	 * 
+	 * Action to take on foreign key constraint during DELETE operation.
+	 *
 	 * @return action to take
 	 */
 	public ForeignKeyAction onDelete() default ForeignKeyAction.NO_ACTION;
 
 	/**
-	 * Action to take on foreign key constraint during UPDATE operation
-	 * 
+	 * Action to take on foreign key constraint during UPDATE operation.
+	 *
 	 * @return action to take
 	 */
 	public ForeignKeyAction onUpdate() default ForeignKeyAction.NO_ACTION;

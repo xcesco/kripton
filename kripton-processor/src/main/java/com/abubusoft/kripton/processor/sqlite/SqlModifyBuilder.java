@@ -65,19 +65,33 @@ import com.squareup.javapoet.TypeSpec.Builder;
 import android.content.ContentValues;
 import android.net.Uri;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class SqlModifyBuilder.
+ *
  * @author Francesco Benincasa (info@abubusoft.com)
- *
- *
  * @since 05/mag/2016
  */
 public abstract class SqlModifyBuilder {
 
+	/**
+	 * The Enum ModifyType.
+	 */
 	public enum ModifyType {
-		UPDATE_BEAN(ModifyBeanHelper.class, true), UPDATE_RAW(ModifyRawHelper.class, true), DELETE_BEAN(ModifyBeanHelper.class, false), DELETE_RAW(ModifyRawHelper.class, false);
+		
+		/** The update bean. */
+		UPDATE_BEAN(ModifyBeanHelper.class, true), 
+ /** The update raw. */
+ UPDATE_RAW(ModifyRawHelper.class, true), 
+ /** The delete bean. */
+ DELETE_BEAN(ModifyBeanHelper.class, false), 
+ /** The delete raw. */
+ DELETE_RAW(ModifyRawHelper.class, false);
 
+		/** The code generator. */
 		private ModifyCodeGenerator codeGenerator;
 
+		/** The update. */
 		private boolean update;
 
 		/**
@@ -89,6 +103,12 @@ public abstract class SqlModifyBuilder {
 			return update;
 		}
 
+		/**
+		 * Instantiates a new modify type.
+		 *
+		 * @param codeGenerator the code generator
+		 * @param updateValue the update value
+		 */
 		private ModifyType(Class<? extends ModifyCodeGenerator> codeGenerator, boolean updateValue) {
 			try {
 				this.update = updateValue;
@@ -99,22 +119,42 @@ public abstract class SqlModifyBuilder {
 			}
 		}
 
+		/**
+		 * Generate.
+		 *
+		 * @param classBuilder the class builder
+		 * @param methodBuilder the method builder
+		 * @param method the method
+		 * @param returnType the return type
+		 */
 		public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
 			codeGenerator.generate(classBuilder, methodBuilder, isUpdate(), method, returnType);
 
 		}
 	}
 
+	/**
+	 * The Interface ModifyCodeGenerator.
+	 */
 	public interface ModifyCodeGenerator {
+		
+		/**
+		 * Generate.
+		 *
+		 * @param classBuilder the class builder
+		 * @param methodBuilder the method builder
+		 * @param mapFields the map fields
+		 * @param method the method
+		 * @param returnType the return type
+		 */
 		void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
-	 * 
-	 * @param elementUtils
-	 * @param builder
-	 * @param method
-	 * @param updateMode
+	 * Generate.
+	 *
+	 * @param classBuilder the class builder
+	 * @param method the method
 	 */
 	public static void generate(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 
@@ -158,13 +198,12 @@ public abstract class SqlModifyBuilder {
 	}
 
 	/**
-	 * Detect method type
-	 * 
-	 * @param method
-	 * @param jqlType
-	 *            jql type is necessary because method.jql can be not properly
+	 * Detect method type.
+	 *
+	 * @param method the method
+	 * @param jqlType            jql type is necessary because method.jql can be not properly
 	 *            initialized
-	 * @return
+	 * @return the modify type
 	 */
 	public static ModifyType detectModifyType(SQLiteModelMethod method, JQLType jqlType) {
 		// Elements elementUtils = BaseProcessor.elementUtils;
@@ -226,11 +265,11 @@ public abstract class SqlModifyBuilder {
 	 * <p>
 	 * Generate update and delete used in content provider class.
 	 * </p>
-	 * 
-	 * @param elementUtils
-	 * @param builder
-	 * @param method
-	 * @param updateResultType
+	 *
+	 * @param elementUtils the element utils
+	 * @param builder the builder
+	 * @param method the method
+	 * @param updateResultType the update result type
 	 */
 	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder, final SQLiteModelMethod method, ModifyType updateResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -436,9 +475,10 @@ public abstract class SqlModifyBuilder {
 	}
 
 	/**
-	 * @param method
-	 * @param daoDefinition
-	 * @param placeHolders
+	 * Check content provider vars and arguments.
+	 *
+	 * @param method the method
+	 * @param placeHolders the place holders
 	 */
 	public static void checkContentProviderVarsAndArguments(final SQLiteModelMethod method, List<JQLPlaceHolder> placeHolders) {
 		AssertKripton.assertTrue(placeHolders.size() == method.contentProviderUriVariables.size(),
@@ -447,8 +487,12 @@ public abstract class SqlModifyBuilder {
 	}
 
 	/**
-	 * @param method
-	 * @param methodBuilder
+	 * Generate init for dynamic where variables.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
+	 * @param dynamiWhereName the dynami where name
+	 * @param dynamicWhereArgsName the dynamic where args name
 	 */
 	static void generateInitForDynamicWhereVariables(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, String dynamiWhereName, String dynamicWhereArgsName) {
 		GenerationPartMarks.begin(methodBuilder, GenerationPartMarks.CODE_001);
@@ -466,13 +510,10 @@ public abstract class SqlModifyBuilder {
 	}
 
 	/**
-	 * generate sql log
-	 * 
-	 * @param method
-	 * @param methodBuilder
-	 * @param schema
-	 * @param entity
-	 * @param jqlChecker
+	 * generate sql log.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
 	 */
 	public static void generateLogForModifiers(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
@@ -535,6 +576,12 @@ public abstract class SqlModifyBuilder {
 		}
 	}
 
+	/**
+	 * Generate SQL.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
+	 */
 	public static void generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 

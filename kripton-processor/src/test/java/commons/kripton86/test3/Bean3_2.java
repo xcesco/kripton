@@ -21,9 +21,14 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean3_2.
+ */
 @BindType
 public class Bean3_2 {
 
+	/** The value long list. */
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public List<Long> valueLongList;
 }

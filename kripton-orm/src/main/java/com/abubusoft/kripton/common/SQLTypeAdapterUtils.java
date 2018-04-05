@@ -21,13 +21,26 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SQLTypeAdapterUtils.
+ */
 public abstract class SQLTypeAdapterUtils {
 
+	/** The lock. */
 	static ReentrantLock lock = new ReentrantLock();
 
+	/** The cache. */
 	@SuppressWarnings("rawtypes")
 	private static HashMap<Class<? extends SqlTypeAdapter>, SqlTypeAdapter> cache = new HashMap<>();
 	
+	/**
+	 * Gets the adapter.
+	 *
+	 * @param <E> the element type
+	 * @param clazz the clazz
+	 * @return the adapter
+	 */
 	public static <E extends SqlTypeAdapter<?, ?>> E getAdapter(Class<E> clazz) {
 		@SuppressWarnings("unchecked")
 		E adapter = (E) cache.get(clazz);
@@ -47,6 +60,15 @@ public abstract class SQLTypeAdapterUtils {
 		return adapter;
 	}
 
+	/**
+	 * To data.
+	 *
+	 * @param <D> the generic type
+	 * @param <J> the generic type
+	 * @param clazz the clazz
+	 * @param javaValue the java value
+	 * @return the d
+	 */
 	@SuppressWarnings("unchecked")
 	public static <D, J> D toData(Class<? extends SqlTypeAdapter<J, D>> clazz, J javaValue) {
 		SqlTypeAdapter<J, D> adapter = cache.get(clazz);
@@ -66,6 +88,15 @@ public abstract class SQLTypeAdapterUtils {
 		return adapter.toData(javaValue);
 	}
 	
+	/**
+	 * To string.
+	 *
+	 * @param <D> the generic type
+	 * @param <J> the generic type
+	 * @param clazz the clazz
+	 * @param javaValue the java value
+	 * @return the string
+	 */
 	@SuppressWarnings("unchecked")
 	public static <D, J> String toString(Class<? extends SqlTypeAdapter<J, D>> clazz, J javaValue) {
 		SqlTypeAdapter<J, D> adapter = cache.get(clazz);

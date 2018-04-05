@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton40;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +27,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Represents implementation of datasource Dummy01DataSource.
@@ -25,40 +41,37 @@ import java.util.List;
  * @see Bean01
  */
 public class BindDummy01DataSource extends AbstractDataSource implements BindDummy01DaoFactory, Dummy01DataSource {
-  /**
-   * <p>datasource singleton</p>
-   */
+  
+  /** <p>datasource singleton</p>. */
   static volatile BindDummy01DataSource instance;
 
-  /**
-   * <p>Mutex to manage multithread access to instance</p>
-   */
+  /** <p>Mutex to manage multithread access to instance</p>. */
   private static final Object mutex = new Object();
 
-  /**
-   * Unique identifier for Dao DaoBean01
-   */
+  /** Unique identifier for Dao DaoBean01. */
   public static final int DAO_BEAN01_UID = 0;
 
-  /**
-   * List of tables compose datasource
-   */
+  /** List of tables compose datasource. */
   static final SQLiteTable[] TABLES = {new Bean01Table()};
 
-  /**
-   * <p>dao instance</p>
-   */
+  /** <p>dao instance</p>. */
   protected DaoBean01Impl daoBean01 = new DaoBean01Impl(context);
 
-  /**
-   * Used only in transactions (that can be executed one for time
-   */
+  /** Used only in transactions (that can be executed one for time. */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
+  /**
+   * Instantiates a new bind dummy 01 data source.
+   *
+   * @param options the options
+   */
   protected BindDummy01DataSource(DataSourceOptions options) {
     super("dummy1", 1, options);
   }
 
+  /* (non-Javadoc)
+   * @see sqlite.kripton40.BindDummy01DaoFactory#getDaoBean01()
+   */
   @Override
   public DaoBean01Impl getDaoBean01() {
     return daoBean01;
@@ -113,8 +126,9 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param commands
-   * 	batch to execute
+   * @param <T> the generic type
+   * @param commands 	batch to execute
+   * @return the t
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -123,10 +137,10 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param commands
-   * 	batch to execute
-   * @param writeMode
-   * 	true to open connection in write mode, false to open connection in read only mode
+   * @param <T> the generic type
+   * @param commands 	batch to execute
+   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
+   * @return the t
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -150,6 +164,8 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
 
   /**
    * <p>Retrieve instance.</p>
+   *
+   * @return the bind dummy 01 data source
    */
   public static BindDummy01DataSource instance() {
     BindDummy01DataSource result=instance;
@@ -196,7 +212,9 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   }
 
   /**
-   * onCreate
+   * onCreate.
+   *
+   * @param database the database
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -223,7 +241,11 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   }
 
   /**
-   * onUpgrade
+   * onUpgrade.
+   *
+   * @param database the database
+   * @param previousVersion the previous version
+   * @param currentVersion the current version
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -267,7 +289,9 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   }
 
   /**
-   * onConfigure
+   * onConfigure.
+   *
+   * @param database the database
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -277,12 +301,18 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
     }
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
+   */
   public void clearCompiledStatements() {
     DaoBean01Impl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
+   *
+   * @param options the options
+   * @return the bind dummy 01 data source
    */
   public static BindDummy01DataSource build(DataSourceOptions options) {
     BindDummy01DataSource result=instance;
@@ -316,7 +346,9 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   }
 
   /**
-   * List of tables compose datasource:
+   * List of tables compose datasource:.
+   *
+   * @return the SQ lite table[]
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -326,43 +358,56 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindDummy01DaoFactory> {
+    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory
-     * @return
-     * @throws Throwable
+     * @param daoFactory the dao factory
+     * @return the transaction result
      */
     TransactionResult onExecute(BindDummy01DaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
+   *
+   * @param <T> the generic type
    */
   public interface Batch<T> {
+    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory
-     * @throws Throwable
+     * @param daoFactory the dao factory
+     * @return the t
      */
     T onExecute(BindDummy01DaoFactory daoFactory);
   }
 
+  /**
+   * The Class DataSourceSingleThread.
+   */
   class DataSourceSingleThread implements BindDummy01DaoFactory {
+    
+    /** The context. */
     private SQLContextInSessionImpl _context;
 
+    /** The dao bean 01. */
     protected DaoBean01Impl _daoBean01;
 
+    /**
+     * Instantiates a new data source single thread.
+     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindDummy01DataSource.this);
     }
 
     /**
+     * retrieve dao DaoBean01.
      *
-     * retrieve dao DaoBean01
+     * @return the dao bean 01
      */
     public DaoBean01Impl getDaoBean01() {
       if (_daoBean01==null) {
@@ -371,15 +416,29 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
       return _daoBean01;
     }
 
+    /**
+     * On session opened.
+     */
     protected void onSessionOpened() {
     }
 
+    /**
+     * On session clear.
+     */
     protected void onSessionClear() {
     }
 
+    /**
+     * On session closed.
+     */
     protected void onSessionClosed() {
     }
 
+    /**
+     * Bind to thread.
+     *
+     * @return the data source single thread
+     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

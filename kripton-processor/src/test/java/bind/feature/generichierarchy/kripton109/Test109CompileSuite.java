@@ -20,6 +20,9 @@ import org.junit.runners.Suite;
 
 import bind.feature.generichierarchy.kripton109.test3.TestCompileTest3;
 
+/**
+ * The Class Test109CompileSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

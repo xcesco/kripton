@@ -20,12 +20,17 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test81ECompile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class Test81ECompile {
 
+	/**
+	 * Test bind transformer.
+	 */
 	@Test
 	public void testBindTransformer()
 	{

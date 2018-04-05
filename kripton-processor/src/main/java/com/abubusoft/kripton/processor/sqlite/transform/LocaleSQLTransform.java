@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.common.LocaleUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Locale object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.LocaleUtils;
  */
 public class LocaleSQLTransform extends UtilSQLTransform<LocaleUtils> {
 
+	/**
+	 * Instantiates a new locale SQL transform.
+	 */
 	public LocaleSQLTransform() {
 		super(LocaleUtils.class);
 	}

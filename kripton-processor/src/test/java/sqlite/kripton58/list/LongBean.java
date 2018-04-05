@@ -20,13 +20,20 @@ import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LongBean.
+ */
 @BindType
 public class LongBean {
 
+	/** The id. */
 	public long id;
 	
+	/** The value. */
 	public List<Long> value;
 	
+	/** The value 2. */
 	public LinkedList<Long> value2;
 	
 

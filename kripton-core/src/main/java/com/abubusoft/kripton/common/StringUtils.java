@@ -19,26 +19,33 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
+// TODO: Auto-generated Javadoc
 /**
- * A few string utils
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * A few string utils.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class StringUtils {
 
+	/** The Constant VIEW_SIZE. */
 	private static final int VIEW_SIZE = 64;
 
+	/**
+	 * Checks if is empty.
+	 *
+	 * @param value the value
+	 * @return true, if is empty
+	 */
 	public static boolean isEmpty(String value) {
 		return value == null || value.length() == 0;
 	}
 
 	/**
 	 * if <code>value</code> begin with ' ' or '\t' then return
-	 * <code>' ' + value</code> string, otherwise <code>value</code>
-	 * 
-	 * @param value
-	 * @return
+	 * <code>' ' + value</code> string, otherwise <code>value</code>.
+	 *
+	 * @param value the value
+	 * @return the string
 	 */
 	public static String startWithSpace(String value) {
 		if (value.length() > 0 && (value.charAt(0) != ' ' && value.charAt(0) != '\t')) {
@@ -50,8 +57,8 @@ public class StringUtils {
 
 	/**
 	 * Contains text.
-	 * 
-	 * @param value
+	 *
+	 * @param value the value
 	 * @return true if string is not empty and contains not only spaces
 	 */
 	public static boolean hasText(String value) {
@@ -59,7 +66,12 @@ public class StringUtils {
 	}
 
 	/**
-	 * limit string size
+	 * limit string size.
+	 *
+	 * @param value the value
+	 * @param limitSize the limit size
+	 * @param defaultValue the default value
+	 * @return the string
 	 */
 	public static String checkSize(Object value, int limitSize, String defaultValue) {
 		if (value != null) {
@@ -77,8 +89,16 @@ public class StringUtils {
 
 	}
 	
+	/** The Constant hexArray. */
 	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 	
+	/**
+	 * Bytes to hex.
+	 *
+	 * @param bytes the bytes
+	 * @param size the size
+	 * @return the string
+	 */
 	public static String bytesToHex(byte[] bytes, int size) {
 		size=Math.min(bytes.length, size);
 	    char[] hexChars = new char[size * 2];
@@ -90,6 +110,13 @@ public class StringUtils {
 	    return new String(hexChars);
 	}
 
+	/**
+	 * Check size.
+	 *
+	 * @param value the value
+	 * @param limitSize the limit size
+	 * @return the string
+	 */
 	public static String checkSize(byte[] value, int limitSize) {
 		if (value != null) {
 			if (value.length > limitSize) {
@@ -105,12 +132,10 @@ public class StringUtils {
 	 * format as sql parameter. If value is not null, method will return
 	 * 'value'. If value is not null, delimiter will be used to delimit return
 	 * value. Otherwise, defaultValue will be returned, without delimiter.
-	 * 
-	 * @param value
-	 * @param delimiter
-	 * @param limitSize
-	 * @param defaultValue
-	 * @return
+	 *
+	 * @param value the value
+	 * @param delimiter the delimiter
+	 * @return the string
 	 */
 	public static String formatParam(Object value, String delimiter) {
 		if (value != null) {
@@ -129,26 +154,42 @@ public class StringUtils {
 	}
 
 	/**
-	 * limit string size to 32
+	 * limit string size to 32.
+	 *
+	 * @param value the value
+	 * @return the string
 	 */
 	public static String checkSize(Object value) {
 		return checkSize(value, VIEW_SIZE, null);
 	}
 
 	/**
-	 * limit string size to 32
+	 * limit string size to 32.
+	 *
+	 * @param value the value
+	 * @param defaultValue the default value
+	 * @return the string
 	 */
 	public static String checkSize(Object value, String defaultValue) {
 		return checkSize(value, VIEW_SIZE, defaultValue);
 	}
 
 	/**
-	 * limit string size to 32
+	 * limit string size to 32.
+	 *
+	 * @param value the value
+	 * @return the string
 	 */
 	public static String checkSize(byte[] value) {
 		return checkSize(value, 32);
 	}
 
+	/**
+	 * Lowercase first letter.
+	 *
+	 * @param value the value
+	 * @return the string
+	 */
 	public static String lowercaseFirstLetter(String value) {
 		// se non abbiamo input, allora non facciamo niente
 		if (value == null || value.length() == 0)
@@ -160,6 +201,13 @@ public class StringUtils {
 		return new String(stringArray);
 	}
 
+	/**
+	 * String 2 writer.
+	 *
+	 * @param source the source
+	 * @param out the out
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void string2Writer(String source, Writer out) throws IOException {
 
 		char[] buffer = source.toCharArray();
@@ -169,6 +217,13 @@ public class StringUtils {
 		out.flush();
 	}
 
+	/**
+	 * Reader 2 string.
+	 *
+	 * @param source the source
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String reader2String(Reader source) throws IOException {
 		char[] cbuf = new char[65535];
 		StringBuffer stringbuf = new StringBuffer();
@@ -186,10 +241,10 @@ public class StringUtils {
 	 * If <code>checkString</code> has text, returns value+checkString. Otherwise
 	 * empty string was returned
 	 * </p>
-	 * 
-	 * @param chekString
-	 * @param value
-	 * @return
+	 *
+	 * @param chekString the chek string
+	 * @param value the value
+	 * @return the string
 	 */
 	public static String ifNotEmptyAppend(String chekString, String value) {
 		if (hasText(chekString)) {
@@ -204,10 +259,10 @@ public class StringUtils {
 	 * If <code>checkString</code> has text, returns checkString+value string. Otherwise
 	 * empty string was returned
 	 * </p>
-	 * 
-	 * @param chekString
-	 * @param value
-	 * @return
+	 *
+	 * @param chekString the chek string
+	 * @param value the value
+	 * @return the string
 	 */
 	public static String ifNotEmptyPrepend(String chekString, String value) {
 		if (hasText(chekString)) {
@@ -217,12 +272,25 @@ public class StringUtils {
 		}
 	}
 
+	/**
+	 * Nvl.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
 	public static String nvl(String input) {
 		if (input==null) return "";
 		
 		return input;
 	}
 
+	/**
+	 * Prints the if.
+	 *
+	 * @param test the test
+	 * @param value the value
+	 * @return the string
+	 */
 	public static String printIf(boolean test, String value) {
 		if(test) return value;
 		return "";

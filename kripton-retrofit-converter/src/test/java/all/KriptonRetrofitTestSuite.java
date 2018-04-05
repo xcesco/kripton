@@ -20,6 +20,9 @@ import org.junit.runners.Suite;
 
 import com.abubusoft.kripton.retrofit2.TestConversion;
 
+/**
+ * The Class KriptonRetrofitTestSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

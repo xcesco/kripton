@@ -19,13 +19,12 @@
 package com.abubusoft.kripton.android.sqlite;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * <p></p>
+ * Listener 
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
- * @param <E>
- *
- *
+ * @param <E> the element type
  * @since 17/mag/2016
  */
 public interface OnReadBeanListener<E> {

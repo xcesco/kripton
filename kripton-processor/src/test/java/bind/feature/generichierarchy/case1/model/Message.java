@@ -20,9 +20,16 @@ import com.abubusoft.kripton.annotation.BindType;
 import bind.feature.generichierarchy.UIDObject;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Message.
+ */
 @BindType
 public class Message extends UIDObject {
 
+	/* (non-Javadoc)
+	 * @see bind.feature.generichierarchy.UIDObject#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -35,6 +42,9 @@ public class Message extends UIDObject {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see bind.feature.generichierarchy.UIDObject#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -69,65 +79,129 @@ public class Message extends UIDObject {
 		return true;
 	}
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2411765210163916759L;
 	
+	/** The face uid. */
 	protected String faceUid;
 
+	/** The text. */
 	protected String text;
 	
+	/** The type. */
 	protected MessageType type;
 
+	/** The owner uid. */
 	protected String ownerUid;
 	
+	/** The channel uid. */
 	protected String channelUid;
 
+	/**
+	 * Gets the face uid.
+	 *
+	 * @return the face uid
+	 */
 	public String getFaceUid() {
 		return faceUid;
 	}
 
+	/**
+	 * Sets the face uid.
+	 *
+	 * @param faceUid the new face uid
+	 */
 	public void setFaceUid(String faceUid) {
 		this.faceUid = faceUid;
 	}
 
+	/**
+	 * Gets the channel uid.
+	 *
+	 * @return the channel uid
+	 */
 	public String getChannelUid() {
 		return channelUid;
 	}
 
+	/**
+	 * Sets the channel uid.
+	 *
+	 * @param channelUid the new channel uid
+	 */
 	public void setChannelUid(String channelUid) {
 		this.channelUid = channelUid;
 	}
 
+	/**
+	 * Gets the owner uid.
+	 *
+	 * @return the owner uid
+	 */
 	public String getOwnerUid() {
 		return ownerUid;
 	}
 
+	/**
+	 * Sets the owner uid.
+	 *
+	 * @param ownerUid the new owner uid
+	 */
 	public void setOwnerUid(String ownerUid) {
 		this.ownerUid = ownerUid;
 	}
 
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public MessageType getType() {
 		return type;
 	}
 
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType(MessageType type) {
 		this.type = type;
 	}
 
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
+	/* (non-Javadoc)
+	 * @see bind.feature.generichierarchy.UIDObject#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Message [faceUid=" + faceUid + ", text=" + text + ", type=" + type + ", ownerUid=" + ownerUid
 				+ ", channelUid=" + channelUid + ", uid=" + uid + ", updateTime=" + updateTime + "]";
 	}
 
+	/**
+	 * Checks for face.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasFace() {
 		return faceUid!=null;
 	}

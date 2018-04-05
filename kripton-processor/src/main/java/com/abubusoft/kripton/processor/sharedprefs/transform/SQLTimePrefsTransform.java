@@ -17,14 +17,17 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.SQLTimeUtils;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a custom Time object
- * 
- * @author xcesco
+ * Transformer between a string and a custom Time object.
  *
+ * @author xcesco
  */
 public class SQLTimePrefsTransform extends WrappedPrefsTransform {
 
+	/**
+	 * Instantiates a new SQL time prefs transform.
+	 */
 	public SQLTimePrefsTransform() {
 		super(SQLTimeUtils.class);
 	}

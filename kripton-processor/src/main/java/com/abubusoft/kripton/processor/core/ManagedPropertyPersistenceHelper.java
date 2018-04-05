@@ -43,22 +43,34 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ManagedPropertyPersistenceHelper.
+ */
 public abstract class ManagedPropertyPersistenceHelper {
 
+	/**
+	 * The Enum PersistType.
+	 */
 	public enum PersistType {
-		STRING, BYTE
+		
+		/** The string. */
+		STRING, 
+ /** The byte. */
+ BYTE
 	}
 
+	/** The default field name. */
 	public static String DEFAULT_FIELD_NAME = "element";
 
 	/**
 	 * Manage field's persistence for both in SharedPreference and SQLite flavours.
-	 * 
-	 * @param context
-	 * @param collection
-	 * @param persistType
-	 * @param forceName
-	 * @param modifiers
+	 *
+	 * @param context the context
+	 * @param collection the collection
+	 * @param persistType the persist type
+	 * @param forceName the force name
+	 * @param modifiers the modifiers
 	 */
 	public static void generateFieldPersistance(BindTypeContext context, List<? extends ManagedModelProperty> collection, PersistType persistType, boolean forceName, Modifier... modifiers) {
 
@@ -77,12 +89,12 @@ public abstract class ManagedPropertyPersistenceHelper {
 	}
 
 	/**
-	 * generates code to manage field serialization
-	 * 
-	 * @param context
-	 * @param persistType
-	 * @param property
-	 * @param modifiers
+	 * generates code to manage field serialization.
+	 *
+	 * @param context the context
+	 * @param persistType the persist type
+	 * @param property the property
+	 * @param modifiers the modifiers
 	 */
 	public static void generateFieldSerialize(BindTypeContext context, PersistType persistType, BindProperty property, Modifier... modifiers) {
 		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
@@ -149,12 +161,12 @@ public abstract class ManagedPropertyPersistenceHelper {
 	}
 
 	/**
-	 * generates code to manage field parsing
-	 * 
-	 * @param context
-	 * @param persistType
-	 * @param property
-	 * @param modifiers
+	 * generates code to manage field parsing.
+	 *
+	 * @param context the context
+	 * @param persistType the persist type
+	 * @param property the property
+	 * @param modifiers the modifiers
 	 */
 	public static void generateFieldParser(BindTypeContext context, PersistType persistType, BindProperty property, Modifier... modifiers) {
 		Converter<String, String> format = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
@@ -211,6 +223,14 @@ public abstract class ManagedPropertyPersistenceHelper {
 
 	}
 
+	/**
+	 * Generate param serializer.
+	 *
+	 * @param context the context
+	 * @param propertyName the property name
+	 * @param parameterTypeName the parameter type name
+	 * @param persistType the persist type
+	 */
 	public static void generateParamSerializer(BindTypeContext context, String propertyName, TypeName parameterTypeName, PersistType persistType) {
 		propertyName = SQLiteDaoDefinition.PARAM_SERIALIZER_PREFIX + propertyName;
 
@@ -272,6 +292,14 @@ public abstract class ManagedPropertyPersistenceHelper {
 
 	}
 
+	/**
+	 * Generate param parser.
+	 *
+	 * @param context the context
+	 * @param methodName the method name
+	 * @param parameterTypeName the parameter type name
+	 * @param persistType the persist type
+	 */
 	public static void generateParamParser(BindTypeContext context, String methodName, TypeName parameterTypeName, PersistType persistType) {
 		methodName = SQLiteDaoDefinition.PARAM_PARSER_PREFIX + methodName;
 

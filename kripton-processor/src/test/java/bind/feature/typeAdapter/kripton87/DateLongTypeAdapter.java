@@ -19,13 +19,23 @@ import java.util.Date;
 
 import com.abubusoft.kripton.TypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DateLongTypeAdapter.
+ */
 public class DateLongTypeAdapter implements TypeAdapter<Date, Long> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public Date toJava(Long dataValue) {
 		return new Date(dataValue);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public Long toData(Date javaValue) {
 		if (javaValue==null) return null;

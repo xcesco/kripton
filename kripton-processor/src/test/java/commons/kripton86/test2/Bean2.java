@@ -17,8 +17,13 @@ package commons.kripton86.test2;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean2.
+ */
 @BindType
 public class Bean2 {
 
+	/** The id. */
 	public long id;
 }

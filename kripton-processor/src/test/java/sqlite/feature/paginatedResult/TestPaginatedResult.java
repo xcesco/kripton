@@ -38,26 +38,50 @@ import sqlite.feature.paginatedResult.error5.Err5PersonDAO;
 import sqlite.feature.paginatedResult.error5.Err5PersonDataSource;
 import sqlite.feature.paginatedResult.model.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestPaginatedResult.
+ */
 @RunWith(JUnit4.class)
 public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test 1.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void test1() throws Throwable {
 		buildDataSourceProcessorTest(Person1DataSource.class, Dao1Person.class, Person.class);
 	}
 	
+	/**
+	 * Test 2.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void test2() throws Throwable {
 		buildDataSourceProcessorTest(Person2DataSource.class, Dao2Person.class, Person.class);
 	}
 
 	
+	/**
+	 * Test 3.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void test3() throws Throwable {
 		buildDataSourceProcessorTest(Person3DataSource.class, Dao3Person.class, Person.class);
 	}
 
 	
+	/**
+	 * Test 4.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void test4() throws Throwable {
 		buildDataSourceProcessorTest(Person4DataSource.class, Dao4Person.class, Person.class);
@@ -65,9 +89,9 @@ public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 
 
 	/**
-	 * pageSize is a String
-	 * 
-	 * @throws Throwable
+	 * pageSize is a String.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr1() throws Throwable {
@@ -76,9 +100,9 @@ public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Twice pageSize parameter
-	 * 
-	 * @throws Throwable
+	 * Twice pageSize parameter.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr2() throws Throwable {
@@ -87,9 +111,9 @@ public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Both pageSize in annotation and as parameter
-	 * 
-	 * @throws Throwable
+	 * Both pageSize in annotation and as parameter.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr3() throws Throwable {
@@ -98,9 +122,9 @@ public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * pageSize in annotation negative
-	 * 
-	 * @throws Throwable
+	 * pageSize in annotation negative.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr4() throws Throwable {
@@ -109,9 +133,9 @@ public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * pageSize in annotation negative
-	 * 
-	 * @throws Throwable
+	 * pageSize in annotation negative.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr5() throws Throwable {

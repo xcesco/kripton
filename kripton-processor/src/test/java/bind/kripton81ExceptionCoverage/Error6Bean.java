@@ -17,22 +17,43 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Error6Bean.
+ */
 @BindType
 public class Error6Bean {
 
+	/** The value 1. */
 	private String value1;
 
+	/**
+	 * Gets the value 1.
+	 *
+	 * @return the value 1
+	 */
 	public String getValue1() {
 		return value1;
 	}
 
+	/**
+	 * Sets the value 1.
+	 *
+	 * @param value1 the new value 1
+	 */
 	public void setValue1(String value1) {
 		this.value1 = value1;
 	}
 
+	/**
+	 * Gets the value 2.
+	 *
+	 * @return the value 2
+	 */
 	public String getValue2() {
 		return value2;
 	}
 
+	/** The value 2. */
 	private String value2;
 }

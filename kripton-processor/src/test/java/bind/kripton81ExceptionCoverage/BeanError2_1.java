@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+/**
+ * The Class BeanError2_1.
+ */
 @BindType
 public class BeanError2_1 {
 

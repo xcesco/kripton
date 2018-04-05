@@ -17,12 +17,22 @@ package sqlite.quickstart.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Geo.
+ */
 @BindType
 public class Geo {
 
+    /** The lat. */
     public String lat;
+    
+    /** The lng. */
     public String lng;
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Geo{" +

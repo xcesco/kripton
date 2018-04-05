@@ -31,6 +31,7 @@ import android.app.Application;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Used to define datasource options with annotation. It's usefull when you need
@@ -47,36 +48,52 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 @Target(ElementType.TYPE)
 public @interface BindDataSourceOptions {
 
+	/**
+	 * Cursor factory.
+	 *
+	 * @return the class&lt;? extends cursor factory&gt;
+	 */
 	public Class<? extends CursorFactory> cursorFactory() default NoCursorFactory.class;
 
+	/**
+	 * Database error handler.
+	 *
+	 * @return the class&lt;? extends database error handler&gt;
+	 */
 	public Class<? extends DatabaseErrorHandler> databaseErrorHandler() default NoDatabaseErrorHandler.class;
 
+	/**
+	 * Database lifecycle handler.
+	 *
+	 * @return the class&lt;? extends database lifecycle handler&gt;
+	 */
 	public Class<? extends DatabaseLifecycleHandler> databaseLifecycleHandler() default NoDatabaseLifecycleHandler.class;
 
 	/**
-	 * if true, generate database in memory
-	 * 
+	 * if true, generate database in memory.
+	 *
 	 * @return true if you want to generate database in memory
 	 */
 	boolean inMemory() default false;
 
 	/**
+	 * Log enabled.
+	 *
 	 * @return true to show operations log
-	 * 
 	 */
 	boolean logEnabled() default true;
 
 	/**
 	 * {@link SQLitePopulator#execute()} is executed after database creation.
-	 * 
-	 * @return
+	 *
+	 * @return the class&lt;? extends SQlitePopulator&gt;
 	 */
 	Class<? extends SQLitePopulator> populator() default NoPopulator.class;
 
 	/**
 	 * When a datasource instance is created, these are the executed tasks.
-	 * 
-	 * @return
+	 *
+	 * @return the bind data source update task[]
 	 */
 	BindDataSourceUpdateTask[] updateTasks() default {};
 

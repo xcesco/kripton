@@ -62,9 +62,22 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SQLiteModelMethod.
+ */
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement, JQLContext {
 
+	/**
+	 * The Interface OnFoundDynamicParameter.
+	 */
 	interface OnFoundDynamicParameter {
+		
+		/**
+		 * On found parameter.
+		 *
+		 * @param parameterName the parameter name
+		 */
 		void onFoundParameter(String parameterName);
 	}
 
@@ -105,20 +118,31 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	public String paginatedResultName;
 
+	/** The parameter alias 2 name field. */
 	protected Map<String, String> parameterAlias2NameField;
 
+	/** The parameter name 2 alias. */
 	protected Map<String, String> parameterName2Alias;
 
+	/** The parameter name 2 adapter. */
 	protected Map<String, String> parameterName2Adapter;
 
+	/** The parent. */
 	private WeakReference<SQLiteDaoDefinition> parent;
 
+	/**
+	 * Next counter.
+	 *
+	 * @return the long
+	 */
 	public long nextCounter() {
 		return getParent().nextCounter();
 	}
 
+	/** The jql. */
 	public final JQL jql;
 
+	/** The content provider entry path enabled. */
 	public boolean contentProviderEntryPathEnabled;
 
 	/**
@@ -126,13 +150,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	public String contentProviderEntryPath;
 
-	/**
-	 * name of method generated for content provider
-	 */
+	/** name of method generated for content provider. */
 	public String contentProviderMethodName;
 
+	/** The parameter bean name. */
 	public String parameterBeanName;
 
+	/** The content provider uri variables. */
 	public List<ContentUriPlaceHolder> contentProviderUriVariables;
 
 	/**
@@ -147,15 +171,20 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	public String contentProviderUriTemplate;
 
+	/** The content provider entry path template. */
 	public String contentProviderEntryPathTemplate;
 
+	/** The dynamic where prepend. */
 	public PrependType dynamicWherePrepend;
 
-	/**
-	 * if true, means that this method returns live data
-	 */
+	/** if true, means that this method returns live data. */
 	private boolean liveDataEnabled;
 	
+	/**
+	 * Checks for live data.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasLiveData() {
 		return liveDataEnabled;
 	}
@@ -165,6 +194,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	public ParameterizedTypeName liveDataReturnClass;
 
+	/**
+	 * Instantiates a new SQ lite model method.
+	 *
+	 * @param parent the parent
+	 * @param element the element
+	 * @param annotationList the annotation list
+	 */
 	public SQLiteModelMethod(SQLiteDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
 
@@ -360,7 +396,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * @throws ClassNotFoundException
+	 * Checks if is live data.
+	 *
+	 * @param methodDefinition the method definition
+	 * @return true, if is live data
 	 */
 	public static boolean isLiveData(SQLiteModelMethod methodDefinition)  {
 		boolean result=false;
@@ -385,10 +424,21 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return result;
 	}
 
+	/**
+	 * Checks for adapter for param.
+	 *
+	 * @param paramName the param name
+	 * @return true, if successful
+	 */
 	public boolean hasAdapterForParam(String paramName) {
 		return this.parameterName2Adapter.containsKey(paramName);
 	}
 
+	/**
+	 * Gets the JQL declared.
+	 *
+	 * @return the JQL declared
+	 */
 	private String getJQLDeclared() {
 		ModelAnnotation inserAnnotation = this.getAnnotation(BindSqlInsert.class);
 		ModelAnnotation updateAnnotation = this.getAnnotation(BindSqlUpdate.class);
@@ -447,13 +497,18 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
+	 */
 	@Override
 	public void accept(SQLiteModelElementVisitor visitor) throws Exception {
 		visitor.visit(this);
 	}
 
+	/** The unsupported SQL for dynamic where. */
 	static List<Class<? extends Annotation>> unsupportedSQLForDynamicWhere = new ArrayList<>();
 
+	/** The unsupported SQL for dynamic order by. */
 	static List<Class<? extends Annotation>> unsupportedSQLForDynamicOrderBy = new ArrayList<>();
 
 	static {
@@ -468,9 +523,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * Look for a method parameter which is annotated with an annotationClass
 	 * annotation. When it is found, a client action is required through
 	 * listener.
-	 * 
-	 * @param parent
-	 * @param element
+	 *
+	 * @param <A> the generic type
+	 * @param parent the parent
+	 * @param annotationClazz the annotation clazz
+	 * @param unsupportedQueryType the unsupported query type
+	 * @param listener the listener
 	 */
 	private <A extends Annotation> void findStringDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
@@ -499,9 +557,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * Look for a method parameter which is annotated with an annotationClass
 	 * annotation. When it is found, a client action is required through
 	 * listener.
-	 * 
-	 * @param parent
-	 * @param element
+	 *
+	 * @param <A> the generic type
+	 * @param parent the parent
+	 * @param annotationClazz the annotation clazz
+	 * @param unsupportedQueryType the unsupported query type
+	 * @param listener the listener
 	 */
 	private <A extends Annotation> void findIntDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
@@ -529,9 +590,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Retrieve for a method's parameter its alias, used to work with queries.
 	 * If no alias is present, typeName will be used.
-	 * 
-	 * @param typeName
-	 * @return
+	 *
+	 * @param name the name
+	 * @return the string
 	 */
 	public String findParameterAliasByName(String name) {
 		if (parameterName2Alias.containsKey(name)) {
@@ -542,10 +603,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * Check if method contains a parameter with value as typeName
-	 * 
-	 * @param nameOrAlias
-	 *            parameter typeName to find
+	 * Check if method contains a parameter with value as typeName.
+	 *
+	 * @param nameOrAlias            parameter typeName to find
 	 * @return TypeMirror associated
 	 */
 	public String findParameterNameByAlias(String nameOrAlias) {
@@ -566,10 +626,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * Check if method contains a parameter with value as typeName
-	 * 
-	 * @param typeName
-	 *            parameter typeName to find
+	 * Check if method contains a parameter with value as typeName.
+	 *
+	 * @param name the name
 	 * @return TypeMirror associated
 	 */
 	public TypeName findParameterTypeByAliasOrName(String name) {
@@ -581,48 +640,103 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
+	 * Gets the parent.
+	 *
 	 * @return the parent
 	 */
 	public SQLiteDaoDefinition getParent() {
 		return parent.get();
 	}
 
+	/**
+	 * Checks for dynamic order by conditions.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasDynamicOrderByConditions() {
 		return StringUtils.hasText(dynamicOrderByParameterName);
 	}
 
+	/**
+	 * Checks for dynamic where conditions.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasDynamicWhereConditions() {
 		return StringUtils.hasText(dynamicWhereParameterName);
 	}
 
+	/**
+	 * Checks for dynamic where args.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasDynamicWhereArgs() {
 		return StringUtils.hasText(dynamicWhereArgsParameterName);
 	}
 
+	/**
+	 * Checks for dynamic page size conditions.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasDynamicPageSizeConditions() {
 		return StringUtils.hasText(dynamicPageSizeName);
 	}
 
+	/**
+	 * Checks if is this dynamic where conditions name.
+	 *
+	 * @param parameterName the parameter name
+	 * @return true, if is this dynamic where conditions name
+	 */
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
 		return StringUtils.hasText(dynamicWhereParameterName) && parameterName.equals(dynamicWhereParameterName);
 	}
 
+	/**
+	 * Checks if is log enabled.
+	 *
+	 * @return true, if is log enabled
+	 */
 	public boolean isLogEnabled() {
 		return getParent().isLogEnabled();
 	}
 
+	/**
+	 * Checks if is this dynamic page size name.
+	 *
+	 * @param parameterName the parameter name
+	 * @return true, if is this dynamic page size name
+	 */
 	public boolean isThisDynamicPageSizeName(String parameterName) {
 		return StringUtils.hasText(dynamicPageSizeName) && parameterName.equals(dynamicPageSizeName);
 	}
 
+	/**
+	 * Checks if is this dynamic where args name.
+	 *
+	 * @param parameterName the parameter name
+	 * @return true, if is this dynamic where args name
+	 */
 	public boolean isThisDynamicWhereArgsName(String parameterName) {
 		return StringUtils.hasText(dynamicWhereArgsParameterName) && parameterName.equals(dynamicWhereArgsParameterName);
 	}
 
+	/**
+	 * Checks for paginated result parameter.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasPaginatedResultParameter() {
 		return StringUtils.hasText(paginatedResultName);
 	}
 
+	/**
+	 * Content provider uri.
+	 *
+	 * @return the string
+	 */
 	public String contentProviderUri() {
 		if (!contentProviderEntryPathEnabled)
 			return "";
@@ -630,6 +744,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return this.getParent().contentProviderUri() + (StringUtils.hasText(contentProviderEntryPath) ? ("/" + contentProviderEntryPath) : "");
 	}
 
+	/**
+	 * Content provider path.
+	 *
+	 * @return the string
+	 */
 	public String contentProviderPath() {
 		if (!contentProviderEntryPathEnabled)
 			return "";
@@ -637,6 +756,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return (StringUtils.hasText(contentProviderEntryPath) ? ("/" + contentProviderEntryPath) : "");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext#getContextDescription()
+	 */
 	@Override
 	public String getContextDescription() {
 		String msg = String.format("In method '%s.%s'", getParent().getElement().getSimpleName().toString(), getElement().getSimpleName().toString());
@@ -644,6 +766,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return msg;
 	}
 
+	/**
+	 * Gets the adapter for param.
+	 *
+	 * @param paramName the param name
+	 * @return the adapter for param
+	 */
 	public TypeName getAdapterForParam(String paramName) {
 		if (this.hasAdapterForParam(paramName)) {
 			return TypeUtility.typeName(this.parameterName2Adapter.get(paramName));
@@ -652,6 +780,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		}
 	}
 
+	/**
+	 * Find entity property.
+	 *
+	 * @return the string
+	 */
 	public String findEntityProperty() {
 		SQLiteEntity entity = getParent().getEntity();
 
@@ -663,8 +796,14 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return null;
 	}
 
+	/** The prepared statement name. */
 	private String preparedStatementName;
 
+	/**
+	 * Builds the prepared statement name.
+	 *
+	 * @return the string
+	 */
 	public String buildPreparedStatementName() {
 		if (!StringUtils.hasText(preparedStatementName)) {
 			preparedStatementName = getParent().buildPreparedStatementName(getName());
@@ -672,11 +811,21 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return preparedStatementName;
 	}
 
+	/**
+	 * Checks for dynamic parts.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasDynamicParts() {
 		return hasDynamicOrderByConditions() || hasDynamicPageSizeConditions() || hasDynamicWhereConditions() || this.jql.hasDynamicParts();
 
 	}
 
+	/**
+	 * Builds the SQL name.
+	 *
+	 * @return the string
+	 */
 	public String buildSQLName() {
 		return getName() + "Sql" + nextCounter();
 	}

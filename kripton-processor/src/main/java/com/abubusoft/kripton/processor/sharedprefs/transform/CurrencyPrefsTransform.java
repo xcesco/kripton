@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.CurrencyUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Currency object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.CurrencyUtils;
  */
 class CurrencyPrefsTransform extends WrappedPrefsTransform {
 
+	/**
+	 * Instantiates a new currency prefs transform.
+	 */
 	public CurrencyPrefsTransform() {
 		super(CurrencyUtils.class);
 	}

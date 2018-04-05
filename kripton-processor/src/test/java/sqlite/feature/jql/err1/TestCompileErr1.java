@@ -23,10 +23,19 @@ import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileErr1.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileErr1 extends AbstractBindSQLiteProcessorTest {
 	
 	
+	/**
+	 * Test must work.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test 
 	public void test_must_work() throws Throwable {
 		this.expectedException( UnknownClassInJQLException.class);

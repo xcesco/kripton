@@ -19,6 +19,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
 
 import java.lang.annotation.Retention;
 
+// TODO: Auto-generated Javadoc
 /**
  * Denotes that the class, method or field has its visibility relaxed, so that it is more widely
  * visible than otherwise necessary to make code testable.
@@ -37,21 +38,21 @@ import java.lang.annotation.Retention;
  */
 @Retention(CLASS)
 public @interface VisibleForTesting {
+    
+    /**
+     * Otherwise.
+     *
+     * @return the int
+     */
     int otherwise() default PRIVATE;
 
-    /**
-     * The annotated element would have "private" visibility
-     */
+    /** The annotated element would have "private" visibility. */
     int PRIVATE = 2; // Happens to be the same as Modifier.PRIVATE
 
-    /**
-     * The annotated element would have "package private" visibility
-     */
+    /** The annotated element would have "package private" visibility. */
     int PACKAGE_PRIVATE = 3;
 
-    /**
-     * The annotated element would have "protected" visibility
-     */
+    /** The annotated element would have "protected" visibility. */
     int PROTECTED = 4; // Happens to be the same as Modifier.PROTECTED
 
     /**

@@ -33,72 +33,109 @@ import com.abubusoft.kripton.xml.XmlType;
 import bind.kripton80ContextCollection.Bean80;
 import bind.kripton80ContextCollection.BeanEnum;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean80.
+ */
 @BindType("root")
 public class Bean80 {
 	
+	/** The id. */
 	@Bind("typeName")
 	@BindXml(xmlType=XmlType.TAG)
 	protected long id;
 	
+	/** The value bean. */
 	public Bean80 valueBean;
 
+	/** The value big decimal. */
 	public BigDecimal valueBigDecimal;
 	
+	/** The value big integer. */
 	public BigInteger valueBigInteger;
 
+	/** The value bool. */
 	public Boolean valueBool;
 
+	/** The value bool type. */
 	public boolean valueBoolType;
 	
+	/** The value byte. */
 	public Byte valueByte;
 	
+	/** The value byte type. */
 	public byte valueByteType;	
 	
+	/** The value calendar. */
 	public Calendar valueCalendar;
 	
+	/** The value char. */
 	public Character valueChar;
 	
+	/** The value char type. */
 	public char valueCharType;
 	
+	/** The value content bool type. */
 	@BindXml(xmlType=XmlType.VALUE_CDATA)
 	public Integer valueContentBoolType;
 	
+	/** The value currency. */
 	public Currency valueCurrency;
 	
+	/** The value date. */
 	public Date valueDate;
 	
+	/** The value double. */
 	public Double valueDouble;
 	
+	/** The value double type. */
 	public double valueDoubleType;
 	
+	/** The value enum. */
 	public BeanEnum valueEnum;
 	
+	/** The value float. */
 	public Float valueFloat;
 	
+	/** The value float type. */
 	public float valueFloatType;
 	
+	/** The value int. */
 	public Integer valueInt;
 	
+	/** The value int type. */
 	public int valueIntType;
 	
+	/** The value locale. */
 	public Locale valueLocale;
 	
+	/** The value long. */
 	public Long valueLong;
 	
+	/** The value long type. */
 	public long valueLongType;
 	
+	/** The value short. */
 	public Short valueShort;
 	
+	/** The value short type. */
 	public short valueShortType;
 	
+	/** The value string. */
 	public String valueString;
 	
+	/** The value time. */
 	public Time valueTime;
 	
+	/** The value time zone. */
 	public TimeZone valueTimeZone;
 	
+	/** The value url. */
 	public URL valueUrl;
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -231,10 +268,18 @@ public class Bean80 {
 		return true;
 	}
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -274,6 +319,11 @@ public class Bean80 {
 		return result;
 	}
 	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}

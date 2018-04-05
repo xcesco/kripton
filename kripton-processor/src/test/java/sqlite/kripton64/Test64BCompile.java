@@ -21,12 +21,21 @@ import org.junit.Test;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test64BCompile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class Test64BCompile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile sqlite.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean64B.class, EnumType.class);

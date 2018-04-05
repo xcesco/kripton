@@ -19,6 +19,7 @@ package com.abubusoft.kripton.escape.text;
 import java.io.IOException;
 import java.io.Writer;
 
+// TODO: Auto-generated Javadoc
 /**
  * Executes a sequence of translators one after the other. Execution ends whenever 
  * the first translator consumes codepoints from the input.
@@ -27,6 +28,7 @@ import java.io.Writer;
  */
 public class AggregateTranslator extends CharSequenceTranslator {
 
+    /** The translators. */
     private final CharSequenceTranslator[] translators;
 
     /**

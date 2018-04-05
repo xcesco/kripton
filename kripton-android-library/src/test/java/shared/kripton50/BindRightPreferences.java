@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package shared.kripton50;
 
 import android.content.SharedPreferences;
@@ -18,24 +33,22 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is the shared preference binder defined for RightPreferences
+ * This class is the shared preference binder defined for RightPreferences.
  *
  * @see RightPreferences
  */
 public class BindRightPreferences extends AbstractSharedPreference {
-  /**
-   * instance of shared preferences
-   */
+  
+  /** instance of shared preferences. */
   private static BindRightPreferences instance;
 
-  /**
-   * working instance of bean
-   */
+  /** working instance of bean. */
   private final RightPreferences defaultBean;
 
   /**
-   * constructor
+   * constructor.
    */
   private BindRightPreferences() {
     // no typeName specified, using default shared preferences
@@ -44,14 +57,18 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * create an editor to modify shared preferences
+   * create an editor to modify shared preferences.
+   *
+   * @return the bind editor
    */
   public BindEditor edit() {
     return new BindEditor();
   }
 
   /**
-   * force to refresh values
+   * force to refresh values.
+   *
+   * @return the bind right preferences
    */
   public BindRightPreferences refresh() {
     // no typeName specified, using default shared preferences
@@ -60,7 +77,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reset shared preferences
+   * reset shared preferences.
    */
   public void reset() {
     RightPreferences bean=new RightPreferences();
@@ -68,7 +85,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read bean entirely
+   * read bean entirely.
    *
    * @return read bean
    */
@@ -95,7 +112,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write bean entirely
+   * write bean entirely.
    *
    * @param bean bean to entirely write
    */
@@ -134,7 +151,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property name
+   * read property name.
    *
    * @return property name value
    */
@@ -143,7 +160,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property description
+   * read property description.
    *
    * @return property description value
    */
@@ -152,7 +169,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueFloat
+   * read property valueFloat.
    *
    * @return property valueFloat value
    */
@@ -161,7 +178,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBoolean
+   * read property valueBoolean.
    *
    * @return property valueBoolean value
    */
@@ -170,7 +187,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property stringArray
+   * read property stringArray.
    *
    * @return property stringArray value
    */
@@ -181,7 +198,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property stringList
+   * read property stringList.
    *
    * @return property stringList value
    */
@@ -192,7 +209,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueInt
+   * read property valueInt.
    *
    * @return property valueInt value
    */
@@ -201,7 +218,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLong
+   * read property valueLong.
    *
    * @return property valueLong value
    */
@@ -210,7 +227,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute stringArray serialization
+   * for attribute stringArray serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeStringArray(String[] value) {
     if (value==null) {
@@ -247,7 +267,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute stringArray parsing
+   * for attribute stringArray parsing.
+   *
+   * @param input the input
+   * @return the string[]
    */
   protected String[] parseStringArray(String input) {
     if (input==null) {
@@ -281,7 +304,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute stringList serialization
+   * for attribute stringList serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeStringList(List<String> value) {
     if (value==null) {
@@ -318,7 +344,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute stringList parsing
+   * for attribute stringList parsing.
+   *
+   * @param input the input
+   * @return the list
    */
   protected List<String> parseStringList(String input) {
     if (input==null) {
@@ -352,7 +381,9 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * get instance of shared preferences
+   * get instance of shared preferences.
+   *
+   * @return the bind right preferences
    */
   public static synchronized BindRightPreferences instance() {
     if (instance==null) {
@@ -362,14 +393,21 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * editor class for shared preferences
+   * editor class for shared preferences.
    */
   public class BindEditor extends AbstractEditor {
+    
+    /**
+     * Instantiates a new bind editor.
+     */
     private BindEditor() {
     }
 
     /**
-     * modifier for property name
+     * modifier for property name.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putName(String value) {
       editor.putString("name",value);
@@ -378,7 +416,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property description
+     * modifier for property description.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putDescription(String value) {
       editor.putString("description",value);
@@ -387,7 +428,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueFloat
+     * modifier for property valueFloat.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueFloat(float value) {
       editor.putFloat("value_float",value);
@@ -396,7 +440,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBoolean
+     * modifier for property valueBoolean.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueBoolean(boolean value) {
       editor.putBoolean("value_boolean",(boolean)value);
@@ -405,7 +452,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property stringArray
+     * modifier for property stringArray.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putStringArray(String[] value) {
       if (value!=null)  {
@@ -419,7 +469,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property stringList
+     * modifier for property stringList.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putStringList(List<String> value) {
       if (value!=null)  {
@@ -433,7 +486,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueInt
+     * modifier for property valueInt.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueInt(int value) {
       editor.putInt("value_int",(int)value);
@@ -442,7 +498,10 @@ public class BindRightPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueLong
+     * modifier for property valueLong.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueLong(Long value) {
       if (value!=null)  {

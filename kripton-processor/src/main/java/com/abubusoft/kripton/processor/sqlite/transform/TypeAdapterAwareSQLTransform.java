@@ -12,15 +12,20 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class TypeAdapterAwareSQLTransform.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class TypeAdapterAwareSQLTransform extends AbstractSQLTransform {
 
+	/** The write costant. */
 	protected String WRITE_COSTANT = "$L";
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.AbstractSQLTransform#generateWriteParam2ContentValues(com.squareup.javapoet.MethodSpec.Builder, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, java.lang.String, com.squareup.javapoet.TypeName, com.abubusoft.kripton.processor.core.ModelProperty)
+	 */
 	@Override
 	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {
 		if (property != null && property.hasTypeAdapter()) {
@@ -32,11 +37,17 @@ public abstract class TypeAdapterAwareSQLTransform extends AbstractSQLTransform 
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#generateWriteParam2WhereCondition(com.squareup.javapoet.MethodSpec.Builder, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, java.lang.String, com.squareup.javapoet.TypeName)
+	 */
 	@Override
 	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {		
 		methodBuilder.addCode(WRITE_COSTANT + "$L", paramName);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#generateWriteProperty2ContentValues(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, com.abubusoft.kripton.processor.core.ModelProperty)
+	 */
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
 		if (property != null && property.hasTypeAdapter()) {
@@ -47,6 +58,9 @@ public abstract class TypeAdapterAwareSQLTransform extends AbstractSQLTransform 
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.AbstractSQLTransform#generateWriteProperty2WhereCondition(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, com.abubusoft.kripton.processor.core.ModelProperty)
+	 */
 	@Override
 	public void generateWriteProperty2WhereCondition(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
 		if (property != null && property.hasTypeAdapter()) {

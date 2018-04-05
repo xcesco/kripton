@@ -15,14 +15,19 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Short object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Short object.
  *
+ * @author xcesco
  */
 public class ShortBindTransform extends AbstractPrimitiveBindTransform {
 
+	/**
+	 * Instantiates a new short bind transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public ShortBindTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Int";

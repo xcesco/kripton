@@ -20,6 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Allow to query a database table. When you define the query through
@@ -34,7 +35,7 @@ import java.lang.annotation.Target;
  * 
  * <pre>
  * &#064;BindSqlSelect(where = "name=${name} and surname=${surname}")
- * Person selectOne(String name, @BindSqlParam("surname") String temp);
+ * Person selectOne(String name, BindSqlParam("surname") String temp);
  * </pre>
  * 
  * <p>
@@ -73,15 +74,15 @@ import java.lang.annotation.Target;
 public @interface BindSqlSelect {
 
 	/**
-	 * if true, set distinct clause
-	 * 
+	 * if true, set distinct clause.
+	 *
 	 * @return distinct clause
 	 */
 	boolean distinct() default false;
 
 	/**
-	 * properties to include into SELECT command
-	 * 
+	 * properties to include into SELECT command.
+	 *
 	 * @return property's names to include
 	 */
 	String[] fields() default {};
@@ -94,30 +95,29 @@ public @interface BindSqlSelect {
 	String[] excludedFields() default {};
 
 	/**
-	 * where condition
-	 * 
+	 * where condition.
+	 *
 	 * @return where condition
 	 */
 	String where() default "";
 
 	/**
-	 * having statement
-	 * 
+	 * having statement.
+	 *
 	 * @return having statement
 	 */
 	String having() default "";
 
 	/**
-	 * having statement
-	 * 
+	 * having statement.
+	 *
 	 * @return groupBy statement
-	 * 
 	 */
 	String groupBy() default "";
 
 	/**
-	 * order statement
-	 * 
+	 * order statement.
+	 *
 	 * @return order statement
 	 */
 	String orderBy() default "";
@@ -126,8 +126,8 @@ public @interface BindSqlSelect {
 	 * <p>
 	 * Allow to define limit for query result. Default no limit is defined.
 	 * </p>
-	 * 
-	 * @return
+	 *
+	 * @return the int
 	 */
 	int pageSize() default 0;
 	
@@ -136,7 +136,7 @@ public @interface BindSqlSelect {
 	 * <p>
 	 * JQL value. With this attribute, it is possibile to specify directly the JQL code. JQL means that you can write SQL using field's names and class name indeed
 	 * of column and table names. Moreover, it is possibile to specify where to use the dynamic parts of query through dynamic statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET, encapsulated
-	 * in <code>#{ <dynamic-part-name> }</code>
+	 * in <code>#{ dynamic-part-name }</code>
 	 * </p>
 	 * 
 	 * <p>For example, for a <code>select</code> statement, you can write:</p>

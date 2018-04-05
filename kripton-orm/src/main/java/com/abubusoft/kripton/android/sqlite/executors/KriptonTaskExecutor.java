@@ -18,19 +18,22 @@ package com.abubusoft.kripton.android.sqlite.executors;
 
 import java.util.concurrent.Executor;
 
+// TODO: Auto-generated Javadoc
 /**
  * A static class that serves as a central point to execute common tasks.
- * <p>
- *
- * @hide This API is not final.
  */
 public class KriptonTaskExecutor extends TaskExecutor {
+	
+	/** The s instance. */
 	private static volatile KriptonTaskExecutor sInstance;
 
+	/** The m delegate. */
 	private TaskExecutor mDelegate;
 
+	/** The m default task executor. */
 	private TaskExecutor mDefaultTaskExecutor;
 
+	/** The Constant sMainThreadExecutor. */
 	private static final Executor sMainThreadExecutor = new Executor() {
 		@Override
 		public void execute(Runnable command) {
@@ -38,6 +41,7 @@ public class KriptonTaskExecutor extends TaskExecutor {
 		}
 	};
 
+	/** The Constant sIOThreadExecutor. */
 	private static final Executor sIOThreadExecutor = new Executor() {
 		@Override
 		public void execute(Runnable command) {
@@ -45,6 +49,9 @@ public class KriptonTaskExecutor extends TaskExecutor {
 		}
 	};
 
+	/**
+	 * Instantiates a new kripton task executor.
+	 */
 	private KriptonTaskExecutor() {
 		mDefaultTaskExecutor = new KriptonDefaultTaskExecutor();
 		mDelegate = mDefaultTaskExecutor;
@@ -84,24 +91,43 @@ public class KriptonTaskExecutor extends TaskExecutor {
 		mDelegate = taskExecutor == null ? mDefaultTaskExecutor : taskExecutor;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.android.sqlite.executors.TaskExecutor#executeOnDiskIO(java.lang.Runnable)
+	 */
 	@Override
 	public void executeOnDiskIO(Runnable runnable) {
 		mDelegate.executeOnDiskIO(runnable);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.android.sqlite.executors.TaskExecutor#postToMainThread(java.lang.Runnable)
+	 */
 	@Override
 	public void postToMainThread(Runnable runnable) {
 		mDelegate.postToMainThread(runnable);
 	}
 
+	/**
+	 * Gets the main thread executor.
+	 *
+	 * @return the main thread executor
+	 */
 	public static Executor getMainThreadExecutor() {
 		return sMainThreadExecutor;
 	}
 
+	/**
+	 * Gets the IO thread executor.
+	 *
+	 * @return the IO thread executor
+	 */
 	public static Executor getIOThreadExecutor() {
 		return sIOThreadExecutor;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.android.sqlite.executors.TaskExecutor#isMainThread()
+	 */
 	@Override
 	public boolean isMainThread() {
 		return mDelegate.isMainThread();

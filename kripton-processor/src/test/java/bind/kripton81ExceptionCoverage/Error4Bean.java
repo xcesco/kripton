@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+/**
+ * The Class Error4Bean.
+ */
 @BindType
 public class Error4Bean {
 

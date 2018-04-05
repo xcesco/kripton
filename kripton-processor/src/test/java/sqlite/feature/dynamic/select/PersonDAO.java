@@ -28,18 +28,49 @@ import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 
 import sqlite.feature.dynamic.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface PersonDAO.
+ */
 @BindDao(Person.class)
 public interface PersonDAO {
 
+	/**
+	 * Insert one.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param birthCity the birth city
+	 * @param birthDay the birth day
+	 */
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
+	/**
+	 * Select all.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect(orderBy = "name")
 	List<Person> selectAll();
 
+	/**
+	 * Select one.
+	 *
+	 * @param nameValue the name value
+	 * @param where the where
+	 * @param orderBy the order by
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "name like ${nameTemp} || '%'")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlDynamicWhere String where, @BindSqlDynamicOrderBy String orderBy);
 
+	/**
+	 * Select bean listener.
+	 *
+	 * @param beanListener the bean listener
+	 * @param orderBy the order by
+	 */
 	@BindSqlSelect(orderBy = "name")
 	void selectBeanListener(OnReadBeanListener<Person> beanListener, @BindSqlDynamicOrderBy String orderBy);
 

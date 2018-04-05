@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.livedata.persistence0;
 
 import android.arch.lifecycle.LiveData;
@@ -21,49 +36,60 @@ import java.util.HashSet;
 import java.util.List;
 import sqlite.feature.livedata.data.Person;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>DaoPerson0</code>
- * </p>
+ * </p>.
  *
- *  @see Person
- *  @see DaoPerson0
- *  @see sqlite.feature.livedata.data.PersonTable
+ * @see Person
+ * @see DaoPerson0
+ * @see sqlite.feature.livedata.data.PersonTable
  */
 public class DaoPerson0Impl extends Dao implements DaoPerson0 {
+  
+  /** The Constant SELECT_SQL1. */
   private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The update prepared statement 1. */
   private static SQLiteStatement updatePreparedStatement1;
 
+  /** The live datas. */
   static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<KriptonComputableLiveData<?>>>());
 
+  /** The Constant subject. */
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
+  /**
+   * Instantiates a new dao person 0 impl.
+   *
+   * @param context the context
+   */
   public DaoPerson0Impl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param name
-   * 	is binded to <code>${name}</code>
+   * @param name 	is binded to <code>${name}</code>
    * @return collection of bean or empty collection.
    */
   protected List<Person> selectForLiveData(String name) {
@@ -298,6 +324,11 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     registryEvent(result);
   }
 
+  /**
+   * Registry event.
+   *
+   * @param affectedRows the affected rows
+   */
   protected void registryEvent(int affectedRows) {
     if (affectedRows==0) {
       return;
@@ -309,10 +340,18 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     }
   }
 
+  /**
+   * Registry live data.
+   *
+   * @param value the value
+   */
   protected void registryLiveData(KriptonComputableLiveData<?> value) {
     liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
   }
 
+  /**
+   * Invalidate live data.
+   */
   protected void invalidateLiveData() {
     for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
       if (item.get()!=null) {
@@ -321,10 +360,18 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     }
   }
 
+  /**
+   * Subject.
+   *
+   * @return the publish subject
+   */
   public PublishSubject<SQLiteEvent> subject() {
     return subject;
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

@@ -23,14 +23,29 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.contentprovider.kripton35.entities.City;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface City2DAO.
+ */
 @BindContentProviderPath(path = "cities")
 @BindDao(City.class)
 public interface City2DAO {
 
+	/**
+	 * Insert bean.
+	 *
+	 * @param bean the bean
+	 */
 	@BindContentProviderEntry
 	@BindSqlInsert
 	void insertBean(City bean);
 	
+	/**
+	 * Select city from person.
+	 *
+	 * @param personId the person id
+	 * @return the city
+	 */
 	@BindContentProviderEntry(path="person/${personId}")
 	@BindSqlSelect(jql="select * from City where id = (select id from Person where id=${personId} )")
 	City selectCityFromPerson(long personId);

@@ -22,11 +22,28 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoChannel01.
+ */
 @BindDao(Channel.class)
 public interface DaoChannel01 {
+	
+	/**
+	 * Select.
+	 *
+	 * @param updateTimeA the update time A
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "updateTime=${updateTimeB}")
 	List<Channel> select(long updateTimeA);
 	
+	/**
+	 * Select cursor.
+	 *
+	 * @param updateTimeA the update time A
+	 * @return the cursor
+	 */
 	@BindSqlSelect(where = "updateTime=${updateTimeB}")
 	Cursor selectCursor(long updateTimeA);
 

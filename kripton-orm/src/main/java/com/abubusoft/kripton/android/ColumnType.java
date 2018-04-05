@@ -15,8 +15,18 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum ColumnType.
+ */
 public enum ColumnType {
-	PRIMARY_KEY, UNIQUE, STANDARD,
+	
+	/** The primary key. */
+	PRIMARY_KEY, 
+ /** The unique. */
+ UNIQUE, 
+ /** The standard. */
+ STANDARD,
 	/**
 	 * <p>
 	 * Indexes are special lookup tables that the database search engine can use

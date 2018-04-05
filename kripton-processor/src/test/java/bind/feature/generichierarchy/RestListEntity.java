@@ -21,21 +21,41 @@ import java.util.Map;
 import com.abubusoft.kripton.annotation.BindXml;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RestListEntity.
+ *
+ * @param <E> the element type
+ */
 public abstract class RestListEntity<E extends UIDObject> extends RestResponse {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7911782943679996559L;
 	
+	/** The bean. */
 	public E bean;
 	
+	/** The list. */
 	@BindXml(elementTag="item")
 	protected List<E> list;
 	
+	/** The map. */
 	public Map<String, E> map;
 
+	/**
+	 * Gets the list.
+	 *
+	 * @return the list
+	 */
 	public List<E> getList() {
 		return list;
 	}
 
+	/**
+	 * Sets the list.
+	 *
+	 * @param list the new list
+	 */
 	public void setList(List<E> list) {
 		this.list = list;
 	}

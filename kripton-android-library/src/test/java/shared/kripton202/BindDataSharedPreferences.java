@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package shared.kripton202;
 
 import android.content.SharedPreferences;
@@ -17,24 +32,22 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is the shared preference binder defined for DataSharedPreferences
+ * This class is the shared preference binder defined for DataSharedPreferences.
  *
  * @see DataSharedPreferences
  */
 public class BindDataSharedPreferences extends AbstractSharedPreference {
-  /**
-   * instance of shared preferences
-   */
+  
+  /** instance of shared preferences. */
   private static BindDataSharedPreferences instance;
 
-  /**
-   * working instance of bean
-   */
+  /** working instance of bean. */
   private final DataSharedPreferences defaultBean;
 
   /**
-   * constructor
+   * constructor.
    */
   private BindDataSharedPreferences() {
     // no typeName specified, using default shared preferences
@@ -43,14 +56,18 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * create an editor to modify shared preferences
+   * create an editor to modify shared preferences.
+   *
+   * @return the bind editor
    */
   public BindEditor edit() {
     return new BindEditor();
   }
 
   /**
-   * force to refresh values
+   * force to refresh values.
+   *
+   * @return the bind data shared preferences
    */
   public BindDataSharedPreferences refresh() {
     // no typeName specified, using default shared preferences
@@ -59,7 +76,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reset shared preferences
+   * reset shared preferences.
    */
   public void reset() {
     DataSharedPreferences bean=new DataSharedPreferences();
@@ -67,7 +84,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read bean entirely
+   * read bean entirely.
    *
    * @return read bean
    */
@@ -86,7 +103,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write bean entirely
+   * write bean entirely.
    *
    * @param bean bean to entirely write
    */
@@ -110,7 +127,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property exampleMultiList
+   * read property exampleMultiList.
    *
    * @return property exampleMultiList value
    */
@@ -121,7 +138,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property notificationNewMessageRingtone
+   * read property notificationNewMessageRingtone.
    *
    * @return property notificationNewMessageRingtone value
    */
@@ -130,7 +147,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property notificationsNewMessageVibrate
+   * read property notificationsNewMessageVibrate.
    *
    * @return property notificationsNewMessageVibrate value
    */
@@ -139,7 +156,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property syncFrequency
+   * read property syncFrequency.
    *
    * @return property syncFrequency value
    */
@@ -148,7 +165,10 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute exampleMultiList serialization
+   * for attribute exampleMultiList serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeExampleMultiList(Set<String> value) {
     if (value==null) {
@@ -182,7 +202,10 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute exampleMultiList parsing
+   * for attribute exampleMultiList parsing.
+   *
+   * @param input the input
+   * @return the sets the
    */
   protected Set<String> parseExampleMultiList(String input) {
     if (input==null) {
@@ -216,7 +239,9 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * get instance of shared preferences
+   * get instance of shared preferences.
+   *
+   * @return the bind data shared preferences
    */
   public static synchronized BindDataSharedPreferences instance() {
     if (instance==null) {
@@ -226,14 +251,21 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * editor class for shared preferences
+   * editor class for shared preferences.
    */
   public class BindEditor extends AbstractEditor {
+    
+    /**
+     * Instantiates a new bind editor.
+     */
     private BindEditor() {
     }
 
     /**
-     * modifier for property exampleMultiList
+     * modifier for property exampleMultiList.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putExampleMultiList(Set<String> value) {
       if (value!=null)  {
@@ -247,7 +279,10 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property notificationNewMessageRingtone
+     * modifier for property notificationNewMessageRingtone.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putNotificationNewMessageRingtone(String value) {
       editor.putString("notification_new_message_ringtone",value);
@@ -256,7 +291,10 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property notificationsNewMessageVibrate
+     * modifier for property notificationsNewMessageVibrate.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putNotificationsNewMessageVibrate(boolean value) {
       editor.putBoolean("notifications_new_message_vibrate",(boolean)value);
@@ -265,7 +303,10 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property syncFrequency
+     * modifier for property syncFrequency.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putSyncFrequency(String value) {
       editor.putString("sync_frequency",value);

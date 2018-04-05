@@ -18,8 +18,15 @@ package sqlite.adapter.example01;
 import java.util.Date;
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DateAdapter.
+ */
 public class DateAdapter implements SqlTypeAdapter<Date, Long> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public Date toJava(Long dataValue) {
 		if (dataValue==null) return null;
@@ -27,6 +34,9 @@ public class DateAdapter implements SqlTypeAdapter<Date, Long> {
 		return new Date(dataValue);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public Long toData(Date javaValue) {
 		if (javaValue!=null) return javaValue.getTime();
@@ -34,6 +44,9 @@ public class DateAdapter implements SqlTypeAdapter<Date, Long> {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.android.SqlTypeAdapter#toString(java.lang.Object)
+	 */
 	@Override
 	public String toString(Date javaValue) {
 		if (javaValue==null) return null;

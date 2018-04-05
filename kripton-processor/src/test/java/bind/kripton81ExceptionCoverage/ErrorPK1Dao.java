@@ -18,9 +18,18 @@ package bind.kripton81ExceptionCoverage;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ErrorPK1Dao.
+ */
 @BindDao(ErrorPK1Bean.class)
 public interface ErrorPK1Dao {
 	
+	/**
+	 * Insert.
+	 *
+	 * @param description the description
+	 */
 	@BindSqlInsert(includePrimaryKey=true)
 	void insert(String description);
 

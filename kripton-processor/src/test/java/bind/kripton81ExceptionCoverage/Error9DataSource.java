@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface Error9DataSource.
+ */
 @BindDataSource(daoSet = { Error9Dao.class }, fileName = "")
 public interface Error9DataSource {
 

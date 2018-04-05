@@ -17,6 +17,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import android.database.sqlite.SQLiteDatabase;
 
+// TODO: Auto-generated Javadoc
 /**
  * Documentation about InserType is a copy of
  * <a href="https://www.sqlite.org/lang_conflict.html">lang_conflict</a>
@@ -26,9 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public enum ConflictAlgorithmType {
 	
-	/**
-	 * No conflict algorithm is applied
-	 */
+	/** No conflict algorithm is applied. */
 	NONE(-1, ""),
 	
 	/**
@@ -90,21 +89,39 @@ public enum ConflictAlgorithmType {
 	REPLACE(SQLiteDatabase.CONFLICT_REPLACE, "OR REPLACE ");
 	
 	
+	/**
+	 * Instantiates a new conflict algorithm type.
+	 *
+	 * @param value the value
+	 * @param sqlForInsert the sql for insert
+	 */
 	private ConflictAlgorithmType(int value, String sqlForInsert)
 	{
 		this.conflictAlgorithm=value;
 		this.sqlForInsert=sqlForInsert;		
 	}
 	
+	/** The conflict algorithm. */
 	private int conflictAlgorithm;
 	
+	/** The sql for insert. */
 	private String sqlForInsert;
 	
+	/**
+	 * Gets the conflict algorithm.
+	 *
+	 * @return the conflict algorithm
+	 */
 	public int getConflictAlgorithm()
 	{
 		return conflictAlgorithm;
 	}
 	
+	/**
+	 * Gets the sql for insert.
+	 *
+	 * @return the sql for insert
+	 */
 	public String getSqlForInsert()
 	{
 		return sqlForInsert;

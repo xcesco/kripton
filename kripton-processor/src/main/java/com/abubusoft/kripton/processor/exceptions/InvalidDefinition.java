@@ -15,10 +15,20 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InvalidDefinition.
+ */
 public class InvalidDefinition extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1440268862799983897L;
 
+	/**
+	 * Instantiates a new invalid definition.
+	 *
+	 * @param message the message
+	 */
 	public InvalidDefinition(String message) {
 		super(message);
 	}

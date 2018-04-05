@@ -28,6 +28,7 @@ import android.support.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * LiveData is a data holder class that can be observed within a given lifecycle.
  * This means that an {@link Observer} can be added in a pair with a {@link LifecycleOwner}, and
@@ -49,32 +50,50 @@ import java.util.Map;
  * This allows LiveData to release any heavy resources when it does not have any Observers that
  * are actively observing.
  * <p>
- * This class is designed to hold individual data fields of {@link ViewModel},
+ * This class is designed to hold individual data fields of ViewModel,
  * but can also be used for sharing data between different modules in your application
  * in a decoupled fashion.
  *
  * @param <T> The type of data held by this instance
- * @see ViewModel
+ * 
  */
 public abstract class LiveData<T> {
+    
+    /** The m data lock. */
     private final Object mDataLock = new Object();
+    
+    /** The Constant START_VERSION. */
     static final int START_VERSION = -1;
+    
+    /** The Constant NOT_SET. */
     private static final Object NOT_SET = new Object();
 
+    /** The m observers. */
     private SafeIterableMap<Observer<T>, ObserverWrapper> mObservers =
             new SafeIterableMap<>();
 
+    /** The m active count. */
     // how many observers are in active state
     private int mActiveCount = 0;
+    
+    /** The m data. */
     private volatile Object mData = NOT_SET;
     // when setData is called, we set the pending data and actual data swap happens on the main
+    /** The m pending data. */
     // thread
     private volatile Object mPendingData = NOT_SET;
+    
+    /** The m version. */
     private int mVersion = START_VERSION;
 
+    /** The m dispatching value. */
     private boolean mDispatchingValue;
+    
+    /** The m dispatch invalidated. */
     @SuppressWarnings("FieldCanBeLocal")
     private boolean mDispatchInvalidated;
+    
+    /** The m post value runnable. */
     private final Runnable mPostValueRunnable = new Runnable() {
         @Override
         public void run() {
@@ -88,6 +107,11 @@ public abstract class LiveData<T> {
         }
     };
 
+    /**
+     * Consider notify.
+     *
+     * @param observer the observer
+     */
     private void considerNotify(ObserverWrapper observer) {
         if (!observer.mActive) {
             return;
@@ -109,6 +133,11 @@ public abstract class LiveData<T> {
         observer.mObserver.onChanged((T) mData);
     }
 
+    /**
+     * Dispatching value.
+     *
+     * @param initiator the initiator
+     */
     private void dispatchingValue(@Nullable ObserverWrapper initiator) {
         if (mDispatchingValue) {
             mDispatchInvalidated = true;
@@ -299,6 +328,11 @@ public abstract class LiveData<T> {
         return null;
     }
 
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
     int getVersion() {
         return mVersion;
     }
@@ -346,19 +380,39 @@ public abstract class LiveData<T> {
         return mActiveCount > 0;
     }
 
+    /**
+     * An asynchronous update interface for receiving notifications
+     * about LifecycleBound information as the LifecycleBound is constructed.
+     */
     class LifecycleBoundObserver extends ObserverWrapper implements GenericLifecycleObserver {
+        
+        /** The m owner. */
         @NonNull final LifecycleOwner mOwner;
 
+        /**
+         * This method is called when information about an LifecycleBound
+         * which was previously requested using an asynchronous
+         * interface becomes available.
+         *
+         * @param owner the owner
+         * @param observer the observer
+         */
         LifecycleBoundObserver(@NonNull LifecycleOwner owner, Observer<T> observer) {
             super(observer);
             mOwner = owner;
         }
 
+        /* (non-Javadoc)
+         * @see android.arch.lifecycle.LiveData.ObserverWrapper#shouldBeActive()
+         */
         @Override
         boolean shouldBeActive() {
             return mOwner.getLifecycle().getCurrentState().isAtLeast(STARTED);
         }
 
+        /* (non-Javadoc)
+         * @see android.arch.lifecycle.GenericLifecycleObserver#onStateChanged(android.arch.lifecycle.LifecycleOwner, android.arch.lifecycle.Lifecycle.Event)
+         */
         @Override
         public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
             if (mOwner.getLifecycle().getCurrentState() == DESTROYED) {
@@ -368,35 +422,74 @@ public abstract class LiveData<T> {
             activeStateChanged(shouldBeActive());
         }
 
+        /* (non-Javadoc)
+         * @see android.arch.lifecycle.LiveData.ObserverWrapper#isAttachedTo(android.arch.lifecycle.LifecycleOwner)
+         */
         @Override
         boolean isAttachedTo(LifecycleOwner owner) {
             return mOwner == owner;
         }
 
+        /* (non-Javadoc)
+         * @see android.arch.lifecycle.LiveData.ObserverWrapper#detachObserver()
+         */
         @Override
         void detachObserver() {
             mOwner.getLifecycle().removeObserver(this);
         }
     }
 
+    /**
+     * The Class ObserverWrapper.
+     */
     private abstract class ObserverWrapper {
+        
+        /** The m observer. */
         final Observer<T> mObserver;
+        
+        /** The m active. */
         boolean mActive;
+        
+        /** The m last version. */
         int mLastVersion = START_VERSION;
 
+        /**
+         * Instantiates a new observer wrapper.
+         *
+         * @param observer the observer
+         */
         ObserverWrapper(Observer<T> observer) {
             mObserver = observer;
         }
 
+        /**
+         * Should be active.
+         *
+         * @return true, if successful
+         */
         abstract boolean shouldBeActive();
 
+        /**
+         * Checks if is attached to.
+         *
+         * @param owner the owner
+         * @return true, if is attached to
+         */
         boolean isAttachedTo(LifecycleOwner owner) {
             return false;
         }
 
+        /**
+         * Detach observer.
+         */
         void detachObserver() {
         }
 
+        /**
+         * Active state changed.
+         *
+         * @param newActive the new active
+         */
         void activeStateChanged(boolean newActive) {
             if (newActive == mActive) {
                 return;
@@ -418,18 +511,37 @@ public abstract class LiveData<T> {
         }
     }
 
+    /**
+     * An asynchronous update interface for receiving notifications
+     * about AlwaysActive information as the AlwaysActive is constructed.
+     */
     private class AlwaysActiveObserver extends ObserverWrapper {
 
+        /**
+         * This method is called when information about an AlwaysActive
+         * which was previously requested using an asynchronous
+         * interface becomes available.
+         *
+         * @param observer the observer
+         */
         AlwaysActiveObserver(Observer<T> observer) {
             super(observer);
         }
 
+        /* (non-Javadoc)
+         * @see android.arch.lifecycle.LiveData.ObserverWrapper#shouldBeActive()
+         */
         @Override
         boolean shouldBeActive() {
             return true;
         }
     }
 
+    /**
+     * Assert main thread.
+     *
+     * @param methodName the method name
+     */
     private static void assertMainThread(String methodName) {
         if (!ArchTaskExecutor.getInstance().isMainThread()) {
             throw new IllegalStateException("Cannot invoke " + methodName + " on a background"

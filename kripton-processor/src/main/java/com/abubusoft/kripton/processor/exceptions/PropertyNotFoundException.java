@@ -18,14 +18,31 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertyNotFoundException.
+ */
 public class PropertyNotFoundException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new property not found exception.
+	 *
+	 * @param msg the msg
+	 */
 	public PropertyNotFoundException(String msg) {
 		super(msg);
 	}
 
+	/**
+	 * Instantiates a new property not found exception.
+	 *
+	 * @param method the method
+	 * @param fieldName the field name
+	 * @param typeName the type name
+	 */
 	public PropertyNotFoundException(SQLiteModelMethod method, String fieldName, TypeName typeName) {
 		super(String.format("In dao '%s' method '%s' uses parameter '%s' (of type '%s') that does not exists in bean '%s'", method.getParent().getName(), method.getName(), fieldName,
 				typeName, method.getParent().getEntitySimplyClassName()));

@@ -25,9 +25,18 @@ import sqlite.feature.many2many.City;
 import sqlite.feature.many2many.Entity;
 import sqlite.feature.many2many.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileMany2ManyOk1.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileMany2ManyOk1 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test OK.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testOK() throws Throwable {
 		buildDataSourceProcessorTest(PersonCirtyOk1DataSource.class, 

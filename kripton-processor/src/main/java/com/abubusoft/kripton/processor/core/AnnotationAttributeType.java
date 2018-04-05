@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.core;
 
 import javax.lang.model.element.ExecutableElement;
 
+// TODO: Auto-generated Javadoc
 /**
  * Attribute typeName used in annotations. Introduced to avoid to type typeName
  * attribute as string
@@ -27,84 +28,162 @@ import javax.lang.model.element.ExecutableElement;
  * @since 05/mag/2016
  */
 public enum AnnotationAttributeType {
-	ADAPTER("adapter"), ALL_FIELDS("allFields"),
+	
+	/** The adapter. */
+	ADAPTER("adapter"), 
+ /** The all fields. */
+ ALL_FIELDS("allFields"),
 
-	COLUMN_TYPE("columnType"), CONFLICT_ALGORITHM_TYPE("conflictAlgorithm"),
+	/** The column type. */
+	COLUMN_TYPE("columnType"), /** The conflict algorithm type. */
+ CONFLICT_ALGORITHM_TYPE("conflictAlgorithm"),
 
-	DAO_SET("daoSet"), DISTINCT("distinct"),
+	/** The dao set. */
+	DAO_SET("daoSet"), /** The distinct. */
+ DISTINCT("distinct"),
 
-	ENABLED("enabled"), EXCLUDED_FIELDS("excludedFields"),
+	/** The enabled. */
+	ENABLED("enabled"), /** The excluded fields. */
+ EXCLUDED_FIELDS("excludedFields"),
 
-	FIELDS("fields"), FILENAME("fileName"), FOREIGN_KEY("foreignKey"),
+	/** The fields. */
+	FIELDS("fields"), /** The filename. */
+ FILENAME("fileName"), /** The foreign key. */
+ FOREIGN_KEY("foreignKey"),
 
-	GENERATE_ASYNC_TASK("asyncTask"), GENERATE_CURSOR_WRAPPER("cursorWrapper"), GENERATE_LOG("log"), GENERATE_SCHEMA("schema"), GROUP_BY("groupBy"),
+	/** The generate async task. */
+	GENERATE_ASYNC_TASK("asyncTask"), /** The generate cursor wrapper. */
+ GENERATE_CURSOR_WRAPPER("cursorWrapper"), /** The generate log. */
+ GENERATE_LOG("log"), /** The generate schema. */
+ GENERATE_SCHEMA("schema"), /** The group by. */
+ GROUP_BY("groupBy"),
 
+	/** The having. */
 	HAVING("having"),
 
-	INCLUDE_PRIMARY_KEY("includePrimaryKey"), INDEXES("indexes"),
+	/** The include primary key. */
+	INCLUDE_PRIMARY_KEY("includePrimaryKey"), /** The indexes. */
+ INDEXES("indexes"),
 
-	MAP_ENTRY_TYPE("mapEntryType"), MAP_KEY_NAME("mapKeyName"), MAP_VALUE_NAME("mapValueName"),
+	/** The map entry type. */
+	MAP_ENTRY_TYPE("mapEntryType"), /** The map key name. */
+ MAP_KEY_NAME("mapKeyName"), /** The map value name. */
+ MAP_VALUE_NAME("mapValueName"),
 
+	/** The nullable. */
 	NULLABLE("nullable"),
 
-	ORDER("order"), ORDER_BY("orderBy"),
+	/** The order. */
+	ORDER("order"), /** The order by. */
+ ORDER_BY("orderBy"),
 
-	PAGE_SIZE("pageSize"), PATH("path"),
+	/** The page size. */
+	PAGE_SIZE("pageSize"), /** The path. */
+ PATH("path"),
 
+	/** The prepend. */
 	PREPEND("prepend"),
 
-	RAW_FIELDS("rawFields"), RESULT_TYPE("resultType"),
+	/** The raw fields. */
+	RAW_FIELDS("rawFields"), /** The result type. */
+ RESULT_TYPE("resultType"),
 
+	/** The name. */
 	NAME("name"),
 
-	TYPE_PARAMETERS("typeParameters"), TYPE_VARIABLES("typeVariables"),
+	/** The type parameters. */
+	TYPE_PARAMETERS("typeParameters"), /** The type variables. */
+ TYPE_VARIABLES("typeVariables"),
 
-	VALUE("value"), VERSION("version"),
+	/** The value. */
+	VALUE("value"), /** The version. */
+ VERSION("version"),
 
+	/** The where. */
 	WHERE("where"),
 
+	/** The unique indexes. */
 	UNIQUE_INDEXES("uniqueIndexes"),
 
-	XML_ELEMENT_TAG("elementTag"), XML_TYPE("xmlType"),
+	/** The xml element tag. */
+	XML_ELEMENT_TAG("elementTag"), /** The xml type. */
+ XML_TYPE("xmlType"),
 
+	/** The on delete. */
 	ON_DELETE("onDelete"),
 
+	/** The on update. */
 	ON_UPDATE("onUpdate"),
 
-	MULTIPLICITY_RESULT("multiplicityResult"), JQL("jql"), ID_NAME("idName"),
+	/** The multiplicity result. */
+	MULTIPLICITY_RESULT("multiplicityResult"), /** The jql. */
+ JQL("jql"), /** The id name. */
+ ID_NAME("idName"),
 
+	/** The relationship. */
 	RELATIONSHIP("relationship"),
 
+	/** The in memory. */
 	IN_MEMORY("inMemory"),
 
+	/** The entity 1. */
 	ENTITY_1("entity1"),
 
+	/** The entity 2. */
 	ENTITY_2("entity2"),
 
+	/** The table name. */
 	TABLE_NAME("tableName"),
 
+	/** The dao. */
 	DAO("dao"),
 
+	/** The generate rx. */
 	GENERATE_RX("rx"),
 
-	METHODS("methods"), TASK("task"),
+	/** The methods. */
+	METHODS("methods"), /** The task. */
+ TASK("task"),
 
+	/** The update tasks. */
 	UPDATE_TASKS("updateTasks"),
 
+	/** The populator. */
 	POPULATOR("populator"),
 
-	LOG_ENABLED("logEnabled"), CURSOR_FACTORY("cursorFactory"), DATABASE_LIFECYCLE_HANDLER("databaseLifecycleHandler"), TYPE_ADAPTERS("typeAdapters");
+	/** The log enabled. */
+	LOG_ENABLED("logEnabled"), /** The cursor factory. */
+ CURSOR_FACTORY("cursorFactory"), /** The database lifecycle handler. */
+ DATABASE_LIFECYCLE_HANDLER("databaseLifecycleHandler"), /** The type adapters. */
+ TYPE_ADAPTERS("typeAdapters");
 
+	/** The value. */
 	private String value;
 
+	/**
+	 * Instantiates a new annotation attribute type.
+	 *
+	 * @param value the value
+	 */
 	private AnnotationAttributeType(String value) {
 		this.value = value;
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public String getValue() {
 		return value;
 	}
 
+	/**
+	 * Checks if is equals.
+	 *
+	 * @param value the value
+	 * @return true, if is equals
+	 */
 	public boolean isEquals(ExecutableElement value) {
 		return this.getValue().equals(value.getSimpleName().toString());
 	}

@@ -16,6 +16,7 @@
  */
 package com.abubusoft.kripton.escape.text;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Operations on arrays, primitive arrays (like {@code int[]}) and
  * primitive wrapper arrays (like {@code Integer[]}).

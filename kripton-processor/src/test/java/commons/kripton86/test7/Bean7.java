@@ -19,15 +19,22 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean7.
+ */
 @BindType
 public class Bean7 {
 
+	/** The id. */
 	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
 	
+	/** The ida. */
 	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long ida;
 	
+	/** The test. */
 	public String test;
 	
 	

@@ -16,14 +16,19 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Byte object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Byte object.
  *
+ * @author xcesco
  */
 class BytePrefsTransform extends AbstractPrimitivePrefsTransform {
 	
+	/**
+	 * Instantiates a new byte prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public BytePrefsTransform(boolean nullable)
 	{
 		super(nullable);

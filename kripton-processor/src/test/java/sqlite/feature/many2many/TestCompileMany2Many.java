@@ -21,9 +21,18 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileMany2Many.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileMany2Many extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test OK.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testOK() throws Throwable {				
 		//formatter:off

@@ -17,8 +17,15 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.abubusoft.kripton.common.BigIntegerUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BigIntegerBindTransform.
+ */
 class BigIntegerBindTransform extends AbstractNumberBindTransform {
 
+	/**
+	 * Instantiates a new big integer bind transform.
+	 */
 	public BigIntegerBindTransform() {
 		NUMBER_UTIL_CLAZZ = BigIntegerUtils.class;
 		ATTRIBUTE_METHOD="Integer";

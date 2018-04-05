@@ -34,9 +34,18 @@ import sqlite.feature.rx.persistence.PhoneDao;
 import sqlite.feature.rx.persistence.PrefixConfigDao;
 import sqlite.feature.rx.persistence.XenoDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileRX.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileRX extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompile() throws Throwable {		
 		buildDataSourceProcessorTest(ActionType.class,

@@ -18,22 +18,45 @@ package com.abubusoft.kripton.processor.sqlite.model;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SQLiteModel.
+ */
 public class SQLiteModel {
 
+	/** The schemas. */
 	protected List<SQLiteDatabaseSchema> schemas = new ArrayList<SQLiteDatabaseSchema>();
 
+	/**
+	 * Schema add.
+	 *
+	 * @param schema the schema
+	 */
 	public void schemaAdd(SQLiteDatabaseSchema schema) {
 		schemas.add(schema);
 	}
 
+	/**
+	 * Gets the schemas.
+	 *
+	 * @return the schemas
+	 */
 	public List<SQLiteDatabaseSchema> getSchemas() {
 		return schemas;
 	}
 
+	/**
+	 * Schema clear.
+	 */
 	public void schemaClear() {
 		schemas.clear();
 	}
 
+	/**
+	 * Schema count.
+	 *
+	 * @return the int
+	 */
 	public int schemaCount() {
 		return schemas.size();
 	}

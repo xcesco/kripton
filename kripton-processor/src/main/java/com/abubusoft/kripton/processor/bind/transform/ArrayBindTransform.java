@@ -17,14 +17,20 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between an array field to base64 encoded string and viceversa
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Transformer between an array field to base64 encoded string and viceversa.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class ArrayBindTransform extends AbstractCollectionBindTransform {
 
+	/**
+	 * Instantiates a new array bind transform.
+	 *
+	 * @param componentTypeName the component type name
+	 * @param primitive the primitive
+	 */
 	public ArrayBindTransform(TypeName componentTypeName, boolean primitive) {
 		super(componentTypeName, CollectionType.ARRAY);
 	}

@@ -18,21 +18,28 @@ package sqlite.quickstart.model;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Comment.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @BindType
 public class Comment {
 
+    /** The post id. */
     @BindColumn(foreignKey = Post.class)
     public long postId;
 
+    /** The id. */
     public long id;
 
+    /** The name. */
     public String name;
 
+    /** The email. */
     public String email;
 
+    /** The body. */
     public String body;
 }

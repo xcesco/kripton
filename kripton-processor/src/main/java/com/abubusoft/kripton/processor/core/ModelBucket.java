@@ -20,13 +20,20 @@ import java.util.List;
 
 import javax.lang.model.element.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelBucket.
+ *
+ * @param <T> the generic type
+ * @param <E> the element type
+ */
 public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends ModelEntity<E> {
 
 	/**
 	 * Find for contained element, using its name.
-	 * 
-	 * @param name
-	 * @return
+	 *
+	 * @param name the name
+	 * @return the t
 	 */
 	public T get(String name) {		
 		String lcName = name.toLowerCase();
@@ -39,27 +46,53 @@ public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends Mo
 		return null;
 	}
 
+	/**
+	 * Find property by name.
+	 *
+	 * @param name the name
+	 * @return the t
+	 */
 	public T findPropertyByName(String name) {
 		return get(name);
 	}
 
+	/** The collection. */
 	protected List<T> collection = new ArrayList<>();
 
+	/**
+	 * Instantiates a new model bucket.
+	 *
+	 * @param name the name
+	 * @param element the element
+	 */
 	public ModelBucket(String name, E element) {
 		super(name, element);
 	}
 
 	/**
+	 * Gets the collection.
+	 *
 	 * @return the collection
 	 */
 	public List<T> getCollection() {
 		return collection;
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param value the value
+	 */
 	public void add(T value) {
 		collection.add(value);
 	}
 
+	/**
+	 * Contains.
+	 *
+	 * @param name the name
+	 * @return true, if successful
+	 */
 	public boolean contains(String name) {
 		return get(name) != null;
 	}

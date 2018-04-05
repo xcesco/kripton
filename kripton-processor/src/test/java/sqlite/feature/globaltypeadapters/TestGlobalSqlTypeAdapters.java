@@ -26,14 +26,28 @@ import sqlite.feature.globaltypeadapters.model1.Date2Long;
 import sqlite.feature.globaltypeadapters.model1.Person1DataSource;
 import sqlite.feature.globaltypeadapters.model1.Person1ErrDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestGlobalSqlTypeAdapters.
+ */
 @RunWith(JUnit4.class)
 public class TestGlobalSqlTypeAdapters extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void compile() throws Throwable {
 		buildDataSourceProcessorTest(DaoPerson.class, Person.class, Date2Long.class, Person1DataSource.class);
 	}
 	
+	/**
+	 * Compile with error.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void compileWithError() throws Throwable {
 		this.expectedException(InvalidDefinition.class);

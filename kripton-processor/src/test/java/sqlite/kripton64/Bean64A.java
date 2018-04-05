@@ -20,14 +20,22 @@ import java.util.Set;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean64A.
+ */
 @BindType
 public class Bean64A {
 		
+	/** The value map string bean. */
 	public Map<String, Bean64A> valueMapStringBean;
 	
+	/** The value set string. */
 	public Set<String> valueSetString;
 	
+	/** The value string. */
 	public String valueString;
 	
+	/** The id. */
 	public long id;
 }

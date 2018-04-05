@@ -33,9 +33,18 @@ import sqlite.feature.schema.version2.Seminar;
 import sqlite.feature.schema.version2.Seminar2Student;
 import sqlite.feature.schema.version2.Student;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestSchema.
+ */
 @RunWith(JUnit4.class)
 public class TestSchema extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile version 2.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileVersion2() throws Throwable {
 		buildDataSourceProcessorTest(DaoBase.class, DaoProfessor.class, DaoSeminar.class, DaoSeminar2Student.class, DaoStudent.class, Entity.class, Person.class, Professor.class,

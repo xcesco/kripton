@@ -16,9 +16,9 @@
 
 package android.arch.lifecycle;
 
+// TODO: Auto-generated Javadoc
 /**
  * Internal class that can receive any lifecycle change and dispatch it to the receiver.
- * @hide
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public interface GenericLifecycleObserver extends LifecycleObserver {

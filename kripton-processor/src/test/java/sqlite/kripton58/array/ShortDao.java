@@ -25,33 +25,99 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ShortDao.
+ */
 @BindDao(ShortBean.class)
 public interface ShortDao {
 	
+	/**
+	 * Select one.
+	 *
+	 * @return the short bean
+	 */
 	@BindSqlSelect()
 	ShortBean selectOne();	
 	
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the short bean
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	ShortBean selectOne(short[] value, Short[] value2);
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(short[] value, Short[] value2, OnReadBeanListener<ShortBean> listener);	
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(short[] value, Short[] value2, OnReadCursorListener listener);
 	
+	/**
+	 * Select list.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<ShortBean> selectList(short[] value, Short[] value2);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, short[] value, Short[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(long id, short[] value, Short[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(ShortBean bean);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlDelete(where = "value=${value} and value2=${value2}")
 	long delete(short[] value, Short[] value2);
 	

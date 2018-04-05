@@ -27,23 +27,31 @@ import com.abubusoft.kripton.annotation.BindType;
 
 
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class BeanElement78.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @BindType(allFields=true)
 public class BeanElement78 implements Serializable {
 
+	/**
+	 * Instantiates a new bean element 78.
+	 */
 	public BeanElement78()
 	{	
 	}
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3113613163524431347L;
 
 	
+	/** The value map int byte array. */
 	@Bind(mapKeyName="k", mapValueName="v")
 	public Map<Integer, byte[]> valueMapIntByteArray;
 	
+	/** The value list byte array. */
 	@Bind
 	public List<byte[]> valueListByteArray;
 	

@@ -28,9 +28,18 @@ import sqlite.feature.typeadapter.DateAdapterType;
 import sqlite.feature.typeadapter.EnumAdapterType;
 import sqlite.feature.typeadapter.PasswordAdapterType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestTypeAdapterInsertErr1.
+ */
 @RunWith(JUnit4.class)
 public class TestTypeAdapterInsertErr1 extends AbstractBindSQLiteProcessorTest {
 	
+	/**
+	 * Test error with adapter on updated fields.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testErrorWithAdapterOnUpdatedFields() throws Throwable {
 		this.expectedException(InvalidMethodSignException.class);

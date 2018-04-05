@@ -17,12 +17,18 @@ package sqlite.kripton205;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean205.
+ */
 @BindType
 public class Bean205 extends BaseBean205 {
 	
 	
+	/** The name. */
 	public String name;
 	
+	/** The surname. */
 	public String surname;
 	
 }

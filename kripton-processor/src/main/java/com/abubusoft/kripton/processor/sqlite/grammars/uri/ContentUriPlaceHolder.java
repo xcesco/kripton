@@ -15,14 +15,27 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.uri;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ContentUriPlaceHolder.
+ */
 public class ContentUriPlaceHolder {
 	
+	/** The path segment index. */
 	public int pathSegmentIndex;
 	
+	/** The value. */
 	public String value;
 	
+	/** The composed. */
 	public boolean composed;
 	
+	/**
+	 * Instantiates a new content uri place holder.
+	 *
+	 * @param pathIndex the path index
+	 * @param value the value
+	 */
 	public ContentUriPlaceHolder(int pathIndex, String value) {
 		this.pathSegmentIndex=pathIndex;
 		this.value=value;

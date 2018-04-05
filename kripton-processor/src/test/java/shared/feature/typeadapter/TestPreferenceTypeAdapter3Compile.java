@@ -25,9 +25,20 @@ import shared.AbstractBindSharedPreferenceProcessorTest;
 import shared.feature.typeadapter.case3.App3Preferences;
 import shared.feature.typeadapter.case3.StringSetTypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestPreferenceTypeAdapter3Compile.
+ */
 @RunWith(JUnit4.class)
 public class TestPreferenceTypeAdapter3Compile extends AbstractBindSharedPreferenceProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(App3Preferences.class, StringSetTypeAdapter.class);

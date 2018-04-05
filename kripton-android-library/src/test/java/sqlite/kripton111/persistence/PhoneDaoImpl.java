@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton111.persistence;
 
 import android.database.Cursor;
@@ -15,26 +30,38 @@ import java.util.List;
 import sqlite.kripton111.model.ActionType;
 import sqlite.kripton111.model.PhoneNumber;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>PhoneNumber</code>, based on interface <code>PhoneDao</code>
- * </p>
+ * </p>.
  *
- *  @see PhoneNumber
- *  @see PhoneDao
- *  @see sqlite.kripton111.model.PhoneNumberTable
+ * @see PhoneNumber
+ * @see PhoneDao
+ * @see sqlite.kripton111.model.PhoneNumberTable
  */
 public class PhoneDaoImpl extends Dao implements PhoneDao {
+  
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The Constant SELECT_BY_ID_SQL1. */
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ?";
 
+  /** The delete by id prepared statement 1. */
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
+  /** The Constant SELECT_BY_NUMBER_SQL2. */
   private static final String SELECT_BY_NUMBER_SQL2 = "SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ?";
 
+  /** The Constant SELECT_ALL_SQL3. */
   private static final String SELECT_ALL_SQL3 = "SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number";
 
+  /**
+   * Instantiates a new phone dao impl.
+   *
+   * @param context the context
+   */
   public PhoneDaoImpl(SQLContext context) {
     super(context);
   }
@@ -117,9 +144,9 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -129,14 +156,13 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
    * 	<dt>contact_id</dt><dd>is associated to bean's property <strong>contactId</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
+   * @param id 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -195,16 +221,14 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM phone_number WHERE id = ${id}</pre>
-   *
-   *
+   * 
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   *
+   * @param id 	is used as where parameter <strong>${id}</strong>
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
@@ -239,9 +263,9 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ${number}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -251,14 +275,13 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
    * 	<dt>contact_id</dt><dd>is associated to bean's property <strong>contactId</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${number}</dt><dd>is binded to method's parameter <strong>number</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param number
-   * 	is binded to <code>${number}</code>
+   * @param number 	is binded to <code>${number}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -316,9 +339,9 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -327,7 +350,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
    * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
    * 	<dt>contact_id</dt><dd>is associated to bean's property <strong>contactId</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of bean or empty collection.
    */
@@ -389,6 +412,9 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
     }
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

@@ -17,10 +17,20 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DaoDefinitionWithoutAnnotatedMethodException.
+ */
 public class DaoDefinitionWithoutAnnotatedMethodException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new dao definition without annotated method exception.
+	 *
+	 * @param daoDefinition the dao definition
+	 */
 	public DaoDefinitionWithoutAnnotatedMethodException(SQLiteDaoDefinition daoDefinition)
 	{
 		super("Dao definition " + daoDefinition.getName() + " contains no methods to bind queries");

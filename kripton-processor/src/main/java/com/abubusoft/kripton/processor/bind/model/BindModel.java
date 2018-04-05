@@ -18,13 +18,29 @@ package com.abubusoft.kripton.processor.bind.model;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BindModel.
+ */
 public class BindModel {
+	
+	/** The entities. */
 	protected List<BindEntity> entities = new ArrayList<BindEntity>();
 
+	/**
+	 * Gets the entities.
+	 *
+	 * @return the entities
+	 */
 	public List<BindEntity> getEntities() {
 		return entities;
 	}
 
+	/**
+	 * Entity add.
+	 *
+	 * @param item the item
+	 */
 	public void entityAdd(BindEntity item) {
 		entities.add(item);
 	}

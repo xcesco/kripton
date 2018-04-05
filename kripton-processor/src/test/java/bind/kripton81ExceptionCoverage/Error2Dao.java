@@ -15,6 +15,9 @@
  *******************************************************************************/
 package bind.kripton81ExceptionCoverage;
 
+/**
+ * The Interface Error2Dao.
+ */
 public interface Error2Dao {
 
 }

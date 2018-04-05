@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton58.array;
 
 import com.abubusoft.kripton.KriptonBinder;
@@ -13,6 +28,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>StringBean</code> is associated to table <code>string_bean</code>
@@ -21,27 +37,14 @@ import java.util.ArrayList;
  *  @see StringBean
  */
 public class StringBeanTable implements SQLiteTable {
-  /**
-   * Costant represents typeName of table string_bean
-   */
+  
+  /** Costant represents typeName of table string_bean. */
   public static final String TABLE_NAME = "string_bean";
 
-  /**
-   * <p>
-   * DDL to create table string_bean
-   * </p>
-   *
-   * <pre>CREATE TABLE string_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>
-   */
+  /** <p> DDL to create table string_bean </p>  <pre>CREATE TABLE string_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE string_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);";
 
-  /**
-   * <p>
-   * DDL to drop table string_bean
-   * </p>
-   *
-   * <pre>DROP TABLE IF EXISTS string_bean;</pre>
-   */
+  /** <p> DDL to drop table string_bean </p>  <pre>DROP TABLE IF EXISTS string_bean;</pre>. */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS string_bean;";
 
   /**
@@ -65,13 +68,14 @@ public class StringBeanTable implements SQLiteTable {
    */
   public static final String COLUMN_VALUE2 = "value2";
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE2};
 
   /**
-   * for attribute value serialization
+   * for attribute value serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValue(String[] value) {
     if (value==null) {
@@ -108,7 +112,10 @@ public class StringBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value parsing
+   * for attribute value parsing.
+   *
+   * @param input the input
+   * @return the string[]
    */
   public static String[] parseValue(byte[] input) {
     if (input==null) {
@@ -142,7 +149,10 @@ public class StringBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value2 serialization
+   * for attribute value2 serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeValue2(String[] value) {
     if (value==null) {
@@ -179,7 +189,10 @@ public class StringBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value2 parsing
+   * for attribute value2 parsing.
+   *
+   * @param input the input
+   * @return the string[]
    */
   public static String[] parseValue2(byte[] input) {
     if (input==null) {
@@ -213,7 +226,9 @@ public class StringBeanTable implements SQLiteTable {
   }
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -221,7 +236,9 @@ public class StringBeanTable implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

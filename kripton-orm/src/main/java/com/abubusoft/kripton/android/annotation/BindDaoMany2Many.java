@@ -20,13 +20,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface BindDaoMany2Many.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindDaoMany2Many {
+	
 	/**
 	 * Allows to specify primary key name.
-	 * 
-	 * @return
+	 *
+	 * @return the string
 	 */
 	String idName() default "id";
 
@@ -44,14 +49,16 @@ public @interface BindDaoMany2Many {
 	String tableName() default "";
 
 	/**
-	 * referred entity 1
-	 * @return
+	 * referred entity 1.
+	 *
+	 * @return the class
 	 */
 	Class<?> entity1();
 
 	/**
-	 * referred entity 2
-	 * @return
+	 * referred entity 2.
+	 *
+	 * @return the class
 	 */
 	Class<?> entity2();
 
@@ -65,9 +72,9 @@ public @interface BindDaoMany2Many {
 	 * <li>Delete bean by foreign key 1</li>
 	 * <li>Delete bean by foreign key 2</li>
 	 * 
-	 * </ul>
-	 * 
-	 * @return
+	 * </ul>.
+	 *
+	 * @return true, if successful
 	 */
 	boolean methods() default true;
 

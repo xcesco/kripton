@@ -15,7 +15,17 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface SQLiteModelElement.
+ */
 public interface SQLiteModelElement  {
 
+	/**
+	 * Accept.
+	 *
+	 * @param visitor the visitor
+	 * @throws Exception the exception
+	 */
 	void accept(SQLiteModelElementVisitor visitor) throws Exception;
 }

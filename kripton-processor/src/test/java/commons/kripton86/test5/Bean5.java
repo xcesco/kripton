@@ -17,11 +17,17 @@ package commons.kripton86.test5;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean5.
+ */
 @BindType
 public class Bean5 {
 
+	/** The id. */
 	public String id;
 	
+	/** The test. */
 	public String test;
 	
 	

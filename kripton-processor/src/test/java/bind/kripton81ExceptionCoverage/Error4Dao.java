@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 
+/**
+ * The Class Error4Dao.
+ */
 @BindDao(Error4Bean.class)
 public class Error4Dao {
 

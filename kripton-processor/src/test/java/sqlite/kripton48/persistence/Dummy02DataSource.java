@@ -18,6 +18,9 @@ package sqlite.kripton48.persistence;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
+/**
+ * The Interface Dummy02DataSource.
+ */
 @BindDataSource(daoSet=DaoBean02.class, fileName = "dummy2" , version=1)
 public interface Dummy02DataSource {
 

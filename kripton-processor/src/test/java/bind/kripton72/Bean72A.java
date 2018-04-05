@@ -22,61 +22,96 @@ import java.util.Set;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
 /**
- * All field are collection without external tag
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * All field are collection without external tag.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @BindType
 public class Bean72A {
 	
+	/**
+	 * Instantiates a new bean 72 A.
+	 */
 	public Bean72A()
 	{
 		
 	}
 	
+	/**
+	 * Instantiates a new bean 72 A.
+	 *
+	 * @param name the name
+	 */
 	public Bean72A(String name)
 	{
 		this.name=name;
 	}
 	
+	/** The name. */
 	public String name;
 	
+	/** The value bean set. */
 	public HashSet<Bean72A> valueBeanSet;
 	
+	/** The value big decimal set. */
 	public HashSet<BigDecimal> valueBigDecimalSet;
 	
+	/** The value big integer set. */
 	public HashSet<BigInteger> valueBigIntegerSet;
 	
+	/** The value byte set. */
 	public Set<Byte> valueByteSet;
 	
+	/** The value character set. */
 	public HashSet<Character> valueCharacterSet;
 	
+	/** The value double set. */
 	public Set<Double> valueDoubleSet;
 	
+	/** The value enum set. */
 	public HashSet<Enum72> valueEnumSet;
 	
+	/** The value float set. */
 	public Set<Float> valueFloatSet;
 	
+	/** The value int set. */
 	private Set<Integer> valueIntSet;
 	
+	/**
+	 * Gets the value int set.
+	 *
+	 * @return the value int set
+	 */
 	public Set<Integer> getValueIntSet() {
 		return valueIntSet;
 	}
 
+	/**
+	 * Sets the value int set.
+	 *
+	 * @param valueIntSet the new value int set
+	 */
 	public void setValueIntSet(Set<Integer> valueIntSet) {
 		this.valueIntSet = valueIntSet;
 	}
 
+	/** The value long set. */
 	public Set<Long> valueLongSet;
 
+	/** The value short set. */
 	public Set<Short> valueShortSet;
 	
+	/** The value string set. */
 	public Set<String> valueStringSet;
 	
+	/** The zalue string final. */
 	public String zalueStringFinal;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -98,6 +133,9 @@ public class Bean72A {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

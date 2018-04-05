@@ -23,20 +23,22 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class TestDao01.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No DAO definition with @BindDaoDefinition annotation was found for class
-	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
@@ -44,11 +46,11 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Class %s: only interfaces can be annotated with @%s annotation
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Class %s: only interfaces can be annotated with @%s annotation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test02() throws IOException, InstantiationException, IllegalAccessException {
@@ -59,10 +61,10 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 	 * InvalidSQLDaoDefinitionException: In class DaoBean03 is used @SQLDao
 	 * annotation for unmanaged bean type
 	 * com.abubusoft.kripton.processor.test02.Bean03B.
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test03() throws IOException, InstantiationException, IllegalAccessException {
@@ -70,11 +72,11 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Dao definition DaoBean04 contains no methods to bind with queries
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Dao definition DaoBean04 contains no methods to bind with queries.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test04() throws IOException, InstantiationException, IllegalAccessException {
@@ -83,11 +85,11 @@ public class TestDao01 extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * Method 'notWorking' of class 'DaoBean05' is not marked with any valid
-	 * annotation
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * annotation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test(expected = AssertionError.class)
 	public void test05() throws IOException, InstantiationException, IllegalAccessException {

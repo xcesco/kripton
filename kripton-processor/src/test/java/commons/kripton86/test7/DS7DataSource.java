@@ -17,6 +17,9 @@ package commons.kripton86.test7;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface DS7DataSource.
+ */
 @BindDataSource(daoSet={Dao7.class}, fileName="test.db")
 public interface DS7DataSource {
 

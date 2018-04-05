@@ -30,8 +30,19 @@ import sqlite.kripton111.persistence.PhoneDao;
 import sqlite.kripton111.persistence.PrefixConfigDao;
 import sqlite.kripton111.persistence.XenoDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompile111.
+ */
 public class TestCompile111 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(ActionType.class, Country.class, PhoneNumber.class, PrefixConfig.class, AbstractDao.class, CountryDao.class, PhoneDao.class, PrefixConfigDao.class,

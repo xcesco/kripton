@@ -1,7 +1,23 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.quickstart.model;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Todo</code> is associated to table <code>todo</code>
@@ -10,27 +26,14 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see Todo
  */
 public class TodoTable implements SQLiteTable {
-  /**
-   * Costant represents typeName of table todo
-   */
+  
+  /** Costant represents typeName of table todo. */
   public static final String TABLE_NAME = "todo";
 
-  /**
-   * <p>
-   * DDL to create table todo
-   * </p>
-   *
-   * <pre>CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, title TEXT, completed INTEGER);</pre>
-   */
+  /** <p> DDL to create table todo </p>  <pre>CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, title TEXT, completed INTEGER);</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, title TEXT, completed INTEGER);";
 
-  /**
-   * <p>
-   * DDL to drop table todo
-   * </p>
-   *
-   * <pre>DROP TABLE IF EXISTS todo;</pre>
-   */
+  /** <p> DDL to drop table todo </p>  <pre>DROP TABLE IF EXISTS todo;</pre>. */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS todo;";
 
   /**
@@ -61,13 +64,13 @@ public class TodoTable implements SQLiteTable {
    */
   public static final String COLUMN_COMPLETED = "completed";
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_USER_ID, COLUMN_TITLE, COLUMN_COMPLETED};
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -75,7 +78,9 @@ public class TodoTable implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

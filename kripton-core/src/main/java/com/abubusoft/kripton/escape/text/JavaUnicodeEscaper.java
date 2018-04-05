@@ -16,6 +16,7 @@
  */
 package com.abubusoft.kripton.escape.text;
 
+// TODO: Auto-generated Javadoc
 /**
  * Translates codepoints to their Unicode escaped value suitable for Java source.
  * 
@@ -98,10 +99,9 @@ public class JavaUnicodeEscaper extends UnicodeEscaper {
     }
 
     /**
-     * Converts the given codepoint to a hex string of the form {@code "\\uXXXX\\uXXXX"}
-     * 
-     * @param codepoint
-     *            a Unicode code point
+     * Converts the given codepoint to a hex string of the form {@code "\\uXXXX\\uXXXX"}.
+     *
+     * @param codepoint            a Unicode code point
      * @return the hex string for the given codepoint
      */
     @Override

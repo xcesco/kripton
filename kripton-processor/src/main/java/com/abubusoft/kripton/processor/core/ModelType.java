@@ -22,26 +22,49 @@ import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelType.
+ */
 public class ModelType {
 
+	/** The type name. */
 	protected TypeName typeName;
 
+	/**
+	 * Sets the type name.
+	 *
+	 * @param typeName the new type name
+	 */
 	public void setTypeName(TypeName typeName) {
 		this.typeName = typeName;
 	}
 
 	/**
+	 * Gets the type name.
+	 *
 	 * @return the value
 	 */
 	public TypeName getTypeName() {
 		return typeName;
 	}
 
+	/**
+	 * Instantiates a new model type.
+	 *
+	 * @param type the type
+	 */
 	public ModelType(TypeMirror type) {
 		// super(type.toString());
 		this.typeName = TypeUtility.typeName(type);
 	}
 
+	/**
+	 * Instantiates a new model type.
+	 *
+	 * @param containerClassName the container class name
+	 * @param argClassName the arg class name
+	 */
 	public ModelType(String containerClassName, String argClassName) {
 		this.typeName = ParameterizedTypeName.get(TypeUtility.className(containerClassName), TypeUtility.typeName(argClassName));
 		// super(LiteralType.of(containerClassName, argClassName).getValue());
@@ -49,19 +72,40 @@ public class ModelType {
 		// argClassName).getValue());
 	}
 
+	/**
+	 * Instantiates a new model type.
+	 *
+	 * @param typeName the type name
+	 */
 	public ModelType(TypeName typeName) {
 		// super(typeName.toString());
 		this.typeName = typeName;
 	}
 
+	/**
+	 * Checks if is equals.
+	 *
+	 * @param value the value
+	 * @return true, if is equals
+	 */
 	public boolean isEquals(String value) {
 		return TypeUtility.isEquals(this.typeName, value);
 	}
 
+	/**
+	 * Checks if is array.
+	 *
+	 * @return true, if is array
+	 */
 	public boolean isArray() {
 		return TypeUtility.isArray(typeName);
 	}
 
+	/**
+	 * Checks if is primitive.
+	 *
+	 * @return true, if is primitive
+	 */
 	public boolean isPrimitive() {
 		return TypeUtility.isTypePrimitive(typeName);
 	}
@@ -87,14 +131,29 @@ public class ModelType {
 		return null;
 	}
 
+	/**
+	 * Checks if is list.
+	 *
+	 * @return true, if is list
+	 */
 	public boolean isList() {
 		return TypeUtility.isList(typeName);
 	}
 
+	/**
+	 * Checks if is collection.
+	 *
+	 * @return true, if is collection
+	 */
 	public boolean isCollection() {
 		return TypeUtility.isCollection(typeName);
 	}
 
+	/**
+	 * Checks if is map.
+	 *
+	 * @return true, if is map
+	 */
 	public boolean isMap() {
 		return TypeUtility.isMap(typeName);
 	}

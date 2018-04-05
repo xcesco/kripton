@@ -15,14 +15,19 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Float object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Float object.
  *
+ * @author xcesco
  */
 public class FloatBindTransform extends AbstractPrimitiveBindTransform {
 
+	/**
+	 * Instantiates a new float bind transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public FloatBindTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Float";

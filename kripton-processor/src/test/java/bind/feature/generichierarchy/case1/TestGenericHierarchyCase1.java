@@ -28,14 +28,21 @@ import bind.feature.generichierarchy.case1.transfer.RestListEntity;
 import bind.feature.generichierarchy.case1.transfer.RestResponse;
 import bind.feature.generichierarchy.case1.transfer.ServiceStatusType;
 
+// TODO: Auto-generated Javadoc
 /**
- * Test bean field
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Test bean field.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class TestGenericHierarchyCase1 extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Message.class, MessageListResponse.class, ChannelUserListResponse.class, RestListEntity.class, RestResponse.class, ChannelUser.class, ServiceStatusType.class);

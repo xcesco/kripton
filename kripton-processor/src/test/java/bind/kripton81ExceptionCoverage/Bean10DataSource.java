@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Class Bean10DataSource.
+ */
 @BindDataSource(daoSet = { Bean8Dao.class }, fileName = "")
 public class Bean10DataSource {
 

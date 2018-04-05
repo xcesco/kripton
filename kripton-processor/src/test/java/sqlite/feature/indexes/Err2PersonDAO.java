@@ -26,18 +26,49 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Err2PersonDAO.
+ */
 @BindDao(Err2Person.class)
 public interface Err2PersonDAO {
 	
+	/**
+	 * Insert one.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param birthCity the birth city
+	 * @param birthDay the birth day
+	 */
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
+	/**
+	 * Select all.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect(orderBy="typeName")
 	List<Err2Person> selectAll();
 	
+	/**
+	 * Select one.
+	 *
+	 * @param nameValue the name value
+	 * @param where the where
+	 * @param orderBy the order by
+	 * @return the list
+	 */
 	@BindSqlSelect(where="typeName like ${nameTemp} || '%'")
 	List<Err2Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlDynamicWhere String where, @BindSqlDynamicOrderBy String orderBy);
 	
+	/**
+	 * Select bean listener.
+	 *
+	 * @param beanListener the bean listener
+	 * @param orderBy the order by
+	 */
 	@BindSqlSelect(orderBy="typeName")
 	void selectBeanListener(OnReadBeanListener<Err2Person> beanListener, @BindSqlDynamicOrderBy String orderBy);
 	

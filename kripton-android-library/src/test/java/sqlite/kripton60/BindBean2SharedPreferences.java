@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton60;
 
 import android.content.SharedPreferences;
@@ -36,28 +51,25 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is the shared preference binder defined for Bean2
+ * This class is the shared preference binder defined for Bean2.
  *
  * @see Bean2
  */
 public class BindBean2SharedPreferences extends AbstractSharedPreference {
-  /**
-   * instance of shared preferences
-   */
+  
+  /** instance of shared preferences. */
   private static BindBean2SharedPreferences instance;
 
-  /**
-   * working instance of bean
-   */
+  /** working instance of bean. */
   private final Bean2 defaultBean;
 
-  /**
-   * Bean2BindMap */
+  /** Bean2BindMap. */
   private Bean2BindMap bean2BindMap = BinderUtils.mapperFor(Bean2.class);
 
   /**
-   * constructor
+   * constructor.
    */
   private BindBean2SharedPreferences() {
     // no typeName specified, using default shared preferences
@@ -66,14 +78,18 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * create an editor to modify shared preferences
+   * create an editor to modify shared preferences.
+   *
+   * @return the bind editor
    */
   public BindEditor edit() {
     return new BindEditor();
   }
 
   /**
-   * force to refresh values
+   * force to refresh values.
+   *
+   * @return the bind bean 2 shared preferences
    */
   public BindBean2SharedPreferences refresh() {
     // no typeName specified, using default shared preferences
@@ -82,7 +98,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reset shared preferences
+   * reset shared preferences.
    */
   public void reset() {
     Bean2 bean=new Bean2();
@@ -90,7 +106,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read bean entirely
+   * read bean entirely.
    *
    * @return read bean
    */
@@ -230,7 +246,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write bean entirely
+   * write bean entirely.
    *
    * @param bean bean to entirely write
    */
@@ -429,7 +445,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property id
+   * read property id.
    *
    * @return property id value
    */
@@ -438,7 +454,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBean
+   * read property valueBean.
    *
    * @return property valueBean value
    */
@@ -449,7 +465,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBeanArray
+   * read property valueBeanArray.
    *
    * @return property valueBeanArray value
    */
@@ -460,7 +476,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBigDecimal
+   * read property valueBigDecimal.
    *
    * @return property valueBigDecimal value
    */
@@ -471,7 +487,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBigInteger
+   * read property valueBigInteger.
    *
    * @return property valueBigInteger value
    */
@@ -482,7 +498,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBool
+   * read property valueBool.
    *
    * @return property valueBool value
    */
@@ -491,7 +507,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBoolType
+   * read property valueBoolType.
    *
    * @return property valueBoolType value
    */
@@ -500,7 +516,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueByte
+   * read property valueByte.
    *
    * @return property valueByte value
    */
@@ -509,7 +525,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueByteArray
+   * read property valueByteArray.
    *
    * @return property valueByteArray value
    */
@@ -520,7 +536,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueByteType
+   * read property valueByteType.
    *
    * @return property valueByteType value
    */
@@ -529,7 +545,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCalendar
+   * read property valueCalendar.
    *
    * @return property valueCalendar value
    */
@@ -539,7 +555,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueChar
+   * read property valueChar.
    *
    * @return property valueChar value
    */
@@ -548,7 +564,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCharArray
+   * read property valueCharArray.
    *
    * @return property valueCharArray value
    */
@@ -559,7 +575,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCharList
+   * read property valueCharList.
    *
    * @return property valueCharList value
    */
@@ -570,7 +586,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCharType
+   * read property valueCharType.
    *
    * @return property valueCharType value
    */
@@ -579,7 +595,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCharTypeArray
+   * read property valueCharTypeArray.
    *
    * @return property valueCharTypeArray value
    */
@@ -590,7 +606,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCurrency
+   * read property valueCurrency.
    *
    * @return property valueCurrency value
    */
@@ -600,7 +616,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueDate
+   * read property valueDate.
    *
    * @return property valueDate value
    */
@@ -610,7 +626,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueDouble
+   * read property valueDouble.
    *
    * @return property valueDouble value
    */
@@ -621,7 +637,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueDoubleType
+   * read property valueDoubleType.
    *
    * @return property valueDoubleType value
    */
@@ -632,7 +648,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueEnumType
+   * read property valueEnumType.
    *
    * @return property valueEnumType value
    */
@@ -643,7 +659,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueFloat
+   * read property valueFloat.
    *
    * @return property valueFloat value
    */
@@ -652,7 +668,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueFloatType
+   * read property valueFloatType.
    *
    * @return property valueFloatType value
    */
@@ -661,7 +677,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueInt
+   * read property valueInt.
    *
    * @return property valueInt value
    */
@@ -670,7 +686,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueIntType
+   * read property valueIntType.
    *
    * @return property valueIntType value
    */
@@ -679,7 +695,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLocale
+   * read property valueLocale.
    *
    * @return property valueLocale value
    */
@@ -689,7 +705,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLong
+   * read property valueLong.
    *
    * @return property valueLong value
    */
@@ -698,7 +714,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLongArray
+   * read property valueLongArray.
    *
    * @return property valueLongArray value
    */
@@ -709,7 +725,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLongList
+   * read property valueLongList.
    *
    * @return property valueLongList value
    */
@@ -720,7 +736,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLongType
+   * read property valueLongType.
    *
    * @return property valueLongType value
    */
@@ -729,7 +745,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLongTypeArray
+   * read property valueLongTypeArray.
    *
    * @return property valueLongTypeArray value
    */
@@ -740,7 +756,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueShort
+   * read property valueShort.
    *
    * @return property valueShort value
    */
@@ -749,7 +765,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueShortType
+   * read property valueShortType.
    *
    * @return property valueShortType value
    */
@@ -758,7 +774,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueString
+   * read property valueString.
    *
    * @return property valueString value
    */
@@ -767,7 +783,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueStringArray
+   * read property valueStringArray.
    *
    * @return property valueStringArray value
    */
@@ -778,7 +794,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueStrinList
+   * read property valueStrinList.
    *
    * @return property valueStrinList value
    */
@@ -789,7 +805,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueTime
+   * read property valueTime.
    *
    * @return property valueTime value
    */
@@ -799,7 +815,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueTimeList
+   * read property valueTimeList.
    *
    * @return property valueTimeList value
    */
@@ -810,7 +826,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueTimeZone
+   * read property valueTimeZone.
    *
    * @return property valueTimeZone value
    */
@@ -820,7 +836,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueUrl
+   * read property valueUrl.
    *
    * @return property valueUrl value
    */
@@ -830,7 +846,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBean serialization
+   * for attribute valueBean serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueBean(Bean2 value) {
     if (value==null) {
@@ -852,7 +871,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBean parsing
+   * for attribute valueBean parsing.
+   *
+   * @param input the input
+   * @return the bean 2
    */
   protected Bean2 parseValueBean(String input) {
     if (input==null) {
@@ -874,7 +896,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBeanArray serialization
+   * for attribute valueBeanArray serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueBeanArray(Bean2[] value) {
     if (value==null) {
@@ -911,7 +936,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBeanArray parsing
+   * for attribute valueBeanArray parsing.
+   *
+   * @param input the input
+   * @return the bean 2 []
    */
   protected Bean2[] parseValueBeanArray(String input) {
     if (input==null) {
@@ -945,7 +973,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueByteArray serialization
+   * for attribute valueByteArray serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueByteArray(byte[] value) {
     if (value==null) {
@@ -969,7 +1000,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueByteArray parsing
+   * for attribute valueByteArray parsing.
+   *
+   * @param input the input
+   * @return the byte[]
    */
   protected byte[] parseValueByteArray(String input) {
     if (input==null) {
@@ -993,7 +1027,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueCharArray serialization
+   * for attribute valueCharArray serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueCharArray(Character[] value) {
     if (value==null) {
@@ -1030,7 +1067,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueCharArray parsing
+   * for attribute valueCharArray parsing.
+   *
+   * @param input the input
+   * @return the character[]
    */
   protected Character[] parseValueCharArray(String input) {
     if (input==null) {
@@ -1064,7 +1104,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueCharList serialization
+   * for attribute valueCharList serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueCharList(LinkedList<Character> value) {
     if (value==null) {
@@ -1101,7 +1144,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueCharList parsing
+   * for attribute valueCharList parsing.
+   *
+   * @param input the input
+   * @return the linked list
    */
   protected LinkedList<Character> parseValueCharList(String input) {
     if (input==null) {
@@ -1135,7 +1181,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueCharTypeArray serialization
+   * for attribute valueCharTypeArray serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueCharTypeArray(char[] value) {
     if (value==null) {
@@ -1168,7 +1217,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueCharTypeArray parsing
+   * for attribute valueCharTypeArray parsing.
+   *
+   * @param input the input
+   * @return the char[]
    */
   protected char[] parseValueCharTypeArray(String input) {
     if (input==null) {
@@ -1202,7 +1254,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueLongArray serialization
+   * for attribute valueLongArray serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueLongArray(Long[] value) {
     if (value==null) {
@@ -1239,7 +1294,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueLongArray parsing
+   * for attribute valueLongArray parsing.
+   *
+   * @param input the input
+   * @return the long[]
    */
   protected Long[] parseValueLongArray(String input) {
     if (input==null) {
@@ -1273,7 +1331,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueLongList serialization
+   * for attribute valueLongList serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueLongList(LinkedList<Long> value) {
     if (value==null) {
@@ -1310,7 +1371,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueLongList parsing
+   * for attribute valueLongList parsing.
+   *
+   * @param input the input
+   * @return the linked list
    */
   protected LinkedList<Long> parseValueLongList(String input) {
     if (input==null) {
@@ -1344,7 +1408,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueLongTypeArray serialization
+   * for attribute valueLongTypeArray serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueLongTypeArray(long[] value) {
     if (value==null) {
@@ -1377,7 +1444,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueLongTypeArray parsing
+   * for attribute valueLongTypeArray parsing.
+   *
+   * @param input the input
+   * @return the long[]
    */
   protected long[] parseValueLongTypeArray(String input) {
     if (input==null) {
@@ -1411,7 +1481,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueStringArray serialization
+   * for attribute valueStringArray serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueStringArray(String[] value) {
     if (value==null) {
@@ -1448,7 +1521,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueStringArray parsing
+   * for attribute valueStringArray parsing.
+   *
+   * @param input the input
+   * @return the string[]
    */
   protected String[] parseValueStringArray(String input) {
     if (input==null) {
@@ -1482,7 +1558,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueStrinList serialization
+   * for attribute valueStrinList serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueStrinList(LinkedList<String> value) {
     if (value==null) {
@@ -1519,7 +1598,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueStrinList parsing
+   * for attribute valueStrinList parsing.
+   *
+   * @param input the input
+   * @return the linked list
    */
   protected LinkedList<String> parseValueStrinList(String input) {
     if (input==null) {
@@ -1553,7 +1635,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueTimeList serialization
+   * for attribute valueTimeList serialization.
+   *
+   * @param value the value
+   * @return the string
    */
   protected String serializeValueTimeList(List<Time> value) {
     if (value==null) {
@@ -1590,7 +1675,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueTimeList parsing
+   * for attribute valueTimeList parsing.
+   *
+   * @param input the input
+   * @return the list
    */
   protected List<Time> parseValueTimeList(String input) {
     if (input==null) {
@@ -1624,7 +1712,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * get instance of shared preferences
+   * get instance of shared preferences.
+   *
+   * @return the bind bean 2 shared preferences
    */
   public static synchronized BindBean2SharedPreferences instance() {
     if (instance==null) {
@@ -1634,14 +1724,21 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * editor class for shared preferences
+   * editor class for shared preferences.
    */
   public class BindEditor extends AbstractEditor {
+    
+    /**
+     * Instantiates a new bind editor.
+     */
     private BindEditor() {
     }
 
     /**
-     * modifier for property id
+     * modifier for property id.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putId(long value) {
       editor.putLong("id",value);
@@ -1650,7 +1747,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBean
+     * modifier for property valueBean.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueBean(Bean2 value) {
       if (value!=null)  {
@@ -1664,7 +1764,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBeanArray
+     * modifier for property valueBeanArray.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueBeanArray(Bean2[] value) {
       if (value!=null)  {
@@ -1678,7 +1781,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBigDecimal
+     * modifier for property valueBigDecimal.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueBigDecimal(BigDecimal value) {
       if (value!=null) editor.putString("value_big_decimal",value.toPlainString()); else editor.remove("value_big_decimal");
@@ -1686,7 +1792,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBigInteger
+     * modifier for property valueBigInteger.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueBigInteger(BigInteger value) {
       if (value!=null) editor.putString("value_big_integer",value.toString()); else editor.remove("value_big_integer");
@@ -1694,7 +1803,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBool
+     * modifier for property valueBool.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueBool(Boolean value) {
       if (value!=null)  {
@@ -1705,7 +1817,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBoolType
+     * modifier for property valueBoolType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueBoolType(boolean value) {
       editor.putBoolean("value_bool_type",(boolean)value);
@@ -1714,7 +1829,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueByte
+     * modifier for property valueByte.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueByte(Byte value) {
       if (value!=null)  {
@@ -1725,7 +1843,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueByteArray
+     * modifier for property valueByteArray.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueByteArray(byte[] value) {
       if (value!=null)  {
@@ -1739,7 +1860,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueByteType
+     * modifier for property valueByteType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueByteType(byte value) {
       editor.putInt("value_byte_type",(int)value);
@@ -1748,7 +1872,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueCalendar
+     * modifier for property valueCalendar.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueCalendar(Calendar value) {
       if (value!=null)  {
@@ -1761,7 +1888,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueChar
+     * modifier for property valueChar.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueChar(Character value) {
       if (value!=null)  {
@@ -1772,7 +1902,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueCharArray
+     * modifier for property valueCharArray.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueCharArray(Character[] value) {
       if (value!=null)  {
@@ -1786,7 +1919,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueCharList
+     * modifier for property valueCharList.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueCharList(LinkedList<Character> value) {
       if (value!=null)  {
@@ -1800,7 +1936,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueCharType
+     * modifier for property valueCharType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueCharType(char value) {
       editor.putInt("value_char_type",(char)value);
@@ -1809,7 +1948,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueCharTypeArray
+     * modifier for property valueCharTypeArray.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueCharTypeArray(char[] value) {
       if (value!=null)  {
@@ -1823,7 +1965,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueCurrency
+     * modifier for property valueCurrency.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueCurrency(Currency value) {
       if (value!=null)  {
@@ -1836,7 +1981,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueDate
+     * modifier for property valueDate.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueDate(Date value) {
       if (value!=null)  {
@@ -1849,7 +1997,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueDouble
+     * modifier for property valueDouble.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueDouble(Double value) {
       if (value!=null)  {
@@ -1862,7 +2013,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueDoubleType
+     * modifier for property valueDoubleType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueDoubleType(double value) {
       editor.putString("value_double_type",String.valueOf(value));
@@ -1871,7 +2025,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueEnumType
+     * modifier for property valueEnumType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueEnumType(EnumType value) {
       if (value!=null)  {
@@ -1884,7 +2041,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueFloat
+     * modifier for property valueFloat.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueFloat(Float value) {
       if (value!=null)  {
@@ -1895,7 +2055,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueFloatType
+     * modifier for property valueFloatType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueFloatType(float value) {
       editor.putFloat("value_float_type",value);
@@ -1904,7 +2067,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueInt
+     * modifier for property valueInt.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueInt(Integer value) {
       if (value!=null)  {
@@ -1915,7 +2081,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueIntType
+     * modifier for property valueIntType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueIntType(int value) {
       editor.putInt("value_int_type",(int)value);
@@ -1924,7 +2093,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueLocale
+     * modifier for property valueLocale.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueLocale(Locale value) {
       if (value!=null)  {
@@ -1937,7 +2109,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueLong
+     * modifier for property valueLong.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueLong(Long value) {
       if (value!=null)  {
@@ -1948,7 +2123,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueLongArray
+     * modifier for property valueLongArray.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueLongArray(Long[] value) {
       if (value!=null)  {
@@ -1962,7 +2140,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueLongList
+     * modifier for property valueLongList.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueLongList(LinkedList<Long> value) {
       if (value!=null)  {
@@ -1976,7 +2157,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueLongType
+     * modifier for property valueLongType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueLongType(long value) {
       editor.putLong("value_long_type",value);
@@ -1985,7 +2169,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueLongTypeArray
+     * modifier for property valueLongTypeArray.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueLongTypeArray(long[] value) {
       if (value!=null)  {
@@ -1999,7 +2186,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueShort
+     * modifier for property valueShort.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueShort(Short value) {
       if (value!=null)  {
@@ -2010,7 +2200,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueShortType
+     * modifier for property valueShortType.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueShortType(short value) {
       editor.putInt("value_short_type",(int)value);
@@ -2019,7 +2212,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueString
+     * modifier for property valueString.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueString(String value) {
       editor.putString("value_string",value);
@@ -2028,7 +2224,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueStringArray
+     * modifier for property valueStringArray.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueStringArray(String[] value) {
       if (value!=null)  {
@@ -2042,7 +2241,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueStrinList
+     * modifier for property valueStrinList.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueStrinList(LinkedList<String> value) {
       if (value!=null)  {
@@ -2056,7 +2258,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueTime
+     * modifier for property valueTime.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueTime(Time value) {
       if (value!=null)  {
@@ -2069,7 +2274,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueTimeList
+     * modifier for property valueTimeList.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueTimeList(List<Time> value) {
       if (value!=null)  {
@@ -2083,7 +2291,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueTimeZone
+     * modifier for property valueTimeZone.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueTimeZone(TimeZone value) {
       if (value!=null)  {
@@ -2096,7 +2307,10 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueUrl
+     * modifier for property valueUrl.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueUrl(URL value) {
       if (value!=null)  {

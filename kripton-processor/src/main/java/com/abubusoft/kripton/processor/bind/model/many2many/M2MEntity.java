@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.processor.bind.model.many2many;
 
 import javax.lang.model.element.PackageElement;
@@ -13,32 +28,65 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.ClassName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class M2MEntity.
+ */
 public class M2MEntity extends M2MBase {
 
+	/** The package name. */
 	private String packageName;
 
+	/** The entity 1 name. */
 	public ClassName entity1Name;
 
+	/** The entity 2 name. */
 	public ClassName entity2Name;
 
+	/** The id name. */
 	public String idName;
 
+	/**
+	 * Gets the package name.
+	 *
+	 * @return the package name
+	 */
 	public String getPackageName() {
 		return packageName;
 	}
 
+	/** The name. */
 	public String name;
 
+	/** The table name. */
 	public String tableName;
 
+	/** The dao name. */
 	public ClassName daoName;
 
+	/** The need to create. */
 	public boolean needToCreate;
 	
+	/** The dao element. */
 	public TypeElement daoElement;
 
+	/** The generate methods. */
 	public boolean generateMethods;
 
+	/**
+	 * Instantiates a new m 2 M entity.
+	 *
+	 * @param daoElement the dao element
+	 * @param packageName the package name
+	 * @param entityName the entity name
+	 * @param daoClazzName the dao clazz name
+	 * @param entity1ClazzName the entity 1 clazz name
+	 * @param entity2ClazzName the entity 2 clazz name
+	 * @param idName the id name
+	 * @param tableName the table name
+	 * @param needToCreate the need to create
+	 * @param generatedMethods the generated methods
+	 */
 	public M2MEntity(TypeElement daoElement, String packageName, String entityName, ClassName daoClazzName, ClassName entity1ClazzName, ClassName entity2ClazzName, String idName, String tableName, boolean needToCreate, boolean generatedMethods) {
 		this.packageName = packageName;
 		this.entity1Name = entity1ClazzName;
@@ -52,21 +100,32 @@ public class M2MEntity extends M2MBase {
 		this.generateMethods=generatedMethods;
 	}
 
+	/**
+	 * Extract class name.
+	 *
+	 * @param fullName the full name
+	 * @return the string
+	 */
 	public static String extractClassName(String fullName) {
 		int l = fullName.lastIndexOf(".");
 
 		return fullName.substring(l + 1);
 	}
 
+	/**
+	 * Gets the class name.
+	 *
+	 * @return the class name
+	 */
 	public ClassName getClassName() {
 		return TypeUtility.className(this.packageName, this.name);
 	}
 
 	/**
 	 * Works with @BindDaoMany2Many and @BindDao to extract entity name.
-	 * 
-	 * @param item
-	 * @return
+	 *
+	 * @param daoElement the dao element
+	 * @return the m 2 M entity
 	 */
 	public static M2MEntity extractEntityManagedByDAO(TypeElement daoElement) {
 		ClassName entity1 = null;
@@ -113,6 +172,11 @@ public class M2MEntity extends M2MBase {
 		return entity;
 	}
 
+	/**
+	 * Gets the qualified name.
+	 *
+	 * @return the qualified name
+	 */
 	public String getQualifiedName() {
 		if (StringUtils.hasText(packageName)) {
 			return packageName+"."+name;
@@ -120,10 +184,20 @@ public class M2MEntity extends M2MBase {
 		return name;
 	}
 
+	/**
+	 * Gets the simple name.
+	 *
+	 * @return the simple name
+	 */
 	public String getSimpleName() {
 		return name;
 	}
 	
+	/**
+	 * Gets the dao qualified name.
+	 *
+	 * @return the dao qualified name
+	 */
 	public String getDaoQualifiedName() {
 		return daoElement.getQualifiedName().toString();
 	}

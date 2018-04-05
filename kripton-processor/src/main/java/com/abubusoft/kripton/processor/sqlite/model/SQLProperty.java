@@ -35,6 +35,10 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SQLProperty.
+ */
 public class SQLProperty extends ManagedModelProperty {
 
 	/**
@@ -57,6 +61,13 @@ public class SQLProperty extends ManagedModelProperty {
 		//TODO check global type adapter
 	}
 
+	/**
+	 * Instantiates a new SQL property.
+	 *
+	 * @param entity the entity
+	 * @param element the element
+	 * @param modelAnnotations the model annotations
+	 */
 	public SQLProperty(SQLiteEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
@@ -91,22 +102,24 @@ public class SQLProperty extends ManagedModelProperty {
 
 	}
 
-	/**
-	 * typeName of the column
-	 */
+	/** typeName of the column. */
 	public String columnName;
 
+	/** The nullable. */
 	protected boolean nullable;
 
 	/**
-	 * @param primaryKey
-	 *            the primaryKey to set
+	 * Sets the primary key.
+	 *
+	 * @param primaryKey            the primaryKey to set
 	 */
 	public void setPrimaryKey(boolean primaryKey) {
 		this.primaryKey = primaryKey;
 	}
 
 	/**
+	 * Checks if is nullable.
+	 *
 	 * @return the nullable
 	 */
 	public boolean isNullable() {
@@ -114,42 +127,55 @@ public class SQLProperty extends ManagedModelProperty {
 	}
 
 	/**
-	 * @param nullable
-	 *            the nullable to set
+	 * Sets the nullable.
+	 *
+	 * @param nullable            the nullable to set
 	 */
 	public void setNullable(boolean nullable) {
 		this.nullable = nullable;
 	}
 
 	/**
+	 * Checks if is primary key.
+	 *
 	 * @return the primaryKey
 	 */
 	public boolean isPrimaryKey() {
 		return primaryKey;
 	}
 
+	/** The primary key. */
 	protected boolean primaryKey;
 
-	/**
-	 * type of column
-	 */
+	/** type of column. */
 	public ColumnType columnType;
 
+	/** The parent type name. */
 	protected TypeName parentTypeName;
 
-	/**
-	 * class name of referred table
-	 */
+	/** class name of referred table. */
 	public String foreignClassName;
 
+	/** The on delete action. */
 	public ForeignKeyAction onDeleteAction;
 
+	/** The on update action. */
 	public ForeignKeyAction onUpdateAction;
 
+	/**
+	 * Checks for foreign key class name.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasForeignKeyClassName() {
 		return !StringUtils.isEmpty(foreignClassName) && !NoForeignKey.class.getName().equals(foreignClassName);
 	}
 
+	/**
+	 * Gets the parent type name.
+	 *
+	 * @return the parent type name
+	 */
 	public TypeName getParentTypeName() {
 		return parentTypeName;
 	}

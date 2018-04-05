@@ -16,11 +16,17 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- *
+ * The Class LongBindTransform.
  */
 class LongBindTransform extends AbstractPrimitiveBindTransform {
 
+	/**
+	 * Instantiates a new long bind transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public LongBindTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Long";

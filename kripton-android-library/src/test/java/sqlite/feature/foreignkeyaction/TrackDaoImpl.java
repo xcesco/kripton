@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.foreignkeyaction;
 
 import android.database.Cursor;
@@ -12,48 +27,59 @@ import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Track</code>, based on interface <code>TrackDao</code>
- * </p>
+ * </p>.
  *
- *  @see Track
- *  @see TrackDao
- *  @see TrackTable
+ * @see Track
+ * @see TrackDao
+ * @see TrackTable
  */
 public class TrackDaoImpl extends Dao implements TrackDao {
+  
+  /** The Constant SELECT_BY_ID_SQL5. */
   private static final String SELECT_BY_ID_SQL5 = "SELECT id, album_id FROM track WHERE id=?";
 
+  /** The Constant SELECT_ALL_SQL6. */
   private static final String SELECT_ALL_SQL6 = "SELECT id, album_id FROM track";
 
+  /** The update prepared statement 0. */
   private static SQLiteStatement updatePreparedStatement0;
 
+  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
+  /** The delete by id prepared statement 2. */
   private static SQLiteStatement deleteByIdPreparedStatement2;
 
+  /**
+   * Instantiates a new track dao impl.
+   *
+   * @param context the context
+   */
   public TrackDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, album_id FROM track WHERE id=${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>album_id</dt><dd>is associated to bean's property <strong>albumId</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
+   * @param id 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -103,14 +129,14 @@ public class TrackDaoImpl extends Dao implements TrackDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, album_id FROM track</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>album_id</dt><dd>is associated to bean's property <strong>albumId</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of bean or empty collection.
    */
@@ -298,16 +324,14 @@ public class TrackDaoImpl extends Dao implements TrackDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM track WHERE id=${id}</pre>
-   *
-   *
+   * 
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   *
+   * @param id 	is used as where parameter <strong>${id}</strong>
    * @return number of deleted records
    */
   @Override
@@ -340,6 +364,9 @@ public class TrackDaoImpl extends Dao implements TrackDao {
     return result;
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (updatePreparedStatement0!=null) {
       updatePreparedStatement0.close();

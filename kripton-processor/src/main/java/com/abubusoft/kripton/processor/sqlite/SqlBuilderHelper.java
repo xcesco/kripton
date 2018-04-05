@@ -48,25 +48,26 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Utility class for build methods
  * </p>
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * .
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class SqlBuilderHelper {
 
 	/**
-	 * <p>
-	 * </p>
-	 * 
-	 * @param elementUtils
+	 * check used columns.
+	 *
 	 * @param builder
+	 *            the builder
 	 * @param method
+	 *            the method
 	 * @param columnNames
-	 * 
+	 *            the column names
 	 * @return name of column name set
 	 */
 	public static String generateColumnCheckSet(TypeSpec.Builder builder, SQLiteModelMethod method, Set<String> columnNames) {
@@ -91,12 +92,18 @@ public abstract class SqlBuilderHelper {
 	 * <p>
 	 * Generate column check
 	 * </p>
-	 * 
+	 * .
+	 *
 	 * @param methodBuilder
+	 *            the method builder
 	 * @param method
+	 *            the method
 	 * @param columnSetString
+	 *            the column set string
 	 * @param generateColumnNameCheck
+	 *            the generate column name check
 	 * @param listener
+	 *            the listener
 	 */
 	static void forEachColumnInContentValue(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, String columnSetString, boolean generateColumnNameCheck, OnColumnListener listener) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -112,6 +119,13 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.endControlFlow();
 	}
 
+	/**
+	 * Removes the dynamic place holder.
+	 *
+	 * @param placeHolders
+	 *            the place holders
+	 * @return the list
+	 */
 	static List<JQLPlaceHolder> removeDynamicPlaceHolder(List<JQLPlaceHolder> placeHolders) {
 		List<JQLPlaceHolder> result = new ArrayList<>();
 
@@ -127,9 +141,13 @@ public abstract class SqlBuilderHelper {
 	/**
 	 * look for variable name in place holders defined through path of content
 	 * provider.
-	 * 
+	 *
 	 * @param value
+	 *            the value
 	 * @param placeHolders
+	 *            the place holders
+	 * @param pos
+	 *            the pos
 	 * @return <code>true</code> if we found it path
 	 */
 	static boolean validate(String value, List<JQLPlaceHolder> placeHolders, int pos) {
@@ -137,8 +155,12 @@ public abstract class SqlBuilderHelper {
 	}
 
 	/**
+	 * Generate java doc for content provider.
+	 *
 	 * @param method
+	 *            the method
 	 * @param methodBuilder
+	 *            the method builder
 	 */
 	public static void generateJavaDocForContentProvider(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 
@@ -191,13 +213,11 @@ public abstract class SqlBuilderHelper {
 	 * <li>contentValues</li>
 	 * </ul>
 	 * 
-	 * <h2>post conditions</h2>
-	 * <p>
-	 * created variables are:</li>
-	 * 
 	 * 
 	 * @param method
+	 *            the method
 	 * @param methodBuilder
+	 *            the method builder
 	 */
 	public static void generateLogForContentValues(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 
@@ -230,13 +250,15 @@ public abstract class SqlBuilderHelper {
 	 * 
 	 * <h2>post conditions</h2>
 	 * <p>
-	 * created variables are:</li>
+	 * created variables are:</p>
 	 * <ul>
 	 * <li>_whereParamCounter</li>
 	 * </ul>
-	 * 
+	 *
 	 * @param method
+	 *            the method
 	 * @param methodBuilder
+	 *            the method builder
 	 */
 	public static void generateLogForWhereParameters(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		// manage log for where parameters
@@ -272,9 +294,11 @@ public abstract class SqlBuilderHelper {
 	 * <ul>
 	 * <li>_sql</li>
 	 * </ul>
-	 * 
+	 *
 	 * @param method
+	 *            the method
 	 * @param methodBuilder
+	 *            the method builder
 	 */
 	static void generateLogForSQL(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		// manage log
@@ -288,9 +312,12 @@ public abstract class SqlBuilderHelper {
 	 * <p>
 	 * Generate log info at beginning of method
 	 * </p>
-	 * 
+	 * .
+	 *
 	 * @param method
+	 *            the method
 	 * @param methodBuilder
+	 *            the method builder
 	 */
 	static void generateLogForContentProviderBeginning(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		if (method.getParent().isLogEnabled()) {
@@ -301,10 +328,11 @@ public abstract class SqlBuilderHelper {
 
 	/**
 	 * Iterate over methods.
-	 * 
-	 * @param elementUtils
+	 *
 	 * @param typeElement
+	 *            the type element
 	 * @param listener
+	 *            the listener
 	 */
 	public static void forEachMethods(TypeElement typeElement, MethodFoundListener listener) {
 		Elements elementUtils = BaseProcessor.elementUtils;
@@ -317,10 +345,28 @@ public abstract class SqlBuilderHelper {
 		}
 	}
 
+	/**
+	 * Checks for parameter of type.
+	 *
+	 * @param method
+	 *            the method
+	 * @param parameter
+	 *            the parameter
+	 * @return true, if successful
+	 */
 	public static boolean hasParameterOfType(ModelMethod method, TypeName parameter) {
 		return SqlBuilderHelper.countParameterOfType(method, parameter) > 0;
 	}
 
+	/**
+	 * Count parameter of type.
+	 *
+	 * @param method
+	 *            the method
+	 * @param parameter
+	 *            the parameter
+	 * @return the int
+	 */
 	public static int countParameterOfType(ModelMethod method, TypeName parameter) {
 		int counter = 0;
 		for (Pair<String, TypeName> item : method.getParameters()) {
@@ -350,12 +396,13 @@ public abstract class SqlBuilderHelper {
 	 * <dt>_sqlWhereStatement</dt>
 	 * <dd>String</dd>
 	 * </dl>
-	 * 
+	 *
 	 * @param methodBuilder
+	 *            the method builder
 	 * @param method
-	 * @param jql
-	 * @param jqlChecker
-	 * @param sqlWhereStatement
+	 *            the method
+	 * @param sqlWhereParamsAlreadyDefined
+	 *            the sql where params already defined
 	 */
 	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, boolean sqlWhereParamsAlreadyDefined) {
 		final JQL jql = method.jql;
@@ -470,9 +517,12 @@ public abstract class SqlBuilderHelper {
 	 * <p>
 	 * Generate log for INSERT operations
 	 * </p>
-	 * 
+	 * .
+	 *
 	 * @param method
+	 *            the method
 	 * @param methodBuilder
+	 *            the method builder
 	 */
 	public static void generateLog(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -565,9 +615,12 @@ public abstract class SqlBuilderHelper {
 	 * <p>
 	 * Generate log for INSERT operations
 	 * </p>
-	 * 
+	 * .
+	 *
 	 * @param method
+	 *            the method
 	 * @param methodBuilder
+	 *            the method builder
 	 */
 	public static void generateSQLForInsertDynamic(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		methodBuilder.addComment("generate SQL for insert");
@@ -575,14 +628,14 @@ public abstract class SqlBuilderHelper {
 
 		// replace the table name, other pieces will be removed
 		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
-			
+
 			@Override
 			public String onBindParameter(String bindParameterName) {
 				return "?";
 			}
 		});
 
-		final One<Integer> counter=new One<Integer>(0);
+		final One<Integer> counter = new One<Integer>(0);
 		sql = checker.replaceVariableStatements(method, sql, new JQLReplaceVariableStatementListenerImpl() {
 
 			@Override
@@ -597,10 +650,9 @@ public abstract class SqlBuilderHelper {
 				return "%s";
 			}
 
-			
 		});
 
-		if (counter.value0==2) {
+		if (counter.value0 == 2) {
 			methodBuilder.addStatement("String _sql=String.format($S, _contentValues.keyList(), _contentValues.keyValueList())", sql);
 		} else {
 			methodBuilder.addStatement("String _sql=String.format($S, _contentValues.keyList())", sql);
@@ -611,9 +663,12 @@ public abstract class SqlBuilderHelper {
 	 * <p>
 	 * Generate log for INSERT operations
 	 * </p>
-	 * 
+	 * .
+	 *
 	 * @param method
+	 *            the method
 	 * @param methodBuilder
+	 *            the method builder
 	 */
 	public static void generateSQLForStaticQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		methodBuilder.addComment("generate static SQL for statement");
@@ -645,6 +700,14 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.addStatement("String _sql=$S", sql);
 	}
 
+	/**
+	 * Generate log for content values content provider.
+	 *
+	 * @param method
+	 *            the method
+	 * @param methodBuilder
+	 *            the method builder
+	 */
 	public static void generateLogForContentValuesContentProvider(SQLiteModelMethod method, MethodSpec.Builder methodBuilder) {
 		methodBuilder.addCode("\n// log for content values -- BEGIN\n");
 		methodBuilder.addStatement("Object _contentValue");
@@ -660,6 +723,15 @@ public abstract class SqlBuilderHelper {
 
 	}
 
+	/**
+	 * Order content values.
+	 *
+	 * @param method
+	 *            the method
+	 * @param updateableParams
+	 *            the updateable params
+	 * @return the list
+	 */
 	public static List<Pair<String, TypeName>> orderContentValues(final SQLiteModelMethod method, final List<Pair<String, TypeName>> updateableParams) {
 		final List<Pair<String, TypeName>> result = new ArrayList<Pair<String, TypeName>>();
 

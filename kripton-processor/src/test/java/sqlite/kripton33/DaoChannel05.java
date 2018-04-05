@@ -18,8 +18,19 @@ package sqlite.kripton33;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoChannel05.
+ */
 @BindDao(Channel.class)
 public interface DaoChannel05 {
+	
+	/**
+	 * Update.
+	 *
+	 * @param bean the bean
+	 * @return the int
+	 */
 	@BindSqlUpdate(where = "updateTime=${bean.updateTimeA} and updateTime=${bean.updateTimeB}")
 	int update(Channel bean);
 	

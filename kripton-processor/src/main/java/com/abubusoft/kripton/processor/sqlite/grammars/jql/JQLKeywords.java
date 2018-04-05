@@ -15,22 +15,55 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JQLKeywords.
+ */
 public abstract class JQLKeywords {
 
+	/** The Constant DELETE_KEYWORD. */
 	public static final String DELETE_KEYWORD = "DELETE";
+	
+	/** The Constant DISTINCT_KEYWORD. */
 	public static final String DISTINCT_KEYWORD ="DISTINCT";
+	
+	/** The Constant FROM_KEYWORD. */
 	public static final String FROM_KEYWORD ="FROM";
+	
+	/** The Constant GROUP_BY_KEYWORD. */
 	public static final String GROUP_BY_KEYWORD ="GROUP BY";
+	
+	/** The Constant HAVING_KEYWORD. */
 	public static final String HAVING_KEYWORD ="HAVING";
+	
+	/** The Constant INSERT_KEYWORD. */
 	public static final String INSERT_KEYWORD = "INSERT";
+	
+	/** The Constant INTO_KEYWORD. */
 	public static final String INTO_KEYWORD = "INTO";
+	
+	/** The Constant LIMIT_KEYWORD. */
 	public static final String LIMIT_KEYWORD ="LIMIT";
+	
+	/** The Constant OFFSET_KEYWORD. */
 	public static final String OFFSET_KEYWORD ="OFFSET";
+	
+	/** The Constant ORDER_BY_KEYWORD. */
 	public static final String ORDER_BY_KEYWORD ="ORDER BY";	
+	
+	/** The Constant SELECT_KEYWORD. */
 	public static final String SELECT_KEYWORD = "SELECT";
+	
+	/** The Constant SET_KEYWORD. */
 	public static final String SET_KEYWORD = "SET";
+	
+	/** The Constant UPDATE_KEYWORD. */
 	public static final String UPDATE_KEYWORD = "UPDATE";
+	
+	/** The Constant VALUES_KEYWORD. */
 	public static final String VALUES_KEYWORD = "VALUES";
+	
+	/** The Constant WHERE_KEYWORD. */
 	public static final String WHERE_KEYWORD = "WHERE";
 	
 //	static final Set<String> keywords=new LinkedHashSet<>();

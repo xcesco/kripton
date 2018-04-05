@@ -17,13 +17,20 @@ package sqlite.kripton58.array;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ByteBean.
+ */
 @BindType
 public class ByteBean {
 
+	/** The id. */
 	public long id;
 	
+	/** The value. */
 	public byte[] value;
 	
+	/** The value 2. */
 	public Byte[] value2;
 	
 

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton38;
 
 import android.database.Cursor;
@@ -9,42 +24,50 @@ import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean03</code>, based on interface <code>DaoBean03</code>
- * </p>
+ * </p>.
  *
- *  @see Bean03
- *  @see DaoBean03
- *  @see Bean03Table
+ * @see Bean03
+ * @see DaoBean03
+ * @see Bean03Table
  */
 public class DaoBean03Impl extends Dao implements DaoBean03 {
+  
+  /** The Constant SELECT_ONE_SQL1. */
   private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean03 WHERE id=?";
 
+  /** The delete one prepared statement 0. */
   private static SQLiteStatement deleteOnePreparedStatement0;
 
+  /**
+   * Instantiates a new dao bean 03 impl.
+   *
+   * @param context the context
+   */
   public DaoBean03Impl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, text FROM bean03 WHERE id=${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
+   * @param id 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -95,16 +118,14 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean03 WHERE id=${id}</pre>
-   *
-   *
+   * 
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   *
+   * @param id 	is used as where parameter <strong>${id}</strong>
    * @return number of deleted records
    */
   @Override
@@ -137,6 +158,9 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
     return result;
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (deleteOnePreparedStatement0!=null) {
       deleteOnePreparedStatement0.close();

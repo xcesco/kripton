@@ -46,9 +46,14 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
 import base.BaseProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJqlChecker.
+ */
 @RunWith(JUnit4.class)
 public class TestJqlChecker extends BaseProcessorTest {
 
+	/** The dummy context. */
 	JQLContext dummyContext = new JQLContext() {
 		@Override
 		public String getContextDescription() {
@@ -59,9 +64,9 @@ public class TestJqlChecker extends BaseProcessorTest {
 	/**
 	 * <p>
 	 * OK
-	 * </p>
-	 * 
-	 * @throws Throwable
+	 * </p>.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testOK() throws Throwable {
@@ -121,6 +126,9 @@ public class TestJqlChecker extends BaseProcessorTest {
 		log("aa");
 	}
 
+	/**
+	 * Test project column.
+	 */
 	@Test
 	public void testProjectColumn() {
 		// SQLEntity entity=new SQLEntity(elementUtils, model, element);
@@ -157,6 +165,9 @@ public class TestJqlChecker extends BaseProcessorTest {
 		});
 	}
 
+	/**
+	 * Test delet 1.
+	 */
 	@Test
 	public void testDelet1() {
 		String sql = "DELETE FROM channel WHERE ownerUid=${field1} and ownerUid=${bean.field2} and ownerUid=${bean.field3} and ownerUid=${field5}";
@@ -189,7 +200,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 	}
 
 	/**
-	 * extract projections from a select
+	 * extract projections from a select.
 	 */
 	@Test
 	public void testSelect01() {
@@ -279,6 +290,9 @@ public class TestJqlChecker extends BaseProcessorTest {
 		assertEquals("sql for log generation failed", logSql, sqlLogResult);
 	}
 
+	/**
+	 * Test insert 01.
+	 */
 	@Test
 	public void testInsert01() {
 		String sql = "INSERT INTO channel (uid, owner_uid, update_time, name, field) VALUES (${bean.field1}, ${bean.field2}, ${bean.field3}, ${bean.field4}, ${field5})";
@@ -311,6 +325,9 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 	}
 
+	/**
+	 * Test update 01.
+	 */
 	@Test
 	public void testUpdate01() {
 		String sql = "UPDATE channel SET uid=${ bean.field1}, owner_uid=${bean.field2}, update_time=${bean.field3}, name=${field4} WHERE id=${bean.field1}";
@@ -360,6 +377,9 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 	}
 
+	/**
+	 * Test bind parameters from variable statements.
+	 */
 	@Test
 	public void testBindParametersFromVariableStatements() {
 		final One<String> where = new One<>();

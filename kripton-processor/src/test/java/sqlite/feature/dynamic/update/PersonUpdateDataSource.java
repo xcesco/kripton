@@ -19,6 +19,9 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 import sqlite.feature.dynamic.update.PersonUpdateDAO;
 
+/**
+ * The Interface PersonUpdateDataSource.
+ */
 @BindDataSource(daoSet= { PersonUpdateDAO.class }, fileName = "person.db", log=true)
 public interface PersonUpdateDataSource {
 

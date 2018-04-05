@@ -26,9 +26,18 @@ import sqlite.feature.livedata.persistence0.DaoPerson0;
 import sqlite.feature.livedata.persistence1.App1DataSource;
 import sqlite.feature.livedata.persistence1.DaoPerson1;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestLiveDataCompile.
+ */
 @RunWith(JUnit4.class)
 public class TestLiveDataCompile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test OK.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testOK() throws Throwable {				
 		//formatter:off
@@ -36,6 +45,11 @@ public class TestLiveDataCompile extends AbstractBindSQLiteProcessorTest {
 		//formatter:on
 	}
 	
+	/**
+	 * Test compile 1.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompile1() throws Throwable {				
 		//formatter:off

@@ -21,15 +21,35 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface PersonDAO.
+ */
 @BindDao(Person.class)
 public interface PersonDAO extends BaseDAO<Person> {
 	
+	/**
+	 * Select one.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect(orderBy="name")
 	List<Person> selectOne();
 	
+	/**
+	 * Select two.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect(jql="select * from person order by name")
 	List<Person> selectTwo();
 	
+	/**
+	 * Select three.
+	 *
+	 * @param orderBy the order by
+	 * @return the list
+	 */
 	@BindSqlSelect()
 	List<Person> selectThree(@BindSqlDynamicOrderBy String orderBy);
 	

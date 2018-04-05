@@ -52,6 +52,7 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Annotation processor for shared preferences.</p>
  * 
@@ -64,13 +65,19 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
  */
 public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 
+	/** The model. */
 	private PrefsModel model;
 
+	/** The class annotation filter. */
 	private AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindSharedPreferences.class).build();
 
+	/** The property annotation filter. */
 	private AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindPreference.class).add(BindPreferenceAdapter.class).build();
 
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#getSupportedAnnotationClasses()
+	 */
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 
@@ -79,6 +86,9 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 		return annotations;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
+	 */
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		model = new PrefsModel();
@@ -96,7 +106,9 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * @throws IOException
+	 * Generate classes.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void generateClasses() throws IOException {
 		for (PrefsEntity item : model.getEntities()) {
@@ -104,6 +116,12 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 		}
 	}
 
+	/**
+	 * Analyze shared preferences.
+	 *
+	 * @param sharedPreference the shared preference
+	 * @return the string
+	 */
 	private String analyzeSharedPreferences(final TypeElement sharedPreference) {
 		Element beanElement = sharedPreference;
 		String result = beanElement.getSimpleName().toString();

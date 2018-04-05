@@ -18,9 +18,18 @@ package commons.kripton86.test5;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Dao5.
+ */
 @BindDao(Bean5.class)
 public interface Dao5 {
 
+	/**
+	 * Select all.
+	 *
+	 * @return the bean 5
+	 */
 	@BindSqlSelect
 	Bean5 selectAll();
 		

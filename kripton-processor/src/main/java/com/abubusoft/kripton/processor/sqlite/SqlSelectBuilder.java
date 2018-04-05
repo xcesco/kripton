@@ -61,8 +61,19 @@ import com.squareup.javapoet.TypeSpec.Builder;
 import android.database.Cursor;
 import android.net.Uri;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SqlSelectBuilder.
+ */
 public abstract class SqlSelectBuilder {
 
+	/**
+	 * Gets the name parameter of type.
+	 *
+	 * @param method the method
+	 * @param parameter the parameter
+	 * @return the name parameter of type
+	 */
 	public static String getNameParameterOfType(ModelMethod method, TypeName parameter) {
 		for (Pair<String, TypeName> item : method.getParameters()) {
 			if (item.value1.equals(parameter)) {
@@ -74,11 +85,11 @@ public abstract class SqlSelectBuilder {
 	}
 
 	/**
-	 * 
-	 * @param elementUtils
-	 * @param builder
-	 * @param method
-	 * @throws ClassNotFoundException
+	 * Generate select.
+	 *
+	 * @param builder the builder
+	 * @param method the method
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public static void generateSelect(Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -166,13 +177,30 @@ public abstract class SqlSelectBuilder {
 		}
 	}
 
+	/**
+	 * The Class SplittedSql.
+	 */
 	public static class SplittedSql {
+		
+		/** The sql where statement. */
 		public String sqlWhereStatement;
+		
+		/** The sql order by statement. */
 		public String sqlOrderByStatement;
+		
+		/** The sql offset statement. */
 		public String sqlOffsetStatement;
+		
+		/** The sql limit statement. */
 		public String sqlLimitStatement;
+		
+		/** The sql having statement. */
 		public String sqlHavingStatement;
+		
+		/** The sql group statement. */
 		public String sqlGroupStatement;
+		
+		/** The sql basic. */
 		public String sqlBasic;
 	}
 
@@ -180,11 +208,10 @@ public abstract class SqlSelectBuilder {
 	 * <p>
 	 * Generate select used in content provider class.
 	 * </p>
-	 * 
-	 * @param elementUtils
-	 * @param builder
-	 * @param method
-	 * @param selectResultType
+	 *
+	 * @param builder the builder
+	 * @param method the method
+	 * @param selectResultType the select result type
 	 */
 	private static void generateSelectForContentProvider(Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -316,9 +343,11 @@ public abstract class SqlSelectBuilder {
 	}
 
 	/**
-	 * @param method
-	 * @param methodBuilder
-	 * @param splittedSql
+	 * Generate dynamic part of query.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
+	 * @param splittedSql the splitted sql
 	 */
 	public static void generateDynamicPartOfQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql) {
 		final JQL jql = method.jql;
@@ -380,6 +409,14 @@ public abstract class SqlSelectBuilder {
 		}
 	}
 
+	/**
+	 * Generate SQL.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
+	 * @param replaceProjectedColumns the replace projected columns
+	 * @return the splitted sql
+	 */
 	static SplittedSql generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, final boolean replaceProjectedColumns) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();
 
@@ -439,11 +476,11 @@ public abstract class SqlSelectBuilder {
 	}
 
 	/**
-	 * @param schema
-	 * @param entity
-	 * @param method
-	 * @param jqlChecker
-	 * @return
+	 * Convert JQL 2 SQL.
+	 *
+	 * @param method the method
+	 * @param replaceWithQuestion the replace with question
+	 * @return the string
 	 */
 	public static String convertJQL2SQL(final SQLiteModelMethod method, final boolean replaceWithQuestion) {
 		JQLChecker jqlChecker = JQLChecker.getInstance();

@@ -1,52 +1,56 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.rx.model;
 
 import android.database.Cursor;
 import java.util.LinkedList;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Cursor implementation for entity <code>PhoneNumber</code>
- * </p>
- *  @see PhoneNumber
+ * </p>.
+ *
+ * @see PhoneNumber
  */
 public class BindPhoneNumberCursor {
-  /**
-   * Cursor used to read database
-   */
+  
+  /** Cursor used to read database. */
   protected Cursor cursor;
 
-  /**
-   * Index for column "id"
-   */
+  /** Index for column "id". */
   protected int index0;
 
-  /**
-   * Index for column "action"
-   */
+  /** Index for column "action". */
   protected int index1;
 
-  /**
-   * Index for column "number"
-   */
+  /** Index for column "number". */
   protected int index2;
 
-  /**
-   * Index for column "countryCode"
-   */
+  /** Index for column "countryCode". */
   protected int index3;
 
-  /**
-   * Index for column "contactName"
-   */
+  /** Index for column "contactName". */
   protected int index4;
 
-  /**
-   * Index for column "contactId"
-   */
+  /** Index for column "contactId". */
   protected int index5;
 
   /**
-   * <p>Constructor</p>
+   * <p>Constructor</p>.
    *
    * @param cursor cursor used to read from database
    */
@@ -55,9 +59,10 @@ public class BindPhoneNumberCursor {
   }
 
   /**
-   * <p>Wrap cursor with this class</p>
+   * <p>Wrap cursor with this class</p>.
    *
    * @param cursor cursor to include
+   * @return the bind phone number cursor
    */
   public BindPhoneNumberCursor wrap(Cursor cursor) {
     this.cursor=cursor;
@@ -134,9 +139,10 @@ public class BindPhoneNumberCursor {
   }
 
   /**
-   * <p>Create a binded cursor starting from a cursor</p>
+   * <p>Create a binded cursor starting from a cursor</p>.
    *
    * @param cursor to wrap
+   * @return the bind phone number cursor
    */
   public static BindPhoneNumberCursor create(Cursor cursor) {
     return new BindPhoneNumberCursor(cursor);
@@ -144,10 +150,13 @@ public class BindPhoneNumberCursor {
 
   /**
    * <p>Listener for row read from database.</p>
+   *
+   * @see OnPhoneNumberEvent
    */
   public interface OnPhoneNumberListener {
+    
     /**
-     * Method executed for each row extracted from database
+     * Method executed for each row extracted from database.
      *
      * @param bean loaded from database. Only selected columns/fields are valorized
      * @param rowPosition position of row

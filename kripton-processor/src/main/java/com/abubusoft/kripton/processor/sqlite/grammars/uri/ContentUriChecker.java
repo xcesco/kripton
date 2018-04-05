@@ -13,9 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- * 
- */
 package com.abubusoft.kripton.processor.sqlite.grammars.uri;
 
 import java.util.ArrayList;
@@ -44,20 +41,45 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Path_segmentContext;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class ContentUriChecker.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class ContentUriChecker {
 
+	/**
+	 * The listener interface for receiving uriPlaceHolderReplacer events.
+	 * The class that is interested in processing a uriPlaceHolderReplacer
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addUriPlaceHolderReplacerListener</code> method. When
+	 * the uriPlaceHolderReplacer event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 */
 	public interface UriPlaceHolderReplacerListener {
 
+		/**
+		 * On parameter name.
+		 *
+		 * @param pathSegmentIndex the path segment index
+		 * @param name the name
+		 * @return the string
+		 */
 		String onParameterName(int pathSegmentIndex, String name);
 
 	}
 
+	/** The instance. */
 	protected static ContentUriChecker instance;
 
+	/**
+	 * Gets the single instance of ContentUriChecker.
+	 *
+	 * @return single instance of ContentUriChecker
+	 */
 	public static final ContentUriChecker getInstance() {
 		if (instance == null) {
 			instance = new ContentUriChecker();
@@ -66,19 +88,38 @@ public class ContentUriChecker {
 		return instance;
 	}
 
+	/** The path segment index. */
 	public int pathSegmentIndex = -1;
 
+	/** The walker. */
 	ParseTreeWalker walker = new ParseTreeWalker();
 
+	/**
+	 * Instantiates a new content uri checker.
+	 */
 	private ContentUriChecker() {
 
 	}
 
+	/**
+	 * Analyze internal.
+	 *
+	 * @param <L> the generic type
+	 * @param input the input
+	 * @param listener the listener
+	 */
 	private <L extends UriBaseListener> void analyzeInternal(final String input, L listener) {
 		pathSegmentIndex = -1;
 		walker.walk(listener, prepareUri(input).value0);
 	}
 
+	/**
+	 * Analyze path internal.
+	 *
+	 * @param <L> the generic type
+	 * @param input the input
+	 * @param listener the listener
+	 */
 	private <L extends UriBaseListener> void analyzePathInternal(final String input, L listener) {
 		pathSegmentIndex = -1;
 		walker.walk(listener, preparePath(input).value0);
@@ -86,9 +127,9 @@ public class ContentUriChecker {
 
 	/**
 	 * Extract all parameters from URI.
-	 * 
-	 * @param input
-	 * @return
+	 *
+	 * @param input the input
+	 * @return the list
 	 */
 	public List<ContentUriPlaceHolder> extract(String input) {
 		return extractPlaceHoldersFromURI(input, new ArrayList<ContentUriPlaceHolder>());
@@ -96,9 +137,9 @@ public class ContentUriChecker {
 
 	/**
 	 * Extract all parameters from URI as a map.
-	 * 
-	 * @param input
-	 * @return
+	 *
+	 * @param input the input
+	 * @return the map
 	 */
 	public Map<String, ContentUriPlaceHolder> extractAsMap(String input) {
 		HashMap<String, ContentUriPlaceHolder> result = new HashMap<>();
@@ -112,8 +153,10 @@ public class ContentUriChecker {
 	}
 
 	/**
-	 * @param input
-	 * @return
+	 * Extract from path.
+	 *
+	 * @param input the input
+	 * @return the list
 	 */
 	public List<ContentUriPlaceHolder> extractFromPath(String input) {
 		final List<ContentUriPlaceHolder> result = new ArrayList<>();
@@ -136,6 +179,14 @@ public class ContentUriChecker {
 		return result;
 	}
 
+	/**
+	 * Extract place holders from URI.
+	 *
+	 * @param <L> the generic type
+	 * @param uri the uri
+	 * @param result the result
+	 * @return the l
+	 */
 	private <L extends Collection<ContentUriPlaceHolder>> L extractPlaceHoldersFromURI(String uri, final L result) {
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
@@ -156,6 +207,12 @@ public class ContentUriChecker {
 		return result;
 	}
 
+	/**
+	 * Prepare path.
+	 *
+	 * @param input the input
+	 * @return the pair
+	 */
 	private Pair<ParserRuleContext, CommonTokenStream> preparePath(final String input) {
 		UriLexer lexer = new UriLexer(CharStreams.fromString(input));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -173,6 +230,12 @@ public class ContentUriChecker {
 		return new Pair<>(context, tokens);
 	}
 
+	/**
+	 * Prepare uri.
+	 *
+	 * @param input the input
+	 * @return the pair
+	 */
 	private Pair<ParserRuleContext, CommonTokenStream> prepareUri(final String input) {
 		UriLexer lexer = new UriLexer(CharStreams.fromString(input));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -206,6 +269,14 @@ public class ContentUriChecker {
 		return new Pair<>(context, tokens);
 	}
 
+	/**
+	 * Replace internal from uri.
+	 *
+	 * @param input the input
+	 * @param replace the replace
+	 * @param rewriterListener the rewriter listener
+	 * @return the string
+	 */
 	private String replaceInternalFromUri(String input, final List<Triple<Token, Token, String>> replace, UriBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareUri(input);
 		pathSegmentIndex = -1;
@@ -223,11 +294,10 @@ public class ContentUriChecker {
 	/**
 	 * <p>
 	 * Replace place holders from URI string
-	 * </p>
-	 * 
-	 * @param input
-	 * @param listener
-	 * 
+	 * </p>.
+	 *
+	 * @param input the input
+	 * @param listener the listener
 	 * @return string obtained by replacements
 	 */
 	public String replace(String input, final UriPlaceHolderReplacerListener listener) {
@@ -255,8 +325,8 @@ public class ContentUriChecker {
 	 * Verify content URI is syntactally correct, otherwise a
 	 * KriptonProcessorException will be thrown.
 	 * </p>
-	 * 
-	 * @param input
+	 *
+	 * @param input the input
 	 */
 	public void verify(final String input) {
 		this.analyzeInternal(input, new UriBaseListener());

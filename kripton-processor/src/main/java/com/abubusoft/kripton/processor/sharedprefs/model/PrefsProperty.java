@@ -36,10 +36,22 @@ import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationExceptio
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PrefsProperty.
+ */
 public class PrefsProperty extends ManagedModelProperty {
 
+	/** The converter. */
 	private static Converter<String, String> converter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 	
+	/**
+	 * Instantiates a new prefs property.
+	 *
+	 * @param entity the entity
+	 * @param element the element
+	 * @param modelAnnotations the model annotations
+	 */
 	public PrefsProperty(@SuppressWarnings("rawtypes") ModelEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
@@ -69,21 +81,35 @@ public class PrefsProperty extends ManagedModelProperty {
 		}
 	}
 
+	/** The preference key. */
 	protected String preferenceKey;
 
+	/**
+	 * Gets the preference key.
+	 *
+	 * @return the preference key
+	 */
 	public String getPreferenceKey() {
 		return preferenceKey;
 	}
 
-	/**
-	 * kind of preference associated
-	 */
+	/** kind of preference associated. */
 	protected PreferenceType preferenceType;
 
+	/**
+	 * Gets the preference type.
+	 *
+	 * @return the preference type
+	 */
 	public PreferenceType getPreferenceType() {
 		return preferenceType;
 	}
 
+	/**
+	 * Sets the preference type.
+	 *
+	 * @param preferenceType the new preference type
+	 */
 	public void setPreferenceType(PreferenceType preferenceType) {
 		this.preferenceType = preferenceType;
 	}

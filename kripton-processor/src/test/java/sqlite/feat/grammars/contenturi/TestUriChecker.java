@@ -40,9 +40,14 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
 import base.BaseProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestUriChecker.
+ */
 @RunWith(JUnit4.class)
 public class TestUriChecker extends BaseProcessorTest {
 
+	/** The dummy context. */
 	JQLContext dummyContext = new JQLContext() {
 
 		@Override
@@ -52,6 +57,12 @@ public class TestUriChecker extends BaseProcessorTest {
 
 	};
 
+	/**
+	 * Check list.
+	 *
+	 * @param actual the actual
+	 * @param input the input
+	 */
 	protected void checkList(List<ContentUriPlaceHolder> actual, ContentUriPlaceHolder... input) {
 		List<ContentUriPlaceHolder> aspected = new ArrayList<>();
 
@@ -62,6 +73,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		checkCollectionExactly(actual, aspected);
 	}
 
+	/**
+	 * Test verify.
+	 */
 	@Test
 	public void testVerify() {
 		String[] inputs = { "content://androi.authority/test/${ input0 }", "content://androi.authority/test/a/${ input0 }", "content://androi.authority/_", "content://androi.authority/"
@@ -73,6 +87,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		}
 	}
 
+	/**
+	 * Test verify fail.
+	 */
 	@Test
 	public void testVerifyFail() {
 		String[] inputs = { "content://androi.authority/test/${ input0 }/", "content://androi.authority/${ input0 }/", "content://androi.authority/{ input0 }",
@@ -90,6 +107,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		}
 	}
 
+	/**
+	 * Test extract parameters.
+	 */
 	@Test
 	public void testExtractParameters() {
 		String input = "content://androi.authority/test/${ input }/ test /${ detail.id}";
@@ -120,9 +140,9 @@ public class TestUriChecker extends BaseProcessorTest {
 	/**
 	 * <p>
 	 * OK
-	 * </p>
-	 * 
-	 * @throws Throwable
+	 * </p>.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testOK() throws Throwable {
@@ -142,6 +162,11 @@ public class TestUriChecker extends BaseProcessorTest {
 		assertEquals(actual, "content://androi.authority/test/?");
 	}
 
+	/**
+	 * Test extractor.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testExtractor() throws Throwable {
 		String input = "content://androi.authority/master/${ master }/detail/${detail}/subdetail/${subdetail}";
@@ -177,9 +202,9 @@ public class TestUriChecker extends BaseProcessorTest {
 	/**
 	 * <p>
 	 * OK
-	 * </p>
-	 * 
-	 * @throws Throwable
+	 * </p>.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test(expected = KriptonProcessorException.class)
 	public void testERROR() throws Throwable {
@@ -190,6 +215,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		checker.verify(input);
 	}
 
+	/**
+	 * Test project column.
+	 */
 	@Test
 	public void testProjectColumn() {
 		String sql = "select count(*) as pippo ,fieldName1, composed.fieldName2 from table where id = ${bean.id}";
@@ -229,6 +257,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		JQLChecker.getInstance().extractProjections(dummyContext, jql.value, finder);
 	}
 
+	/**
+	 * Test authority with variable in path.
+	 */
 	@Test
 	public void testAuthorityWithVariableInPath() {
 		String input = "content://androi.authority/test/${ input1 }/${input2   }";
@@ -247,6 +278,9 @@ public class TestUriChecker extends BaseProcessorTest {
 
 	}
 
+	/**
+	 * Test authority with variable in path error.
+	 */
 	@Test(expected = KriptonProcessorException.class)
 	public void testAuthorityWithVariableInPathError() {
 		String input = "content://androi.authority/test/${ input0 }/";
@@ -264,6 +298,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		}
 	}
 
+	/**
+	 * Test extract parameters from path.
+	 */
 	@Test
 	public void testExtractParametersFromPath() {
 		String input = "test/${ input }/ test /${ detail.id}";
@@ -291,6 +328,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		}
 	}
 
+	/**
+	 * Test authority with variable in path error 2.
+	 */
 	@Test(expected = AssertionError.class)
 	public void testAuthorityWithVariableInPathError2() {
 		String input = "content://androi.authority/test/#";
@@ -311,6 +351,9 @@ public class TestUriChecker extends BaseProcessorTest {
 		}
 	}
 
+	/**
+	 * Test replace authority with variable.
+	 */
 	@Test
 	public void testReplaceAuthorityWithVariable() {
 		String input = "content://androi.authority/test/${field0}/${field1}";

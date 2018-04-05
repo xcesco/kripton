@@ -29,20 +29,52 @@ import com.abubusoft.kripton.android.Logger;
 
 import android.content.Context;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class IOUtils.
+ */
 public class IOUtils {
 
+	/**
+	 * The listener interface for receiving onReadLine events.
+	 * The class that is interested in processing a onReadLine
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOnReadLineListener</code> method. When
+	 * the onReadLine event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 */
 	public interface OnReadLineListener {
 
+		/**
+		 * On text line.
+		 *
+		 * @param line the line
+		 */
 		void onTextLine(String line);
 
 	}
 
+	/**
+	 * Read text file.
+	 *
+	 * @param context the context
+	 * @param resId the res id
+	 * @return the string
+	 */
 	public static String readTextFile(Context context, int resId) {
 		InputStream inputStream = context.getResources().openRawResource(resId);
 		
 		return readText(inputStream);
 	}
 
+	/**
+	 * Read text file.
+	 *
+	 * @param fileName the file name
+	 * @return the string
+	 */
 	public static String readTextFile(String fileName) {		
 		try {
 			return readText(new FileInputStream(new File(fileName)));
@@ -53,6 +85,12 @@ public class IOUtils {
 		}
 	}
 	
+	/**
+	 * Read text.
+	 *
+	 * @param inputStream the input stream
+	 * @return the string
+	 */
 	public static String readText(InputStream inputStream) {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 		String line;
@@ -81,6 +119,12 @@ public class IOUtils {
 		return stringBuilder.toString();
 	}
 
+	/**
+	 * Read text lines.
+	 *
+	 * @param openRawResource the open raw resource
+	 * @return the list
+	 */
 	public static List<String> readTextLines(InputStream openRawResource) {
 		final List<String> result=new LinkedList<>();
 		
@@ -95,6 +139,12 @@ public class IOUtils {
 		return result;		
 	}
 	
+	/**
+	 * Read text lines.
+	 *
+	 * @param openRawResource the open raw resource
+	 * @param listener the listener
+	 */
 	public static void readTextLines(InputStream openRawResource, OnReadLineListener listener) {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openRawResource));
 		String line;		

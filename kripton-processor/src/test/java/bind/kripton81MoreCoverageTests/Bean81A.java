@@ -22,17 +22,25 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean81A.
+ */
 @BindType
 public class Bean81A {
 	
+	/** The id. */
 	public long id;
 	
+	/** The value enum. */
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Bean81Enum valueEnum;
 	
+	/** The value bid decimal. */
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BigDecimal valueBidDecimal;
 	
+	/** The value bid integer. */
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BigInteger valueBidInteger;
 	

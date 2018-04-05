@@ -19,27 +19,54 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feature.generichierarchy.UIDObject;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ChannelUser.
+ */
 @BindType
 public class ChannelUser extends UIDObject {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8393678197733870803L;
 
+	/** The administrator. */
 	protected boolean administrator;
 	
+	/** The name. */
 	protected String name;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Checks if is administrator.
+	 *
+	 * @return true, if is administrator
+	 */
 	public boolean isAdministrator() {
 		return administrator;
 	}
 
+	/**
+	 * Sets the administrator.
+	 *
+	 * @param administrator the new administrator
+	 */
 	public void setAdministrator(boolean administrator) {
 		this.administrator = administrator;
 	}

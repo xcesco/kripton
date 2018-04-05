@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 
+/**
+ * The Interface Error3Dao.
+ */
 @BindDao(Error3Bean.class)
 public interface Error3Dao {
 

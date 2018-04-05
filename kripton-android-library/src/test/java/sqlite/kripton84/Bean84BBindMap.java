@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton84;
 
 import com.abubusoft.kripton.AbstractMapper;
@@ -11,17 +26,21 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Bean84B
+ * This class is binder map for Bean84B.
  *
  * @see Bean84B
  */
 @BindMap(Bean84B.class)
 public class Bean84BBindMap extends AbstractMapper<Bean84B> {
-  /**
-   * Bean84B2BindMap */
+  
+  /** Bean84B2BindMap. */
   private Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(Bean84B object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -44,6 +63,9 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(Bean84B object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -69,7 +91,12 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(Bean84B object, XMLSerializer xmlSerializer, int currentEventType)
@@ -98,7 +125,11 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the bean 84 B
+   * @throws Exception the exception
    */
   @Override
   public Bean84B parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -135,7 +166,11 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the bean 84 B
+   * @throws Exception the exception
    */
   @Override
   public Bean84B parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -172,7 +207,12 @@ public class Bean84BBindMap extends AbstractMapper<Bean84B> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the bean 84 B
+   * @throws Exception the exception
    */
   @Override
   public Bean84B parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

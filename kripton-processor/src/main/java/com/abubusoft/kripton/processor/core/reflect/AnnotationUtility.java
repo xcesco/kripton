@@ -44,12 +44,24 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelWithAnnotation;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AnnotationUtility.
+ */
 public abstract class AnnotationUtility {
 
+	/** The Constant classPattern. */
 	private static final Pattern classPattern = Pattern.compile("([\\w.]*).class");
 
+	/** The Constant arrayPattern. */
 	private static final Pattern arrayPattern = Pattern.compile("\"([^\"]*)\"");
 
+	/**
+	 * Extract as array of class name.
+	 *
+	 * @param value the value
+	 * @return the list
+	 */
 	static List<String> extractAsArrayOfClassName(String value) {
 		Matcher matcher = classPattern.matcher(value);
 
@@ -62,6 +74,12 @@ public abstract class AnnotationUtility {
 		return result;
 	}
 
+	/**
+	 * Extract as array of string.
+	 *
+	 * @param value the value
+	 * @return the list
+	 */
 	public static List<String> extractAsArrayOfString(String value) {
 		Matcher matcher = arrayPattern.matcher(value);
 
@@ -75,29 +93,55 @@ public abstract class AnnotationUtility {
 		return result;
 	}
 
+	/**
+	 * The listener interface for receiving annotationFound events.
+	 * The class that is interested in processing a annotationFound
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addAnnotationFoundListener</code> method. When
+	 * the annotationFound event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 */
 	public interface AnnotationFoundListener {
+		
 		/**
-		 * If true, annotation is accepted
-		 * 
-		 * @param executableMethod
-		 * @param annotationClassName
-		 * @param attributes
+		 * If true, annotation is accepted.
+		 *
+		 * @param executableMethod the executable method
+		 * @param annotationClassName the annotation class name
+		 * @param attributes the attributes
 		 */
 		void onAcceptAnnotation(Element executableMethod, final String annotationClassName, final Map<String, String> attributes);
 	}
 
+	/**
+	 * The listener interface for receiving methodFound events.
+	 * The class that is interested in processing a methodFound
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addMethodFoundListener</code> method. When
+	 * the methodFound event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 */
 	public interface MethodFoundListener {
+		
+		/**
+		 * On method.
+		 *
+		 * @param executableMethod the executable method
+		 */
 		void onMethod(ExecutableElement executableMethod);
 	}
 
 	/**
 	 * Iterate over annotations of currentElement. Accept only annotation in
 	 * accepted set.
-	 * 
-	 * @param elementUtils
-	 * @param currentElement
-	 * @param filter
-	 * @param listener
+	 *
+	 * @param currentElement the current element
+	 * @param filter the filter
+	 * @param listener the listener
 	 */
 	public static void forEachAnnotations(Element currentElement, AnnotationFilter filter, AnnotationFoundListener listener) {
 		final Elements elementUtils=BaseProcessor.elementUtils;
@@ -131,10 +175,9 @@ public abstract class AnnotationUtility {
 
 	/**
 	 * Iterate over annotations of currentElement.
-	 * 
-	 * @param elementUtils
-	 * @param currentElement
-	 * @param listener
+	 *
+	 * @param currentElement the current element
+	 * @param listener the listener
 	 */
 	public static void forEachAnnotations(Element currentElement, AnnotationFoundListener listener) {
 		forEachAnnotations(currentElement, null, listener);
@@ -142,11 +185,11 @@ public abstract class AnnotationUtility {
 
 	/**
 	 * Extract from an annotation of a method the attribute value specified.
-	 * 
-	 * @param elementUtils
-	 * @param item
-	 * @param annotationClass
-	 * @param attributeName
+	 *
+	 * @param elementUtils the element utils
+	 * @param item the item
+	 * @param annotationClass the annotation class
+	 * @param attributeName the attribute name
 	 * @return attribute value extracted as array of class typeName
 	 */
 	public static List<String> extractAsClassNameArray(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
@@ -166,11 +209,10 @@ public abstract class AnnotationUtility {
 
 	/**
 	 * Extract from an annotation of a method the attribute value specified.
-	 * 
-	 * @param elementUtils
-	 * @param item
-	 * @param annotationClass
-	 * @param attributeName
+	 *
+	 * @param item the item
+	 * @param annotationClass the annotation class
+	 * @param attributeName the attribute name
 	 * @return attribute value extracted as class typeName
 	 */
 	public static String extractAsClassName(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
@@ -190,11 +232,10 @@ public abstract class AnnotationUtility {
 
 	/**
 	 * Extract from an annotation of a method the attribute value specified.
-	 * 
-	 * @param elementUtils
-	 * @param item
-	 * @param annotationClass
-	 * @param attributeName
+	 *
+	 * @param item the item
+	 * @param annotationClass the annotation class
+	 * @param attributeName the attribute name
 	 * @return attribute value extracted as class typeName
 	 */
 	public static String extractAsString(final Element item, final Class<? extends Annotation> annotationClass, final AnnotationAttributeType attributeName) {
@@ -220,11 +261,10 @@ public abstract class AnnotationUtility {
 	
 	/**
 	 * Extract from an annotation of a method the attribute value specified. IF NO ELEMENT WAS FOUND, AN EMPTY LIST WILL RETURN.
-	 * 
-	 * @param elementUtils
-	 * @param item
-	 * @param annotationClass
-	 * @param attributeName
+	 *
+	 * @param item the item
+	 * @param annotationClass the annotation class
+	 * @param attributeName the attribute name
 	 * @return attribute value extracted as class typeName
 	 */
 	public static List<String> extractAsStringArray(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
@@ -245,15 +285,11 @@ public abstract class AnnotationUtility {
 	}
 
 	/**
-	 * Estract from an annotation of a property the attribute value specified
-	 * 
-	 * @param elementUtils
-	 * @param property
-	 *            property to analyze
-	 * @param annotationClass
-	 *            annotation to analyze
-	 * @param attributeName
-	 *            attribute typeName to analyze
+	 * Estract from an annotation of a property the attribute value specified.
+	 *
+	 * @param item the item
+	 * @param annotationClass            annotation to analyze
+	 * @param attribute the attribute
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsEnumerationValue(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
@@ -272,18 +308,48 @@ public abstract class AnnotationUtility {
 		return result.value0;
 	}
 
+	/**
+	 * The listener interface for receiving onAttributeFound events.
+	 * The class that is interested in processing a onAttributeFound
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOnAttributeFoundListener<code> method. When
+	 * the onAttributeFound event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see OnAttributeFoundEvent
+	 */
 	interface OnAttributeFoundListener {
+		
+		/**
+		 * On found.
+		 *
+		 * @param value the value
+		 */
 		void onFound(String value);
 	}
 
+	/**
+	 * Extract string.
+	 *
+	 * @param elementUtils the element utils
+	 * @param item the item
+	 * @param annotationClass the annotation class
+	 * @param attribute the attribute
+	 * @param listener the listener
+	 */
 	static void extractString(Elements elementUtils, Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute, OnAttributeFoundListener listener) {
 		extractAttributeValue(elementUtils, item, annotationClass.getCanonicalName(), attribute, listener);
 	}
 
 	/**
-	 * 
 	 * Extract from an annotation of a method the attribute value specified.
-	 * 
+	 *
+	 * @param elementUtils the element utils
+	 * @param item the item
+	 * @param annotationName the annotation name
+	 * @param attribute the attribute
+	 * @param listener the listener
 	 */
 	static void extractAttributeValue(Elements elementUtils, Element item, String annotationName, AnnotationAttributeType attribute, OnAttributeFoundListener listener) {
 		List<? extends AnnotationMirror> annotationList = elementUtils.getAllAnnotationMirrors(item);
@@ -302,14 +368,10 @@ public abstract class AnnotationUtility {
 	
 	/**
 	 * Extract from an annotation of a method the attribute value specified.
-	 * 
-	 * @param elementUtils
-	 * @param method
-	 *            method to analyze
-	 * @param annotationClass
-	 *            annotation to analyze
-	 * @param attributeName
-	 *            attribute typeName to analyze
+	 *
+	 * @param method            method to analyze
+	 * @param annotationClass            annotation to analyze
+	 * @param attribute the attribute
 	 * @return attribute value as list of string
 	 */
 	public static List<String> extractAsStringArray(ModelMethod method, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
@@ -327,15 +389,11 @@ public abstract class AnnotationUtility {
 	}
 
 	/**
-	 * Estract from an annotation of a property the attribute value specified
-	 * 
-	 * @param elementUtils
-	 * @param property
-	 *            property to analyze
-	 * @param annotationClass
-	 *            annotation to analyze
-	 * @param attributeName
-	 *            attribute typeName to analyze
+	 * Estract from an annotation of a property the attribute value specified.
+	 *
+	 * @param property            property to analyze
+	 * @param annotationClass            annotation to analyze
+	 * @param attribute the attribute
 	 * @return attribute value as list of string
 	 */
 	public static String extractAsEnumerationValue(ModelProperty property, ModelAnnotation annotationClass, AnnotationAttributeType attribute) {
@@ -355,6 +413,13 @@ public abstract class AnnotationUtility {
 	}
 
 	
+	/**
+	 * Builds the annotation list.
+	 *
+	 * @param element the element
+	 * @param filter the filter
+	 * @return the list
+	 */
 	public static List<ModelAnnotation> buildAnnotationList(final Element element, final AnnotationFilter filter) {
 		final List<ModelAnnotation> annotationList=new ArrayList<>();
 		
@@ -371,46 +436,100 @@ public abstract class AnnotationUtility {
 		return annotationList;
 	}
 	
+	/**
+	 * Builds the annotation list.
+	 *
+	 * @param element the element
+	 * @return the list
+	 */
 	public static List<ModelAnnotation> buildAnnotationList(final Element element) {
 		return buildAnnotationList(element, null);
 	}
 
 
+	/**
+	 * The Class AnnotationFilter.
+	 */
 	public static class AnnotationFilter {
+		
+		/**
+		 * Instantiates a new annotation filter.
+		 *
+		 * @param annotations the annotations
+		 */
 		AnnotationFilter(Set<String> annotations) {
 			annotationNames = annotations;
 		}
 
+		/** The annotation names. */
 		Set<String> annotationNames;
 
+		/**
+		 * Checks if is accepted.
+		 *
+		 * @param annotationName the annotation name
+		 * @return true, if is accepted
+		 */
 		public boolean isAccepted(String annotationName) {
 			return annotationNames.contains(annotationName);
 		}
 
+		/**
+		 * Builder.
+		 *
+		 * @return the annotation filter builder
+		 */
 		public static AnnotationFilterBuilder builder() {
 			return new AnnotationFilterBuilder();
 		}
 
 	}
 
+	/**
+	 * The Class AnnotationFilterBuilder.
+	 */
 	public static class AnnotationFilterBuilder {
+		
+		/**
+		 * Instantiates a new annotation filter builder.
+		 */
 		AnnotationFilterBuilder() {
 			set = new HashSet<String>();
 		}
 
+		/**
+		 * Adds the.
+		 *
+		 * @param annotation the annotation
+		 * @return the annotation filter builder
+		 */
 		public AnnotationFilterBuilder add(Class<? extends Annotation> annotation) {
 			set.add(annotation.getCanonicalName());
 			return this;
 		}
 
+		/** The set. */
 		Set<String> set;
 
+		/**
+		 * Builds the.
+		 *
+		 * @return the annotation filter
+		 */
 		public AnnotationFilter build() {
 			return new AnnotationFilter(set);
 		}
 
 	}
 
+	/**
+	 * Extract as int.
+	 *
+	 * @param item the item
+	 * @param annotationClass the annotation class
+	 * @param attributeName the attribute name
+	 * @return the int
+	 */
 	public static int extractAsInt(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attributeName) {
 		final Elements elementUtils=BaseProcessor.elementUtils;
 		final One<Integer> result = new One<Integer>();
@@ -427,6 +546,14 @@ public abstract class AnnotationUtility {
 		return result.value0;
 	}
 
+	/**
+	 * Extract as boolean.
+	 *
+	 * @param item the item
+	 * @param annotationClass the annotation class
+	 * @param attribute the attribute
+	 * @return true, if successful
+	 */
 	public static boolean extractAsBoolean(Element item, Class<? extends Annotation> annotationClass, AnnotationAttributeType attribute) {
 		final Elements elementUtils=BaseProcessor.elementUtils;
 		final One<Boolean> result = new One<Boolean>(false);
@@ -443,15 +570,13 @@ public abstract class AnnotationUtility {
 	}
 
 	/**
-	 * Estract from an annotation of a method the attribute value specified
-	 * 
-	 * @param elementUtils
-	 * @param item
-	 *            entity to analyze
-	 * @param annotation
-	 *            annotation to analyze
-	 * @param attributeName
-	 *            attribute typeName to analyze
+	 * Estract from an annotation of a method the attribute value specified.
+	 *
+	 * @param <E> the element type
+	 * @param item            entity to analyze
+	 * @param annotation            annotation to analyze
+	 * @param attribute the attribute
+	 * @return true, if successful
 	 */
 	public static <E extends ModelEntity<?>> boolean extractAsBoolean(E item, ModelAnnotation annotation, AnnotationAttributeType attribute) {
 		final Elements elementUtils=BaseProcessor.elementUtils;
@@ -468,6 +593,15 @@ public abstract class AnnotationUtility {
 		return result.value0;
 	}
 
+	/**
+	 * Gets the annotation attribute as boolean.
+	 *
+	 * @param model the model
+	 * @param annotation the annotation
+	 * @param attribute the attribute
+	 * @param defaultValue the default value
+	 * @return the annotation attribute as boolean
+	 */
 	public static Boolean getAnnotationAttributeAsBoolean(ModelWithAnnotation model, Class<? extends Annotation> annotation, AnnotationAttributeType attribute, Boolean defaultValue) {
 		return getAnnotationAttribute(model, annotation, attribute, defaultValue, new OnAnnotationAttributeListener<Boolean>() {
 
@@ -479,6 +613,17 @@ public abstract class AnnotationUtility {
 	}
 
 
+	/**
+	 * Gets the annotation attribute.
+	 *
+	 * @param <T> the generic type
+	 * @param model the model
+	 * @param annotation the annotation
+	 * @param attribute the attribute
+	 * @param defaultValue the default value
+	 * @param listener the listener
+	 * @return the annotation attribute
+	 */
 	static <T> T getAnnotationAttribute(ModelWithAnnotation model, Class<? extends Annotation> annotation, AnnotationAttributeType attribute, T defaultValue,
 			OnAnnotationAttributeListener<T> listener) {
 		String attributeResult;
@@ -493,7 +638,26 @@ public abstract class AnnotationUtility {
 		return defaultValue;
 	}
 
+	/**
+	 * The listener interface for receiving onAnnotationAttribute events.
+	 * The class that is interested in processing a onAnnotationAttribute
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOnAnnotationAttributeListener<code> method. When
+	 * the onAnnotationAttribute event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @param <T> the generic type
+	 * @see OnAnnotationAttributeEvent
+	 */
 	interface OnAnnotationAttributeListener<T> {
+		
+		/**
+		 * On found.
+		 *
+		 * @param value the value
+		 * @return the t
+		 */
 		T onFound(String value);
 	}
 

@@ -49,18 +49,29 @@ import com.squareup.javapoet.TypeSpec;
 import android.content.ContentValues;
 import android.net.Uri;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class SqlInsertBuilder.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  * @since 05/mag/2016
  */
 public abstract class SqlInsertBuilder {
 
+	/**
+	 * The Enum InsertType.
+	 */
 	public enum InsertType {
-		INSERT_BEAN(InsertBeanHelper.class, true), INSERT_RAW(InsertRawHelper.class, false);
+		
+		/** The insert bean. */
+		INSERT_BEAN(InsertBeanHelper.class, true), 
+ /** The insert raw. */
+ INSERT_RAW(InsertRawHelper.class, false);
 
+		/** The code generator. */
 		private InsertCodeGenerator codeGenerator;
 
+		/** The map fields. */
 		private boolean mapFields;
 
 		/**
@@ -72,6 +83,12 @@ public abstract class SqlInsertBuilder {
 			return mapFields;
 		}
 
+		/**
+		 * Instantiates a new insert type.
+		 *
+		 * @param codeGenerator the code generator
+		 * @param mapFields the map fields
+		 */
 		private InsertType(Class<? extends InsertCodeGenerator> codeGenerator, boolean mapFields) {
 			try {
 				this.mapFields = mapFields;
@@ -82,21 +99,42 @@ public abstract class SqlInsertBuilder {
 			}
 		}
 
+		/**
+		 * Generate.
+		 *
+		 * @param classBuilder the class builder
+		 * @param methodBuilder the method builder
+		 * @param method the method
+		 * @param returnType the return type
+		 */
 		public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
 			codeGenerator.generate(classBuilder, methodBuilder, this.isMapFields(), method, returnType);
 
 		}
 	}
 
+	/**
+	 * The Interface InsertCodeGenerator.
+	 */
 	public interface InsertCodeGenerator {
+		
+		/**
+		 * Generate.
+		 *
+		 * @param classBuilder the class builder
+		 * @param methodBuilder the method builder
+		 * @param mapFields the map fields
+		 * @param method the method
+		 * @param returnType the return type
+		 */
 		void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
-	 * 
-	 * @param elementUtils
-	 * @param builder
-	 * @param method
+	 * Generate.
+	 *
+	 * @param classBuilder the class builder
+	 * @param method the method
 	 */
 	public static void generate(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		InsertType insertResultType = detectInsertType(method);
@@ -134,6 +172,12 @@ public abstract class SqlInsertBuilder {
 
 	}
 
+	/**
+	 * Detect insert type.
+	 *
+	 * @param method the method
+	 * @return the insert type
+	 */
 	public static InsertType detectInsertType(SQLiteModelMethod method) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
 		SQLiteEntity entity = daoDefinition.getEntity();
@@ -187,10 +231,10 @@ public abstract class SqlInsertBuilder {
 	 * <p>
 	 * Generate insert used in content provider class.
 	 * </p>
-	 * 
-	 * @param methodBuilder
-	 * @param method
-	 * @param insertResultType
+	 *
+	 * @param classBuilder the class builder
+	 * @param method the method
+	 * @param insertResultType the insert result type
 	 */
 	private static void generateInsertForContentProvider(TypeSpec.Builder classBuilder, final SQLiteModelMethod method, InsertType insertResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();

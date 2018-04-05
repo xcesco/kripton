@@ -15,6 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+/**
+ * The Class MapSQLTransformation.
+ */
 public class MapSQLTransformation extends AbstractGeneratedSQLTransform {
 
 	

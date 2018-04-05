@@ -17,14 +17,19 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Integer object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Integer object.
  *
+ * @author xcesco
  */
 public class IntegerPrefsTransform extends AbstractPrimitivePrefsTransform {
 	
+	/**
+	 * Instantiates a new integer prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public IntegerPrefsTransform(boolean nullable)
 	{
 		super(nullable);

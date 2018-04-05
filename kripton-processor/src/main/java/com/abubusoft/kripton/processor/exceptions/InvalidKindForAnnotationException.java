@@ -15,12 +15,22 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InvalidKindForAnnotationException.
+ */
 public class InvalidKindForAnnotationException extends KriptonProcessorException {
 
+	/**
+	 * Instantiates a new invalid kind for annotation exception.
+	 *
+	 * @param msg the msg
+	 */
 	public InvalidKindForAnnotationException(String msg) {
 		super(msg);
 	}
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8862365033337349246L;
 
 }

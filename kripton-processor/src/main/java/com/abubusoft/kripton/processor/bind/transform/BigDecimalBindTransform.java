@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.abubusoft.kripton.common.BigDecimalUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.math.BigDecimal object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.BigDecimalUtils;
  */
 class BigDecimalBindTransform extends AbstractNumberBindTransform {
 	
+	/**
+	 * Instantiates a new big decimal bind transform.
+	 */
 	public BigDecimalBindTransform()
 	{
 		NUMBER_UTIL_CLAZZ=BigDecimalUtils.class;

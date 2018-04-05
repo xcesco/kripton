@@ -19,37 +19,61 @@ import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AppPreferences.
+ */
 @BindSharedPreferences
 public class AppPreferences {
 
+	/** The name. */
 	public String name="ciao"; 
 	
+	/** The description. */
 	protected String description;
 		
+	/** The value float. */
 	public float valueFloat=5.0f;
 	
+	/** The value boolean. */
 	public boolean valueBoolean;
 	
 	//public AppType appType;
 	
+	/** The string array. */
 	protected String[] stringArray;
 	
+	/** The string list. */
 	public List<String> stringList;
 	
 	
+	/**
+	 * Gets the string array.
+	 *
+	 * @return the string array
+	 */
 	public String[] getStringArray() {
 		return stringArray;
 	}
 
+	/**
+	 * Sets the string array.
+	 *
+	 * @param stringArray the new string array
+	 */
 	public void setStringArray(String[] stringArray) {
 		this.stringArray = stringArray;
 	}
 
+	/** The value int. */
 	public int valueInt;
 	
+	/** The value long. */
 	public Long valueLong;
 
 	/**
+	 * Gets the description.
+	 *
 	 * @return the description
 	 */
 	public String getDescription() {
@@ -57,6 +81,8 @@ public class AppPreferences {
 	}
 
 	/**
+	 * Sets the description.
+	 *
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {

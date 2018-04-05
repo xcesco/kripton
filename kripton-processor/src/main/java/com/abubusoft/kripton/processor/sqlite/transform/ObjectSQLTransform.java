@@ -15,6 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+/**
+ * The Class ObjectSQLTransform.
+ */
 public class ObjectSQLTransform extends AbstractGeneratedSQLTransform {
 
 }

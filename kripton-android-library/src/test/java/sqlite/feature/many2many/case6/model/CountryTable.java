@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.many2many.case6.model;
 
 import com.abubusoft.kripton.KriptonBinder;
@@ -14,6 +29,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Country</code> is associated to table <code>country</code>
@@ -22,27 +38,14 @@ import java.util.Map;
  *  @see Country
  */
 public class CountryTable implements SQLiteTable {
-  /**
-   * Costant represents typeName of table country
-   */
+  
+  /** Costant represents typeName of table country. */
   public static final String TABLE_NAME = "country";
 
-  /**
-   * <p>
-   * DDL to create table country
-   * </p>
-   *
-   * <pre>CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, code TEXT UNIQUE NOT NULL, calling_code TEXT NOT NULL, region TEXT, name TEXT NOT NULL, translated_name BLOB);</pre>
-   */
+  /** <p> DDL to create table country </p>  <pre>CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, code TEXT UNIQUE NOT NULL, calling_code TEXT NOT NULL, region TEXT, name TEXT NOT NULL, translated_name BLOB);</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, code TEXT UNIQUE NOT NULL, calling_code TEXT NOT NULL, region TEXT, name TEXT NOT NULL, translated_name BLOB);";
 
-  /**
-   * <p>
-   * DDL to drop table country
-   * </p>
-   *
-   * <pre>DROP TABLE IF EXISTS country;</pre>
-   */
+  /** <p> DDL to drop table country </p>  <pre>DROP TABLE IF EXISTS country;</pre>. */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS country;";
 
   /**
@@ -94,13 +97,14 @@ public class CountryTable implements SQLiteTable {
    */
   public static final String COLUMN_TRANSLATED_NAME = "translated_name";
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_AREA, COLUMN_CODE, COLUMN_CALLING_CODE, COLUMN_REGION, COLUMN_NAME, COLUMN_TRANSLATED_NAME};
 
   /**
-   * for attribute translatedName serialization
+   * for attribute translatedName serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeTranslatedName(Map<Translation, String> value) {
     if (value==null) {
@@ -141,7 +145,10 @@ public class CountryTable implements SQLiteTable {
   }
 
   /**
-   * for attribute translatedName parsing
+   * for attribute translatedName parsing.
+   *
+   * @param input the input
+   * @return the map
    */
   public static Map<Translation, String> parseTranslatedName(byte[] input) {
     if (input==null) {
@@ -183,7 +190,9 @@ public class CountryTable implements SQLiteTable {
   }
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -191,7 +200,9 @@ public class CountryTable implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

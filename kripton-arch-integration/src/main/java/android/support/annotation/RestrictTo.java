@@ -26,6 +26,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
  * Denotes that the annotated element should only be accessed from within a
  * specific scope (as defined by {@link Scope}).
@@ -52,9 +53,14 @@ public @interface RestrictTo {
 
     /**
      * The scope to which usage should be restricted.
+     *
+     * @return the scope[]
      */
     Scope[] value();
 
+    /**
+     * The Enum Scope.
+     */
     enum Scope {
         /**
          * Restrict usage to code within the same library (e.g. the same

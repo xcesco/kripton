@@ -28,10 +28,11 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class SelectRawListenerHelper.
+ *
  * @author Francesco Benincasa (info@abubusoft.com)
- *
- *
  * @since 17/mag/2016
  */
 public class SelectRawListenerHelper extends AbstractSelectCodeGenerator {

@@ -17,23 +17,38 @@ package bind.kripton75ByteArray;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean75.
+ */
 @BindType
 public class Bean75 {
 	
+	/**
+	 * Instantiates a new bean 75.
+	 */
 	public Bean75()
 	{
 		
 	}
 	
+	/**
+	 * Instantiates a new bean 75.
+	 *
+	 * @param name the name
+	 */
 	public Bean75(String name)
 	{
 		this.name=name;
 	}
 	
+	/** The name. */
 	public String name;
 		
+	/** The value byte type array. */
 	public byte[] valueByteTypeArray;
 	
+	/** The value byte array. */
 	public Byte[] valueByteArray;	
 	
 }

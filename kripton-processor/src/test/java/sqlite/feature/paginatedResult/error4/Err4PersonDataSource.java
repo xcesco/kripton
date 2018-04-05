@@ -17,6 +17,9 @@ package sqlite.feature.paginatedResult.error4;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface Err4PersonDataSource.
+ */
 @BindDataSource(daoSet= { Err4PersonDAO.class }, fileName = "person.db", log=true)
 public interface Err4PersonDataSource {
 

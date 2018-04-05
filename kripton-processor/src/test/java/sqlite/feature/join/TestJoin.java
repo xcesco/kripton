@@ -30,9 +30,18 @@ import sqlite.feature.join.model.LoanDao;
 import sqlite.feature.join.model.User;
 import sqlite.feature.join.model.UserDao;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJoin.
+ */
 @RunWith(JUnit4.class)
 public class TestJoin extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile 01.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test 
 	public void testCompile01() throws Throwable {
 		buildDataSourceProcessorTest( AppDataSource.class,

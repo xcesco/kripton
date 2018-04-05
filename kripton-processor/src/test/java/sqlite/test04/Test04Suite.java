@@ -21,6 +21,9 @@ import org.junit.runners.Suite;
 import base.BaseProcessorTest;
 import sqlite.test04.v1.Test04;
 
+/**
+ * The Class Test04Suite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

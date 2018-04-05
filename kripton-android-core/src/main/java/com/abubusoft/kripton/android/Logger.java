@@ -20,17 +20,17 @@ package com.abubusoft.kripton.android;
 
 import android.util.Log;
 
+// TODO: Auto-generated Javadoc
 /**
- * Logger used in kripton library
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Logger used in kripton library.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class Logger {
 
 	/**
-	 * generate tag
-	 * 
+	 * generate tag.
+	 *
 	 * @return tag of logger
 	 */
 	protected static String generateTag() {
@@ -47,9 +47,10 @@ public class Logger {
 	}
 
 	/**
-	 * debug
-	 * 
-	 * @param msg
+	 * debug.
+	 *
+	 * @param msg the msg
+	 * @param args the args
 	 */
 	public static void debug(String msg, Object... args) {
 		String tag = generateTag();
@@ -64,9 +65,10 @@ public class Logger {
 	}
 
 	/**
-	 * error
-	 * 
-	 * @param msg
+	 * error.
+	 *
+	 * @param msg the msg
+	 * @param args the args
 	 */
 	public static void error(String msg, Object... args) {
 		String tag = generateTag();
@@ -81,9 +83,10 @@ public class Logger {
 	}
 
 	/**
-	 * verbose
-	 * 
-	 * @param msg
+	 * verbose.
+	 *
+	 * @param msg the msg
+	 * @param args the args
 	 */
 	public static void verbose(String msg, Object... args) {
 		String tag = generateTag();
@@ -98,9 +101,10 @@ public class Logger {
 	}
 
 	/**
-	 * warn
-	 * 
-	 * @param msg
+	 * warn.
+	 *
+	 * @param msg the msg
+	 * @param args the args
 	 */
 	public static void warn(String msg, Object... args) {
 		String tag = generateTag();
@@ -115,9 +119,10 @@ public class Logger {
 	}
 
 	/**
-	 * fatal
-	 * 
-	 * @param msg
+	 * fatal.
+	 *
+	 * @param msg the msg
+	 * @param args the args
 	 */
 	public static void fatal(String msg, Object... args) {
 		String tag = generateTag();
@@ -132,9 +137,10 @@ public class Logger {
 	}
 
 	/**
-	 * info
-	 * 
-	 * @param msg
+	 * info.
+	 *
+	 * @param msg the msg
+	 * @param args the args
 	 */
 	public static void info(String msg, Object... args) {
 		String tag = generateTag();

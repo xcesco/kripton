@@ -46,38 +46,84 @@ import commons.kripton86.test8.DS8DataSource;
 import commons.kripton86.test8.Dao8;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestSqliteCompile86.
+ */
 public class TestSqliteCompile86 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test 1 compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void test1Compile() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(DaoDefinitionWithoutAnnotatedMethodException.class);
 		buildDataSourceProcessorTest(DS1DataSource.class, Dao1.class, Bean1.class);
 	}
 	
+	/**
+	 * Test 2 compile.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Test
 	public void test2Compile() throws InstantiationException, IllegalAccessException, IOException {
 		this.expectedException(MethodWithoutSupportedAnnotationException.class);
 		buildDataSourceProcessorTest(DS2DataSource.class, Dao2.class, Bean2.class);
 	}
 	
+	/**
+	 * Test 4 compile.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Test
 	public void test4Compile() throws InstantiationException, IllegalAccessException, IOException {
 		this.expectedException(SQLPrimaryKeyNotFoundException.class);
 		buildDataSourceProcessorTest(DS4DataSource.class, Dao4.class, Bean4.class);
 	}
 	
+	/**
+	 * Test 5 compile.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Test
 	public void test5Compile() throws InstantiationException, IllegalAccessException, IOException {
 		this.expectedException(SQLPrimaryKeyNotValidTypeException.class);
 		buildDataSourceProcessorTest(DS5DataSource.class, Dao5.class, Bean5.class);
 	}
 	
+	/**
+	 * Test 7 compile.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Test
 	public void test7Compile() throws InstantiationException, IllegalAccessException, IOException {
 		this.expectedException(TooManySQLPrimaryKeyFoundException.class);
 		buildDataSourceProcessorTest(DS7DataSource.class, Dao7.class, Bean7.class);
 	}
 
+	/**
+	 * Test 8 compile.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Test
 	public void test8Compile() throws InstantiationException, IllegalAccessException, IOException {
 		this.expectedException(InvalidMethodSignException.class);

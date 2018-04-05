@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
 import java.util.Set;
@@ -15,13 +30,29 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JQLReplacerListenerImpl.
+ */
 public class JQLReplacerListenerImpl implements JQLReplacerListener {
 
+	/** The current method. */
 	protected SQLiteModelMethod currentMethod;
+	
+	/** The current dao definition. */
 	protected SQLiteDaoDefinition currentDaoDefinition;
+	
+	/** The current schema. */
 	protected SQLiteDatabaseSchema currentSchema;
+	
+	/** The current entity. */
 	protected SQLiteEntity currentEntity;
 
+	/**
+	 * Instantiates a new JQL replacer listener impl.
+	 *
+	 * @param method the method
+	 */
 	public JQLReplacerListenerImpl(SQLiteModelMethod method) {
 		this.currentMethod = method;
 		if (method != null) {
@@ -31,16 +62,25 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onBindParameter(java.lang.String)
+	 */
 	@Override
 	public String onBindParameter(String bindParameterName) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onDynamicSQL(com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType)
+	 */
 	@Override
 	public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onTableName(java.lang.String)
+	 */
 	@Override
 	public String onTableName(String tableName) {
 		if (currentSchema != null) {
@@ -52,6 +92,9 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onColumnName(java.lang.String)
+	 */
 	@Override
 	public String onColumnName(String columnName) {		
 		if (currentSchema != null) {
@@ -63,6 +106,9 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onColumnNameToUpdate(java.lang.String)
+	 */
 	@Override
 	public String onColumnNameToUpdate(String columnName) {
 		if (currentSchema != null) {
@@ -74,36 +120,57 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onWhereStatementBegin(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext)
+	 */
 	@Override
 	public void onWhereStatementBegin(Where_stmtContext ctx) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onWhereStatementEnd(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext)
+	 */
 	@Override
 	public void onWhereStatementEnd(Where_stmtContext ctx) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onColumnNameSetBegin(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext)
+	 */
 	@Override
 	public void onColumnNameSetBegin(Column_name_setContext ctx) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onColumnNameSetEnd(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext)
+	 */
 	@Override
 	public void onColumnNameSetEnd(Column_name_setContext ctx) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onColumnValueSetBegin(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext)
+	 */
 	@Override
 	public void onColumnValueSetBegin(Column_value_setContext ctx) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onColumnValueSetEnd(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext)
+	 */
 	@Override
 	public void onColumnValueSetEnd(Column_value_setContext ctx) {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onColumnFullyQualifiedName(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public String onColumnFullyQualifiedName(String tableName, String columnName) {
 		return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(currentSchema, currentMethod, tableName, columnName);
@@ -113,13 +180,12 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 * given a fully qualified property name, it will be transformed in
 	 * associated column name. If class or property does not exist, an exception
 	 * will be thrown
-	 * 
-	 * @param schema
-	 * @param method
-	 * @param className
-	 * @param propertyName
+	 *
+	 * @param schema the schema
+	 * @param method the method
+	 * @param className the class name
+	 * @param propertyName the property name
 	 * @return resolved name ex: "person.birth_date"
-	 * 
 	 */
 	public static String resolveFullyQualifiedColumnName(SQLiteDatabaseSchema schema, SQLiteModelMethod method, String className, String propertyName) {
 		Finder<SQLProperty> currentEntity = method.getParent().getEntity();

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton58;
 
 import com.abubusoft.kripton.AbstractMapper;
@@ -10,13 +25,18 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for BeanInner
+ * This class is binder map for BeanInner.
  *
  * @see BeanInner
  */
 @BindMap(BeanInner.class)
 public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(BeanInner object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -33,6 +53,9 @@ public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(BeanInner object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -49,7 +72,12 @@ public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(BeanInner object, XMLSerializer xmlSerializer, int currentEventType)
@@ -71,7 +99,11 @@ public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the bean inner
+   * @throws Exception the exception
    */
   @Override
   public BeanInner parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -102,7 +134,11 @@ public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the bean inner
+   * @throws Exception the exception
    */
   @Override
   public BeanInner parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -133,7 +169,12 @@ public class BeanInnerBindMap extends AbstractMapper<BeanInner> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the bean inner
+   * @throws Exception the exception
    */
   @Override
   public BeanInner parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

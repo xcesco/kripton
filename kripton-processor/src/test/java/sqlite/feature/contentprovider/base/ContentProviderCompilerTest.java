@@ -21,9 +21,18 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ContentProviderCompilerTest.
+ */
 @RunWith(JUnit4.class)
 public class ContentProviderCompilerTest extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test 01.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void test01() throws Throwable {
 		buildDataSourceProcessorTest(Artist.class, ArtistDao.class, Album.class, AlbumDao.class, ArtistsDataSource.class, BaseDao.class, Entity.class);

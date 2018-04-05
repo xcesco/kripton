@@ -23,12 +23,27 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import sqlite.kripton111.model.PhoneNumber;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface PhoneDao.
+ */
 @BindDao(PhoneNumber.class)
 public interface PhoneDao extends AbstractDao<PhoneNumber> {
 
+    /**
+     * Select by number.
+     *
+     * @param number the number
+     * @return the phone number
+     */
     @BindSqlSelect(where = " number = ${number}")
     PhoneNumber selectByNumber(String number);
 
+    /**
+     * Select all.
+     *
+     * @return the list
+     */
     @BindSqlSelect(orderBy = "contactName, number")
     List<PhoneNumber> selectAll();
 }

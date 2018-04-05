@@ -35,9 +35,18 @@ import sqlite.feature.many2many.case4.persistence.PhoneDao;
 import sqlite.feature.many2many.case4.persistence.PrefixConfigDao;
 import sqlite.feature.many2many.case4.persistence.XenoDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileMany2Many4.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileMany2Many4 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test methods.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testMethods() throws Throwable {		
 		buildDataSourceProcessorTest(ActionType.class,

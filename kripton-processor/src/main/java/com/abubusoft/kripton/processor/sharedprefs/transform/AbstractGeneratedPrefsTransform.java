@@ -25,18 +25,34 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractGeneratedPrefsTransform.
+ */
 public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTransform {
 	
+	/**
+	 * Instantiates a new abstract generated prefs transform.
+	 */
 	public AbstractGeneratedPrefsTransform() {
 		super(false);
 	}
 
+	/**
+	 * Instantiates a new abstract generated prefs transform.
+	 *
+	 * @param targetTypeSupported the target type supported
+	 */
 	public AbstractGeneratedPrefsTransform(boolean targetTypeSupported) {
 		super(targetTypeSupported);
 	}
 
+	/** The formatter. */
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
+	 */
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
@@ -65,6 +81,9 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
+	 */
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);

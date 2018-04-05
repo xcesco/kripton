@@ -24,9 +24,18 @@ import sqlite.feature.javadoc.update.bean.UpdateBeanPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJavadocForUpdateBean.
+ */
 @RunWith(JUnit4.class)
 public class TestJavadocForUpdateBean extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile update bean.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileUpdateBean() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, UpdateBeanPersonDao.class, UpdateBeanPersonDataSource.class);

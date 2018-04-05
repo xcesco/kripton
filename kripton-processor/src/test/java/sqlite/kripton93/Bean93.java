@@ -17,15 +17,23 @@ package sqlite.kripton93;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean93.
+ */
 @BindType
 public class Bean93 {
 	
+	/** The id. */
 	public long id;
 	
+	/** The name. */
 	public String name;
 	
+	/** The surname. */
 	public String surname;
 	
+	/** The type name. */
 	public String typeName;
 	
 }

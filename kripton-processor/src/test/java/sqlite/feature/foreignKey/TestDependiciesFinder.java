@@ -22,22 +22,45 @@ import org.junit.Test;
 
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestDependiciesFinder.
+ */
 public class TestDependiciesFinder {
 
+	/**
+	 * The Class Dummy.
+	 */
 	public static class Dummy {
+		
+		/**
+		 * Instantiates a new dummy.
+		 *
+		 * @param name the name
+		 */
 		public Dummy(String name) {
 			this.name = name;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		@Override
 		public String toString() {
 			return "Dummy[typeName=" + name + "]";
 		}
 
+		/** The name. */
 		public final String name;
 
+		/** The dependencies. */
 		public final ArrayList<Dummy> dependencies = new ArrayList<>();
 		
+		/**
+		 * Dependencies.
+		 *
+		 * @param deps the deps
+		 */
 		public void dependencies(Dummy ... deps)
 		{
 			for (Dummy item: deps)
@@ -50,6 +73,9 @@ public class TestDependiciesFinder {
 		
 	}
 
+	/**
+	 * Test 01.
+	 */
 	@Test
 	public void test01() {
 		Dummy a = new Dummy("a");
@@ -63,6 +89,9 @@ public class TestDependiciesFinder {
 		check(input);
 	}
 	
+	/**
+	 * Test 02.
+	 */
 	@Test
 	public void test02() {
 		Dummy a = new Dummy("a");
@@ -78,6 +107,9 @@ public class TestDependiciesFinder {
 		check(input);
 	}
 	
+	/**
+	 * Test 03.
+	 */
 	@Test(expected=RuntimeException.class)
 	public void test03() {
 		Dummy a = new Dummy("a");
@@ -94,6 +126,9 @@ public class TestDependiciesFinder {
 		check(input);
 	}
 	
+	/**
+	 * Test 04.
+	 */
 	@Test
 	public void test04() {
 		Dummy a = new Dummy("a");
@@ -114,6 +149,9 @@ public class TestDependiciesFinder {
 		check(input);
 	}
 	
+	/**
+	 * Test 05.
+	 */
 	@Test
 	public void test05() {
 		Dummy a = new Dummy("a");
@@ -134,6 +172,9 @@ public class TestDependiciesFinder {
 		check(input);
 	}
 	
+	/**
+	 * Test 06.
+	 */
 	@Test(expected=RuntimeException.class)
 	public void test06() {
 		Dummy a = new Dummy("a");
@@ -154,6 +195,9 @@ public class TestDependiciesFinder {
 		check(input);
 	}
 	
+	/**
+	 * Test 07.
+	 */
 	@Test
 	public void test07() {
 		Dummy a = new Dummy("a");
@@ -177,6 +221,11 @@ public class TestDependiciesFinder {
 	}
 
 
+	/**
+	 * Check.
+	 *
+	 * @param input the input
+	 */
 	public void check(List<Dummy> input) {
 		//System.out.println("Input: " + input);
 		EntityUtility<Dummy> sorder = new EntityUtility<TestDependiciesFinder.Dummy>(input) {

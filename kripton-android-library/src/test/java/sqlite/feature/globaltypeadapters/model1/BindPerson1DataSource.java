@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.globaltypeadapters.model1;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +29,7 @@ import java.util.List;
 import sqlite.feature.globaltypeadapters.DaoPersonImpl;
 import sqlite.feature.globaltypeadapters.PersonTable;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Represents implementation of datasource Person1DataSource.
@@ -27,40 +43,37 @@ import sqlite.feature.globaltypeadapters.PersonTable;
  * @see Person
  */
 public class BindPerson1DataSource extends AbstractDataSource implements BindPerson1DaoFactory, Person1DataSource {
-  /**
-   * <p>datasource singleton</p>
-   */
+  
+  /** <p>datasource singleton</p>. */
   static volatile BindPerson1DataSource instance;
 
-  /**
-   * <p>Mutex to manage multithread access to instance</p>
-   */
+  /** <p>Mutex to manage multithread access to instance</p>. */
   private static final Object mutex = new Object();
 
-  /**
-   * Unique identifier for Dao DaoPerson
-   */
+  /** Unique identifier for Dao DaoPerson. */
   public static final int DAO_PERSON_UID = 0;
 
-  /**
-   * List of tables compose datasource
-   */
+  /** List of tables compose datasource. */
   static final SQLiteTable[] TABLES = {new PersonTable()};
 
-  /**
-   * <p>dao instance</p>
-   */
+  /** <p>dao instance</p>. */
   protected DaoPersonImpl daoPerson = new DaoPersonImpl(context);
 
-  /**
-   * Used only in transactions (that can be executed one for time
-   */
+  /** Used only in transactions (that can be executed one for time. */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
+  /**
+   * Instantiates a new bind person 1 data source.
+   *
+   * @param options the options
+   */
   protected BindPerson1DataSource(DataSourceOptions options) {
     super("person.db", 1, options);
   }
 
+  /* (non-Javadoc)
+   * @see sqlite.feature.globaltypeadapters.model1.BindPerson1DaoFactory#getDaoPerson()
+   */
   @Override
   public DaoPersonImpl getDaoPerson() {
     return daoPerson;
@@ -115,8 +128,9 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param commands
-   * 	batch to execute
+   * @param <T> the generic type
+   * @param commands 	batch to execute
+   * @return the t
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -125,10 +139,10 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param commands
-   * 	batch to execute
-   * @param writeMode
-   * 	true to open connection in write mode, false to open connection in read only mode
+   * @param <T> the generic type
+   * @param commands 	batch to execute
+   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
+   * @return the t
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -152,6 +166,8 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
 
   /**
    * <p>Retrieve instance.</p>
+   *
+   * @return the bind person 1 data source
    */
   public static BindPerson1DataSource instance() {
     BindPerson1DataSource result=instance;
@@ -198,7 +214,9 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   }
 
   /**
-   * onCreate
+   * onCreate.
+   *
+   * @param database the database
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -225,7 +243,11 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   }
 
   /**
-   * onUpgrade
+   * onUpgrade.
+   *
+   * @param database the database
+   * @param previousVersion the previous version
+   * @param currentVersion the current version
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -269,7 +291,9 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   }
 
   /**
-   * onConfigure
+   * onConfigure.
+   *
+   * @param database the database
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -279,12 +303,18 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
     }
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
+   */
   public void clearCompiledStatements() {
     DaoPersonImpl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
+   *
+   * @param options the options
+   * @return the bind person 1 data source
    */
   public static BindPerson1DataSource build(DataSourceOptions options) {
     BindPerson1DataSource result=instance;
@@ -318,7 +348,9 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
   }
 
   /**
-   * List of tables compose datasource:
+   * List of tables compose datasource:.
+   *
+   * @return the SQ lite table[]
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -328,43 +360,56 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindPerson1DaoFactory> {
+    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory
-     * @return
-     * @throws Throwable
+     * @param daoFactory the dao factory
+     * @return the transaction result
      */
     TransactionResult onExecute(BindPerson1DaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
+   *
+   * @param <T> the generic type
    */
   public interface Batch<T> {
+    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory
-     * @throws Throwable
+     * @param daoFactory the dao factory
+     * @return the t
      */
     T onExecute(BindPerson1DaoFactory daoFactory);
   }
 
+  /**
+   * The Class DataSourceSingleThread.
+   */
   class DataSourceSingleThread implements BindPerson1DaoFactory {
+    
+    /** The context. */
     private SQLContextInSessionImpl _context;
 
+    /** The dao person. */
     protected DaoPersonImpl _daoPerson;
 
+    /**
+     * Instantiates a new data source single thread.
+     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindPerson1DataSource.this);
     }
 
     /**
+     * retrieve dao DaoPerson.
      *
-     * retrieve dao DaoPerson
+     * @return the dao person
      */
     public DaoPersonImpl getDaoPerson() {
       if (_daoPerson==null) {
@@ -373,15 +418,29 @@ public class BindPerson1DataSource extends AbstractDataSource implements BindPer
       return _daoPerson;
     }
 
+    /**
+     * On session opened.
+     */
     protected void onSessionOpened() {
     }
 
+    /**
+     * On session clear.
+     */
     protected void onSessionClear() {
     }
 
+    /**
+     * On session closed.
+     */
     protected void onSessionClosed() {
     }
 
+    /**
+     * Bind to thread.
+     *
+     * @return the data source single thread
+     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

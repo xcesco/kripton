@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton84;
 
 import android.database.Cursor;
@@ -21,52 +36,62 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.nio.charset.StandardCharsets;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean84B</code>, based on interface <code>Bean84BDao</code>
- * </p>
+ * </p>.
  *
- *  @see Bean84B
- *  @see Bean84BDao
- *  @see Bean84BTable
+ * @see Bean84B
+ * @see Bean84BDao
+ * @see Bean84BTable
  */
 public class Bean84BDaoImpl extends Dao implements Bean84BDao {
+  
+  /** The Constant SELECT_BY_ID_SQL1. */
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, column_bean FROM bean84_b WHERE id = ?";
 
+  /** The Constant SELECT_BY_BEAN_SQL2. */
   private static final String SELECT_BY_BEAN_SQL2 = "SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ?";
 
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The update all prepared statement 1. */
   private static SQLiteStatement updateAllPreparedStatement1;
 
+  /** The delete all prepared statement 2. */
   private static SQLiteStatement deleteAllPreparedStatement2;
 
-  /**
-   * Bean84B2BindMap */
+  /** Bean84B2BindMap. */
   private Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
+  /**
+   * Instantiates a new bean 84 B dao impl.
+   *
+   * @param context the context
+   */
   public Bean84BDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, column_bean FROM bean84_b WHERE id = ${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>column_bean</dt><dd>is associated to bean's property <strong>columnBean</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param param1
-   * 	is binded to <code>${id}</code>
+   * @param param1 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -116,22 +141,21 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ${param1}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>column_bean</dt><dd>is associated to bean's property <strong>columnBean</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${param1}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param param1
-   * 	is binded to <code>${param1}</code>
+   * @param param1 	is binded to <code>${param1}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -306,11 +330,9 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM bean84_b</pre>
+   * <pre>DELETE FROM bean84_b</pre>.
    *
-   * @param bean
-   * 	is used as ${bean}
-   *
+   * @param bean 	is used as ${bean}
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
@@ -343,7 +365,10 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   }
 
   /**
-   * for param serializer1 serialization
+   * for param serializer1 serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   private byte[] serializer1(Bean84B2 value) {
     if (value==null) {
@@ -364,7 +389,10 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   }
 
   /**
-   * for param parser1 parsing
+   * for param parser1 parsing.
+   *
+   * @param input the input
+   * @return the bean 84 B 2
    */
   private Bean84B2 parser1(byte[] input) {
     if (input==null) {
@@ -387,6 +415,9 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     }
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

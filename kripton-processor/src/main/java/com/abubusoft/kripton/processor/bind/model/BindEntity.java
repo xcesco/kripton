@@ -22,17 +22,34 @@ import javax.lang.model.element.TypeElement;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BindEntity.
+ */
 public class BindEntity extends ModelClass<BindProperty> {
 
+	/**
+	 * Instantiates a new bind entity.
+	 *
+	 * @param name the name
+	 * @param beanElement the bean element
+	 * @param annotationList the annotation list
+	 */
 	public BindEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
 		super(name, beanElement, annotationList);
 
 		xmlInfo = new XmlInfo();						
 	}
 	
+	/** The xml info. */
 	public XmlInfo xmlInfo;
 
+	/**
+	 * The Class XmlInfo.
+	 */
 	public class XmlInfo {
+		
+		/** The label. */
 		public String label;
 	}
 

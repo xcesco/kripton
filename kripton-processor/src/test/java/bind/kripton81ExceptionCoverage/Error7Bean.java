@@ -20,19 +20,27 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Error7Bean.
+ */
 @BindType
 public class Error7Bean {
 
+	/** The id. */
 	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
 
+	/** The ignore. */
 	@BindDisabled
 	@BindColumn
 	public String ignore;
 
+	/** The ignore 2. */
 	@BindColumn(enabled = false)
 	public String ignore2;
 
+	/** The foreign. */
 	@BindColumn(foreignKey = Error7_1Bean.class)
 	public Error7_1Bean foreign;
 }

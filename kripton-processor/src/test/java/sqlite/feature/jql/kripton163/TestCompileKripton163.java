@@ -21,10 +21,19 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileKripton163.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileKripton163 extends AbstractBindSQLiteProcessorTest {
 	
 	
+	/**
+	 * Test must work.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test 
 	public void test_must_work() throws Throwable {
 		buildDataSourceProcessorTest(CollegeStudent.class, CollegeStudentDao.class, CollegeStudentsDataSource.class);

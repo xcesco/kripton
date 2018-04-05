@@ -50,25 +50,51 @@ import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
 import com.abubusoft.kripton.xml.MapEntryType;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BindEntityBuilder.
+ */
 public abstract class BindEntityBuilder {
 
+	/**
+	 * The Class InnerCounter.
+	 */
 	public static class InnerCounter {
+		
+		/** The counter. */
 		int counter;
 
+		/**
+		 * Inc.
+		 */
 		public void inc() {
 			counter++;
 		}
 
+		/**
+		 * Value.
+		 *
+		 * @return the int
+		 */
 		public int value() {
 			return counter;
 		}
 
 	}
 
+	/** The class annotation filter. */
 	private static AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
 
+	/** The property annotation filter. */
 	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
 
+	/**
+	 * Parses the.
+	 *
+	 * @param model the model
+	 * @param element the element
+	 * @return the bind entity
+	 */
 	public static BindEntity parse(final BindModel model, TypeElement element) {
 		final Elements elementUtils = BaseProcessor.elementUtils;
 

@@ -24,17 +24,36 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.quickstart.model.Post;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 04/01/2017.
  */
 @BindDao(Post.class)
 public interface PostDao {
+    
+    /**
+     * Insert.
+     *
+     * @param bean the bean
+     */
     @BindSqlInsert(includePrimaryKey = true)
     void insert(Post bean);
 
+    /**
+     * Select by user id.
+     *
+     * @param userId the user id
+     * @return the list
+     */
     @BindSqlSelect(where="userId = ${value}")
     List<Post> selectByUserId(@BindSqlParam("value") long userId);
 
+    /**
+     * Select one by user id.
+     *
+     * @param userId the user id
+     * @return the post
+     */
     @BindSqlSelect(where="id = ${value}")
     Post selectOneByUserId(@BindSqlParam("value") long userId);
 

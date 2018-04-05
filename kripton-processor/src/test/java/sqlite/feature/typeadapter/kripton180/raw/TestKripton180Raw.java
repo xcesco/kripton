@@ -41,9 +41,18 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 import sqlite.feature.typeadapter.kripton180.raw.err.EmployeeRawErrDao;
 import sqlite.feature.typeadapter.kripton180.raw.err.Kripton180RawErrDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestKripton180Raw.
+ */
 @RunWith(JUnit4.class)
 public class TestKripton180Raw extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompile() throws Throwable {
 		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeRawDao.class, Kripton180RawDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,
@@ -51,6 +60,11 @@ public class TestKripton180Raw extends AbstractBindSQLiteProcessorTest {
 				TypeAdapterString.class, TypeAdapterByteArray.class, TypeAdapterLastName.class);
 	}
 	
+	/**
+	 * Test error on raw type adapter.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testErrorOnRawTypeAdapter() throws Throwable {
 		this.expectedException(InvalidMethodSignException.class);

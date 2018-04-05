@@ -18,9 +18,16 @@ package bind.feature.generichierarchy;
 import com.abubusoft.kripton.annotation.BindType;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Channel.
+ */
 @BindType
 public class Channel extends UIDObject {	
 
+	/* (non-Javadoc)
+	 * @see bind.feature.generichierarchy.UIDObject#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -31,6 +38,9 @@ public class Channel extends UIDObject {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see bind.feature.generichierarchy.UIDObject#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,43 +65,85 @@ public class Channel extends UIDObject {
 		return true;
 	}
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5414896193118986093L;
 
+	/** The image type. */
 	protected String imageType;
 	
+	/** The image size. */
 	protected long imageSize;
 
+	/**
+	 * Gets the image size.
+	 *
+	 * @return the image size
+	 */
 	public long getImageSize() {
 		return imageSize;
 	}
 
+	/**
+	 * Sets the image size.
+	 *
+	 * @param imageSize the new image size
+	 */
 	public void setImageSize(long imageSize) {
 		this.imageSize = imageSize;
 	}
 
+	/** The name. */
 	protected String name;
 	
+	/**
+	 * Gets the image type.
+	 *
+	 * @return the image type
+	 */
 	public String getImageType() {
 		return imageType;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the image type.
+	 *
+	 * @param imageType the new image type
+	 */
 	public void setImageType(String imageType) {
 		this.imageType = imageType;
 	}
 
+	/* (non-Javadoc)
+	 * @see bind.feature.generichierarchy.UIDObject#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Channel [imageType=" + imageType + ", imageSize=" + imageSize + ", typeName=" + name + ", uid=" + uid + "]";
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * Checks for image.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasImage()
 	{
 		return this.imageSize>0;

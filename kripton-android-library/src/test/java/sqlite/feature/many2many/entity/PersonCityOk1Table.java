@@ -1,7 +1,23 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.many2many.entity;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>PersonCityOk1</code> is associated to table <code>person_city_ok1</code>
@@ -10,27 +26,14 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see PersonCityOk1
  */
 public class PersonCityOk1Table implements SQLiteTable {
-  /**
-   * Costant represents typeName of table person_city_ok1
-   */
+  
+  /** Costant represents typeName of table person_city_ok1. */
   public static final String TABLE_NAME = "person_city_ok1";
 
-  /**
-   * <p>
-   * DDL to create table person_city_ok1
-   * </p>
-   *
-   * <pre>CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER, FOREIGN KEY(person_id) REFERENCES persons(id), FOREIGN KEY(city_id) REFERENCES cities(id));</pre>
-   */
+  /** <p> DDL to create table person_city_ok1 </p>  <pre>CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER, FOREIGN KEY(person_id) REFERENCES persons(id), FOREIGN KEY(city_id) REFERENCES cities(id));</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER, FOREIGN KEY(person_id) REFERENCES persons(id), FOREIGN KEY(city_id) REFERENCES cities(id));";
 
-  /**
-   * <p>
-   * DDL to drop table person_city_ok1
-   * </p>
-   *
-   * <pre>DROP TABLE IF EXISTS person_city_ok1;</pre>
-   */
+  /** <p> DDL to drop table person_city_ok1 </p>  <pre>DROP TABLE IF EXISTS person_city_ok1;</pre>. */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS person_city_ok1;";
 
   /**
@@ -54,13 +57,13 @@ public class PersonCityOk1Table implements SQLiteTable {
    */
   public static final String COLUMN_CITY_ID = "city_id";
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PERSON_ID, COLUMN_CITY_ID};
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -68,7 +71,9 @@ public class PersonCityOk1Table implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

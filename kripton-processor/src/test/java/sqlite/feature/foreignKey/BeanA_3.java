@@ -19,14 +19,23 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BeanA_3.
+ */
 @BindType
 public class BeanA_3 {
 
+	/** The id. */
 	@BindColumn(value="pk", columnType=ColumnType.PRIMARY_KEY)
 	public long id;
 	
+	/** The value string 2. */
 	public String valueString2;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,6 +45,9 @@ public class BeanA_3 {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

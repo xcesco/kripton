@@ -21,6 +21,7 @@ import java.io.Serializable;
 
 import static com.abubusoft.kripton.common.Preconditions.checkNotNull;
 
+// TODO: Auto-generated Javadoc
 /**
  * Utility class for converting between various ASCII case formats. Behavior is undefined for
  * non-ASCII input.
@@ -101,9 +102,18 @@ public enum CaseFormat {
     }
   };
 
+  /** The word boundary. */
   private final CharMatcher wordBoundary;
+  
+  /** The word separator. */
   private final String wordSeparator;
 
+  /**
+   * Instantiates a new case format.
+   *
+   * @param wordBoundary the word boundary
+   * @param wordSeparator the word separator
+   */
   CaseFormat(CharMatcher wordBoundary, String wordSeparator) {
     this.wordBoundary = wordBoundary;
     this.wordSeparator = wordSeparator;
@@ -113,6 +123,10 @@ public enum CaseFormat {
    * Converts the specified {@code String str} from this format to the specified {@code format}. A
    * "best effort" approach is taken; if {@code str} does not conform to the assumed format, then
    * the behavior of this method is undefined but we make a reasonable effort at converting anyway.
+   *
+   * @param format the format
+   * @param str the str
+   * @return the string
    */
   public final String to(CaseFormat format, String str) {
     checkNotNull(format);
@@ -122,6 +136,10 @@ public enum CaseFormat {
 
   /**
    * Enum values can override for performance reasons.
+   *
+   * @param format the format
+   * @param s the s
+   * @return the string
    */
   String convert(CaseFormat format, String s) {
     // deal with camel conversion
@@ -147,31 +165,54 @@ public enum CaseFormat {
   /**
    * Returns a {@code Converter} that converts strings from this format to {@code targetFormat}.
    *
+   * @param targetFormat the target format
+   * @return the converter
    * @since 16.0
    */
   public Converter<String, String> converterTo(CaseFormat targetFormat) {
     return new StringConverter(this, targetFormat);
   }
 
+  /**
+   * The Class StringConverter.
+   */
   private static final class StringConverter
       extends Converter<String, String> implements Serializable {
 
+    /** The source format. */
     private final CaseFormat sourceFormat;
+    
+    /** The target format. */
     private final CaseFormat targetFormat;
 
+    /**
+     * Instantiates a new string converter.
+     *
+     * @param sourceFormat the source format
+     * @param targetFormat the target format
+     */
     StringConverter(CaseFormat sourceFormat, CaseFormat targetFormat) {
       this.sourceFormat = checkNotNull(sourceFormat);
       this.targetFormat = checkNotNull(targetFormat);
     }
 
+    /* (non-Javadoc)
+     * @see com.abubusoft.kripton.common.Converter#doForward(java.lang.Object)
+     */
     @Override protected String doForward(String s) {
       return sourceFormat.to(targetFormat, s);
     }
 
+    /* (non-Javadoc)
+     * @see com.abubusoft.kripton.common.Converter#doBackward(java.lang.Object)
+     */
     @Override protected String doBackward(String s) {
       return targetFormat.to(sourceFormat, s);
     }
 
+    /* (non-Javadoc)
+     * @see com.abubusoft.kripton.common.Converter#equals(java.lang.Object)
+     */
     @Override public boolean equals(Object object) {
       if (object instanceof StringConverter) {
         StringConverter that = (StringConverter) object;
@@ -181,23 +222,48 @@ public enum CaseFormat {
       return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override public int hashCode() {
       return sourceFormat.hashCode() ^ targetFormat.hashCode();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override public String toString() {
       return sourceFormat + ".converterTo(" + targetFormat + ")";
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 0L;
   }
 
+  /**
+   * Normalize word.
+   *
+   * @param word the word
+   * @return the string
+   */
   abstract String normalizeWord(String word);
 
+  /**
+   * Normalize first word.
+   *
+   * @param word the word
+   * @return the string
+   */
   private String normalizeFirstWord(String word) {
     return (this == LOWER_CAMEL) ? Ascii.toLowerCase(word) : normalizeWord(word);
   }
 
+  /**
+   * First char only to upper.
+   *
+   * @param word the word
+   * @return the string
+   */
   private static String firstCharOnlyToUpper(String word) {
     return (word.isEmpty())
         ? word

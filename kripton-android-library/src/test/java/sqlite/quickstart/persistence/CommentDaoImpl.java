@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.quickstart.persistence;
 
 import android.database.Cursor;
@@ -13,22 +28,32 @@ import java.util.ArrayList;
 import java.util.List;
 import sqlite.quickstart.model.Comment;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Comment</code>, based on interface <code>CommentDao</code>
- * </p>
+ * </p>.
  *
- *  @see Comment
- *  @see CommentDao
- *  @see sqlite.quickstart.model.CommentTable
+ * @see Comment
+ * @see CommentDao
+ * @see sqlite.quickstart.model.CommentTable
  */
 public class CommentDaoImpl extends Dao implements CommentDao {
+  
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The Constant SELECT_BY_POST_ID_SQL5. */
   private static final String SELECT_BY_POST_ID_SQL5 = "SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?";
 
+  /** The Constant SELECT_ONE_BY_POST_ID_SQL6. */
   private static final String SELECT_ONE_BY_POST_ID_SQL6 = "SELECT post_id, id, name, email, body FROM comment WHERE id = ?";
 
+  /**
+   * Instantiates a new comment dao impl.
+   *
+   * @param context the context
+   */
   public CommentDaoImpl(SQLContext context) {
     super(context);
   }
@@ -108,9 +133,9 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT post_id, id, name, email, body FROM comment WHERE post_id = ${value}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>post_id</dt><dd>is associated to bean's property <strong>postId</strong></dd>
@@ -119,14 +144,13 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
    * 	<dt>body</dt><dd>is associated to bean's property <strong>body</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>postId</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param postId
-   * 	is binded to <code>${value}</code>
+   * @param postId 	is binded to <code>${value}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -188,9 +212,9 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT post_id, id, name, email, body FROM comment WHERE id = ${value}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>post_id</dt><dd>is associated to bean's property <strong>postId</strong></dd>
@@ -199,14 +223,13 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
    * 	<dt>body</dt><dd>is associated to bean's property <strong>body</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>postId</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param postId
-   * 	is binded to <code>${value}</code>
+   * @param postId 	is binded to <code>${value}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -260,6 +283,9 @@ public class CommentDaoImpl extends Dao implements CommentDao {
     }
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

@@ -22,13 +22,20 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.kripton58.BeanInner;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BeanBean.
+ */
 @BindType
 public class BeanBean {
 
+	/** The id. */
 	public long id;
 	
+	/** The value. */
 	public List<BeanInner> value;
 	
+	/** The value 2. */
 	public LinkedList<BeanInner> value2;
 	
 

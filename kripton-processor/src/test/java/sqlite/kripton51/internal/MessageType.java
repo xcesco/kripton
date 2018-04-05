@@ -15,9 +15,30 @@
  *******************************************************************************/
 package sqlite.kripton51.internal;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum MessageType.
+ */
 public enum MessageType {
-	SYSTEM_CHANNEL_CREATED, SYSTEM_USER_ADDED, SYSTEM_USER_EXITS, SYSTEM_USER_BANNED, SYSTEM_CHANNEL_DESTROYED, TEXT, ACTION;
+	
+	/** The system channel created. */
+	SYSTEM_CHANNEL_CREATED, 
+ /** The system user added. */
+ SYSTEM_USER_ADDED, 
+ /** The system user exits. */
+ SYSTEM_USER_EXITS, 
+ /** The system user banned. */
+ SYSTEM_USER_BANNED, 
+ /** The system channel destroyed. */
+ SYSTEM_CHANNEL_DESTROYED, 
+ /** The text. */
+ TEXT, 
+ /** The action. */
+ ACTION;
 
+	/**
+	 * Instantiates a new message type.
+	 */
 	private MessageType() {
 	}
 }

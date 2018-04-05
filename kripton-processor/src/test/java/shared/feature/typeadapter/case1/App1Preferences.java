@@ -23,9 +23,14 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
 import shared.feature.typeadapter.case2.IntTypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class App1Preferences.
+ */
 @BindSharedPreferences
 public class App1Preferences {
 
+	/** The value set. */
 	@BindPreference
 	public HashSet<String> valueSet;
 	
@@ -34,6 +39,7 @@ public class App1Preferences {
 	@BindPreference
 	public String password;*/
 	
+	/** The right. */
 	@BindPreferenceAdapter(adapter=IntTypeAdapter.class)
 	@BindPreference
 	public int right;

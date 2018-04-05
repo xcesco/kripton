@@ -36,14 +36,17 @@ import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
 
+// TODO: Auto-generated Javadoc
 /**
- * Annotation processor for shared preferences
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Annotation processor for shared preferences.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BindMany2ManySubProcessor extends BaseProcessor {
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#clear()
+	 */
 	public void clear() {		
 		super.clear();
 		
@@ -51,10 +54,15 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		model=null;		
 	}	
 
+	/** The model. */
 	private M2MModel model;
 
+	/** The result. */
 	public Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> result;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#getSupportedAnnotationClasses()
+	 */
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 
@@ -63,6 +71,9 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		return annotations;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
+	 */
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		try {

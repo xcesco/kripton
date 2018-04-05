@@ -18,9 +18,19 @@ package sqlite.example01;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoChannelMessage.
+ */
 @BindDao(ChannelMessage.class)
 public interface DaoChannelMessage {	
 	
+	/**
+	 * Insert bean.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert
 	long insertBean(ChannelMessage bean);
 /*

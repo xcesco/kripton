@@ -27,59 +27,70 @@ import java.util.regex.Pattern;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeVisitor;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class LiteralType.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class LiteralType { 
 	
+	/** The Constant cached. */
 	final static Map<String, LiteralType> cached=new HashMap<String, LiteralType>();
 
+	/** The Constant GROUP_TYPE_GENERIC_INDEX. */
 	private static final int GROUP_TYPE_GENERIC_INDEX = 1;
 	
+	/** The Constant GROUP_TYPE_PARAMETER_INDEX. */
 	private static final int GROUP_TYPE_PARAMETER_INDEX = 2;
 
+	/** The Constant GROUP_ARRAY_INDEX. */
 	private static final int GROUP_ARRAY_INDEX = 3;
 
+	/** The Constant GROUP_SIMPLE_INDEX. */
 	private static final int GROUP_SIMPLE_INDEX = 4;
 	
+	/** The value. */
 	private String value;
 	
-	/**
-	 * @return the value
-	 */
-//	public String getValue() {
-//		return value;
-//	}
-
 	protected boolean primitive;
-
-	/**
-	 * @return the primitive
-	 */
-//	public boolean isPrimitive() {
-//		return primitive;
-//	}
 
 	private static final Pattern CLASS_PATTERN = Pattern.compile("([\\w\\.]+)\\<(.*)\\>|([\\w\\.]+)\\[\\]|([\\w\\.]+)");
 
+	/** The raw type. */
 	public String rawType;
 
+	/** The resolved raw type. */
 	protected Class<?> resolvedRawType;
 
+	/** The array. */
 	private boolean array;
 
+	/** The type parameter. */
 	private String typeParameter;
 
+	/**
+	 * Gets the type parameter.
+	 *
+	 * @return the type parameter
+	 */
 	public String getTypeParameter() {
 		return typeParameter;
 	}
 	
+	/**
+	 * Checks if is parametrized type.
+	 *
+	 * @return true, if is parametrized type
+	 */
 	public boolean isParametrizedType()
 	{
 		return typeParameter!=null;
 	}
 
+	/**
+	 * Instantiates a new literal type.
+	 */
 	LiteralType()
 	{
 		
@@ -89,7 +100,13 @@ public class LiteralType {
 //		parse(this, input);
 //	}
 	
-	public static LiteralType parse(String input) {
+	/**
+ * Parses the.
+ *
+ * @param input the input
+ * @return the literal type
+ */
+public static LiteralType parse(String input) {
 		LiteralType result=new LiteralType();
 		parse(result, input);
 		
@@ -97,9 +114,11 @@ public class LiteralType {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param value
+	 * Parses the.
+	 *
+	 * @param result the result
+	 * @param input the input
+	 * @return the literal type
 	 */
 	static LiteralType parse(LiteralType result, String input) {
 		result.value=input;
@@ -153,10 +172,21 @@ public class LiteralType {
 		return result;
 	}
 
+	/**
+	 * Checks if is array.
+	 *
+	 * @return true, if is array
+	 */
 	public boolean isArray() {
 		return array;
 	}
 
+	/**
+	 * Of.
+	 *
+	 * @param clazzString the clazz string
+	 * @return the literal type
+	 */
 	public static LiteralType of(String clazzString) {
 		LiteralType newValue;
 		if (cached.containsKey(clazzString))
@@ -191,7 +221,12 @@ public class LiteralType {
 //		return of(rawType.getCanonicalName(), parametrizedType.getQualifiedName().toString());
 //	}
 	
-	public boolean isCollection() {
+	/**
+ * Checks if is collection.
+ *
+ * @return true, if is collection
+ */
+public boolean isCollection() {
 		if (isResolved() && Collection.class.isAssignableFrom(resolvedRawType)) {
 			return true;
 		}
@@ -199,18 +234,42 @@ public class LiteralType {
 		return false;
 	}
 
+	/**
+	 * Checks if is resolved.
+	 *
+	 * @return true, if is resolved
+	 */
 	public boolean isResolved() {
 		return resolvedRawType != null;
 	}
 
+	/**
+	 * Gets the raw type.
+	 *
+	 * @return the raw type
+	 */
 	public String getRawType() {
 		return rawType;
 	}
 
+	/**
+	 * Gets the kind.
+	 *
+	 * @return the kind
+	 */
 	public TypeKind getKind() {
 		return null;
 	}
 
+	/**
+	 * Accept.
+	 *
+	 * @param <R> the generic type
+	 * @param <P> the generic type
+	 * @param v the v
+	 * @param p the p
+	 * @return the r
+	 */
 	public <R, P> R accept(TypeVisitor<R, P> v, P p) {
 		return null;
 	}

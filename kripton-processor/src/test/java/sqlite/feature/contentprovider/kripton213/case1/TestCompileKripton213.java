@@ -21,14 +21,18 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileKripton213.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileKripton213 extends AbstractBindSQLiteProcessorTest {
 
 	
 	/**
-	 * No @BindType is put in bean definition
-	 * 
-	 * @throws Throwable
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testCompile() throws Throwable {

@@ -78,36 +78,70 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JQLBuilder.
+ */
 public abstract class JQLBuilder {
 
+	/**
+	 * The listener interface for receiving onField events.
+	 * The class that is interested in processing a onField
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOnFieldListener</code> method. When
+	 * the onField event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 */
 	public interface OnFieldListener {
+		
+		/**
+		 * On field.
+		 *
+		 * @param item the item
+		 * @return the string
+		 */
 		String onField(String item);
 	}
 
 	/**
-	 * Listener on property iteraction
+	 * Listener on property iteraction.
+	 *
+	 * @see OnMethodParameterEvent
 	 */
 	interface OnMethodParameterListener {
+		
 		/**
-		 * 
-		 * @param item
-		 * @return
+		 * On method parameter.
+		 *
+		 * @param item the item
 		 */
 		void onMethodParameter(VariableElement item);
 	}
 
 	/**
-	 * Listener on property iteraction
+	 * Listener on property iteraction.
+	 *
+	 * @see OnPropertyEvent
 	 */
 	interface OnPropertyListener {
+		
 		/**
-		 * 
-		 * @param item
-		 * @return
+		 * On property.
+		 *
+		 * @param item the item
 		 */
 		void onProperty(SQLProperty item);
 	}
 
+	/**
+	 * Builds the JQL.
+	 *
+	 * @param method the method
+	 * @param preparedJql the prepared jql
+	 * @return the jql
+	 */
 	public static JQL buildJQL(SQLiteModelMethod method, String preparedJql) {
 		final SQLiteDaoDefinition dao = method.getParent();
 		Map<JQLDynamicStatementType, String> dynamicReplace = new HashMap<>();
@@ -147,8 +181,10 @@ public abstract class JQLBuilder {
 	}
 
 	/**
-	 * @param method
-	 * @param annotation
+	 * Check fields definitions.
+	 *
+	 * @param method the method
+	 * @param annotation the annotation
 	 */
 	private static void checkFieldsDefinitions(SQLiteModelMethod method, Class<? extends Annotation> annotation) {
 		List<String> includedFields = AnnotationUtility.extractAsStringArray(method.getElement(), annotation, AnnotationAttributeType.FIELDS);
@@ -162,14 +198,15 @@ public abstract class JQLBuilder {
 	}
 
 	/**
-	 * 
 	 * <pre>
 	 * DELETE person WHERE id = ${bean.id} AND #{where}
 	 * </pre>
-	 * 
-	 * @param method
-	 * @param preparedJql
-	 * @return
+	 *
+	 * @param method the method
+	 * @param result the result
+	 * @param dynamicReplace the dynamic replace
+	 * @param preparedJql the prepared jql
+	 * @return the jql
 	 */
 	private static JQL buildJQLDelete(SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final SQLiteDaoDefinition dao = method.getParent();
@@ -231,11 +268,12 @@ public abstract class JQLBuilder {
 	 * <pre>
 	 *  
 	 * INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})
-	 * </pre>
-	 * 
-	 * @param method
-	 * @param preparedJql
-	 * @return
+	 * </pre>.
+	 *
+	 * @param method the method
+	 * @param result the result
+	 * @param preparedJql the prepared jql
+	 * @return the jql
 	 */
 	private static JQL buildJQLInsert(SQLiteModelMethod method, final JQL result, String preparedJql) {
 		if (StringUtils.hasText(preparedJql)) {
@@ -362,10 +400,10 @@ public abstract class JQLBuilder {
 	 * retrieve field used in query extracting them from method's parameter set,
 	 * excluding parameters used as dynamic where, dynamic where args, and used
 	 * in where attribute of annotation (if present).
-	 * 
-	 * @param method
-	 * @param annotationClazz
-	 * @return
+	 *
+	 * @param method the method
+	 * @param annotationClazz the annotation clazz
+	 * @return the sets the
 	 */
 	private static Set<String> extractFieldsFromMethodParameters(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {
 		String annotatedWhere = AnnotationUtility.extractAsString(method.getElement(), annotationClazz, AnnotationAttributeType.WHERE);
@@ -398,6 +436,15 @@ public abstract class JQLBuilder {
 		return annotatedFieldValues;
 	}
 
+	/**
+	 * Builds the JQL select.
+	 *
+	 * @param method the method
+	 * @param result the result
+	 * @param dynamicReplace the dynamic replace
+	 * @param preparedJql the prepared jql
+	 * @return the jql
+	 */
 	private static JQL buildJQLSelect(final SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlSelect.class;
 		final SQLiteDaoDefinition dao = method.getParent();
@@ -516,14 +563,15 @@ public abstract class JQLBuilder {
 	}
 
 	/**
-	 * 
 	 * <pre>
 	 * UPDATE bean01 SET text=${text} WHERE id=${id}
-	 * </pre>
-	 * 
-	 * @param method
-	 * @param preparedJql
-	 * @return
+	 * </pre>.
+	 *
+	 * @param method the method
+	 * @param result the result
+	 * @param dynamicReplace the dynamic replace
+	 * @param preparedJql the prepared jql
+	 * @return the jql
 	 */
 	private static JQL buildJQLUpdate(final SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlUpdate.class;
@@ -649,12 +697,13 @@ public abstract class JQLBuilder {
 	}
 
 	/**
-	 * @param method
-	 * @param annotationClazz
-	 * @param includePrimaryKey
-	 * @param dao
-	 * @param entity
-	 * @return
+	 * Extract fields from annotation.
+	 *
+	 * @param <A> the generic type
+	 * @param method the method
+	 * @param annotationClazz the annotation clazz
+	 * @param includePrimaryKey the include primary key
+	 * @return the linked hash set
 	 */
 	private static <A extends Annotation> LinkedHashSet<String> extractFieldsFromAnnotation(final SQLiteModelMethod method, Class<A> annotationClazz, final boolean includePrimaryKey) {
 		final SQLiteDaoDefinition dao = method.getParent();
@@ -707,6 +756,13 @@ public abstract class JQLBuilder {
 		return result;
 	}
 
+	/**
+	 * Checks if is in set.
+	 *
+	 * @param value the value
+	 * @param parametersUsedInWhereConditions the parameters used in where conditions
+	 * @return true, if is in set
+	 */
 	private static boolean isInSet(String value, Set<JQLPlaceHolder> parametersUsedInWhereConditions) {
 		for (JQLPlaceHolder ph : parametersUsedInWhereConditions) {
 			if (ph.value.equals(value))
@@ -717,10 +773,13 @@ public abstract class JQLBuilder {
 
 	/**
 	 * Define WHERE statement.
-	 * 
-	 * @param method
-	 * @param classBuilder
-	 * @param annotation
+	 *
+	 * @param <L> the generic type
+	 * @param method the method
+	 * @param result the result
+	 * @param annotation the annotation
+	 * @param dynamicReplace the dynamic replace
+	 * @return the string
 	 */
 	private static <L extends Annotation> String defineLimitStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
@@ -772,10 +831,13 @@ public abstract class JQLBuilder {
 
 	/**
 	 * Define ORDER BY statement.
-	 * 
-	 * @param method
-	 * @param classBuilder
-	 * @param annotation
+	 *
+	 * @param <L> the generic type
+	 * @param method the method
+	 * @param result the result
+	 * @param annotation the annotation
+	 * @param dynamicReplace the dynamic replace
+	 * @return the string
 	 */
 	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
@@ -835,10 +897,13 @@ public abstract class JQLBuilder {
 
 	/**
 	 * Define WHERE statement.
-	 * 
-	 * @param method
-	 * @param classBuilder
-	 * @param annotation
+	 *
+	 * @param <L> the generic type
+	 * @param method the method
+	 * @param jql the jql
+	 * @param annotation the annotation
+	 * @param dynamicReplace the dynamic replace
+	 * @return the string
 	 */
 	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
@@ -875,8 +940,11 @@ public abstract class JQLBuilder {
 	}
 
 	/**
-	 * @param classBuilder
-	 * @param fields
+	 * For each fields.
+	 *
+	 * @param fields the fields
+	 * @param listener the listener
+	 * @return the string
 	 */
 	private static String forEachFields(final Set<String> fields, OnFieldListener listener) {
 		StringBuilder builder = new StringBuilder();
@@ -891,12 +959,24 @@ public abstract class JQLBuilder {
 		return builder.toString();
 	}
 
+	/**
+	 * For each fields.
+	 *
+	 * @param dao the dao
+	 * @param listener the listener
+	 */
 	private static void forEachFields(SQLiteDaoDefinition dao, OnPropertyListener listener) {
 		for (SQLProperty item : dao.getEntity().getCollection()) {
 			listener.onProperty(item);
 		}
 	}
 
+	/**
+	 * For each parameter.
+	 *
+	 * @param method the method
+	 * @param listener the listener
+	 */
 	private static void forEachParameter(SQLiteModelMethod method, OnMethodParameterListener listener) {
 		for (VariableElement p : method.getElement().getParameters()) {
 			listener.onMethodParameter(p);

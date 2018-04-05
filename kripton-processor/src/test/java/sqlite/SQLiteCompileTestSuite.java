@@ -80,6 +80,9 @@ import sqlite.test04.v1.Test04;
 import sqlite.test05firt_aid.Test05Suite;
 import sqlite.test05firt_aid.TestFirstAid;
 
+/**
+ * The Class SQLiteCompileTestSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

@@ -37,25 +37,32 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * Analyze an SQL statement, extract parameter and replace with ?
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Analyze an SQL statement, extract parameter and replace with ?.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class SqlAnalyzer {
 
+	/** The parameter. */
 	private final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w._]*)\\s*\\}");
 
+	/** The word. */
 	private final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
 
+	/** The property converter. */
 	Converter<String, String> propertyConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
+	/** The param names. */
 	private List<String> paramNames;
 	
+	/** The param type names. */
 	private List<TypeName> paramTypeNames;
 	
 	/**
+	 * Gets the param type names.
+	 *
 	 * @return the paramTypes
 	 */
 	public List<TypeName> getParamTypeNames() {
@@ -68,6 +75,8 @@ public class SqlAnalyzer {
 	private List<String> usedBeanPropertyNames;
 
 	/**
+	 * Gets the param names.
+	 *
 	 * @return the paramNames
 	 */
 	public List<String> getParamNames() {
@@ -75,14 +84,18 @@ public class SqlAnalyzer {
 	}
 
 	/**
+	 * Gets the param getters.
+	 *
 	 * @return the paramGetters
 	 */
 	public List<String> getParamGetters() {
 		return paramGetters;
 	}
 
+	/** The param getters. */
 	private List<String> paramGetters;
 
+	/** The sql statement. */
 	private String sqlStatement;
 	
 	/**
@@ -91,6 +104,8 @@ public class SqlAnalyzer {
 	private Set<String> usedMethodParameters;
 
 	/**
+	 * Gets the used method parameters.
+	 *
 	 * @return the usedMethodParameters
 	 */
 	public Set<String> getUsedMethodParameters() {
@@ -100,7 +115,10 @@ public class SqlAnalyzer {
 	/**
 	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field typeName with column typeName. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
 	 * ?. This second parameter is the list of parameters and replaced with ?.
-	 * 
+	 *
+	 * @param elementUtils the element utils
+	 * @param method the method
+	 * @param sqlStatement the sql statement
 	 */
 	public void execute(Elements elementUtils, SQLiteModelMethod method, String sqlStatement) {
 		SQLiteDaoDefinition daoDefinition=method.getParent();
@@ -189,12 +207,20 @@ public class SqlAnalyzer {
 	}
 
 	/**
+	 * Gets the used bean property names.
+	 *
 	 * @return the usedBeanProperties
 	 */
 	public List<String> getUsedBeanPropertyNames() {
 		return usedBeanPropertyNames;
 	}
 
+	/**
+	 * Gets the ter.
+	 *
+	 * @param property the property
+	 * @return the ter
+	 */
 	public String getter(ModelProperty property) {		
 		if (property.isPublicField())
 			return property.getName();
@@ -210,6 +236,12 @@ public class SqlAnalyzer {
 		return null;
 	}
 
+	/**
+	 * Setter.
+	 *
+	 * @param property the property
+	 * @return the string
+	 */
 	public String setter(ModelProperty property) {
 		if (property.isPublicField())
 			return property.getName();
@@ -221,6 +253,11 @@ public class SqlAnalyzer {
 		return null;
 	}
 
+	/**
+	 * Gets the SQL statement.
+	 *
+	 * @return the SQL statement
+	 */
 	public String getSQLStatement() {
 		return sqlStatement;
 	}

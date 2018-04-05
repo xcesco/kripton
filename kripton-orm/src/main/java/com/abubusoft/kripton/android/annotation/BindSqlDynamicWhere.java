@@ -20,6 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
  * Define a dynamic where condition. It is appended to <code>where</code> statement defined with attribute <code>where</code> in <code>BindSqlSelect</code> annotation.
  * 
@@ -36,17 +37,21 @@ import java.lang.annotation.Target;
 public @interface BindSqlDynamicWhere {
 	
 	/**
-	 * Conjunction to prepend to dynamic where statement
+	 * Conjunction to prepend to dynamic where statement.
 	 */
 	public enum PrependType {
+		
+		/** The and. */
 		AND,
+		
+		/** The or. */
 		OR
 	}
 	
 	/**
 	 * Conjunction to prepend to dynamic where. Default value is AND
-	 * 
-	 * @return
+	 *
+	 * @return the prepend type
 	 */
 	PrependType prepend() default PrependType.AND;
 

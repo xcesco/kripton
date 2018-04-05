@@ -16,6 +16,17 @@
 package com.abubusoft.kripton.processor.core;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ModelElement.
+ */
 public interface ModelElement {
+	
+	/**
+	 * Accept.
+	 *
+	 * @param visitor the visitor
+	 * @throws Exception the exception
+	 */
 	void accept(@SuppressWarnings("rawtypes") ModelElementVisitor visitor) throws Exception;
 }

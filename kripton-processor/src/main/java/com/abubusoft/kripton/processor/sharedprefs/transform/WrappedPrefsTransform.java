@@ -26,22 +26,34 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class WrappedPrefsTransform.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class WrappedPrefsTransform extends AbstractPrefsTransform {
 
+	/** The util clazz. */
 	protected Class<?> utilClazz;
 
+	/**
+	 * Instantiates a new wrapped prefs transform.
+	 *
+	 * @param utilClazz the util clazz
+	 */
 	public WrappedPrefsTransform(Class<?> utilClazz) {
 		super(false);
 		this.nullable = true;
 		this.utilClazz = utilClazz;
 	}
 
+	/** The nullable. */
 	protected boolean nullable;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
+	 */
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
@@ -71,6 +83,9 @@ public class WrappedPrefsTransform extends AbstractPrefsTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
+	 */
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		if (nullable) {

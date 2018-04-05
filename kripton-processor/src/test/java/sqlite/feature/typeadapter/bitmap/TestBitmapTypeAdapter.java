@@ -21,9 +21,18 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestBitmapTypeAdapter.
+ */
 @RunWith(JUnit4.class)
 public class TestBitmapTypeAdapter extends AbstractBindSQLiteProcessorTest {
 	
+	/**
+	 * Test compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompile() throws Throwable {
 		buildDataSourceProcessorTest(AppDataSource.class, BitmapTypeAdapter.class, DaoPerson.class, Person.class);

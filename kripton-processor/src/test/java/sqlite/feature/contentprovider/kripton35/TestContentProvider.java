@@ -29,18 +29,27 @@ import sqlite.feature.contentprovider.kripton35.persistence.CityDAO;
 import sqlite.feature.contentprovider.kripton35.persistence.PersonDAO;
 import sqlite.feature.contentprovider.kripton35.persistence.PersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestContentProvider.
+ */
 @RunWith(JUnit4.class)
 public class TestContentProvider extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile 01.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompile01() throws Throwable {
 		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, CityDAO.class,Person.class, City.class);
 	}
 	
 	/**
-	 * No @BindType is put in bean definition
-	 * 
-	 * @throws Throwable
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testCompileWithNoLog() throws Throwable {

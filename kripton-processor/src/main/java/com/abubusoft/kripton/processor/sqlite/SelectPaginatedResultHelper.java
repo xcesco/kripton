@@ -46,15 +46,19 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
- * @param <ElementUtils>
- * 
+ * The Class SelectPaginatedResultHelper.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ * @param <ElementUtils> the generic type
  * @since 29/01/2017
  */
 public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCodeGenerator {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, boolean, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
+	 */
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -97,11 +101,12 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 	}
 
 
-	/**
-	 * Used to generate specialized Paged Result classes;
-	 */
+	/** Used to generate specialized Paged Result classes;. */
 	static int pagedResultCounter;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generateSpecializedPart(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
+	 */
 	@Override
 	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -167,9 +172,9 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 
 	/**
 	 * Build paginated result class handler.
-	 * 
-	 * @param classBuilder
-	 * @param method
+	 *
+	 * @param classBuilder the class builder
+	 * @param method the method
 	 * @return name of generated class
 	 */
 	private static String buildSpecializedPagedResultClass(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {

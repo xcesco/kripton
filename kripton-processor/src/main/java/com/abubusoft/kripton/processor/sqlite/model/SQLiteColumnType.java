@@ -15,7 +15,19 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum SQLiteColumnType.
+ */
 public enum SQLiteColumnType {
-	BLOB, TEXT, INTEGER, REAL;
+	
+	/** The blob. */
+	BLOB, 
+ /** The text. */
+ TEXT, 
+ /** The integer. */
+ INTEGER, 
+ /** The real. */
+ REAL;
 
 }

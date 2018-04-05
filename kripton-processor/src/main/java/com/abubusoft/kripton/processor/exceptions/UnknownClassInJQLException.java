@@ -17,10 +17,21 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UnknownClassInJQLException.
+ */
 public class UnknownClassInJQLException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new unknown class in JQL exception.
+	 *
+	 * @param method the method
+	 * @param className the class name
+	 */
 	public UnknownClassInJQLException(SQLiteModelMethod method, String className) {
 		super(String.format("In DAO '%s' method '%s''s JQL uses class '%s' that is unknown", method.getParent().getName(), method.getName(),  className));		
 	}

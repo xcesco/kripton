@@ -24,6 +24,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.kripton51.entities.MessageEntity;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 27/09/2016.
  */
@@ -31,15 +32,38 @@ import sqlite.kripton51.entities.MessageEntity;
 @BindDao(MessageEntity.class)
 public interface DaoMessage {
 
+    /**
+     * Select by channel.
+     *
+     * @param channelId the channel id
+     * @return the list
+     */
     @BindSqlSelect(where =" channelId = ${channelId}")
     List<MessageEntity> selectByChannel(long channelId);
 
+    /**
+     * Update by id.
+     *
+     * @param bean the bean
+     * @return true, if successful
+     */
     @BindSqlUpdate(where=" id = ${bean.id}")
     boolean updateById(MessageEntity bean);
 
+    /**
+     * Insert.
+     *
+     * @param bean the bean
+     */
     @BindSqlInsert
     void insert(MessageEntity bean);
 
+    /**
+     * Select by uid.
+     *
+     * @param uid the uid
+     * @return the message entity
+     */
     @BindSqlSelect(where =" uid = ${uid}")
     MessageEntity selectByUid(String uid);
 }

@@ -19,9 +19,19 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBase.
+ */
 @BindDao(ChannelMessage.class)
 public interface DaoBase {
 	
+	/**
+	 * Delete by id.
+	 *
+	 * @param id the id
+	 * @return the int
+	 */
 	@BindSqlDelete(where="id=${id}")
 	int deleteById(long id);
 

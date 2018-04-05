@@ -25,29 +25,75 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.feat.includeFields.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface PersonDAO.
+ */
 @BindDao(Person.class)
 public interface PersonDAO {
+	
+	/**
+	 * Select include one.
+	 *
+	 * @param bean the bean
+	 * @return the list
+	 */
 	@BindSqlSelect(fields={"name", "id"}, where="typeName=${bean.name}",orderBy="name")
 	List<Person> selectIncludeOne(Person bean);
 	
+	/**
+	 * Select exclude one.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect(excludedFields={"name", "id"}, orderBy="name")
 	List<Person> selectExcludeOne();
 	
+	/**
+	 * Insert include one.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlInsert(fields={"name", "id"})
 	void insertIncludeOne(Person bean);
 	
+	/**
+	 * Insert exclude one.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlInsert(excludedFields={"name", "id"})
 	void insertExcludeOne(Person bean);	
 	
+	/**
+	 * Update include one.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlUpdate(fields={"name", "id"})
 	void updateIncludeOne(Person bean);
 	
+	/**
+	 * Update exclude one.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlUpdate(excludedFields={"name", "id"})
 	void updateExcludeOne(Person bean);
 	
+	/**
+	 * Delete include one.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlDelete
 	void deleteIncludeOne(Person bean);
 	
+	/**
+	 * Delete exclude one.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlDelete
 	void deleteExcludeOne(Person bean);
 	

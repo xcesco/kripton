@@ -29,8 +29,19 @@ import commons.benchmark.persistence.BenchmarkDataSource;
 import commons.benchmark.persistence.UserDao;
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestBenchmarkCompile.
+ */
 public class TestBenchmarkCompile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile 1.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_1() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Friend.class, Image.class, Name.class, Response.class, User.class);

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * Utility to order SQLEntity by their dependencies. It was build as generic class to test algorithm
  *  
@@ -29,18 +30,42 @@ import java.util.List;
  */
 public abstract class EntityUtility<E> {
 
+	/** The input. */
 	private List<E> input;
+	
+	/** The output. */
 	private ArrayList<E> output;
 
+	/**
+	 * Instantiates a new entity utility.
+	 *
+	 * @param input the input
+	 */
 	public EntityUtility(List<E> input) {
 		this.input = input;
 		this.output = new ArrayList<E>();
 	}
 
+	/**
+	 * Gets the dependencies.
+	 *
+	 * @param item the item
+	 * @return the dependencies
+	 */
 	public abstract Collection<E> getDependencies(E item);
 
+	/**
+	 * Generate error.
+	 *
+	 * @param item the item
+	 */
 	public abstract void generateError(E item);
 
+	/**
+	 * Order.
+	 *
+	 * @return the list
+	 */
 	public List<E> order() {
 		int index = 0;
 		for (E item : input) {
@@ -53,6 +78,12 @@ public abstract class EntityUtility<E> {
 		return output;
 	}
 
+	/**
+	 * Insert.
+	 *
+	 * @param master the master
+	 * @param current the current
+	 */
 	private void insert(E master, E current) {
 		Collection<E> dependencies = getDependencies(current);
 		for (E item : dependencies) {

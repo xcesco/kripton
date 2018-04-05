@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton58.array;
 
 import com.abubusoft.kripton.AbstractMapper;
@@ -14,13 +29,18 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for IntBean
+ * This class is binder map for IntBean.
  *
  * @see IntBean
  */
 @BindMap(IntBean.class)
 public class IntBeanBindMap extends AbstractMapper<IntBean> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(IntBean object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -70,6 +90,9 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(IntBean object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -128,7 +151,12 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(IntBean object, XMLSerializer xmlSerializer, int currentEventType)
@@ -190,7 +218,11 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the int bean
+   * @throws Exception the exception
    */
   @Override
   public IntBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -253,7 +285,11 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the int bean
+   * @throws Exception the exception
    */
   @Override
   public IntBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -326,7 +362,12 @@ public class IntBeanBindMap extends AbstractMapper<IntBean> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the int bean
+   * @throws Exception the exception
    */
   @Override
   public IntBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

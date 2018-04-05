@@ -26,19 +26,23 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
 
+// TODO: Auto-generated Javadoc
 /**
- * A LiveData class that can be invalidated & computed on demand.
+ * A LiveData class that can be invalidated and computed on demand.
  * <p>
  * This is an internal class for now, might be public if we see the necessity.
  *
  * @param <T> The type of the live data
- * @hide internal
  */
 public abstract class KriptonComputableLiveData<T> {
 
+    /** The m live data. */
     private final KriptonLiveData<T> mLiveData;
 
+    /** The m invalid. */
     private AtomicBoolean mInvalid = new AtomicBoolean(true);
+    
+    /** The m computing. */
     private AtomicBoolean mComputing = new AtomicBoolean(false);
 
     /**
@@ -68,6 +72,7 @@ public abstract class KriptonComputableLiveData<T> {
         return mLiveData;
     }
 
+    /** The m refresh runnable. */
     @VisibleForTesting
     final Runnable mRefreshRunnable = new Runnable() {
         @WorkerThread
@@ -105,6 +110,7 @@ public abstract class KriptonComputableLiveData<T> {
         }
     };
 
+    /** The m invalidation runnable. */
     // invalidation check always happens on the main thread
     @VisibleForTesting
     final Runnable mInvalidationRunnable = new Runnable() {
@@ -131,6 +137,11 @@ public abstract class KriptonComputableLiveData<T> {
     	KriptonTaskExecutor.getInstance().executeOnMainThread(mInvalidationRunnable);
     }
 
+    /**
+     * Compute.
+     *
+     * @return the t
+     */
     @WorkerThread
     protected abstract T compute();
 }

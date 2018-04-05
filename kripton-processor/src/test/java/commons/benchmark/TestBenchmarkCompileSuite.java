@@ -20,6 +20,9 @@ import org.junit.runners.Suite;
 
 import bind.AbstractBindTypeProcessorTest;
 
+/**
+ * The Class TestBenchmarkCompileSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

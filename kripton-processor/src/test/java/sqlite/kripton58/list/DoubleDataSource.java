@@ -18,6 +18,9 @@ package sqlite.kripton58.list;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
+/**
+ * The Interface DoubleDataSource.
+ */
 @BindDataSource(daoSet=DoubleDao.class, fileName = "dummy" , version=1, asyncTask=false, cursorWrapper=false)
 public interface DoubleDataSource {
 

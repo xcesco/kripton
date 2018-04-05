@@ -28,9 +28,18 @@ import sqlite.feature.jql.persistence.DaoChild;
 import sqlite.feature.jql.persistence.DaoPerson;
 import sqlite.feature.jql.persistence.FamilyDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJQL.
+ */
 @RunWith(JUnit4.class)
 public class TestJQL extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile 01.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test 
 	public void testCompile01() throws Throwable {
 		buildDataSourceProcessorTest( Bean.class, Child.class, Person.class,FamilyDataSource.class, DaoChild.class, DaoPerson.class,  DaoBean.class);

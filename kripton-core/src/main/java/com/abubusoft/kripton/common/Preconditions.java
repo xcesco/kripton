@@ -1,21 +1,30 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.common;
 
+// TODO: Auto-generated Javadoc
 /**
  * Static convenience methods that help a method or constructor check whether it was invoked correctly (whether its <i>preconditions</i> have been met). These methods generally
  * accept a {@code boolean} expression which is expected to be {@code true} (or in the case of {@code checkNotNull}, an object reference which is expected to be non-null). When
  * {@code false} (or {@code null}) is passed instead, the {@code Preconditions} method throws an unchecked exception, which helps the calling method communicate to <i>its</i>
  * caller that <i>that</i> caller has made a mistake. Example:
  * 
- * <pre>
- * {@code
- * 
- *   /**
- *    * Returns the positive square root of the given value.
- *    *
- *    * @throws IllegalArgumentException if the value is negative
- *    *}{@code /
+ * <pre> 
  *   public static double sqrt(double value) {
- *     Preconditions.checkArgument(value >= 0.0, "negative value: %s", value);
+ *     Preconditions.checkArgument(value &gt;= 0.0, "negative value: %s", value);
  *     // calculate the square root
  *   }
  * 
@@ -37,7 +46,7 @@ package com.abubusoft.kripton.common;
  * <pre>
  * {@code
  * 
- *   if (value < 0.0) {
+ *   if (value &lt; 0.0) {
  *     throw new IllegalArgumentException("negative value: " + value);
  *   }}
  * </pre>
@@ -59,7 +68,7 @@ package com.abubusoft.kripton.common;
  * 
  * <p>
  * Projects which use {@code com.google.common} should generally avoid the use of {@link java.util.Objects#requireNonNull(Object)}. Instead, use whichever of
- * {@link #checkNotNull(Object)} or {@link Verify#verifyNotNull(Object)} is appropriate to the situation. (The same goes for the message-accepting overloads.)
+ * checkNotNull(Object) or Verify#verifyNotNull(Object) is appropriate to the situation. (The same goes for the message-accepting overloads.)
  * 
  * <h3>Only {@code %s} is supported</h3>
  * 
@@ -75,6 +84,10 @@ package com.abubusoft.kripton.common;
  * @since 2.0 (imported from Google Collections Library)
  */
 public final class Preconditions {
+	
+	/**
+	 * Instantiates a new preconditions.
+	 */
 	private Preconditions() {
 	}
 
@@ -184,12 +197,11 @@ public final class Preconditions {
 
 	/**
 	 * Ensures that an object reference passed as a parameter to the calling method is not null.
-	 * 
-	 * @param reference
-	 *            an object reference
+	 *
+	 * @param <T> the generic type
+	 * @param reference            an object reference
 	 * @return the non-null reference that was validated
-	 * @throws NullPointerException
-	 *             if {@code reference} is null
+	 * @throws NullPointerException             if {@code reference} is null
 	 */
 	public static <T> T checkNotNull(T reference) {
 		if (reference == null) {
@@ -200,14 +212,12 @@ public final class Preconditions {
 
 	/**
 	 * Ensures that an object reference passed as a parameter to the calling method is not null.
-	 * 
-	 * @param reference
-	 *            an object reference
-	 * @param errorMessage
-	 *            the exception message to use if the check fails; will be converted to a string using {@link String#valueOf(Object)}
+	 *
+	 * @param <T> the generic type
+	 * @param reference            an object reference
+	 * @param errorMessage            the exception message to use if the check fails; will be converted to a string using {@link String#valueOf(Object)}
 	 * @return the non-null reference that was validated
-	 * @throws NullPointerException
-	 *             if {@code reference} is null
+	 * @throws NullPointerException             if {@code reference} is null
 	 */
 	public static <T> T checkNotNull(T reference, Object errorMessage) {
 		if (reference == null) {
@@ -218,18 +228,15 @@ public final class Preconditions {
 
 	/**
 	 * Ensures that an object reference passed as a parameter to the calling method is not null.
-	 * 
-	 * @param reference
-	 *            an object reference
-	 * @param errorMessageTemplate
-	 *            a template for the exception message should the check fail. The message is formed by replacing each {@code %s} placeholder in the template with an argument. These
+	 *
+	 * @param <T> the generic type
+	 * @param reference            an object reference
+	 * @param errorMessageTemplate            a template for the exception message should the check fail. The message is formed by replacing each {@code %s} placeholder in the template with an argument. These
 	 *            are matched by position - the first {@code %s} gets {@code errorMessageArgs[0]}, etc. Unmatched arguments will be appended to the formatted message in square
 	 *            braces. Unmatched placeholders will be left as-is.
-	 * @param errorMessageArgs
-	 *            the arguments to be substituted into the message template. Arguments are converted to strings using {@link String#valueOf(Object)}.
+	 * @param errorMessageArgs            the arguments to be substituted into the message template. Arguments are converted to strings using {@link String#valueOf(Object)}.
 	 * @return the non-null reference that was validated
-	 * @throws NullPointerException
-	 *             if {@code reference} is null
+	 * @throws NullPointerException             if {@code reference} is null
 	 */
 	public static <T> T checkNotNull(T reference, String errorMessageTemplate, Object... errorMessageArgs) {
 		if (reference == null) {
@@ -299,6 +306,14 @@ public final class Preconditions {
 		return index;
 	}
 
+	/**
+	 * Bad element index.
+	 *
+	 * @param index the index
+	 * @param size the size
+	 * @param desc the desc
+	 * @return the string
+	 */
 	private static String badElementIndex(int index, int size, String desc) {
 		if (index < 0) {
 			return format("%s (%s) must not be negative", desc, index);
@@ -351,6 +366,14 @@ public final class Preconditions {
 		return index;
 	}
 
+	/**
+	 * Bad position index.
+	 *
+	 * @param index the index
+	 * @param size the size
+	 * @param desc the desc
+	 * @return the string
+	 */
 	private static String badPositionIndex(int index, int size, String desc) {
 		if (index < 0) {
 			return format("%s (%s) must not be negative", desc, index);
@@ -383,6 +406,14 @@ public final class Preconditions {
 		}
 	}
 
+	/**
+	 * Bad position indexes.
+	 *
+	 * @param start the start
+	 * @param end the end
+	 * @param size the size
+	 * @return the string
+	 */
 	private static String badPositionIndexes(int start, int end, int size) {
 		if (start < 0 || start > size) {
 			return badPositionIndex(start, size, "start index");
@@ -397,11 +428,10 @@ public final class Preconditions {
 	/**
 	 * Substitutes each {@code %s} in {@code template} with an argument. These are matched by position: the first {@code %s} gets {@code args[0]}, etc. If there are more arguments
 	 * than placeholders, the unmatched arguments will be appended to the end of the formatted message in square braces.
-	 * 
-	 * @param template
-	 *            a non-null string containing 0 or more {@code %s} placeholders.
-	 * @param args
-	 *            the arguments to be substituted into the message template. Arguments are converted to strings using {@link String#valueOf(Object)}. Arguments can be null.
+	 *
+	 * @param template            a non-null string containing 0 or more {@code %s} placeholders.
+	 * @param args            the arguments to be substituted into the message template. Arguments are converted to strings using {@link String#valueOf(Object)}. Arguments can be null.
+	 * @return the string
 	 */
 	// Note that this is somewhat-improperly used from Verify.java as well.
 	static String format(String template, Object... args) {

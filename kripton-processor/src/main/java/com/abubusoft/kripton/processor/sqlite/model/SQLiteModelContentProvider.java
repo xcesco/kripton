@@ -15,14 +15,20 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
+// TODO: Auto-generated Javadoc
 /**
- * <p>Representation of a content provider</p>  
- *
+ * <p>Representation of a content provider</p>  .
  */
 public class SQLiteModelContentProvider {
 
+	/** The authority. */
 	public String authority;
 	
+	/**
+	 * Gets the uri.
+	 *
+	 * @return the uri
+	 */
 	public String getUri() {
 		return "content://"+authority;
 	}

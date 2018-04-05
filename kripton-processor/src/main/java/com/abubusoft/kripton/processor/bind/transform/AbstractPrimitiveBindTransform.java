@@ -28,33 +28,56 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Byte object
- * 
+ * Transformer between a string and a Java Byte object.
  */
 abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 
+	/** The json parser method. */
 	protected String JSON_PARSER_METHOD;
 
+	/** The json type. */
 	protected String JSON_TYPE;
 
+	/** The nullable. */
 	protected boolean nullable;
+	
+	/** The primitive utility type. */
 	protected String PRIMITIVE_UTILITY_TYPE;
+	
+	/** The xml attribute method post. */
 	protected String XML_ATTRIBUTE_METHOD_POST;
+	
+	/** The xml attribute method pre. */
 	protected String XML_ATTRIBUTE_METHOD_PRE;
+	
+	/** The xml cast type. */
 	protected String XML_CAST_TYPE = "";
 
+	/** The xml type. */
 	protected String XML_TYPE;
 
+	/**
+	 * Instantiates a new abstract primitive bind transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public AbstractPrimitiveBindTransform(boolean nullable) {
 		this.nullable = nullable;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#isTypeAdapterSupported()
+	 */
 	@Override
 	public boolean isTypeAdapterSupported() {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		if (nullable && property.isNullable()) {
@@ -88,6 +111,9 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		if (nullable && property.isNullable()) {
@@ -110,6 +136,9 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnXml(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
@@ -153,6 +182,9 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (nullable && property.isNullable()) {
@@ -190,6 +222,9 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (nullable && property.isNullable()) {
@@ -225,6 +260,9 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnXml(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;

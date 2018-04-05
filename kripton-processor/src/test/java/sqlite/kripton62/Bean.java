@@ -23,32 +23,48 @@ import java.util.Set;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean.
+ */
 @BindType
 @BindSharedPreferences
 public class Bean {
 	
+	/** The id. */
 	public long id;
 	
+	/** The value. */
 	public String value;
 	
+	/** The value byte set. */
 	public Set<Byte> valueByteSet;
 	
+	/** The value short set. */
 	public HashSet<Short> valueShortSet;
 	
+	/** The value integer set. */
 	public LinkedHashSet<Integer> valueIntegerSet;
 	
+	/** The value string set. */
 	public HashSet<String> valueStringSet;
 	
+	/** The value character set. */
 	public Set<Character> valueCharacterSet;
 	
+	/** The value float set. */
 	public HashSet<Float> valueFloatSet;
 	
+	/** The value double set. */
 	public HashSet<Double> valueDoubleSet;
 	
+	/** The value big decimal set. */
 	public HashSet<BigDecimal> valueBigDecimalSet;
 	
+	/** The value bean set. */
 	public LinkedHashSet<Bean> valueBeanSet;
 	
+	/** The value enum type set. */
 	public HashSet<EnumType> valueEnumTypeSet;
 	
 }

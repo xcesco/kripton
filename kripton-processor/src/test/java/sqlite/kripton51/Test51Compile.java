@@ -28,9 +28,20 @@ import sqlite.kripton51.internal.MessageType;
 import sqlite.kripton51.persistence.DaoMessage;
 import sqlite.kripton51.persistence.WhisperDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test51Compile.
+ */
 @RunWith(JUnit4.class)
 public class Test51Compile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test database.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testDatabase() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(WhisperDataSource.class, MessageEntity.class, OwnerType.class, DaoMessage.class, MessageType.class);

@@ -17,6 +17,9 @@ package sqlite.test02;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 
+/**
+ * The Class DaoBean02.
+ */
 @BindDao(Bean02.class)
 public class DaoBean02 {
 	

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.join.model;
 
 import android.database.Cursor;
@@ -12,20 +27,29 @@ import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Book</code>, based on interface <code>BookDao</code>
- * </p>
+ * </p>.
  *
- *  @see Book
- *  @see BookDao
- *  @see BookTable
+ * @see Book
+ * @see BookDao
+ * @see BookTable
  */
 public class BookDaoImpl extends Dao implements BookDao {
+  
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The Constant FIND_BOOKS_BORROWED_BY_USER_SQL1. */
   private static final String FIND_BOOKS_BORROWED_BY_USER_SQL1 = "SELECT * FROM book INNER JOIN loan ON loan.book_id == book.id WHERE loan.user_id == ? ";
 
+  /**
+   * Instantiates a new book dao impl.
+   *
+   * @param context the context
+   */
   public BookDaoImpl(SQLContext context) {
     super(context);
   }
@@ -166,6 +190,9 @@ public class BookDaoImpl extends Dao implements BookDao {
     }
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

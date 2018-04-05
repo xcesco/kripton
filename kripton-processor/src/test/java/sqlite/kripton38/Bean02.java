@@ -17,14 +17,21 @@ package sqlite.kripton38;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean02.
+ */
 @BindType
 public class Bean02 {
 
+	/** The id. */
 	protected long id;
 
 
 	
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public long getId() {
@@ -32,15 +39,20 @@ public class Bean02 {
 	}
 
 	/**
+	 * Sets the id.
+	 *
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/** The text. */
 	protected String text;
 
 	/**
+	 * Gets the text.
+	 *
 	 * @return the text
 	 */
 	public String getText() {
@@ -48,6 +60,8 @@ public class Bean02 {
 	}
 
 	/**
+	 * Sets the text.
+	 *
 	 * @param text the text to set
 	 */
 	public void setText(String text) {

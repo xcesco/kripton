@@ -22,18 +22,36 @@ import sqlite.kripton111.model.Country;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 26/02/2017.
  */
 @BindDao(Country.class)
 public interface CountryDao extends AbstractDao<Country> {
 
+    /**
+     * Select all.
+     *
+     * @return the list
+     */
     @BindSqlSelect(orderBy = "name asc")
     List<Country> selectAll();
 
+    /**
+     * Select by calling code.
+     *
+     * @param callingCode the calling code
+     * @return the country
+     */
     @BindSqlSelect(where ="callingCode = ${callingCode}")
     Country selectByCallingCode(String callingCode);
 
+    /**
+     * Select by country.
+     *
+     * @param code the code
+     * @return the country
+     */
     @BindSqlSelect(where ="code = ${code}")
     Country selectByCountry(String code);
 }

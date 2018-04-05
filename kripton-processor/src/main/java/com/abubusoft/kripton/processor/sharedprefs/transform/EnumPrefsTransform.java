@@ -23,24 +23,34 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java5 Enum object
- * 
+ * Transformer between a string and a Java5 Enum object.
+ *
  * @author xcesco
- * 
  */
 public class EnumPrefsTransform extends AbstractPrefsTransform {
 
+	/** The type name. */
 	private TypeName typeName;
 
+	/**
+	 * Instantiates a new enum prefs transform.
+	 *
+	 * @param typeName the type name
+	 */
 	public EnumPrefsTransform(TypeName typeName) {
 		super(false);
 		this.typeName = typeName;
 		defaultValue = "null";
 	}
 
+	/** The default value. */
 	protected String defaultValue;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
+	 */
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
@@ -70,6 +80,9 @@ public class EnumPrefsTransform extends AbstractPrefsTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
+	 */
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));

@@ -21,18 +21,42 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.multithread.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface PersonDAO.
+ */
 @BindDao(Person.class)
 public interface PersonDAO {
 
+	/**
+	 * Insert thread 1.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlInsert
 	public void insertThread1(Person bean);
 	
+	/**
+	 * Insert thread 2.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlInsert
 	public void insertThread2(Person bean);
 	
+	/**
+	 * Select thread 1.
+	 *
+	 * @return the person
+	 */
 	@BindSqlSelect
 	public Person selectThread1();
 	
+	/**
+	 * Select thread 2.
+	 *
+	 * @return the person
+	 */
 	@BindSqlSelect
 	public Person selectThread2();
 }

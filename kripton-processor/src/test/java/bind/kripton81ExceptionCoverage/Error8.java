@@ -20,15 +20,22 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Error8.
+ */
 @BindType
 public class Error8 {
 
+	/** The id. */
 	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
 
+	/** The ignore. */
 	@BindDisabled
 	public String ignore;
 
+	/** The ignore 2. */
 	public String ignore2;
 
 }

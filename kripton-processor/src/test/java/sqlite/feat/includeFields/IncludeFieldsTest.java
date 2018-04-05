@@ -24,13 +24,17 @@ import sqlite.feat.includeFields.Person;
 import sqlite.feat.includeFields.PersonDAO;
 import sqlite.feat.includeFields.PersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class IncludeFieldsTest.
+ */
 @RunWith(JUnit4.class)
 public class IncludeFieldsTest extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * No @BindType is put in bean definition
-	 * 
-	 * @throws Throwable
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void test01() throws Throwable {

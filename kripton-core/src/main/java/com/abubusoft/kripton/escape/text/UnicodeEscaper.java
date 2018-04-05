@@ -19,6 +19,7 @@ package com.abubusoft.kripton.escape.text;
 import java.io.IOException;
 import java.io.Writer;
 
+// TODO: Auto-generated Javadoc
 /**
  * Translates codepoints to their Unicode escaped value.
  *
@@ -26,8 +27,13 @@ import java.io.Writer;
  */
 public class UnicodeEscaper extends CodePointTranslator {
 
+    /** The below. */
     private final int below;
+    
+    /** The above. */
     private final int above;
+    
+    /** The between. */
     private final boolean between;
 
     /**
@@ -124,12 +130,10 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * Converts the given codepoint to a hex string of the form {@code "\\uXXXX"}
-     * 
-     * @param codepoint
-     *            a Unicode code point
-     * @return the hex string for the given codepoint
+     * Converts the given codepoint to a hex string of the form {@code "\\uXXXX"}.
      *
+     * @param codepoint            a Unicode code point
+     * @return the hex string for the given codepoint
      * @since 3.2
      */
     protected String toUtf16Escape(final int codepoint) {

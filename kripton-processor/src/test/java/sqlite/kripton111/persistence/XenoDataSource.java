@@ -17,6 +17,9 @@ package sqlite.kripton111.persistence;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface XenoDataSource.
+ */
 @BindDataSource(daoSet= {PhoneDao.class, PrefixConfigDao.class, CountryDao.class}, fileName = "xeno.db")
 public interface XenoDataSource {
 }

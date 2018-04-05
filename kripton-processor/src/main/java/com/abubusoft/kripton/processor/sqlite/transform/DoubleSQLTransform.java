@@ -18,14 +18,19 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.squareup.javapoet.MethodSpec.Builder;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Double object
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Transformer between a string and a Java Double object.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class DoubleSQLTransform  extends WrappedSQLTransformation {
 
+	/**
+	 * Instantiates a new double SQL transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public DoubleSQLTransform(boolean nullable)
 	{
 		super(nullable);
@@ -39,12 +44,18 @@ public class DoubleSQLTransform  extends WrappedSQLTransformation {
 		this.WRITE_COSTANT="";
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.AbstractSQLTransform#generateDefaultValue(com.squareup.javapoet.MethodSpec.Builder)
+	 */
 	@Override
 	public void generateDefaultValue(Builder methodBuilder)
 	{
 		methodBuilder.addCode(defaultValue);		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#getColumnType()
+	 */
 	@Override
 	public SQLiteColumnType getColumnType() {
 		return SQLiteColumnType.REAL;

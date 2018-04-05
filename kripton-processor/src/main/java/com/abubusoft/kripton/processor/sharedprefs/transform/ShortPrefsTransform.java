@@ -16,14 +16,19 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Short object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Short object.
  *
+ * @author xcesco
  */
 public class ShortPrefsTransform extends AbstractPrimitivePrefsTransform {
 	
+	/**
+	 * Instantiates a new short prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public ShortPrefsTransform(boolean nullable)
 	{
 		super(nullable);

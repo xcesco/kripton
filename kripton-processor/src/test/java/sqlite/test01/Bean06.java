@@ -17,6 +17,9 @@ package sqlite.test01;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+/**
+ * The Interface Bean06.
+ */
 @BindType
 public interface Bean06 {
 

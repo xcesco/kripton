@@ -25,6 +25,9 @@ import com.abubusoft.kripton.processor.sqlite.transform.Test81FCompile;
 import bind.AbstractBindTypeProcessorTest;
 import bind.kripton81ExceptionCoverage.Test81ExceptionCompile;
 
+/**
+ * The Class Test81CompileSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

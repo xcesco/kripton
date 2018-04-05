@@ -17,15 +17,23 @@ package commons.benchmark.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Image.
+ */
 @BindType
 public class Image {
 
+    /** The id. */
     public String id;
 
+    /** The format. */
     public String format;
 
+    /** The url. */
     public String url;
 
+    /** The description. */
     public String description;
 
 }

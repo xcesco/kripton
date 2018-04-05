@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.abubusoft.kripton.common.SQLDateUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Date object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.SQLDateUtils;
  */
 class SQLDateBindTransform extends WrappedBindTransform {
 
+	/**
+	 * Instantiates a new SQL date bind transform.
+	 */
 	public SQLDateBindTransform() {
 		super(SQLDateUtils.class);
 	}

@@ -25,33 +25,99 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface CharDao.
+ */
 @BindDao(CharBean.class)
 public interface CharDao {
 	
+	/**
+	 * Select one.
+	 *
+	 * @return the char bean
+	 */
 	@BindSqlSelect()
 	CharBean selectOne();	
 	
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the char bean
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	CharBean selectOne(char[] value, Character[] value2);
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(char[] value, Character[] value2, OnReadBeanListener<CharBean> listener);	
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	void selectOne(char[] value, Character[] value2, OnReadCursorListener listener);
 	
+	/**
+	 * Select list.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "value=${value} and value2=${value2}")
 	List<CharBean> selectList(char[] value, Character[] value2);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "value=${value} and value2=${value2}")
 	long updateOne(long id, char[] value, Character[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(long id, char[] value, Character[] value2);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(CharBean bean);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return the long
+	 */
 	@BindSqlDelete(where = "value=${value} and value2=${value2}")
 	long delete(char[] value, Character[] value2);
 	

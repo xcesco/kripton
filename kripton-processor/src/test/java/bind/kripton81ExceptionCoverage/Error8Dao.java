@@ -20,9 +20,18 @@ import java.util.List;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Error8Dao.
+ */
 @BindDao(Error8.class)
 public class Error8Dao {
 
+	/**
+	 * Select all.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect()
 	public List<Bean8> selectAll() {
 		return null;

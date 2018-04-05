@@ -18,13 +18,29 @@ package com.abubusoft.kripton.processor.sharedprefs.model;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PrefsModel.
+ */
 public class PrefsModel {
+	
+	/** The entities. */
 	protected List<PrefsEntity> entities = new ArrayList<PrefsEntity>();
 
+	/**
+	 * Gets the entities.
+	 *
+	 * @return the entities
+	 */
 	public List<PrefsEntity> getEntities() {
 		return entities;
 	}
 
+	/**
+	 * Entity add.
+	 *
+	 * @param item the item
+	 */
 	public void entityAdd(PrefsEntity item) {
 		entities.add(item);
 	}

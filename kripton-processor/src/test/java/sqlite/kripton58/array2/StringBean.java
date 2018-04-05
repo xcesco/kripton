@@ -17,37 +17,74 @@ package sqlite.kripton58.array2;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StringBean.
+ */
 @BindType
 public class StringBean {
 
+	/** The id. */
 	private long id;
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public String[] getValue() {
 		return value;
 	}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param value the new value
+	 */
 	public void setValue(String[] value) {
 		this.value = value;
 	}
 
+	/**
+	 * Gets the value 2.
+	 *
+	 * @return the value 2
+	 */
 	public String[] getValue2() {
 		return value2;
 	}
 
+	/**
+	 * Sets the value 2.
+	 *
+	 * @param value2 the new value 2
+	 */
 	public void setValue2(String[] value2) {
 		this.value2 = value2;
 	}
 
+	/** The value. */
 	private String[] value;
 	
+	/** The value 2. */
 	private String[] value2;
 	
 

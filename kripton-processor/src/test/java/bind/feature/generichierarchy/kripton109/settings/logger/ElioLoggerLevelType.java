@@ -15,6 +15,24 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.settings.logger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum ElioLoggerLevelType.
+ */
 public enum ElioLoggerLevelType {
-	NONE, FATAL, ERROR, WARN, INFO, DEBUG, VERBOSE
+	
+	/** The none. */
+	NONE, 
+ /** The fatal. */
+ FATAL, 
+ /** The error. */
+ ERROR, 
+ /** The warn. */
+ WARN, 
+ /** The info. */
+ INFO, 
+ /** The debug. */
+ DEBUG, 
+ /** The verbose. */
+ VERBOSE
 }

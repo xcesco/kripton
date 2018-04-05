@@ -26,12 +26,31 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.dynamic.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Err11DAO.
+ */
 @BindDao(Person.class)
 public interface Err11DAO {
 	
+	/**
+	 * Insert one.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param birthCity the birth city
+	 * @param birthDay the birth day
+	 */
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, @BindSqlDynamicOrderBy Date birthDay);
 	
+	/**
+	 * Select one.
+	 *
+	 * @param name the name
+	 * @param nameValue the name value
+	 * @return the list
+	 */
 	@BindSqlSelect(where="typeName like ${nameTemp} || '%' ")
 	List<Person> selectOne(@BindSqlDynamicOrderBy String name, @BindSqlParam("nameTemp") String nameValue);
 }

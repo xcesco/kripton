@@ -69,6 +69,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Generate class ${entity}Table which represents table for entity.
@@ -79,22 +80,31 @@ import com.squareup.javapoet.TypeSpec;
  */
 public class BindTableGenerator extends AbstractBuilder implements ModelElementVisitor<SQLiteEntity, SQLProperty> {
 
+	/** The Constant SUFFIX. */
 	public static final String SUFFIX = "Table";
 
+	/** The column name to upper case converter. */
 	private Converter<String, String> columnNameToUpperCaseConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
 
+	/**
+	 * Instantiates a new bind table generator.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param model the model
+	 */
 	public BindTableGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
 	/**
-	 * Generate table for entities
-	 * 
-	 * @param elementUtils
-	 * @param filer
-	 * @param schema
-	 * @param generatedEntities
-	 * @throws Exception
+	 * Generate table for entities.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @param generatedEntities the generated entities
+	 * @throws Exception the exception
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, Set<GeneratedTypeElement> generatedEntities) throws Exception {
 		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, schema);
@@ -109,6 +119,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		}
 	}
 
+	/**
+	 * Visit.
+	 *
+	 * @param schema the schema
+	 * @param entity the entity
+	 * @throws Exception the exception
+	 */
 	private void visit(SQLiteDatabaseSchema schema, GeneratedTypeElement entity) throws Exception {
 		int indexCounter = 0;
 
@@ -300,10 +317,23 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 	}
 
+	/**
+	 * Gets the table class name.
+	 *
+	 * @param entityName the entity name
+	 * @return the table class name
+	 */
 	public static String getTableClassName(String entityName) {
 		return entityName + SUFFIX;
 	}
 
+	/**
+	 * Table class name.
+	 *
+	 * @param dao the dao
+	 * @param entity the entity
+	 * @return the class name
+	 */
 	public static ClassName tableClassName(SQLiteDaoDefinition dao, SQLiteEntity entity) {
 		String entityName = BindDataSourceSubProcessor.generateEntityQualifiedName(dao, entity);
 
@@ -312,6 +342,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelElementVisitor#visit(com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema, com.abubusoft.kripton.processor.core.ModelClass)
+	 */
 	@Override
 	public void visit(SQLiteDatabaseSchema schema, SQLiteEntity entity) throws Exception {
 		int indexCounter = 0;
@@ -519,8 +552,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 	/**
 	 * generate columns array.
-	 * 
-	 * @param entity
+	 *
+	 * @param entity the entity
 	 */
 	private void generateColumnsArray(Finder<SQLProperty> entity) {
 		// generate columns array
@@ -539,6 +572,14 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				.addStatement("return TABLE_NAME").build());
 	}
 
+	/**
+	 * Buld indexes.
+	 *
+	 * @param entity the entity
+	 * @param unique the unique
+	 * @param counter the counter
+	 * @return the pair
+	 */
 	public static Pair<String, String> buldIndexes(final SQLiteEntity entity, boolean unique, int counter) {
 		Pair<String, String> result = new Pair<>();
 		result.value0 = "";
@@ -609,12 +650,12 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	}
 
 	/**
-	 * A generated element can have only a primary key and two FK
-	 * 
-	 * @param entity
-	 * @param unique
-	 * @param counter
-	 * @return
+	 * A generated element can have only a primary key and two FK.
+	 *
+	 * @param entity the entity
+	 * @param unique the unique
+	 * @param counter the counter
+	 * @return the pair
 	 */
 	public static Pair<String, String> buldIndexes(final GeneratedTypeElement entity, boolean unique, int counter) {
 		Pair<String, String> result = new Pair<>();
@@ -655,6 +696,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelElementVisitor#visit(com.abubusoft.kripton.processor.core.ModelProperty)
+	 */
 	@Override
 	public void visit(SQLProperty kriptonProperty) {
 		//@formatter:off

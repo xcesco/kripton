@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.livedata.persistence1;
 
 import android.arch.lifecycle.LiveData;
@@ -24,57 +39,72 @@ import java.util.List;
 import java.util.Set;
 import sqlite.feature.livedata.data.Person;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>DaoPerson1</code>
- * </p>
+ * </p>.
  *
- *  @see Person
- *  @see DaoPerson1
- *  @see sqlite.feature.livedata.data.PersonTable
+ * @see Person
+ * @see DaoPerson1
+ * @see sqlite.feature.livedata.data.PersonTable
  */
 public class DaoPerson1Impl extends Dao implements DaoPerson1 {
+  
+  /** The Constant SELECT_SQL1. */
   private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
+  /** The Constant select0ColumnSet. */
   private static final Set<String> select0ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
 
+  /** The Constant SELECT_ALL_SQL2. */
   private static final String SELECT_ALL_SQL2 = "SELECT id, name, surname FROM person";
 
+  /** The Constant selectAll1ColumnSet. */
   private static final Set<String> selectAll1ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
 
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The Constant insert2ColumnSet. */
   private static final Set<String> insert2ColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
+  /** The update prepared statement 1. */
   private static SQLiteStatement updatePreparedStatement1;
 
+  /** The Constant update3ColumnSet. */
   private static final Set<String> update3ColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
+  /** The live datas. */
   static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<KriptonComputableLiveData<?>>>());
 
+  /**
+   * Instantiates a new dao person 1 impl.
+   *
+   * @param context the context
+   */
   public DaoPerson1Impl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param name
-   * 	is binded to <code>${name}</code>
+   * @param name 	is binded to <code>${name}</code>
    * @return collection of bean or empty collection.
    */
   protected List<Person> selectForLiveData(String name) {
@@ -173,25 +203,27 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://com.abubsoft.kripton/persons/[*]</pre>
-   *
+   * 
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name, surname FROM Person WHERE name=${name}</pre>
-   *
+   * 
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
-   *
+   * 
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${name}</strong> at path segment 1</li>
    * </ul>
-   *
+   * 
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   *
+   * 
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://com.abubsoft.kripton/persons/[*]"
+   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor select0(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -249,15 +281,15 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, name, surname FROM person</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of bean or empty collection.
    */
@@ -349,20 +381,22 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://com.abubsoft.kripton/persons</pre>
-   *
+   * 
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name, surname FROM Person</pre>
-   *
+   * 
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name, surname FROM person</pre>
-   *
+   * 
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   *
+   * 
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://com.abubsoft.kripton/persons"
+   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
+   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectAll1(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -668,6 +702,11 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     return result;
   }
 
+  /**
+   * Registry event.
+   *
+   * @param affectedRows the affected rows
+   */
   protected void registryEvent(int affectedRows) {
     if (affectedRows==0) {
       return;
@@ -679,10 +718,18 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     }
   }
 
+  /**
+   * Registry live data.
+   *
+   * @param value the value
+   */
   protected void registryLiveData(KriptonComputableLiveData<?> value) {
     liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
   }
 
+  /**
+   * Invalidate live data.
+   */
   protected void invalidateLiveData() {
     for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
       if (item.get()!=null) {
@@ -691,6 +738,9 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     }
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

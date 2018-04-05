@@ -17,9 +17,14 @@ package bind.bindenum;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean.
+ */
 @BindType
 public class Bean {
 
+	/** The level. */
 	public LogLevel level;
 
 }

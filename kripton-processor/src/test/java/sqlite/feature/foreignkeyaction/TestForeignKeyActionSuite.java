@@ -22,6 +22,9 @@ import base.BaseProcessorTest;
 import sqlite.feature.foreignkeyaction.err1.TestForeignKeyActionErr1Compile;
 import sqlite.feature.foreignkeyaction.err2.TestForeignKeyActionErr2Compile;
 
+/**
+ * The Class TestForeignKeyActionSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

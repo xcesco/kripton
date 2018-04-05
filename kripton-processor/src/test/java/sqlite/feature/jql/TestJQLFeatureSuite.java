@@ -24,6 +24,9 @@ import sqlite.feature.jql.err2.TestCompileErr2;
 import sqlite.feature.jql.kripton163.TestCompileKripton163;
 import sqlite.feature.jql.kripton164.TestCompileKripton164;
 
+/**
+ * The Class TestJQLFeatureSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

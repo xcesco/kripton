@@ -1,18 +1,18 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *******************************************************************************/
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.multithread;
 
 import java.util.concurrent.ExecutorService;
@@ -29,10 +29,19 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import base.BaseAndroidTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntimeMultithread.
+ */
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class TestRuntimeMultithread extends BaseAndroidTest {
 
+	/**
+	 * Test multithread writable.
+	 *
+	 * @throws InterruptedException the interrupted exception
+	 */
 	@Test
 	public void testMultithreadWritable() throws InterruptedException {		
 		
@@ -78,6 +87,11 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 
 	}
 
+	/**
+	 * Test multithread mixed.
+	 *
+	 * @throws InterruptedException the interrupted exception
+	 */
 	@Test
 	public void testMultithreadMixed() throws InterruptedException {
 		ExecutorService executor = Executors.newFixedThreadPool(5);
@@ -216,6 +230,11 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 
 	}
 	
+	/**
+	 * Test aync task.
+	 *
+	 * @throws InterruptedException the interrupted exception
+	 */
 	@Test
 	public void testAyncTask() throws InterruptedException {
 		

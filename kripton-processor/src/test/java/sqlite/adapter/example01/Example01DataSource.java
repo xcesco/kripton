@@ -17,6 +17,9 @@ package sqlite.adapter.example01;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface Example01DataSource.
+ */
 @BindDataSource(daoSet=PersonDAO.class, fileName = "example.db")
 public interface Example01DataSource {
 

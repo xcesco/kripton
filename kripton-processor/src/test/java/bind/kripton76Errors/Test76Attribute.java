@@ -32,8 +32,19 @@ import bind.AbstractBindTypeProcessorTest;
 
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test76Attribute.
+ */
 public class Test76Attribute extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
 	{
@@ -50,6 +61,11 @@ public class Test76Attribute extends AbstractBindTypeProcessorTest {
 		
 	}
 	
+	/**
+	 * Test run.
+	 *
+	 * @throws Exception the exception
+	 */
 	//@Test
 	public void testRun() throws Exception
 	{
@@ -91,6 +107,11 @@ public class Test76Attribute extends AbstractBindTypeProcessorTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test array on xml attribute.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testArrayOnXmlAttribute() throws Throwable
 	{
@@ -98,6 +119,11 @@ public class Test76Attribute extends AbstractBindTypeProcessorTest {
 		buildBindProcessorTest(BeanAttribute76Array.class, BeanEnum.class);
 	}
 	
+	/**
+	 * Test list on xml attribute.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testListOnXmlAttribute() throws Throwable
 	{
@@ -105,6 +131,11 @@ public class Test76Attribute extends AbstractBindTypeProcessorTest {
 		buildBindProcessorTest(BeanAttribute76List.class, BeanEnum.class);
 	}
 	
+	/**
+	 * Test set on xml attribute.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testSetOnXmlAttribute() throws Throwable
 	{
@@ -112,6 +143,11 @@ public class Test76Attribute extends AbstractBindTypeProcessorTest {
 		buildBindProcessorTest(BeanAttribute76Set.class, BeanEnum.class);
 	}
 	
+	/**
+	 * Test map on xml attribute.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testMapOnXmlAttribute() throws Throwable
 	{
