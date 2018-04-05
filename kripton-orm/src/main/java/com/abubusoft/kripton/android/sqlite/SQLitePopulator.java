@@ -1,7 +1,5 @@
 package com.abubusoft.kripton.android.sqlite;
 
-import android.database.sqlite.SQLiteDatabase;
-
 /**
  * This simple interface is needed to implements populators executed after
  * database creation.
@@ -11,5 +9,5 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public interface SQLitePopulator {
 
-	void execute(SQLiteDatabase database);
+	void execute();
 }

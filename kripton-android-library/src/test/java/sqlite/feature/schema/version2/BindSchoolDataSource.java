@@ -216,13 +216,12 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
           	.log(true)
           	.build();
           instance=result=new BindSchoolDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         }
       }
@@ -267,16 +266,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(StudentTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
@@ -329,16 +328,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
@@ -386,13 +385,19 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
         result=instance;
         if (result==null) {
           instance=result=new BindSchoolDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator only a time
+              instance.justCreated=false;
+              // run populator
+              options.populator.execute();
+            }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         } else {
           throw new KriptonRuntimeException("Datasource BindSchoolDataSource is already builded");

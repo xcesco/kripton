@@ -469,15 +469,4 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		return database;
 	}
 
-	/**
-	 * Define options for data source. It must be defined
-	 * <strong>before</strong> open first connection.
-	 * 
-	 * @param options
-	 *            options
-	 */
-	public void setOptions(DataSourceOptions options) {
-		this.options = options;
-	}
-
 }

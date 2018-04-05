@@ -163,13 +163,12 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
           	.log(true)
           	.build();
           instance=result=new BindDeleteRawPersonDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         }
       }
@@ -293,13 +292,19 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
         result=instance;
         if (result==null) {
           instance=result=new BindDeleteRawPersonDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator only a time
+              instance.justCreated=false;
+              // run populator
+              options.populator.execute();
+            }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         } else {
           throw new KriptonRuntimeException("Datasource BindDeleteRawPersonDataSource is already builded");

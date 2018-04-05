@@ -481,13 +481,12 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
           	.log(true)
           	.build();
           instance=result=new BindKripton180BeanInsertSelectDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         }
       }
@@ -611,13 +610,19 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
         result=instance;
         if (result==null) {
           instance=result=new BindKripton180BeanInsertSelectDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator only a time
+              instance.justCreated=false;
+              // run populator
+              options.populator.execute();
+            }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         } else {
           throw new KriptonRuntimeException("Datasource BindKripton180BeanInsertSelectDataSource is already builded");

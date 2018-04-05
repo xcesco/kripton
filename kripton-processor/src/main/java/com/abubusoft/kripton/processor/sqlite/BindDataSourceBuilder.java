@@ -512,7 +512,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		}
 		methodBuilder.addStatement("instance=result=new $L(options)", schemaName);
 
-		generatePopulate(schema, methodBuilder);
+		generatePopulate(schema, methodBuilder, instance);
 
 		if (!instance) {
 			methodBuilder.nextControlFlow("else");
@@ -534,24 +534,28 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * @param schema
 	 * @param methodBuilder
+	 * @param instance 
 	 */
-	private void generatePopulate(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder) {
-		methodBuilder.addStatement("$T database=instance.openWritableDatabase()", SQLiteDatabase.class);
+	private void generatePopulate(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, boolean instance) {
+		
 		methodBuilder.beginControlFlow("try");
-		if (schema.configPopulatorClazz != null) {
+		methodBuilder.addStatement("instance.openWritableDatabase()");
+		methodBuilder.addStatement("instance.close()");
+		
+		if ((instance && schema.configPopulatorClazz != null) || (!instance)) {
 			methodBuilder.addComment("force database DDL run");
 			methodBuilder.beginControlFlow("if (options.populator!=null && instance.justCreated)");
-
+			methodBuilder.addComment("run populator only a time");
+			methodBuilder.addStatement("instance.justCreated=false");
+			
 			methodBuilder.addComment("run populator");
-			methodBuilder.addStatement("options.populator.execute(database)");
-
+			methodBuilder.addStatement("options.populator.execute()");
 			methodBuilder.endControlFlow();
 		}
 		methodBuilder.nextControlFlow("catch($T e)", Throwable.class);
 		methodBuilder.addStatement("$T.error(e.getMessage())", Logger.class);
-		methodBuilder.addStatement("e.printStackTrace()");
-		methodBuilder.nextControlFlow("finally");
-		methodBuilder.addStatement("instance.close()");
+		methodBuilder.addStatement("e.printStackTrace()");		
+		
 		methodBuilder.endControlFlow();
 	}
 

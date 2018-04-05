@@ -164,13 +164,12 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
           	.log(true)
           	.build();
           instance=result=new BindApp1DataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         }
       }
@@ -294,13 +293,19 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
         result=instance;
         if (result==null) {
           instance=result=new BindApp1DataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator only a time
+              instance.justCreated=false;
+              // run populator
+              options.populator.execute();
+            }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         } else {
           throw new KriptonRuntimeException("Datasource BindApp1DataSource is already builded");

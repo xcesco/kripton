@@ -162,13 +162,12 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
           	.log(true)
           	.build();
           instance=result=new BindShortDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         }
       }
@@ -292,13 +291,19 @@ public class BindShortDataSource extends AbstractDataSource implements BindShort
         result=instance;
         if (result==null) {
           instance=result=new BindShortDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator only a time
+              instance.justCreated=false;
+              // run populator
+              options.populator.execute();
+            }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         } else {
           throw new KriptonRuntimeException("Datasource BindShortDataSource is already builded");

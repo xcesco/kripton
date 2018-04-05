@@ -61,7 +61,7 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 		final One<Long> end = new One<>();
 		final One<Integer> index = new One<>();
 
-		final int COUNTER = 2000;
+		final int COUNTER = 200;
 
 		final BindPersonDataSource ds = BindPersonDataSource.instance();
 
@@ -103,13 +103,13 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 	
 	@Test
 	public void testInsertBatch() {
-		final int ITEM_COUNTER=10000;
+		final int ITEM_COUNTER=10;
 		
 		final One<Long> start = new One<>();
 		final One<Long> end = new One<>();
 		final One<Integer> index = new One<>();
 
-		final int COUNTER = 100;
+		final int COUNTER = 10;
 
 		final BindPersonDataSource ds = BindPersonDataSource.instance();
 
