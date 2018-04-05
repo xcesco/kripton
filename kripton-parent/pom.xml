@@ -23,7 +23,7 @@
 		<kripton.version>${project.version}</kripton.version>
 		<kripton.debug>false</kripton.debug>
 		
-		<skipTests>true</skipTests>
+<!-- 		<skipTests>true</skipTests> -->
 
 		<!-- environment version -->
 		<sourceEncoding>UTF-8</sourceEncoding>
