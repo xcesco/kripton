@@ -50,8 +50,15 @@ import com.squareup.javapoet.TypeSpec;
 
 import android.database.sqlite.SQLiteStatement;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModifyRawHelper.
+ */
 public class ModifyRawHelper implements ModifyCodeGenerator {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, boolean, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeName)
+	 */
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -214,6 +221,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 	}
 
+	/**
+	 * Generate java doc.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
+	 * @param updateMode the update mode
+	 */
 	private void generateJavaDoc(final SQLiteModelMethod method, Builder methodBuilder, boolean updateMode) {
 		List<Pair<String, TypeName>> methodParams = method.getParameters();
 		
@@ -351,9 +365,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	}
 
 	/**
-	 * @param updateMode
-	 * @param method
-	 * @return
+	 * Extract where conditions.
+	 *
+	 * @param updateMode the update mode
+	 * @param method the method
+	 * @return the string
 	 */
 	static String extractWhereConditions(boolean updateMode, SQLiteModelMethod method) {
 		final One<String> whereCondition = new One<String>("");
@@ -376,16 +392,14 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	
 
 	/**
-	 * @param daoDefinition
-	 * @param method
-	 * @param methodBuilder
-	 * @param updateMode
-	 * @param whereCondition
-	 * @param where
-	 * @param methodParams
-	 * @param updateableParams
-	 * 
-	 * @return sql generated
+	 * Generate java doc.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
+	 * @param updateMode the update mode
+	 * @param whereCondition the where condition
+	 * @param where the where
+	 * @param methodParams the method params
 	 */
 	private void generateJavaDoc(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, boolean updateMode, String whereCondition, Pair<String, List<Pair<String, TypeName>>> where,
 			List<Pair<String, TypeName>> methodParams) {
@@ -544,9 +558,11 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	}
 
 	/**
-	 * @param methodBuilder
-	 * @param method
-	 * @param where
+	 * Generate where condition.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param method the method
+	 * @param where the where
 	 */
 	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, Pair<String, List<Pair<String, TypeName>>> where) {
 		boolean nullable;
@@ -580,6 +596,13 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		}
 	}
 
+	/**
+	 * Checks if is in.
+	 *
+	 * @param value the value
+	 * @param classes the classes
+	 * @return true, if is in
+	 */
 	static boolean isIn(TypeName value, Class<?>... classes) {
 		for (Class<?> item : classes) {
 			if (value.toString().equals(TypeName.get(item).toString())) {

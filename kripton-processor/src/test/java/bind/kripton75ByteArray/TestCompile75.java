@@ -19,8 +19,17 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompile75.
+ */
 public class TestCompile75 extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompile() throws Throwable
 	{

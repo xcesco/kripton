@@ -17,11 +17,17 @@ package bind.kripton70;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean70A.
+ */
 @BindType("root")
 public class Bean70A {
 	
+	/** The value bean. */
 	public Bean70A valueBean;
 	
+	/** The value string. */
 	public String valueString;
 	
 }

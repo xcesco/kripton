@@ -22,6 +22,9 @@ import base.BaseProcessorTest;
 import sqlite.select.scalar.TestSelectScalar;
 import sqlite.select.scalarlist.TestSelectScalarList;
 
+/**
+ * The Class TestSelectSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

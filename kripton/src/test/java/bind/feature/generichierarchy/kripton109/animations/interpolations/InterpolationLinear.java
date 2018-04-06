@@ -15,13 +15,27 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.animations.interpolations;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InterpolationLinear.
+ */
 public class InterpolationLinear implements Interpolation {
+	
+	/** The instance. */
 	private static InterpolationLinear instance;
 
+	/**
+	 * Instantiates a new interpolation linear.
+	 */
 	private InterpolationLinear() {
 
 	}
 
+	/**
+	 * Instance.
+	 *
+	 * @return the interpolation linear
+	 */
 	public static InterpolationLinear instance() {
 		if (instance == null) {
 			instance = new InterpolationLinear();
@@ -29,6 +43,9 @@ public class InterpolationLinear implements Interpolation {
 		return instance;
 	}
 
+	/* (non-Javadoc)
+	 * @see bind.feature.generichierarchy.kripton109.animations.interpolations.Interpolation#getPercentage(float, float)
+	 */
 	@Override
 	public float getPercentage(final float pSecondsElapsed, final float pDuration) {
 		return pSecondsElapsed / pDuration;

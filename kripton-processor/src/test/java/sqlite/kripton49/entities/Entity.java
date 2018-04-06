@@ -17,8 +17,13 @@ package sqlite.kripton49.entities;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Entity.
+ */
 public abstract class Entity implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7911782943679996559L;
 
 }

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.stack44633883;
 
 import android.database.Cursor;
@@ -12,40 +27,51 @@ import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>SchoolLunch</code>, based on interface <code>SchoolLunchDAO</code>
- * </p>
+ * </p>.
  *
- *  @see SchoolLunch
- *  @see SchoolLunchDAO
- *  @see SchoolLunchTable
+ * @see SchoolLunch
+ * @see SchoolLunchDAO
+ * @see SchoolLunchTable
  */
 public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
+  
+  /** The Constant GET1_SQL1. */
   private static final String GET1_SQL1 = "SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED";
 
+  /** The Constant GET_ALL_SQL2. */
   private static final String GET_ALL_SQL2 = "SELECT lunch_id, fresh, contains_meat, fruits FROM SchoolLunches";
 
+  /** The insert all prepared statement 0. */
   private static SQLiteStatement insertAllPreparedStatement0;
 
+  /** The delete all prepared statement 1. */
   private static SQLiteStatement deleteAllPreparedStatement1;
 
+  /**
+   * Instantiates a new school lunch DAO impl.
+   *
+   * @param context the context
+   */
   public SchoolLunchDAOImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>lunch_id</dt><dd>is associated to bean's property <strong>lunchId</strong></dd>
    * 	<dt>fresh</dt><dd>is associated to bean's property <strong>fresh</strong></dd>
    * 	<dt>contains_meat</dt><dd>is associated to bean's property <strong>containsMeat</strong></dd>
    * 	<dt>fruits</dt><dd>is associated to bean's property <strong>fruits</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of bean or empty collection.
    */
@@ -105,16 +131,16 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT lunch_id, fresh, contains_meat, fruits FROM SchoolLunches</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>lunch_id</dt><dd>is associated to bean's property <strong>lunchId</strong></dd>
    * 	<dt>fresh</dt><dd>is associated to bean's property <strong>fresh</strong></dd>
    * 	<dt>contains_meat</dt><dd>is associated to bean's property <strong>containsMeat</strong></dd>
    * 	<dt>fruits</dt><dd>is associated to bean's property <strong>fruits</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of bean or empty collection.
    */
@@ -244,12 +270,11 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM SchoolLunches</pre>
-   *
-   *
+   * 
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
-   * </dl>
-   *
+   * </dl>.
    */
   @Override
   public void deleteAll() {
@@ -279,6 +304,9 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
     int result = KriptonDatabaseWrapper.updateDelete(deleteAllPreparedStatement1, _contentValues);
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertAllPreparedStatement0!=null) {
       insertAllPreparedStatement0.close();

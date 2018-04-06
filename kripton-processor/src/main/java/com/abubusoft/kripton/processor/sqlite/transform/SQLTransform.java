@@ -22,114 +22,118 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
  * Class implementing this interface can be used to generate code to read and
- * write the property
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * write the property.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public interface SQLTransform {
 
 	/**
-	 * Generate code to put into cursor, the bean property value
-	 * 
-	 * @param beanClass
+	 * Generate code to put into cursor, the bean property value.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 * @param cursorName the cursor name
+	 * @param indexName the index name
 	 */
 	void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
 
 	/**
 	 * Used when you need to use a cursor column as select's result value. 
-	 * 
-	 * @param methodBuilder
-	 * @param daoDefinition
-	 * @param paramTypeName
-	 * @param cursorName
-	 * @param indexName
+	 *
+	 * @param methodBuilder the method builder
+	 * @param daoDefinition the dao definition
+	 * @param paramTypeName the param type name
+	 * @param cursorName the cursor name
+	 * @param indexName the index name
 	 */
 	void generateReadValueFromCursor(Builder methodBuilder, SQLiteDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName);
 
 	/**
-	 * Generate default value, null or 0 or ''
-	 * 
-	 * @param methodBuilder
+	 * Generate default value, null or 0 or ''.
+	 *
+	 * @param methodBuilder the method builder
 	 */
 	void generateDefaultValue(Builder methodBuilder);
 
 	/**
-	 * Write a bean property to a content writer
-	 * 
-	 * 
-	 * @param methodBuilder
-	 * @param beanName
-	 * @param property
-	 *            property to write
+	 * Write a bean property to a content writer.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param beanName the bean name
+	 * @param beanClass the bean class
+	 * @param property            property to write
 	 */
 	void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property);
 	
 	/**
-	 * Write a bean property into a where condition
-	 * @param methodBuilder
-	 * @param beanName
-	 * @param beanClass
-	 * @param property
+	 * Write a bean property into a where condition.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param beanName the bean name
+	 * @param beanClass the bean class
+	 * @param property the property
 	 */
 	void generateWriteProperty2WhereCondition(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property);
 
 	/**
 	 * <p>
 	 * Generate code to write parameter to where condition
-	 * </p>
-	 * 
-	 * @param methodBuilder
-	 * @param daoDefinition
-	 *            TODO
-	 * @param objectName
+	 * </p>.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param method the method
+	 * @param paramName the param name
+	 * @param paramTypeName the param type name
 	 */
 	void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName);
 	
 	/**
-	 * <p>Generate code to write parameter to where statement</p>
-	 * 
-	 * @param methodBuilder
-	 * @param method
-	 * @param paramName
-	 * @param paramType
-	 * @param property 
-	 * @param property
+	 * <p>Generate code to write parameter to where statement</p>.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param method the method
+	 * @param paramName the param name
+	 * @param paramType the param type
+	 * @param property the property
 	 */
 	void generateWriteParam2ContentValues(Builder methodBuilder,  SQLiteModelMethod method, String paramName, TypeName paramType, ModelProperty property);
 
 	/**
-	 * Generate code to set property to null value or default value
-	 * 
-	 * @param methodBuilder
-	 * @param property
-	 * @param beanName
-	 * @param cursorName
-	 * @param indexName
+	 * Generate code to set property to null value or default value.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 * @param cursorName the cursor name
+	 * @param indexName the index name
 	 */
 	void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName);
 
 	/**
-	 * Associated column type
-	 * 
+	 * Associated column type.
+	 *
 	 * @return column type as string
-	 * 
 	 */
 	String getColumnTypeAsString();
 
 	/**
-	 * 
+	 * Gets the column type.
+	 *
 	 * @return column type
 	 */
 	SQLiteColumnType getColumnType();
 	
 	/**
 	 * if true, transform can be used as convertion type in a type adapter.
-	 * 
-	 * @return
+	 *
+	 * @return true, if is type adapter aware
 	 */
 	boolean isTypeAdapterAware();
 

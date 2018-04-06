@@ -26,12 +26,17 @@ import sqlite.feature.indexes.Person;
 import sqlite.feature.indexes.PersonDAO;
 import sqlite.feature.indexes.PersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class IndexTest.
+ */
 @RunWith(JUnit4.class)
 public class IndexTest extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * No @BindType is put in bean definition
-	 * @throws Throwable 
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void test01() throws Throwable {
@@ -39,7 +44,10 @@ public class IndexTest extends AbstractBindSQLiteProcessorTest {
 	}	
 	
 	/**
-	 * @BindTable indexes element use an undefined field typeName 
+	 * Error 1.
+	 *
+	 * @throws Throwable the throwable
+	 * @BindTable indexes element use an undefined field typeName
 	 */
 	@Test
 	public void error1() throws Throwable {
@@ -48,6 +56,9 @@ public class IndexTest extends AbstractBindSQLiteProcessorTest {
 	}	
 	
 	/**
+	 * Error 2.
+	 *
+	 * @throws Throwable the throwable
 	 * @BindTable indexes element forgot a comma between two valid field typeName
 	 */
 	@Test

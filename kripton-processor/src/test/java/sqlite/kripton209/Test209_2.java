@@ -27,14 +27,23 @@ import sqlite.kripton209.model2.User;
 import sqlite.kripton209.model2.UserDao;
 import sqlite.kripton209.model2.UserDeviceDao;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class Test209_2.
+ *
  * @author xcesco
  * 
  * https://stackoverflow.com/questions/45160625/how-to-implement-a-many-to-many-relations-with-android-room-persistence-library
- *
  */
 public class Test209_2 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {		
 		buildDataSourceProcessorTest(App2DataSource.class, Device.class, DeviceDao.class, User.class, UserDao.class, UserDeviceDao.class);

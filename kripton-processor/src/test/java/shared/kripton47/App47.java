@@ -18,16 +18,22 @@ package shared.kripton47;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class App47.
+ */
 @BindType
 @BindSharedPreferences(value="dummy")
 public class App47 {
 
+	/** The name. */
 	public String name="ciao"; 
 	
 	//public String description;
 		
 	//public float valueFloat=5.0f;
 	
+	/** The user access token. */
 	public UserAccessToken userAccessToken;
 	
 }

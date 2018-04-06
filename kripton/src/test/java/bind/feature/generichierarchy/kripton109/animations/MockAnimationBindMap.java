@@ -14,17 +14,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for MockAnimation
+ * This class is binder map for MockAnimation.
  *
  * @see MockAnimation
  */
 @BindMap(MockAnimation.class)
 public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
-  /**
-   * MockKeyFrameBindMap */
+  
+  /** MockKeyFrameBindMap. */
   private MockKeyFrameBindMap mockKeyFrameBindMap = BinderUtils.mapperFor(MockKeyFrame.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(MockAnimation object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -70,6 +74,9 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(MockAnimation object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -120,7 +127,12 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(MockAnimation object, XMLSerializer xmlSerializer,
@@ -173,7 +185,11 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the mock animation
+   * @throws Exception the exception
    */
   @Override
   public MockAnimation parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -230,7 +246,11 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the mock animation
+   * @throws Exception the exception
    */
   @Override
   public MockAnimation parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -292,7 +312,12 @@ public class MockAnimationBindMap extends AbstractMapper<MockAnimation> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the mock animation
+   * @throws Exception the exception
    */
   @Override
   public MockAnimation parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

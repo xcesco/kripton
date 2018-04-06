@@ -16,11 +16,22 @@
 package bind.feature.generichierarchy.kripton109.test3;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Class1.
+ *
+ * @param <A> the generic type
+ * @param <B> the generic type
+ * @param <C> the generic type
+ */
 public class Class1<A, B, C> {
 
+	/** The value A. */
 	public A valueA;
 	
+	/** The value B. */
 	public B valueB;
 	
+	/** The value C. */
 	public C valueC;
 }

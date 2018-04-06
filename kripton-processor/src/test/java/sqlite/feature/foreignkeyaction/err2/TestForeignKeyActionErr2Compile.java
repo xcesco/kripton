@@ -26,13 +26,22 @@ import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnota
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.foreignkeyaction.BaseDao;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class TestForeignKeyActionErr2Compile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class TestForeignKeyActionErr2Compile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test foreign key action.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testForeignKeyAction() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(IncompatibleAttributesInAnnotationException.class);

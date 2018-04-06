@@ -18,6 +18,9 @@ package sqlite.kripton41;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
+/**
+ * The Interface Dummy01DataSource.
+ */
 @BindDataSource(daoSet=DaoBeanSelectERR.class, fileName = "dummy1" , version=1)
 public interface Dummy01DataSource {
 

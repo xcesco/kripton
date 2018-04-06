@@ -20,6 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
  * Allow to delete a bean from a database. You can use bean as input parameter
  * or method parameters like bean property, but you can not use mixed case.
@@ -112,6 +113,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface BindSqlDelete {
 
+	/**
+	 * Where.
+	 *
+	 * @return the string
+	 */
 	String where() default "";
 
 	/**
@@ -123,7 +129,7 @@ public @interface BindSqlDelete {
 	 * specify where to use the dynamic parts of query through dynamic
 	 * statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE,
 	 * DYNAMIC_PAGE_OFFSET, encapsulated in
-	 * <code>#{ <dynamic-part-name> }</code>
+	 * <code>#{dynamic-part-name}</code>
 	 * </p>
 	 * 
 	 * <p>

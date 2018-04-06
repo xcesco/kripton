@@ -34,6 +34,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Resolver for type variables used in class or interface hierarchy.</p> 
  * 
@@ -44,15 +45,26 @@ import com.squareup.javapoet.TypeName;
  */
 public class TypeVariableResolver {
 
+	/** The declared type argument list. */
 	List<TypeName> declaredTypeArgumentList;
 	
+	/** The type variable map. */
 	Map<String, TypeName> typeVariableMap;
 	
+	/** The element. */
 	TypeElement element;
 	
+	/** The active. */
 	boolean active;
 	
 	
+	/**
+	 * Instantiates a new type variable resolver.
+	 *
+	 * @param element the element
+	 * @param typeArgs the type args
+	 * @param typeVariableMap the type variable map
+	 */
 	public TypeVariableResolver(TypeElement element, List<TypeName> typeArgs, Map<String, TypeName> typeVariableMap) {
 		this.element=element;
 		this.declaredTypeArgumentList=typeArgs;
@@ -60,10 +72,21 @@ public class TypeVariableResolver {
 		this.active=(typeArgs != null && typeArgs.size() > 0) || (typeVariableMap.size()>0);
 	}
 	
+	/**
+	 * Checks for type variables.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasTypeVariables() {
 		return active;
 	}
 	
+	/**
+	 * Builds the.
+	 *
+	 * @param element the element
+	 * @return the type variable resolver
+	 */
 	public static TypeVariableResolver build(TypeElement element)
 	{
 		List<TypeName> typeArgs = TypeUtility.getTypeArguments(element);
@@ -112,6 +135,12 @@ public class TypeVariableResolver {
 		return new TypeVariableResolver(element, typeArgs, typeVariableMap);
 	}
 	
+	/**
+	 * Resolve.
+	 *
+	 * @param inputType the input type
+	 * @return the type name
+	 */
 	public TypeName resolve(TypeName inputType) {
 		if (!hasTypeVariables())
 			return inputType;

@@ -20,6 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * This annotation mark an interface for DAO (Data Access Object) associated to a specific bean associated with {@link #value()} attribute. 
@@ -36,7 +37,7 @@ import java.lang.annotation.Target;
  *  <li><code>DELETE</code>: with {@link BindSqlDelete} annotation</li>
  * </ul> 
  * 
- * <p>Referred {@link #value()} bean must be annotated with {@link BindType} annotation.</p>
+ * <p>Referred {@link #value()} bean must be annotated with {@link BindTable} annotation.</p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -48,7 +49,7 @@ public @interface BindDao {
 	/**
 	 * <p>Bean class to associate with this dao definition.</p>
 	 * 
-	 * <p>Referred {@link #value()} bean must be annotated with {@link BindType} annotation.</p>
+	 * <p>Referred {@link #value()} bean must be annotated with {@link BindTable} annotation.</p>
 	 * 
 	 * @return
 	 * 		class of assocaited bean

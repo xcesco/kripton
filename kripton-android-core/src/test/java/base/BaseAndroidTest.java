@@ -32,12 +32,20 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.Context;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BaseAndroidTest.
+ */
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public abstract class BaseAndroidTest {
 
+	/** The Constant KRIPTON_DEBUG_MODE. */
 	private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		final String value = System.getProperty(KRIPTON_DEBUG_MODE);
@@ -53,22 +61,50 @@ public abstract class BaseAndroidTest {
 		KriptonLibrary.init(RuntimeEnvironment.application);
 	}
 	
+	/**
+	 * Gets the application context.
+	 *
+	 * @return the application context
+	 */
 	protected Context getApplicationContext() {
 		return RuntimeEnvironment.application;
 	}
 
+	/** The expected ex. */
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
+	/**
+	 * Expected kripton runtime exception with cause.
+	 *
+	 * @param <E> the element type
+	 * @param clazzException the clazz exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	public <E> void expectedKriptonRuntimeExceptionWithCause(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(KriptonRuntimeException.class);
 		expectedEx.expectMessage(clazzException.getSimpleName());
 	}
 
+	/**
+	 * Expected exception.
+	 *
+	 * @param <E> the element type
+	 * @param clazzException the clazz exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	public <E> void expectedException(Class<? extends Throwable> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(clazzException);
 	}
 	
+	/**
+	 * Log.
+	 *
+	 * @param format the format
+	 * @param objects the objects
+	 */
 	public void log(String format, Object ...objects)
 	{
 		System.out.println(String.format(format, objects));

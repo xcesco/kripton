@@ -19,18 +19,23 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 12/01/2017.
  */
 @BindType
 public class Todo {
 
+    /** The id. */
     @BindColumn(columnType = ColumnType.PRIMARY_KEY)
     public long id;
 
+    /** The user id. */
     public long userId;
 
+    /** The title. */
     public String title;
 
+    /** The completed. */
     public boolean completed;
 }

@@ -18,9 +18,18 @@ package commons.kripton86.test4;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Dao4.
+ */
 @BindDao(Bean4.class)
 public interface Dao4 {
 
+	/**
+	 * Select all.
+	 *
+	 * @return the bean 4
+	 */
 	@BindSqlSelect
 	Bean4 selectAll();
 		

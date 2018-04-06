@@ -16,6 +16,7 @@
 
 package android.arch.core.util;
 
+// TODO: Auto-generated Javadoc
 /**
  * Represents a function.
  *

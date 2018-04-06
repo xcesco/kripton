@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
+/**
+ * The Interface Error5Bean.
+ */
 @BindSharedPreferences
 public interface Error5Bean {
 

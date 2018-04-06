@@ -18,6 +18,9 @@ package bind.feature.generichierarchy.kripton109.animations;
 import com.abubusoft.kripton.annotation.BindType;
 
 
+/**
+ * The Class MockAnimation.
+ */
 @BindType
 public class MockAnimation extends Animation<MockKeyFrame> {
 

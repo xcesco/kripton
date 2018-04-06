@@ -19,19 +19,42 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
- * Class implementing this interface can be used to generate code to read and write the property for a binded shared preferences
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Class implementing this interface can be used to generate code to read and write the property for a binded shared preferences.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public interface PrefsTransform {
 
+	/**
+	 * Generate read property.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param preferenceName the preference name
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 * @param singleRead the single read
+	 */
 	void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean singleRead);
 	
+	/**
+	 * Generate write property.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param editorName the editor name
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 */
 	void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property);
 	
+	/**
+	 * Checks if is type adapter aware.
+	 *
+	 * @return true, if is type adapter aware
+	 */
 	boolean isTypeAdapterAware();
 
 }

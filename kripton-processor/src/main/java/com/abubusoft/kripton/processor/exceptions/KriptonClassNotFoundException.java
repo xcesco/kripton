@@ -15,19 +15,24 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class KriptonClassNotFoundException.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonClassNotFoundException extends KriptonProcessorException {
 
+	/**
+	 * Instantiates a new kripton class not found exception.
+	 *
+	 * @param e the e
+	 */
 	public KriptonClassNotFoundException(ClassNotFoundException e) {
 		super(e);
 	}
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5217387587464012546L;
 
 }

@@ -35,20 +35,22 @@ import sqlite.quickstart.persistence.QuickStartDataSource;
 import sqlite.quickstart.persistence.TodoDao;
 import sqlite.quickstart.persistence.UserDao;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class TestQuickstart.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class TestQuickstart extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No DAO definition with @BindDaoDefinition annotation was found for class
-	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {

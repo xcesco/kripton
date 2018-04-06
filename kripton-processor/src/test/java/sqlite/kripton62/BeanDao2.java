@@ -27,37 +27,101 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface BeanDao2.
+ */
 @BindDao(Bean2.class)
 public interface BeanDao2 {
 	
+	/**
+	 * Select one.
+	 *
+	 * @return the bean 2
+	 */
 	@BindSqlSelect()
 	Bean2 selectOne();	
 
+	/**
+	 * Select one.
+	 *
+	 * @param id the id
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "id = ${id}")
 	void selectOne(int id, OnReadBeanListener<Bean2> listener);
 
+	/**
+	 * Select one.
+	 *
+	 * @param id the id
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "id = ${id}")
 	void selectOne(long id, OnReadCursorListener listener);
 
+	/**
+	 * Select list.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "id = ${id}")
 	List<Bean2> selectList(long id);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param value the value
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "id=${value.id}")
 	long updateOne(Bean2 value);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(Bean2 bean);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param valueBigDecimalSet the value big decimal set
+	 * @return the long
+	 */
 	// BigDecimal
 	@BindSqlInsert()
 	long insert(HashSet<BigDecimal> valueBigDecimalSet);
 	
+	/**
+	 * Select one.
+	 *
+	 * @param valueBigDecimalSet the value big decimal set
+	 * @return the bean 2
+	 */
 	@BindSqlSelect(where = "value=${valueBigDecimalSet}")
 	Bean2 selectOne(HashSet<BigDecimal> valueBigDecimalSet);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param valueBigDecimalSet the value big decimal set
+	 * @return the long
+	 */
 	@BindSqlDelete(where = "value=${valueBigDecimalSet}")
 	long delete(HashSet<BigDecimal> valueBigDecimalSet);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param id the id
+	 * @param valueBigDecimalSet the value big decimal set
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "value=${valueBigDecimalSet}")
 	long updateOne(long id, HashSet<BigDecimal> valueBigDecimalSet);
 	

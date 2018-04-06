@@ -27,13 +27,18 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.lang.Exception;
 import java.lang.Override;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Image
+ * This class is binder map for Image.
  *
  * @see Image
  */
 @BindMap(Image.class)
 public class ImageBindMap extends AbstractMapper<Image> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(Image object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -69,6 +74,9 @@ public class ImageBindMap extends AbstractMapper<Image> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(Image object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -105,7 +113,12 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(Image object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -149,7 +162,11 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the image
+   * @throws Exception the exception
    */
   @Override
   public Image parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -200,7 +217,11 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the image
+   * @throws Exception the exception
    */
   @Override
   public Image parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -251,7 +272,12 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the image
+   * @throws Exception the exception
    */
   @Override
   public Image parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

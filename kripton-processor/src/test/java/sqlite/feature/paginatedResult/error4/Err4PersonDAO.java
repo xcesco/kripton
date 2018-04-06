@@ -22,16 +22,39 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Err4PersonDAO.
+ */
 @BindDao(Err4Person.class)
 public interface Err4PersonDAO {
 	
+	/**
+	 * Select paged static 1.
+	 *
+	 * @return the paginated result
+	 */
 	@BindSqlSelect(orderBy="name", pageSize=20)
 	PaginatedResult<Err4Person> selectPagedStatic1();
 	
+	/**
+	 * Select paged static 2.
+	 *
+	 * @param name the name
+	 * @return the paginated result
+	 */
 	@BindSqlSelect(where="name=${name}" ,orderBy="name", pageSize=-20)
 	PaginatedResult<Err4Person> selectPagedStatic2(String name);
 	
 	
+	/**
+	 * Insert one.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param birthCity the birth city
+	 * @param birthDay the birth day
+	 */
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 /*

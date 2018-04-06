@@ -15,8 +15,15 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.settings;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum TouchSupportType.
+ */
 public enum TouchSupportType {
 	
+	/** The disable. */
 	DISABLE,
+	
+	/** The single touch. */
 	SINGLE_TOUCH;
 }

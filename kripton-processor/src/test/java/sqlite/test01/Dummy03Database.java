@@ -15,6 +15,9 @@
  *******************************************************************************/
 package sqlite.test01;
 
+/**
+ * The Interface Dummy03Database.
+ */
 public interface Dummy03Database {
 
 }

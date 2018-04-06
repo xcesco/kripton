@@ -19,13 +19,23 @@ import com.abubusoft.kripton.TypeAdapter;
 
 import bind.feature.typeAdapter.kripton87.Enum87A;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StringEnum87ATypeAdapter.
+ */
 public class StringEnum87ATypeAdapter implements TypeAdapter<String, Enum87A> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public String toJava(Enum87A dataValue) {
 		return dataValue.toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public Enum87A toData(String javaValue) {
 		return Enum87A.valueOf(javaValue);

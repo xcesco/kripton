@@ -25,65 +25,103 @@ import com.abubusoft.kripton.annotation.BindXml;
 
 import bind.kripton73Array.Enum73;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean73.
+ */
 @BindType
 public class Bean73 {
 	
+	/**
+	 * Instantiates a new bean 73.
+	 */
 	public Bean73()
 	{
 		
 	}
 	
+	/**
+	 * Instantiates a new bean 73.
+	 *
+	 * @param name the name
+	 */
 	public Bean73(String name)
 	{
 		this.name=name;
 	}
 	
+	/** The name. */
 	public String name;
 	
+	/** The value bean array. */
 	@BindXml(elementTag="item")
 	public Bean73[] valueBeanArray;
 	
+	/** The value big decimal array. */
 	@Bind(enabled=true)
 	public BigDecimal[] valueBigDecimalArray;
 	
+	/** The value big integer array. */
 	@Bind(enabled=true)
 	@BindXml(elementTag="item")
 	public BigInteger[] valueBigIntegerArray;
 	
+	/** The value byte array. */
 	@BindXml(elementTag="item")
 	public Byte[] valueByteArray;
 	
+	/** The value character array. */
 	@BindXml(elementTag="item")
 	public Character[] valueCharacterArray;
 	
+	/** The value double array. */
 	@BindXml(elementTag="item")
 	public Double[] valueDoubleArray;
 	
+	/** The value enum array. */
 	public Enum73[] valueEnumArray;
 	
+	/** The value float array. */
 	@BindXml(elementTag="item")
 	public Float[] valueFloatArray;
 	
+	/** The value int array. */
 	@BindXml(elementTag="item")
 	private Integer[] valueIntArray;
 	
+	/**
+	 * Gets the value int array.
+	 *
+	 * @return the value int array
+	 */
 	public Integer[] getValueIntArray() {
 		return valueIntArray;
 	}
 
+	/**
+	 * Sets the value int array.
+	 *
+	 * @param valueIntArray the new value int array
+	 */
 	public void setValueIntArray(Integer[] valueIntArray) {
 		this.valueIntArray = valueIntArray;
 	}
 
+	/** The value long array. */
 	@BindXml(elementTag="item")
 	public Long[] valueLongArray;
 
+	/** The value short array. */
 	@BindXml(elementTag="item")
 	public Short[] valueShortArray;
 	
+	/** The value string array. */
 	@BindXml(elementTag="item")
 	public String[] valueStringArray;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,6 +142,9 @@ public class Bean73 {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

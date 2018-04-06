@@ -18,21 +18,30 @@ package bind.feature.generichierarchy.kripton109.settings;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OpenGLSettings.
+ */
 @BindType
 public class OpenGLSettings {
 
+	/** The version. */
 	@Bind("openGLVersion")
 	public int version = 2;
 
+	/** The debug. */
 	@Bind("openGLDebug")
 	public boolean debug = false;
 
+	/** The max FPS. */
 	@Bind("openGLMaxFPS")
 	public int maxFPS = 0;
 
+	/** The safe mode. */
 	@Bind("openGLSafeMode")
 	public boolean safeMode = true;
 	
+	/** The async mode. */
 	@Bind("openGLAsyncMode")
 	public boolean asyncMode = true;
 	

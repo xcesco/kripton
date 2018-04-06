@@ -20,12 +20,18 @@ import java.util.Date;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean87A_1.
+ */
 @BindType
 public class Bean87A_1 {
 
+	/** The value date. */
 	@BindAdapter(adapter = DateLongTypeAdapter.class)
 	public Date valueDate;
 
+	/** The value description. */
 	@BindAdapter(adapter = StringInverterTypeAdapter.class)
 	public String valueDescription;
 }

@@ -17,6 +17,9 @@ package sqlite.feature.dynamic.select;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface Err16DataSource.
+ */
 @BindDataSource(daoSet= { Err16DAO.class }, fileName = "person.db", log=true)
 public interface Err16DataSource {
 

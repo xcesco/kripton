@@ -22,6 +22,9 @@ import base.BaseProcessorTest;
 import sqlite.feature.contentprovider.kripton213.case1.TestCompileKripton213;
 import sqlite.feature.contentprovider.kripton35.TestContentProvider;
 
+/**
+ * The Class TestContentProviderSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

@@ -20,6 +20,9 @@ import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
 
+/**
+ * The Class Test03Suite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

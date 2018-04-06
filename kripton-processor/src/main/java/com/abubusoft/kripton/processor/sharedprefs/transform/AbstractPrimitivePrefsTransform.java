@@ -24,31 +24,53 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Byte object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Byte object.
  *
+ * @author xcesco
  */
 abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 
+	/**
+	 * Instantiates a new abstract primitive prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public AbstractPrimitivePrefsTransform(boolean nullable) {
 		super(true);
 		this.nullable = nullable;		
 	}
 	
+	/**
+	 * Instantiates a new abstract primitive prefs transform.
+	 *
+	 * @param nullable the nullable
+	 * @param typeAware the type aware
+	 */
 	public AbstractPrimitivePrefsTransform(boolean nullable, boolean typeAware) {
 		super(typeAware);
 		this.nullable = nullable;		
 	}
 	
+	/** The nullable. */
 	protected boolean nullable;
 
+	/** The simple type. */
 	protected String SIMPLE_TYPE;
+	
+	/** The prefs convert. */
 	protected String PREFS_CONVERT;
+	
+	/** The prefs type. */
 	protected String PREFS_TYPE;
+	
+	/** The prefs default value. */
 	protected String PREFS_DEFAULT_VALUE;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
+	 */
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
@@ -81,6 +103,9 @@ abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 		methodBuilder.addCode(";");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
+	 */
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		if (nullable) {

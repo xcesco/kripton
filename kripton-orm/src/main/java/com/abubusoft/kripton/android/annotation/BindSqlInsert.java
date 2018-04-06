@@ -22,6 +22,7 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
+// TODO: Auto-generated Javadoc
 /**
  * Allow to insert a bean into database. You can use bean as input parameter or
  * method parameters like bean property, but you can not use mixed case.
@@ -163,7 +164,7 @@ public @interface BindSqlInsert {
 	 * <p>
 	 * JQL value. With this attribute, it is possibile to specify directly the JQL code. JQL means that you can write SQL using field's names and class name indeed
 	 * of column and table names. Moreover, it is possibile to specify where to use the dynamic parts of query through dynamic statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET, encapsulated
-	 * in <code>#{ <dynamic-part-name> }</code>
+	 * in <code>#{dynamic-part-name}</code>
 	 * </p>
 	 * 
 	 * <p>For example, for a <code>select</code> statement, you can write:</p>

@@ -19,6 +19,10 @@ import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class App2Preferences.
+ */
 @BindSharedPreferences
 public class App2Preferences {
 	
@@ -26,7 +30,8 @@ public class App2Preferences {
 //	@BindPreference
 //	public int field1;
 	
-	@BindPreferenceAdapter(adapter=IntTypeAdapter.class)
+	/** The field 2. */
+@BindPreferenceAdapter(adapter=IntTypeAdapter.class)
 	@BindPreference
 	public Integer field2;
 		

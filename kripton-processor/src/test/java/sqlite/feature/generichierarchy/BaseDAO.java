@@ -23,16 +23,46 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface BaseDAO.
+ *
+ * @param <E> the element type
+ */
 public interface BaseDAO<E> {	
+	
+	/**
+	 * Select by id.
+	 *
+	 * @param bean the bean
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "id=${work.id}")
 	List<E> selectById(@BindSqlParam("work") E bean);
 
+	/**
+	 * Insert thread 1.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlInsert
 	public void insertThread1(E bean);
 
+	/**
+	 * Update.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlUpdate(where = "id=${work.id}")
 	public boolean update(@BindSqlParam("work") E bean);
 
+	/**
+	 * Delete.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlDelete(where = "id=${work.id}")
 	public boolean delete(@BindSqlParam("work") E bean);
 

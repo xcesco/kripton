@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.javadoc.insert.raw;
 
 import android.content.ContentValues;
@@ -14,28 +29,41 @@ import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.Set;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>InsertRawPersonDao</code>
- * </p>
+ * </p>.
  *
- *  @see sqlite.feature.javadoc.Person
- *  @see InsertRawPersonDao
- *  @see sqlite.feature.javadoc.PersonTable
+ * @see sqlite.feature.javadoc.Person
+ * @see InsertRawPersonDao
+ * @see sqlite.feature.javadoc.PersonTable
  */
 public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
+  
+  /** The insert one raw prepared statement 0. */
   private static SQLiteStatement insertOneRawPreparedStatement0;
 
+  /** The Constant insertOneRaw0ColumnSet. */
   private static final Set<String> insertOneRaw0ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
 
+  /** The insert one raw field name prepared statement 1. */
   private static SQLiteStatement insertOneRawFieldNamePreparedStatement1;
 
+  /** The Constant insertOneRawFieldName1ColumnSet. */
   private static final Set<String> insertOneRawFieldName1ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
+  /** The insert one 2 raw field name prepared statement 2. */
   private static SQLiteStatement insertOne2RawFieldNamePreparedStatement2;
 
+  /** The Constant insertOne2RawFieldName2ColumnSet. */
   private static final Set<String> insertOne2RawFieldName2ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
 
+  /**
+   * Instantiates a new insert raw person dao impl.
+   *
+   * @param context the context
+   */
   public InsertRawPersonDaoImpl(SQLContext context) {
     super(context);
   }
@@ -43,18 +71,15 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (person_name, person_surname) VALUES (${name}, ${personSurname})</pre>
-   *
+   * 
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>personSurname</dt><dd>is binded to query's parameter <strong>${personSurname}</strong> and method's parameter <strong>personSurname</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param name
-   * 	is binded to column value <strong>person_name</strong>
-   * @param personSurname
-   * 	is binded to column value <strong>person_surname</strong>
-   *
+   * @param name 	is binded to column value <strong>person_name</strong>
+   * @param personSurname 	is binded to column value <strong>person_surname</strong>
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -156,15 +181,13 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (${name})</pre>
-   *
+   * 
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param name
-   * 	is binded to column value <strong>person_name</strong>
-   *
+   * @param name 	is binded to column value <strong>person_name</strong>
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -266,18 +289,15 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO person (person_name, person_surname) VALUES (${name}, ${surnname})</pre>
-   *
+   * 
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>surnname</dt><dd>is binded to query's parameter <strong>${surnname}</strong> and method's parameter <strong>surnname</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param surnname
-   * 	is binded to column value <strong>person_surname</strong>
-   * @param name
-   * 	is binded to column value <strong>person_name</strong>
-   *
+   * @param surnname 	is binded to column value <strong>person_surname</strong>
+   * @param name 	is binded to column value <strong>person_name</strong>
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -379,15 +399,13 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=${name}</pre>
-   *
+   * 
    * <h2>Method parameters used as sql parameters</h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param name
-   * 	is used as parameter
-   *
+   * @param name 	is used as parameter
    */
   @Override
   public void insertRawFromSelect(String name) {
@@ -426,6 +444,9 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     database().execSQL("INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=?", _contentValues.whereArgsAsArray());
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertOneRawPreparedStatement0!=null) {
       insertOneRawPreparedStatement0.close();

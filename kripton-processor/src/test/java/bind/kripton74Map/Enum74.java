@@ -15,6 +15,16 @@
  *******************************************************************************/
 package bind.kripton74Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum Enum74.
+ */
 public enum Enum74 {
-	VALUE_1, VALUE_2, VALUE_3;
+	
+	/** The value 1. */
+	VALUE_1, 
+ /** The value 2. */
+ VALUE_2, 
+ /** The value 3. */
+ VALUE_3;
 }

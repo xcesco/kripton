@@ -27,9 +27,16 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SqlUtility.
+ */
 public class SqlUtility {
+	
+	/** The Constant PARAMETER. */
 	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w\\.]*)\\s*\\}");
 
+	/** The Constant WORD. */
 	private static final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
 
 	/**
@@ -38,12 +45,11 @@ public class SqlUtility {
 	 * pair: the first value is the elaborated string. The second is the list of
 	 * parameters associated to ?. This second parameter is the list of
 	 * parameters and replaced with ?.
-	 * 
-	 * @param value
-	 * @param method
-	 * @param columnNameConverter
-	 * @param entity
-	 * @return Pair<String, List<String>>
+	 *
+	 * @param value the value
+	 * @param method the method
+	 * @param entity the entity
+	 * @return Pair 
 	 */
 	public static Pair<String, List<Pair<String, TypeName>>> extractParametersFromString(String value, SQLiteModelMethod method, SQLiteEntity entity) {
 		String whereStatement = value;

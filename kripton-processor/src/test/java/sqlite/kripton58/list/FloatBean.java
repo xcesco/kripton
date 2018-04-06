@@ -20,13 +20,20 @@ import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FloatBean.
+ */
 @BindType
 public class FloatBean {
 
+	/** The id. */
 	public long id;
 	
+	/** The value. */
 	public List<Float> value;
 	
+	/** The value 2. */
 	public LinkedList<Float> value2;
 	
 

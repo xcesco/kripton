@@ -17,10 +17,16 @@ package sqlite.kripton199;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean.
+ */
 @BindTable
 public class Bean {
 	
+	/** The id. */
 	public long id;
 	
+	/** The name. */
 	public String name;
 }

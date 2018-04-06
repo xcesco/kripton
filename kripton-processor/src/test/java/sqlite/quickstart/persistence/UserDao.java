@@ -24,18 +24,35 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.quickstart.model.User;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 04/01/2017.
  */
 @BindDao(User.class)
 public interface UserDao {
 
+    /**
+     * Insert.
+     *
+     * @param bean the bean
+     */
     @BindSqlInsert(includePrimaryKey = true)
     void insert(User bean);
 
+    /**
+     * Select all.
+     *
+     * @return the list
+     */
     @BindSqlSelect(orderBy = "username asc")
     List<User> selectAll();
 
+    /**
+     * Select by id.
+     *
+     * @param id the id
+     * @return the user
+     */
     @BindSqlSelect(where="id = ${value}")
     User selectById(@BindSqlParam("value") long id);
 

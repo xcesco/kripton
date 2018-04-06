@@ -23,14 +23,19 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Double object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Double object.
  *
+ * @author xcesco
  */
 public class DoublePrefsTransform extends AbstractPrefsTransform {
 
+	/**
+	 * Instantiates a new double prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public DoublePrefsTransform(boolean nullable) {
 		super(false);
 		this.nullable = nullable;
@@ -42,10 +47,15 @@ public class DoublePrefsTransform extends AbstractPrefsTransform {
 		}
 	}
 
+	/** The nullable. */
 	protected boolean nullable;
 
+	/** The default value. */
 	protected String defaultValue;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
+	 */
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
@@ -75,6 +85,9 @@ public class DoublePrefsTransform extends AbstractPrefsTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
+	 */
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		if (nullable) {

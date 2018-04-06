@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.TimeZoneUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.TimeZone object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.TimeZoneUtils;
  */
 public class TimeZonePrefsTransform extends WrappedPrefsTransform {
 
+	/**
+	 * Instantiates a new time zone prefs transform.
+	 */
 	public TimeZonePrefsTransform() {
 		super(TimeZoneUtils.class);
 	}

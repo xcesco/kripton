@@ -20,6 +20,9 @@ import org.junit.runners.Suite;
 
 import bind.AbstractBaseTest;
 
+/**
+ * The Class TestRuntime42Suite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

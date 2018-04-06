@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 
+/**
+ * The Interface Error2_1Dao.
+ */
 @BindDao(value = BeanError2_1.class)
 public interface Error2_1Dao {
 

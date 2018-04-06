@@ -25,49 +25,107 @@ import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test41Compile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class Test41Compile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test select error invalid method sign exception.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testSelectErrorInvalidMethodSignException() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(InvalidMethodSignException.class);
 		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBeanSelectERR.class, Bean01.class, BaseDao.class);
 	}
 
+	/**
+	 * Test select OK.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testSelectOK() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBeanSelectOK.class, Bean01.class, BaseDao.class);
 	}
 
+	/**
+	 * Test insert error.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test(expected = AssertionError.class)
 	public void testInsertError() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy03DataSource.class, DaoBeanInsertERR.class, Bean01.class, BaseDao.class);
 	}
 
+	/**
+	 * Test insert OK.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testInsertOK() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy04DataSource.class, DaoBeanInsertOK.class, Bean01.class, BaseDao.class);
 	}
 
+	/**
+	 * Test update error.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test(expected = AssertionError.class)
 	public void testUpdateError() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy05DataSource.class, DaoBeanUpdateERR.class, Bean01.class, BaseDao.class);
 	}
 
+	/**
+	 * Test update OK.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testUpdateOK() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy06DataSource.class, DaoBeanUpdateOK.class, Bean01.class, BaseDao.class);
 	}
 
+	/**
+	 * Test delete error.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test(expected = AssertionError.class)
 	public void testDeleteError() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy07DataSource.class, DaoBeanDeleteERR.class, Bean01.class, BaseDao.class);
 	}
 
+	/**
+	 * Test delete OK.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testDeleteOK() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy08DataSource.class, DaoBeanDeleteOK.class, Bean01.class, BaseDao.class);

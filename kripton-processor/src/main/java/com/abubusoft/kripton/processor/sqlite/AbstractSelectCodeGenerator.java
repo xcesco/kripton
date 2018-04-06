@@ -58,48 +58,111 @@ import com.squareup.javapoet.TypeSpec;
 
 import android.database.Cursor;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractSelectCodeGenerator.
+ */
 public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator {
 
+	/** The Constant LIVE_DATA_PREFIX. */
 	public static final String LIVE_DATA_PREFIX = "ForLiveData";
 
+	/**
+	 * The Enum JavadocPartType.
+	 */
 	public enum JavadocPartType {
-		ADD_PARAMETER, RETURN
+		
+		/** The add parameter. */
+		ADD_PARAMETER, 
+ /** The return. */
+ RETURN
 	}
 
+	/**
+	 * The Class JavadocPart.
+	 */
 	public static class JavadocPart {
+		
+		/** The javadoc part type. */
 		public final JavadocPartType javadocPartType;
+		
+		/** The name. */
 		public final String name;
+		
+		/** The description. */
 		public final String description;
 
+		/**
+		 * Instantiates a new javadoc part.
+		 *
+		 * @param javadocPartType the javadoc part type
+		 * @param name the name
+		 * @param description the description
+		 */
 		JavadocPart(JavadocPartType javadocPartType, String name, String description) {
 			this.javadocPartType = javadocPartType;
 			this.name = name;
 			this.description = description;
 		}
 
+		/**
+		 * Builds the.
+		 *
+		 * @param javadocPartType the javadoc part type
+		 * @param name the name
+		 * @param description the description
+		 * @return the javadoc part
+		 */
 		public static JavadocPart build(JavadocPartType javadocPartType, String name, String description) {
 			return new JavadocPart(javadocPartType, name, description);
 		}
 
 	}
 
+	/**
+	 * The Enum GenerationType.
+	 */
 	public enum GenerationType {
-		ALL(true, true, true), NO_CLOSE_CURSOR(true, true, false), NO_METHOD_SIGN(false, true, true), NO_CONTENT(true,
+		
+		/** The all. */
+		ALL(true, true, true), 
+ /** The no close cursor. */
+ NO_CLOSE_CURSOR(true, true, false), 
+ /** The no method sign. */
+ NO_METHOD_SIGN(false, true, true), 
+ /** The no content. */
+ NO_CONTENT(true,
 				false, true);
 
+		/**
+		 * Instantiates a new generation type.
+		 *
+		 * @param generateMethodSign the generate method sign
+		 * @param generateMethodContent the generate method content
+		 * @param generateCloseableCursor the generate closeable cursor
+		 */
 		GenerationType(boolean generateMethodSign, boolean generateMethodContent, boolean generateCloseableCursor) {
 			this.generateMethodSign = generateMethodSign;
 			this.generateMethodContent = generateMethodContent;
 			this.generateCloseableCursor = generateCloseableCursor;
 		}
 
+		/** The generate method sign. */
 		public final boolean generateMethodSign;
+		
+		/** The generate method content. */
 		public final boolean generateMethodContent;
+		
+		/** The generate closeable cursor. */
 		public final boolean generateCloseableCursor;
 	}
 
+	/** The select type. */
 	SelectType selectType;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, boolean, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
+	 */
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -116,11 +179,10 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	}
 
 	/**
-	 * generate live data method
-	 * @param classBuilder
-	 * @param mapFields
-	 * @param method
-	 * @param returnType
+	 * generate live data method.
+	 *
+	 * @param classBuilder the class builder
+	 * @param method the method
 	 */
 	@Override
 	public void generateLiveData(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {		
@@ -178,11 +240,32 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		classBuilder.addMethod(methodBuilder.build());
 	}
 
+	/**
+	 * Generate common part.
+	 *
+	 * @param method the method
+	 * @param classBuilder the class builder
+	 * @param methodBuilder the method builder
+	 * @param fieldList the field list
+	 * @param mapFields the map fields
+	 */
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
 			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		generateCommonPart(method, classBuilder, methodBuilder, fieldList, mapFields, GenerationType.ALL,null);
 	}
 
+	/**
+	 * Generate common part.
+	 *
+	 * @param method the method
+	 * @param classBuilder the class builder
+	 * @param methodBuilder the method builder
+	 * @param fieldList the field list
+	 * @param mapFields the map fields
+	 * @param generationType the generation type
+	 * @param forcedReturnType the forced return type
+	 * @param javadocParts the javadoc parts
+	 */
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
 			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields,
 			GenerationType generationType, TypeName forcedReturnType,  JavadocPart... javadocParts) {
@@ -475,6 +558,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 	}
 
+	/**
+	 * Generate method builder.
+	 *
+	 * @param method the method
+	 * @return the method spec. builder
+	 */
 	protected MethodSpec.Builder generateMethodBuilder(SQLiteModelMethod method) {
 		MethodSpec.Builder methodBuilder;
 		if (method.hasLiveData()) {
@@ -488,6 +577,14 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		return methodBuilder;
 	}
 
+	/**
+	 * Generate method signature.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
+	 * @param returnTypeName the return type name
+	 * @param additionalParameterSpec the additional parameter spec
+	 */
 	protected void generateMethodSignature(SQLiteModelMethod method, MethodSpec.Builder methodBuilder,
 			TypeName returnTypeName, ParameterSpec... additionalParameterSpec) {
 		boolean finalParameter=false;
@@ -515,9 +612,21 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		methodBuilder.returns(returnTypeName);
 	}
 
+	/**
+	 * Generate specialized part.
+	 *
+	 * @param method the method
+	 * @param classBuilder the class builder
+	 * @param methodBuilder the method builder
+	 * @param fieldList the field list
+	 * @param mapFields the map fields
+	 */
 	public abstract void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
 			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields);
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectCodeGenerator#setSelectResultTye(com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType)
+	 */
 	@Override
 	public void setSelectResultTye(SelectType value) {
 		this.selectType = value;
@@ -526,9 +635,10 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	/**
 	 * Check if there are unused method parameters. In this case an exception
 	 * was throws.
-	 * 
-	 * @param method
-	 * @param usedMethodParameters
+	 *
+	 * @param method the method
+	 * @param usedMethodParameters the used method parameters
+	 * @param excludedClasses the excluded classes
 	 */
 	public static void checkUnusedParameters(SQLiteModelMethod method, Set<String> usedMethodParameters,
 			TypeName excludedClasses) {
@@ -555,6 +665,13 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		}
 	}
 
+	/**
+	 * Generate SQL build.
+	 *
+	 * @param method the method
+	 * @param methodBuilder the method builder
+	 * @param splittedSql the splitted sql
+	 */
 	private static void generateSQLBuild(SQLiteModelMethod method, MethodSpec.Builder methodBuilder,
 			SplittedSql splittedSql) {
 		methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);

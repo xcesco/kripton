@@ -22,8 +22,19 @@ import org.junit.Test;
 import bind.AbstractBindTypeProcessorTest;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompile70All.
+ */
 public class TestCompile70All extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean70All.class, BeanEnum.class);

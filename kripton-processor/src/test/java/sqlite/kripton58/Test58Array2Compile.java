@@ -50,19 +50,21 @@ import sqlite.kripton58.array2.StringBean;
 import sqlite.kripton58.array2.StringDao;
 import sqlite.kripton58.array2.StringDataSource;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test58Array2Compile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * Test bean with list of Byte
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of Byte.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test1ByteArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {
@@ -70,11 +72,11 @@ public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Test bean with list of Char
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of Char.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test2CharArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {
@@ -82,11 +84,11 @@ public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Test bean with list of Short
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of Short.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test3ShortArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {
@@ -94,11 +96,11 @@ public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Test bean with list of Integer
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of Integer.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test4IntegerArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {
@@ -106,11 +108,11 @@ public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Test bean with list of Long
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of Long.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test5LongArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {
@@ -118,11 +120,11 @@ public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Test bean with list of Float
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of Float.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test6FloatArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {
@@ -130,11 +132,11 @@ public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Test bean with list of Double
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of Double.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test7DoubleArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {
@@ -142,11 +144,11 @@ public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Test bean with list of String
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of String.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test8StringArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {
@@ -154,11 +156,11 @@ public class Test58Array2Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * Test bean with list of Bean
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test bean with list of Bean.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test9BeanArrayFieldType() throws IOException, InstantiationException, IllegalAccessException {

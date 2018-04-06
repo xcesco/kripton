@@ -18,6 +18,9 @@ package sqlite.feat.grammars.jql;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * The Class TestJqlCheckerSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

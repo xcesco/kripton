@@ -14,17 +14,21 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for TranslationFrame
+ * This class is binder map for TranslationFrame.
  *
  * @see TranslationFrame
  */
 @BindMap(TranslationFrame.class)
 public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
-  /**
-   * Vector3BindMap */
+  
+  /** Vector3BindMap. */
   private Vector3BindMap vector3BindMap = BinderUtils.mapperFor(Vector3.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(TranslationFrame object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -54,6 +58,9 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(TranslationFrame object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -85,7 +92,12 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(TranslationFrame object, XMLSerializer xmlSerializer,
@@ -117,7 +129,11 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the translation frame
+   * @throws Exception the exception
    */
   @Override
   public TranslationFrame parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -160,7 +176,11 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the translation frame
+   * @throws Exception the exception
    */
   @Override
   public TranslationFrame parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -203,7 +223,12 @@ public class TranslationFrameBindMap extends AbstractMapper<TranslationFrame> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the translation frame
+   * @throws Exception the exception
    */
   @Override
   public TranslationFrame parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

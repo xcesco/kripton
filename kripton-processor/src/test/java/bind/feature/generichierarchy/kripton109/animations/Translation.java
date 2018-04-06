@@ -17,6 +17,9 @@ package bind.feature.generichierarchy.kripton109.animations;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+/**
+ * The Class Translation.
+ */
 @BindType("translateAnimation")
 public class Translation extends Animation<TranslationFrame> {
 }

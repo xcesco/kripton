@@ -24,9 +24,18 @@ import sqlite.feature.javadoc.update.raw.UpdateRawPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJavadocForUpdateRaw.
+ */
 @RunWith(JUnit4.class)
 public class TestJavadocForUpdateRaw extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile update raw.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileUpdateRaw() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, UpdateRawPersonDao.class, UpdateRawPersonDataSource.class);

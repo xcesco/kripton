@@ -25,8 +25,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime81V.
+ */
 public class TestRuntime81V extends AbstractBaseTest {
 
+	/**
+	 * Test runtime 0.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime0() throws Exception  {
 		assertTrue(Bean81VBindMap.class.getName()!=null);
@@ -39,6 +48,11 @@ public class TestRuntime81V extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime 2.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime2() throws Exception  {
 		assertTrue(Bean81V2BindMap.class.getName()!=null);
@@ -51,6 +65,11 @@ public class TestRuntime81V extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime 3.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime3() throws Exception  {
 		assertTrue(Bean81V3BindMap.class.getName()!=null);
@@ -63,6 +82,11 @@ public class TestRuntime81V extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Test runtime 4.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRuntime4() throws Exception  {
 		assertTrue(Bean81V4BindMap.class.getName()!=null);
@@ -75,6 +99,11 @@ public class TestRuntime81V extends AbstractBaseTest {
 		check(bean);
 	}
 	
+	/**
+	 * Creates the bean 0.
+	 *
+	 * @return the bean 81 V
+	 */
 	private Bean81V createBean0() {
 		Bean81V result=new Bean81V();
 		
@@ -91,6 +120,11 @@ public class TestRuntime81V extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean 2.
+	 *
+	 * @return the bean 81 V 2
+	 */
 	private Bean81V2 createBean2() {
 		Bean81V2 result=new Bean81V2();
 		
@@ -107,6 +141,11 @@ public class TestRuntime81V extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean 3.
+	 *
+	 * @return the bean 81 V 3
+	 */
 	private Bean81V3 createBean3() {
 		Bean81V3 result=new Bean81V3();
 		
@@ -123,6 +162,11 @@ public class TestRuntime81V extends AbstractBaseTest {
 		return result;
 	}
 	
+	/**
+	 * Creates the bean 4.
+	 *
+	 * @return the bean 81 V 4
+	 */
 	private Bean81V4 createBean4() {
 		Bean81V4 result=new Bean81V4();
 		

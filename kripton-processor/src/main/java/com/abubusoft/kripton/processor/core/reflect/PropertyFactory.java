@@ -20,7 +20,21 @@ import javax.lang.model.element.Element;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Property objects.
+ *
+ * @param <E> the element type
+ * @param <T> the generic type
+ */
 public interface PropertyFactory<E extends ModelClass<?>, T extends ModelProperty> {
 
+	/**
+	 * Creates a new Property object.
+	 *
+	 * @param entity the entity
+	 * @param propertyElement the property element
+	 * @return the t
+	 */
 	T createProperty(E entity, Element propertyElement);
 }

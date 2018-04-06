@@ -23,8 +23,19 @@ import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnota
 
 import bind.AbstractBindTypeProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test76Value.
+ */
 public class Test76Value extends AbstractBindTypeProcessorTest {
 	
+	/**
+	 * Test compile.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Test
 	public void testCompile() throws InstantiationException, IllegalAccessException, IOException 
 	{		
@@ -32,6 +43,11 @@ public class Test76Value extends AbstractBindTypeProcessorTest {
 		buildBindProcessorTest(BeanValue76.class, BeanEnum.class);
 	}
 	
+	/**
+	 * Test array on xml value.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testArrayOnXmlValue() throws Throwable
 	{
@@ -39,6 +55,11 @@ public class Test76Value extends AbstractBindTypeProcessorTest {
 		buildBindProcessorTest(BeanAttribute76Array.class, BeanEnum.class);
 	}
 	
+	/**
+	 * Test list on xml value.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testListOnXmlValue() throws Throwable
 	{
@@ -46,6 +67,11 @@ public class Test76Value extends AbstractBindTypeProcessorTest {
 		buildBindProcessorTest(BeanAttribute76List.class, BeanEnum.class);
 	}
 	
+	/**
+	 * Test set on xml value.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testSetOnXmlValue() throws Throwable
 	{
@@ -53,6 +79,11 @@ public class Test76Value extends AbstractBindTypeProcessorTest {
 		buildBindProcessorTest(BeanAttribute76Set.class, BeanEnum.class);
 	}
 	
+	/**
+	 * Test map on xml value.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testMapOnXmlValue() throws Throwable
 	{

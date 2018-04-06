@@ -34,19 +34,19 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CodeBuilderUtility.
+ */
 public abstract class CodeBuilderUtility {
 
 	/**
 	 * Generate code necessary to put bean properties in content values map.
 	 * Return primary key
-	 * @param methodBuilder
-	 *            used to code generation
-	 * @param method
-	 * @param elementUtils
-	 * @param daoDefinition
-	 * @param alreadyUsedBeanPropertiesNames
-	 *            optional
-	 * 
+	 *
+	 * @param methodBuilder            used to code generation
+	 * @param method the method
+	 * @param annotationClazz the annotation clazz
 	 * @return primary key.
 	 */
 	public static List<SQLProperty> extractUsedProperties(Builder methodBuilder, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {
@@ -70,6 +70,15 @@ public abstract class CodeBuilderUtility {
 
 	}
 
+	/**
+	 * Generate content values from entity.
+	 *
+	 * @param elementUtils the element utils
+	 * @param method the method
+	 * @param annotationClazz the annotation clazz
+	 * @param methodBuilder the method builder
+	 * @param alreadyUsedBeanPropertiesNames the already used bean properties names
+	 */
 	public static void generateContentValuesFromEntity(Elements elementUtils, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
 			Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
 		// all check is already done

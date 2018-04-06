@@ -37,8 +37,18 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime80All.
+ */
 public class TestRuntime80All extends AbstractBaseTest {
 	
+	/**
+	 * Creates the bean.
+	 *
+	 * @return the bean 80
+	 * @throws MalformedURLException the malformed URL exception
+	 */
 	public Bean80 createBean() throws MalformedURLException
 	{
 		Bean80 bean = new Bean80();
@@ -77,6 +87,12 @@ public class TestRuntime80All extends AbstractBaseTest {
 		return bean;
 	}
 	
+	/**
+	 * Creates the bean 2.
+	 *
+	 * @return the bean 80
+	 * @throws MalformedURLException the malformed URL exception
+	 */
 	public Bean80 createBean2() throws MalformedURLException
 	{
 		Bean80 bean = new Bean80();
@@ -84,6 +100,11 @@ public class TestRuntime80All extends AbstractBaseTest {
 		return bean;
 	}
 
+	/**
+	 * Test run 1.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun_1() throws Exception {
 		Assert.assertNotNull(new Bean80BindMap());
@@ -95,6 +116,11 @@ public class TestRuntime80All extends AbstractBaseTest {
 		checkCollection(list, Bean80.class, BinderType.JSON, BinderType.CBOR, BinderType.PROPERTIES, BinderType.YAML);
 	}
 	
+	/**
+	 * Test run 1 err.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test(expected=KriptonRuntimeException.class)
 	public void testRun_1_err() throws Exception {
 		//this.expectedException(KriptonRuntimeException.class);		
@@ -107,6 +133,11 @@ public class TestRuntime80All extends AbstractBaseTest {
 		checkCollection(list, Bean80.class, BinderType.XML);
 	}
 	
+	/**
+	 * Test run 2.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun_2() throws Exception {
 		Assert.assertNotNull(new Bean80BindMap());
@@ -118,6 +149,11 @@ public class TestRuntime80All extends AbstractBaseTest {
 		checkCollection(list, Bean80.class, BinderType.JSON, BinderType.CBOR, BinderType.PROPERTIES, BinderType.YAML);
 	}
 	
+	/**
+	 * Test run 3.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun_3() throws Exception {
 		Assert.assertNotNull(new Bean80BindMap());		

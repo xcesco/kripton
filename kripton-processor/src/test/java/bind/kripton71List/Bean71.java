@@ -25,56 +25,84 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean71.
+ */
 @BindType
 public class Bean71 {
 
+	/** The value enum list. */
 	public LinkedList<Enum71> valueEnumList;
 
+	/** The value bean list. */
 	@Bind(enabled = true)
 	@BindXml(elementTag = "item")
 	public LinkedList<Bean71> valueBeanList;
 
+	/** The value big decimal list. */
 	@Bind(enabled = true)
 	public LinkedList<BigDecimal> valueBigDecimalList;
 
+	/** The value big integer list. */
 	@BindXml(elementTag = "item")
 	public LinkedList<BigInteger> valueBigIntegerList;
 
+	/** The value byte list. */
 	@BindXml(elementTag = "item")
 	public List<Byte> valueByteList;
 
+	/** The value character list. */
 	@BindXml(elementTag = "item")
 	public ArrayList<Character> valueCharacterList;
 
+	/** The value double list. */
 	@BindXml(elementTag = "item")
 	public List<Double> valueDoubleList;
 
+	/** The value float list. */
 	@BindXml(elementTag = "item")
 	public List<Float> valueFloatList;
 
+	/** The value int list. */
 	@BindXml(elementTag = "item")
 	private List<Integer> valueIntList;
 
+	/** The value long list. */
 	@BindXml(elementTag = "item")
 	public List<Long> valueLongList;
 
+	/** The value short list. */
 	@BindXml(elementTag = "item")
 	public List<Short> valueShortList;
 
+	/** The value string list. */
 	@BindXml(elementTag = "item")
 	public List<String> valueStringList;
 
+	/** The zalue string final. */
 	@Bind(enabled = true)
 	public String zalueStringFinal;
 
+	/**
+	 * Instantiates a new bean 71.
+	 */
 	public Bean71() {
 
 	}
 
+	/**
+	 * Instantiates a new bean 71.
+	 *
+	 * @param name the name
+	 */
 	public Bean71(String name) {
 		this.zalueStringFinal = name;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -152,10 +180,18 @@ public class Bean71 {
 		return true;
 	}
 
+	/**
+	 * Gets the value int list.
+	 *
+	 * @return the value int list
+	 */
 	public List<Integer> getValueIntList() {
 		return valueIntList;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -176,6 +212,11 @@ public class Bean71 {
 		return result;
 	}
 
+	/**
+	 * Sets the value int list.
+	 *
+	 * @param valueIntList the new value int list
+	 */
 	public void setValueIntList(List<Integer> valueIntList) {
 		this.valueIntList = valueIntList;
 	}

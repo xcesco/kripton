@@ -21,6 +21,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
 
+// TODO: Auto-generated Javadoc
 /**
  * An API for translating text. 
  * Its core use is to escape and unescape text. Because escaping and unescaping 
@@ -30,6 +31,7 @@ import java.util.Locale;
  */
 public abstract class CharSequenceTranslator {
 
+    /** The Constant HEX_DIGITS. */
     static final char[] HEX_DIGITS = new char[] {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
     /**

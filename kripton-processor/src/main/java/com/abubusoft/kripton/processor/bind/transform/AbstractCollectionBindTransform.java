@@ -40,27 +40,49 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class AbstractCollectionBindTransform.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class AbstractCollectionBindTransform extends AbstractBindTransform {
 
+	/** The Constant EMPTY_COLLECTION_ATTRIBUTE_NAME. */
 	private static final String EMPTY_COLLECTION_ATTRIBUTE_NAME = "emptyCollection";
 
+	/**
+	 * The Enum CollectionType.
+	 */
 	public enum CollectionType {
-		ARRAY, LIST, SET;
+		
+		/** The array. */
+		ARRAY, 
+ /** The list. */
+ LIST, 
+ /** The set. */
+ SET;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#isTypeAdapterSupported()
+	 */
 	@Override
 	public boolean isTypeAdapterSupported() {
 		return false;
 	}
 
+	/** The collection type. */
 	protected CollectionType collectionType;
 	// private ParameterizedTypeName collectionTypeName;
 	// private TypeName elementTypeName;
 
+	/**
+	 * Instantiates a new abstract collection bind transform.
+	 *
+	 * @param clazz the clazz
+	 * @param collectionType the collection type
+	 */
 	public AbstractCollectionBindTransform(ParameterizedTypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
 
@@ -70,10 +92,10 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	}
 
 	/**
-	 * Only for arrays
-	 * 
-	 * @param clazz
-	 * @param collectionType
+	 * Only for arrays.
+	 *
+	 * @param clazz the clazz
+	 * @param collectionType the collection type
 	 */
 	public AbstractCollectionBindTransform(TypeName clazz, CollectionType collectionType) {
 		this.collectionType = collectionType;
@@ -83,9 +105,18 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		// this.elementTypeName = clazz;
 	}
 
+	/** The collection clazz. */
 	protected Class<?> collectionClazz = List.class;
+	
+	/** The default clazz. */
 	protected Class<?> defaultClazz = ArrayList.class;
 
+	/**
+	 * Define collection class.
+	 *
+	 * @param collectionTypeName the collection type name
+	 * @return the class
+	 */
 	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {
 		if (collectionTypeName.rawType.toString().startsWith(collectionClazz.getCanonicalName())) {
 			return defaultClazz;
@@ -98,16 +129,33 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, false);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		generateParseOnJacksonInternal(context, methodBuilder, parserName, beanClass, beanName, property, true);
 	}
 
+	/**
+	 * Generate parse on jackson internal.
+	 *
+	 * @param context the context
+	 * @param methodBuilder the method builder
+	 * @param parserName the parser name
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 * @param onString the on string
+	 */
 	public void generateParseOnJacksonInternal(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
 		TypeName elementTypeName = extractTypeParameterName(property);
 		//@formatter:off
@@ -200,10 +248,20 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		//@formatter:on
 	}
 
+	/**
+	 * Convert.
+	 *
+	 * @param modelEntity the model entity
+	 * @param elementTypeName the element type name
+	 * @return the type name
+	 */
 	protected TypeName convert(@SuppressWarnings("rawtypes") ModelEntity modelEntity, ClassName elementTypeName) {
 		return elementTypeName;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnXml(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		TypeName elementTypeName = extractTypeParameterName(property);
@@ -284,16 +342,33 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		//@formatter:on
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, false);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		this.generateSerializeOnJacksonInternal(context, methodBuilder, serializerName, beanClass, beanName, property, true);
 	}
 
+	/**
+	 * Generate serialize on jackson internal.
+	 *
+	 * @param context the context
+	 * @param methodBuilder the method builder
+	 * @param serializerName the serializer name
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 * @param onString the on string
+	 */
 	void generateSerializeOnJacksonInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property,
 			boolean onString) {
 		TypeName elementTypeName = extractTypeParameterName(property);
@@ -382,10 +457,19 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 		//@formatter:on
 	}
 
+	/**
+	 * Extract type parameter name.
+	 *
+	 * @param property the property
+	 * @return the type name
+	 */
 	private TypeName extractTypeParameterName(BindProperty property) {
 		return property.getPropertyType().getTypeParameter();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnXml(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		TypeName elementTypeName = extractTypeParameterName(property);

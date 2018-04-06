@@ -18,6 +18,9 @@ package bind.bindenum;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * The Class TestEnumSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

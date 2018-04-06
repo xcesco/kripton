@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.squareup.javapoet.MethodSpec.Builder;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Transformer between a string and a Java Short object.</p>
  * 
@@ -26,6 +27,11 @@ import com.squareup.javapoet.MethodSpec.Builder;
  */
 public class ShortSQLTransform extends WrappedSQLTransformation {
 
+	/**
+	 * Instantiates a new short SQL transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public ShortSQLTransform(boolean nullable) {
 		super(nullable);
 		defaultValue = "0";
@@ -37,11 +43,17 @@ public class ShortSQLTransform extends WrappedSQLTransformation {
 		this.WRITE_COSTANT="";
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.AbstractSQLTransform#generateDefaultValue(com.squareup.javapoet.MethodSpec.Builder)
+	 */
 	@Override
 	public void generateDefaultValue(Builder methodBuilder) {
 		methodBuilder.addCode(defaultValue);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#getColumnType()
+	 */
 	@Override
 	public SQLiteColumnType getColumnType() {
 		return SQLiteColumnType.INTEGER;

@@ -21,6 +21,7 @@ import java.util.BitSet;
 
 import com.abubusoft.kripton.common.CharMatcher.NamedFastMatcher;
 
+// TODO: Auto-generated Javadoc
 /**
  * An immutable version of CharMatcher for smallish sets of characters that uses a hash table
  * with linear probing to check for matches.
@@ -28,11 +29,27 @@ import com.abubusoft.kripton.common.CharMatcher.NamedFastMatcher;
  * @author Christopher Swenson
  */
 final class SmallCharMatcher extends NamedFastMatcher {
+  
+  /** The Constant MAX_SIZE. */
   static final int MAX_SIZE = 1023;
+  
+  /** The table. */
   private final char[] table;
+  
+  /** The contains zero. */
   private final boolean containsZero;
+  
+  /** The filter. */
   private final long filter;
 
+  /**
+   * Instantiates a new small char matcher.
+   *
+   * @param table the table
+   * @param filter the filter
+   * @param containsZero the contains zero
+   * @param description the description
+   */
   private SmallCharMatcher(char[] table, long filter, boolean containsZero,
       String description) {
     super(description);
@@ -41,9 +58,18 @@ final class SmallCharMatcher extends NamedFastMatcher {
     this.containsZero = containsZero;
   }
   
+  /** The Constant C1. */
   private static final int C1 = 0xcc9e2d51;
+  
+  /** The Constant C2. */
   private static final int C2 = 0x1b873593;
 
+  /**
+   * Smear.
+   *
+   * @param hashCode the hash code
+   * @return the int
+   */
   /*
    * This method was rewritten in Java from an intermediate step of the Murmur hash function in
    * http://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp, which contained the
@@ -56,6 +82,12 @@ final class SmallCharMatcher extends NamedFastMatcher {
     return C2 * Integer.rotateLeft(hashCode * C1, 15);
   }
 
+  /**
+   * Check filter.
+   *
+   * @param c the c
+   * @return true, if successful
+   */
   private boolean checkFilter(int c) {
     return 1 == (1 & (filter >> c));
   }
@@ -63,6 +95,7 @@ final class SmallCharMatcher extends NamedFastMatcher {
   // This is all essentially copied from ImmutableSet, but we have to duplicate because
   // of dependencies.
 
+  /** The Constant DESIRED_LOAD_FACTOR. */
   // Represents how tightly we can pack things, as a maximum.
   private static final double DESIRED_LOAD_FACTOR = 0.5;
 
@@ -71,6 +104,9 @@ final class SmallCharMatcher extends NamedFastMatcher {
   * uses open addressing with linear probing in its implementation.  The
   * returned size is the smallest power of two that can hold setSize elements
   * with the desired load factor.
+  *
+  * @param setSize the set size
+  * @return the int
   */
   static int chooseTableSize(int setSize) {
     if (setSize == 1) {
@@ -85,6 +121,13 @@ final class SmallCharMatcher extends NamedFastMatcher {
     return tableSize;
   }
 
+  /**
+   * From.
+   *
+   * @param chars the chars
+   * @param description the description
+   * @return the char matcher
+   */
   static CharMatcher from(BitSet chars, String description) {
     // Compute the filter.
     long filter = 0;
@@ -110,6 +153,9 @@ final class SmallCharMatcher extends NamedFastMatcher {
     return new SmallCharMatcher(table, filter, containsZero, description);
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.common.CharMatcher#matches(char)
+   */
   @Override
   public boolean matches(char c) {
     if (c == 0) {
@@ -137,6 +183,9 @@ final class SmallCharMatcher extends NamedFastMatcher {
     return false;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.common.CharMatcher#setBits(java.util.BitSet)
+   */
   @Override
   void setBits(BitSet table) {
     if (containsZero) {

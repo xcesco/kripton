@@ -18,6 +18,9 @@ package bind.kripton81MoreCoverageTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * The Class TestRuntime81Suite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

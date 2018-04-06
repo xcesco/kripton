@@ -50,8 +50,15 @@ import com.squareup.javapoet.TypeSpec;
 
 import android.database.sqlite.SQLiteStatement;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InsertBeanHelper.
+ */
 public class InsertBeanHelper implements InsertCodeGenerator {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, boolean, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeName)
+	 */
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -137,6 +144,15 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 	}
 
+	/**
+	 * Generate java doc.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param method the method
+	 * @param returnType the return type
+	 * @param listUsedProperty the list used property
+	 * @param primaryKey the primary key
+	 */
 	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
 		// transform JQL to SQL
 		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
@@ -189,6 +205,12 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		}
 	}
 
+	/**
+	 * Gets the conflict algorithm type.
+	 *
+	 * @param method the method
+	 * @return the conflict algorithm type
+	 */
 	public static ConflictAlgorithmType getConflictAlgorithmType(SQLiteModelMethod method) {
 		ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 

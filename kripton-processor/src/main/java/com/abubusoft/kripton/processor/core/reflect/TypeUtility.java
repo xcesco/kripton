@@ -46,7 +46,19 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TypeUtility.
+ */
 public abstract class TypeUtility {
+	
+	/**
+	 * Checks if is type included in.
+	 *
+	 * @param value the value
+	 * @param types the types
+	 * @return true, if is type included in
+	 */
 	public static boolean isTypeIncludedIn(TypeName value, Type... types) {
 		for (Type item : types) {
 			if (value.equals(typeName(item))) {
@@ -57,26 +69,52 @@ public abstract class TypeUtility {
 		return false;
 	}
 
+	/**
+	 * Checks if is type equals.
+	 *
+	 * @param value the value
+	 * @param value2 the value 2
+	 * @return true, if is type equals
+	 */
 	public static boolean isTypeEquals(TypeName value, TypeName value2) {
 		return value.equals(value2);
 	}
 
+	/**
+	 * Checks if is type primitive.
+	 *
+	 * @param value the value
+	 * @return true, if is type primitive
+	 */
 	public static boolean isTypePrimitive(TypeName value) {
 		return isTypeIncludedIn(value, Byte.TYPE, Character.TYPE, Boolean.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE);
 	}
 
+	/**
+	 * Checks if is type wrapped primitive.
+	 *
+	 * @param value the value
+	 * @return true, if is type wrapped primitive
+	 */
 	public static boolean isTypeWrappedPrimitive(TypeName value) {
 		return isTypeIncludedIn(value, Byte.class, Character.class, Boolean.class, Short.class, Integer.class, Long.class, Float.class, Double.class);
 	}
 
+	/**
+	 * Checks if is equals.
+	 *
+	 * @param value the value
+	 * @param className the class name
+	 * @return true, if is equals
+	 */
 	public static boolean isEquals(TypeName value, String className) {
 		return isEquals(value, typeName(className));
 	}
 
 	/**
-	 * Check if its type is byte[]
-	 * 
-	 * @param value
+	 * Check if its type is byte[].
+	 *
+	 * @param value the value
 	 * @return true if it is byte[]
 	 */
 	public static boolean isByteArray(TypeName value) {
@@ -84,15 +122,21 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Check if its type is String
-	 * 
-	 * @param value
+	 * Check if its type is String.
+	 *
+	 * @param value the value
 	 * @return true if it is String
 	 */
 	public static boolean isString(TypeName value) {
 		return value.toString().equals(String.class.getCanonicalName());
 	}
 
+	/**
+	 * Checks if is nullable.
+	 *
+	 * @param value the value
+	 * @return true, if is nullable
+	 */
 	public static boolean isNullable(TypeName value) {
 		return !isTypePrimitive(value);
 	}
@@ -100,9 +144,9 @@ public abstract class TypeUtility {
 	/**
 	 * Check if class that is rapresented by value has same typeName of entity
 	 * parameter.
-	 * 
-	 * @param value
-	 * @param entity
+	 *
+	 * @param value the value
+	 * @param entity the entity
 	 * @return true if value is equals to className.
 	 */
 	public static boolean isEquals(TypeName value, ModelClass<?> entity) {
@@ -112,9 +156,9 @@ public abstract class TypeUtility {
 	/**
 	 * Check if class that is rapresented by value has same typeName of entity
 	 * parameter.
-	 * 
-	 * @param value
-	 * @param kindOfParameter
+	 *
+	 * @param value the value
+	 * @param kindOfParameter the kind of parameter
 	 * @return true if value is equals to className.
 	 */
 	public static boolean isEquals(TypeName value, TypeName kindOfParameter) {
@@ -122,11 +166,11 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Generate class typeName
-	 * 
-	 * @param packageName
-	 * @param className
-	 * @param suffix
+	 * Generate class typeName.
+	 *
+	 * @param packageName the package name
+	 * @param className the class name
+	 * @param suffix the suffix
 	 * @return class typeName generated
 	 */
 	public static ClassName classNameWithSuffix(String packageName, String className, String suffix) {
@@ -135,9 +179,9 @@ public abstract class TypeUtility {
 	
 
 	/**
-	 * Generate class typeName
-	 * 
-	 * @param className
+	 * Generate class typeName.
+	 *
+	 * @param className the class name
 	 * @return class typeName generated
 	 */
 	public static ClassName className(String className) {
@@ -150,9 +194,9 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Convert a class in a classname
-	 * 
-	 * @param clazz
+	 * Convert a class in a classname.
+	 *
+	 * @param clazz the clazz
 	 * @return typeName
 	 */
 	public static ClassName className(Class<?> clazz) {
@@ -160,9 +204,9 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Convert a type in a typeName
-	 * 
-	 * @param type
+	 * Convert a type in a typeName.
+	 *
+	 * @param type the type
 	 * @return typeName
 	 */
 	public static TypeName typeName(Type type) {
@@ -170,9 +214,9 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Convert a TypeMirror in a typeName
-	 * 
-	 * @param typeMirror
+	 * Convert a TypeMirror in a typeName.
+	 *
+	 * @param typeMirror the type mirror
 	 * @return typeName
 	 */
 	public static TypeName typeName(TypeMirror typeMirror) {
@@ -196,9 +240,10 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Convert a TypeMirror in a typeName
-	 * 
-	 * @param typeName
+	 * Convert a TypeMirror in a typeName.
+	 *
+	 * @param packageName the package name
+	 * @param typeName the type name
 	 * @return typeName
 	 */
 	public static TypeName typeName(String packageName, String typeName) {
@@ -206,6 +251,13 @@ public abstract class TypeUtility {
 	}
 
 	
+	/**
+	 * Merge type name with suffix.
+	 *
+	 * @param typeName the type name
+	 * @param typeNameSuffix the type name suffix
+	 * @return the class name
+	 */
 	public static ClassName mergeTypeNameWithSuffix(TypeName typeName, String typeNameSuffix) {
 		ClassName className = className(typeName.toString());
 
@@ -213,9 +265,9 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Convert a TypeMirror in a typeName, or classname or whatever
-	 * 
-	 * @param typeName
+	 * Convert a TypeMirror in a typeName, or classname or whatever.
+	 *
+	 * @param typeName the type name
 	 * @return typeName
 	 */
 	public static TypeName typeName(String typeName) {
@@ -239,15 +291,21 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Convert a TypeMirror in a typeName
-	 * 
-	 * @param element
+	 * Convert a TypeMirror in a typeName.
+	 *
+	 * @param element the element
 	 * @return typeName
 	 */
 	public static TypeName typeName(Element element) {
 		return TypeName.get(element.asType());
 	}
 
+	/**
+	 * Checks if is nullable.
+	 *
+	 * @param property the property
+	 * @return true, if is nullable
+	 */
 	public static boolean isNullable(ModelProperty property) {
 		return isNullable(property.getPropertyType().getTypeName());
 	}
@@ -255,10 +313,10 @@ public abstract class TypeUtility {
 	/**
 	 * Check if method parameter is nullable. Moreover, check nullable status of
 	 * method param and property are compatible.
-	 * 
-	 * @param method
-	 * @param methodParam
-	 * @param property
+	 *
+	 * @param method the method
+	 * @param methodParam the method param
+	 * @param property the property
 	 * @return true is method param is nullable
 	 */
 	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeName> methodParam, ModelProperty property) {
@@ -271,11 +329,11 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Check if type if compatibility
-	 * 
-	 * @param method
-	 * @param item
-	 * @param property
+	 * Check if type if compatibility.
+	 *
+	 * @param method the method
+	 * @param item the item
+	 * @param property the property
 	 */
 	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeName> item, ModelProperty property) {
 		if (!TypeUtility.isEquals(item.value1, property.getPropertyType().getTypeName())) {
@@ -289,8 +347,9 @@ public abstract class TypeUtility {
 	/**
 	 * generate begin string to translate in code to used in content value or
 	 * parameter need to be converted in string through String.valueOf
-	 * 
-	 * 
+	 *
+	 * @param methodBuilder the method builder
+	 * @param property the property
 	 */
 	public static void beginStringConversion(Builder methodBuilder, ModelProperty property) {
 		TypeName modelType = typeName(property.getElement().asType());
@@ -301,10 +360,9 @@ public abstract class TypeUtility {
 	/**
 	 * generate begin string to translate in code to used in content value or
 	 * parameter need to be converted in string through String.valueOf
-	 * 
-	 * @param property
-	 * @return
-	 * 
+	 *
+	 * @param methodBuilder the method builder
+	 * @param typeMirror the type mirror
 	 */
 	public static void beginStringConversion(Builder methodBuilder, TypeName typeMirror) {
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
@@ -325,8 +383,9 @@ public abstract class TypeUtility {
 	/**
 	 * generate end string to translate in code to used in content value or
 	 * parameter need to be converted in string through String.valueOf
-	 * 
-	 * 
+	 *
+	 * @param methodBuilder the method builder
+	 * @param property the property
 	 */
 	public static void endStringConversion(Builder methodBuilder, ModelProperty property) {
 		TypeName modelType = typeName(property.getElement().asType());
@@ -337,8 +396,9 @@ public abstract class TypeUtility {
 	/**
 	 * generate end string to translate in code to used in content value or
 	 * parameter need to be converted in string through String.valueOf
-	 * 
-	 * 
+	 *
+	 * @param methodBuilder the method builder
+	 * @param typeMirror the type mirror
 	 */
 	public static void endStringConversion(Builder methodBuilder, TypeName typeMirror) {
 		SQLTransform transform = SQLTransformer.lookup(typeMirror);
@@ -356,6 +416,12 @@ public abstract class TypeUtility {
 		}
 	}
 
+	/**
+	 * Checks if is array.
+	 *
+	 * @param typeName the type name
+	 * @return true, if is array
+	 */
 	public static boolean isArray(TypeName typeName) {
 		if (typeName instanceof ArrayTypeName) {
 			return true;
@@ -364,6 +430,13 @@ public abstract class TypeUtility {
 		return false;
 	}
 
+	/**
+	 * Merge type name.
+	 *
+	 * @param prefix the prefix
+	 * @param element the element
+	 * @return the type name
+	 */
 	public static TypeName mergeTypeName(String prefix, TypeElement element) {
 		String fullName = element.getQualifiedName().toString();
 
@@ -376,6 +449,13 @@ public abstract class TypeUtility {
 
 	}
 
+	/**
+	 * Type name.
+	 *
+	 * @param element the element
+	 * @param suffix the suffix
+	 * @return the type name
+	 */
 	public static TypeName typeName(TypeElement element, String suffix) {
 		String fullName = element.getQualifiedName().toString() + suffix;
 
@@ -387,19 +467,33 @@ public abstract class TypeUtility {
 		return typeName(packageName, className);
 	}
 
+	/**
+	 * Class name.
+	 *
+	 * @param packageName the package name
+	 * @param className the class name
+	 * @return the class name
+	 */
 	public static ClassName className(String packageName, String className) {
 		return classNameWithSuffix(packageName, className, "");
 	}
 
+	/**
+	 * Parameterized type name.
+	 *
+	 * @param rawClass the raw class
+	 * @param paramClass the param class
+	 * @return the type name
+	 */
 	public static TypeName parameterizedTypeName(ClassName rawClass, TypeName paramClass) {
 		return ParameterizedTypeName.get(rawClass, paramClass);
 	}
 
 	/**
-	 * Return simple typeName of class
-	 * 
-	 * @param clazz
-	 * @return
+	 * Return simple typeName of class.
+	 *
+	 * @param clazzName the clazz name
+	 * @return the string
 	 */
 	public static String simpleName(TypeName clazzName) {
 		String clazz = clazzName.toString();
@@ -410,23 +504,35 @@ public abstract class TypeUtility {
 		return clazz;
 	}
 
+	/**
+	 * Array type name.
+	 *
+	 * @param type the type
+	 * @return the array type name
+	 */
 	public static ArrayTypeName arrayTypeName(Type type) {
 		return ArrayTypeName.of(type);
 	}
 
 	/**
 	 * Given an element, return true if it is a Enum class.
-	 * 
-	 * @param elements
-	 * @param element
-	 * @return
+	 *
+	 * @param typeName the type name
+	 * @return true, if is enum
 	 */
 	public static boolean isEnum(TypeName typeName) {
 		return isEnum(typeName.toString());
 	}
 
+	/** The Constant JAVA_LANG_ENUM. */
 	private static final String JAVA_LANG_ENUM = "java.lang.Enum<?>";
 
+	/**
+	 * Checks if is enum.
+	 *
+	 * @param className the class name
+	 * @return true, if is enum
+	 */
 	public static boolean isEnum(String className) {
 		try {
 			// is it an enum?
@@ -448,6 +554,12 @@ public abstract class TypeUtility {
 		}
 	}
 
+	/**
+	 * Convert.
+	 *
+	 * @param input the input
+	 * @return the list
+	 */
 	private static List<TypeName> convert(List<? extends TypeMirror> input) {
 		List<TypeName> result = new ArrayList<TypeName>();
 
@@ -462,8 +574,8 @@ public abstract class TypeUtility {
 	 * <p>
 	 * Retrieve parametrized type of element (from its parent).
 	 * </p>
-	 * 
-	 * @param element
+	 *
+	 * @param element the element
 	 * @return list of typemirror or empty list
 	 */
 	public static List<TypeName> getTypeArguments(TypeElement element) {
@@ -499,9 +611,12 @@ public abstract class TypeUtility {
 	 * slightly different from
 	 * {@link Types#erasure(javax.lang.model.type.TypeMirror)}, which removes
 	 * all type parameter data.
-	 *
+	 * 
 	 * For instance, if there is a field with type List&lt;String&gt;, this
 	 * returns a string List&lt;?&gt;.
+	 *
+	 * @param declaredType the declared type
+	 * @return the canonical type name
 	 */
 	private static String getCanonicalTypeName(DeclaredType declaredType) {
 		List<? extends TypeMirror> typeArguments = declaredType.getTypeArguments();
@@ -522,22 +637,53 @@ public abstract class TypeUtility {
 		}
 	}
 
+	/**
+	 * Checks if is collection.
+	 *
+	 * @param typeName the type name
+	 * @return true, if is collection
+	 */
 	public static boolean isCollection(TypeName typeName) {
 		return isAssignable(typeName, Collection.class);
 	}
 
+	/**
+	 * Checks if is list.
+	 *
+	 * @param typeName the type name
+	 * @return true, if is list
+	 */
 	public static boolean isList(TypeName typeName) {
 		return isAssignable(typeName, List.class);
 	}
 
+	/**
+	 * Checks if is sets the.
+	 *
+	 * @param typeName the type name
+	 * @return true, if is sets the
+	 */
 	public static boolean isSet(TypeName typeName) {
 		return isAssignable(typeName, Set.class);
 	}
 
+	/**
+	 * Checks if is map.
+	 *
+	 * @param typeName the type name
+	 * @return true, if is map
+	 */
 	public static boolean isMap(TypeName typeName) {
 		return isAssignable(typeName, Map.class);
 	}
 
+	/**
+	 * Checks if is assignable.
+	 *
+	 * @param typeName the type name
+	 * @param assignableClazz the assignable clazz
+	 * @return true, if is assignable
+	 */
 	public static boolean isAssignable(TypeName typeName, Class<?> assignableClazz) {
 		try {
 			if (typeName instanceof ParameterizedTypeName) {
@@ -553,10 +699,23 @@ public abstract class TypeUtility {
 		}
 	}
 
+	/**
+	 * Checks if is equals.
+	 *
+	 * @param clazz1 the clazz 1
+	 * @param clazz2 the clazz 2
+	 * @return true, if is equals
+	 */
 	public static boolean isEquals(Class<?> clazz1, String clazz2) {
 		return ClassName.get(clazz1).equals(typeName(clazz2));
 	}
 
+	/**
+	 * Extract package name.
+	 *
+	 * @param element the element
+	 * @return the string
+	 */
 	public static String extractPackageName(TypeElement element) {
 		String fullName = element.getQualifiedName().toString();
 

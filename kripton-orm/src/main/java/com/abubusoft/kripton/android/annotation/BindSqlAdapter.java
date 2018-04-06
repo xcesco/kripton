@@ -22,15 +22,19 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface BindSqlAdapter.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BindSqlAdapter {
 
 	/**
 	 * Adapter class used to convert bean attribute into column value and
-	 * viceversa
-	 * 
-	 * @return
+	 * viceversa.
+	 *
+	 * @return the adapter
 	 */
 	Class<? extends SqlTypeAdapter<?, ?>> adapter();
 }

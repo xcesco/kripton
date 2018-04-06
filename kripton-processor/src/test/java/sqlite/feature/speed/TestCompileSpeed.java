@@ -24,9 +24,18 @@ import sqlite.feature.speed.model.Person;
 import sqlite.feature.speed.persistence.PersonDao;
 import sqlite.feature.speed.persistence.PersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileSpeed.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileSpeed extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompile() throws Throwable {		
 		buildDataSourceProcessorTest(Person.class, PersonDao.class, PersonDataSource.class);

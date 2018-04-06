@@ -24,6 +24,7 @@ import android.support.annotation.Nullable;
 
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * {@link LiveData} subclass which may observe other {@code LiveData} objects and react on
  * {@code OnChanged} events from them.
@@ -38,25 +39,25 @@ import java.util.Map;
  * is called for either of them, we set a new value in {@code liveDataMerger}.
  *
  * <pre>
- * LiveData<Integer> liveData1 = ...;
- * LiveData<Integer> liveData2 = ...;
+ * LiveData&lt;Integer&gt; liveData1 = ...;
+ * LiveData&lt;Integer&gt; liveData2 = ...;
  *
- * MediatorLiveData<Integer> liveDataMerger = new MediatorLiveData<>();
- * liveDataMerger.addSource(liveData1, value -> liveDataMerger.setValue(value));
- * liveDataMerger.addSource(liveData2, value -> liveDataMerger.setValue(value));
+ * MediatorLiveData&lt;Integer&gt; liveDataMerger = new MediatorLiveData&lt;&gt;();
+ * liveDataMerger.addSource(liveData1, value -&gt; liveDataMerger.setValue(value));
+ * liveDataMerger.addSource(liveData2, value -&gt;liveDataMerger.setValue(value));
  * </pre>
  * <p>
  * Let's consider that we only want 10 values emitted by {@code liveData1}, to be
  * merged in the {@code liveDataMerger}. Then, after 10 values, we can stop listening to {@code
  * liveData1} and remove it as a source.
  * <pre>
- * liveDataMerger.addSource(liveData1, new Observer<Integer>() {
+ * liveDataMerger.addSource(liveData1, new Observer&lt;Integer&gt;() {
  *      private int count = 1;
  *
  *      {@literal @}Override public void onChanged(@Nullable Integer s) {
  *          count++;
  *          liveDataMerger.setValue(s);
- *          if (count > 10) {
+ *          if (count &gt; 10) {
  *              liveDataMerger.removeSource(liveData1);
  *          }
  *      }
@@ -65,8 +66,9 @@ import java.util.Map;
  *
  * @param <T> The type of data hold by this instance
  */
-@SuppressWarnings("WeakerAccess")
 public class MediatorLiveData<T> extends MutableLiveData<T> {
+    
+    /** The m sources. */
     private SafeIterableMap<LiveData<?>, Source<?>> mSources = new SafeIterableMap<>();
 
     /**
@@ -77,9 +79,9 @@ public class MediatorLiveData<T> extends MutableLiveData<T> {
      * <p> If the given LiveData is already added as a source but with a different Observer,
      * {@link IllegalArgumentException} will be thrown.
      *
+     * @param <S>       The type of data hold by {@code source} LiveData
      * @param source    the {@code LiveData} to listen to
      * @param onChanged The observer that will receive the events
-     * @param <S>       The type of data hold by {@code source} LiveData
      */
     @MainThread
     public <S> void addSource(@NonNull LiveData<S> source, @NonNull Observer<S> onChanged) {
@@ -100,8 +102,8 @@ public class MediatorLiveData<T> extends MutableLiveData<T> {
     /**
      * Stops to listen the given {@code LiveData}.
      *
-     * @param toRemote {@code LiveData} to stop to listen
      * @param <S>      the type of data hold by {@code source} LiveData
+     * @param toRemote {@code LiveData} to stop to listen
      */
     @MainThread
     public <S> void removeSource(@NonNull LiveData<S> toRemote) {
@@ -111,6 +113,9 @@ public class MediatorLiveData<T> extends MutableLiveData<T> {
         }
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.lifecycle.LiveData#onActive()
+     */
     @CallSuper
     @Override
     protected void onActive() {
@@ -119,6 +124,9 @@ public class MediatorLiveData<T> extends MutableLiveData<T> {
         }
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.lifecycle.LiveData#onInactive()
+     */
     @CallSuper
     @Override
     protected void onInactive() {
@@ -127,24 +135,50 @@ public class MediatorLiveData<T> extends MutableLiveData<T> {
         }
     }
 
+    /**
+     * The Class Source.
+     *
+     * @param <V> the value type
+     */
     private static class Source<V> implements Observer<V> {
+        
+        /** The m live data. */
         final LiveData<V> mLiveData;
+        
+        /** The m observer. */
         final Observer<V> mObserver;
+        
+        /** The m version. */
         int mVersion = START_VERSION;
 
+        /**
+         * Instantiates a new source.
+         *
+         * @param liveData the live data
+         * @param observer the observer
+         */
         Source(LiveData<V> liveData, final Observer<V> observer) {
             mLiveData = liveData;
             mObserver = observer;
         }
 
+        /**
+         * Plug.
+         */
         void plug() {
             mLiveData.observeForever(this);
         }
 
+        /**
+         * Unplug.
+         */
         void unplug() {
             mLiveData.removeObserver(this);
         }
 
+        /* (non-Javadoc)
+         * @see android.arch.lifecycle.Observer#onChanged(java.lang.Object)
+         */
         @Override
         public void onChanged(@Nullable V v) {
             if (mVersion != mLiveData.getVersion()) {

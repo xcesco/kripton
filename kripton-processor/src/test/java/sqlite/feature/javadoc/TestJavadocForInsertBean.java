@@ -24,9 +24,18 @@ import sqlite.feature.javadoc.insert.bean.InsertBeanPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJavadocForInsertBean.
+ */
 @RunWith(JUnit4.class)
 public class TestJavadocForInsertBean extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile insert bean.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileInsertBean() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, InsertBeanPersonDao.class, InsertBeanPersonDataSource.class);

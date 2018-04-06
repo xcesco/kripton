@@ -20,14 +20,21 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean06.
+ */
 @BindType
 public class Bean06 {
 
+	/** The pk. */
 	@Bind
 	@BindColumn(columnType=ColumnType.PRIMARY_KEY)
 	protected long pk;
 
 	/**
+	 * Gets the pk.
+	 *
 	 * @return the pk
 	 */
 	public long getPk() {
@@ -35,17 +42,22 @@ public class Bean06 {
 	}
 
 	/**
+	 * Sets the pk.
+	 *
 	 * @param pk the pk to set
 	 */
 	public void setPk(long pk) {
 		this.pk = pk;
 	}
 
+	/** The text. */
 	@Bind
 	@BindColumn
 	protected String text;
 
 	/**
+	 * Gets the text.
+	 *
 	 * @return the text
 	 */
 	public String getText() {
@@ -53,6 +65,8 @@ public class Bean06 {
 	}
 
 	/**
+	 * Sets the text.
+	 *
 	 * @param text the text to set
 	 */
 	public void setText(String text) {

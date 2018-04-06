@@ -18,6 +18,7 @@ package android.arch.lifecycle;
 
 import android.support.annotation.NonNull;
 
+// TODO: Auto-generated Javadoc
 /**
  * A class that has an Android lifecycle. These events can be used by custom components to
  * handle lifecycle changes without implementing any code inside the Activity or the Fragment.

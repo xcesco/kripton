@@ -23,19 +23,27 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean05.
+ */
 @BindType
 @BindTable(name="ws_bean")
 public class Bean05 {
 
+	/** The pk. */
 	@Bind
 	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	protected long pk;
 
+	/** The number. */
 	@Bind
 	@BindColumn
 	protected long number;
 
 	/**
+	 * Gets the number.
+	 *
 	 * @return the number
 	 */
 	public long getNumber() {
@@ -43,17 +51,21 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param number
-	 *            the number to set
+	 * Sets the number.
+	 *
+	 * @param number            the number to set
 	 */
 	public void setNumber(long number) {
 		this.number = number;
 	}
 
+	/** The bean type. */
 	@Bind
 	protected BeanType beanType;
 
 	/**
+	 * Gets the bean type.
+	 *
 	 * @return the beanType
 	 */
 	public BeanType getBeanType() {
@@ -61,14 +73,17 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param beanType
-	 *            the beanType to set
+	 * Sets the bean type.
+	 *
+	 * @param beanType            the beanType to set
 	 */
 	public void setBeanType(BeanType beanType) {
 		this.beanType = beanType;
 	}
 
 	/**
+	 * Gets the pk.
+	 *
 	 * @return the pk
 	 */
 	public long getPk() {
@@ -76,26 +91,32 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param pk
-	 *            the pk to set
+	 * Sets the pk.
+	 *
+	 * @param pk            the pk to set
 	 */
 	public void setPk(long pk) {
 		this.pk = pk;
 	}
 
+	/** The text. */
 	@Bind
 	@BindColumn
 	protected String text;
 
+	/** The content. */
 	@Bind
 	@BindColumn
 	protected byte[] content;
 
+	/** The creation time. */
 	@Bind
 	@BindColumn
 	protected Date creationTime;
 
 	/**
+	 * Gets the creation time.
+	 *
 	 * @return the creationTime
 	 */
 	public Date getCreationTime() {
@@ -103,14 +124,17 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param creationTime
-	 *            the creationTime to set
+	 * Sets the creation time.
+	 *
+	 * @param creationTime            the creationTime to set
 	 */
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
 
 	/**
+	 * Gets the content.
+	 *
 	 * @return the content
 	 */
 	public byte[] getContent() {
@@ -118,14 +142,17 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param content
-	 *            the content to set
+	 * Sets the content.
+	 *
+	 * @param content            the content to set
 	 */
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
 
 	/**
+	 * Gets the text.
+	 *
 	 * @return the text
 	 */
 	public String getText() {
@@ -133,8 +160,9 @@ public class Bean05 {
 	}
 
 	/**
-	 * @param text
-	 *            the text to set
+	 * Sets the text.
+	 *
+	 * @param text            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;

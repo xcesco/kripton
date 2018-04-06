@@ -17,9 +17,20 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TooManySQLPrimaryKeyFoundException.
+ */
 public class TooManySQLPrimaryKeyFoundException extends KriptonProcessorException {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new too many SQL primary key found exception.
+	 *
+	 * @param entity the entity
+	 */
 	public TooManySQLPrimaryKeyFoundException(SQLiteEntity entity) {
 		super("Bean '" + entity.getName() + "' have too many primary keys");
 	}

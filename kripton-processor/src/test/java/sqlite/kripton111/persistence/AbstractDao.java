@@ -21,14 +21,38 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface AbstractDao.
+ *
+ * @param <E> the element type
+ */
 public interface AbstractDao<E> {
 
+    /**
+     * Insert.
+     *
+     * @param bean the bean
+     * @return the int
+     */
     @BindSqlInsert(conflictAlgorithm = ConflictAlgorithmType.REPLACE)
     int insert(E bean);
 
+    /**
+     * Select by id.
+     *
+     * @param id the id
+     * @return the e
+     */
     @BindSqlSelect(where = "id = ${id}")
     E selectById(long id);
 
+    /**
+     * Delete by id.
+     *
+     * @param id the id
+     * @return true, if successful
+     */
     @BindSqlDelete(where ="id = ${id}")
     boolean deleteById(long id);
 

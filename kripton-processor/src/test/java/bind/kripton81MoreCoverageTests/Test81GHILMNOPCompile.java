@@ -21,8 +21,19 @@ import org.junit.Test;
 
 import bind.AbstractBindTypeProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test81GHILMNOPCompile.
+ */
 public class Test81GHILMNOPCompile extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean81G.class, Bean81H.class, Bean81I.class, Bean81L.class, Bean81M.class, Bean81N.class, Bean81O.class, Bean81P.class,

@@ -18,6 +18,9 @@ package sqlite.kripton58.array2;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
+/**
+ * The Interface IntDataSource.
+ */
 @BindDataSource(daoSet=IntDao.class, fileName = "dummy" , version=1, asyncTask=false, cursorWrapper=false)
 public interface IntDataSource {
 

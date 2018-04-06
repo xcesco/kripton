@@ -20,13 +20,20 @@ import java.util.List;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Response.
+ */
 @BindType
 public class Response {
 
+    /** The users. */
     public List<User> users;
 
+    /** The status. */
     public String status;
 
+    /** The is real json. */
     @Bind("is_real_json")
     public boolean isRealJson;
 }

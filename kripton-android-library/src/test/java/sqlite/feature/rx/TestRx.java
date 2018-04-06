@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.rx;
 
 import static org.junit.Assert.assertTrue;
@@ -27,12 +42,20 @@ import sqlite.feature.rx.persistence.BindXenoDaoFactory;
 import sqlite.feature.rx.persistence.BindXenoDataSource;
 import sqlite.feature.rx.persistence.CountryDaoImpl;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRx.
+ */
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class TestRx extends BaseAndroidTest {
 
+	/** The Constant COUNTER. */
 	private static final int COUNTER = 10;
 
+	/**
+	 * Test.
+	 */
 	// .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 	@Test
 	public void test() {
@@ -49,6 +72,9 @@ public class TestRx extends BaseAndroidTest {
 		assertTrue(result.value0.equals("Hello"));
 	}
 
+	/**
+	 * Test database.
+	 */
 	@Test
 	public void testDatabase() {
 		final BindXenoDataSource ds = prepareDataSource();
@@ -158,6 +184,11 @@ public class TestRx extends BaseAndroidTest {
 		s2.dispose();
 	}
 
+	/**
+	 * Prepare data source.
+	 *
+	 * @return the bind xeno data source
+	 */
 	public BindXenoDataSource prepareDataSource() {
 		BindXenoDataSource dataSource = BindXenoDataSource.instance();
 
@@ -186,6 +217,9 @@ public class TestRx extends BaseAndroidTest {
 		return dataSource;
 	}
 
+	/**
+	 * Test run async.
+	 */
 	@Test
 	public void testRunAsync() {
 		BindXenoDataSource dataSource = prepareDataSource();
@@ -241,6 +275,9 @@ public class TestRx extends BaseAndroidTest {
 		}
 	}
 
+	/**
+	 * Test run sync with listener.
+	 */
 	@Test
 	public void testRunSyncWithListener() {
 		BindXenoDataSource dataSource = BindXenoDataSource.instance();
@@ -286,6 +323,9 @@ public class TestRx extends BaseAndroidTest {
 		});
 	}
 
+	/**
+	 * Test run sync.
+	 */
 	@Test
 	public void testRunSync() {
 		BindXenoDataSource dataSource = BindXenoDataSource.instance();

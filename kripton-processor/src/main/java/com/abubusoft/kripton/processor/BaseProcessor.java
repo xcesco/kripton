@@ -39,52 +39,70 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BaseProcessor.
+ */
 public abstract class BaseProcessor extends AbstractProcessor {
 
-	/**
-	 * if we want to display debug info
-	 */
+	/** if we want to display debug info. */
 	public static boolean DEBUG_MODE = false;
 
+	/** The element utils. */
 	public static Elements elementUtils;
 	
-	/**
-	 * if true we are in a test
-	 */
+	/** if true we are in a test. */
 	public static boolean JUNIT_TEST_MODE = false;
 	
-	/**
-	 * logger
-	 */
+	/** logger. */
 	protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
+	/** The count. */
 	protected int count;
 	
+	/** The excluded methods. */
 	protected HashSet<String> excludedMethods;
 
+	/** The filer. */
 	protected Filer filer;
 
-	/**
-	 * define which annotation the annotation processor is interested in
-	 */
+	/** define which annotation the annotation processor is interested in. */
 	protected final Map<String, TypeElement> globalBeanElements = new HashMap<String, TypeElement>();
 
+	/** The messager. */
 	protected Messager messager;
 
+	/** The type utils. */
 	protected Types typeUtils;
 
+	/**
+	 * Clear.
+	 */
 	public void clear() {		
 		// Put all @BindType elements in beanElements
 		globalBeanElements.clear();
 		
 	}
 	
+	/**
+	 * Error.
+	 *
+	 * @param e the e
+	 * @param msg the msg
+	 * @param args the args
+	 */
 	public void error(Element e, String msg, Object... args) {
 		// this must be always enabled, due control annotation processor
 		// execution status (if display an error, compiler fails).
 		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
 	}
 
+	/**
+	 * Filter.
+	 *
+	 * @param roundEnv the round env
+	 * @return the sets the
+	 */
 	public Set<Element> filter(RoundEnvironment roundEnv) {
 		Set<Element> result=new HashSet<Element>();		
 		for (Class<? extends Annotation> annotation: getSupportedAnnotationClasses()) {
@@ -95,8 +113,16 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		
 	}
 
+	/**
+	 * Gets the supported annotation classes.
+	 *
+	 * @return the supported annotation classes
+	 */
 	protected abstract Set<Class<? extends Annotation>> getSupportedAnnotationClasses();
 
+	/* (non-Javadoc)
+	 * @see javax.annotation.processing.AbstractProcessor#getSupportedAnnotationTypes()
+	 */
 	@Override
 	public Set<String> getSupportedAnnotationTypes() {		
 		Set<String> result=new HashSet<String>();		
@@ -117,6 +143,13 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	public SourceVersion getSupportedSourceVersion() {
 		return SourceVersion.latestSupported();
 	}
+	
+	/**
+	 * Checks for work in this round.
+	 *
+	 * @param roundEnv the round env
+	 * @return true, if successful
+	 */
 	public boolean hasWorkInThisRound(RoundEnvironment roundEnv) {
 		if (this.filter(roundEnv).size()>0) {
 			return true;
@@ -124,10 +157,20 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		
 		return false;
 	}
+	
+	/**
+	 * Info.
+	 *
+	 * @param msg the msg
+	 * @param args the args
+	 */
 	public void info(String msg, Object... args) {
 		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.annotation.processing.AbstractProcessor#init(javax.annotation.processing.ProcessingEnvironment)
+	 */
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
@@ -154,9 +197,9 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	}
 
 	/**
-	 * build bindType elements map
-	 * 
-	 * @param roundEnv
+	 * build bindType elements map.
+	 *
+	 * @param roundEnv the round env
 	 */
 	protected void parseBindType(RoundEnvironment roundEnv) {		
 		for (Element item : roundEnv.getElementsAnnotatedWith(BindType.class)) {

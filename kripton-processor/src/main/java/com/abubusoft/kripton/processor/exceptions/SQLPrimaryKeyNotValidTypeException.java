@@ -18,10 +18,21 @@ package com.abubusoft.kripton.processor.exceptions;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SQLPrimaryKeyNotValidTypeException.
+ */
 public class SQLPrimaryKeyNotValidTypeException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new SQL primary key not valid type exception.
+	 *
+	 * @param entity the entity
+	 * @param property the property
+	 */
 	public SQLPrimaryKeyNotValidTypeException(SQLiteEntity entity, ModelProperty property) {
 		super("Bean '" + entity.getName() + "' have " + property.getName() + " as primary key but it is not Long or long type field");
 	}

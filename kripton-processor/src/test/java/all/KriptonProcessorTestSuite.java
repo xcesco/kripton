@@ -23,6 +23,9 @@ import commons.CommonsCompileSuite;
 import shared.SharedCompileTestSuite;
 import sqlite.SQLiteCompileTestSuite;
 
+/**
+ * The Class KriptonProcessorTestSuite.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	BindCompileTestSuite.class, 

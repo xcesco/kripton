@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton64;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +27,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Represents implementation of datasource Bean64BDataSource.
@@ -25,40 +41,37 @@ import java.util.List;
  * @see Bean64B
  */
 public class BindBean64BDataSource extends AbstractDataSource implements BindBean64BDaoFactory, Bean64BDataSource {
-  /**
-   * <p>datasource singleton</p>
-   */
+  
+  /** <p>datasource singleton</p>. */
   static volatile BindBean64BDataSource instance;
 
-  /**
-   * <p>Mutex to manage multithread access to instance</p>
-   */
+  /** <p>Mutex to manage multithread access to instance</p>. */
   private static final Object mutex = new Object();
 
-  /**
-   * Unique identifier for Dao Bean64BDao
-   */
+  /** Unique identifier for Dao Bean64BDao. */
   public static final int BEAN64_B_DAO_UID = 0;
 
-  /**
-   * List of tables compose datasource
-   */
+  /** List of tables compose datasource. */
   static final SQLiteTable[] TABLES = {new Bean64BTable()};
 
-  /**
-   * <p>dao instance</p>
-   */
+  /** <p>dao instance</p>. */
   protected Bean64BDaoImpl bean64BDao = new Bean64BDaoImpl(context);
 
-  /**
-   * Used only in transactions (that can be executed one for time
-   */
+  /** Used only in transactions (that can be executed one for time. */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
+  /**
+   * Instantiates a new bind bean 64 B data source.
+   *
+   * @param options the options
+   */
   protected BindBean64BDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
   }
 
+  /* (non-Javadoc)
+   * @see sqlite.kripton64.BindBean64BDaoFactory#getBean64BDao()
+   */
   @Override
   public Bean64BDaoImpl getBean64BDao() {
     return bean64BDao;
@@ -113,8 +126,9 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param commands
-   * 	batch to execute
+   * @param <T> the generic type
+   * @param commands 	batch to execute
+   * @return the t
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -123,10 +137,10 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param commands
-   * 	batch to execute
-   * @param writeMode
-   * 	true to open connection in write mode, false to open connection in read only mode
+   * @param <T> the generic type
+   * @param commands 	batch to execute
+   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
+   * @return the t
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -150,6 +164,8 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
 
   /**
    * <p>Retrieve instance.</p>
+   *
+   * @return the bind bean 64 B data source
    */
   public static BindBean64BDataSource instance() {
     BindBean64BDataSource result=instance;
@@ -162,13 +178,12 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
           	.log(true)
           	.build();
           instance=result=new BindBean64BDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         }
       }
@@ -197,7 +212,9 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   }
 
   /**
-   * onCreate
+   * onCreate.
+   *
+   * @param database the database
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -224,7 +241,11 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   }
 
   /**
-   * onUpgrade
+   * onUpgrade.
+   *
+   * @param database the database
+   * @param previousVersion the previous version
+   * @param currentVersion the current version
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -268,7 +289,9 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   }
 
   /**
-   * onConfigure
+   * onConfigure.
+   *
+   * @param database the database
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -278,12 +301,18 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
     }
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
+   */
   public void clearCompiledStatements() {
     Bean64BDaoImpl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
+   *
+   * @param options the options
+   * @return the bind bean 64 B data source
    */
   public static BindBean64BDataSource build(DataSourceOptions options) {
     BindBean64BDataSource result=instance;
@@ -292,13 +321,19 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
         result=instance;
         if (result==null) {
           instance=result=new BindBean64BDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator only a time
+              instance.justCreated=false;
+              // run populator
+              options.populator.execute();
+            }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         } else {
           throw new KriptonRuntimeException("Datasource BindBean64BDataSource is already builded");
@@ -311,7 +346,9 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
   }
 
   /**
-   * List of tables compose datasource:
+   * List of tables compose datasource:.
+   *
+   * @return the SQ lite table[]
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -321,43 +358,56 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindBean64BDaoFactory> {
+    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory
-     * @return
-     * @throws Throwable
+     * @param daoFactory the dao factory
+     * @return the transaction result
      */
     TransactionResult onExecute(BindBean64BDaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
+   *
+   * @param <T> the generic type
    */
   public interface Batch<T> {
+    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory
-     * @throws Throwable
+     * @param daoFactory the dao factory
+     * @return the t
      */
     T onExecute(BindBean64BDaoFactory daoFactory);
   }
 
+  /**
+   * The Class DataSourceSingleThread.
+   */
   class DataSourceSingleThread implements BindBean64BDaoFactory {
+    
+    /** The context. */
     private SQLContextInSessionImpl _context;
 
+    /** The bean 64 B dao. */
     protected Bean64BDaoImpl _bean64BDao;
 
+    /**
+     * Instantiates a new data source single thread.
+     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindBean64BDataSource.this);
     }
 
     /**
+     * retrieve dao Bean64BDao.
      *
-     * retrieve dao Bean64BDao
+     * @return the bean 64 B dao
      */
     public Bean64BDaoImpl getBean64BDao() {
       if (_bean64BDao==null) {
@@ -366,15 +416,29 @@ public class BindBean64BDataSource extends AbstractDataSource implements BindBea
       return _bean64BDao;
     }
 
+    /**
+     * On session opened.
+     */
     protected void onSessionOpened() {
     }
 
+    /**
+     * On session clear.
+     */
     protected void onSessionClear() {
     }
 
+    /**
+     * On session closed.
+     */
     protected void onSessionClosed() {
     }
 
+    /**
+     * Bind to thread.
+     *
+     * @return the data source single thread
+     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.UrlUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.net.URL object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.UrlUtils;
  */
 public class UrlPrefsTransform extends WrappedPrefsTransform {
 
+	/**
+	 * Instantiates a new url prefs transform.
+	 */
 	public UrlPrefsTransform() {
 		super(UrlUtils.class);
 	}

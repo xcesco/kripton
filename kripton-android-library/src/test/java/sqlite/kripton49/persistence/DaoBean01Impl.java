@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton49.persistence;
 
 import android.database.Cursor;
@@ -13,50 +28,62 @@ import java.util.ArrayList;
 import java.util.List;
 import sqlite.kripton49.entities.Bean01Entity;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean01Entity</code>, based on interface <code>DaoBean01</code>
- * </p>
+ * </p>.
  *
- *  @see Bean01Entity
- *  @see DaoBean01
- *  @see sqlite.kripton49.entities.Bean01EntityTable
+ * @see Bean01Entity
+ * @see DaoBean01
+ * @see sqlite.kripton49.entities.Bean01EntityTable
  */
 public class DaoBean01Impl extends Dao implements DaoBean01 {
+  
+  /** The Constant SELECT_ONE_SQL1. */
   private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean01 WHERE id=?";
 
+  /** The Constant SELECT_BY_ID_SQL2. */
   private static final String SELECT_BY_ID_SQL2 = "SELECT id, text FROM bean01 WHERE id=?";
 
+  /** The update one prepared statement 0. */
   private static SQLiteStatement updateOnePreparedStatement0;
 
+  /** The delete one prepared statement 1. */
   private static SQLiteStatement deleteOnePreparedStatement1;
 
+  /** The insert one prepared statement 2. */
   private static SQLiteStatement insertOnePreparedStatement2;
 
+  /** The insert one prepared statement 3. */
   private static SQLiteStatement insertOnePreparedStatement3;
 
+  /**
+   * Instantiates a new dao bean 01 impl.
+   *
+   * @param context the context
+   */
   public DaoBean01Impl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
+   * @param id 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -106,22 +133,21 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
+   * @param id 	is binded to <code>${id}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -178,22 +204,19 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE bean01 SET text=:text WHERE id=${id}</pre>
-   *
+   * 
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>text</li>
    * </ul>
-   *
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param text
-   * 	is used as updated field <strong>text</strong>
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   *
+   * @param text 	is used as updated field <strong>text</strong>
+   * @param id 	is used as where parameter <strong>${id}</strong>
    * @return number of updated records
    */
   @Override
@@ -243,16 +266,14 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean01 WHERE id=${id}</pre>
-   *
-   *
+   * 
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   *
+   * @param id 	is used as where parameter <strong>${id}</strong>
    * @return number of deleted records
    */
   @Override
@@ -288,15 +309,13 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean01 (id) VALUES (${id})</pre>
-   *
+   * 
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to column value <strong>id</strong>
-   *
+   * @param id 	is binded to column value <strong>id</strong>
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -418,6 +437,9 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     return result;
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (updateOnePreparedStatement0!=null) {
       updateOnePreparedStatement0.close();

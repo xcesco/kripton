@@ -36,6 +36,7 @@ import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 
+// TODO: Auto-generated Javadoc
 /**
  * Annotation processor for json/xml/etc
  * 
@@ -46,8 +47,12 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
  */
 public class BindTypeSubProcessor extends BaseProcessor {
 
+	/** The model. */
 	private BindModel model=new BindModel();
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#getSupportedAnnotationClasses()
+	 */
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 		annotations.add(BindType.class);		
@@ -55,6 +60,9 @@ public class BindTypeSubProcessor extends BaseProcessor {
 		return annotations;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
+	 */
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		parseBindType(roundEnv);
@@ -86,7 +94,9 @@ public class BindTypeSubProcessor extends BaseProcessor {
 	
 
 	/**
-	 * @throws IOException
+	 * Generate classes.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void generateClasses() throws IOException {
 		for (BindEntity entity : model.getEntities()) {

@@ -17,9 +17,16 @@ package sqlite.example01;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum DayType.
+ */
 @BindType
 public enum DayType {
 
+	/** The monday. */
 	MONDAY,
+	
+	/** The saturday. */
 	SATURDAY;
 }

@@ -20,16 +20,34 @@ import java.util.List;
 import bind.feature.generichierarchy.UIDObject;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RestListEntity.
+ *
+ * @param <E> the element type
+ */
 public abstract class RestListEntity<E extends UIDObject> extends RestResponse {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -7911782943679996559L;
 	
+	/** The list. */
 	protected List<E> list;
 
+	/**
+	 * Gets the list.
+	 *
+	 * @return the list
+	 */
 	public List<E> getList() {
 		return list;
 	}
 
+	/**
+	 * Sets the list.
+	 *
+	 * @param list the new list
+	 */
 	public void setList(List<E> list) {
 		this.list = list;
 	}

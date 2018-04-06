@@ -21,13 +21,28 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.abubusoft.kripton.TypeAdapter;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TypeAdapterUtils.
+ */
 public abstract class TypeAdapterUtils {
 
+	/** The lock. */
 	static ReentrantLock lock = new ReentrantLock();
 
+	/** The cache. */
 	@SuppressWarnings("rawtypes")
 	private static HashMap<Class<? extends TypeAdapter>, TypeAdapter> cache = new HashMap<>();
 
+	/**
+	 * To java.
+	 *
+	 * @param <D> the generic type
+	 * @param <J> the generic type
+	 * @param clazz the clazz
+	 * @param value the value
+	 * @return the j
+	 */
 	@SuppressWarnings("unchecked")
 	public static <D, J> J toJava(Class<? extends TypeAdapter<J, D>> clazz, D value) {
 		TypeAdapter<J, D> adapter = cache.get(clazz);
@@ -39,6 +54,15 @@ public abstract class TypeAdapterUtils {
 		return adapter.toJava(value);
 	}
 
+	/**
+	 * To data.
+	 *
+	 * @param <D> the generic type
+	 * @param <J> the generic type
+	 * @param clazz the clazz
+	 * @param javaValue the java value
+	 * @return the d
+	 */
 	@SuppressWarnings("unchecked")
 	public static <D, J> D toData(Class<? extends TypeAdapter<J, D>> clazz, J javaValue) {
 		TypeAdapter<J, D> adapter = cache.get(clazz);
@@ -50,6 +74,15 @@ public abstract class TypeAdapterUtils {
 		return adapter.toData(javaValue);
 	}
 
+	/**
+	 * Generate adapter.
+	 *
+	 * @param <D> the generic type
+	 * @param cache the cache
+	 * @param lock the lock
+	 * @param clazz the clazz
+	 * @return the d
+	 */
 	@SuppressWarnings("rawtypes")
 	static <D extends TypeAdapter> D generateAdapter(HashMap<Class<? extends TypeAdapter>, TypeAdapter> cache, ReentrantLock lock, Class<D> clazz) {
 		D adapter = null;

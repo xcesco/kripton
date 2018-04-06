@@ -21,12 +21,18 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean3_4.
+ */
 @BindType
 public class Bean3_4 {
 
+	/** The value long set 1. */
 	@BindXml(xmlType=XmlType.VALUE)
 	public Set<Long> valueLongSet1;
 	
+	/** The value long set. */
 	@BindXml(xmlType=XmlType.VALUE)
 	public Set<Long> valueLongSet;
 }

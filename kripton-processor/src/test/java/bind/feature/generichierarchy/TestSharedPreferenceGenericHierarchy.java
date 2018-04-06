@@ -21,14 +21,21 @@ import org.junit.Test;
 
 import shared.AbstractBindSharedPreferenceProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * Test bean field
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Test bean field.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class TestSharedPreferenceGenericHierarchy extends AbstractBindSharedPreferenceProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(Channel.class, ChannelListResponse.class, RestListEntity.class, RestResponse.class, ServiceStatusType.class, UIDObject.class);

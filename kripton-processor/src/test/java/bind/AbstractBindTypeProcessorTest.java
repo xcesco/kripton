@@ -37,8 +37,15 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 import base.BaseProcessorTest;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractBindTypeProcessorTest.
+ */
 public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		KriptonBinder.registryBinder(new KriptonYamlContext());
@@ -54,6 +61,13 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		}
 	}
 
+	/**
+	 * Check.
+	 *
+	 * @param bean the bean
+	 * @param checks the checks
+	 * @throws Exception the exception
+	 */
 	protected void check(Object bean, BinderType... checks) throws Exception {
 		int max = 0;
 		int[] values = new int[BinderType.values().length];
@@ -88,6 +102,15 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		System.out.println();
 	}
 
+	/**
+	 * Check collection.
+	 *
+	 * @param <E> the element type
+	 * @param collection the collection
+	 * @param beanClazz the bean clazz
+	 * @param checks the checks
+	 * @throws Exception the exception
+	 */
 	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType... checks) throws Exception {
 		int max = 0;
 		int[] values = new int[BinderType.values().length];
@@ -123,10 +146,12 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 	}
 
 	/**
-	 * @param bean
-	 * @param type
-	 * @return
-	 * @throws Exception
+	 * Serialize and parse.
+	 *
+	 * @param bean the bean
+	 * @param type the type
+	 * @return the int
+	 * @throws Exception the exception
 	 */
 	public int serializeAndParse(Object bean, BinderType type) throws Exception {
 		String output1 = KriptonBinder.bind(type).serialize(bean);
@@ -144,6 +169,16 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		return output2.length();
 	}
 
+	/**
+	 * Serialize and parse collection.
+	 *
+	 * @param <E> the element type
+	 * @param list the list
+	 * @param clazz the clazz
+	 * @param type the type
+	 * @return the int
+	 * @throws Exception the exception
+	 */
 	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
 		String value1 = KriptonBinder.bind(type).serializeCollection(list, clazz);
 		Collection<E> list2 = KriptonBinder.bind(type).parseCollection(value1, new ArrayList<E>(), clazz);
@@ -159,6 +194,16 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		return value1.length();
 	}
 
+	/**
+	 * Serialize and parse collection binary.
+	 *
+	 * @param <E> the element type
+	 * @param list the list
+	 * @param clazz the clazz
+	 * @param type the type
+	 * @return the int
+	 * @throws Exception the exception
+	 */
 	public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.bind(type).serializeCollection(list, clazz, bar);
@@ -179,6 +224,14 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		return bar.getCount();
 	}
 
+	/**
+	 * Serialize and parse binary.
+	 *
+	 * @param bean the bean
+	 * @param type the type
+	 * @return the int
+	 * @throws Exception the exception
+	 */
 	public int serializeAndParseBinary(Object bean, BinderType type) throws Exception {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.bind(type).serialize(bean, bar);
@@ -199,6 +252,12 @@ public class AbstractBindTypeProcessorTest extends BaseProcessorTest {
 		return bar.getCount();
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
 	String toString(byte[] input) {
 		StringBuilder buffer = new StringBuilder();
 		for (int j = 0; j < input.length; j++) {

@@ -26,18 +26,45 @@ import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
 import sqlite.feature.paginatedResult.model.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Dao1Person.
+ */
 @BindDao(Person.class)
 public interface Dao1Person {
 	
+	/**
+	 * Select.
+	 *
+	 * @return the paginated result
+	 */
 	@BindSqlSelect(orderBy="name", pageSize=10)
 	PaginatedResult<Person> select();
 		
+	/**
+	 * Insert one.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param birthCity the birth city
+	 * @param birthDay the birth day
+	 */
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
+	/**
+	 * Select all.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect(orderBy="name")
 	List<Person> selectAll();
 	
+	/**
+	 * Delete all.
+	 *
+	 * @return the int
+	 */
 	@BindSqlDelete
 	int deleteAll();
 		

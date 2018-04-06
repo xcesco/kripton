@@ -19,21 +19,30 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Restaurant.
+ */
 @BindType
 public class Restaurant {
 
+	/** The id. */
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public long id;
 			
+	/** The name. */
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public String name;
 	
+	/** The address. */
 	@BindXml(xmlType = XmlType.VALUE_CDATA)
 	public String address;
 		
+	/** The longitude. */
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public Double longitude;
 	
+	/** The latitude. */
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public Double latitude;
 }

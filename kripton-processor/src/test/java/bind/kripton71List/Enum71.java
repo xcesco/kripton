@@ -15,6 +15,14 @@
  *******************************************************************************/
 package bind.kripton71List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum Enum71.
+ */
 public enum Enum71 {
-	VALUE_1, VALUE_2;
+	
+	/** The value 1. */
+	VALUE_1, 
+ /** The value 2. */
+ VALUE_2;
 }

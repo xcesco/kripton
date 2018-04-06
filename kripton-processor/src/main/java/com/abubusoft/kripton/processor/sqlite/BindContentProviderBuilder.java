@@ -64,39 +64,63 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
+// TODO: Auto-generated Javadoc
 /**
- * Generates content provider class
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Generates content provider class.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BindContentProviderBuilder extends AbstractBuilder {
 
+	/**
+	 * The Class ContentEntry.
+	 */
 	public static class ContentEntry {
+		
+		/**
+		 * Instantiates a new content entry.
+		 *
+		 * @param path the path
+		 */
 		public ContentEntry(String path) {
 			this.path = path;
 		}
 
+		/** The path. */
 		public String path;
 
+		/** The uri index. */
 		public String uri_index;
 
+		/** The insert. */
 		public SQLiteModelMethod insert;
 
+		/** The update. */
 		public SQLiteModelMethod update;
 
+		/** The delete. */
 		public SQLiteModelMethod delete;
 
+		/** The select. */
 		public SQLiteModelMethod select;
 
+		/** The path costant. */
 		public String pathCostant;
 
+		/** The path index. */
 		public String pathIndex;
 
+		/** The uri template. */
 		public String uriTemplate;
 
+		/** The path value. */
 		public int pathValue;
 		
+		/**
+		 * Gets the content type.
+		 *
+		 * @return the content type
+		 */
 		public String getContentType() {
 			String type = "item";
 
@@ -123,29 +147,47 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		}
 	}
 
+	/** The uri set. */
 	protected Map<String, ContentEntry> uriSet = new TreeMap<>();
 
+	/** The Constant PREFIX. */
 	public static final String PREFIX = "Bind";
 
+	/** The Constant SUFFIX. */
 	public static final String SUFFIX = "ContentProvider";
 
+	/**
+	 * Instantiates a new bind content provider builder.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param model the model
+	 */
 	public BindContentProviderBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
 	/**
-	 * Generate content provider
-	 * 
-	 * @param elementUtils
-	 * @param filer
-	 * @param schema
-	 * @throws Exception
+	 * Generate content provider.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @throws Exception the exception
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindContentProviderBuilder visitorDao = new BindContentProviderBuilder(elementUtils, filer, schema);
 		visitorDao.build(elementUtils, filer, schema);
 	}
 
+	/**
+	 * Builds the.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @throws Exception the exception
+	 */
 	public void build(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		uriSet.clear();
 
@@ -318,12 +360,14 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param schema
-	 * @param listFieldAlias
-	 * @param alreadyUsedName
-	 * @param format
-	 * @param entry
-	 * @param method
+	 * Generate URI for method.
+	 *
+	 * @param schema the schema
+	 * @param listFieldAlias the list field alias
+	 * @param alreadyUsedName the already used name
+	 * @param format the format
+	 * @param entry the entry
+	 * @param method the method
 	 */
 	private void generateURIForMethod(SQLiteDatabaseSchema schema, List<FieldSpec> listFieldAlias, Set<String> alreadyUsedName, Converter<String, String> format, Pair<String, ContentEntry> entry,
 			SQLiteModelMethod method) {
@@ -347,8 +391,8 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	 * Generate INSERT code for content provider
 	 * </p>
 	 * .
-	 * 
-	 * @param schema
+	 *
+	 * @param schema the schema
 	 */
 	private void generateInsert(SQLiteDatabaseSchema schema) {
 		// method sign
@@ -408,6 +452,12 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 	}
 
+	/**
+	 * Define javadoc for content uri.
+	 *
+	 * @param builder the builder
+	 * @param method the method
+	 */
 	private void defineJavadocForContentUri(MethodSpec.Builder builder, SQLiteModelMethod method) {
 		String contentUri=method.contentProviderUri().replace("*", "[*]");
 		
@@ -416,6 +466,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 	}
 
+	/**
+	 * Generate delete.
+	 *
+	 * @param schema the schema
+	 */
 	private void generateDelete(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("delete").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
@@ -478,6 +533,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		classBuilder.addMethod(methodBuilder.build());
 	}
 
+	/**
+	 * Generate update.
+	 *
+	 * @param schema the schema
+	 */
 	private void generateUpdate(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("update").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Integer.TYPE);
 		methodBuilder.addParameter(Uri.class, "uri");
@@ -542,12 +602,23 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 	}
 
+	/**
+	 * Define javadoc footer for content operation.
+	 *
+	 * @param methodBuilder the method builder
+	 */
 	private void defineJavadocFooterForContentOperation(MethodSpec.Builder methodBuilder) {
 		classBuilder.addJavadoc("</table>\n\n");
 		methodBuilder.addJavadoc("</table>\n\n");
 
 	}
 
+	/**
+	 * Define javadoc header for content operation.
+	 *
+	 * @param builder the builder
+	 * @param value the value
+	 */
 	private void defineJavadocHeaderForContentOperation(MethodSpec.Builder builder, String value) {
 		builder.addJavadoc("\n<h2>Supported $L operations</h2>\n", value);
 		builder.addJavadoc("<table>\n");
@@ -562,10 +633,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 	/**
 	 * iterate methods, selecting only jqlType and
 	 * contains @BindContentProviderEntry annotation.
-	 * 
-	 * @param schema
-	 * @param methodBuilder
-	 * @return
+	 *
+	 * @param schema the schema
+	 * @param methodBuilder the method builder
+	 * @param jqlType the jql type
+	 * @return true, if successful
 	 */
 	private boolean hasOperationOfType(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, JQLType jqlType) {
 		boolean hasOperation = false;
@@ -590,6 +662,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		return hasOperation;
 	}
 
+	/**
+	 * Generate get type.
+	 *
+	 * @param schema the schema
+	 */
 	private void generateGetType(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getType").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(String.class);
 		methodBuilder.addParameter(Uri.class, "uri");
@@ -610,6 +687,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 	}
 
+	/**
+	 * Generate on create.
+	 *
+	 * @param dataSourceNameClazz the data source name clazz
+	 */
 	private void generateOnCreate(String dataSourceNameClazz) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onCreate").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Boolean.TYPE);
 
@@ -628,6 +710,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		classBuilder.addMethod(methodBuilder.build());
 	}
 
+	/**
+	 * Generate on shutdown.
+	 *
+	 * @param dataSourceNameClazz the data source name clazz
+	 */
 	private void generateOnShutdown(String dataSourceNameClazz) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("shutdown").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Void.TYPE);
 
@@ -641,6 +728,11 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		classBuilder.addMethod(methodBuilder.build());
 	}
 
+	/**
+	 * Generate query.
+	 *
+	 * @param schema the schema
+	 */
 	private void generateQuery(SQLiteDatabaseSchema schema) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("query").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Cursor.class);
 		methodBuilder.addParameter(Uri.class, "uri");

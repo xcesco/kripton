@@ -24,8 +24,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime78.
+ */
 public class TestRuntime78 extends AbstractBaseTest {
 
+	/**
+	 * Creates the bean.
+	 *
+	 * @return the bean element 78
+	 */
 	public BeanElement78 createBean() {
 		BeanElement78 bean = new BeanElement78();
 				
@@ -43,6 +52,11 @@ public class TestRuntime78 extends AbstractBaseTest {
 		return bean;
 	}
 
+	/**
+	 * Test run.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun() throws Exception {
 		Assert.assertNotNull(new BeanElement78BindMap());

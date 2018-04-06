@@ -20,9 +20,14 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BeanAttribute76Array.
+ */
 @BindType(value="root", allFields=true)
 public class BeanAttribute76Array {
 	
+	/** The value byte array. */
 	@Bind("temp")
 	@BindXml(xmlType=XmlType.VALUE)
 	public Byte[] valueByteArray;

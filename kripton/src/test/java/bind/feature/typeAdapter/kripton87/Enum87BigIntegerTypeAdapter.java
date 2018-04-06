@@ -21,17 +21,25 @@ import com.abubusoft.kripton.TypeAdapter;
 
 import bind.feature.typeAdapter.kripton87.Enum87A;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Enum87BigIntegerTypeAdapter.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class Enum87BigIntegerTypeAdapter implements TypeAdapter<Enum87A, BigDecimal> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public Enum87A toJava(BigDecimal dataValue) {
 		return Enum87A.values()[dataValue.intValue()];
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public BigDecimal toData(Enum87A javaValue) {
 		return new BigDecimal(javaValue.ordinal());

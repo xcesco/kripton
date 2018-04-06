@@ -20,10 +20,15 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Error14Bean.
+ */
 @BindType(allFields = false)
 @BindSharedPreferences
 public class Error14Bean {
 
+	/** The id. */
 	@BindDisabled
 	@BindPreference
 	public long id;

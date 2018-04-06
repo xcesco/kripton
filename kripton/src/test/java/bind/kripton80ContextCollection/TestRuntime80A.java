@@ -26,8 +26,17 @@ import com.abubusoft.kripton.BinderType;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime80A.
+ */
 public class TestRuntime80A extends AbstractBaseTest {
 
+	/**
+	 * Test run 1.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun_1() throws Exception {
 		Assert.assertNotNull(new Bean80ABindMap());
@@ -39,6 +48,11 @@ public class TestRuntime80A extends AbstractBaseTest {
 		checkCollection(list, Bean80A.class, BinderType.JSON, BinderType.CBOR, BinderType.YAML, BinderType.PROPERTIES);
 	}
 	
+	/**
+	 * Test run 2.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun_2() throws Exception {
 		Assert.assertNotNull(new Bean80ABindMap());
@@ -47,6 +61,11 @@ public class TestRuntime80A extends AbstractBaseTest {
 		check(new Bean80A());		
 	}
 	
+	/**
+	 * Creates the bean.
+	 *
+	 * @return the bean 80 A
+	 */
 	public Bean80A createBean()
 	{
 		Bean80A bean = new Bean80A();

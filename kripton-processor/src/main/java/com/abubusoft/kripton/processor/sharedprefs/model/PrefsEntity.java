@@ -22,8 +22,19 @@ import javax.lang.model.element.TypeElement;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PrefsEntity.
+ */
 public class PrefsEntity extends ModelClass<PrefsProperty> {
 
+	/**
+	 * Instantiates a new prefs entity.
+	 *
+	 * @param name the name
+	 * @param beanElement the bean element
+	 * @param annotationList the annotation list
+	 */
 	public PrefsEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
 		super(name, beanElement, annotationList);
 		

@@ -15,6 +15,14 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.settings;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum ViewFrustumAlignType.
+ */
 public enum ViewFrustumAlignType {
-	WIDTH_ALIGN, HEIGHT_ALIGN;
+	
+	/** The width align. */
+	WIDTH_ALIGN, 
+ /** The height align. */
+ HEIGHT_ALIGN;
 }

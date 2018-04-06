@@ -21,18 +21,34 @@ import org.junit.Test;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test64Compile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class Test64Compile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile sqlite.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompileSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean64.class, EnumType.class);
 		buildDataSourceProcessorTest(Bean64DataSource.class, Bean64Dao.class, Bean64.class, EnumType.class);
 	}
 
+	/**
+	 * Test compile shared preferences.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompileSharedPreferences() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(Bean64.class, EnumType.class);

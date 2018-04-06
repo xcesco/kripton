@@ -21,6 +21,9 @@ import org.junit.runners.Suite;
 import commons.benchmark.TestBenchmarkCompileSuite;
 import commons.kripton86.Test86CompileSuite;
 
+/**
+ * The Class CommonsCompileSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

@@ -34,23 +34,47 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertyUtility.
+ */
 public abstract class PropertyUtility {
 
+	/** The converter field 2 method. */
 	static Converter<String, String> converterField2Method = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
+	/** The logger. */
 	static Logger logger = Logger.getGlobal();
 
+	/** The Constant SET_PREFIX. */
 	private static final String SET_PREFIX = "set";
+	
+	/** The Constant IS_PREFIX. */
 	private static final String IS_PREFIX = "is";
+	
+	/** The Constant GET_PREFIX. */
 	private static final String GET_PREFIX = "get";
 
+	/**
+	 * The listener interface for receiving propertyCreated events.
+	 * The class that is interested in processing a propertyCreated
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addPropertyCreatedListener</code> method. When
+	 * the propertyCreated event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @param <T> the generic type
+	 * @param <E> the element type
+	 */
 	public interface PropertyCreatedListener<T extends ModelClass<? extends E>, E extends ModelProperty> {
+		
 		/**
 		 * If true, the property will be included in the class. If return false,
 		 * the property will be ignored
-		 * 
-		 * @param entity
-		 * @param property
+		 *
+		 * @param entity the entity
+		 * @param property the property
 		 * @return true to include property, false otherwise
 		 */
 		boolean onProperty(T entity, E property);
@@ -59,13 +83,14 @@ public abstract class PropertyUtility {
 	/**
 	 * Given a model clazz, define its properties. The listener allow to select
 	 * which property include in class definition.
-	 * 
-	 * @param elementUtils
-	 * @param entity
-	 * @param factoryProperty
-	 * @param propertyAnnotationFilter
-	 *            if null, no filter is applied to annotations
-	 * @param listener
+	 *
+	 * @param <P> the generic type
+	 * @param <T> the generic type
+	 * @param elementUtils the element utils
+	 * @param entity the entity
+	 * @param factoryProperty the factory property
+	 * @param propertyAnnotationFilter            if null, no filter is applied to annotations
+	 * @param listener the listener
 	 */
 	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<T, P> factoryProperty,
 			AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<T, P> listener) {
@@ -147,6 +172,12 @@ public abstract class PropertyUtility {
 		}
 	}
 
+	/**
+	 * Modifier is acceptable.
+	 *
+	 * @param item the item
+	 * @return true, if successful
+	 */
 	static boolean modifierIsAcceptable(Element item) {
 		Object[] values = { Modifier.NATIVE, Modifier.STATIC, Modifier.FINAL, Modifier.ABSTRACT };
 
@@ -158,6 +189,13 @@ public abstract class PropertyUtility {
 		return true;
 	}
 
+	/**
+	 * Gets the ter.
+	 *
+	 * @param beanClass the bean class
+	 * @param property the property
+	 * @return the ter
+	 */
 	public static String getter(TypeName beanClass, ModelProperty property) {
 		if (property.isPublicField())
 			return property.getName();
@@ -171,10 +209,25 @@ public abstract class PropertyUtility {
 		}
 	}
 
+	/**
+	 * Gets the ter.
+	 *
+	 * @param beanName the bean name
+	 * @param beanClass the bean class
+	 * @param property the property
+	 * @return the ter
+	 */
 	public static String getter(String beanName, TypeName beanClass, ModelProperty property) {
 		return beanName + (beanClass != null ? "." + getter(beanClass, property) : "");
 	}
 
+	/**
+	 * Setter.
+	 *
+	 * @param beanClass the bean class
+	 * @param property the property
+	 * @return the string
+	 */
 	public static String setter(TypeName beanClass, ModelProperty property) {
 		if (property.isPublicField()) {
 			return property.getName();
@@ -185,10 +238,27 @@ public abstract class PropertyUtility {
 		}
 	}
 
+	/**
+	 * Setter.
+	 *
+	 * @param beanClass the bean class
+	 * @param beanName the bean name
+	 * @param property the property
+	 * @param value the value
+	 * @return the string
+	 */
 	public static String setter(TypeName beanClass, String beanName, ModelProperty property, String value) {
 		return beanName + (beanClass != null ? "." + setter(beanClass, property, value) : "=" + value);
 	}
 
+	/**
+	 * Setter.
+	 *
+	 * @param beanClass the bean class
+	 * @param property the property
+	 * @param value the value
+	 * @return the string
+	 */
 	private static String setter(TypeName beanClass, ModelProperty property, String value) {
 		if (property.isPublicField())
 			return property.getName() + "=" + value;

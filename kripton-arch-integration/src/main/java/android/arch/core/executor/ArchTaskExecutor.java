@@ -16,28 +16,30 @@
 
 package android.arch.core.executor;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-
 import java.util.concurrent.Executor;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+// TODO: Auto-generated Javadoc
 /**
  * A static class that serves as a central point to execute common tasks.
- * <p>
  *
- * @hide This API is not final.
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class ArchTaskExecutor extends TaskExecutor {
+    
+    /** The s instance. */
     private static volatile ArchTaskExecutor sInstance;
 
+    /** The m delegate. */
     @NonNull
     private TaskExecutor mDelegate;
 
+    /** The m default task executor. */
     @NonNull
     private TaskExecutor mDefaultTaskExecutor;
 
+    /** The Constant sMainThreadExecutor. */
     @NonNull
     private static final Executor sMainThreadExecutor = new Executor() {
         @Override
@@ -46,6 +48,7 @@ public class ArchTaskExecutor extends TaskExecutor {
         }
     };
 
+    /** The Constant sIOThreadExecutor. */
     @NonNull
     private static final Executor sIOThreadExecutor = new Executor() {
         @Override
@@ -54,6 +57,9 @@ public class ArchTaskExecutor extends TaskExecutor {
         }
     };
 
+    /**
+     * Instantiates a new arch task executor.
+     */
     private ArchTaskExecutor() {
         mDefaultTaskExecutor = new DefaultTaskExecutor();
         mDelegate = mDefaultTaskExecutor;
@@ -91,26 +97,45 @@ public class ArchTaskExecutor extends TaskExecutor {
         mDelegate = taskExecutor == null ? mDefaultTaskExecutor : taskExecutor;
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.core.executor.TaskExecutor#executeOnDiskIO(java.lang.Runnable)
+     */
     @Override
     public void executeOnDiskIO(Runnable runnable) {
         mDelegate.executeOnDiskIO(runnable);
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.core.executor.TaskExecutor#postToMainThread(java.lang.Runnable)
+     */
     @Override
     public void postToMainThread(Runnable runnable) {
         mDelegate.postToMainThread(runnable);
     }
 
+    /**
+     * Gets the main thread executor.
+     *
+     * @return the main thread executor
+     */
     @NonNull
     public static Executor getMainThreadExecutor() {
         return sMainThreadExecutor;
     }
 
+    /**
+     * Gets the IO thread executor.
+     *
+     * @return the IO thread executor
+     */
     @NonNull
     public static Executor getIOThreadExecutor() {
         return sIOThreadExecutor;
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.core.executor.TaskExecutor#isMainThread()
+     */
     @Override
     public boolean isMainThread() {
         return mDelegate.isMainThread();

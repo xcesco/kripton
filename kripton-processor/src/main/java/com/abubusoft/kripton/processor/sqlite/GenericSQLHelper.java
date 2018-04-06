@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
@@ -20,24 +35,54 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GenericSQLHelper.
+ */
 public abstract class GenericSQLHelper {
 	
+	/**
+	 * The Enum SubjectType.
+	 */
 	public enum SubjectType {
+		
+		/** The insert. */
 		INSERT("Insert"),
+		
+		/** The update. */
 		UPDATE("Update"),
+		
+		/** The delete. */
 		DELETE("Delete");
 		
+		/**
+		 * Instantiates a new subject type.
+		 *
+		 * @param value the value
+		 */
 		private SubjectType(String value) {
 			this.value=value;
 		}
 		
+		/** The value. */
 		private String value;
 		
+		/**
+		 * Value.
+		 *
+		 * @return the string
+		 */
 		public String value() {
 			return value;
 		}
 	}
 	
+	/**
+	 * Generate subject next.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param subjectType the subject type
+	 */
 	public static void generateSubjectNext(MethodSpec.Builder methodBuilder, SubjectType subjectType) {
 		methodBuilder.beginControlFlow("if (result>0)");
 		methodBuilder.addStatement("subject.onNext($T.create$L(result))", SQLiteEvent.class, subjectType.value());
@@ -45,10 +90,10 @@ public abstract class GenericSQLHelper {
 	}
 	
 	/**
-	 * @param methodBuilder
-	 * @param method
-	 * @param daoDefinition
-	 * @param schema
+	 * Generate generic exec SQL.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param method the method
 	 */
 	public static void generateGenericExecSQL(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();		

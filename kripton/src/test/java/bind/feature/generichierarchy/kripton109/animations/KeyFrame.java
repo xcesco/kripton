@@ -24,17 +24,24 @@ import com.abubusoft.kripton.xml.XmlType;
 import bind.feature.generichierarchy.kripton109.animations.interpolations.Interpolation;
 import bind.feature.generichierarchy.kripton109.animations.interpolations.InterpolationLinear;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class KeyFrame.
+ */
 @BindType
 public class KeyFrame {
 
+	/** The name. */
 	@Bind(order = 0)
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public String name;
 
+	/** The duration. */
 	@Bind(order = 1)
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public long duration;
 
+	/** The interpolation. */
 	@BindDisabled
 	protected Interpolation interpolation = InterpolationLinear.instance();
 

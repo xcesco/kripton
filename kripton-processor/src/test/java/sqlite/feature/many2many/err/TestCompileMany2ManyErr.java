@@ -25,9 +25,18 @@ import sqlite.feature.many2many.City;
 import sqlite.feature.many2many.Entity;
 import sqlite.feature.many2many.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileMany2ManyErr.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileMany2ManyErr extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test OK.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testOK() throws Throwable {
 		buildDataSourceProcessorTest(PersonCirtyErr1DataSource.class, PersonErr1Dao.class, Person.class, CityErr1Dao.class, City.class, PersonCityErr1Dao.class,PersonCityErr1.class, Entity.class, BaseDao.class);

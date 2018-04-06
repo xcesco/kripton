@@ -33,6 +33,11 @@ import bind.kripton78.TestRuntime78Suite;
 import bind.kripton80ContextCollection.TestRuntime80Suite;
 import bind.kripton81MoreCoverageTests.TestRuntime81Suite;
 
+/**
+ * The Class KriptonRuntimeSuiteTest.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

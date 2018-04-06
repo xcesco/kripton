@@ -22,14 +22,21 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean81O.
+ */
 @BindType
 public class Bean81O {
 	
+	/** The id. */
 	public long id;
 	
+	/** The value currency. */
 	@BindXml(xmlType=XmlType.VALUE_CDATA)
 	public Currency valueCurrency;
 	
+	/** The value locale. */
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Locale valueLocale;
 	

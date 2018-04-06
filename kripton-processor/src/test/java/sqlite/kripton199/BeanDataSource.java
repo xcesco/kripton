@@ -18,6 +18,9 @@ package sqlite.kripton199;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
+/**
+ * The Interface BeanDataSource.
+ */
 @BindDataSource(daoSet=BeanDao.class, fileName = "dummy" , version=1)
 public interface BeanDataSource {
 

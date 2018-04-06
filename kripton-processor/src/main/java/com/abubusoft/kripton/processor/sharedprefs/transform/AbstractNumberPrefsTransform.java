@@ -25,6 +25,7 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.math.BigInteger object
  * 
@@ -33,9 +34,15 @@ import com.squareup.javapoet.TypeName;
  */
 abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 	
+	/** The method conversion. */
 	protected String METHOD_CONVERSION;
+	
+	/** The clazz. */
 	protected Class<?> clazz;
 	
+	/**
+	 * Instantiates a new abstract number prefs transform.
+	 */
 	public AbstractNumberPrefsTransform()
 	{
 		super(false);
@@ -44,8 +51,12 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 		METHOD_CONVERSION="toString";
 	}
 	
+	/** The default value. */
 	protected String defaultValue;
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
+	 */
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
 		if (readAll) {
@@ -75,6 +86,9 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
+	 */
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
 		if (beanClass!=null)

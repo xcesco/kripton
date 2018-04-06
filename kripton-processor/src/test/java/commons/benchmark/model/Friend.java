@@ -17,10 +17,16 @@ package commons.benchmark.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Friend.
+ */
 @BindType
 public class Friend {
 
+    /** The id. */
     public int id;
 
+    /** The name. */
     public String name;
 }

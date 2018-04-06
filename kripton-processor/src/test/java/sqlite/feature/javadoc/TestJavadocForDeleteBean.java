@@ -24,9 +24,18 @@ import sqlite.feature.javadoc.delete.bean.DeleteBeanPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJavadocForDeleteBean.
+ */
 @RunWith(JUnit4.class)
 public class TestJavadocForDeleteBean extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile delete bean.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileDeleteBean() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, DeleteBeanPersonDao.class, DeleteBeanPersonDataSource.class);

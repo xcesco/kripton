@@ -20,6 +20,10 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBean02.
+ */
 @BindDao(Bean01.class)
 public interface DaoBean02
 {
@@ -46,21 +50,59 @@ public interface DaoBean02
 	public List<byte[]> selectRaw(long startDate);
 	*/
 	
-	@BindSqlInsert
+	/**
+ * Insert.
+ *
+ * @param bean the bean
+ * @return the long
+ */
+@BindSqlInsert
 	public long insert(Bean01 bean);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param value the value
+	 * @param messageDate the message date
+	 * @return the long
+	 */
 	@BindSqlInsert
 	public long insert(long value, long messageDate);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param id the id
+	 * @return the long
+	 */
 	@BindSqlDelete(where="id=${id}")
 	public long delete(long id);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlDelete(where = "id=${bean.id}")
 	public long delete(Bean01 bean);
 	
+	/**
+	 * Update.
+	 *
+	 * @param value the value
+	 * @param id the id
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "id>${id}")
 	public long update(long value, long id);
 	
+	/**
+	 * Update.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "value=${bean.value}")
 	public long update(Bean01 bean);
 }

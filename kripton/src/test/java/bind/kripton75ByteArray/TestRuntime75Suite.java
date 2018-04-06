@@ -18,6 +18,9 @@ package bind.kripton75ByteArray;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * The Class TestRuntime75Suite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

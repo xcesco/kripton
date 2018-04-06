@@ -23,26 +23,43 @@ import com.abubusoft.kripton.android.Logger;
 
 import android.database.sqlite.SQLiteDatabase;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Database schema upgrade
- * </p>
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * </p>.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class SQLiteUpdateTaskFromFile implements SQLiteUpdateTask {
+	
+	/** The schema definition file. */
 	private String schemaDefinitionFile;
+	
+	/** The input stream. */
 	private InputStream inputStream;
 
+	/**
+	 * Instantiates a new SQ lite update task from file.
+	 *
+	 * @param schemaDefinitionFileName the schema definition file name
+	 */
 	public SQLiteUpdateTaskFromFile(String schemaDefinitionFileName) {
 		this.schemaDefinitionFile = schemaDefinitionFileName;
 	}
 	
+	/**
+	 * Instantiates a new SQ lite update task from file.
+	 *
+	 * @param inputStream the input stream
+	 */
 	public SQLiteUpdateTaskFromFile(InputStream inputStream) {		
 		this.inputStream = inputStream;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask#execute(android.database.sqlite.SQLiteDatabase, int, int)
+	 */
 	@Override
 	public void execute(SQLiteDatabase database, int previuosVersion, int currentVersion) {
 		List<String> executionList=null;

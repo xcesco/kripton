@@ -50,22 +50,42 @@ import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.database.Cursor;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class BindCursorBuilder.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BindCursorBuilder extends AbstractBuilder implements ModelElementVisitor<SQLiteEntity, SQLProperty> {
 
+	/** The Constant PREFIX. */
 	public static final String PREFIX = "Bind";
 	
+	/** The Constant SUFFIX. */
 	public static final String SUFFIX = "Cursor";
 	
+	/** The counter. */
 	private int counter;
 
+	/**
+	 * Instantiates a new bind cursor builder.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param model the model
+	 */
 	public BindCursorBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
 	}
 
+	/**
+	 * Generate.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @throws Exception the exception
+	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindCursorBuilder visitor = new BindCursorBuilder(elementUtils, filer, schema);
 
@@ -75,6 +95,9 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelElementVisitor#visit(com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema, com.abubusoft.kripton.processor.core.ModelClass)
+	 */
 	@Override
 	public void visit(SQLiteDatabaseSchema schema, SQLiteEntity entity) throws Exception {
 		String classCursorName = PREFIX+entity.getSimpleName()+SUFFIX;		
@@ -164,6 +187,13 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 
 
 
+	/**
+	 * Generate execute method.
+	 *
+	 * @param packageName the package name
+	 * @param entity the entity
+	 * @return the method spec. builder
+	 */
 	private MethodSpec.Builder generateExecuteMethod(String packageName, SQLiteEntity entity) {		
 		ParameterizedTypeName parameterizedReturnTypeName = ParameterizedTypeName.get(className(ArrayList.class), className(packageName,entity.getSimpleName()));
 		
@@ -211,6 +241,13 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		return methodBuilder;
 	}
 	
+	/**
+	 * Generate execute listener.
+	 *
+	 * @param packageName the package name
+	 * @param entity the entity
+	 * @return the method spec. builder
+	 */
 	private MethodSpec.Builder generateExecuteListener(String packageName, SQLiteEntity entity) {		
 		String interfaceName="On" + entity.getSimpleName() + "Listener";
 		
@@ -293,6 +330,9 @@ public class BindCursorBuilder extends AbstractBuilder implements ModelElementVi
 		return methodBuilder;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelElementVisitor#visit(com.abubusoft.kripton.processor.core.ModelProperty)
+	 */
 	@Override
 	public void visit(SQLProperty property) throws Exception {
 		// add property index

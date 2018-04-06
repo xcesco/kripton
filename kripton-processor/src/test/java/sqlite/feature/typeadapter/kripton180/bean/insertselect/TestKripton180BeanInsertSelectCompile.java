@@ -37,10 +37,19 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLong;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestKripton180BeanInsertSelectCompile.
+ */
 @RunWith(JUnit4.class)
 public class TestKripton180BeanInsertSelectCompile extends AbstractBindSQLiteProcessorTest {
 	
 	
+	/**
+	 * Test bean insert select.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testBeanInsertSelect() throws Throwable {
 		buildDataSourceProcessorTest(Address.class, Employee.class, EmployeeBeanInsertSelectDao.class, Kripton180BeanInsertSelectDataSource.class, TypeAdapterAddress.class, TypeAdapterBirthDay.class, TypeAdapterFirstName.class,

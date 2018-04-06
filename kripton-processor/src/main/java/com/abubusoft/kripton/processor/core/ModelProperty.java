@@ -22,35 +22,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelProperty.
+ */
 @BindType
 public class ModelProperty extends ModelEntity<Element> implements ModelElement, ModelWithAnnotation {
+	
+	/**
+	 * The Class TypeAdapter.
+	 */
 	public class TypeAdapter {
+		
+		/** The adapter clazz. */
 		public String adapterClazz;
 
+		/** The data type. */
 		public String dataType;
 
+		/**
+		 * Gets the adapter type name.
+		 *
+		 * @return the adapter type name
+		 */
 		public TypeName getAdapterTypeName() {
 			return TypeUtility.typeName(adapterClazz);
 		}
 
+		/**
+		 * Gets the data type typename.
+		 *
+		 * @return the data type typename
+		 */
 		public TypeName getDataTypeTypename() {
 			return TypeUtility.typeName(dataType);
 		}
 	}
 	
+	/**
+	 * Check type adapter.
+	 *
+	 * @param entity the entity
+	 * @param propertyType the property type
+	 * @param typeAdapter the type adapter
+	 * @param annotation the annotation
+	 */
 	protected void checkTypeAdapter(@SuppressWarnings("rawtypes") ModelEntity entity, TypeMirror propertyType, TypeAdapter typeAdapter, ModelAnnotation annotation) {
-		TypeName sourceType = TypeUtility.typeName(this.detectSourceType(entity.getElement(), typeAdapter.adapterClazz));
+		TypeName sourceType = TypeUtility.typeName(TypeAdapterHelper.detectSourceType(entity.getElement(), typeAdapter.adapterClazz));
 		TypeName uboxSourceType=sourceType;
 		
 		if (TypeUtility.isTypeWrappedPrimitive(sourceType)) {
@@ -62,39 +87,19 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		
 		AssertKripton.fail(!expr,
 				"In class '%s', property '%s' uses @%s that manages type '%s' instead of '%s'", entity.getElement().asType(), getName(),
-				annotation.getSimpleName(), element.asType().toString(), this.detectSourceType(entity.getElement(), typeAdapter.adapterClazz), getPropertyType().getTypeName());
+				annotation.getSimpleName(), element.asType().toString(), TypeAdapterHelper.detectSourceType(entity.getElement(), typeAdapter.adapterClazz), getPropertyType().getTypeName());
 
 	}
 
-	protected String detectDestinationType(Element element, String adapterClazz) {
-		TypeElement a = BaseProcessor.elementUtils.getTypeElement(adapterClazz);
-		for (Element i : BaseProcessor.elementUtils.getAllMembers(a)) {
-			if (i.getKind() == ElementKind.METHOD && "toData".equals(i.getSimpleName().toString())) {
-				ExecutableElement method = (ExecutableElement) i;
-				return TypeUtility.typeName(method.getReturnType()).toString();
-			}
-		}
-
-		AssertKripton.fail("In '%s', class '%s' can not be used as type adapter", element, adapterClazz);
-		return null;
-	}
-	
-	String detectSourceType(Element element, String adapterClazz) {
-		TypeElement a = BaseProcessor.elementUtils.getTypeElement(adapterClazz);
-		for (Element i : BaseProcessor.elementUtils.getAllMembers(a)) {
-			if (i.getKind() == ElementKind.METHOD && "toJava".equals(i.getSimpleName().toString())) {
-				ExecutableElement method = (ExecutableElement) i;
-				return TypeUtility.typeName(method.getReturnType()).toString();
-			}
-		}
-
-		AssertKripton.fail("In '%s', class '%s' can not be used as type adapter", element, adapterClazz);
-		return null;
-	}
-
+	/** The parent. */
 	@SuppressWarnings("rawtypes")
 	protected WeakReference<ModelEntity> parent;
 
+	/**
+	 * Gets the parent.
+	 *
+	 * @return the parent
+	 */
 	@SuppressWarnings("rawtypes")
 	public ModelEntity getParent() {
 		return parent.get();
@@ -153,6 +158,13 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		return true;
 	}
 
+	/**
+	 * Instantiates a new model property.
+	 *
+	 * @param entity the entity
+	 * @param element the element
+	 * @param modelAnnotations the model annotations
+	 */
 	@SuppressWarnings("rawtypes")
 	public ModelProperty(ModelEntity<?> entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super((element != null) ? element.getSimpleName().toString() : null, element);
@@ -170,11 +182,17 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		this.typeAdapter = new TypeAdapter();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelWithAnnotation#addAnnotation(com.abubusoft.kripton.processor.core.ModelAnnotation)
+	 */
 	@Override
 	public void addAnnotation(ModelAnnotation annotation) {
 		annotations.add(annotation);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelWithAnnotation#getAnnotation(java.lang.Class)
+	 */
 	@Override
 	public ModelAnnotation getAnnotation(Class<? extends Annotation> value) {
 		for (ModelAnnotation item : annotations) {
@@ -186,29 +204,41 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelWithAnnotation#hasAnnotation(java.lang.Class)
+	 */
 	@Override
 	public boolean hasAnnotation(Class<? extends Annotation> annotationClazz) {
 		return getAnnotation(annotationClazz) != null;
 	}
 
+	/** The annotations. */
 	protected List<ModelAnnotation> annotations;
 
+	/** The property type. */
 	protected ModelType propertyType;
 
+	/** The type adapter. */
 	public TypeAdapter typeAdapter;
 
 	/**
+	 * Gets the property type.
+	 *
 	 * @return the type
 	 */
 	public ModelType getPropertyType() {
 		return propertyType;
 	}
 
+	/** The public field. */
 	protected boolean publicField;
 
+	/** The field with getter. */
 	protected boolean fieldWithGetter;
 
 	/**
+	 * Checks if is field with getter.
+	 *
 	 * @return the fieldWithGetter
 	 */
 	public boolean isFieldWithGetter() {
@@ -216,14 +246,17 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	/**
-	 * @param fieldWithGetter
-	 *            the fieldWithGetter to set
+	 * Sets the field with getter.
+	 *
+	 * @param fieldWithGetter            the fieldWithGetter to set
 	 */
 	public void setFieldWithGetter(boolean fieldWithGetter) {
 		this.fieldWithGetter = fieldWithGetter;
 	}
 
 	/**
+	 * Checks if is field with setter.
+	 *
 	 * @return the fieldWithSetter
 	 */
 	public boolean isFieldWithSetter() {
@@ -231,14 +264,17 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	/**
-	 * @param fieldWithSetter
-	 *            the fieldWithSetter to set
+	 * Sets the field with setter.
+	 *
+	 * @param fieldWithSetter            the fieldWithSetter to set
 	 */
 	public void setFieldWithSetter(boolean fieldWithSetter) {
 		this.fieldWithSetter = fieldWithSetter;
 	}
 
 	/**
+	 * Checks if is field with is.
+	 *
 	 * @return the fieldWithIs
 	 */
 	public boolean isFieldWithIs() {
@@ -246,48 +282,73 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 	}
 
 	/**
-	 * @param fieldWithIs
-	 *            the fieldWithIs to set
+	 * Sets the field with is.
+	 *
+	 * @param fieldWithIs            the fieldWithIs to set
 	 */
 	public void setFieldWithIs(boolean fieldWithIs) {
 		this.fieldWithIs = fieldWithIs;
 	}
 
+	/** The field with setter. */
 	protected boolean fieldWithSetter;
 
+	/** The field with is. */
 	protected boolean fieldWithIs;
 
 	/**
 	 * if true, property is defined in a class. If false property is map entry
 	 * component or collection item.
-	 * 
-	 * @return
+	 *
+	 * @return true, if is property
 	 */
 	public boolean isProperty() {
 		return element != null;
 	}
 
 	/**
+	 * Checks if is public field.
+	 *
 	 * @return the publicField
 	 */
 	public boolean isPublicField() {
 		return publicField;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelElement#accept(com.abubusoft.kripton.processor.core.ModelElementVisitor)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void accept(@SuppressWarnings("rawtypes") ModelElementVisitor visitor) throws Exception {
 		visitor.visit(this);
 	}
 
+	/**
+	 * Checks if is type.
+	 *
+	 * @param value the value
+	 * @return true, if is type
+	 */
 	public boolean isType(TypeName value) {
 		return TypeUtility.isEquals(getPropertyType().getTypeName(), value);
 	}
 
+	/**
+	 * Checks if is type.
+	 *
+	 * @param types the types
+	 * @return true, if is type
+	 */
 	public boolean isType(Type... types) {
 		return TypeUtility.isTypeIncludedIn(propertyType.typeName, types);
 	}
 
+	/**
+	 * Checks for type adapter.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasTypeAdapter() {
 		return typeAdapter.adapterClazz != null;
 	}

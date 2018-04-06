@@ -23,12 +23,17 @@ import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Example02_1Test.
+ */
 @RunWith(JUnit4.class)
 public class Example02_1Test extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * No @BindType is put in bean definition
-	 * @throws Throwable 
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void test01() throws Throwable {

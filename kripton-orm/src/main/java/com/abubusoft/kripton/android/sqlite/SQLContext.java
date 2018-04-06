@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
 import java.util.Set;
@@ -6,6 +21,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
+// TODO: Auto-generated Javadoc
 /**
  * SQL context for queries execution. There are two kind of SQLContext:
  * <ul>
@@ -18,58 +34,75 @@ import android.database.sqlite.SQLiteStatement;
  */
 public interface SQLContext {
 
+	/**
+	 * Content values for update.
+	 *
+	 * @param compiledStatement the compiled statement
+	 * @return the kripton content values
+	 */
 	KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement);
 
+	/**
+	 * Content values.
+	 *
+	 * @param compiledStatement the compiled statement
+	 * @return the kripton content values
+	 */
 	KriptonContentValues contentValues(SQLiteStatement compiledStatement);
 
+	/**
+	 * Content values for content provider.
+	 *
+	 * @param values the values
+	 * @return the kripton content values
+	 */
 	KriptonContentValues contentValuesForContentProvider(ContentValues values);
 
 	/**
-	 * StringBuilder used to generate SQL
-	 * 
-	 * @return
+	 * StringBuilder used to generate SQL.
+	 *
+	 * @return the string builder
 	 */
 	StringBuilder sqlBuilder();
 
 	/**
-	 * Return true if log is enabled
-	 * 
-	 * @return
+	 * Return true if log is enabled.
+	 *
+	 * @return true, if is log enabled
 	 */
 	boolean isLogEnabled();
 
 	/**
-	 * Get SQLite database
-	 * 
-	 * @return
+	 * Get SQLite database.
+	 *
+	 * @return the SQ lite database
 	 */
 	SQLiteDatabase database();
 
 	/**
-	 * Fired when transaction or shared connection is opened
+	 * Fired when transaction or shared connection is opened.
 	 */
 	void onSessionOpened();
 
 	/**
 	 * In the standar SQLContext you can not use session (transaction and shared
 	 * connection), but this is allow to support LiveData.
-	 * 
-	 * @return
+	 *
+	 * @return true, if is in session
 	 */
 	boolean isInSession();
 
 	/**
-	 * Registry an SQL event for a DAO
-	 * 
-	 * @param daoKey
+	 * Registry an SQL event for a DAO.
+	 *
+	 * @param daoKey the dao key
 	 */
 	void registrySQLEvent(int daoKey);
 
 	/**
-	 * Fired when transaction or shared connection is closed
-	 * 
-	 * @return
-	 * 		all daoKey that registry an event
+	 * Fired when transaction or shared connection is closed.
+	 *
+	 * @return 		all daoKey that registry an event
 	 */
 	Set<Integer> onSessionClosed();
 }

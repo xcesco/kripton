@@ -20,6 +20,9 @@ import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
 
+/**
+ * The Class TestGenericHierarchySuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

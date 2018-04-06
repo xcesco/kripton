@@ -17,10 +17,16 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ErrorPK1Bean.
+ */
 @BindType
 public class ErrorPK1Bean {
 
+	/** The id. */
 	public long id;
 	
+	/** The description. */
 	public String description;
 }

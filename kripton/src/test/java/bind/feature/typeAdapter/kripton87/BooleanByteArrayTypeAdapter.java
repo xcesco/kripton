@@ -17,14 +17,24 @@ package bind.feature.typeAdapter.kripton87;
 
 import com.abubusoft.kripton.TypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BooleanByteArrayTypeAdapter.
+ */
 public class BooleanByteArrayTypeAdapter implements TypeAdapter<Boolean, Long> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public Boolean toJava(Long dataValue) {
 		if (dataValue>0) return true;
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public Long toData(Boolean javaValue) {
 		if (javaValue==null) return null;

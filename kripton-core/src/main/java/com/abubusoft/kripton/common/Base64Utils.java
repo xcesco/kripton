@@ -1,9 +1,25 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.common ;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
+// TODO: Auto-generated Javadoc
 /**
  * 
  * Base64 encoding/decoding util.
@@ -12,6 +28,8 @@ import java.io.Writer;
  * 
  */
 public class Base64Utils {
+    
+    /** The Constant S_BASE64CHAR. */
     private static final char[] S_BASE64CHAR = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
@@ -21,7 +39,11 @@ public class Base64Utils {
         'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', 
         '8', '9', '+', '/'
     };
+    
+    /** The Constant S_BASE64PAD. */
     private static final char S_BASE64PAD = '=';
+    
+    /** The Constant S_DECODETABLE. */
     private static final byte[] S_DECODETABLE = new byte[128];
     static {
         for (int i = 0;  i < S_DECODETABLE.length;  i ++)
@@ -30,6 +52,14 @@ public class Base64Utils {
             S_DECODETABLE[S_BASE64CHAR[i]] = (byte)i;
     }
 
+    /**
+     * Decode 0.
+     *
+     * @param ibuf the ibuf
+     * @param obuf the obuf
+     * @param wp the wp
+     * @return the int
+     */
     private static int decode0(char[] ibuf, byte[] obuf, int wp) {
         int outlen = 3;
         if (ibuf[3] == S_BASE64PAD)  outlen = 2;
@@ -57,7 +87,12 @@ public class Base64Utils {
     }
 
     /**
+     * Decode.
      *
+     * @param data the data
+     * @param off the off
+     * @param len the len
+     * @return the byte[]
      */
     public static byte[] decode(char[] data, int off, int len) {
         char[] ibuf = new char[4];
@@ -83,7 +118,10 @@ public class Base64Utils {
     }
 
     /**
+     * Decode.
      *
+     * @param data the data
+     * @return the byte[]
      */
     public static byte[] decode(String data) {
         char[] ibuf = new char[4];
@@ -108,6 +146,12 @@ public class Base64Utils {
         return ret;
     }
     
+    /**
+     * Decode.
+     *
+     * @param data the data
+     * @return the byte[]
+     */
     public static byte[] decode(byte[] data) {
         char[] ibuf = new char[4];
         int ibufcount = 0;
@@ -132,7 +176,13 @@ public class Base64Utils {
     }
 
     /**
+     * Decode.
      *
+     * @param data the data
+     * @param off the off
+     * @param len the len
+     * @param ostream the ostream
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void decode(char[] data, int off, int len, OutputStream ostream) throws IOException {
         char[] ibuf = new char[4];
@@ -153,7 +203,11 @@ public class Base64Utils {
     }
 
     /**
+     * Decode.
      *
+     * @param data the data
+     * @param ostream the ostream
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void decode(String data, OutputStream ostream) throws IOException {
         char[] ibuf = new char[4];
@@ -175,6 +229,9 @@ public class Base64Utils {
 
     /**
      * Returns base64 representation of specified byte array.
+     *
+     * @param data the data
+     * @return the string
      */
     public static String encode(byte[] data) {
         return encode(data, 0, data.length);
@@ -182,6 +239,11 @@ public class Base64Utils {
 
     /**
      * Returns base64 representation of specified byte array.
+     *
+     * @param data the data
+     * @param off the off
+     * @param len the len
+     * @return the string
      */
     public static String encode(byte[] data, int off, int len) {
         if (len <= 0)  return "";
@@ -218,6 +280,12 @@ public class Base64Utils {
 
     /**
      * Outputs base64 representation of the specified byte array to a byte stream.
+     *
+     * @param data the data
+     * @param off the off
+     * @param len the len
+     * @param ostream the ostream
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void encode(byte[] data, int off, int len, OutputStream ostream) throws IOException {
         if (len <= 0)  return;
@@ -255,6 +323,12 @@ public class Base64Utils {
 
     /**
      * Outputs base64 representation of the specified byte array to a character stream.
+     *
+     * @param data the data
+     * @param off the off
+     * @param len the len
+     * @param writer the writer
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void encode(byte[] data, int off, int len, Writer writer) throws IOException {
         if (len <= 0)  return;

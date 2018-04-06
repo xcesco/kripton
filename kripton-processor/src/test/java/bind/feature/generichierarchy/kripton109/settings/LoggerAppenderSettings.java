@@ -22,19 +22,21 @@ import com.abubusoft.kripton.xml.XmlType;
 
 import bind.feature.generichierarchy.kripton109.settings.logger.ElioLoggerLevelType;
 
+// TODO: Auto-generated Javadoc
 /**
- * Configurazione di un appender di log
- * 
+ * Configurazione di un appender di log.
+ *
  * @author Francesco Benincasa
- * 
  */
 @BindType
 public class LoggerAppenderSettings {
 
+	/** The tag. */
 	@Bind
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public String tag = "";
 
+	/** The level. */
 	@Bind
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public ElioLoggerLevelType level;

@@ -25,13 +25,17 @@ import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.select.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestSelectScalarList.
+ */
 @RunWith(JUnit4.class)
 public class TestSelectScalarList extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * OK
-	 * 
-	 * @throws Throwable
+	 * OK.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testOK() throws Throwable {
@@ -39,8 +43,9 @@ public class TestSelectScalarList extends AbstractBindSQLiteProcessorTest {
 	}
 	
 	/**
-	 * Two fields are selected as result
-	 * @throws Throwable
+	 * Two fields are selected as result.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testErr1() throws Throwable {

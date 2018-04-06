@@ -18,6 +18,9 @@ package sqlite.kripton93;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
+/**
+ * The Interface Bean93DataSource.
+ */
 @BindDataSource(daoSet=Bean93Dao.class, fileName = "dummy" , version=1, asyncTask=true, cursorWrapper=true)
 public interface Bean93DataSource {
 

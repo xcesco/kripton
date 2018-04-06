@@ -17,11 +17,17 @@ package commons.kripton86.test4;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean4.
+ */
 @BindType
 public class Bean4 {
 
+	/** The aid. */
 	public long aid;
 	
+	/** The test. */
 	public String test;
 	
 	

@@ -15,16 +15,30 @@
  *******************************************************************************/
 package com.abubusoft.kripton.common;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Pair.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ * @param <V0> the generic type
+ * @param <V1> the generic type
  */
 public class Pair<V0, V1> extends One<V0> {
+	
+	/**
+	 * Instantiates a new pair.
+	 */
 	public Pair()
 	{
 		super();
 	}
 	
+	/**
+	 * Instantiates a new pair.
+	 *
+	 * @param value0 the value 0
+	 * @param value1 the value 1
+	 */
 	public Pair(V0 value0, V1 value1)
 	{
 		super(value0);		
@@ -61,5 +75,7 @@ public class Pair<V0, V1> extends One<V0> {
 			return false;
 		return true;
 	}
+	
+	/** The value 1. */
 	public V1 value1;
 }

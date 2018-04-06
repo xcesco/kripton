@@ -20,8 +20,19 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoChannel02.
+ */
 @BindDao(Channel.class)
 public interface DaoChannel02 {
+	
+	/**
+	 * Select.
+	 *
+	 * @param updateTimeA the update time A
+	 * @return the cursor
+	 */
 	@BindSqlSelect(where = "updateTime=${updateTimeA} and updateTime=${updateTimeB}")
 	Cursor select(long updateTimeA);
 	

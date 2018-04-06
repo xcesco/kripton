@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton58.list;
 
 import android.database.Cursor;
@@ -24,49 +39,65 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>ByteBean</code>, based on interface <code>ByteDao</code>
- * </p>
+ * </p>.
  *
- *  @see ByteBean
- *  @see ByteDao
- *  @see ByteBeanTable
+ * @see ByteBean
+ * @see ByteDao
+ * @see ByteBeanTable
  */
 public class ByteDaoImpl extends Dao implements ByteDao {
+  
+  /** The Constant SELECT_ONE_SQL1. */
   private static final String SELECT_ONE_SQL1 = "SELECT id, value, value2 FROM byte_bean";
 
+  /** The Constant SELECT_ONE_SQL2. */
   private static final String SELECT_ONE_SQL2 = "SELECT id, value, value2 FROM byte_bean WHERE value=?";
 
+  /** The Constant SELECT_ONE_SQL3. */
   private static final String SELECT_ONE_SQL3 = "SELECT id, value, value2 FROM byte_bean WHERE value=?";
 
+  /** The Constant SELECT_ONE_SQL4. */
   private static final String SELECT_ONE_SQL4 = "SELECT id, value, value2 FROM byte_bean WHERE value=?";
 
+  /** The Constant SELECT_LIST_SQL5. */
   private static final String SELECT_LIST_SQL5 = "SELECT id, value, value2 FROM byte_bean WHERE value=?";
 
+  /** The update one prepared statement 0. */
   private static SQLiteStatement updateOnePreparedStatement0;
 
+  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
+  /** The insert prepared statement 2. */
   private static SQLiteStatement insertPreparedStatement2;
 
+  /** The delete prepared statement 3. */
   private static SQLiteStatement deletePreparedStatement3;
 
+  /**
+   * Instantiates a new byte dao impl.
+   *
+   * @param context the context
+   */
   public ByteDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value2 FROM byte_bean</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return selected bean or <code>null</code>.
    */
@@ -118,23 +149,22 @@ public class ByteDaoImpl extends Dao implements ByteDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE value=${value}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param value
-   * 	is binded to <code>${value}</code>
+   * @param value 	is binded to <code>${value}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -186,25 +216,23 @@ public class ByteDaoImpl extends Dao implements ByteDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE value=${value}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param value
-   * 	is binded to <code>${value}</code>
-   * @param listener
-   * 	is the ByteBean listener
+   * @param value 	is binded to <code>${value}</code>
+   * @param listener 	is the ByteBean listener
    */
   @Override
   public void selectOne(List<Byte> value, OnReadBeanListener<ByteBean> listener) {
@@ -261,25 +289,23 @@ public class ByteDaoImpl extends Dao implements ByteDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE value=${value}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param value
-   * 	is binded to <code>${value}</code>
-   * @param listener
-   * 	is the cursor listener
+   * @param value 	is binded to <code>${value}</code>
+   * @param listener 	is the cursor listener
    */
   @Override
   public void selectOne(List<Short> value, OnReadCursorListener listener) {
@@ -321,23 +347,22 @@ public class ByteDaoImpl extends Dao implements ByteDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value2 FROM byte_bean WHERE value=${value}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param value
-   * 	is binded to <code>${value}</code>
+   * @param value 	is binded to <code>${value}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -396,25 +421,21 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE byte_bean SET value=:value WHERE id=${id} and value=${paramValue}</pre>
-   *
+   * 
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>value</li>
    * </ul>
-   *
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * 	<dt>${paramValue}</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param value
-   * 	is used as updated field <strong>value</strong>
-   * @param id
-   * 	is used as where parameter <strong>${id}</strong>
-   * @param paramValue
-   * 	is used as where parameter <strong>${paramValue}</strong>
-   *
+   * @param value 	is used as updated field <strong>value</strong>
+   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param paramValue 	is used as where parameter <strong>${paramValue}</strong>
    * @return number of updated records
    */
   @Override
@@ -465,18 +486,15 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO byte_bean (id, value) VALUES (${id}, ${value})</pre>
-   *
+   * 
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to column value <strong>id</strong>
-   * @param value
-   * 	is binded to column value <strong>value</strong>
-   *
+   * @param id 	is binded to column value <strong>id</strong>
+   * @param value 	is binded to column value <strong>value</strong>
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -604,16 +622,14 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM byte_bean WHERE value=${paramValue}</pre>
-   *
-   *
+   * 
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${paramValue}</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param paramValue
-   * 	is used as where parameter <strong>${paramValue}</strong>
-   *
+   * @param paramValue 	is used as where parameter <strong>${paramValue}</strong>
    * @return number of deleted records
    */
   @Override
@@ -647,77 +663,10 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   }
 
   /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(List<Short> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.size();
-        Short item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value.get(i);
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeNumber(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private List<Short> parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      List<Short> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Short> collection=new ArrayList<>();
-        Short item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getShortValue();
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param serializer2 serialization
+   * for param serializer2 serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   private byte[] serializer2(List<Byte> value) {
     if (value==null) {
@@ -753,7 +702,10 @@ public class ByteDaoImpl extends Dao implements ByteDao {
   }
 
   /**
-   * for param parser2 parsing
+   * for param parser2 parsing.
+   *
+   * @param input the input
+   * @return the list
    */
   private List<Byte> parser2(byte[] input) {
     if (input==null) {
@@ -786,6 +738,85 @@ public class ByteDaoImpl extends Dao implements ByteDao {
     }
   }
 
+  /**
+   * for param serializer1 serialization.
+   *
+   * @param value the value
+   * @return the byte[]
+   */
+  private byte[] serializer1(List<Short> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.size();
+        Short item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser1 parsing.
+   *
+   * @param input the input
+   * @return the list
+   */
+  private List<Short> parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      List<Short> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Short> collection=new ArrayList<>();
+        Short item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getShortValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (updateOnePreparedStatement0!=null) {
       updateOnePreparedStatement0.close();

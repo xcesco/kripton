@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * <p>
  * <strong>Don't use with allField = false, otherwise an exception will be
  * thrown during compilation</strong>
- * <p>
+ * </p>
  * 
  * <p>
  * This annotation affects bind to xml/json/etc, sharepreference and sqlite

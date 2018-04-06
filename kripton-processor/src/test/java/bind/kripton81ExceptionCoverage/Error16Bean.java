@@ -21,13 +21,20 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Error16Bean.
+ */
 @BindType
 public class Error16Bean {
 
+	/** The id. */
 	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
 
+	/** The name. */
 	public String name;
 
+	/** The date. */
 	public Date date;
 }

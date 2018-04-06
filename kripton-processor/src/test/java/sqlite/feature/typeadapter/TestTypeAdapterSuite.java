@@ -27,6 +27,9 @@ import sqlite.feature.typeadapter.kripton180.raw.TestKripton180Raw;
 import sqlite.feature.typeadapter.update.err1.TestTypeAdapterUpdateErr1;
 import sqlite.feature.typeadapter.update.err2.TestTypeAdapterUpdateErr2;
 
+/**
+ * The Class TestTypeAdapterSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.common.SQLDateUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Date object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.SQLDateUtils;
  */
 class SQLDateSQLTransform extends UtilSQLTransform<SQLDateUtils> {
 
+	/**
+	 * Instantiates a new SQL date SQL transform.
+	 */
 	public SQLDateSQLTransform() {
 		super(SQLDateUtils.class);
 	}

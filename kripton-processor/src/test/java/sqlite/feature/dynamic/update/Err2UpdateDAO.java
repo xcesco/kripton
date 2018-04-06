@@ -20,6 +20,10 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.feature.dynamic.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Err2UpdateDAO.
+ */
 @BindDao(Person.class)
 public interface Err2UpdateDAO {
 	/*
@@ -30,6 +34,11 @@ public interface Err2UpdateDAO {
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
 	*/
 	
+	/**
+	 * Update.
+	 *
+	 * @param bean the bean
+	 */
 	@BindSqlUpdate(excludedFields={"id", "typeName", "surname", "birthCity" ,"birthDay"})
 	void update(Person bean);
 	

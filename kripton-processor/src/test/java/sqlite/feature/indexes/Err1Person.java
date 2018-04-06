@@ -22,16 +22,28 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Err1Person.
+ */
 @BindType
 @BindTable(indexes={"birthCity, temp"})
 public class Err1Person {
+  
+  /** The id. */
   public long id;
   
   
+  /** The name. */
   @BindColumn(columnType=ColumnType.INDEXED)
   public String name;
   
+  /** The surname. */
   public String surname;
+  
+  /** The birth city. */
   public String birthCity;
+  
+  /** The birth day. */
   public Date birthDay;
 }

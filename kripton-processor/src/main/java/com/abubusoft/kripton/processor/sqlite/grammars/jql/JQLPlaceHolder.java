@@ -15,15 +15,18 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class JQLPlaceHolder.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class JQLPlaceHolder {
 	
+	/** The type. */
 	public JQLPlaceHolderType type;
 	
+	/** The value. */
 	public String value;
 	
 	/**
@@ -32,6 +35,12 @@ public class JQLPlaceHolder {
 	 */
 	public boolean composed;
 	
+	/**
+	 * Instantiates a new JQL place holder.
+	 *
+	 * @param type the type
+	 * @param value the value
+	 */
 	public JQLPlaceHolder(JQLPlaceHolderType type, String value) {
 		this.value=value;
 		this.composed=value.indexOf(".")>=0;
@@ -39,6 +48,9 @@ public class JQLPlaceHolder {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,6 +62,9 @@ public class JQLPlaceHolder {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -72,8 +87,15 @@ public class JQLPlaceHolder {
 	}
 
 
+	/**
+	 * The Enum JQLPlaceHolderType.
+	 */
 	public enum JQLPlaceHolderType {
+		
+		/** The parameter. */
 		PARAMETER,		
+		
+		/** The dynamic sql. */
 		DYNAMIC_SQL				 
 	}
 

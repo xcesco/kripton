@@ -26,6 +26,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Transform for complex data type like list, set and POJO.
@@ -34,11 +35,17 @@ import com.squareup.javapoet.TypeName;
  */
 public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#generateWriteProperty2ContentValues(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, com.abubusoft.kripton.processor.core.ModelProperty)
+	 */
 	@Override
 	public void generateWriteProperty2ContentValues(Builder methodBuilder, String beanName, TypeName beanClass, ModelProperty property) {
 		methodBuilder.addCode("$T.serialize$L($L)", TypeUtility.mergeTypeNameWithSuffix(beanClass, "Table"), formatter.convert(property.getName()), getter(beanName, beanClass, property));
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.AbstractSQLTransform#generateWriteParam2ContentValues(com.squareup.javapoet.MethodSpec.Builder, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, java.lang.String, com.squareup.javapoet.TypeName, com.abubusoft.kripton.processor.core.ModelProperty)
+	 */
 	@Override
 	public void generateWriteParam2ContentValues(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName, ModelProperty property) {	
 		String methodName = method.getParent().generateJava2ContentSerializer(paramTypeName);
@@ -46,6 +53,9 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 		methodBuilder.addCode("$L($L)", methodName, paramName);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#generateWriteParam2WhereCondition(com.squareup.javapoet.MethodSpec.Builder, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, java.lang.String, com.squareup.javapoet.TypeName)
+	 */
 	@Override
 	public void generateWriteParam2WhereCondition(Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramTypeName) {
 		String methodName = method.getParent().generateJava2ContentSerializer(paramTypeName);
@@ -53,6 +63,9 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 		methodBuilder.addCode("$L($L)", methodName, paramName);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.AbstractSQLTransform#generateReadValueFromCursor(com.squareup.javapoet.MethodSpec.Builder, com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition, com.squareup.javapoet.TypeName, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void generateReadValueFromCursor(Builder methodBuilder, SQLiteDaoDefinition daoDefinition, TypeName paramTypeName, String cursorName, String indexName) {
 		String methodName = daoDefinition.generateJava2ContentParser(paramTypeName);
@@ -60,17 +73,26 @@ public abstract class AbstractGeneratedSQLTransform extends AbstractSQLTransform
 		methodBuilder.addCode("$L($L.getBlob($L))", methodName, cursorName, indexName);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#generateReadPropertyFromCursor(com.squareup.javapoet.MethodSpec.Builder, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.core.ModelProperty, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void generateReadPropertyFromCursor(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "$T.parse$L($L.getBlob($L))"), TypeUtility.mergeTypeNameWithSuffix(beanClass, "Table"), formatter.convert(property.getName()), cursorName,
 				indexName);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#generateResetProperty(com.squareup.javapoet.MethodSpec.Builder, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.core.ModelProperty, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void generateResetProperty(Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		methodBuilder.addCode(setter(beanClass, beanName, property, "null"));
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#getColumnType()
+	 */
 	@Override
 	public SQLiteColumnType getColumnType() {
 		return SQLiteColumnType.BLOB;

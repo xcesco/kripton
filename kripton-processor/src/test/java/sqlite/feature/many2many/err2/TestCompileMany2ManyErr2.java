@@ -27,9 +27,18 @@ import sqlite.feature.many2many.City;
 import sqlite.feature.many2many.Entity;
 import sqlite.feature.many2many.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileMany2ManyErr2.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileMany2ManyErr2 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test foreign key not found.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testForeignKeyNotFound() throws Throwable {
 		this.expectedException(ForeignKeyNotFoundException.class);

@@ -31,23 +31,38 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SQLiteDaoDefinition.
+ */
 public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElement> implements SQLiteModelElement {
 
+	/** The Constant PARAM_PARSER_PREFIX. */
 	public static final String PARAM_PARSER_PREFIX = "parser";
 
+	/** The Constant PARAM_SERIALIZER_PREFIX. */
 	public static final String PARAM_SERIALIZER_PREFIX = "serializer";
 
+	/** The parent. */
 	private WeakReference<SQLiteDatabaseSchema> parent;
 
+	/** The type variable resolver. */
 	private TypeVariableResolver typeVariableResolver;
 
 	/**
+	 * Gets the parent.
+	 *
 	 * @return the parent
 	 */
 	public SQLiteDatabaseSchema getParent() {
 		return parent.get();
 	}
 
+	/**
+	 * Next counter.
+	 *
+	 * @return the long
+	 */
 	public long nextCounter() {
 		return getParent().nextCounter();
 	}
@@ -55,8 +70,8 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/**
 	 * Convert type variable in correct type. This must be done before work on
 	 * SQLMethod
-	 * 
-	 * @param value
+	 *
+	 * @param value the value
 	 */
 	void resolveTypeVariable(SQLiteModelMethod value) {
 		// before proceed, we need to resolve typeVariables
@@ -68,22 +83,35 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelBucket#add(com.abubusoft.kripton.processor.core.ModelEntity)
+	 */
 	@Override
 	public void add(SQLiteModelMethod value) {
 		super.add(value);
 	}
 
+	/** The entity class name. */
 	private String entityClassName;
 
+	/** The entity simply class name. */
 	private String entitySimplyClassName;
 
+	/**
+	 * Checks if is generated.
+	 *
+	 * @return true, if is generated
+	 */
 	public boolean isGenerated() {
 		return generated;
 	}
 
+	/** The generated. */
 	private boolean generated;
 
 	/**
+	 * Gets the entity simply class name.
+	 *
 	 * @return the entitySimplyClassName
 	 */
 	public String getEntitySimplyClassName() {
@@ -91,16 +119,32 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	}
 
 	/**
+	 * Gets the entity class name.
+	 *
 	 * @return the entityClassName
 	 */
 	public String getEntityClassName() {
 		return entityClassName;
 	}
 
+	/**
+	 * Gets the simple entity class name.
+	 *
+	 * @return the simple entity class name
+	 */
 	public String getSimpleEntityClassName() {
 		return entitySimplyClassName;
 	}
 
+	/**
+	 * Instantiates a new SQ lite dao definition.
+	 *
+	 * @param databaseSchema the database schema
+	 * @param name the name
+	 * @param element the element
+	 * @param entityClassName the entity class name
+	 * @param generated the generated
+	 */
 	public SQLiteDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element,
 			String entityClassName, boolean generated) {
 		super(element.getSimpleName().toString(), element);
@@ -129,15 +173,29 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 
 	}
 
+	/**
+	 * Resolve type variable.
+	 *
+	 * @param inputTypeName the input type name
+	 * @return the type name
+	 */
 	public TypeName resolveTypeVariable(TypeName inputTypeName) {
 		return typeVariableResolver.resolve(inputTypeName);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
+	 */
 	@Override
 	public void accept(SQLiteModelElementVisitor visitor) throws Exception {
 		visitor.visit(this);
 	}
 
+	/**
+	 * Gets the entity.
+	 *
+	 * @return the entity
+	 */
 	public SQLiteEntity getEntity() {
 		return getParent().getEntity(getEntityClassName());
 	}
@@ -151,38 +209,26 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 		return getParent().generateLog;
 	}
 
-	/**
-	 * map of params for which generate a java2Content method converter
-	 */
+	/** map of params for which generate a java2Content method converter. */
 	public Map<TypeName, String> managedParams = new HashMap<TypeName, String>();
 
-	/**
-	 * <p>
-	 * if <code>true</code> indicates that content provider generation is
-	 * enabled
-	 */
+	/** <p> if <code>true</code> indicates that content provider generation is enabled. */
 	public boolean contentProviderEnabled;
 
-	/**
-	 * Base path associated to content provider
-	 */
+	/** Base path associated to content provider. */
 	public String contentProviderPath;
 
-	/**
-	 * type name exposed by content provider
-	 */
+	/** type name exposed by content provider. */
 	public String contentProviderTypeName;
 
-	/**
-	 * Collections of prepared statements
-	 */
+	/** Collections of prepared statements. */
 	public List<String> preparedStatementNames = new ArrayList<String>();
 
 	/**
-	 * Build and register prepared statement name
-	 * 
-	 * @param methodName
-	 * @return
+	 * Build and register prepared statement name.
+	 *
+	 * @param methodName the method name
+	 * @return the string
 	 */
 	String buildPreparedStatementName(String methodName) {
 		String name = methodName + "PreparedStatement" + preparedStatementNames.size();
@@ -191,23 +237,24 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 		return name;
 	}
 
-	/**
-	 * number of element generated for content provider
-	 */
+	/** number of element generated for content provider. */
 	public long contentProviderCounter;
 
+	/** The implemented interface. */
 	public Set<TypeName> implementedInterface;
 
-	/**
-	 * Example: DAO_PERSON_UID
-	 */
+	/** Example: DAO_PERSON_UID. */
 	public String daoUidName;
 
-	/**
-	 * Example: 0 to n
-	 */
+	/** Example: 0 to n. */
 	public int daoUidValue;
 
+	/**
+	 * Generate java 2 content serializer.
+	 *
+	 * @param paramTypeName the param type name
+	 * @return the string
+	 */
 	public String generateJava2ContentSerializer(TypeName paramTypeName) {
 		if (!managedParams.containsKey(paramTypeName)) {
 			managedParams.put(paramTypeName, "" + (managedParams.size() + 1));
@@ -216,6 +263,12 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 		return PARAM_SERIALIZER_PREFIX + managedParams.get(paramTypeName);
 	}
 
+	/**
+	 * Generate java 2 content parser.
+	 *
+	 * @param paramTypeName the param type name
+	 * @return the string
+	 */
 	public String generateJava2ContentParser(TypeName paramTypeName) {
 		if (!managedParams.containsKey(paramTypeName)) {
 			managedParams.put(paramTypeName, "" + (managedParams.size() + 1));
@@ -224,6 +277,11 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 		return PARAM_PARSER_PREFIX + managedParams.get(paramTypeName);
 	}
 
+	/**
+	 * Content provider uri.
+	 *
+	 * @return the string
+	 */
 	public String contentProviderUri() {
 		if (!contentProviderEnabled)
 			return "";
@@ -231,6 +289,11 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 		return this.getParent().contentProviderUri() + "/" + contentProviderPath;
 	}
 
+	/**
+	 * Content provider path.
+	 *
+	 * @return the string
+	 */
 	public String contentProviderPath() {
 		if (!contentProviderEnabled)
 			return "";
@@ -238,6 +301,11 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 		return contentProviderPath;
 	}
 
+	/**
+	 * Adds the implemented interface.
+	 *
+	 * @param className the class name
+	 */
 	public void addImplementedInterface(TypeName className) {
 		this.implementedInterface.add(className);
 
@@ -246,13 +314,18 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/**
 	 * return type name of object. Note that this method support DaoGenerated
 	 * case
-	 * 
-	 * @return
+	 *
+	 * @return the type name
 	 */
 	public TypeName getTypeName() {
 		return TypeUtility.typeName(TypeUtility.extractPackageName(this.element), name);
 	}
 	
+	/**
+	 * Checks for live data.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasLiveData() {		
 		for(SQLiteModelMethod item:collection) {
 			if (item.hasLiveData()) return true;

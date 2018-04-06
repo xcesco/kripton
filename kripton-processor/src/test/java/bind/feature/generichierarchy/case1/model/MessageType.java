@@ -15,12 +15,30 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.case1.model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum MessageType.
+ */
 public enum MessageType {
+	
+	/** The system channel created. */
 	SYSTEM_CHANNEL_CREATED,
+	
+	/** The system user added. */
 	SYSTEM_USER_ADDED,
+	
+	/** The system user exits. */
 	SYSTEM_USER_EXITS,
+	
+	/** The system user banned. */
 	SYSTEM_USER_BANNED,
+	
+	/** The system channel destroyed. */
 	SYSTEM_CHANNEL_DESTROYED,
+	
+	/** The message. */
 	MESSAGE,
+	
+	/** The action. */
 	ACTION;
 }

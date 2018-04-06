@@ -11,6 +11,10 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface BindDataSourceUpdateTask.
+ */
 @Retention(CLASS)
 @Target(ANNOTATION_TYPE)
 /**
@@ -19,7 +23,17 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
  */
 public @interface BindDataSourceUpdateTask {
 
+	/**
+	 * Version.
+	 *
+	 * @return the int
+	 */
 	int version();
 	
+	/**
+	 * Task.
+	 *
+	 * @return the class&lt;? extends SQ lite update task&gt;
+	 */
 	Class<? extends SQLiteUpdateTask> task();
 }

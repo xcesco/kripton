@@ -20,8 +20,17 @@ import java.util.Set;
 
 import com.squareup.javapoet.ParameterizedTypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SetBindTransformation.
+ */
 public class SetBindTransformation extends AbstractCollectionBindTransform {
 
+	/**
+	 * Instantiates a new sets the bind transformation.
+	 *
+	 * @param clazz the clazz
+	 */
 	public SetBindTransformation(ParameterizedTypeName clazz) {
 		super(clazz, CollectionType.SET);
 		collectionClazz=Set.class;

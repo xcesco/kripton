@@ -25,9 +25,18 @@ import sqlite.feature.many2many.City;
 import sqlite.feature.many2many.Entity;
 import sqlite.feature.many2many.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileMany2ManyErr3.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileMany2ManyErr3 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test duplicate methods.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testDuplicateMethods() throws Throwable {
 		//this.expectedException(InvalidMethodSignException.class);

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
@@ -15,18 +30,33 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FindTasksVisitor.
+ */
 public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String> {
 
+	/** The in tasks. */
 	boolean inTasks = false;
 
+	/** The current value. */
 	Pair<Integer, String> currentValue;
 	
+	/** The tasks. */
 	ArrayList<Pair<Integer, String>> tasks=new ArrayList<Pair<Integer, String>>();  
 
+	/**
+	 * Gets the tasks.
+	 *
+	 * @return the tasks
+	 */
 	public ArrayList<Pair<Integer, String>> getTasks() {
 		return tasks;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitInt(int, java.lang.Object)
+	 */
 	@Override
 	public Void visitInt(int i, String p) {
 		//System.out.printf(">> %s intValue: %d\n", p, i);
@@ -45,6 +75,9 @@ public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitString(java.lang.String, java.lang.Object)
+	 */
 	@Override
 	public Void visitString(String s, String p) {
 		//System.out.printf(">> %s stringValue: %s\n", p, s);
@@ -52,12 +85,18 @@ public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitEnumConstant(javax.lang.model.element.VariableElement, java.lang.Object)
+	 */
 	@Override
 	public Void visitEnumConstant(VariableElement c, String p) {
 		//System.out.printf(">> %s enumValue: %s\n", p, c.getSimpleName());
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitAnnotation(javax.lang.model.element.AnnotationMirror, java.lang.Object)
+	 */
 	@Override
 	public Void visitAnnotation(AnnotationMirror a, String p) {
 		if (AnnotationAttributeType.UPDATE_TASKS.getValue().equals(p)) {
@@ -76,6 +115,9 @@ public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitType(javax.lang.model.type.TypeMirror, java.lang.Object)
+	 */
 	@Override
 	public Void visitType(TypeMirror t, String p) {
 		//System.out.printf(">> %s classValue: %s\n", p, t.toString());
@@ -95,6 +137,9 @@ public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitArray(java.util.List, java.lang.Object)
+	 */
 	@Override
 	public Void visitArray(List<? extends AnnotationValue> vals, String p) {
 		for (AnnotationValue val : vals) {

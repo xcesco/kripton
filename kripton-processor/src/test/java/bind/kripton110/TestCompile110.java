@@ -26,8 +26,19 @@ import bind.kripton110.model.stage1.Name;
 import bind.kripton110.model.stage1.Response;
 import bind.kripton110.model.stage1.User;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompile110.
+ */
 public class TestCompile110 extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Friend.class, Image.class, Name.class, Response.class, User.class, bind.kripton110.model.stage2.Name.class,bind.kripton110.model.stage2.Native.class,bind.kripton110.model.stage2.Nld.class, bind.kripton110.model.stage2.Pap.class);

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.test03;
 
 import com.abubusoft.kripton.BinderUtils;
@@ -14,6 +29,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Bean01</code> is associated to table <code>bean01</code>
@@ -22,27 +38,14 @@ import java.util.List;
  *  @see Bean01
  */
 public class Bean01Table implements SQLiteTable {
-  /**
-   * Costant represents typeName of table bean01
-   */
+  
+  /** Costant represents typeName of table bean01. */
   public static final String TABLE_NAME = "bean01";
 
-  /**
-   * <p>
-   * DDL to create table bean01
-   * </p>
-   *
-   * <pre>CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);</pre>
-   */
+  /** <p> DDL to create table bean01 </p>  <pre>CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (lista BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, message_date INTEGER, message_text TEXT NOT NULL, bean_list BLOB, value INTEGER);";
 
-  /**
-   * <p>
-   * DDL to drop table bean01
-   * </p>
-   *
-   * <pre>DROP TABLE IF EXISTS bean01;</pre>
-   */
+  /** <p> DDL to drop table bean01 </p>  <pre>DROP TABLE IF EXISTS bean01;</pre>. */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean01;";
 
   /**
@@ -87,17 +90,17 @@ public class Bean01Table implements SQLiteTable {
    */
   public static final String COLUMN_VALUE = "value";
 
-  /**
-   * Bean02BindMap */
+  /** Bean02BindMap. */
   private static Bean02BindMap bean02BindMap = BinderUtils.mapperFor(Bean02.class);
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_LISTA, COLUMN_ID, COLUMN_MESSAGE_DATE, COLUMN_MESSAGE_TEXT, COLUMN_BEAN_LIST, COLUMN_VALUE};
 
   /**
-   * for attribute lista serialization
+   * for attribute lista serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeLista(List<Bean02> value) {
     if (value==null) {
@@ -134,7 +137,10 @@ public class Bean01Table implements SQLiteTable {
   }
 
   /**
-   * for attribute lista parsing
+   * for attribute lista parsing.
+   *
+   * @param input the input
+   * @return the list
    */
   public static List<Bean02> parseLista(byte[] input) {
     if (input==null) {
@@ -168,7 +174,10 @@ public class Bean01Table implements SQLiteTable {
   }
 
   /**
-   * for attribute beanList serialization
+   * for attribute beanList serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeBeanList(List<Bean02> value) {
     if (value==null) {
@@ -205,7 +214,10 @@ public class Bean01Table implements SQLiteTable {
   }
 
   /**
-   * for attribute beanList parsing
+   * for attribute beanList parsing.
+   *
+   * @param input the input
+   * @return the list
    */
   public static List<Bean02> parseBeanList(byte[] input) {
     if (input==null) {
@@ -239,7 +251,9 @@ public class Bean01Table implements SQLiteTable {
   }
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -247,7 +261,9 @@ public class Bean01Table implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

@@ -29,27 +29,76 @@ import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 
 import sqlite.feature.dynamic.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface PersonUpdateDAO.
+ */
 @BindDao(Person.class)
 public interface PersonUpdateDAO {
+	
+	/**
+	 * Select one.
+	 *
+	 * @param nameValue the name value
+	 * @return the list
+	 */
 	@BindSqlSelect(where="name like ${nameTemp} || '%' ")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
 	
+	/**
+	 * Delete raw.
+	 *
+	 * @param nameValue the name value
+	 * @param where the where
+	 */
 	@BindSqlDelete(where="id = ${nameValue}")
 	void deleteRaw(String nameValue, @BindSqlDynamicWhere String where);
 	
+	/**
+	 * Delete bean.
+	 *
+	 * @param bean the bean
+	 * @param where the where
+	 */
 	@BindSqlDelete(where="id = ${bean.id}")
 	void deleteBean(Person bean, @BindSqlDynamicWhere String where);	
 	
+	/**
+	 * Update raw.
+	 *
+	 * @param name the name
+	 * @param nameValue the name value
+	 * @param where the where
+	 */
 	@BindSqlUpdate(where="id = ${nameValue}")
 	void updateRaw(String name, String nameValue, @BindSqlDynamicWhere String where);
 	
+	/**
+	 * Update bean.
+	 *
+	 * @param bean the bean
+	 * @param where the where
+	 */
 	@BindSqlUpdate(where="id = ${bean.id}")
 	void updateBean(Person bean, @BindSqlDynamicWhere String where);
 	
 	
+	/**
+	 * Selec all.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect
 	List<Person> selecAll();
 	
+	/**
+	 * Insert one.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param birthCity the birth city
+	 * @param birthDay the birth day
+	 */
 	@BindSqlInsert(conflictAlgorithm=ConflictAlgorithmType.IGNORE)
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 

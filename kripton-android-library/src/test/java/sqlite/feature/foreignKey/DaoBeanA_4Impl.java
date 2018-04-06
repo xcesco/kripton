@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.foreignKey;
 
 import android.database.Cursor;
@@ -12,41 +27,53 @@ import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>BeanA_4</code>, based on interface <code>DaoBeanA_4</code>
- * </p>
+ * </p>.
  *
- *  @see BeanA_4
- *  @see DaoBeanA_4
- *  @see BeanA_4Table
+ * @see BeanA_4
+ * @see DaoBeanA_4
+ * @see BeanA_4Table
  */
 public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
+  
+  /** The Constant SELECT_ALL_SQL4. */
   private static final String SELECT_ALL_SQL4 = "SELECT pk, bean_a2_id, value_string FROM bean_a_4";
 
+  /** The Constant SELECT_BY_ID_SQL5. */
   private static final String SELECT_BY_ID_SQL5 = "SELECT pk, bean_a2_id, value_string FROM bean_a_4 WHERE pk=?";
 
+  /** The Constant SELECT_BY_STRING_SQL6. */
   private static final String SELECT_BY_STRING_SQL6 = "SELECT pk FROM bean_a_4 WHERE value_string=?";
 
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The update prepared statement 1. */
   private static SQLiteStatement updatePreparedStatement1;
 
+  /**
+   * Instantiates a new dao bean A 4 impl.
+   *
+   * @param context the context
+   */
   public DaoBeanA_4Impl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT pk, bean_a2_id, value_string FROM bean_a_4</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>bean_a2_id</dt><dd>is associated to bean's property <strong>beanA2Id</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of bean or empty collection.
    */
@@ -104,23 +131,22 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT pk, bean_a2_id, value_string FROM bean_a_4 WHERE pk=${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>bean_a2_id</dt><dd>is associated to bean's property <strong>beanA2Id</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
+   * @param id 	is binded to <code>${id}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -178,21 +204,20 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT pk FROM bean_a_4 WHERE value_string=${dummy}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param value
-   * 	is binded to <code>${dummy}</code>
+   * @param value 	is binded to <code>${dummy}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -379,6 +404,9 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
     return result;
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

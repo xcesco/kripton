@@ -19,11 +19,12 @@ package android.arch.lifecycle;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
+// TODO: Auto-generated Javadoc
 /**
- * Defines an object that has an Android Lifecycle. {@link android.support.v4.app.Fragment Fragment}
- * and {@link android.support.v4.app.FragmentActivity FragmentActivity} classes implement
- * {@link LifecycleOwner} interface which has the {@link LifecycleOwner#getLifecycle()
- * getLifecycle} method to access the Lifecycle. You can also implement {@link LifecycleOwner}
+ * Defines an object that has an Android Lifecycle. android.support.v4.app.Fragment Fragment
+ * and android.support.v4.app.FragmentActivity FragmentActivity classes implement
+ * LifecycleOwner interface which has the LifecycleOwner#getLifecycle()
+ * getLifecycle method to access the Lifecycle. You can also implement {@link LifecycleOwner}
  * in your own classes.
  * <p>
  * {@link Event#ON_CREATE}, {@link Event#ON_START}, {@link Event#ON_RESUME} events in this class
@@ -35,7 +36,7 @@ import android.support.annotation.NonNull;
  * before {@link android.app.Activity#onStop onStop} is called.
  * This gives you certain guarantees on which state the owner is in.
  * <p>
- * If you use <b>Java 8 Language</b>, then observe events with {@link DefaultLifecycleObserver}.
+ * If you use <b>Java 8 Language</b>, then observe events with DefaultLifecycleObserver.
  * To include it you should add {@code "android.arch.lifecycle:common-java8:<version>"} to your
  * build.gradle file.
  * <pre>
@@ -48,7 +49,7 @@ import android.support.annotation.NonNull;
  * </pre>
  * If you use <b>Java 7 Language</b>, Lifecycle events are observed using annotations.
  * Once Java 8 Language becomes mainstream on Android, annotations will be deprecated, so between
- * {@link DefaultLifecycleObserver} and annotations,
+ * DefaultLifecycleObserver and annotations,
  * you must always prefer {@code DefaultLifecycleObserver}.
  * <pre>
  * class TestObserver implements LifecycleObserver {
@@ -111,6 +112,9 @@ public abstract class Lifecycle {
     @NonNull
     public abstract State getCurrentState();
 
+    /**
+     * The Enum Event.
+     */
     @SuppressWarnings("WeakerAccess")
     public enum Event {
         /**

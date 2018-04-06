@@ -19,11 +19,17 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.kripton80ContextCollection.Bean80A;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean80A.
+ */
 @BindType
 public class Bean80A {
 	
+	/** The id. */
 	protected long id;
 	
+	/** The value bean. */
 	public Bean80A valueBean;
 
 //	public BigDecimal valueBigDecimal;
@@ -75,7 +81,8 @@ public class Bean80A {
 //	
 //	public short valueShortType;
 	
-	public String valueString;
+	/** The value string. */
+public String valueString;
 	
 //	public Time valueTime;
 //	
@@ -83,7 +90,10 @@ public class Bean80A {
 //	
 //	public URL valueUrl;
 	
-	@Override
+	/* (non-Javadoc)
+ * @see java.lang.Object#equals(java.lang.Object)
+ */
+@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -107,10 +117,18 @@ public class Bean80A {
 		return true;
 	}
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -121,6 +139,11 @@ public class Bean80A {
 		return result;
 	}
 	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}

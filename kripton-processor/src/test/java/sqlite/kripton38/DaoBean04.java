@@ -16,6 +16,9 @@
 package sqlite.kripton38;
 
 
+/**
+ * The Interface DaoBean04.
+ */
 public interface DaoBean04 extends BaseDao<Bean04> {
 
 	

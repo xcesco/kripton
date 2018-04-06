@@ -24,27 +24,41 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 
+// TODO: Auto-generated Javadoc
 /**
- * @hide
+ * The Class KriptonDefaultTaskExecutor.
+ *
  */
 public class KriptonDefaultTaskExecutor extends TaskExecutor {
 	
+	/**
+	 * Instantiates a new kripton default task executor.
+	 */
 	public KriptonDefaultTaskExecutor() {
 		mDiskIO = KriptonLibrary.executorService();		
 	}
 			
+    /** The m lock. */
     private final Object mLock = new Object();
     
+    /** The m disk IO. */
     private ExecutorService mDiskIO;
 
+    /** The m main handler. */
     @Nullable
     private volatile Handler mMainHandler;
 
+    /* (non-Javadoc)
+     * @see com.abubusoft.kripton.android.sqlite.executors.TaskExecutor#executeOnDiskIO(java.lang.Runnable)
+     */
     @Override
     public void executeOnDiskIO(Runnable runnable) {
         mDiskIO.execute(runnable);
     }
 
+    /* (non-Javadoc)
+     * @see com.abubusoft.kripton.android.sqlite.executors.TaskExecutor#postToMainThread(java.lang.Runnable)
+     */
     @Override
     public void postToMainThread(Runnable runnable) {
         if (mMainHandler == null) {
@@ -58,6 +72,9 @@ public class KriptonDefaultTaskExecutor extends TaskExecutor {
         mMainHandler.post(runnable);
     }
 
+    /* (non-Javadoc)
+     * @see com.abubusoft.kripton.android.sqlite.executors.TaskExecutor#isMainThread()
+     */
     @Override
     public boolean isMainThread() {
         return Looper.getMainLooper().getThread() == Thread.currentThread();

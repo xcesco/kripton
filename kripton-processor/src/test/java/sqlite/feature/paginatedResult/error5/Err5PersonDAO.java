@@ -22,9 +22,18 @@ import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import sqlite.feature.paginatedResult.error4.Err4Person;
 import sqlite.feature.paginatedResult.model.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Err5PersonDAO.
+ */
 @BindDao(Person.class)
 public interface Err5PersonDAO {
 
+	/**
+	 * Select paged static 1.
+	 *
+	 * @return the paginated result
+	 */
 	@BindSqlSelect
 	PaginatedResult<Err4Person> selectPagedStatic1();
 

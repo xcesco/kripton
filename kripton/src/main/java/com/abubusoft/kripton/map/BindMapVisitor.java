@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.map;
 
 import java.util.List;
@@ -6,12 +21,37 @@ import java.util.Map.Entry;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BindMapVisitor.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ */
 public abstract class BindMapVisitor {
 
+	/**
+	 * The Enum VisitorStatusType.
+	 *
+	 * @author Francesco Benincasa (info@abubusoft.com)
+	 */
 	public static enum VisitorStatusType {
-		RUN, STOP
+		
+		/** The run. */
+		RUN, 
+		
+		/** The stop. */
+		STOP
 	}
 
+	/**
+	 * Visit map.
+	 *
+	 * @param name the name
+	 * @param map the map
+	 * @param listener the listener
+	 * @param status the status
+	 * @return the visitor status type
+	 */
 	@SuppressWarnings("unchecked")
 	static VisitorStatusType visitMap(String name, Map<String, Object> map, BindMapListener listener, VisitorStatusType status) {
 		for (Entry<String, Object> item : map.entrySet()) {
@@ -30,6 +70,15 @@ public abstract class BindMapVisitor {
 		return status;
 	}
 
+	/**
+	 * Visit list.
+	 *
+	 * @param name the name
+	 * @param list the list
+	 * @param listener the listener
+	 * @param status the status
+	 * @return the visitor status type
+	 */
 	@SuppressWarnings("unchecked")
 	static VisitorStatusType visitList(String name, List<Object> list, BindMapListener listener, VisitorStatusType status) {
 		int i = 0;
@@ -50,10 +99,24 @@ public abstract class BindMapVisitor {
 		return status;
 	}
 
+	/**
+	 * Visit.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 * @param listener the listener
+	 * @param status the status
+	 */
 	static void visit(String name, String value, BindMapListener listener, VisitorStatusType status) {
 		listener.onField(name, value, status);
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @param map the map
+	 * @param listener the listener
+	 */
 	@SuppressWarnings("unchecked")
 	public static void execute(Map<String, Object> map, BindMapListener listener) {
 		if (listener == null)

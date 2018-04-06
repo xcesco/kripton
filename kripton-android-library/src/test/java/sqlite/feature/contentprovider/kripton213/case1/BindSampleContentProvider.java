@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.contentprovider.kripton213.case1;
 
 import android.content.ContentProvider;
@@ -8,6 +23,7 @@ import android.net.Uri;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>This is the content provider generated for {@link SampleDataSource}</p>
  *
@@ -47,19 +63,13 @@ public class BindSampleContentProvider extends ContentProvider {
    */
   public static final String URI = "content://com.abubusoft.contentprovidersample.provider";
 
-  /**
-   * <p>datasource singleton</p>
-   */
+  /** <p>datasource singleton</p>. */
   private static BindSampleDataSource dataSource;
 
-  /**
-   * <p>Content provider authority</p>
-   */
+  /** <p>Content provider authority</p>. */
   public static final String AUTHORITY = "com.abubusoft.contentprovidersample.provider";
 
-  /**
-   * <p>URI matcher</p>
-   */
+  /** <p>URI matcher</p>. */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
   /**
@@ -74,12 +84,16 @@ public class BindSampleContentProvider extends ContentProvider {
    */
   private static final Uri URI_PATH_CHEESE_2 = Uri.parse(URI+"/cheese/#");
 
+  /** The Constant PATH_CHEESE_1. */
   static final String PATH_CHEESE_1 = "cheese";
 
+  /** The Constant PATH_CHEESE_2. */
   static final String PATH_CHEESE_2 = "cheese/#";
 
+  /** The Constant PATH_CHEESE_1_INDEX. */
   static final int PATH_CHEESE_1_INDEX = 1;
 
+  /** The Constant PATH_CHEESE_2_INDEX. */
   static final int PATH_CHEESE_2_INDEX = 2;
 
   /**
@@ -140,6 +154,7 @@ public class BindSampleContentProvider extends ContentProvider {
   /**
    * <p>Create datasource and open database in read mode.</p>
    *
+   * @return true, if successful
    * @see android.content.ContentProvider#onCreate()
    */
   @Override
@@ -164,7 +179,6 @@ public class BindSampleContentProvider extends ContentProvider {
   }
 
   /**
-   *
    * <h2>Supported query operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
@@ -172,6 +186,12 @@ public class BindSampleContentProvider extends ContentProvider {
    * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#selectById2}</td></tr>
    * </table>
    *
+   * @param uri the uri
+   * @param projection the projection
+   * @param selection the selection
+   * @param selectionArgs the selection args
+   * @param sortOrder the sort order
+   * @return the cursor
    */
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -196,13 +216,15 @@ public class BindSampleContentProvider extends ContentProvider {
   }
 
   /**
-   *
    * <h2>Supported insert operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
    * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#insert0}</td></tr>
    * </table>
    *
+   * @param uri the uri
+   * @param contentValues the content values
+   * @return the uri
    */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
@@ -229,13 +251,17 @@ public class BindSampleContentProvider extends ContentProvider {
   }
 
   /**
-   *
    * <h2>Supported update operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
    * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}</pre></td><td>{@link CheeseDaoImpl#update4}</td></tr>
    * </table>
    *
+   * @param uri the uri
+   * @param contentValues the content values
+   * @param selection the selection
+   * @param selectionArgs the selection args
+   * @return the int
    */
   @Override
   public int update(Uri uri, ContentValues contentValues, String selection,
@@ -261,13 +287,16 @@ public class BindSampleContentProvider extends ContentProvider {
   }
 
   /**
-   *
    * <h2>Supported delete operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
    * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#deleteById3}</td></tr>
    * </table>
    *
+   * @param uri the uri
+   * @param selection the selection
+   * @param selectionArgs the selection args
+   * @return the int
    */
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -291,6 +320,9 @@ public class BindSampleContentProvider extends ContentProvider {
     return returnRowDeleted;
   }
 
+  /* (non-Javadoc)
+   * @see android.content.ContentProvider#getType(android.net.Uri)
+   */
   @Override
   public String getType(Uri uri) {
     switch (sURIMatcher.match(uri)) {

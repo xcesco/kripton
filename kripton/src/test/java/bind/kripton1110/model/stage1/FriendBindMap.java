@@ -28,13 +28,18 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.lang.Exception;
 import java.lang.Override;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Friend
+ * This class is binder map for Friend.
  *
  * @see Friend
  */
 @BindMap(Friend.class)
 public class FriendBindMap extends AbstractMapper<Friend> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(Friend object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -56,6 +61,9 @@ public class FriendBindMap extends AbstractMapper<Friend> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(Friend object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -77,7 +85,12 @@ public class FriendBindMap extends AbstractMapper<Friend> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(Friend object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -105,7 +118,11 @@ public class FriendBindMap extends AbstractMapper<Friend> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the friend
+   * @throws Exception the exception
    */
   @Override
   public Friend parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -142,7 +159,11 @@ public class FriendBindMap extends AbstractMapper<Friend> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the friend
+   * @throws Exception the exception
    */
   @Override
   public Friend parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -179,7 +200,12 @@ public class FriendBindMap extends AbstractMapper<Friend> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the friend
+   * @throws Exception the exception
    */
   @Override
   public Friend parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

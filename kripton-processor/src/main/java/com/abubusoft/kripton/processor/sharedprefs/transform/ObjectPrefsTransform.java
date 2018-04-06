@@ -17,10 +17,9 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
 /**
- * Transformer between a string and a Java String object
- * 
- * @author xcesco
+ * Transformer between a string and a Java String object.
  *
+ * @author xcesco
  */
 public class ObjectPrefsTransform extends AbstractGeneratedPrefsTransform {
 

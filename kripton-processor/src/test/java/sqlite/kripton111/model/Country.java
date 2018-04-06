@@ -26,26 +26,37 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Country.
+ */
 @BindType
 public class Country {
 
+    /** The id. */
     @BindColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
 
+	/** The area. */
 	public long area;
 
+    /** The code. */
     @BindColumn(nullable = false, columnType = ColumnType.UNIQUE)
 	public String code;
 
+    /** The calling code. */
     @BindColumn(nullable = false)
 	public String callingCode;
 
+	/** The region. */
 	public String region;
 
+    /** The name. */
     @BindColumn(nullable = false)
 	public String name;
 
 
+    /** The bitmap. */
     @BindDisabled
     public Bitmap bitmap;
 }

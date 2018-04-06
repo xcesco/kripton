@@ -23,15 +23,29 @@ import com.abubusoft.kripton.processor.exceptions.InvalidPropertyToColumnConvers
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileKripton164.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileKripton164 extends AbstractBindSQLiteProcessorTest {
 	
 	
+	/**
+	 * Test must work.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test 
 	public void test_must_work() throws Throwable {
 		buildDataSourceProcessorTest(CollegeStudent.class, CollegeStudentDao.class, CollegeStudentsDataSource.class);
 	}
 	
+	/**
+	 * Test error.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test 
 	public void test_error() throws Throwable {
 		this.expectedException(InvalidPropertyToColumnConversion.class);

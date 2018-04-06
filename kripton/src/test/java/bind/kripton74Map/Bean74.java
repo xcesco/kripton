@@ -28,33 +28,46 @@ import com.abubusoft.kripton.annotation.BindXml;
 
 
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Bean74.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @BindType(allFields=true)
 public class Bean74 implements Serializable {
 
+	/**
+	 * Instantiates a new bean 74.
+	 */
 	public Bean74()
 	{	
 	}
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3113613163524431347L;
 
+	/** The value map string integer. */
 	@Bind(mapKeyName="k", mapValueName="v")
 	@BindXml(elementTag="rutto")
 	public Map<String, Integer> valueMapStringInteger;
 	
+	/** The value map enum bean. */
 	@Bind(mapKeyName="k", mapValueName="v")
 	@BindXml(elementTag="item")
 	public Map<Enum74, Bean74> valueMapEnumBean;
 	
+	/** The value map int byte array. */
 	@Bind(mapKeyName="k", mapValueName="v")
 	public Map<Integer, byte[]> valueMapIntByteArray;
 	
+	/** The value map bean locale. */
 	@Bind(mapKeyName="k", mapValueName="v")
 	public Map<Bean74, Locale> valueMapBeanLocale;
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,6 +80,9 @@ public class Bean74 implements Serializable {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -104,6 +120,7 @@ public class Bean74 implements Serializable {
 		return true;
 	}
 
+	/** The value string. */
 	public String valueString;
 
 }

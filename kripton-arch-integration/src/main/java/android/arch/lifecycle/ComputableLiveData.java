@@ -25,20 +25,24 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
 
+// TODO: Auto-generated Javadoc
 /**
- * A LiveData class that can be invalidated & computed on demand.
+ * A LiveData class that can be invalidated and computed on demand.
  * <p>
  * This is an internal class for now, might be public if we see the necessity.
  *
  * @param <T> The type of the live data
- * @hide internal
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class ComputableLiveData<T> {
 
+    /** The m live data. */
     private final LiveData<T> mLiveData;
 
+    /** The m invalid. */
     private AtomicBoolean mInvalid = new AtomicBoolean(true);
+    
+    /** The m computing. */
     private AtomicBoolean mComputing = new AtomicBoolean(false);
 
     /**
@@ -47,7 +51,6 @@ public abstract class ComputableLiveData<T> {
      * It can also be invalidated via {@link #invalidate()} which will result in a call to
      * {@link #compute()} if there are active observers (or when they start observing)
      */
-    @SuppressWarnings("WeakerAccess")
     public ComputableLiveData() {
         mLiveData = new LiveData<T>() {
             @Override
@@ -69,6 +72,7 @@ public abstract class ComputableLiveData<T> {
         return mLiveData;
     }
 
+    /** The m refresh runnable. */
     @VisibleForTesting
     final Runnable mRefreshRunnable = new Runnable() {
         @WorkerThread
@@ -105,6 +109,7 @@ public abstract class ComputableLiveData<T> {
         }
     };
 
+    /** The m invalidation runnable. */
     // invalidation check always happens on the main thread
     @VisibleForTesting
     final Runnable mInvalidationRunnable = new Runnable() {
@@ -130,7 +135,11 @@ public abstract class ComputableLiveData<T> {
         ArchTaskExecutor.getInstance().executeOnMainThread(mInvalidationRunnable);
     }
 
-    @SuppressWarnings("WeakerAccess")
+    /**
+     * Compute.
+     *
+     * @return the t
+     */
     @WorkerThread
     protected abstract T compute();
 }

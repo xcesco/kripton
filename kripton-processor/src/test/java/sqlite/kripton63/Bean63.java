@@ -21,16 +21,24 @@ import java.util.Map;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean63.
+ */
 @BindType
 @BindSharedPreferences
 public class Bean63 {
 		
+	/** The id. */
 	public long id;
 		
+	/** The value. */
 	public String value;
 	
+	/** The value map string byte. */
 	public Map<String, Byte> valueMapStringByte;
 	
+	/** The value map enum byte. */
 	public HashMap<EnumType, Byte> valueMapEnumByte;
 	
 	/*

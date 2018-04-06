@@ -38,44 +38,104 @@ import bind.feature.typeAdapter.kripton87.StringInverterTypeAdapter;
 import bind.feature.typeAdapter.kripton87.StringUrlTypeAdapter;
 import bind.feature.typeAdapter.kripton87.UrlByteArrayTypeAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test87ACompile.
+ */
 public class Test87ACompile extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile 1.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_1() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(DateLongTypeAdapter.class, StringInverterTypeAdapter.class, UrlByteArrayTypeAdapter.class, Bean87A_1.class);
 	}
 	
+	/**
+	 * Test compile 2.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_2() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(UrlByteArrayTypeAdapter.class, Bean87A_2.class);
 	}
 	
+	/**
+	 * Test compile 3.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_3() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(BooleanByteArrayTypeAdapter.class, Enum87IntegerTypeAdapter.class, Bean87A_3.class, Enum87A.class);
 	}
 	
+	/**
+	 * Test compile 4.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_4() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(IncompatibleAnnotationException.class);
 		buildBindProcessorTest(BooleanBigDecimalTypeAdapter.class, Enum87BigIntegerTypeAdapter.class, Bean87A_4.class, Enum87A.class);
 	}
 	
+	/**
+	 * Test compile 5.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_5() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(BooleanBigDecimalTypeAdapter.class, Enum87BigIntegerTypeAdapter.class, Bean87A_5.class, Enum87A.class);
 	}
 	
+	/**
+	 * Test compile 6.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_6() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(StringUrlTypeAdapter.class, Bean87A_6.class, Enum87A.class);
 	}
 	
+	/**
+	 * Test compile 7.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_7() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(StringInverterTypeAdapter.class, Bean87A_7.class, Enum87A.class);
 	}
 	
+	/**
+	 * Test compile 8.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile_8() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(IncompatibleAnnotationException.class);

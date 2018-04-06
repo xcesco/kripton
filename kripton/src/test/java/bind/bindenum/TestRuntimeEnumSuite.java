@@ -18,6 +18,11 @@ package bind.bindenum;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * The Class TestRuntimeEnumSuite.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

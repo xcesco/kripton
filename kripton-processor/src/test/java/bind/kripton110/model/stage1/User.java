@@ -20,54 +20,81 @@ import java.util.List;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class User.
+ */
 @BindType
 public class User {
 
+	/** The about. */
 	public String about;
 
+	/** The address. */
 	public String address;
 
+	/** The age. */
 	public int age;
 
+	/** The balance. */
 	public String balance;
 
+	/** The company. */
 	public String company;
 
+	/** The email. */
 	public String email;
 
+	/** The eye color. */
 	public String eyeColor;
 
+	/** The favorite fruit. */
 	public String favoriteFruit;
 
+	/** The friends. */
 	public List<Friend> friends;
 
+	/** The greeting. */
 	public String greeting;
 
+	/** The guid. */
 	public String guid;
 
+	/** The id. */
 	@Bind("_id")
 	public String id;
 
+	/** The images. */
 	public List<Image> images;
 
+	/** The index. */
 	public int index;
 
+	/** The is active. */
 	public boolean isActive;
 
+	/** The latitude. */
 	public double latitude;
 
+	/** The longitude. */
 	public double longitude;
 
+	/** The name. */
 	public Name name;
 
+	/** The phone. */
 	public String phone;
 
+	/** The picture url. */
 	@Bind("picture")
 	public String pictureUrl;
 
+	/** The range. */
 	public List<Integer> range;
 
+	/** The registered. */
 	public String registered;
 
+	/** The tags. */
 	public List<String> tags;
 }

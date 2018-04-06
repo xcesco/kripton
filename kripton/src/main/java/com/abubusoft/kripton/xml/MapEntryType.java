@@ -15,15 +15,25 @@
  *******************************************************************************/
 package com.abubusoft.kripton.xml;
 
+// TODO: Auto-generated Javadoc
 /**
- * Mapping type of map entry
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Mapping type of map entry.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public enum MapEntryType {
+	
+	/** The tag. */
 	TAG,
+	
+	/** The attribute. */
 	ATTRIBUTE;
 
+	/**
+	 * To xml type.
+	 *
+	 * @return 		type
+	 */
 	public XmlType toXmlType() {
 		return XmlType.valueOf(toString());
 	}

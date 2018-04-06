@@ -15,8 +15,17 @@
  *******************************************************************************/
 package bind.bindenum;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum LogLevel.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ */
 public enum LogLevel {
 
+	/** The log info. */
 	LOG_INFO,
+	
+	/** The log debug. */
 	LOG_DEBUG
 }

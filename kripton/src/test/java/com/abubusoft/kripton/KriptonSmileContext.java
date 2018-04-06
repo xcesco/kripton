@@ -18,20 +18,28 @@ package com.abubusoft.kripton;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.dataformat.smile.SmileFactory;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class KriptonSmileContext.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonSmileContext extends AbstractJacksonContext {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#getSupportedFormat()
+	 */
 	@Override
 	public BinderType getSupportedFormat()
 	{
 		return BinderType.SMILE;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.AbstractJacksonContext#createInnerFactory()
+	 */
 	@Override
-	public JsonFactory createInnerFactory()
+	protected JsonFactory createInnerFactory()
 	{
 		return new SmileFactory();
 	}

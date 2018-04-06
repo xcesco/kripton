@@ -21,6 +21,7 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 
+// TODO: Auto-generated Javadoc
 /**
  * Translates a value using a lookup table.
  *
@@ -28,9 +29,16 @@ import java.util.HashSet;
  */
 public class LookupTranslator extends CharSequenceTranslator {
 
+    /** The lookup map. */
     private final HashMap<String, String> lookupMap;
+    
+    /** The prefix set. */
     private final HashSet<Character> prefixSet;
+    
+    /** The shortest. */
     private final int shortest;
+    
+    /** The longest. */
     private final int longest;
 
     /**

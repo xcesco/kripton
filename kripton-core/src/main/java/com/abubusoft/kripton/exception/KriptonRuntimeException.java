@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.exception;
 
+// TODO: Auto-generated Javadoc
 /**
  * This exception is a generic kripton exception. 
  * 
@@ -23,33 +24,85 @@ package com.abubusoft.kripton.exception;
  */
 public class KriptonRuntimeException extends RuntimeException {
 	
+	/** The detail. */
 	protected Throwable detail;
+    
+    /** The row. */
     protected int row = -1;
+    
+    /** The column. */
     protected int column = -1;
     
+    /**
+     * Gets the detail.
+     *
+     * @return the detail
+     */
     public Throwable getDetail() { return detail; }
+    
+    /**
+     * Gets the line number.
+     *
+     * @return the line number
+     */
     //    public void setDetail(Throwable cause) { this.detail = cause; }
     public int getLineNumber() { return row; }
+    
+    /**
+     * Gets the column number.
+     *
+     * @return the column number
+     */
     public int getColumnNumber() { return column; }
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7993865639459660322L;
 
+	/**
+	 * Instantiates a new kripton runtime exception.
+	 */
 	public KriptonRuntimeException() {
 	}
 
+	/**
+	 * Instantiates a new kripton runtime exception.
+	 *
+	 * @param arg0 the arg 0
+	 */
 	public KriptonRuntimeException(String arg0) {
 		super(arg0);
 	}
 
+	/**
+	 * Instantiates a new kripton runtime exception.
+	 *
+	 * @param arg0 the arg 0
+	 */
 	public KriptonRuntimeException(Throwable arg0) {
 		super(arg0);
 	}
 
+	/**
+	 * Instantiates a new kripton runtime exception.
+	 *
+	 * @param arg0 the arg 0
+	 * @param arg1 the arg 1
+	 */
 	public KriptonRuntimeException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
 	}
 	
-	 public KriptonRuntimeException(String msg, boolean parser, int row, int col, String description, Throwable chain) {
+	 /**
+ 	 * Instantiates a new kripton runtime exception.
+ 	 *
+ 	 * @param msg the msg
+ 	 * @param parser the parser
+ 	 * @param row the row
+ 	 * @param col the col
+ 	 * @param description the description
+ 	 * @param chain the chain
+ 	 */
+ 	public KriptonRuntimeException(String msg, boolean parser, int row, int col, String description, Throwable chain) {
 	        super ((msg == null ? "" : msg+" ")
 	               + (description == null ? "" : "(position:"+description+") ")
 	               + (chain == null ? "" : "caused by: "+chain));

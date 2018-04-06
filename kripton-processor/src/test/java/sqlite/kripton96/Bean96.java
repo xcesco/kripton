@@ -17,13 +17,20 @@ package sqlite.kripton96;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean96.
+ */
 @BindType
 public class Bean96 {
 	
+	/** The id. */
 	public long id;
 	
+	/** The name. */
 	public String name;
 	
+	/** The surname. */
 	public String surname;
 	
 }

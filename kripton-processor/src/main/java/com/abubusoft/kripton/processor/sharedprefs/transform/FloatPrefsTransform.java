@@ -16,14 +16,19 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Float object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Float object.
  *
+ * @author xcesco
  */
 public class FloatPrefsTransform extends AbstractPrimitivePrefsTransform {
 	
+	/**
+	 * Instantiates a new float prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public FloatPrefsTransform(boolean nullable)
 	{
 		super(nullable);

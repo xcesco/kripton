@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton58.array;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +27,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Represents implementation of datasource CharDataSource.
@@ -25,40 +41,37 @@ import java.util.List;
  * @see CharBean
  */
 public class BindCharDataSource extends AbstractDataSource implements BindCharDaoFactory, CharDataSource {
-  /**
-   * <p>datasource singleton</p>
-   */
+  
+  /** <p>datasource singleton</p>. */
   static volatile BindCharDataSource instance;
 
-  /**
-   * <p>Mutex to manage multithread access to instance</p>
-   */
+  /** <p>Mutex to manage multithread access to instance</p>. */
   private static final Object mutex = new Object();
 
-  /**
-   * Unique identifier for Dao CharDao
-   */
+  /** Unique identifier for Dao CharDao. */
   public static final int CHAR_DAO_UID = 0;
 
-  /**
-   * List of tables compose datasource
-   */
+  /** List of tables compose datasource. */
   static final SQLiteTable[] TABLES = {new CharBeanTable()};
 
-  /**
-   * <p>dao instance</p>
-   */
+  /** <p>dao instance</p>. */
   protected CharDaoImpl charDao = new CharDaoImpl(context);
 
-  /**
-   * Used only in transactions (that can be executed one for time
-   */
+  /** Used only in transactions (that can be executed one for time. */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
+  /**
+   * Instantiates a new bind char data source.
+   *
+   * @param options the options
+   */
   protected BindCharDataSource(DataSourceOptions options) {
     super("dummy", 1, options);
   }
 
+  /* (non-Javadoc)
+   * @see sqlite.kripton58.array.BindCharDaoFactory#getCharDao()
+   */
   @Override
   public CharDaoImpl getCharDao() {
     return charDao;
@@ -113,8 +126,9 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param commands
-   * 	batch to execute
+   * @param <T> the generic type
+   * @param commands 	batch to execute
+   * @return the t
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -123,10 +137,10 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param commands
-   * 	batch to execute
-   * @param writeMode
-   * 	true to open connection in write mode, false to open connection in read only mode
+   * @param <T> the generic type
+   * @param commands 	batch to execute
+   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
+   * @return the t
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -150,6 +164,8 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
 
   /**
    * <p>Retrieve instance.</p>
+   *
+   * @return the bind char data source
    */
   public static BindCharDataSource instance() {
     BindCharDataSource result=instance;
@@ -162,13 +178,12 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
           	.log(true)
           	.build();
           instance=result=new BindCharDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         }
       }
@@ -197,7 +212,9 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   }
 
   /**
-   * onCreate
+   * onCreate.
+   *
+   * @param database the database
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -224,7 +241,11 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   }
 
   /**
-   * onUpgrade
+   * onUpgrade.
+   *
+   * @param database the database
+   * @param previousVersion the previous version
+   * @param currentVersion the current version
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -268,7 +289,9 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   }
 
   /**
-   * onConfigure
+   * onConfigure.
+   *
+   * @param database the database
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -278,12 +301,18 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
     }
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
+   */
   public void clearCompiledStatements() {
     CharDaoImpl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
+   *
+   * @param options the options
+   * @return the bind char data source
    */
   public static BindCharDataSource build(DataSourceOptions options) {
     BindCharDataSource result=instance;
@@ -292,13 +321,19 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
         result=instance;
         if (result==null) {
           instance=result=new BindCharDataSource(options);
-          SQLiteDatabase database=instance.openWritableDatabase();
           try {
+            instance.openWritableDatabase();
+            instance.close();
+            // force database DDL run
+            if (options.populator!=null && instance.justCreated) {
+              // run populator only a time
+              instance.justCreated=false;
+              // run populator
+              options.populator.execute();
+            }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
             e.printStackTrace();
-          } finally {
-            instance.close();
           }
         } else {
           throw new KriptonRuntimeException("Datasource BindCharDataSource is already builded");
@@ -311,7 +346,9 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   }
 
   /**
-   * List of tables compose datasource:
+   * List of tables compose datasource:.
+   *
+   * @return the SQ lite table[]
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -321,43 +358,56 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindCharDaoFactory> {
+    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory
-     * @return
-     * @throws Throwable
+     * @param daoFactory the dao factory
+     * @return the transaction result
      */
     TransactionResult onExecute(BindCharDaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
+   *
+   * @param <T> the generic type
    */
   public interface Batch<T> {
+    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory
-     * @throws Throwable
+     * @param daoFactory the dao factory
+     * @return the t
      */
     T onExecute(BindCharDaoFactory daoFactory);
   }
 
+  /**
+   * The Class DataSourceSingleThread.
+   */
   class DataSourceSingleThread implements BindCharDaoFactory {
+    
+    /** The context. */
     private SQLContextInSessionImpl _context;
 
+    /** The char dao. */
     protected CharDaoImpl _charDao;
 
+    /**
+     * Instantiates a new data source single thread.
+     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindCharDataSource.this);
     }
 
     /**
+     * retrieve dao CharDao.
      *
-     * retrieve dao CharDao
+     * @return the char dao
      */
     public CharDaoImpl getCharDao() {
       if (_charDao==null) {
@@ -366,15 +416,29 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
       return _charDao;
     }
 
+    /**
+     * On session opened.
+     */
     protected void onSessionOpened() {
     }
 
+    /**
+     * On session clear.
+     */
     protected void onSessionClear() {
     }
 
+    /**
+     * On session closed.
+     */
     protected void onSessionClosed() {
     }
 
+    /**
+     * Bind to thread.
+     *
+     * @return the data source single thread
+     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>com.abubusoft</groupId>
 		<artifactId>kripton-parent</artifactId>
-		<version>4.0.0-rc.1</version>
+		<version>4.0.0-rc.4</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 
@@ -64,7 +64,7 @@
 			<artifactId>tools</artifactId>
 			<version>1.7</version>
 			<scope>system</scope>
-			<systemPath>${basedir}/eclipseLib/tools.jar</systemPath>			
+			<systemPath>${basedir}/eclipseLib/tools.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -217,7 +217,12 @@
 
 	</profiles>
 
+	<properties>
+		<skipTests>false</skipTests>
+	</properties>
 	<build>
+
+
 		<plugins>
 
 			<plugin>
@@ -251,6 +256,7 @@
 						<format>xml</format>
 					</formats>
 					<check />
+<!-- 					<aggregate>true</aggregate> -->
 				</configuration>
 			</plugin>
 
@@ -270,7 +276,7 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>				
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -284,9 +290,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20</version>
+				<version>2.21.0</version>
 				<configuration>
-					<argLine>-Xmx96m</argLine>
+					<argLine>-Xmx128m</argLine>
 					<systemPropertyVariables>
 						<kripton.debug>${kripton.debug}</kripton.debug>
 					</systemPropertyVariables>

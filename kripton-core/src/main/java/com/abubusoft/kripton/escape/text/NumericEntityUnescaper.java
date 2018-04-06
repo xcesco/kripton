@@ -21,6 +21,7 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.EnumSet;
 
+// TODO: Auto-generated Javadoc
 /**
  * Translate XML numeric entities of the form &amp;#[xX]?\d+;? to 
  * the specific codepoint.
@@ -31,8 +32,15 @@ import java.util.EnumSet;
  */
 public class NumericEntityUnescaper extends CharSequenceTranslator {
 
-    public static enum OPTION { semiColonRequired, semiColonOptional, errorIfNoSemiColon }
+    /**
+     * The Enum OPTION.
+     */
+    public static enum OPTION { /** The semi colon required. */
+ semiColonRequired, /** The semi colon optional. */
+ semiColonOptional, /** The error if no semi colon. */
+ errorIfNoSemiColon }
 
+    /** The options. */
     // TODO?: Create an OptionsSet class to hide some of the conditional logic below
     private final EnumSet<OPTION> options;
 

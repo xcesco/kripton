@@ -46,8 +46,15 @@ import com.squareup.javapoet.TypeSpec;
 
 import android.database.sqlite.SQLiteStatement;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InsertRawHelper.
+ */
 public class InsertRawHelper implements InsertCodeGenerator {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, boolean, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeName)
+	 */
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -151,9 +158,11 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	}
 
 	/**
-	 * @param methodBuilder
-	 * @param method
-	 * @param returnType
+	 * Generate java doc.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param method the method
+	 * @param returnType the return type
 	 * @return string sql
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType) {
@@ -258,10 +267,10 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	}
 
 	/**
-	 * Generate javadoc about return type of method
-	 * 
-	 * @param methodBuilder
-	 * @param returnType
+	 * Generate javadoc about return type of method.
+	 *
+	 * @param methodBuilder the method builder
+	 * @param returnType the return type
 	 */
 	public static void generateJavaDocReturnType(MethodSpec.Builder methodBuilder, TypeName returnType) {
 		if (returnType == TypeName.VOID) {

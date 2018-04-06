@@ -39,17 +39,15 @@ import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer for java primitive types and frequently used java types
- * 
- * @author xcesco
+ * Transformer for java primitive types and frequently used java types.
  *
+ * @author xcesco
  */
 public abstract class PrefsTransformer {
 
-	/**
-	 * cache for transform
-	 */
+	/** cache for transform. */
 	private static final Map<TypeName, PrefsTransform> cache = new ConcurrentHashMap<TypeName, PrefsTransform>();
 
 	/**
@@ -67,8 +65,9 @@ public abstract class PrefsTransformer {
 	}
 
 	/**
-	 * Get transformer for type
-	 * 
+	 * Get transformer for type.
+	 *
+	 * @param property the property
 	 * @return transform
 	 */
 	public static PrefsTransform lookup(PrefsProperty property) {
@@ -79,9 +78,9 @@ public abstract class PrefsTransformer {
 	}
 
 	/**
-	 * Get transformer for type
-	 * 
-	 * @param typeName
+	 * Get transformer for type.
+	 *
+	 * @param typeName the type name
 	 * @return transform
 	 */
 	public static PrefsTransform lookup(TypeName typeName) {
@@ -98,6 +97,12 @@ public abstract class PrefsTransformer {
 		return transform;
 	}
 
+	/**
+	 * Gets the transform.
+	 *
+	 * @param typeName the type name
+	 * @return the transform
+	 */
 	private static PrefsTransform getTransform(TypeName typeName) {
 		if (typeName.isPrimitive()) {
 			return getPrimitiveTransform(typeName);
@@ -157,6 +162,12 @@ public abstract class PrefsTransformer {
 		return new ObjectPrefsTransform();
 	}
 
+	/**
+	 * Gets the sql transform.
+	 *
+	 * @param typeName the type name
+	 * @return the sql transform
+	 */
 	static PrefsTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
 			return new SQLTimePrefsTransform();
@@ -169,6 +180,12 @@ public abstract class PrefsTransformer {
 		return null;
 	}
 
+	/**
+	 * Gets the net transform.
+	 *
+	 * @param typeName the type name
+	 * @return the net transform
+	 */
 	static PrefsTransform getNetTransform(TypeName typeName) {
 		if (URL.class.getName().equals(typeName.toString())) {
 			return new UrlPrefsTransform();
@@ -177,6 +194,12 @@ public abstract class PrefsTransformer {
 		return null;
 	}
 
+	/**
+	 * Gets the math transform.
+	 *
+	 * @param typeName the type name
+	 * @return the math transform
+	 */
 	static PrefsTransform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
 			return new BigDecimalPrefsTransform();
@@ -188,10 +211,10 @@ public abstract class PrefsTransformer {
 	}
 
 	/**
-	 * Get Java primitive type Transformable
-	 * 
-	 * @param type
-	 * @return
+	 * Get Java primitive type Transformable.
+	 *
+	 * @param type the type
+	 * @return the primitive transform
 	 */
 	static PrefsTransform getPrimitiveTransform(TypeName type) {
 
@@ -223,10 +246,10 @@ public abstract class PrefsTransformer {
 	}
 
 	/**
-	 * Get Java primitive wrapping type Transformable
-	 * 
-	 * @param type
-	 * @return
+	 * Get Java primitive wrapping type Transformable.
+	 *
+	 * @param type the type
+	 * @return the language transform
 	 */
 	static PrefsTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
@@ -263,9 +286,9 @@ public abstract class PrefsTransformer {
 
 	/**
 	 * Get java.util type Transformable
-	 * 
-	 * @param type
-	 * @return
+	 *
+	 * @param type the type
+	 * @return the util transform
 	 */
 
 	static PrefsTransform getUtilTransform(TypeName type) {

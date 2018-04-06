@@ -3,6 +3,7 @@
  */
 package com.abubusoft.kripton;
 
+// TODO: Auto-generated Javadoc
 /**
  * Allows to manage a field of type J as a field of type D. It's usefully for unsupported type.   
  *  
@@ -16,20 +17,18 @@ package com.abubusoft.kripton;
 public interface TypeAdapter<J, D> {
 
 	/**
-	 * Convert a persisted value of type D in type J, used in a Java bean instance
-	 * 
-	 * @param dataValue
-	 * @return
-	 * @throws Exception
+	 * Convert a persisted value of type D in type J, used in a Java bean instance.
+	 *
+	 * @param dataValue the data value
+	 * @return the j
 	 */
 	J toJava(D dataValue);
 
 	/**
 	 * Convert a field value of type J in its persisted version of type D.
-	 * 
-	 * @param javaValue
-	 * @return
-	 * @throws Exception
+	 *
+	 * @param javaValue the java value
+	 * @return the d
 	 */
 	D toData(J javaValue);
 		

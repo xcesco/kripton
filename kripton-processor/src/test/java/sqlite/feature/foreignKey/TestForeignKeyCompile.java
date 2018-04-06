@@ -25,30 +25,46 @@ import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class TestForeignKeyCompile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class TestForeignKeyCompile extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * test on select 1
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * test on select 1.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testForeignKeyCompile1() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(BeanA_1.class, BeanA_2.class, DaoBeanA_1.class, DaoBeanA_2.class, DummyDataSource.class);
 	}
 	
+	/**
+	 * Test foreign key compile 2.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testForeignKeyCompile2() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(BeanA_3.class, BeanA_4.class, DaoBeanA_3.class, DaoBeanA_4.class, Dummy2DataSource.class);
 	}
 	
+	/**
+	 * Test foreign key compile 3.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testForeignKeyCompile3() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(CircularRelationshipException.class);

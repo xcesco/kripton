@@ -36,20 +36,19 @@ import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer for java primitive types and frequently used java types
- * 
+ * Transformer for java primitive types and frequently used java types.
  */
 public abstract class BindTransformer {
 
-	/**
-	 * cache for transform
-	 */
+	/** cache for transform. */
 	private static final Map<TypeName, BindTransform> cache = new ConcurrentHashMap<TypeName, BindTransform>();
 
 	/**
-	 * Get transformer for type
-	 * 
+	 * Get transformer for type.
+	 *
+	 * @param property the property
 	 * @return transform
 	 */
 	public static BindTransform lookup(BindProperty property) {
@@ -62,6 +61,12 @@ public abstract class BindTransformer {
 		return lookup(typeName);
 	}
 
+	/**
+	 * Checks if is binded object.
+	 *
+	 * @param typeName the type name
+	 * @return true, if is binded object
+	 */
 	public static boolean isBindedObject(TypeName typeName) {
 		BindTransform t = lookup(typeName);
 
@@ -71,6 +76,12 @@ public abstract class BindTransformer {
 		return false;
 	}
 
+	/**
+	 * Checks if is binded object.
+	 *
+	 * @param property the property
+	 * @return true, if is binded object
+	 */
 	public static boolean isBindedObject(BindProperty property) {
 		BindTransform t = lookup(property);
 
@@ -81,10 +92,9 @@ public abstract class BindTransformer {
 	}
 
 	/**
-	 * Get transformer for type
-	 * @param modelEntity 
-	 * 
-	 * @param typeName
+	 * Get transformer for type.
+	 *
+	 * @param typeName the type name
 	 * @return transform
 	 */
 	public static BindTransform lookup(TypeName typeName) {
@@ -103,6 +113,12 @@ public abstract class BindTransformer {
 		return transform;
 	}
 
+	/**
+	 * Gets the transform.
+	 *
+	 * @param typeName the type name
+	 * @return the transform
+	 */
 	static BindTransform getTransform(TypeName typeName) {
 		if (typeName.isPrimitive()) {
 			return getPrimitiveTransform(typeName);
@@ -156,6 +172,12 @@ public abstract class BindTransformer {
 		return new ObjectBindTransform();
 	}
 
+	/**
+	 * Gets the sql transform.
+	 *
+	 * @param typeName the type name
+	 * @return the sql transform
+	 */
 	static BindTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
 			return new SQLTimeBindTransform();
@@ -168,6 +190,12 @@ public abstract class BindTransformer {
 		return null;
 	}
 
+	/**
+	 * Gets the net transform.
+	 *
+	 * @param typeName the type name
+	 * @return the net transform
+	 */
 	static BindTransform getNetTransform(TypeName typeName) {
 		if (URL.class.getName().equals(typeName.toString())) {
 			return new UrlBindTransform();
@@ -176,6 +204,12 @@ public abstract class BindTransformer {
 		return null;
 	}
 
+	/**
+	 * Gets the math transform.
+	 *
+	 * @param typeName the type name
+	 * @return the math transform
+	 */
 	static BindTransform getMathTransform(TypeName typeName) {
 		if (BigDecimal.class.getName().equals(typeName.toString())) {
 			return new BigDecimalBindTransform();
@@ -187,10 +221,10 @@ public abstract class BindTransformer {
 	}
 
 	/**
-	 * Get Java primitive type Transformable
-	 * 
-	 * @param type
-	 * @return
+	 * Get Java primitive type Transformable.
+	 *
+	 * @param type the type
+	 * @return the primitive transform
 	 */
 	static BindTransform getPrimitiveTransform(TypeName type) {
 
@@ -222,10 +256,10 @@ public abstract class BindTransformer {
 	}
 
 	/**
-	 * Get Java primitive wrapping type Transformable
-	 * 
-	 * @param type
-	 * @return
+	 * Get Java primitive wrapping type Transformable.
+	 *
+	 * @param type the type
+	 * @return the language transform
 	 */
 	static BindTransform getLanguageTransform(TypeName type) {
 		String typeName = type.toString();
@@ -262,9 +296,9 @@ public abstract class BindTransformer {
 
 	/**
 	 * Get java.util type Transformable
-	 * 
-	 * @param type
-	 * @return
+	 *
+	 * @param type the type
+	 * @return the util transform
 	 */
 
 	static BindTransform getUtilTransform(TypeName type) {

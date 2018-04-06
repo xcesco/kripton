@@ -29,16 +29,29 @@ import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelEntity;
+import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PrefsProperty.
+ */
 public class PrefsProperty extends ManagedModelProperty {
 
+	/** The converter. */
 	private static Converter<String, String> converter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
 	
+	/**
+	 * Instantiates a new prefs property.
+	 *
+	 * @param entity the entity
+	 * @param element the element
+	 * @param modelAnnotations the model annotations
+	 */
 	public PrefsProperty(@SuppressWarnings("rawtypes") ModelEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
@@ -53,7 +66,7 @@ public class PrefsProperty extends ManagedModelProperty {
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindPreferenceAdapter.class);
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-			typeAdapter.dataType = detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
+			typeAdapter.dataType = TypeAdapterHelper.detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
 
 			// check type adapter
 			checkTypeAdapter(entity, element.asType(), typeAdapter, annotationBindAdapter);
@@ -68,21 +81,35 @@ public class PrefsProperty extends ManagedModelProperty {
 		}
 	}
 
+	/** The preference key. */
 	protected String preferenceKey;
 
+	/**
+	 * Gets the preference key.
+	 *
+	 * @return the preference key
+	 */
 	public String getPreferenceKey() {
 		return preferenceKey;
 	}
 
-	/**
-	 * kind of preference associated
-	 */
+	/** kind of preference associated. */
 	protected PreferenceType preferenceType;
 
+	/**
+	 * Gets the preference type.
+	 *
+	 * @return the preference type
+	 */
 	public PreferenceType getPreferenceType() {
 		return preferenceType;
 	}
 
+	/**
+	 * Sets the preference type.
+	 *
+	 * @param preferenceType the new preference type
+	 */
 	public void setPreferenceType(PreferenceType preferenceType) {
 		this.preferenceType = preferenceType;
 	}

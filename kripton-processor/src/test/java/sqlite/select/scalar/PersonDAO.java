@@ -22,12 +22,26 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.select.Person;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface PersonDAO.
+ */
 @BindDao(Person.class)
 public interface PersonDAO {
 
+	/**
+	 * Select all.
+	 *
+	 * @return the string
+	 */
 	@BindSqlSelect(fields="typeName", orderBy="typeName")
 	String selectAll();	
 	
+	/**
+	 * Select all 2.
+	 *
+	 * @return the date
+	 */
 	@BindSqlSelect(fields="birthDay", orderBy="typeName")
 	Date selectAll2();	
 }

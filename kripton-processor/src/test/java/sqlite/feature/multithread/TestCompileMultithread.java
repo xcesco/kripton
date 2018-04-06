@@ -25,13 +25,17 @@ import sqlite.feature.multithread.Person;
 import sqlite.feature.multithread.PersonDAO;
 import sqlite.feature.multithread.PersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileMultithread.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileMultithread extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * OK
-	 * 
-	 * @throws Throwable
+	 * OK.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testOK() throws Throwable {

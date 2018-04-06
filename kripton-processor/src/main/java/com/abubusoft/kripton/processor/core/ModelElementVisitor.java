@@ -17,8 +17,29 @@ package com.abubusoft.kripton.processor.core;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ModelElementVisitor.
+ *
+ * @param <T> the generic type
+ * @param <P> the generic type
+ */
 public interface ModelElementVisitor<T extends ModelClass<P>, P extends ModelProperty> {
+	
+	/**
+	 * Visit.
+	 *
+	 * @param schema the schema
+	 * @param entity the entity
+	 * @throws Exception the exception
+	 */
 	void visit(SQLiteDatabaseSchema schema, T entity) throws Exception;
 
+	/**
+	 * Visit.
+	 *
+	 * @param property the property
+	 * @throws Exception the exception
+	 */
 	void visit(P property) throws Exception;	
 }

@@ -20,15 +20,30 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Point3.
+ */
 @BindType
 public class Point3 {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4754358686291704165L;
 
+	/**
+	 * Instantiates a new point 3.
+	 */
 	public Point3() {
 
 	}
 
+	/**
+	 * Instantiates a new point 3.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 */
 	public Point3(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
@@ -36,50 +51,93 @@ public class Point3 {
 
 	}
 
+	/** The x. */
 	@Bind
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public float x;
 
+	/** The y. */
 	@Bind
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public float y;
 
+	/** The z. */
 	@Bind
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public float z;
 
+	/**
+	 * Adds the.
+	 *
+	 * @param x1 the x 1
+	 * @param y1 the y 1
+	 * @param z1 the z 1
+	 */
 	public void add(float x1, float y1, float z1) {
 		x += x1;
 		y += y1;
 		z += z1;
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param value the value
+	 */
 	public void add(Point3 value) {
 		x += value.x;
 		y += value.y;
 		z += value.z;
 	}
 
+	/**
+	 * Sets the coords.
+	 *
+	 * @param newX the new X
+	 * @param newY the new Y
+	 * @param newZ the new Z
+	 */
 	public void setCoords(float newX, float newY, float newZ) {
 		x = newX;
 		y = newY;
 		z = newZ;
 	}
 
+	/**
+	 * Copy into.
+	 *
+	 * @param dest the dest
+	 */
 	public void copyInto(Point3 dest) {
 		dest.x = x;
 		dest.y = y;
 		dest.z = z;
 	}
 
+	/**
+	 * Copy.
+	 *
+	 * @return the point 3
+	 */
 	public Point3 copy() {
 		return new Point3(x, y, z);
 	}
 
+	/**
+	 * Sets the.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 * @return the point 3
+	 */
 	public static Point3 set(float x, float y, float z) {
 		return new Point3(x, y, z);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,6 +148,9 @@ public class Point3 {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

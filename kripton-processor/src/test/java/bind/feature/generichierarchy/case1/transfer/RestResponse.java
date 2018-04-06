@@ -18,37 +18,72 @@ package bind.feature.generichierarchy.case1.transfer;
 import java.io.Serializable;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RestResponse.
+ */
 public abstract class RestResponse  implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1707936337366965471L;
 
+	/** The status. */
 	protected ServiceStatusType status;
 	
+	/** The detail message. */
 	protected String detailMessage;
 
+	/**
+	 * Gets the detail message.
+	 *
+	 * @return the detail message
+	 */
 	public String getDetailMessage() {
 		return detailMessage;
 	}
 
+	/**
+	 * Sets the detail message.
+	 *
+	 * @param detailMessage the new detail message
+	 */
 	public void setDetailMessage(String detailMessage) {
 		this.detailMessage = detailMessage;
 	}
 
 
+	/**
+	 * Sets the status.
+	 *
+	 * @param status the new status
+	 */
 	public void setStatus(ServiceStatusType status) {
 		this.status = status;
 	}
 	
 
+	/**
+	 * Gets the status.
+	 *
+	 * @return the status
+	 */
 	public ServiceStatusType getStatus() {
 		return status;
 	}
 	
+	/**
+	 * Checks if is successfull.
+	 *
+	 * @return true, if is successfull
+	 */
 	public boolean isSuccessfull()
 	{
 		return status.isSuccessfull();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "RestResponse [status=" + status + "]";

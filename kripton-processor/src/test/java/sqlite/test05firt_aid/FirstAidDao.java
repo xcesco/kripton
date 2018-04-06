@@ -22,18 +22,35 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 09/06/2016.
  */
 @BindDao(value = FirstAid.class)
 public interface FirstAidDao {
 
+    /**
+     * Select all.
+     *
+     * @return the list
+     */
     @BindSqlSelect(orderBy = "description")
     List<FirstAid> selectAll();
 
+    /**
+     * Delete all.
+     *
+     * @return the int
+     */
     @BindSqlDelete(where="1=1")
     int deleteAll();
 
+    /**
+     * Insert.
+     *
+     * @param bean the bean
+     * @return the int
+     */
     @BindSqlInsert
     int insert(FirstAid bean);
 

@@ -17,14 +17,21 @@ package base;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EntityBean.
+ */
 @BindType
 public class EntityBean {
 
 
 
+	/** The name. */
 	protected String name;
 
 	/**
+	 * Gets the name.
+	 *
 	 * @return the typeName
 	 */
 	public String getName() {
@@ -32,7 +39,9 @@ public class EntityBean {
 	}
 
 	/**
-	 * @param typeName the typeName to set
+	 * Sets the name.
+	 *
+	 * @param name the new name
 	 */
 	public void setName(String name) {
 		this.name = name;

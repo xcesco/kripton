@@ -26,19 +26,21 @@ import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundEx
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test33Compile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class Test33Compile extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * test on select 1
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * test on select 1.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testErrorMethodParameterNotFound01() throws IOException, InstantiationException, IllegalAccessException {
@@ -47,11 +49,11 @@ public class Test33Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * test on select 2
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * test on select 2.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testErrorMethodParameterNotFound02() throws IOException, InstantiationException, IllegalAccessException {
@@ -60,11 +62,11 @@ public class Test33Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * test on update raw
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * test on update raw.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testErrorMethodParameterNotFound03() throws IOException, InstantiationException, IllegalAccessException {
@@ -73,11 +75,11 @@ public class Test33Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * test on delete raw
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * test on delete raw.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testErrorMethodParameterNotFound04() throws IOException, InstantiationException, IllegalAccessException {
@@ -86,11 +88,11 @@ public class Test33Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * test on update bean
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * test on update bean.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testErrorPropertyInAnnotationNotFoundException01() throws IOException, InstantiationException, IllegalAccessException {
@@ -99,11 +101,11 @@ public class Test33Compile extends AbstractBindSQLiteProcessorTest {
 	}
 
 	/**
-	 * test on delete bean
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * test on delete bean.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testErrorPropertyInAnnotationNotFoundException02() throws IOException, InstantiationException, IllegalAccessException {

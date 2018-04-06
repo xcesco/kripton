@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.abubusoft.kripton.common.LocaleUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Locale object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.LocaleUtils;
  */
 public class LocaleBindTransform extends WrappedBindTransform {
 
+	/**
+	 * Instantiates a new locale bind transform.
+	 */
 	public LocaleBindTransform() {
 		super(LocaleUtils.class);
 	}

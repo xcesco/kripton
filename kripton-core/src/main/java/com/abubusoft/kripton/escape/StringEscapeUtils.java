@@ -28,6 +28,7 @@ import com.abubusoft.kripton.escape.text.StringUtils;
 import com.abubusoft.kripton.escape.text.UnicodeUnescaper;
 import com.abubusoft.kripton.escape.text.UnicodeUnpairedSurrogateRemover;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>Escapes and unescapes {@code String}s for
  * Java, Java Script, HTML and XML.</p>
@@ -431,15 +432,14 @@ public abstract class StringEscapeUtils {
 
     /**
      * <p>Unescapes any EcmaScript literals found in the {@code String}.</p>
-     *
+     * 
      * <p>For example, it will turn a sequence of {@code '\'} and {@code 'n'}
      * into a newline character, unless the {@code '\'} is preceded by another
      * {@code '\'}.</p>
      *
-     * @see #unescapeJava(String)
      * @param input  the {@code String} to unescape, may be null
      * @return A new unescaped {@code String}, {@code null} if null string input
-     *
+     * @see #unescapeJava(String)
      * @since 3.0
      */
     public static final String unescapeEcmaScript(final String input) {
@@ -448,15 +448,14 @@ public abstract class StringEscapeUtils {
 
     /**
      * <p>Unescapes any Json literals found in the {@code String}.</p>
-     *
+     * 
      * <p>For example, it will turn a sequence of {@code '\'} and {@code 'n'}
      * into a newline character, unless the {@code '\'} is preceded by another
      * {@code '\'}.</p>
      *
-     * @see #unescapeJava(String)
      * @param input  the {@code String} to unescape, may be null
      * @return A new unescaped {@code String}, {@code null} if null string input
-     *
+     * @see #unescapeJava(String)
      * @since 3.2
      */
     public static final String unescapeJson(final String input) {
@@ -620,8 +619,7 @@ public abstract class StringEscapeUtils {
      *    Unicode characters. This may change in future releases. </p>
      *
      * @param input  the {@code String} to unescape, may be null
-     * @return a new unescaped {@code String}, {@code null} if null string input
-     * @see #escapeXml(String)
+     * @return a new unescaped {@code String}, {@code null} if null string input 
      * @see #escapeXml10(String)
      * @see #escapeXml11(String)
      */

@@ -20,43 +20,65 @@ import java.util.concurrent.Executors;
 
 import android.content.Context;
 
+// TODO: Auto-generated Javadoc
 /**
- * Refererrer of android context.
+ * Used to initialize library
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
 public class KriptonLibrary {
 
-	public static Context context() { return context; };
-	
-	public static ExecutorService executorService() { return executerService; };
-	
-	private static Context context;
-	
-	private static ExecutorService executerService;
-	
-	public static final int THREAD_POOL_SIZE_DEFAULT=2;
-	
 	/**
-	 * Method to invoke during application initialization
-	 * 
+	 * Context.
+	 *
+	 * @return the context
+	 */
+	public static Context context() {
+		return context;
+	};
+
+	/**
+	 * Executor service.
+	 *
+	 * @return the executor service
+	 */
+	public static ExecutorService executorService() {
+		return executerService;
+	};
+
+	/** The context. */
+	private static Context context;
+
+	/** The executer service. */
+	private static ExecutorService executerService;
+
+	/** The Constant THREAD_POOL_SIZE_DEFAULT. */
+	public static final int THREAD_POOL_SIZE_DEFAULT = 2;
+
+	/**
+	 * Method to invoke during application initialization.
+	 *
 	 * @param contextValue
+	 *            the context value
 	 */
 	public static void init(Context contextValue) {
 		init(contextValue, null);
 	}
-	
+
 	/**
-	 * Method to invoke during application initialization
-	 * 
+	 * Method to invoke during application initialization.
+	 *
 	 * @param contextValue
+	 *            the context value
+	 * @param executorService
+	 *            the executor service
 	 */
 	public static void init(Context contextValue, ExecutorService executorService) {
 		context = contextValue;
-		
-		//Schedulers.from(Executors.newFixedThreadPool(3));
-		executerService=Executors.newFixedThreadPool(THREAD_POOL_SIZE_DEFAULT);
+
+		// Schedulers.from(Executors.newFixedThreadPool(3));
+		executerService = Executors.newFixedThreadPool(THREAD_POOL_SIZE_DEFAULT);
 	}
-	
+
 }

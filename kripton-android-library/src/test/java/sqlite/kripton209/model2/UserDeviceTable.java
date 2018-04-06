@@ -1,7 +1,23 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton209.model2;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>UserDevice</code> is associated to table <code>user_2_device</code>
@@ -10,27 +26,14 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see UserDevice
  */
 public class UserDeviceTable implements SQLiteTable {
-  /**
-   * Costant represents typeName of table user_2_device
-   */
+  
+  /** Costant represents typeName of table user_2_device. */
   public static final String TABLE_NAME = "user_2_device";
 
-  /**
-   * <p>
-   * DDL to create table user_2_device
-   * </p>
-   *
-   * <pre>CREATE TABLE user_2_device (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, device_id INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE, FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE); CREATE INDEX idx_user_2_device_user_id ON user_2_device(user_id); CREATE INDEX idx_user_2_device_device_id ON user_2_device(device_id); CREATE UNIQUE INDEX idx_user_2_device_0 on user_2_device (user_id, device_id);</pre>
-   */
+  /** <p> DDL to create table user_2_device </p>  <pre>CREATE TABLE user_2_device (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, device_id INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE, FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE); CREATE INDEX idx_user_2_device_user_id ON user_2_device(user_id); CREATE INDEX idx_user_2_device_device_id ON user_2_device(device_id); CREATE UNIQUE INDEX idx_user_2_device_0 on user_2_device (user_id, device_id);</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE user_2_device (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, device_id INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE, FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE); CREATE INDEX idx_user_2_device_user_id ON user_2_device(user_id); CREATE INDEX idx_user_2_device_device_id ON user_2_device(device_id); CREATE UNIQUE INDEX idx_user_2_device_0 on user_2_device (user_id, device_id);";
 
-  /**
-   * <p>
-   * DDL to drop table user_2_device
-   * </p>
-   *
-   * <pre> DROP INDEX IF EXISTS idx_user_2_device_user_id; DROP INDEX IF EXISTS idx_user_2_device_device_id; DROP INDEX IF EXISTS idx_user_2_device_1;DROP TABLE IF EXISTS user_2_device;</pre>
-   */
+  /** <p> DDL to drop table user_2_device </p>  <pre> DROP INDEX IF EXISTS idx_user_2_device_user_id; DROP INDEX IF EXISTS idx_user_2_device_device_id; DROP INDEX IF EXISTS idx_user_2_device_1;DROP TABLE IF EXISTS user_2_device;</pre>. */
   public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_user_2_device_user_id; DROP INDEX IF EXISTS idx_user_2_device_device_id; DROP INDEX IF EXISTS idx_user_2_device_1;DROP TABLE IF EXISTS user_2_device;";
 
   /**
@@ -54,13 +57,13 @@ public class UserDeviceTable implements SQLiteTable {
    */
   public static final String COLUMN_DEVICE_ID = "device_id";
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_USER_ID, COLUMN_DEVICE_ID};
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -68,7 +71,9 @@ public class UserDeviceTable implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

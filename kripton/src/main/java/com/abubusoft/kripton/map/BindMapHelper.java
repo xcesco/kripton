@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.map;
 
 import java.io.IOException;
@@ -13,8 +28,22 @@ import com.abubusoft.kripton.persistence.ParserWrapper;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Bind map helper.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ */
 public abstract class BindMapHelper {
 
+	/**
+	 * Parse a map.
+	 *
+	 * @param context the context
+	 * @param parserWrapper the parser wrapper
+	 * @param map the map
+	 * @return map
+	 */
 	public static Map<String, Object> parseMap(AbstractContext context, ParserWrapper parserWrapper, Map<String, Object> map) {
 		switch (context.getSupportedFormat()) {
 		case XML:
@@ -29,12 +58,13 @@ public abstract class BindMapHelper {
 	}
 
 	/**
-	 * Parse a 
-	 * @param context
-	 * @param parser
-	 * @param map
-	 * @param skipRead
-	 * @return
+	 * Parse map.
+	 *
+	 * @param context the context
+	 * @param parser the parser
+	 * @param map the map
+	 * @param skipRead the skip read
+	 * @return the map
 	 */
 	static Map<String, Object> parseMap(AbstractContext context, JsonParser parser, Map<String, Object> map, boolean skipRead) {
 		try {
@@ -84,6 +114,15 @@ public abstract class BindMapHelper {
 		}
 	}
 
+	/**
+	 * Parse a list.
+	 *
+	 * @param context the context
+	 * @param parser the parser
+	 * @param list the list
+	 * @param skipRead the skip read
+	 * @return the list
+	 */
 	static List<Object> parseList(AbstractContext context, JsonParser parser, List<Object> list, boolean skipRead) {
 		try {
 			if (!skipRead) {

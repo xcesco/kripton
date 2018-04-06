@@ -24,9 +24,18 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.javadoc.select.raw.SelectRawPersonDao;
 import sqlite.feature.javadoc.select.raw.SelectRawPersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestJavadocForSelectRaw.
+ */
 @RunWith(JUnit4.class)
 public class TestJavadocForSelectRaw extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test compile select raw.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompileSelectRaw() throws Throwable {
 		buildDataSourceProcessorTest(Person.class, SelectRawPersonDao.class, SelectRawPersonDataSource.class);

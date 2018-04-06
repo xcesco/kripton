@@ -18,14 +18,23 @@ package sqlite.feature.foreignKey;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BeanA_1.
+ */
 @BindType
 public class BeanA_1 {
 
+	/** The id. */
 	public long id;
 	
+	/** The bean A 2 id. */
 	@BindColumn(foreignKey=BeanA_2.class)
 	public long beanA2Id;
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,6 +45,9 @@ public class BeanA_1 {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -57,5 +69,6 @@ public class BeanA_1 {
 		return true;
 	}
 
+	/** The value string. */
 	public String valueString;
 }

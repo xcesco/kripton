@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.LocaleUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Locale object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.LocaleUtils;
  */
 public class LocalePrefsTransform extends WrappedPrefsTransform {
 
+	/**
+	 * Instantiates a new locale prefs transform.
+	 */
 	public LocalePrefsTransform() {
 		super(LocaleUtils.class);
 	}

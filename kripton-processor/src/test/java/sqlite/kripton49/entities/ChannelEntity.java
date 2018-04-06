@@ -18,15 +18,23 @@ package sqlite.kripton49.entities;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ChannelEntity.
+ */
 @BindType
 @BindTable(name="channel")
 public class ChannelEntity {	
 	
+	/** The owner uid. */
 	protected String ownerUid;
 	
+	/** The update time. */
 	protected long updateTime;
 
 	/**
+	 * Gets the update time.
+	 *
 	 * @return the updateTime
 	 */
 	public long getUpdateTime() {
@@ -34,6 +42,8 @@ public class ChannelEntity {
 	}
 
 	/**
+	 * Sets the update time.
+	 *
 	 * @param updateTime the updateTime to set
 	 */
 	public void setUpdateTime(long updateTime) {
@@ -41,6 +51,8 @@ public class ChannelEntity {
 	}
 
 	/**
+	 * Gets the owner uid.
+	 *
 	 * @return the ownerUid
 	 */
 	public String getOwnerUid() {
@@ -48,25 +60,41 @@ public class ChannelEntity {
 	}
 
 	/**
+	 * Sets the owner uid.
+	 *
 	 * @param ownerUid the ownerUid to set
 	 */
 	public void setOwnerUid(String ownerUid) {
 		this.ownerUid = ownerUid;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/** The name. */
 	protected String name;
 	
+	/** The id. */
 	protected long id;
 
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public long getId() {
@@ -74,6 +102,8 @@ public class ChannelEntity {
 	}
 
 	/**
+	 * Sets the id.
+	 *
 	 * @param id the id to set
 	 */
 	public void setId(long id) {

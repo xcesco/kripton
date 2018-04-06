@@ -15,6 +15,14 @@
  *******************************************************************************/
 package sqlite.kripton84;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum Enum84Type.
+ */
 public enum Enum84Type {
-	VALUE_1, VALUE_2
+	
+	/** The value 1. */
+	VALUE_1, 
+ /** The value 2. */
+ VALUE_2
 }

@@ -19,17 +19,25 @@ import java.math.BigDecimal;
 
 import com.abubusoft.kripton.TypeAdapter;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class BooleanBigDecimalTypeAdapter.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BooleanBigDecimalTypeAdapter implements TypeAdapter<Boolean, BigDecimal> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public Boolean toJava(BigDecimal dataValue) {
 		return dataValue.longValue()>0;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public BigDecimal toData(Boolean javaValue) {
 		if (javaValue==null) return null;

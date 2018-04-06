@@ -21,12 +21,24 @@ import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ManagedModelProperty.
+ */
 public class ManagedModelProperty extends ModelProperty {
 
+	/**
+	 * Instantiates a new managed model property.
+	 *
+	 * @param entity the entity
+	 * @param element the element
+	 * @param modelAnnotations the model annotations
+	 */
 	@SuppressWarnings("rawtypes")
 	public ManagedModelProperty(ModelEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 	}
 
+	/** The bind property. */
 	public BindProperty bindProperty;
 }

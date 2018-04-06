@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package com.abubusoft.kripton.retrofit2;
 
 import java.io.ByteArrayInputStream;
@@ -19,12 +34,26 @@ import com.abubusoft.kripton.BinderType;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractBaseTest.
+ */
 public class AbstractBaseTest {
+	
+	/** The Constant KRIPTON_DEBUG_MODE. */
 	private static final String KRIPTON_DEBUG_MODE = "kripton.debug";
 
+	/** The expected ex. */
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
+	/**
+	 * Check.
+	 *
+	 * @param bean the bean
+	 * @param checks the checks
+	 * @throws Exception the exception
+	 */
 	protected void check(Object bean, BinderType... checks) throws Exception {
 		int max = 0;
 		int[] values = new int[BinderType.values().length];
@@ -58,6 +87,15 @@ public class AbstractBaseTest {
 		System.out.println();
 	}
 
+	/**
+	 * Check collection.
+	 *
+	 * @param <E> the element type
+	 * @param collection the collection
+	 * @param beanClazz the bean clazz
+	 * @param checks the checks
+	 * @throws Exception the exception
+	 */
 	protected <E> void checkCollection(Collection<E> collection, Class<E> beanClazz, BinderType... checks) throws Exception {
 		int max = 0;
 		int[] values = new int[BinderType.values().length];
@@ -91,16 +129,26 @@ public class AbstractBaseTest {
 		System.out.println();
 	}
 
+	/**
+	 * Expected exception.
+	 *
+	 * @param <E> the element type
+	 * @param clazzException the clazz exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	public <E extends Exception> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(AssertionError.class);
 		expectedEx.expectMessage(clazzException.getSimpleName());
 	}
 
 	/**
-	 * @param bean
-	 * @param type
-	 * @return
-	 * @throws Exception
+	 * Serialize and parse.
+	 *
+	 * @param bean the bean
+	 * @param type the type
+	 * @return the int
+	 * @throws Exception the exception
 	 */
 	public int serializeAndParse(Object bean, BinderType type) throws Exception {
 		String output1 = KriptonBinder.bind(type).serialize(bean);
@@ -122,6 +170,14 @@ public class AbstractBaseTest {
 		return output2.length();
 	}
 
+	/**
+	 * Serialize and parse binary.
+	 *
+	 * @param bean the bean
+	 * @param type the type
+	 * @return the int
+	 * @throws Exception the exception
+	 */
 	public int serializeAndParseBinary(Object bean, BinderType type) throws Exception {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.bind(type).serialize(bean, bar);
@@ -146,6 +202,16 @@ public class AbstractBaseTest {
 		return bar.getCount();
 	}
 
+	/**
+	 * Serialize and parse collection.
+	 *
+	 * @param <E> the element type
+	 * @param list the list
+	 * @param clazz the clazz
+	 * @param type the type
+	 * @return the int
+	 * @throws Exception the exception
+	 */
 	public <E> int serializeAndParseCollection(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
 		String value1 = KriptonBinder.bind(type).serializeCollection(list, clazz);
 
@@ -167,6 +233,16 @@ public class AbstractBaseTest {
 		return value1.length();
 	}
 
+	/**
+	 * Serialize and parse collection binary.
+	 *
+	 * @param <E> the element type
+	 * @param list the list
+	 * @param clazz the clazz
+	 * @param type the type
+	 * @return the int
+	 * @throws Exception the exception
+	 */
 	public <E> int serializeAndParseCollectionBinary(Collection<E> list, Class<E> clazz, BinderType type) throws Exception {
 		KriptonByteArrayOutputStream bar = new KriptonByteArrayOutputStream();
 		KriptonBinder.bind(type).serializeCollection(list, clazz, bar);
@@ -192,6 +268,9 @@ public class AbstractBaseTest {
 		return bar.getCount();
 	}
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		final String value = System.getProperty(KRIPTON_DEBUG_MODE);
@@ -207,6 +286,12 @@ public class AbstractBaseTest {
 		// KriptonBinder.registryBinder(new KriptonCborContext());
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
 	String toString(byte[] input) {
 		StringBuilder buffer = new StringBuilder();
 		for (int j = 0; j < input.length; j++) {

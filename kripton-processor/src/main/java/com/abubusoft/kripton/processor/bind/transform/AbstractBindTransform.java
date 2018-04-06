@@ -18,17 +18,24 @@
  */
 package com.abubusoft.kripton.processor.bind.transform;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class AbstractBindTransform.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class AbstractBindTransform implements BindTransform {
 
+	/** The default value. */
 	protected String DEFAULT_VALUE = "null";
 
+	/** The Constant PRE_TYPE_ADAPTER_TO_JAVA. */
 	protected static final String PRE_TYPE_ADAPTER_TO_JAVA = "$T.toJava($T.class, ";
+	
+	/** The Constant PRE_TYPE_ADAPTER_TO_DATA. */
 	protected static final String PRE_TYPE_ADAPTER_TO_DATA = "$T.toData($T.class, ";	
 
+	/** The Constant POST_TYPE_ADAPTER. */
 	protected static final String POST_TYPE_ADAPTER = ")";
 
 }

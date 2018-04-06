@@ -18,14 +18,22 @@
  */
 package com.abubusoft.kripton.processor.exceptions;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class IncompatibleAnnotationException.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class IncompatibleAnnotationException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3353804149895090419L;
 
+	/**
+	 * Instantiates a new incompatible annotation exception.
+	 *
+	 * @param message the message
+	 */
 	public IncompatibleAnnotationException(String message) {
 		super(message);
 	}

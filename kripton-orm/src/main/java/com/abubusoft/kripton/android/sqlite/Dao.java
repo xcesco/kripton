@@ -21,6 +21,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class become the parent class for every Dao generated. Every Dao have to
  * be defined by an interface with {@link BindDao} annotation.
@@ -30,6 +31,11 @@ import android.database.sqlite.SQLiteStatement;
  */ 
 public abstract class Dao implements AutoCloseable {
 
+	/**
+	 * Instantiates a new dao.
+	 *
+	 * @param context the context
+	 */
 	public Dao(SQLContext context) {
 		this._context = context;
 	}
@@ -42,36 +48,66 @@ public abstract class Dao implements AutoCloseable {
 	protected SQLContext _context;
 
 	/**
-	 * Retrieve SQLite database instance
-	 * 
-	 * @return
+	 * Retrieve SQLite database instance.
+	 *
+	 * @return the SQ lite database
 	 */
 	protected SQLiteDatabase database() {
 		return _context.database();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.AutoCloseable#close()
+	 */
 	@Override
 	public void close() {
 		// for the moment, we do nothing here.
 
 	}
 
+	/**
+	 * Content values.
+	 *
+	 * @return the kripton content values
+	 */
 	protected KriptonContentValues contentValues() {
 		return _context.contentValues(null);
 	}
 
+	/**
+	 * Content values for update.
+	 *
+	 * @return the kripton content values
+	 */
 	protected KriptonContentValues contentValuesForUpdate() {
 		return _context.contentValuesForUpdate(null);
 	}
 
+	/**
+	 * Content values for update.
+	 *
+	 * @param compiledStatement the compiled statement
+	 * @return the kripton content values
+	 */
 	protected KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
 		return _context.contentValuesForUpdate(compiledStatement);
 	}
 
+	/**
+	 * Content values for content provider.
+	 *
+	 * @param values the values
+	 * @return the kripton content values
+	 */
 	protected KriptonContentValues contentValuesForContentProvider(ContentValues values) {
 		return _context.contentValuesForContentProvider(values);
 	}
 
+	/**
+	 * Sql builder.
+	 *
+	 * @return the string builder
+	 */
 	protected StringBuilder sqlBuilder() {
 		return _context.sqlBuilder();
 	}
@@ -79,7 +115,7 @@ public abstract class Dao implements AutoCloseable {
 	/**
 	 * <p>
 	 * Invoked when a transation or a shared connection is opened
-	 * </p>
+	 * </p>.
 	 */
 	protected void onSessionOpened() {
 		latestEvent = null;
@@ -87,22 +123,23 @@ public abstract class Dao implements AutoCloseable {
 
 	/**
 	 * <p>
-	 * Invoked when a SQL event is fired
-	 * 
-	 * @param event
+	 * Invoked when a SQL event is fired.
+	 *
+	 * @param event the event
 	 */
 	protected void onEvent(SQLiteEvent event) {
 		latestEvent = event;
 	}
 
+	/** The latest event. */
 	protected SQLiteEvent latestEvent;
 
 	/**
 	 * <p>
 	 * Retrieve latest event.
 	 * </p>
-	 * 
-	 * @return
+	 *
+	 * @return the latest event
 	 */
 	protected SQLiteEvent getLatestEvent() {
 		return latestEvent;
@@ -112,15 +149,15 @@ public abstract class Dao implements AutoCloseable {
 	 * <p>
 	 * Return true, if there is an event.
 	 * </p>
-	 * 
-	 * @return
+	 *
+	 * @return true, if successful
 	 */
 	protected boolean hasLatestEvent() {
 		return latestEvent == null;
 	}
 	
 	/**
-	 * <p>clear latest event</p>
+	 * <p>clear latest event</p>.
 	 */
 	protected void clearEvents() {
 		latestEvent=null;
@@ -131,7 +168,7 @@ public abstract class Dao implements AutoCloseable {
 	/**
 	 * <p>
 	 * Invoked when a transation or a shared connection is closed
-	 * </p>
+	 * </p>.
 	 */
 	protected void onSessionClosed() {
 		latestEvent = null;

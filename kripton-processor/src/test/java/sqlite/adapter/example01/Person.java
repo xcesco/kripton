@@ -21,47 +21,95 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Person.
+ */
 @BindType
 public class Person {
 
+	/** The id. */
 	private long id;
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/** The name. */
 	private String name;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the surname.
+	 *
+	 * @return the surname
+	 */
 	public String getSurname() {
 		return surname;
 	}
 
+	/**
+	 * Sets the surname.
+	 *
+	 * @param surname the new surname
+	 */
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
 
+	/** The surname. */
 	private String surname;
 
+	/** The birth date. */
 	@BindColumn("birth")
 	@BindAdapter(adapter = DateAdapter.class)
 	private Date birthDate;
 
+	/**
+	 * Gets the birth date.
+	 *
+	 * @return the birth date
+	 */
 	public Date getBirthDate() {
 		return birthDate;
 	}
 
+	/**
+	 * Sets the birth date.
+	 *
+	 * @param birthDate the new birth date
+	 */
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}

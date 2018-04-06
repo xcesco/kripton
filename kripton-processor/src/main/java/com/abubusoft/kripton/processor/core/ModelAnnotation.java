@@ -21,36 +21,72 @@ import java.util.Map;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelAnnotation.
+ */
 public class ModelAnnotation {
 
+	/** The name. */
 	protected String name;
 
 	/**
+	 * Gets the name.
+	 *
 	 * @return the typeName
 	 */
 	public String getName() {
 		return name;
 	}
 
+	/** The attributes. */
 	protected Map<String, String> attributes;
 
+	/**
+	 * Instantiates a new model annotation.
+	 *
+	 * @param name the name
+	 * @param attributes the attributes
+	 */
 	public ModelAnnotation(String name, Map<String, String> attributes) {
 		this.name = name;
 		this.attributes = attributes;
 	}
 
+	/**
+	 * Gets the attribute.
+	 *
+	 * @param attribute the attribute
+	 * @return the attribute
+	 */
 	public String getAttribute(AnnotationAttributeType attribute) {
 		return attributes.get(attribute.getValue());
 	}
 
+	/**
+	 * Gets the attribute count.
+	 *
+	 * @return the attribute count
+	 */
 	public int getAttributeCount() {
 		return attributes.size();
 	}
 
+	/**
+	 * Gets the simple name.
+	 *
+	 * @return the simple name
+	 */
 	public String getSimpleName() {
 		return name.substring(name.lastIndexOf(".") + 1);
 	}
 
+	/**
+	 * Gets the attribute as class name.
+	 *
+	 * @param attribute the attribute
+	 * @return the attribute as class name
+	 */
 	public String getAttributeAsClassName(AnnotationAttributeType attribute) {
 		String temp = attributes.get(attribute.getValue());
 
@@ -61,18 +97,36 @@ public class ModelAnnotation {
 		return temp;
 	}
 
+	/**
+	 * Gets the attribute as boolean.
+	 *
+	 * @param attribute the attribute
+	 * @return the attribute as boolean
+	 */
 	public boolean getAttributeAsBoolean(AnnotationAttributeType attribute) {
 		String temp = attributes.get(attribute.getValue());
 
 		return Boolean.parseBoolean(temp);
 	}
 
+	/**
+	 * Gets the attribute as array.
+	 *
+	 * @param attribute the attribute
+	 * @return the attribute as array
+	 */
 	public List<String> getAttributeAsArray(AnnotationAttributeType attribute) {
 		String temp = attributes.get(attribute.getValue());
 
 		return AnnotationUtility.extractAsArrayOfString(temp);
 	}
 
+	/**
+	 * Gets the attribute as int.
+	 *
+	 * @param attribute the attribute
+	 * @return the attribute as int
+	 */
 	public int getAttributeAsInt(AnnotationAttributeType attribute) {
 		String temp = attributes.get(attribute.getValue());
 

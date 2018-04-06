@@ -23,12 +23,27 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import commons.benchmark.model.User;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface UserDao.
+ */
 @BindDao(User.class)
 public interface UserDao {
 
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert
 	long insert(User bean);
 	
+	/**
+	 * Select all.
+	 *
+	 * @return the array list
+	 */
 	@BindSqlSelect
 	ArrayList<User> selectAll();
 	

@@ -17,6 +17,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import android.database.sqlite.SQLiteDatabase;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * SQLite schema upgrade to version <i>currentVersion</i> from <i>currentVersion-1</i>.
@@ -29,8 +30,11 @@ import android.database.sqlite.SQLiteDatabase;
 public interface SQLiteUpdateTask {	
 	
 	/**
-	 * method to execute to launch build update from previous version to current version
-	 * @param database
+	 * method to execute to launch build update from previous version to current version.
+	 *
+	 * @param database the database
+	 * @param previousVersion the previous version
+	 * @param currentVersion the current version
 	 */
 	void execute(SQLiteDatabase database, int previousVersion ,int currentVersion);
 

@@ -27,13 +27,18 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.lang.Exception;
 import java.lang.Override;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Pap
+ * This class is binder map for Pap.
  *
  * @see Pap
  */
 @BindMap(Pap.class)
 public class PapBindMap extends AbstractMapper<Pap> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(Pap object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -57,6 +62,9 @@ public class PapBindMap extends AbstractMapper<Pap> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(Pap object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -81,7 +89,12 @@ public class PapBindMap extends AbstractMapper<Pap> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(Pap object, XMLSerializer xmlSerializer, int currentEventType) throws Exception {
@@ -111,7 +124,11 @@ public class PapBindMap extends AbstractMapper<Pap> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the pap
+   * @throws Exception the exception
    */
   @Override
   public Pap parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -150,7 +167,11 @@ public class PapBindMap extends AbstractMapper<Pap> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the pap
+   * @throws Exception the exception
    */
   @Override
   public Pap parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -189,7 +210,12 @@ public class PapBindMap extends AbstractMapper<Pap> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the pap
+   * @throws Exception the exception
    */
   @Override
   public Pap parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

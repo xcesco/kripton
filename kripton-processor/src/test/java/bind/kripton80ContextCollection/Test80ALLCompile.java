@@ -23,8 +23,19 @@ import bind.AbstractBindTypeProcessorTest;
 import bind.kripton80ContextCollection.Bean80;
 import bind.kripton80ContextCollection.BeanEnum;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test80ALLCompile.
+ */
 public class Test80ALLCompile extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean80.class, BeanEnum.class);

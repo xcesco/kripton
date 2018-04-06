@@ -17,8 +17,13 @@ package commons.kripton86.test6;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean6_1.
+ */
 @BindType
 public class Bean6_1 {
 	
+	/** The value long array. */
 	protected Long[] valueLongArray;
 }

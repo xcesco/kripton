@@ -24,11 +24,17 @@ import sqlite.feature.dynamic.Person;
 import sqlite.feature.dynamic.kripton121.Person1DAO;
 import sqlite.feature.dynamic.kripton121.Person1DataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Kripton121Test.
+ */
 @RunWith(JUnit4.class)
 public class Kripton121Test extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * Happy ending scenario. 
+	 * Happy ending scenario.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testMainScenario() throws Throwable {

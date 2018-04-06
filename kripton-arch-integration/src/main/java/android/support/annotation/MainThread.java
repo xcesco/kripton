@@ -42,7 +42,7 @@ import java.lang.annotation.Target;
  * <a href="/studio/write/annotations.html#thread-annotations">Thread
  * annotations</a>.
  *
- * @see android.support.annotation.UiThread
+ * android.support.annotation.UiThread
  */
 @Documented
 @Retention(CLASS)

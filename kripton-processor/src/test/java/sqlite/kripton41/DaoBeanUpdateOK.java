@@ -20,6 +20,10 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBeanUpdateOK.
+ */
 @BindDao(Bean01.class)
 public interface DaoBeanUpdateOK  {
 	
@@ -31,6 +35,14 @@ public interface DaoBeanUpdateOK  {
 	boolean insertDistance(long id, double value);
 	*/
 	
+	/**
+	 * Update distance.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @param test the test
+	 * @return true, if successful
+	 */
 	@BindSqlUpdate(where="id=${test}")
 	boolean updateDistance(long id, Double value, long test);
 	/*

@@ -20,31 +20,45 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ArgonSettings.
+ */
 @BindType("settings")
 public class ArgonSettings {
 
+	/**
+	 * Instantiates a new argon settings.
+	 */
 	public ArgonSettings() {
 		application = new ApplicationSettings();
 	}
 
+	/** The version. */
 	@Bind
 	@BindXml(xmlType = XmlType.ATTRIBUTE)
 	public String version = "1.0.0";
 
+	/** The application. */
 	@Bind
 	public ApplicationSettings application = new ApplicationSettings();
 
+	/** The view frustum. */
 	@Bind
 	public ViewFrustumSettings viewFrustum = new ViewFrustumSettings();
 
+	/** The open GL. */
 	@Bind
 	public OpenGLSettings openGL = new OpenGLSettings();
 
+	/** The logger. */
 	@Bind
 	public LoggerSettings logger = new LoggerSettings();
 
 	/**
-	 * Impostazioni standard per una grafica did tipo 2d (simulata)
+	 * Impostazioni standard per una grafica did tipo 2d (simulata).
+	 *
+	 * @return the argon settings
 	 */
 	public static ArgonSettings configAsWorld2D() {
 		ArgonSettings instance = new ArgonSettings();
@@ -71,7 +85,9 @@ public class ArgonSettings {
 	}
 
 	/**
-	 * @return
+	 * Config as world 3 D.
+	 *
+	 * @return the argon settings
 	 */
 	public static ArgonSettings configAsWorld3D() {
 		ArgonSettings instance = new ArgonSettings();

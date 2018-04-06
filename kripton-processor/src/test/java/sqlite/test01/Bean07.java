@@ -17,12 +17,19 @@ package sqlite.test01;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean07.
+ */
 @BindType
 public class Bean07 {
 
+	/** The text. */
 	protected String text;
 
 	/**
+	 * Gets the text.
+	 *
 	 * @return the text
 	 */
 	public String getText() {
@@ -30,6 +37,8 @@ public class Bean07 {
 	}
 
 	/**
+	 * Sets the text.
+	 *
 	 * @param text the text to set
 	 */
 	public void setText(String text) {

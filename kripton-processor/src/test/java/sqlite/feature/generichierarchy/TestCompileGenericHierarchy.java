@@ -25,13 +25,17 @@ import sqlite.feature.generichierarchy.Person;
 import sqlite.feature.generichierarchy.PersonDAO;
 import sqlite.feature.generichierarchy.PersonDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestCompileGenericHierarchy.
+ */
 @RunWith(JUnit4.class)
 public class TestCompileGenericHierarchy extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * OK
-	 * 
-	 * @throws Throwable
+	 * OK.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testOK() throws Throwable {

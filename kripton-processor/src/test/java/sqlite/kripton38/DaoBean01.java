@@ -17,6 +17,9 @@ package sqlite.kripton38;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 
+/**
+ * The Interface DaoBean01.
+ */
 @BindDao(Bean01.class)
 public interface DaoBean01 extends BaseDao<Bean01>  {
 	

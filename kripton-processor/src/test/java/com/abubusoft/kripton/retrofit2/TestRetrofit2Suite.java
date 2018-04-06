@@ -20,6 +20,9 @@ import org.junit.runners.Suite;
 
 import bind.feature.generichierarchy.case1.TestGenericHierarchyCase1;
 
+/**
+ * The Class TestRetrofit2Suite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

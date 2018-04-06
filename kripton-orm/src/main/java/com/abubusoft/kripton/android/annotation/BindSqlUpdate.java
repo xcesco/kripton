@@ -22,6 +22,10 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface BindSqlUpdate.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface BindSqlUpdate {
@@ -38,24 +42,23 @@ public @interface BindSqlUpdate {
 	ConflictAlgorithmType conflictAlgorithm() default ConflictAlgorithmType.NONE;
 
 	/**
-	 * properties to include into UPDATE command
-	 * @return
-	 * 		property's names to include
+	 * properties to include into UPDATE command.
+	 *
+	 * @return 		property's names to include
 	 */
 	String[] fields() default {};
 	
 	/**
-	 * properties to exclude from UPDATE command
-	 * @return
-	 * 		property's names to exclude
+	 * properties to exclude from UPDATE command.
+	 *
+	 * @return 		property's names to exclude
 	 */
 	String[] excludedFields() default {};
 	
 	/**
-	 * where conditions
-	 * 
-	 * @return
-	 * 		where conditions
+	 * where conditions.
+	 *
+	 * @return 		where conditions
 	 */
 	String where() default "";
 	
@@ -64,7 +67,7 @@ public @interface BindSqlUpdate {
 	 * <p>
 	 * JQL value. With this attribute, it is possibile to specify directly the JQL code. JQL means that you can write SQL using field's names and class name indeed
 	 * of column and table names. Moreover, it is possibile to specify where to use the dynamic parts of query through dynamic statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET, encapsulated
-	 * in <code>#{ <dynamic-part-name> }</code>
+	 * in <code>#{ dynamic-part-name }</code>
 	 * </p>
 	 * 
 	 * <p>For example, for a <code>select</code> statement, you can write:</p>

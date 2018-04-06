@@ -24,11 +24,16 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime73_1.
+ */
 public class TestRuntime73_1 extends AbstractBaseTest {
 
 	/**
-	 * Test empty arrays
-	 * @throws Exception 
+	 * Test empty arrays.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testEmptyArraysRun() throws Exception

@@ -17,14 +17,17 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.common.SQLTimeUtils;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a custom Time object
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Transformer between a string and a custom Time object.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class SQLTimeSQLTransform extends UtilSQLTransform<SQLTimeUtils> {
 
+	/**
+	 * Instantiates a new SQL time SQL transform.
+	 */
 	public SQLTimeSQLTransform() {
 		super(SQLTimeUtils.class);
 	}

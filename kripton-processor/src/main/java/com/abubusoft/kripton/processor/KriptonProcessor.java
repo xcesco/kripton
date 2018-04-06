@@ -29,21 +29,29 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.StringUtils;
 
+// TODO: Auto-generated Javadoc
 /**
- * Annotation processor for json/xml/etc
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Annotation processor for json/xml/etc.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonProcessor extends BaseProcessor {
+	
+	/** The many 2 many processor. */
 	private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
 
+	/** The shared preferences processor. */
 	private BindSharedPreferencesSubProcessor sharedPreferencesProcessor = new BindSharedPreferencesSubProcessor();
 
+	/** The data source processor. */
 	private BindDataSourceSubProcessor dataSourceProcessor = new BindDataSourceSubProcessor();
 
+	/** The type processor. */
 	private BindTypeSubProcessor typeProcessor = new BindTypeSubProcessor();
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#getSupportedAnnotationClasses()
+	 */
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
 
@@ -55,6 +63,9 @@ public class KriptonProcessor extends BaseProcessor {
 		return annotations;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#init(javax.annotation.processing.ProcessingEnvironment)
+	 */
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
@@ -67,6 +78,9 @@ public class KriptonProcessor extends BaseProcessor {
 		count = 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
+	 */
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {

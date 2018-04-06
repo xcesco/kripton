@@ -19,12 +19,28 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBean03.
+ */
 @BindDao(Bean03.class)
 public interface DaoBean03{
 
+	/**
+	 * Select one.
+	 *
+	 * @param id the id
+	 * @return the bean 03
+	 */
 	@BindSqlSelect(where="id=${id}")
 	Bean03 selectOne(long id);
 	
+	/**
+	 * Delete one.
+	 *
+	 * @param id the id
+	 * @return the long
+	 */
 	@BindSqlDelete(where="id=${id}")
 	long deleteOne(long id);
 	

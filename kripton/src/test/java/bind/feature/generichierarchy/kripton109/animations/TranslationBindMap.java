@@ -14,17 +14,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Translation
+ * This class is binder map for Translation.
  *
  * @see Translation
  */
 @BindMap(Translation.class)
 public class TranslationBindMap extends AbstractMapper<Translation> {
-  /**
-   * TranslationFrameBindMap */
+  
+  /** TranslationFrameBindMap. */
   private TranslationFrameBindMap translationFrameBindMap = BinderUtils.mapperFor(TranslationFrame.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(Translation object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -70,6 +74,9 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(Translation object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -120,7 +127,12 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(Translation object, XMLSerializer xmlSerializer, int currentEventType)
@@ -173,7 +185,11 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the translation
+   * @throws Exception the exception
    */
   @Override
   public Translation parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -230,7 +246,11 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the translation
+   * @throws Exception the exception
    */
   @Override
   public Translation parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -292,7 +312,12 @@ public class TranslationBindMap extends AbstractMapper<Translation> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the translation
+   * @throws Exception the exception
    */
   @Override
   public Translation parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

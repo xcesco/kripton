@@ -18,6 +18,9 @@ package sqlite.kripton33;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 
+/**
+ * The Interface Channel05DataSource.
+ */
 @BindDataSource(daoSet={DaoChannel05.class}, fileName = "dummy" , version=1)
 public interface Channel05DataSource {
 

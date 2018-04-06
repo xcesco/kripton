@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton38;
 
 import com.abubusoft.kripton.AbstractMapper;
@@ -14,13 +29,18 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Bean05
+ * This class is binder map for Bean05.
  *
  * @see Bean05
  */
 @BindMap(Bean05.class)
 public class Bean05BindMap extends AbstractMapper<Bean05> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(Bean05 object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -64,6 +84,9 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(Bean05 object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -107,7 +130,12 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(Bean05 object, XMLSerializer xmlSerializer, int currentEventType)
@@ -162,7 +190,11 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the bean 05
+   * @throws Exception the exception
    */
   @Override
   public Bean05 parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -222,7 +254,11 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the bean 05
+   * @throws Exception the exception
    */
   @Override
   public Bean05 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -282,7 +318,12 @@ public class Bean05BindMap extends AbstractMapper<Bean05> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the bean 05
+   * @throws Exception the exception
    */
   @Override
   public Bean05 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

@@ -19,23 +19,34 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ViewFrustumSettings.
+ */
 @BindType
 public class ViewFrustumSettings {
+	
+	/** The align. */
 	@Bind("viewFrustumAlign")
 	public ViewFrustumAlignType align = ViewFrustumAlignType.HEIGHT_ALIGN;
 
+	/** The field of view. */
 	@Bind("viewFrustumFieldOfView")
 	public float fieldOfView = 30f;
 
+	/** The projection. */
 	@Bind("viewFrustumProjection")
 	public ProjectionType projection = ProjectionType.PERSPECTIVE;
 
+	/** The z near. */
 	@Bind("viewFrustumZNear")
 	public float zNear = 1.0f;
 
+	/** The z far. */
 	@Bind("viewFrustumZFar")
 	public float zFar = 1000f;
 
+	/** The size. */
 	@Bind("viewFrustumSize")
 	public float size = 1000f;
 }

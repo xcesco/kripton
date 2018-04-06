@@ -17,8 +17,14 @@ package bind.bindenum;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum ErrLogLevel.
+ */
 @BindType
 public enum ErrLogLevel {
 
-	LOG_INFO, LOG_DEBUG
+	/** The log info. */
+	LOG_INFO, /** The log debug. */
+ LOG_DEBUG
 }

@@ -21,9 +21,14 @@ import java.util.Set;
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AppPreferences.
+ */
 @BindSharedPreferences
 public class AppPreferences {
 
+	/** The value set. */
 	@BindPreference
 	public HashSet<String> valueSet;
 	

@@ -16,14 +16,19 @@
 package com.abubusoft.kripton.processor.bind.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Double object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Double object.
  *
+ * @author xcesco
  */
 public class DoubleBindTransform extends AbstractPrimitiveBindTransform {
 
+	/**
+	 * Instantiates a new double bind transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public DoubleBindTransform(boolean nullable) {
 		super(nullable);
 		XML_TYPE = "Double";

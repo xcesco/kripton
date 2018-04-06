@@ -24,17 +24,36 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.quickstart.model.Todo;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 04/01/2017.
  */
 @BindDao(Todo.class)
 public interface TodoDao {
+    
+    /**
+     * Insert.
+     *
+     * @param bean the bean
+     */
     @BindSqlInsert(includePrimaryKey = true)
     void insert(Todo bean);
 
+    /**
+     * Select by user id.
+     *
+     * @param userId the user id
+     * @return the list
+     */
     @BindSqlSelect(where="userId = ${value}")
     List<Todo> selectByUserId(@BindSqlParam("value") long userId);
 
+    /**
+     * Select one by user id.
+     *
+     * @param userId the user id
+     * @return the todo
+     */
     @BindSqlSelect(where="id = ${value}")
     Todo selectOneByUserId(@BindSqlParam("value") long userId);
 

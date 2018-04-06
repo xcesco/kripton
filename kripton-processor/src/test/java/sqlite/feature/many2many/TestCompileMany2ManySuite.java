@@ -25,6 +25,9 @@ import sqlite.feature.many2many.err2.TestCompileMany2ManyErr2;
 import sqlite.feature.many2many.err3.TestCompileMany2ManyErr3;
 import sqlite.feature.many2many.err4.TestCompileMany2ManyErr4;
 
+/**
+ * The Class TestCompileMany2ManySuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

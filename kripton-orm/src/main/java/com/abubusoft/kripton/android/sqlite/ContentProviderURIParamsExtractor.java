@@ -17,6 +17,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Extracts from an content provider URI, its path segments, after check that URI has
@@ -45,15 +46,17 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
  * 
  */
 public class ContentProviderURIParamsExtractor {
+	
+	/** The array. */
 	private String[] array;
 
 	/**
 	 * <p>
 	 * Split an URI and check its size in terms of segment path.
 	 * </p>
-	 * 
-	 * @param uri
-	 * @param expectedPathSegments
+	 *
+	 * @param uri the uri
+	 * @param expectedPathSegments the expected path segments
 	 */
 	public ContentProviderURIParamsExtractor(String uri, int expectedPathSegments) {
 		array = uri.split("/");
@@ -67,9 +70,9 @@ public class ContentProviderURIParamsExtractor {
 	 * <p>Extract a specific segment by its index.</p>
 	 * 
 	 * <p>Path segment index start from 0.</p>
-	 * 
-	 * @param segmentIndex
-	 * @return
+	 *
+	 * @param segmentIndex the segment index
+	 * @return the path segment
 	 */
 	public String getPathSegment(int segmentIndex) {
 		return array[3 + segmentIndex];

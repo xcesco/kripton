@@ -19,14 +19,21 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean81M.
+ */
 @BindType
 public class Bean81M {
 	
+	/** The id. */
 	public long id;
 
+	/** The value string 1. */
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public String valueString1;
 	
+	/** The value string 2. */
 	@BindXml(xmlType=XmlType.VALUE)
 	public String valueString2;
 	

@@ -22,25 +22,32 @@ import android.support.annotation.RestrictTo;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * Poor's man LinkedHashMap, which supports modifications during iterations.
- * Takes more memory that {@link SafeIterableMap}
+ * Takes more memory that SafeIterableMap
  * It is NOT thread safe.
  *
  * @param <K> Key type
  * @param <V> Value type
- * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class FastSafeIterableMap<K, V> extends SafeIterableMap<K, V> {
 
+    /** The m hash map. */
     private HashMap<K, Entry<K, V>> mHashMap = new HashMap<>();
 
+    /* (non-Javadoc)
+     * @see android.arch.core.internal.SafeIterableMap#get(java.lang.Object)
+     */
     @Override
     protected Entry<K, V> get(K k) {
         return mHashMap.get(k);
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.core.internal.SafeIterableMap#putIfAbsent(java.lang.Object, java.lang.Object)
+     */
     @Override
     public V putIfAbsent(@NonNull K key, @NonNull V v) {
         Entry<K, V> current = get(key);
@@ -51,6 +58,9 @@ public class FastSafeIterableMap<K, V> extends SafeIterableMap<K, V> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see android.arch.core.internal.SafeIterableMap#remove(java.lang.Object)
+     */
     @Override
     public V remove(@NonNull K key) {
         V removed = super.remove(key);
@@ -61,6 +71,9 @@ public class FastSafeIterableMap<K, V> extends SafeIterableMap<K, V> {
     /**
      * Returns {@code true} if this map contains a mapping for the specified
      * key.
+     *
+     * @param key the key
+     * @return true, if successful
      */
     public boolean contains(K key) {
         return mHashMap.containsKey(key);
@@ -70,6 +83,7 @@ public class FastSafeIterableMap<K, V> extends SafeIterableMap<K, V> {
      * Return an entry added to prior to an entry associated with the given key.
      *
      * @param k the key
+     * @return the map. entry
      */
     public Map.Entry<K, V> ceil(K k) {
         if (contains(k)) {

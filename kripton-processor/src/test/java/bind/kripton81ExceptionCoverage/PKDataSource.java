@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface PKDataSource.
+ */
 @BindDataSource(daoSet = { PKDao.class }, fileName = "")
 public interface PKDataSource {
 

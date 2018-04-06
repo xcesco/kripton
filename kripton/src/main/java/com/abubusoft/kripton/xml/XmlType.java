@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.xml;
 
+// TODO: Auto-generated Javadoc
 /**
  * Specify type of xml binding.
  * 
@@ -22,20 +23,16 @@ package com.abubusoft.kripton.xml;
  *
  */
 public enum XmlType { 
-	/**
-	 * by an attribute
-	 */
+	
+	/** by an attribute. */
 	ATTRIBUTE,
-	/**
-	 * by a tag 
-	 */
+	
+	/** by a tag. */
 	TAG,
-	/**
-	 * in the value section
-	 */
+	
+	/** in the value section. */
 	VALUE,
-	/**
-	 * in the value section with CDATA 
-	 */
+	
+	/** in the value section with CDATA. */
 	VALUE_CDATA
 }

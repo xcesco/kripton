@@ -16,5 +16,8 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+/**
+ * The Class MapPrefsTransformation.
+ */
 public class MapPrefsTransformation extends AbstractGeneratedPrefsTransform {
 }

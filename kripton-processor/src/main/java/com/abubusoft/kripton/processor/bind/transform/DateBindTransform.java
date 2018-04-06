@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.bind.transform;
 
 import com.abubusoft.kripton.common.DateUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Date object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.DateUtils;
  */
 class DateBindTransform extends WrappedBindTransform {
 
+	/**
+	 * Instantiates a new date bind transform.
+	 */
 	public DateBindTransform() {
 		super(DateUtils.class);
 	}

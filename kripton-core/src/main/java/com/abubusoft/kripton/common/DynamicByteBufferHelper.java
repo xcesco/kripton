@@ -32,14 +32,31 @@ import java.nio.charset.StandardCharsets;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DynamicByteBufferHelper.
+ */
 public class DynamicByteBufferHelper {
 
+	/**
+	 * Grow.
+	 *
+	 * @param array the array
+	 * @param size the size
+	 * @return the byte[]
+	 */
 	public static byte[] grow(byte[] array, final int size) {
 		byte[] newArray = new byte[array.length + size];
 		System.arraycopy(array, 0, newArray, 0, array.length);
 		return newArray;
 	}
 
+	/**
+	 * Grow.
+	 *
+	 * @param array the array
+	 * @return the byte[]
+	 */
 	public static byte[] grow(byte[] array) {
 
 		byte[] newArray = new byte[array.length * 2];
@@ -47,6 +64,13 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * Shrink.
+	 *
+	 * @param array the array
+	 * @param size the size
+	 * @return the byte[]
+	 */
 	public static byte[] shrink(byte[] array, int size) {
 
 		byte[] newArray = new byte[array.length - size];
@@ -55,6 +79,12 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * Compact.
+	 *
+	 * @param array the array
+	 * @return the byte[]
+	 */
 	public static byte[] compact(byte[] array) {
 
 		int nullCount = 0;
@@ -80,10 +110,9 @@ public class DynamicByteBufferHelper {
 	}
 
 	/**
-	 * Creates an array of bytes
+	 * Creates an array of bytes.
 	 *
-	 * @param size
-	 *            size of the array you want to make
+	 * @param size            size of the array you want to make
 	 * @return array of bytes
 	 */
 	public static byte[] arrayOfByte(final int size) {
@@ -91,8 +120,9 @@ public class DynamicByteBufferHelper {
 	}
 
 	/**
-	 * @param array
-	 *            array
+	 * Array.
+	 *
+	 * @param array            array
 	 * @return array
 	 */
 
@@ -101,8 +131,9 @@ public class DynamicByteBufferHelper {
 	}
 
 	/**
-	 * @param array
-	 *            array
+	 * Bytes.
+	 *
+	 * @param array            array
 	 * @return array
 	 */
 
@@ -111,8 +142,9 @@ public class DynamicByteBufferHelper {
 	}
 
 	/**
-	 * @param str
-	 *            string
+	 * Bytes.
+	 *
+	 * @param str            string
 	 * @return array
 	 */
 
@@ -120,38 +152,94 @@ public class DynamicByteBufferHelper {
 		return str.getBytes(StandardCharsets.UTF_8);
 	}
 
+	/**
+	 * Len.
+	 *
+	 * @param array the array
+	 * @return the int
+	 */
 	public static int len(byte[] array) {
 		return array.length;
 	}
 
+	/**
+	 * Length of.
+	 *
+	 * @param array the array
+	 * @return the int
+	 */
 	public static int lengthOf(byte[] array) {
 		return array.length;
 	}
 
+	/**
+	 * At index.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @return the byte
+	 */
 	public static byte atIndex(final byte[] array, final int index) {
 		return idx(array, index);
 	}
 
+	/**
+	 * Idx.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @return the byte
+	 */
 	public static byte idx(final byte[] array, final int index) {
 		final int i = calculateIndex(array, index);
 
 		return array[i];
 	}
 
+	/**
+	 * At index.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @param value the value
+	 */
 	public static void atIndex(final byte[] array, int index, byte value) {
 		idx(array, index, value);
 	}
 
+	/**
+	 * Idx.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @param value the value
+	 */
 	public static void idx(final byte[] array, int index, byte value) {
 		final int i = calculateIndex(array, index);
 
 		array[i] = value;
 	}
 
+	/**
+	 * Slice of.
+	 *
+	 * @param array the array
+	 * @param startIndex the start index
+	 * @param endIndex the end index
+	 * @return the byte[]
+	 */
 	public static byte[] sliceOf(byte[] array, int startIndex, int endIndex) {
 		return slc(array, startIndex, endIndex);
 	}
 
+	/**
+	 * Slc.
+	 *
+	 * @param array the array
+	 * @param startIndex the start index
+	 * @param endIndex the end index
+	 * @return the byte[]
+	 */
 	public static byte[] slc(byte[] array, int startIndex, int endIndex) {
 
 		final int start = calculateIndex(array, startIndex);
@@ -167,10 +255,24 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * Slice of.
+	 *
+	 * @param array the array
+	 * @param startIndex the start index
+	 * @return the byte[]
+	 */
 	public static byte[] sliceOf(byte[] array, int startIndex) {
 		return slc(array, startIndex);
 	}
 
+	/**
+	 * Slc.
+	 *
+	 * @param array the array
+	 * @param startIndex the start index
+	 * @return the byte[]
+	 */
 	public static byte[] slc(byte[] array, int startIndex) {
 
 		final int start = calculateIndex(array, startIndex);
@@ -185,10 +287,24 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * End slice of.
+	 *
+	 * @param array the array
+	 * @param endIndex the end index
+	 * @return the byte[]
+	 */
 	public static byte[] endSliceOf(byte[] array, int endIndex) {
 		return slcEnd(array, endIndex);
 	}
 
+	/**
+	 * Slc end.
+	 *
+	 * @param array the array
+	 * @param endIndex the end index
+	 * @return the byte[]
+	 */
 	public static byte[] slcEnd(byte[] array, int endIndex) {
 
 		final int end = calculateEndIndex(array, endIndex);
@@ -203,6 +319,13 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * In.
+	 *
+	 * @param value the value
+	 * @param array the array
+	 * @return true, if successful
+	 */
 	public static boolean in(int value, byte... array) {
 		for (int currentValue : array) {
 			if (currentValue == value) {
@@ -212,6 +335,13 @@ public class DynamicByteBufferHelper {
 		return false;
 	}
 
+	/**
+	 * In int array.
+	 *
+	 * @param value the value
+	 * @param array the array
+	 * @return true, if successful
+	 */
 	public static boolean inIntArray(byte value, int[] array) {
 		for (int currentValue : array) {
 			if (currentValue == value) {
@@ -221,6 +351,14 @@ public class DynamicByteBufferHelper {
 		return false;
 	}
 
+	/**
+	 * In.
+	 *
+	 * @param value the value
+	 * @param offset the offset
+	 * @param array the array
+	 * @return true, if successful
+	 */
 	public static boolean in(int value, int offset, byte[] array) {
 		for (int index = offset; index < array.length; index++) {
 			int currentValue = array[index];
@@ -231,6 +369,15 @@ public class DynamicByteBufferHelper {
 		return false;
 	}
 
+	/**
+	 * In.
+	 *
+	 * @param value the value
+	 * @param offset the offset
+	 * @param end the end
+	 * @param array the array
+	 * @return true, if successful
+	 */
 	public static boolean in(int value, int offset, int end, byte[] array) {
 		for (int index = offset; index < end; index++) {
 			int currentValue = array[index];
@@ -241,18 +388,39 @@ public class DynamicByteBufferHelper {
 		return false;
 	}
 
+	/**
+	 * Copy.
+	 *
+	 * @param array the array
+	 * @return the byte[]
+	 */
 	public static byte[] copy(byte[] array) {
 		byte[] newArray = new byte[array.length];
 		System.arraycopy(array, 0, newArray, 0, array.length);
 		return newArray;
 	}
 
+	/**
+	 * Copy.
+	 *
+	 * @param array the array
+	 * @param offset the offset
+	 * @param length the length
+	 * @return the byte[]
+	 */
 	public static byte[] copy(byte[] array, int offset, int length) {
 		byte[] newArray = new byte[length];
 		System.arraycopy(array, offset, newArray, 0, length);
 		return newArray;
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param array the array
+	 * @param v the v
+	 * @return the byte[]
+	 */
 	public static byte[] add(byte[] array, byte v) {
 		byte[] newArray = new byte[array.length + 1];
 		System.arraycopy(array, 0, newArray, 0, array.length);
@@ -260,6 +428,13 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param array the array
+	 * @param array2 the array 2
+	 * @return the byte[]
+	 */
 	public static byte[] add(byte[] array, byte[] array2) {
 		byte[] newArray = new byte[array.length + array2.length];
 		System.arraycopy(array, 0, newArray, 0, array.length);
@@ -267,6 +442,14 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * Insert.
+	 *
+	 * @param array the array
+	 * @param idx the idx
+	 * @param v the v
+	 * @return the byte[]
+	 */
 	public static byte[] insert(final byte[] array, final int idx, final byte v) {
 
 		if (idx >= array.length) {
@@ -308,6 +491,14 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * Insert.
+	 *
+	 * @param array the array
+	 * @param fromIndex the from index
+	 * @param values the values
+	 * @return the byte[]
+	 */
 	public static byte[] insert(final byte[] array, final int fromIndex, final byte[] values) {
 
 		if (fromIndex >= array.length) {
@@ -353,6 +544,13 @@ public class DynamicByteBufferHelper {
 		return newArray;
 	}
 
+	/**
+	 * Calculate index.
+	 *
+	 * @param array the array
+	 * @param originalIndex the original index
+	 * @return the int
+	 */
 	/* End universal methods. */
 	private static int calculateIndex(byte[] array, int originalIndex) {
 		final int length = array.length;
@@ -384,6 +582,13 @@ public class DynamicByteBufferHelper {
 		return index;
 	}
 
+	/**
+	 * Calculate end index.
+	 *
+	 * @param array the array
+	 * @param originalIndex the original index
+	 * @return the int
+	 */
 	/* End universal methods. */
 	private static int calculateEndIndex(byte[] array, int originalIndex) {
 		final int length = array.length;
@@ -415,10 +620,24 @@ public class DynamicByteBufferHelper {
 		return index;
 	}
 
+	/**
+	 * Idx int.
+	 *
+	 * @param bytes the bytes
+	 * @param off the off
+	 * @return the int
+	 */
 	public static int idxInt(byte[] bytes, int off) {
 		return ((bytes[off + 3] & 0xFF)) + ((bytes[off + 2] & 0xFF) << 8) + ((bytes[off + 1] & 0xFF) << 16) + ((bytes[off]) << 24);
 	}
 
+	/**
+	 * Adds the int.
+	 *
+	 * @param array the array
+	 * @param v the v
+	 * @return the byte[]
+	 */
 	public static byte[] addInt(byte[] array, int v) {
 
 		byte[] arrayToHoldInt = new byte[4];
@@ -427,6 +646,14 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Insert int into.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @param v the v
+	 * @return the byte[]
+	 */
 	public static byte[] insertIntInto(byte[] array, int index, int v) {
 
 		byte[] arrayToHoldInt = new byte[4];
@@ -435,6 +662,13 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Int to.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @param val the val
+	 */
 	public static void intTo(byte[] b, int off, int val) {
 		b[off + 3] = (byte) (val);
 		b[off + 2] = (byte) (val >>> 8);
@@ -442,6 +676,13 @@ public class DynamicByteBufferHelper {
 		b[off] = (byte) (val >>> 24);
 	}
 
+	/**
+	 * Long to.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @param val the val
+	 */
 	public static void longTo(byte[] b, int off, long val) {
 		b[off + 7] = (byte) (val);
 		b[off + 6] = (byte) (val >>> 8);
@@ -453,6 +694,13 @@ public class DynamicByteBufferHelper {
 		b[off] = (byte) (val >>> 56);
 	}
 
+	/**
+	 * Adds the long.
+	 *
+	 * @param array the array
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] addLong(byte[] array, long value) {
 
 		byte[] holder = new byte[8];
@@ -461,19 +709,47 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Idx unsigned int.
+	 *
+	 * @param bytes the bytes
+	 * @param off the off
+	 * @return the long
+	 */
 	public static long idxUnsignedInt(byte[] bytes, int off) {
 		return ((bytes[off + 3] & 0xFFL)) + ((bytes[off + 2] & 0xFFL) << 8L) + ((bytes[off + 1] & 0xFFL) << 16L) + ((bytes[off] & 0xFFL) << 24L);
 	}
 
+	/**
+	 * Idx long.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @return the long
+	 */
 	public static long idxLong(byte[] b, int off) {
 		return ((b[off + 7] & 0xFFL)) + ((b[off + 6] & 0xFFL) << 8) + ((b[off + 5] & 0xFFL) << 16) + ((b[off + 4] & 0xFFL) << 24) + ((b[off + 3] & 0xFFL) << 32) + ((b[off + 2] & 0xFFL) << 40)
 				+ ((b[off + 1] & 0xFFL) << 48) + (((long) b[off]) << 56);
 	}
 
+	/**
+	 * Idx short.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @return the short
+	 */
 	public static short idxShort(byte[] b, int off) {
 		return (short) ((b[off + 1] & 0xFF) + (b[off] << 8));
 	}
 
+	/**
+	 * Adds the short.
+	 *
+	 * @param array the array
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] addShort(byte[] array, short value) {
 
 		byte[] holder = new byte[2];
@@ -482,6 +758,14 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Insert short into.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] insertShortInto(byte[] array, int index, short value) {
 
 		byte[] holder = new byte[2];
@@ -490,15 +774,36 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Short to.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @param val the val
+	 */
 	public static void shortTo(byte[] b, int off, short val) {
 		b[off + 1] = (byte) (val);
 		b[off] = (byte) (val >>> 8);
 	}
 
+	/**
+	 * Idx char.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @return the char
+	 */
 	public static char idxChar(byte[] b, int off) {
 		return (char) ((b[off + 1] & 0xFF) + (b[off] << 8));
 	}
 
+	/**
+	 * Adds the char.
+	 *
+	 * @param array the array
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] addChar(byte[] array, char value) {
 		byte[] holder = new byte[2];
 		charTo(holder, 0, value);
@@ -506,6 +811,14 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Insert char into.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] insertCharInto(byte[] array, int index, char value) {
 		byte[] holder = new byte[2];
 		charTo(holder, 0, value);
@@ -513,20 +826,47 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Char to.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @param val the val
+	 */
 	public static void charTo(byte[] b, int off, char val) {
 		b[off + 1] = (byte) (val);
 		b[off] = (byte) (val >>> 8);
 	}
 
+	/**
+	 * Char to.
+	 *
+	 * @param b the b
+	 * @param val the val
+	 */
 	public static void charTo(byte[] b, char val) {
 		b[1] = (byte) (val);
 		b[0] = (byte) (val >>> 8);
 	}
 
+	/**
+	 * Idx float.
+	 *
+	 * @param array the array
+	 * @param off the off
+	 * @return the float
+	 */
 	public static float idxFloat(byte[] array, int off) {
 		return Float.intBitsToFloat(idxInt(array, off));
 	}
 
+	/**
+	 * Adds the float.
+	 *
+	 * @param array the array
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] addFloat(byte[] array, float value) {
 
 		byte[] holder = new byte[4];
@@ -535,6 +875,14 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Insert float into.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] insertFloatInto(byte[] array, int index, float value) {
 
 		byte[] holder = new byte[4];
@@ -543,10 +891,24 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Float to.
+	 *
+	 * @param array the array
+	 * @param off the off
+	 * @param val the val
+	 */
 	public static void floatTo(byte[] array, int off, float val) {
 		intTo(array, off, Float.floatToIntBits(val));
 	}
 
+	/**
+	 * Adds the double.
+	 *
+	 * @param array the array
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] addDouble(byte[] array, double value) {
 		byte[] holder = new byte[4];
 		doubleTo(holder, 0, value);
@@ -554,6 +916,14 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Insert double into.
+	 *
+	 * @param array the array
+	 * @param index the index
+	 * @param value the value
+	 * @return the byte[]
+	 */
 	public static byte[] insertDoubleInto(byte[] array, int index, double value) {
 		byte[] holder = new byte[4];
 		doubleTo(holder, 0, value);
@@ -561,10 +931,24 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Double to.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @param val the val
+	 */
 	public static void doubleTo(byte[] b, int off, double val) {
 		longTo(b, off, Double.doubleToLongBits(val));
 	}
 
+	/**
+	 * Idx double.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @return the double
+	 */
 	public static double idxDouble(byte[] b, int off) {
 		return Double.longBitsToDouble(idxLong(b, off));
 	}
@@ -667,6 +1051,13 @@ public class DynamicByteBufferHelper {
 	// }
 	//
 
+	/**
+	 * Idx.
+	 *
+	 * @param array the array
+	 * @param startIndex the start index
+	 * @param input the input
+	 */
 	public static void _idx(final byte[] array, int startIndex, byte[] input) {
 		try {
 
@@ -676,6 +1067,14 @@ public class DynamicByteBufferHelper {
 		}
 	}
 
+	/**
+	 * Idx.
+	 *
+	 * @param array the array
+	 * @param startIndex the start index
+	 * @param input the input
+	 * @param length the length
+	 */
 	public static void _idx(final byte[] array, int startIndex, byte[] input, int length) {
 		try {
 
@@ -685,6 +1084,15 @@ public class DynamicByteBufferHelper {
 		}
 	}
 
+	/**
+	 * Idx.
+	 *
+	 * @param output the output
+	 * @param ouputStartIndex the ouput start index
+	 * @param input the input
+	 * @param inputOffset the input offset
+	 * @param length the length
+	 */
 	public static void _idx(final byte[] output, int ouputStartIndex, byte[] input, int inputOffset, int length) {
 		try {
 
@@ -694,6 +1102,13 @@ public class DynamicByteBufferHelper {
 		}
 	}
 
+	/**
+	 * Idx unsigned short.
+	 *
+	 * @param buffer the buffer
+	 * @param off the off
+	 * @return the int
+	 */
 	public static int idxUnsignedShort(byte[] buffer, int off) {
 
 		int ch1 = buffer[off] & 0xFF;
@@ -703,10 +1118,24 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Idx unsigned byte.
+	 *
+	 * @param array the array
+	 * @param location the location
+	 * @return the short
+	 */
 	public static short idxUnsignedByte(byte[] array, int location) {
 		return (short) (array[location] & 0xFF);
 	}
 
+	/**
+	 * Unsigned int to.
+	 *
+	 * @param b the b
+	 * @param off the off
+	 * @param val the val
+	 */
 	public static void unsignedIntTo(byte[] b, int off, long val) {
 		b[off + 3] = (byte) (val);
 		b[off + 2] = (byte) (val >>> 8);
@@ -714,6 +1143,13 @@ public class DynamicByteBufferHelper {
 		b[off] = (byte) (val >>> 24);
 	}
 
+	/**
+	 * Unsigned short to.
+	 *
+	 * @param buffer the buffer
+	 * @param off the off
+	 * @param value the value
+	 */
 	public static void unsignedShortTo(byte[] buffer, int off, int value) {
 
 		buffer[off + 1] = (byte) (value);
@@ -721,22 +1157,33 @@ public class DynamicByteBufferHelper {
 
 	}
 
+	/**
+	 * Unsigned byte to.
+	 *
+	 * @param buffer the buffer
+	 * @param off the off
+	 * @param value the value
+	 */
 	public static void unsignedByteTo(byte[] buffer, int off, short value) {
 		buffer[off] = (byte) (value);
 
 	}
 
+	/**
+	 * Utf string.
+	 *
+	 * @param jsonBytes the json bytes
+	 * @return the string
+	 */
 	public static String utfString(byte[] jsonBytes) {
 		return new String(jsonBytes, StandardCharsets.UTF_8);
 	}
 
 	/**
-	 * Checks to see if two arrays are equals
-	 * 
-	 * @param expected
-	 *            expected array
-	 * @param got
-	 *            got array
+	 * Checks to see if two arrays are equals.
+	 *
+	 * @param expected            expected array
+	 * @param got            got array
 	 * @return true if equal or throws exception if not.
 	 */
 	public static boolean equalsOrDie(byte[] expected, byte[] got) {
@@ -755,12 +1202,10 @@ public class DynamicByteBufferHelper {
 	}
 
 	/**
-	 * Checks to see if two arrays are equals
-	 * 
-	 * @param expected
-	 *            expected array
-	 * @param got
-	 *            got array
+	 * Checks to see if two arrays are equals.
+	 *
+	 * @param expected            expected array
+	 * @param got            got array
 	 * @return true if equal or false if not.
 	 */
 	public static boolean equals(byte[] expected, byte[] got) {

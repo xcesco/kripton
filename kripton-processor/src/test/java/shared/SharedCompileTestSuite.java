@@ -26,6 +26,9 @@ import shared.kripton46.Test46Compile;
 import shared.kripton47.Test47Suite;
 import shared.kripton50.TestKripton50;
 
+/**
+ * The Class SharedCompileTestSuite.
+ */
 @RunWith(Suite.class)
 // @formatter:off
 @Suite.SuiteClasses({ 

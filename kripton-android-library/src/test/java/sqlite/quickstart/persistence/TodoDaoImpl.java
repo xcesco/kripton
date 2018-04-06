@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.quickstart.persistence;
 
 import android.database.Cursor;
@@ -13,22 +28,32 @@ import java.util.ArrayList;
 import java.util.List;
 import sqlite.quickstart.model.Todo;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Todo</code>, based on interface <code>TodoDao</code>
- * </p>
+ * </p>.
  *
- *  @see Todo
- *  @see TodoDao
- *  @see sqlite.quickstart.model.TodoTable
+ * @see Todo
+ * @see TodoDao
+ * @see sqlite.quickstart.model.TodoTable
  */
 public class TodoDaoImpl extends Dao implements TodoDao {
+  
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The Constant SELECT_BY_USER_ID_SQL7. */
   private static final String SELECT_BY_USER_ID_SQL7 = "SELECT id, user_id, title, completed FROM todo WHERE user_id = ?";
 
+  /** The Constant SELECT_ONE_BY_USER_ID_SQL8. */
   private static final String SELECT_ONE_BY_USER_ID_SQL8 = "SELECT id, user_id, title, completed FROM todo WHERE id = ?";
 
+  /**
+   * Instantiates a new todo dao impl.
+   *
+   * @param context the context
+   */
   public TodoDaoImpl(SQLContext context) {
     super(context);
   }
@@ -106,9 +131,9 @@ public class TodoDaoImpl extends Dao implements TodoDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, user_id, title, completed FROM todo WHERE user_id = ${value}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -116,14 +141,13 @@ public class TodoDaoImpl extends Dao implements TodoDao {
    * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * 	<dt>completed</dt><dd>is associated to bean's property <strong>completed</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param userId
-   * 	is binded to <code>${value}</code>
+   * @param userId 	is binded to <code>${value}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -183,9 +207,9 @@ public class TodoDaoImpl extends Dao implements TodoDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, user_id, title, completed FROM todo WHERE id = ${value}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -193,14 +217,13 @@ public class TodoDaoImpl extends Dao implements TodoDao {
    * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * 	<dt>completed</dt><dd>is associated to bean's property <strong>completed</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param userId
-   * 	is binded to <code>${value}</code>
+   * @param userId 	is binded to <code>${value}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -252,6 +275,9 @@ public class TodoDaoImpl extends Dao implements TodoDao {
     }
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

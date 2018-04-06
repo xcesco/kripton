@@ -19,35 +19,84 @@ import java.util.List;
 
 import android.database.Cursor;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ChannelMessageCursor.
+ */
 public class ChannelMessageCursor {
 	
+	/**
+	 * The listener interface for receiving onChannelMessage events.
+	 * The class that is interested in processing a onChannelMessage
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOnChannelMessageListener<code> method. When
+	 * the onChannelMessage event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see OnChannelMessageEvent
+	 */
 	public interface OnChannelMessageListener
 	{
+		
+		/**
+		 * On row.
+		 *
+		 * @param rowCount the row count
+		 * @param bean the bean
+		 */
 		void onRow(int rowCount, ChannelMessageCursor bean);
 	}
 	
+	/**
+	 * Creates the.
+	 *
+	 * @param cursor the cursor
+	 * @return the channel message cursor
+	 */
 	public static ChannelMessageCursor create(Cursor cursor)
 	{
 		return new ChannelMessageCursor(cursor);
 	}
 
+	/** The cursor. */
 	protected Cursor cursor;
 	
+	/**
+	 * Instantiates a new channel message cursor.
+	 *
+	 * @param value the value
+	 */
 	public ChannelMessageCursor(Cursor value) {
 		cursor=value;
 				
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @return the list
+	 */
 	public List<ChannelMessageCursor> execute()
 	{
 		return null;
 	}
 	
+	/**
+	 * Execute.
+	 *
+	 * @param listener the listener
+	 */
 	public void execute(OnChannelMessageListener listener)
 	{
 		
 	}
 	
+	/**
+	 * Wrap.
+	 *
+	 * @param cursor the cursor
+	 */
 	public void wrap(Cursor cursor)
 	{
 		this.cursor=cursor;

@@ -15,6 +15,14 @@
  *******************************************************************************/
 package bind.kripton72;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum Enum72.
+ */
 public enum Enum72 {
-	VALUE_1, VALUE_2;
+	
+	/** The value 1. */
+	VALUE_1, 
+ /** The value 2. */
+ VALUE_2;
 }

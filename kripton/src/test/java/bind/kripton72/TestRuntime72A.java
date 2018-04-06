@@ -25,8 +25,17 @@ import org.junit.Test;
 
 import bind.AbstractBaseTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestRuntime72A.
+ */
 public class TestRuntime72A extends AbstractBaseTest {
 
+	/**
+	 * Test run.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	public void testRun() throws Exception
 	{

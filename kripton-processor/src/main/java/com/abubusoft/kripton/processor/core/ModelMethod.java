@@ -26,8 +26,15 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelMethod.
+ */
 public class ModelMethod extends ModelEntity<ExecutableElement> implements ModelWithAnnotation {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelWithAnnotation#getAnnotation(java.lang.Class)
+	 */
 	public ModelAnnotation getAnnotation(Class<? extends Annotation> value) {
 		for (ModelAnnotation item : annotations) {
 			if (item.getName().equals(value.getCanonicalName())) {
@@ -38,6 +45,11 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		return null;
 	}
 
+	/**
+	 * Instantiates a new model method.
+	 *
+	 * @param element the element
+	 */
 	public ModelMethod(ExecutableElement element) {
 		super(element.getSimpleName().toString(), element);
 		this.parameters = new ArrayList<Pair<String, TypeName>>();
@@ -50,9 +62,12 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 		returnClass = TypeUtility.typeName(element.getReturnType());
 	}
 
+	/** The annotations. */
 	protected List<ModelAnnotation> annotations;
 
 	/**
+	 * Gets the parameters.
+	 *
 	 * @return the parameters
 	 */
 	public List<Pair<String, TypeName>> getParameters() {
@@ -60,6 +75,8 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	}
 
 	/**
+	 * Gets the return class.
+	 *
 	 * @return the returnClass
 	 */
 	public TypeName getReturnClass() {
@@ -67,25 +84,31 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	}
 
 	/**
+	 * Sets the return class.
+	 *
 	 * @param returnClass the returnClass to set
 	 */
 	public void setReturnClass(TypeName returnClass) {
 		this.returnClass = returnClass;
 	}
 
+	/** The parameters. */
 	protected List<Pair<String, TypeName>> parameters;
 
+	/** The return class. */
 	protected TypeName returnClass;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.ModelWithAnnotation#addAnnotation(com.abubusoft.kripton.processor.core.ModelAnnotation)
+	 */
 	public void addAnnotation(ModelAnnotation annotation) {
 		annotations.add(annotation);
 	}
 
 	/**
-	 * Check if method contains a parameter with value as typeName
-	 * 
-	 * @param typeName
-	 *            parameter typeName to find
+	 * Check if method contains a parameter with value as typeName.
+	 *
+	 * @param name the name
 	 * @return TypeMirror associated
 	 */
 	public TypeName findParameterType(String name) {
@@ -98,10 +121,9 @@ public class ModelMethod extends ModelEntity<ExecutableElement> implements Model
 	}
 
 	/**
-	 * Check if method contains a parameter with value as typeName
-	 * 
-	 * @param typeName
-	 *            parameter typeName to find
+	 * Check if method contains a parameter with value as typeName.
+	 *
+	 * @param annotationClazz the annotation clazz
 	 * @return true if there is parameter with specified typeName
 	 */
 //	public boolean hasParameter(String typeName) {

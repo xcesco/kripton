@@ -32,20 +32,56 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class SQLiteUpdateTaskHelper.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class SQLiteUpdateTaskHelper {
 
+	/**
+	 * The Enum QueryType.
+	 */
 	public enum QueryType {
-		TABLE, INDEX
+		
+		/** The table. */
+		TABLE, 
+ /** The index. */
+ INDEX
 	};
 
+	/**
+	 * The listener interface for receiving onResult events.
+	 * The class that is interested in processing a onResult
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOnResultListener</code> method. When
+	 * the onResult event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * 
+	 */
 	public interface OnResultListener {
+		
+		/**
+		 * On row.
+		 *
+		 * @param db the db
+		 * @param name the name
+		 * @param sql the sql
+		 */
 		void onRow(SQLiteDatabase db, String name, String sql);
 	}
 
+	/**
+	 * Query.
+	 *
+	 * @param db the db
+	 * @param conditions the conditions
+	 * @param type the type
+	 * @param listener the listener
+	 */
 	static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
 		String query = String.format(
 				"SELECT name, sql FROM sqlite_master WHERE type='%s'and name!='sqlite_sequence' and name!='android_metadata'%s",
@@ -64,10 +100,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Drop all entity of particular type (table or index). If prefix is
 	 * specified, the drop operation is applied only to entity with prefix.
-	 * 
-	 * @param db
-	 * @param type
-	 * @param prefix
+	 *
+	 * @param db the db
+	 * @param type the type
+	 * @param prefix the prefix
 	 */
 	private static void drop(SQLiteDatabase db, final QueryType type, String prefix) {
 		String dropSQL = StringUtils.hasText(prefix) ? "name like '" + prefix + "' || '%'" : null;
@@ -85,10 +121,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	/**
-	 * Retrieve all table as a Map of <name, sql>
-	 * 
-	 * @param db
-	 * @return
+	 * Retrieve all table as a Map of (name, sql).
+	 *
+	 * @param db the db
+	 * @return the all tables
 	 */
 	public static Map<String, String> getAllTables(SQLiteDatabase db) {
 		final Map<String, String> result = new LinkedHashMap<>();
@@ -107,10 +143,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	/**
-	 * Add to all table a specifix prefix
-	 * 
-	 * @param db
-	 * @param prefix
+	 * Add to all table a specifix prefix.
+	 *
+	 * @param db the db
+	 * @param prefix the prefix
 	 */
 	public static void renameTablesWithPrefix(SQLiteDatabase db, final String prefix) {
 		Logger.info("MASSIVE TABLE RENAME OPERATION: ADD PREFIX " + prefix);
@@ -127,27 +163,31 @@ public abstract class SQLiteUpdateTaskHelper {
 	}
 
 	/**
-	 * Drop all table with specific prefix
-	 * 
-	 * @param db
-	 * @param prefix
+	 * Drop all table with specific prefix.
+	 *
+	 * @param db the db
+	 * @param prefix the prefix
 	 */
 	public static void dropTablesWithPrefix(SQLiteDatabase db, String prefix) {
 		Logger.info("MASSIVE TABLE DROP OPERATION%s", StringUtils.ifNotEmptyAppend(prefix, " WITH PREFIX "));
 		drop(db, QueryType.TABLE, prefix);
 	}
 
+	/**
+	 * Drop tables and indices.
+	 *
+	 * @param db the db
+	 */
 	public static void dropTablesAndIndices(SQLiteDatabase db) {
 		drop(db, QueryType.INDEX, null);
 		drop(db, QueryType.TABLE, null);
 	}
 
 	/**
-	 * 
-	 * Retrieve all indexes as a Map of <name, sql>
-	 * 
-	 * @param db
-	 * @return
+	 * Retrieve all indexes as a Map of (name, sql).
+	 *
+	 * @param db the db
+	 * @return the all indexes
 	 */
 	public static Map<String, String> getAllIndexes(SQLiteDatabase db) {
 		final Map<String, String> result = new LinkedHashMap<>();
@@ -165,12 +205,25 @@ public abstract class SQLiteUpdateTaskHelper {
 		return result;
 	}
 
+	/**
+	 * Execute SQL.
+	 *
+	 * @param database the database
+	 * @param context the context
+	 * @param rawResourceId the raw resource id
+	 */
 	public static void executeSQL(final SQLiteDatabase database, Context context,  int rawResourceId) {
 		String[] c = IOUtils.readTextFile(context, rawResourceId).split(";");
 		List<String> commands = Arrays.asList(c);
 		executeSQL(database, commands);
 	}
 	
+	/**
+	 * Read SQL from file.
+	 *
+	 * @param fileName the file name
+	 * @return the list
+	 */
 	public static List<String> readSQLFromFile(String fileName) {
 		try {
 			return readSQLFromFile(new FileInputStream(fileName));
@@ -180,6 +233,12 @@ public abstract class SQLiteUpdateTaskHelper {
 		}
 	}
 
+	/**
+	 * Read SQL from file.
+	 *
+	 * @param fileInputStream the file input stream
+	 * @return the list
+	 */
 	public static List<String> readSQLFromFile(InputStream fileInputStream) {
 		String content = IOUtils.readText(fileInputStream);
 
@@ -200,11 +259,23 @@ public abstract class SQLiteUpdateTaskHelper {
 
 	}
 
+	/**
+	 * Execute SQL.
+	 *
+	 * @param database the database
+	 * @param fileInputStream the file input stream
+	 */
 	public static void executeSQL(final SQLiteDatabase database, InputStream fileInputStream) {
 		List<String> commands = readSQLFromFile(fileInputStream);
 		executeSQL(database, commands);
 	}
 
+	/**
+	 * Execute SQL.
+	 *
+	 * @param database the database
+	 * @param commands the commands
+	 */
 	public static void executeSQL(final SQLiteDatabase database, List<String> commands) {
 		for (String command : commands) {
 			executeSQL(database, command);
@@ -214,6 +285,12 @@ public abstract class SQLiteUpdateTaskHelper {
 		// });
 	}
 
+	/**
+	 * Execute SQL.
+	 *
+	 * @param database the database
+	 * @param command the command
+	 */
 	public static void executeSQL(final SQLiteDatabase database, String command) {
 		// remove comments
 		command = command.replaceAll("\\/\\*.*\\*\\/", "");

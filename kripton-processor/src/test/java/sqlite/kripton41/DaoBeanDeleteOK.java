@@ -18,6 +18,10 @@ package sqlite.kripton41;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBeanDeleteOK.
+ */
 @BindDao(Bean01.class)
 public interface DaoBeanDeleteOK  {
 	
@@ -32,6 +36,12 @@ public interface DaoBeanDeleteOK  {
 	@BindUpdate(where="id=${test}")
 	boolean updateDistance(long id, Double value, long test);*/
 	
+	/**
+	 * Delete distance.
+	 *
+	 * @param value the value
+	 * @return true, if successful
+	 */
 	@BindSqlDelete(where="id=${value}")
 	boolean deleteDistance(double value);
 	

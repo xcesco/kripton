@@ -19,6 +19,7 @@ package com.abubusoft.kripton.escape.text;
 import java.io.IOException;
 import java.io.Writer;
 
+// TODO: Auto-generated Javadoc
 /**
  * Helper subclass to CharSequenceTranslator to allow for translations that 
  * will replace up to one character at a time.

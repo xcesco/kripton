@@ -16,12 +16,17 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Boolean object
- *
+ * Transformer between a string and a Java Boolean object.
  */
 class BooleanPrefsTransform extends AbstractPrimitivePrefsTransform {
 	
+	/**
+	 * Instantiates a new boolean prefs transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public BooleanPrefsTransform(boolean nullable)
 	{
 		super(nullable);

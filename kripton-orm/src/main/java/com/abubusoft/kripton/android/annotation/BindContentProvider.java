@@ -20,15 +20,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Used to generate a content provider for annotated data source.
  * </p>
- * 
- * @see <a href="https://developer.android.com/guide/topics/providers/content-provider-basics.html">content-provider-basics</a>
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ * @see <a href="https://developer.android.com/guide/topics/providers/content-provider-basics.html">content-provider-basics</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

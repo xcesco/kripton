@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import com.abubusoft.kripton.common.UrlUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.net.URL object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.UrlUtils;
  */
 public class UrlSQLTransform extends UtilSQLTransform<UrlUtils> {
 
+	/**
+	 * Instantiates a new url SQL transform.
+	 */
 	public UrlSQLTransform() {
 		super(UrlUtils.class);
 	}

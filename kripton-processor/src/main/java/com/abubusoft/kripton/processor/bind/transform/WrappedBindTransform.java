@@ -32,22 +32,36 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class WrappedBindTransform.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class WrappedBindTransform extends AbstractBindTransform {
 
+	/** The util clazz. */
 	protected Class<?> utilClazz;
 
+	/**
+	 * Instantiates a new wrapped bind transform.
+	 *
+	 * @param utilClazz the util clazz
+	 */
 	public WrappedBindTransform(Class<?> utilClazz) {
 		this.utilClazz = utilClazz;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#isTypeAdapterSupported()
+	 */
 	public boolean isTypeAdapterSupported() {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnJackson(BindTypeContext context, Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		if (property.isNullable()) {
@@ -67,6 +81,9 @@ public class WrappedBindTransform extends AbstractBindTransform {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		if (property.isNullable()) {
@@ -85,6 +102,9 @@ public class WrappedBindTransform extends AbstractBindTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateParseOnXml(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateParseOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String parserName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;
@@ -124,6 +144,9 @@ public class WrappedBindTransform extends AbstractBindTransform {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnJackson(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnJackson(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		if (property.isNullable()) {
@@ -157,11 +180,17 @@ public class WrappedBindTransform extends AbstractBindTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnJacksonAsString(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnJacksonAsString(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		generateSerializeOnJackson(context, methodBuilder, serializerName, beanClass, beanName, property);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.bind.transform.BindTransform#generateSerializeOnXml(com.abubusoft.kripton.processor.bind.BindTypeContext, com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.bind.model.BindProperty)
+	 */
 	@Override
 	public void generateSerializeOnXml(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property) {
 		XmlType xmlType = property.xmlInfo.xmlType;

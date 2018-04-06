@@ -23,15 +23,33 @@ import org.junit.runners.JUnit4;
 
 import shared.AbstractBindSharedPreferenceProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Test47Compile.
+ */
 @RunWith(JUnit4.class)
 public class Test47Compile extends AbstractBindSharedPreferenceProcessorTest {
 
+	/**
+	 * Test compile app.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompileApp() throws IOException, InstantiationException, IllegalAccessException {
 		//buildBindProcessorTest(App47.class);
 		buildSharedPreferencesProcessorTest(App47.class, UserAccessToken.class);
 	}
 
+	/**
+	 * Test compile security.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompileSecurity() throws IOException, InstantiationException, IllegalAccessException {
 		//buildBindProcessorTest(DeviceAccessToken.class, UserIdentity.class, UserAccessToken.class);

@@ -23,25 +23,32 @@ import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationExcept
 
 import bind.AbstractBindTypeProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * Test bean field
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Test bean field.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class TestEnum extends AbstractBindTypeProcessorTest {
 
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean.class, LogLevel.class);
 	}
 
 	/**
-	 * Try to annotate Enum with @BindType
-	 * 
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Try to annotate Enum with @BindType.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testErr01() throws IOException, InstantiationException, IllegalAccessException {

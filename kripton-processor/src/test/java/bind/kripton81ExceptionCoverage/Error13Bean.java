@@ -20,10 +20,15 @@ import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Error13Bean.
+ */
 @BindType(allFields = false)
 @BindSharedPreferences
 public class Error13Bean {
 
+	/** The id. */
 	@BindDisabled
 	@Bind
 	public long id;

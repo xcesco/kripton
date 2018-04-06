@@ -17,13 +17,20 @@ package sqlite.kripton58.array;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CharBean.
+ */
 @BindType
 public class CharBean {
 
+	/** The id. */
 	public long id;
 	
+	/** The value. */
 	public char[] value;
 	
+	/** The value 2. */
 	public Character[] value2;
 	
 

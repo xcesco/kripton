@@ -15,8 +15,15 @@
  *******************************************************************************/
 package bind.feature.generichierarchy.kripton109.settings;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum ModeType.
+ */
 public enum ModeType {
+	
+	/** The app. */
 	APP,
 	
+	/** The opengl. */
 	OPENGL,
 }

@@ -22,22 +22,37 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Person.
+ */
 @BindType
 @BindTable(indexes={"birthCity, birthDay", "surname"}, uniqueIndexes={"typeName, date"})
 public class Person {
+  
+  /** The id. */
   public long id;
   
+  /** The type name. */
   public String typeName;
   
+  /** The name temp. */
   public String nameTemp;
   
+  /** The date. */
   public String date;
   
   
+  /** The name. */
   @BindColumn(columnType=ColumnType.INDEXED)
   public String name;
   
+  /** The surname. */
   public String surname;
+  
+  /** The birth city. */
   public String birthCity;
+  
+  /** The birth day. */
   public Date birthDay;
 }

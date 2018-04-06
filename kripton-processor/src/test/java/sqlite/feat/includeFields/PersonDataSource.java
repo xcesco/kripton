@@ -19,6 +19,9 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 import sqlite.feat.includeFields.PersonDAO;
 
+/**
+ * The Interface PersonDataSource.
+ */
 @BindDataSource(daoSet= { PersonDAO.class }, fileName = "person.db", log=true)
 public interface PersonDataSource {
 

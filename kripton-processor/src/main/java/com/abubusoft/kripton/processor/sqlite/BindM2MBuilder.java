@@ -59,23 +59,43 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class BindM2MBuilder.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BindM2MBuilder extends AbstractBuilder {
 
+	/** The Constant PREFIX. */
 	public static final String PREFIX = "Bind";
 
+	/** The Constant SUFFIX. */
 	public static final String SUFFIX = "Cursor";
 
+	/** The entity result. */
 	private static Set<GeneratedTypeElement> entityResult = new HashSet<GeneratedTypeElement>();
+	
+	/** The dao result. */
 	private static Set<GeneratedTypeElement> daoResult = new HashSet<GeneratedTypeElement>();
 
+	/**
+	 * Instantiates a new bind M 2 M builder.
+	 *
+	 * @param filer the filer
+	 */
 	public BindM2MBuilder(Filer filer) {
 		super(BaseProcessor.elementUtils, filer, null);
 	}
 
+	/**
+	 * Generate.
+	 *
+	 * @param filer the filer
+	 * @param model the model
+	 * @return the pair
+	 * @throws Exception the exception
+	 */
 	public static Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generate(Filer filer, M2MModel model) throws Exception {
 		entityResult.clear();
 		daoResult.clear();
@@ -92,11 +112,23 @@ public class BindM2MBuilder extends AbstractBuilder {
 		return result;
 	}
 
+	/**
+	 * Generate.
+	 *
+	 * @param entity the entity
+	 * @throws Exception the exception
+	 */
 	public void generate(M2MEntity entity) throws Exception {
 		generateEntity(entity);
 		generateDaoPart(entity);
 	}
 
+	/**
+	 * Generate dao part.
+	 *
+	 * @param entity the entity
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private void generateDaoPart(M2MEntity entity) throws IOException {
 		String daoClassName = entity.daoName.simpleName();
 
@@ -137,6 +169,12 @@ public class BindM2MBuilder extends AbstractBuilder {
 		daoResult.add(daoPartElement);
 	}
 
+	/**
+	 * Generate selects.
+	 *
+	 * @param entity the entity
+	 * @param packageName the package name
+	 */
 	private void generateSelects(M2MEntity entity, String packageName) {
 		String idPart = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
 
@@ -195,11 +233,11 @@ public class BindM2MBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * analyze DAO definition to check if method is already defined
-	 * 
-	 * @param entity
-	 * @param methodName
-	 * @return
+	 * analyze DAO definition to check if method is already defined.
+	 *
+	 * @param entity the entity
+	 * @param methodName the method name
+	 * @return true, if is method already defined
 	 */
 	private boolean isMethodAlreadyDefined(M2MEntity entity, final String methodName) {
 
@@ -218,6 +256,12 @@ public class BindM2MBuilder extends AbstractBuilder {
 		return found.value0;
 	}
 
+	/**
+	 * Generate deletes.
+	 *
+	 * @param entity the entity
+	 * @param packageName the package name
+	 */
 	private void generateDeletes(M2MEntity entity, String packageName) {
 		String idPart = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
 
@@ -275,6 +319,12 @@ public class BindM2MBuilder extends AbstractBuilder {
 		}
 	}
 
+	/**
+	 * Generate insert.
+	 *
+	 * @param entity the entity
+	 * @param packageName the package name
+	 */
 	private void generateInsert(M2MEntity entity, String packageName) {
 		if (!isMethodAlreadyDefined(entity, "insert")) {
 		//@formatter:off
@@ -292,9 +342,10 @@ public class BindM2MBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * @param entity
-	 * @return
-	 * @throws IOException
+	 * Generate entity.
+	 *
+	 * @param entity the entity
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void generateEntity(M2MEntity entity) throws IOException {
 		if (!entity.needToCreate)

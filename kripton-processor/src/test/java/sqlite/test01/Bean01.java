@@ -15,11 +15,18 @@
  *******************************************************************************/
 package sqlite.test01;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean01.
+ */
 public class Bean01 {
 
+	/** The id. */
 	protected long id;
 
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public long getId() {
@@ -27,6 +34,8 @@ public class Bean01 {
 	}
 
 	/**
+	 * Sets the id.
+	 *
 	 * @param id the id to set
 	 */
 	public void setId(long id) {

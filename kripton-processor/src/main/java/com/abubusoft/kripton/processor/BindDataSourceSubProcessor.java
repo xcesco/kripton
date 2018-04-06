@@ -99,24 +99,38 @@ import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BindDataSourceSubProcessor.
+ */
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	// private SQLiteDatabaseSchema currentSchema;
 
+	/** The property annotation filter. */
 	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
 
+	/** The global dao elements. */
 	public final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
 
+	/** The data sets. */
 	public Set<TypeElement> dataSets;
 
+	/** The schemas. */
 	public LinkedHashSet<SQLiteDatabaseSchema> schemas = new LinkedHashSet<>();
 
+	/** The global dao generated. */
 	public Set<String> globalDaoGenerated = new HashSet<String>();
 
+	/** The generated daos. */
 	public Set<GeneratedTypeElement> generatedDaos;
 
+	/** The generated entities. */
 	public Set<GeneratedTypeElement> generatedEntities;
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#getSupportedAnnotationClasses()
+	 */
 	@Override
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
@@ -132,6 +146,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		return annotations;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#clear()
+	 */
 	@Override
 	public void clear() {
 		super.clear();
@@ -144,6 +161,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		schemas = new LinkedHashSet<>();
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
+	 */
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		for (Element dataSource : dataSets) {
@@ -191,6 +211,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		return true;
 	}
 
+	/**
+	 * Process second round.
+	 *
+	 * @param annotations the annotations
+	 * @param roundEnv the round env
+	 * @return true, if successful
+	 */
 	public boolean processSecondRound(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		for (SQLiteDatabaseSchema schema : schemas) {
 
@@ -209,6 +236,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		return true;
 	}
 
+	/**
+	 * Analyze second round.
+	 *
+	 * @param annotations the annotations
+	 * @param roundEnv the round env
+	 * @return true, if successful
+	 */
 	public boolean analyzeSecondRound(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		parseBindType(roundEnv);
 
@@ -231,6 +265,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		return false;
 	}
 
+	/**
+	 * Analyze round.
+	 *
+	 * @param annotations the annotations
+	 * @param roundEnv the round env
+	 * @return true, if successful
+	 */
 	public boolean analyzeRound(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		parseBindType(roundEnv);
 
@@ -285,6 +326,11 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	}
 
+	/**
+	 * Analyze foreign key.
+	 *
+	 * @param schema the schema
+	 */
 	private void analyzeForeignKey(SQLiteDatabaseSchema schema) {
 		for (SQLiteEntity entity : schema.getEntities()) {
 			for (SQLProperty property : entity.getCollection()) {
@@ -316,6 +362,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		}
 	}
 
+	/**
+	 * Checks if is generated entity.
+	 *
+	 * @param fullName the full name
+	 * @return true, if is generated entity
+	 */
 	private boolean isGeneratedEntity(String fullName) {
 		for (GeneratedTypeElement item : this.generatedEntities) {
 			if (item.getQualifiedName().equals(fullName)) {
@@ -329,10 +381,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	/**
 	 * <p>
 	 * Create bean's definition for each dao definition contained in dataSource
-	 * </p>
-	 * 
-	 * @param dataSource
-	 * @param daoName
+	 * </p>.
+	 *
+	 * @param schema the schema
+	 * @param dataSource the data source
+	 * @param daoName the dao name
+	 * @return true, if successful
 	 */
 	private boolean createSQLEntityFromDao(final SQLiteDatabaseSchema schema, Element dataSource, String daoName) {
 		TypeElement daoElement = globalDaoElements.get(daoName);
@@ -493,8 +547,11 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * @param m2mEntity
-	 * @param currentEntity
+	 * Check foreign key for M 2 M.
+	 *
+	 * @param currentSchema the current schema
+	 * @param currentEntity the current entity
+	 * @param m2mEntity the m 2 m entity
 	 */
 	private void checkForeignKeyForM2M(SQLiteDatabaseSchema currentSchema, final SQLiteEntity currentEntity, ClassName m2mEntity) {
 		// check for m2m relationship
@@ -505,11 +562,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * Build classes
-	 * 
-	 * @param roundEnv
-	 * 
-	 * @throws Exception
+	 * Build classes.
+	 *
+	 * @param roundEnv the round env
+	 * @throws Exception the exception
 	 */
 	protected void generatedClasses(RoundEnvironment roundEnv) throws Exception {
 		for (SQLiteDatabaseSchema currentSchema : schemas) {
@@ -529,11 +585,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * Build classes
+	 * Build classes.
 	 *
-	 * @param roundEnv
-	 *
-	 * @throws Exception
+	 * @param roundEnv the round env
+	 * @throws Exception the exception
 	 */
 	protected void generatedClassesSecondRound(RoundEnvironment roundEnv) throws Exception {
 		for (SQLiteDatabaseSchema currentSchema : schemas) {
@@ -542,12 +597,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * Create DAO definition
-	 * 
-	 * @param globalBeanElements
-	 * @param globalDaoElements
-	 * @param generatedDaoParts
-	 * @param daoItem
+	 * Create DAO definition.
+	 *
+	 * @param schema the schema
+	 * @param globalBeanElements the global bean elements
+	 * @param globalDaoElements the global dao elements
+	 * @param daoItem the dao item
 	 */
 	protected void createSQLDaoDefinition(SQLiteDatabaseSchema schema, final Map<String, TypeElement> globalBeanElements, final Map<String, TypeElement> globalDaoElements, String daoItem) {
 		Element daoElement = globalDaoElements.get(daoItem);
@@ -612,8 +667,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * @param currentDaoDefinition
-	 * @param daoElement
+	 * Fill methods.
+	 *
+	 * @param currentDaoDefinition the current dao definition
+	 * @param daoElement the dao element
 	 */
 	private void fillMethods(final SQLiteDaoDefinition currentDaoDefinition, Element daoElement) {
 		// create method for dao
@@ -685,7 +742,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * @param databaseSchema
+	 * Creates the data source.
+	 *
+	 * @param databaseSchema the database schema
 	 * @return databaseSchema
 	 */
 	protected SQLiteDatabaseSchema createDataSource(Element databaseSchema) {
@@ -752,22 +811,21 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	}
 
 	/**
-	 * dao or entity can be null
-	 * 
-	 * @param dao
-	 * @param entity
-	 * @return
+	 * dao or entity can be null.
+	 *
+	 * @param daoElement the dao element
+	 * @return the m 2 M entity
 	 */
 	public static M2MEntity generateEntityFromDao(TypeElement daoElement) {
 		return M2MEntity.extractEntityManagedByDAO(daoElement);
 	}
 
 	/**
-	 * dao or entity can be null
-	 * 
-	 * @param dao
-	 * @param entity
-	 * @return
+	 * dao or entity can be null.
+	 *
+	 * @param dao the dao
+	 * @param entity the entity
+	 * @return the string
 	 */
 	public static String generateEntityName(SQLiteDaoDefinition dao, SQLiteEntity entity) {
 		String entityName;
@@ -780,6 +838,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		return entityName;
 	}
 
+	/**
+	 * Generate entity qualified name.
+	 *
+	 * @param dao the dao
+	 * @param entity the entity
+	 * @return the string
+	 */
 	public static String generateEntityQualifiedName(SQLiteDaoDefinition dao, SQLiteEntity entity) {
 		String entityName;
 		if (entity == null) {

@@ -37,10 +37,11 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class SelectBeanListenerHelper.
+ *
  * @author Francesco Benincasa (info@abubusoft.com)
- *
- *
  * @since 17/mag/2016
  */
 public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {

@@ -30,133 +30,177 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 import com.abubusoft.kripton.xml.XmlType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BeanValue76.
+ */
 @BindType(value="root", allFields=false)
 public class BeanValue76 {
 	
+	/** The id. */
 	@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.VALUE)
 	protected long id;
 	
+	/** The value bean. */
 	@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.VALUE)
 	public BeanValue76 valueBean;
 
+	/** The value big decimal. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BigDecimal valueBigDecimal;
 	
+	/** The value big integer. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BigInteger valueBigInteger;
 
+	/** The value bool. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Boolean valueBool;
 	
+	/** The value bool type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public boolean valueBoolType;	
 	
+	/** The value byte. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Byte valueByte;
 	
+	/** The value byte type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public byte valueByteType;
 	
+	/** The value calendar. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Calendar valueCalendar;
 	
+	/** The value char. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Character valueChar;
 	
+	/** The value char type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public char valueCharType;
 	
+	/** The value content bool type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Integer valueContentBoolType;
 
+	/** The value currency. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Currency valueCurrency;
 	
+	/** The value date. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Date valueDate;
 	
+	/** The value double. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Double valueDouble;
 	
+	/** The value double type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public double valueDoubleType;
 	
+	/** The value enum. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public BeanEnum valueEnum;
 	
+	/** The value float. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Float valueFloat;
 	
+	/** The value float type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public float valueFloatType;
 	
+	/** The value int. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Integer valueInt;
 	
+	/** The value int type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public int valueIntType;
 	
+	/** The value locale. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Locale valueLocale;
 	
+	/** The value long. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Long valueLong;
 	
+	/** The value long type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public long valueLongType;
 	
+	/** The value short. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Short valueShort;
 	
+	/** The value short type. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public short valueShortType;
 	
+	/** The value string. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public String valueString;
 	
+	/** The value time. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public Time valueTime;
 	
+	/** The value time zone. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public TimeZone valueTimeZone;
 	
+	/** The value url. */
 	//@Bind(enabled=true)
 	@BindXml(xmlType=XmlType.ATTRIBUTE)
 	public URL valueUrl;
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}

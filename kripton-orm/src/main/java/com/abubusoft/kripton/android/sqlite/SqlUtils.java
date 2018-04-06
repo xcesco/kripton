@@ -15,18 +15,21 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class SqlUtils.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class SqlUtils {
 	
 	/**
 	 * Display string <code>String.format(format, objects)</code> only if condition is true
-	 * @param condition
-	 * @param format
-	 * @param objects
-	 * @return
+	 *
+	 * @param condition the condition
+	 * @param format the format
+	 * @param objects the objects
+	 * @return the string
 	 */
 	public static String printIf(boolean condition, String format, Object ...objects)
 	{

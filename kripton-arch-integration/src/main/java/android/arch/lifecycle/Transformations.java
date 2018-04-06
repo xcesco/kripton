@@ -21,6 +21,7 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformations for a {@link LiveData} class.
  * <p>
@@ -33,6 +34,9 @@ import android.support.annotation.Nullable;
 @SuppressWarnings("WeakerAccess")
 public class Transformations {
 
+    /**
+     * Instantiates a new transformations.
+     */
     private Transformations() {
     }
 
@@ -46,18 +50,18 @@ public class Transformations {
      * need to display the user name, created by concatenating the first and the last
      * name of the user. You can define a function that handles the name creation, that will be
      * applied to every value emitted by {@code useLiveData}.
-     *
+     * 
      * <pre>
-     * LiveData<User> userLiveData = ...;
-     * LiveData<String> userName = Transformations.map(userLiveData, user -> {
+     * LiveData&lt;User&gt; userLiveData = ...;
+     * LiveData&lt;String&gt; userName = Transformations.map(userLiveData, user -&gt; {
      *      return user.firstName + " " + user.lastName
      * });
      * </pre>
      *
-     * @param source a {@code LiveData} to listen to
-     * @param func   a function to apply
      * @param <X>    a type of {@code source} LiveData
      * @param <Y>    a type of resulting LiveData.
+     * @param source a {@code LiveData} to listen to
+     * @param func   a function to apply
      * @return a LiveData which emits resulting values
      */
     @MainThread
@@ -83,10 +87,10 @@ public class Transformations {
      * <p>
      * If the given function returns null, then {@code swLiveData} is not "backed" by any other
      * LiveData.
-     *
+     * 
      * <p>
      * The given function {@code func} will be executed on the main thread.
-     *
+     * 
      * <p>
      * Consider the case where you have a LiveData containing a user id. Every time there's a new
      * user id emitted, you want to trigger a request to get the user object corresponding to that
@@ -105,21 +109,22 @@ public class Transformations {
      * userIdLiveData} changes and automatically triggers a request for getting the user with id
      * "2" from the repository. So, the {@code userLiveData} emits User(2, "John"). The LiveData
      * returned by {@code repository.getUserById(1)} is removed as a source.
-     *
+     * 
      * <pre>
-     * MutableLiveData<String> userIdLiveData = ...;
-     * LiveData<User> userLiveData = Transformations.switchMap(userIdLiveData, id ->
+     * MutableLiveData&lt;String&gt; userIdLiveData = ...;
+     * LiveData&lt;User&gt; userLiveData = Transformations.switchMap(userIdLiveData, id -&gt;
      *     repository.getUserById(id));
-     *
+     * 
      * void setUserId(String userId) {
      *      this.userIdLiveData.setValue(userId);
      * }
      * </pre>
      *
-     * @param trigger a {@code LiveData} to listen to
-     * @param func    a function which creates "backing" LiveData
      * @param <X>     a type of {@code source} LiveData
      * @param <Y>     a type of resulting LiveData
+     * @param trigger a {@code LiveData} to listen to
+     * @param func    a function which creates "backing" LiveData
+     * @return the live data
      */
     @MainThread
     public static <X, Y> LiveData<Y> switchMap(@NonNull LiveData<X> trigger,

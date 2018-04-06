@@ -19,12 +19,28 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Bean96Dao.
+ */
 @BindDao(Bean96.class)
 public interface Bean96Dao {
 
+	/**
+	 * Select by bean.
+	 *
+	 * @param name the name
+	 * @return the bean 96
+	 */
 	@BindSqlSelect(where = "name like ${name} || '%'")
 	Bean96 selectByBean(String name);
 
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlInsert
 	boolean insert(Bean96 bean);
 }

@@ -25,23 +25,65 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 import sqlite.kripton49.entities.Bean01Entity;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBean01.
+ */
 @BindDao(Bean01Entity.class)
 public interface DaoBean01 {
+	
+	/**
+	 * Select one.
+	 *
+	 * @param id the id
+	 * @return the bean 01 entity
+	 */
 	@BindSqlSelect(where="id=${id}")
 	Bean01Entity selectOne(Long id);
 	
+	/**
+	 * Select by id.
+	 *
+	 * @param id the id
+	 * @return the list
+	 */
 	@BindSqlSelect(where="id=${id}")
 	List<Bean01Entity> selectById(Long id);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param text the text
+	 * @param id the id
+	 * @return the long
+	 */
 	@BindSqlUpdate(where="id=${id}")
 	long updateOne(String text, Long id);
 	
+	/**
+	 * Delete one.
+	 *
+	 * @param id the id
+	 * @return the long
+	 */
 	@BindSqlDelete(where="id=${id}")
 	long deleteOne(Long id);
 	
+	/**
+	 * Insert one.
+	 *
+	 * @param id the id
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insertOne(Long id);
 	
+	/**
+	 * Insert one.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert
 	long insertOne(Bean01Entity bean);
 	

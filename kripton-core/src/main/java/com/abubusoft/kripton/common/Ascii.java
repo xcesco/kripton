@@ -19,6 +19,7 @@ package com.abubusoft.kripton.common;
 import static com.abubusoft.kripton.common.Preconditions.checkArgument;
 import static com.abubusoft.kripton.common.Preconditions.checkNotNull;
 
+// TODO: Auto-generated Javadoc
 /**
  * Static methods pertaining to ASCII characters (those in the range of values
  * {@code 0x00} through {@code 0x7F}), and to strings containing such
@@ -27,8 +28,8 @@ import static com.abubusoft.kripton.common.Preconditions.checkNotNull;
  * <p>ASCII utilities also exist in other classes of this package:
  * <ul>
  * <!-- TODO(kevinb): how can we make this not produce a warning when building gwt javadoc? -->
- * <li>{@link SupportedCharsets#US_ASCII} specifies the {@code Charset} of ASCII characters.
- * <li>{@link CharMatcher#ASCII} matches ASCII characters and provides text processing methods
+ * <li>SupportedCharsets#US_ASCII specifies the {@code Charset} of ASCII characters.
+ * <li>CharMatcher#ASCII matches ASCII characters and provides text processing methods
  *     which operate only on the ASCII characters of a string.
  * </ul>
  *
@@ -38,6 +39,9 @@ import static com.abubusoft.kripton.common.Preconditions.checkNotNull;
  */
 public final class Ascii {
 
+  /**
+   * Instantiates a new ascii.
+   */
   private Ascii() {}
 
   /* The ASCII control characters, per RFC 20. */
@@ -427,6 +431,9 @@ public final class Ascii {
    * Returns a copy of the input string in which all {@linkplain #isUpperCase(char) uppercase ASCII
    * characters} have been converted to lowercase. All other characters are copied without
    * modification.
+   *
+   * @param string the string
+   * @return the string
    */
   public static String toLowerCase(String string) {
     int length = string.length();
@@ -450,6 +457,8 @@ public final class Ascii {
    * uppercase ASCII characters} have been converted to lowercase. All other characters are copied
    * without modification.
    *
+   * @param chars the chars
+   * @return the string
    * @since 14.0
    */
   public static String toLowerCase(CharSequence chars) {
@@ -467,6 +476,9 @@ public final class Ascii {
   /**
    * If the argument is an {@linkplain #isUpperCase(char) uppercase ASCII character} returns the
    * lowercase equivalent. Otherwise returns the argument.
+   *
+   * @param c the c
+   * @return the char
    */
   public static char toLowerCase(char c) {
     return isUpperCase(c) ? (char) (c ^ 0x20) : c;
@@ -476,6 +488,9 @@ public final class Ascii {
    * Returns a copy of the input string in which all {@linkplain #isLowerCase(char) lowercase ASCII
    * characters} have been converted to uppercase. All other characters are copied without
    * modification.
+   *
+   * @param string the string
+   * @return the string
    */
   public static String toUpperCase(String string) {
     int length = string.length();
@@ -499,6 +514,8 @@ public final class Ascii {
    * lowercase ASCII characters} have been converted to uppercase. All other characters are copied
    * without modification.
    *
+   * @param chars the chars
+   * @return the string
    * @since 14.0
    */
   public static String toUpperCase(CharSequence chars) {
@@ -516,6 +533,9 @@ public final class Ascii {
   /**
    * If the argument is a {@linkplain #isLowerCase(char) lowercase ASCII character} returns the
    * uppercase equivalent. Otherwise returns the argument.
+   *
+   * @param c the c
+   * @return the char
    */
   public static char toUpperCase(char c) {
     return isLowerCase(c) ? (char) (c & 0x5f) : c;
@@ -525,6 +545,9 @@ public final class Ascii {
    * Indicates whether {@code c} is one of the twenty-six lowercase ASCII alphabetic characters
    * between {@code 'a'} and {@code 'z'} inclusive. All others (including non-ASCII characters)
    * return {@code false}.
+   *
+   * @param c the c
+   * @return true, if is lower case
    */
   public static boolean isLowerCase(char c) {
     // Note: This was benchmarked against the alternate expression "(char)(c - 'a') < 26" (Nov '13)
@@ -536,6 +559,9 @@ public final class Ascii {
    * Indicates whether {@code c} is one of the twenty-six uppercase ASCII alphabetic characters
    * between {@code 'A'} and {@code 'Z'} inclusive. All others (including non-ASCII characters)
    * return {@code false}.
+   *
+   * @param c the c
+   * @return true, if is upper case
    */
   public static boolean isUpperCase(char c) {
     return (c >= 'A') && (c <= 'Z');
@@ -546,18 +572,18 @@ public final class Ascii {
    * sequence is greater than {@code maxLength}, the returned string will be exactly
    * {@code maxLength} chars in length and will end with the given {@code truncationIndicator}.
    * Otherwise, the sequence will be returned as a string with no changes to the content.
-   *
+   * 
    * <p>Examples:
-   *
+   * 
    * <pre>   {@code
    *   Ascii.truncate("foobar", 7, "..."); // returns "foobar"
    *   Ascii.truncate("foobar", 5, "..."); // returns "fo..." }</pre>
-   *
+   * 
    * <p><b>Note:</b> This method <i>may</i> work with certain non-ASCII text but is not safe for
    * use with arbitrary Unicode text. It is mostly intended for use with text that is known to be
    * safe for use with it (such as all-ASCII text) and for simple debugging text. When using this
    * method, consider the following:
-   *
+   * 
    * <ul>
    *   <li>it may split surrogate pairs</li>
    *   <li>it may split characters and combining characters</li>
@@ -568,7 +594,10 @@ public final class Ascii {
    *   <li>it is safe to use non-ASCII characters in the truncation indicator</li>
    * </ul>
    *
-   *
+   * @param seq the seq
+   * @param maxLength the max length
+   * @param truncationIndicator the truncation indicator
+   * @return the string
    * @throws IllegalArgumentException if {@code maxLength} is less than the length of
    *     {@code truncationIndicator}
    * @since 16.0
@@ -604,10 +633,10 @@ public final class Ascii {
    * Indicates whether the contents of the given character sequences {@code s1} and {@code s2} are
    * equal, ignoring the case of any ASCII alphabetic characters between {@code 'a'} and {@code 'z'}
    * or {@code 'A'} and {@code 'Z'} inclusive.
-   *
+   * 
    * <p>This method is significantly faster than {@link String#equalsIgnoreCase} and should be used
    * in preference if at least one of the parameters is known to contain only ASCII characters.
-   *
+   * 
    * <p>Note however that this method does not always behave identically to expressions such as:
    * <ul>
    * <li>{@code string.toUpperCase().equals("UPPER CASE ASCII")}
@@ -618,6 +647,9 @@ public final class Ascii {
    * the author probably wanted the behavior provided by this method rather than the subtle and
    * sometimes surprising behavior of {@code toUpperCase()} and {@code toLowerCase()}.
    *
+   * @param s1 the s 1
+   * @param s2 the s 2
+   * @return true, if successful
    * @since 16.0
    */
   public static boolean equalsIgnoreCase(CharSequence s1, CharSequence s2) {
@@ -650,6 +682,9 @@ public final class Ascii {
    * Returns the non-negative index value of the alpha character {@code c}, regardless of case.
    * Ie, 'a'/'A' returns 0 and 'z'/'Z' returns 25. Non-alpha characters return a value of 26 or
    * greater.
+   *
+   * @param c the c
+   * @return the alpha index
    */
   private static int getAlphaIndex(char c) {
     // Fold upper-case ASCII to lower-case and make zero-indexed and unsigned (by casting to char).

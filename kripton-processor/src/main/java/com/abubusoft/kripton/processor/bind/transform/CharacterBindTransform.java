@@ -15,16 +15,22 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.transform;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Character object
- * 
- * @author xcesco
+ * Transformer between a string and a Java Character object.
  *
+ * @author xcesco
  */
 class CharacterBindTransform extends AbstractPrimitiveBindTransform {
 	
+	/** The Constant CHAR_CAST_CONST. */
 	public final static String CHAR_CAST_CONST="(char)";
 
+	/**
+	 * Instantiates a new character bind transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public CharacterBindTransform(boolean nullable) {
 		super(nullable);
 		

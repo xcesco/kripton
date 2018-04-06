@@ -23,16 +23,40 @@ import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Err2PersonDAO.
+ */
 @BindDao(Err2Person.class)
 public interface Err2PersonDAO {
 	
+	/**
+	 * Select paged static 1.
+	 *
+	 * @return the paginated result
+	 */
 	@BindSqlSelect(orderBy="typeName", pageSize=20)
 	PaginatedResult<Err2Person> selectPagedStatic1();
 	
+	/**
+	 * Select paged static 2.
+	 *
+	 * @param pageSize the page size
+	 * @param pageSize2 the page size 2
+	 * @return the paginated result
+	 */
 	@BindSqlSelect(orderBy="typeName")
 	PaginatedResult<Err2Person> selectPagedStatic2(@BindSqlPageSize long pageSize, @BindSqlPageSize int pageSize2);
 	
 	
+	/**
+	 * Insert one.
+	 *
+	 * @param name the name
+	 * @param surname the surname
+	 * @param birthCity the birth city
+	 * @param birthDay the birth day
+	 */
 	@BindSqlInsert
 	void insertOne(String name, String surname, String birthCity, Date birthDay);
 /*

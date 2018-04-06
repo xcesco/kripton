@@ -18,9 +18,20 @@ package sqlite.kripton41;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBeanSelectOK.
+ */
 @BindDao(Bean01.class)
 public interface DaoBeanSelectOK  {
 	
+	/**
+	 * Select distance.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @return the boolean
+	 */
 	@BindSqlSelect(fields="count(*)", where="id=${id} and value=${value}")
 	Boolean selectDistance(long id, double value);
 	

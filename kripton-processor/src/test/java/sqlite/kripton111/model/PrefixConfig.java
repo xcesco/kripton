@@ -17,16 +17,25 @@ package sqlite.kripton111.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PrefixConfig.
+ */
 @BindType
 public class PrefixConfig {
 
+    /** The id. */
     public long id;
 
+    /** The default country. */
     public String defaultCountry;
 
+    /** The dual billing prefix. */
     public String dualBillingPrefix;
 
+    /** The enabled. */
     public boolean enabled;
 
+    /** The dialog timeout. */
     public long dialogTimeout;
 }

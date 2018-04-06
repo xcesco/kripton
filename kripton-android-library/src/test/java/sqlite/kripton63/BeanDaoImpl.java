@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton63;
 
 import android.database.Cursor;
@@ -26,70 +41,96 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean63</code>, based on interface <code>BeanDao</code>
- * </p>
+ * </p>.
  *
- *  @see Bean63
- *  @see BeanDao
- *  @see Bean63Table
+ * @see Bean63
+ * @see BeanDao
+ * @see Bean63Table
  */
 public class BeanDaoImpl extends Dao implements BeanDao {
+  
+  /** The Constant SELECT_ONE_SQL1. */
   private static final String SELECT_ONE_SQL1 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63";
 
+  /** The Constant SELECT_ONE_SQL2. */
   private static final String SELECT_ONE_SQL2 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?";
 
+  /** The Constant SELECT_ONE_SQL3. */
   private static final String SELECT_ONE_SQL3 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?";
 
+  /** The Constant SELECT_LIST_SQL4. */
   private static final String SELECT_LIST_SQL4 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ?";
 
+  /** The update one prepared statement 0. */
   private static SQLiteStatement updateOnePreparedStatement0;
 
+  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
+  /** The insert prepared statement 2. */
   private static SQLiteStatement insertPreparedStatement2;
 
+  /** The Constant SELECT_ONE_SQL5. */
   private static final String SELECT_ONE_SQL5 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?";
 
+  /** The delete prepared statement 3. */
   private static SQLiteStatement deletePreparedStatement3;
 
+  /** The update one prepared statement 4. */
   private static SQLiteStatement updateOnePreparedStatement4;
 
+  /** The insert prepared statement 5. */
   private static SQLiteStatement insertPreparedStatement5;
 
+  /** The Constant SELECT_ONE_SQL6. */
   private static final String SELECT_ONE_SQL6 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?";
 
+  /** The Constant SELECT_CURSOR_ONE_SQL7. */
   private static final String SELECT_CURSOR_ONE_SQL7 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?";
 
+  /** The Constant SELECT_LISTENER_ONE_SQL8. */
   private static final String SELECT_LISTENER_ONE_SQL8 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?";
 
+  /** The Constant SELECT_CURSOR_LISTENER_ONE_SQL9. */
   private static final String SELECT_CURSOR_LISTENER_ONE_SQL9 = "SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=?";
 
+  /** The delete prepared statement 6. */
   private static SQLiteStatement deletePreparedStatement6;
 
+  /** The update one prepared statement 7. */
   private static SQLiteStatement updateOnePreparedStatement7;
 
+  /** The Constant SELECT_MAP_ENUM_BYTE_ONE_SQL10. */
   private static final String SELECT_MAP_ENUM_BYTE_ONE_SQL10 = "SELECT value_map_enum_byte FROM bean63";
 
+  /** The Constant SELECT_MAP_ENUM_BYTE_ONE_STRING_SQL11. */
   private static final String SELECT_MAP_ENUM_BYTE_ONE_STRING_SQL11 = "SELECT value_map_enum_byte FROM bean63";
 
+  /**
+   * Instantiates a new bean dao impl.
+   *
+   * @param context the context
+   */
   public BeanDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return selected bean or <code>null</code>.
    */
@@ -143,9 +184,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -153,16 +194,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
-   * @param listener
-   * 	is the Bean63 listener
+   * @param id 	is binded to <code>${id}</code>
+   * @param listener 	is the Bean63 listener
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean63> listener) {
@@ -222,9 +261,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -232,16 +271,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
-   * @param listener
-   * 	is the cursor listener
+   * @param id 	is binded to <code>${id}</code>
+   * @param listener 	is the cursor listener
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
@@ -283,9 +320,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE id = ${id}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -293,14 +330,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is binded to <code>${id}</code>
+   * @param id 	is binded to <code>${id}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -500,15 +536,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean63 (value_map_string_byte) VALUES (${valueMapStringByte})</pre>
-   *
+   * 
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>valueMapStringByte</dt><dd>is binded to query's parameter <strong>${valueMapStringByte}</strong> and method's parameter <strong>valueMapStringByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapStringByte
-   * 	is binded to column value <strong>value_map_string_byte</strong>
-   *
+   * @param valueMapStringByte 	is binded to column value <strong>value_map_string_byte</strong>
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -564,9 +598,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapStringByte}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -574,14 +608,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${valueMapStringByte}</dt><dd>is binded to method's parameter <strong>valueMapStringByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapStringByte
-   * 	is binded to <code>${valueMapStringByte}</code>
+   * @param valueMapStringByte 	is binded to <code>${valueMapStringByte}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -636,16 +669,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean63 WHERE value=${valueMapStringByte}</pre>
-   *
-   *
+   * 
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueMapStringByte}</dt><dd>is mapped to method's parameter <strong>valueMapStringByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapStringByte
-   * 	is used as where parameter <strong>${valueMapStringByte}</strong>
-   *
+   * @param valueMapStringByte 	is used as where parameter <strong>${valueMapStringByte}</strong>
    * @return number of deleted records
    */
   @Override
@@ -681,22 +712,19 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE bean63 SET id=:id WHERE value=${valueMapStringByte}</pre>
-   *
+   * 
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>id</li>
    * </ul>
-   *
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueMapStringByte}</dt><dd>is mapped to method's parameter <strong>valueMapStringByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is used as updated field <strong>id</strong>
-   * @param valueMapStringByte
-   * 	is used as where parameter <strong>${valueMapStringByte}</strong>
-   *
+   * @param id 	is used as updated field <strong>id</strong>
+   * @param valueMapStringByte 	is used as where parameter <strong>${valueMapStringByte}</strong>
    * @return number of updated records
    */
   @Override
@@ -746,15 +774,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean63 (value_map_enum_byte) VALUES (${valueMapEnumByte})</pre>
-   *
+   * 
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>valueMapEnumByte</dt><dd>is binded to query's parameter <strong>${valueMapEnumByte}</strong> and method's parameter <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapEnumByte
-   * 	is binded to column value <strong>value_map_enum_byte</strong>
-   *
+   * @param valueMapEnumByte 	is binded to column value <strong>value_map_enum_byte</strong>
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -810,9 +836,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -820,14 +846,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapEnumByte
-   * 	is binded to <code>${valueMapEnumByte}</code>
+   * @param valueMapEnumByte 	is binded to <code>${valueMapEnumByte}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -881,9 +906,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -891,14 +916,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapEnumByte
-   * 	is binded to <code>${valueMapEnumByte}</code>
+   * @param valueMapEnumByte 	is binded to <code>${valueMapEnumByte}</code>
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
   @Override
@@ -933,9 +957,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -943,16 +967,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapEnumByte
-   * 	is binded to <code>${valueMapEnumByte}</code>
-   * @param listener
-   * 	is the Bean63 listener
+   * @param valueMapEnumByte 	is binded to <code>${valueMapEnumByte}</code>
+   * @param listener 	is the Bean63 listener
    */
   @Override
   public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
@@ -1013,9 +1035,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT id, value, value_map_string_byte, value_map_enum_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1023,16 +1045,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_map_string_byte</dt><dd>is associated to bean's property <strong>valueMapStringByte</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
    * </dl>
-   *
+   * 
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapEnumByte
-   * 	is binded to <code>${valueMapEnumByte}</code>
-   * @param listener
-   * 	is the cursor listener
+   * @param valueMapEnumByte 	is binded to <code>${valueMapEnumByte}</code>
+   * @param listener 	is the cursor listener
    */
   @Override
   public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
@@ -1076,16 +1096,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean63 WHERE value=${valueMapEnumByte}</pre>
-   *
-   *
+   * 
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueMapEnumByte}</dt><dd>is mapped to method's parameter <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param valueMapEnumByte
-   * 	is used as where parameter <strong>${valueMapEnumByte}</strong>
-   *
+   * @param valueMapEnumByte 	is used as where parameter <strong>${valueMapEnumByte}</strong>
    * @return number of deleted records
    */
   @Override
@@ -1121,22 +1139,19 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE bean63 SET id=:id WHERE value=${valueMapEnumByte}</pre>
-   *
+   * 
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>id</li>
    * </ul>
-   *
+   * 
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueMapEnumByte}</dt><dd>is mapped to method's parameter <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
-   * @param id
-   * 	is used as updated field <strong>id</strong>
-   * @param valueMapEnumByte
-   * 	is used as where parameter <strong>${valueMapEnumByte}</strong>
-   *
+   * @param id 	is used as updated field <strong>id</strong>
+   * @param valueMapEnumByte 	is used as where parameter <strong>${valueMapEnumByte}</strong>
    * @return number of updated records
    */
   @Override
@@ -1185,13 +1200,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT value_map_enum_byte FROM bean63</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of bean or empty collection.
    */
@@ -1245,13 +1260,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   *
+   * 
    * <pre>SELECT value_map_enum_byte FROM bean63</pre>
-   *
+   * 
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
-   * </dl>
+   * </dl>.
    *
    * @return collection of single value extracted by query.
    */
@@ -1301,9 +1316,12 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param serializer1 serialization
+   * for param serializer3 serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
-  private byte[] serializer1(Map<String, Byte> value) {
+  private byte[] serializer3(String value) {
     if (value==null) {
       return null;
     }
@@ -1313,24 +1331,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
-        // write wrapper tag
-        if (value.size()>0) {
-          jacksonSerializer.writeFieldName("element");
-          jacksonSerializer.writeStartArray();
-          for (Map.Entry<String, Byte> item: value.entrySet()) {
-            jacksonSerializer.writeStartObject();
-            jacksonSerializer.writeStringField(null, item.getKey());
-            if (item.getValue()==null) {
-              jacksonSerializer.writeNullField(null);
-            } else {
-              jacksonSerializer.writeNumberField(null, item.getValue());
-            }
-            jacksonSerializer.writeEndObject();
-          }
-          jacksonSerializer.writeEndArray();
-        } else {
-          jacksonSerializer.writeNullField("element");
-        }
+        jacksonSerializer.writeStringField("element", value);
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
@@ -1341,9 +1342,12 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param parser1 parsing
+   * for param parser3 parsing.
+   *
+   * @param input the input
+   * @return the string
    */
-  private Map<String, Byte> parser1(byte[] input) {
+  private String parser3(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -1354,24 +1358,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Map<String, Byte> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashMap<String, Byte> collection=new HashMap<>();
-        String key=null;
-        Byte value=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          jacksonParser.nextValue();
-          key=jacksonParser.getText();
-          jacksonParser.nextValue();
-          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-            value=jacksonParser.getByteValue();
-          }
-          collection.put(key, value);
-          key=null;
-          value=null;
-          jacksonParser.nextToken();
-        }
-        result=collection;
+      String result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getText();
       }
       return result;
     } catch(Exception e) {
@@ -1380,7 +1369,10 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param serializer2 serialization
+   * for param serializer2 serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   private byte[] serializer2(HashMap<EnumType, Byte> value) {
     if (value==null) {
@@ -1420,7 +1412,10 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param parser2 parsing
+   * for param parser2 parsing.
+   *
+   * @param input the input
+   * @return the hash map
    */
   private HashMap<EnumType, Byte> parser2(byte[] input) {
     if (input==null) {
@@ -1462,9 +1457,12 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param serializer3 serialization
+   * for param serializer1 serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
-  private byte[] serializer3(String value) {
+  private byte[] serializer1(Map<String, Byte> value) {
     if (value==null) {
       return null;
     }
@@ -1474,7 +1472,24 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
-        jacksonSerializer.writeStringField("element", value);
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("element");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Byte> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField(null, item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField(null);
+            } else {
+              jacksonSerializer.writeNumberField(null, item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("element");
+        }
       }
       jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
@@ -1485,9 +1500,12 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param parser3 parsing
+   * for param parser1 parsing.
+   *
+   * @param input the input
+   * @return the map
    */
-  private String parser3(byte[] input) {
+  private Map<String, Byte> parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -1498,9 +1516,24 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      String result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getText();
+      Map<String, Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<String, Byte> collection=new HashMap<>();
+        String key=null;
+        Byte value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+            value=jacksonParser.getByteValue();
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {
@@ -1508,6 +1541,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     }
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (updateOnePreparedStatement0!=null) {
       updateOnePreparedStatement0.close();

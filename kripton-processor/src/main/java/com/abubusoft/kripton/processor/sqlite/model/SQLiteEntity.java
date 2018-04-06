@@ -29,8 +29,13 @@ import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SQLiteEntity.
+ */
 public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLProperty> {
 
+	/** The table name. */
 	private String tableName;
 
 	/**
@@ -39,12 +44,22 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	 */
 	public Set<SQLiteEntity> referedEntities = new HashSet<>();
 
-	public SQLiteEntity(SQLiteDatabaseSchema model, BindEntity bindEntity) {
+	/** The schema. */
+	public SQLiteDatabaseSchema schema;
+
+	/**
+	 * Instantiates a new SQ lite entity.
+	 *
+	 * @param schema the schema
+	 * @param bindEntity the bind entity
+	 */
+	public SQLiteEntity(SQLiteDatabaseSchema schema, BindEntity bindEntity) {
 		super(bindEntity.getElement());
 		
 		this.annotations=bindEntity.getAnnotations();
+		this.schema=schema;
 
-		buildTableName(BaseProcessor.elementUtils, model);
+		buildTableName(BaseProcessor.elementUtils, schema);
 	}
 
 
@@ -66,8 +81,8 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	}
 
 	/**
-	 * True if there is a primary key
-	 * 
+	 * True if there is a primary key.
+	 *
 	 * @return true if there is a primary key
 	 */
 	public SQLProperty getPrimaryKey() {
@@ -83,13 +98,23 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 		return id;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.core.Finder#getTableName()
+	 */
 	public String getTableName() {
 		return tableName;
 	}
 
-	private String buildTableName(Elements elementUtils, SQLiteDatabaseSchema model) {
+	/**
+	 * Builds the table name.
+	 *
+	 * @param elementUtils the element utils
+	 * @param schema the schema
+	 * @return the string
+	 */
+	private String buildTableName(Elements elementUtils, SQLiteDatabaseSchema schema) {
 		tableName = getSimpleName();
-		tableName = model.classNameConverter.convert(tableName);
+		tableName = schema.classNameConverter.convert(tableName);
 
 		String temp = AnnotationUtility.extractAsString(getElement(), BindTable.class, AnnotationAttributeType.NAME);
 		if (StringUtils.hasText(temp)) {

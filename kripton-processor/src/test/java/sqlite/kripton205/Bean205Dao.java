@@ -19,12 +19,28 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Bean205Dao.
+ */
 @BindDao(Bean205.class)
 public interface Bean205Dao {
 
+	/**
+	 * Select by bean.
+	 *
+	 * @param name the name
+	 * @return the bean 205
+	 */
 	@BindSqlSelect(where = "name like ${name} || '%'")
 	Bean205 selectByBean(String name);
 
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlInsert
 	boolean insert(Bean205 bean);
 }

@@ -15,8 +15,18 @@
  *******************************************************************************/
 package shared.kripton198;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum AppType.
+ */
 public enum AppType {
+	
+	/** The application. */
 	APPLICATION,
+	
+	/** The game. */
 	GAME,
+	
+	/** The unknown. */
 	UNKNOWN;
 }

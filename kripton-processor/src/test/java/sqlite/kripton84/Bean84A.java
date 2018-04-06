@@ -21,25 +21,40 @@ import java.util.Map;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean84A.
+ */
 @BindType
 public class Bean84A {
 	
+	/** The id. */
 	public long id;
 	
+	/** The param 1. */
 	public String param1;
 	
+	/** The param 2. */
 	public String param2;
 	
+	/** The param 3. */
 	public String param3;
 	
+	/** The param 4. */
 	public String param4;
 	
+	/** The column list string. */
 	public List<String> columnListString;
 	
+	/** The column map integer string. */
 	public Map<Integer, String> columnMapIntegerString;
 	
+	/** The column array char. */
 	public Character[] columnArrayChar;
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -55,6 +70,9 @@ public class Bean84A {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,11 +113,15 @@ public class Bean84A {
 		return true;
 	}
 
+	/** The column array char type. */
 	public char[] columnArrayCharType;
 	
+	/** The column bean. */
 	public Bean84A columnBean;
 	
+	/** The column array byte type. */
 	public byte[] columnArrayByteType;
 	
+	/** The value string. */
 	public String valueString;
 }

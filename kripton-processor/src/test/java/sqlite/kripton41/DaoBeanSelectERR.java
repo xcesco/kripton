@@ -23,9 +23,20 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBeanSelectERR.
+ */
 @BindDao(Bean01.class)
 public interface DaoBeanSelectERR  {
 	
+	/**
+	 * Select distance.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @return the boolean
+	 */
 	@BindSqlSelect(fields="count(*)>1")
 	Boolean selectDistance(long id, double value);
 	

@@ -18,8 +18,19 @@ package sqlite.kripton33;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoChannel06.
+ */
 @BindDao(Channel.class)
 public interface DaoChannel06 {
+	
+	/**
+	 * Delete.
+	 *
+	 * @param bean the bean
+	 * @return the int
+	 */
 	@BindSqlDelete(where = "updateTime=${bean.updateTimeA} and updateTime=${bean.updateTimeB}")
 	int delete(Channel bean);
 	

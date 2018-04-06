@@ -23,18 +23,34 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test63Compile.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class Test63Compile extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test sqlite.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(BeanDataSource.class, BeanDao.class, Bean63.class, EnumType.class);
 	}
 
+	/**
+	 * Test shared fields.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testSharedFields() throws IOException, InstantiationException, IllegalAccessException {
 		buildSharedPreferencesProcessorTest(Bean63.class, EnumType.class);

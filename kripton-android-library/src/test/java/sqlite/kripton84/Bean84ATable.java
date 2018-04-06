@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.kripton84;
 
 import com.abubusoft.kripton.BinderUtils;
@@ -17,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Bean84A</code> is associated to table <code>bean84_a</code>
@@ -25,27 +41,14 @@ import java.util.Map;
  *  @see Bean84A
  */
 public class Bean84ATable implements SQLiteTable {
-  /**
-   * Costant represents typeName of table bean84_a
-   */
+  
+  /** Costant represents typeName of table bean84_a. */
   public static final String TABLE_NAME = "bean84_a";
 
-  /**
-   * <p>
-   * DDL to create table bean84_a
-   * </p>
-   *
-   * <pre>CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);</pre>
-   */
+  /** <p> DDL to create table bean84_a </p>  <pre>CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);</pre>. */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, column_list_string BLOB, column_map_integer_string BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_array_byte_type BLOB, value_string TEXT);";
 
-  /**
-   * <p>
-   * DDL to drop table bean84_a
-   * </p>
-   *
-   * <pre>DROP TABLE IF EXISTS bean84_a;</pre>
-   */
+  /** <p> DDL to drop table bean84_a </p>  <pre>DROP TABLE IF EXISTS bean84_a;</pre>. */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean84_a;";
 
   /**
@@ -132,17 +135,17 @@ public class Bean84ATable implements SQLiteTable {
    */
   public static final String COLUMN_VALUE_STRING = "value_string";
 
-  /**
-   * Bean84ABindMap */
+  /** Bean84ABindMap. */
   private static Bean84ABindMap bean84ABindMap = BinderUtils.mapperFor(Bean84A.class);
 
-  /**
-   * Columns array
-   */
+  /** Columns array. */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PARAM1, COLUMN_PARAM2, COLUMN_PARAM3, COLUMN_PARAM4, COLUMN_COLUMN_LIST_STRING, COLUMN_COLUMN_MAP_INTEGER_STRING, COLUMN_COLUMN_ARRAY_CHAR, COLUMN_COLUMN_ARRAY_CHAR_TYPE, COLUMN_COLUMN_BEAN, COLUMN_COLUMN_ARRAY_BYTE_TYPE, COLUMN_VALUE_STRING};
 
   /**
-   * for attribute columnListString serialization
+   * for attribute columnListString serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeColumnListString(List<String> value) {
     if (value==null) {
@@ -179,7 +182,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnListString parsing
+   * for attribute columnListString parsing.
+   *
+   * @param input the input
+   * @return the list
    */
   public static List<String> parseColumnListString(byte[] input) {
     if (input==null) {
@@ -213,7 +219,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnMapIntegerString serialization
+   * for attribute columnMapIntegerString serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeColumnMapIntegerString(Map<Integer, String> value) {
     if (value==null) {
@@ -254,7 +263,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnMapIntegerString parsing
+   * for attribute columnMapIntegerString parsing.
+   *
+   * @param input the input
+   * @return the map
    */
   public static Map<Integer, String> parseColumnMapIntegerString(byte[] input) {
     if (input==null) {
@@ -293,7 +305,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnArrayChar serialization
+   * for attribute columnArrayChar serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeColumnArrayChar(Character[] value) {
     if (value==null) {
@@ -330,7 +345,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnArrayChar parsing
+   * for attribute columnArrayChar parsing.
+   *
+   * @param input the input
+   * @return the character[]
    */
   public static Character[] parseColumnArrayChar(byte[] input) {
     if (input==null) {
@@ -364,7 +382,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnArrayCharType serialization
+   * for attribute columnArrayCharType serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeColumnArrayCharType(char[] value) {
     if (value==null) {
@@ -397,7 +418,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnArrayCharType parsing
+   * for attribute columnArrayCharType parsing.
+   *
+   * @param input the input
+   * @return the char[]
    */
   public static char[] parseColumnArrayCharType(byte[] input) {
     if (input==null) {
@@ -431,7 +455,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnBean serialization
+   * for attribute columnBean serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeColumnBean(Bean84A value) {
     if (value==null) {
@@ -453,7 +480,10 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnBean parsing
+   * for attribute columnBean parsing.
+   *
+   * @param input the input
+   * @return the bean 84 A
    */
   public static Bean84A parseColumnBean(byte[] input) {
     if (input==null) {
@@ -475,21 +505,29 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnArrayByteType serialization
+   * for attribute columnArrayByteType serialization.
+   *
+   * @param value the value
+   * @return the byte[]
    */
   public static byte[] serializeColumnArrayByteType(byte[] value) {
     return value;
   }
 
   /**
-   * for attribute columnArrayByteType parsing
+   * for attribute columnArrayByteType parsing.
+   *
+   * @param input the input
+   * @return the byte[]
    */
   public static byte[] parseColumnArrayByteType(byte[] input) {
     return input;
   }
 
   /**
-   * Columns array
+   * Columns array.
+   *
+   * @return the string[]
    */
   @Override
   public String[] columns() {
@@ -497,7 +535,9 @@ public class Bean84ATable implements SQLiteTable {
   }
 
   /**
-   * table name
+   * table name.
+   *
+   * @return the string
    */
   @Override
   public String name() {

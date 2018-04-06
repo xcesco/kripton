@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package shared.kripton198;
 
 import android.content.SharedPreferences;
@@ -5,24 +20,22 @@ import android.preference.PreferenceManager;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is the shared preference binder defined for AppPreferences
+ * This class is the shared preference binder defined for AppPreferences.
  *
  * @see AppPreferences
  */
 public class BindAppPreferences extends AbstractSharedPreference {
-  /**
-   * instance of shared preferences
-   */
+  
+  /** instance of shared preferences. */
   private static BindAppPreferences instance;
 
-  /**
-   * working instance of bean
-   */
+  /** working instance of bean. */
   private final AppPreferences defaultBean;
 
   /**
-   * constructor
+   * constructor.
    */
   private BindAppPreferences() {
     // no typeName specified, using default shared preferences
@@ -31,14 +44,18 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * create an editor to modify shared preferences
+   * create an editor to modify shared preferences.
+   *
+   * @return the bind editor
    */
   public BindEditor edit() {
     return new BindEditor();
   }
 
   /**
-   * force to refresh values
+   * force to refresh values.
+   *
+   * @return the bind app preferences
    */
   public BindAppPreferences refresh() {
     // no typeName specified, using default shared preferences
@@ -47,7 +64,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reset shared preferences
+   * reset shared preferences.
    */
   public void reset() {
     AppPreferences bean=new AppPreferences();
@@ -55,7 +72,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read bean entirely
+   * read bean entirely.
    *
    * @return read bean
    */
@@ -68,7 +85,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write bean entirely
+   * write bean entirely.
    *
    * @param bean bean to entirely write
    */
@@ -83,7 +100,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueFloat
+   * read property valueFloat.
    *
    * @return property valueFloat value
    */
@@ -92,7 +109,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBoolean
+   * read property valueBoolean.
    *
    * @return property valueBoolean value
    */
@@ -101,7 +118,9 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * get instance of shared preferences
+   * get instance of shared preferences.
+   *
+   * @return the bind app preferences
    */
   public static synchronized BindAppPreferences instance() {
     if (instance==null) {
@@ -111,14 +130,21 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * editor class for shared preferences
+   * editor class for shared preferences.
    */
   public class BindEditor extends AbstractEditor {
+    
+    /**
+     * Instantiates a new bind editor.
+     */
     private BindEditor() {
     }
 
     /**
-     * modifier for property valueFloat
+     * modifier for property valueFloat.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueFloat(float value) {
       editor.putFloat("value_float",value);
@@ -127,7 +153,10 @@ public class BindAppPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBoolean
+     * modifier for property valueBoolean.
+     *
+     * @param value the value
+     * @return the bind editor
      */
     public BindEditor putValueBoolean(boolean value) {
       editor.putBoolean("value",(boolean)value);

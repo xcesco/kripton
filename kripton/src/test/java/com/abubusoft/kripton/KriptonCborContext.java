@@ -19,20 +19,28 @@ import com.abubusoft.kripton.BinderType;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.dataformat.cbor.CBORFactory;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class KriptonCborContext.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonCborContext extends AbstractJacksonContext {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.BinderContext#getSupportedFormat()
+	 */
 	@Override
 	public BinderType getSupportedFormat()
 	{
 		return BinderType.CBOR;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.AbstractJacksonContext#createInnerFactory()
+	 */
 	@Override
-	public JsonFactory createInnerFactory()
+	protected JsonFactory createInnerFactory()
 	{
 		return new CBORFactory();
 	}

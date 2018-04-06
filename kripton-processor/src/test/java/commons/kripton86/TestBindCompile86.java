@@ -30,13 +30,18 @@ import commons.kripton86.test3.Bean3_4;
 import commons.kripton86.test6.Bean6_1;
 import commons.kripton86.test6.Bean6_2;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestBindCompile86.
+ */
 public class TestBindCompile86 extends AbstractBindTypeProcessorTest {
 
 	/**
-	 * Test IncompatibleAttributesInAnnotationException
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test IncompatibleAttributesInAnnotationException.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void test1Compile() throws InstantiationException, IllegalAccessException, IOException {
@@ -45,10 +50,11 @@ public class TestBindCompile86 extends AbstractBindTypeProcessorTest {
 	}
 	
 	/**
-	 * Test IncompatibleAttributesInAnnotationException
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test IncompatibleAttributesInAnnotationException.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void test2Compile() throws InstantiationException, IllegalAccessException, IOException {
@@ -57,10 +63,11 @@ public class TestBindCompile86 extends AbstractBindTypeProcessorTest {
 	}
 	
 	/**
-	 * Test IncompatibleAttributesInAnnotationException
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test IncompatibleAttributesInAnnotationException.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void test3Compile() throws InstantiationException, IllegalAccessException, IOException {
@@ -69,10 +76,11 @@ public class TestBindCompile86 extends AbstractBindTypeProcessorTest {
 	}
 
 	/**
-	 * Test IncompatibleAttributesInAnnotationException
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Test IncompatibleAttributesInAnnotationException.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void test4Compile() throws InstantiationException, IllegalAccessException, IOException {
@@ -80,12 +88,26 @@ public class TestBindCompile86 extends AbstractBindTypeProcessorTest {
 		buildBindProcessorTest(Bean3_4.class);
 	}
 	
+	/**
+	 * Test 6 1 compile.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Test
 	public void test6_1Compile() throws InstantiationException, IllegalAccessException, IOException {
 		this.expectedException(PropertyVisibilityException.class);
 		buildBindProcessorTest(Bean6_1.class);
 	}
 	
+	/**
+	 * Test 6 2 compile.
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Test
 	public void test6_2Compile() throws InstantiationException, IllegalAccessException, IOException {
 		this.expectedException(PropertyVisibilityException.class);

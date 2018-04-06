@@ -24,9 +24,18 @@ import sqlite.feature.performance.simple.SimpleAddressDao;
 import sqlite.feature.performance.simple.SimpleAddressItem;
 import sqlite.feature.performance.simple.SimpleDataSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestPerformance.
+ */
 @RunWith(JUnit4.class)
 public class TestPerformance extends AbstractBindSQLiteProcessorTest {
 	
+	/**
+	 * Test compile performance.
+	 *
+	 * @throws Throwable the throwable
+	 */
 	@Test
 	public void testCompilePerformance() throws Throwable {
 		buildDataSourceProcessorTest(SimpleAddressDao.class, SimpleAddressItem.class, SimpleDataSource.class);

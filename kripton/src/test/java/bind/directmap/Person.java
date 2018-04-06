@@ -20,14 +20,22 @@ import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Person.
+ */
 @BindType
 public class Person {
 
+	/** The name. */
 	public String name;
 	
+	/** The surname. */
 	public String surname;
 	
+	/** The birthday. */
 	public Date birthday;
 	
+	/** The tags. */
 	public List<String> tags;
 }

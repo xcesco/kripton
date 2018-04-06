@@ -25,13 +25,22 @@ import com.abubusoft.kripton.processor.exceptions.MissedAnnotationOnClass;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test04.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class Test04 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * Test 01.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedException(MissedAnnotationOnClass.class);

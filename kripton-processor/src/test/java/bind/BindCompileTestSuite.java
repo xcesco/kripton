@@ -37,6 +37,9 @@ import bind.kripton78.Test78CompileSuite;
 import bind.kripton80ContextCollection.Test80CompileSuite;
 import bind.kripton81MoreCoverageTests.Test81CompileSuite;
 
+/**
+ * The Class BindCompileTestSuite.
+ */
 @RunWith(Suite.class)
 //@formatter:off
 @Suite.SuiteClasses(

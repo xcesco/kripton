@@ -20,6 +20,7 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.kripton51.internal.MessageType;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 27/09/2016.
  */
@@ -28,20 +29,34 @@ import sqlite.kripton51.internal.MessageType;
 @BindTable(name="message")
 public class MessageEntity {
 
+    /** The id. */
     public long id;
 
+    /** The channel id. */
     public long channelId;
 
+    /** The owner type. */
     public OwnerType ownerType;
     
+    /** The uid. */
     public String uid;
     
+    /** The face uid. */
     public String faceUid;
+    
+    /** The text. */
     public String text;
+    
+    /** The owner uid. */
     public String ownerUid;
+    
+    /** The channel uid. */
     public String channelUid;
+    
+    /** The update time. */
     public long updateTime;
     
+    /** The type. */
     public MessageType type;
     
 

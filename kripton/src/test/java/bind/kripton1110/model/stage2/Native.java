@@ -17,11 +17,17 @@ package bind.kripton1110.model.stage2;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Native.
+ */
 @BindType
 public class Native {
 
+	/** The nld. */
 	public Nld nld;
 
+	/** The pap. */
 	public Pap pap;
 
 }

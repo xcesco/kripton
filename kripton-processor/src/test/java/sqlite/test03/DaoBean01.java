@@ -20,9 +20,18 @@ import java.util.List;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface DaoBean01.
+ */
 @BindDao(Bean01.class)
 public interface DaoBean01 {
 
+	/**
+	 * List all.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect(where="1=1")
 	public List<Bean01> listAll();
 	

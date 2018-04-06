@@ -23,26 +23,35 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Test03.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @RunWith(JUnit4.class)
 public class Test03 extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No DAO definition with @BindDaoDefinition annotation was found for class
-	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation
-	 * 
-	 * @throws IOException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * Dummy01DatabaseSchema with @BindDatabaseSchema annotation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void test01() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoBean01.class, Bean01.class, Bean02.class);
 	}
 
+	/**
+	 * Test select cursor.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	@Test
 	public void testSelectCursor() throws IOException, InstantiationException, IllegalAccessException {
 		buildDataSourceProcessorTest(Dummy02DataSource.class, DaoBean02.class, Bean01.class, Bean02.class);

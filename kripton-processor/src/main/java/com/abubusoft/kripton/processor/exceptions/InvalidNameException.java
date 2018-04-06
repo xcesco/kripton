@@ -15,10 +15,20 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.exceptions;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InvalidNameException.
+ */
 public class InvalidNameException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new invalid name exception.
+	 *
+	 * @param msg the msg
+	 */
 	public InvalidNameException(String msg) {
 		super(msg);
 	}

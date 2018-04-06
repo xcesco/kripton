@@ -20,17 +20,25 @@ import java.net.URL;
 
 import com.abubusoft.kripton.TypeAdapter;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class StringUrlTypeAdapter.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class StringUrlTypeAdapter implements TypeAdapter<String, URL> {
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
+	 */
 	@Override
 	public String toJava(URL dataValue) {
 		return dataValue.toExternalForm();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
 	@Override
 	public URL toData(String javaValue) {
 		try {

@@ -17,8 +17,15 @@ package com.abubusoft.kripton.processor.core;
 
 import javax.lang.model.element.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ModelEntity.
+ *
+ * @param <E> the element type
+ */
 public class ModelEntity<E extends Element> {
 
+	/** The element. */
 	protected E element;
 
 	/*
@@ -64,21 +71,32 @@ public class ModelEntity<E extends Element> {
 	}
 
 	/**
+	 * Gets the element.
+	 *
 	 * @return the element
 	 */
 	public E getElement() {
 		return element;
 	}
 
+	/** The name. */
 	protected String name;
 
 	/**
+	 * Gets the name.
+	 *
 	 * @return the simpleName
 	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Instantiates a new model entity.
+	 *
+	 * @param name the name
+	 * @param element the element
+	 */
 	public ModelEntity(String name, E element) {
 		this.element = element;
 		this.name = name;

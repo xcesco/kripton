@@ -11,13 +11,18 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for ChannelUser
+ * This class is binder map for ChannelUser.
  *
  * @see ChannelUser
  */
 @BindMap(ChannelUser.class)
 public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
+  
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(ChannelUser object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -50,6 +55,9 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(ChannelUser object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -81,7 +89,12 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(ChannelUser object, XMLSerializer xmlSerializer, int currentEventType)
@@ -122,7 +135,11 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the channel user
+   * @throws Exception the exception
    */
   @Override
   public ChannelUser parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -169,7 +186,11 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the channel user
+   * @throws Exception the exception
    */
   @Override
   public ChannelUser parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -216,7 +237,12 @@ public class ChannelUserBindMap extends AbstractMapper<ChannelUser> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the channel user
+   * @throws Exception the exception
    */
   @Override
   public ChannelUser parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

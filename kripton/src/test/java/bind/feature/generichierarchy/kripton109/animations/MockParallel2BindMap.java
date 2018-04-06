@@ -15,17 +15,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for MockParallel2
+ * This class is binder map for MockParallel2.
  *
  * @see MockParallel2
  */
 @BindMap(MockParallel2.class)
 public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
-  /**
-   * MockKeyFrameBindMap */
+  
+  /** MockKeyFrameBindMap. */
   private MockKeyFrameBindMap mockKeyFrameBindMap = BinderUtils.mapperFor(MockKeyFrame.class);
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJackson(MockParallel2 object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -90,6 +94,9 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
     return fieldCount;
   }
 
+  /* (non-Javadoc)
+   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
+   */
   @Override
   public int serializeOnJacksonAsString(MockParallel2 object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -165,7 +172,12 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
   }
 
   /**
-   * method for xml serialization
+   * method for xml serialization.
+   *
+   * @param object the object
+   * @param xmlSerializer the xml serializer
+   * @param currentEventType the current event type
+   * @throws Exception the exception
    */
   @Override
   public void serializeOnXml(MockParallel2 object, XMLSerializer xmlSerializer,
@@ -240,7 +252,11 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the mock parallel 2
+   * @throws Exception the exception
    */
   @Override
   public MockParallel2 parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -313,7 +329,11 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
   }
 
   /**
-   * parse with jackson
+   * parse with jackson.
+   *
+   * @param jacksonParser the jackson parser
+   * @return the mock parallel 2
+   * @throws Exception the exception
    */
   @Override
   public MockParallel2 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -396,7 +416,12 @@ public class MockParallel2BindMap extends AbstractMapper<MockParallel2> {
   }
 
   /**
-   * parse xml
+   * parse xml.
+   *
+   * @param xmlParser the xml parser
+   * @param currentEventType the current event type
+   * @return the mock parallel 2
+   * @throws Exception the exception
    */
   @Override
   public MockParallel2 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

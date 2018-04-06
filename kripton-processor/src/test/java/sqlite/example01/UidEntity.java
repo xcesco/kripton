@@ -19,20 +19,34 @@
 package sqlite.example01;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class UidEntity.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class UidEntity extends Entity {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -5883323667838359782L;
 
+	/** The uid. */
 	protected String uid;
 
+	/**
+	 * Gets the uid.
+	 *
+	 * @return the uid
+	 */
 	public String getUid() {
 		return uid;
 	}
 
+	/**
+	 * Sets the uid.
+	 *
+	 * @param uid the new uid
+	 */
 	public void setUid(String uid) {
 		this.uid = uid;
 	}

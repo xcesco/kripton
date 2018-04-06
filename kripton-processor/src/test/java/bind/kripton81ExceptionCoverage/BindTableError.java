@@ -17,6 +17,9 @@ package bind.kripton81ExceptionCoverage;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+/**
+ * The Interface BindTableError.
+ */
 @BindType
 public interface BindTableError {
 

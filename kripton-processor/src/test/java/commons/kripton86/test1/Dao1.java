@@ -17,6 +17,9 @@ package commons.kripton86.test1;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 
+/**
+ * The Interface Dao1.
+ */
 @BindDao(Bean1.class)
 public interface Dao1 {
 

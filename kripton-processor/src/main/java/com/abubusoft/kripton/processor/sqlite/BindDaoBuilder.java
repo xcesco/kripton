@@ -64,18 +64,21 @@ import com.squareup.javapoet.WildcardTypeName;
 
 import io.reactivex.subjects.PublishSubject;
 
+// TODO: Auto-generated Javadoc
 /**
- * Dao generator
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Dao generator.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
+	/** The Constant METHOD_NAME_REGISTRY_EVENT. */
 	public static final String METHOD_NAME_REGISTRY_EVENT = "registryEvent";
 
+	/** The Constant METHOD_NAME_INVALIDATE_LIVE_DATA. */
 	public static final String METHOD_NAME_INVALIDATE_LIVE_DATA = "invalidateLiveData";
 
+	/** The Constant METHOD_NAME_REGISTRY_LIVE_DATA. */
 	public static final String METHOD_NAME_REGISTRY_LIVE_DATA = "registryLiveData";
 
 	/**
@@ -83,16 +86,37 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	 */
 	public static final String SUFFIX = "Impl";
 
+	/** The element utils. */
 	protected Elements elementUtils;
+	
+	/** The filer. */
 	protected Filer filer;
+	
+	/** The builder. */
 	private Builder builder;
+	
+	/** The current dao definition. */
 	private SQLiteDaoDefinition currentDaoDefinition;
 
+	/**
+	 * Instantiates a new bind dao builder.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 */
 	public BindDaoBuilder(Elements elementUtils, Filer filer) {
 		this.elementUtils = elementUtils;
 		this.filer = filer;
 	}
 
+	/**
+	 * Generate.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @throws Exception the exception
+	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindDaoBuilder visitor = new BindDaoBuilder(elementUtils, filer);
 
@@ -101,6 +125,14 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		}
 	}
 
+	/**
+	 * Generate second round.
+	 *
+	 * @param elementUtils the element utils
+	 * @param filer the filer
+	 * @param schema the schema
+	 * @throws Exception the exception
+	 */
 	public static void generateSecondRound(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindDaoBuilder visitor = new BindDaoBuilder(elementUtils, filer);
 
@@ -111,6 +143,9 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor#visit(com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition)
+	 */
 	@Override
 	public void visit(SQLiteDaoDefinition value) throws Exception {
 		currentDaoDefinition = value;
@@ -254,7 +289,9 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 	}
 
 	/**
-	 * @param value
+	 * Dao name.
+	 *
+	 * @param value the value
 	 * @return typeName of dao
 	 */
 	public static String daoName(SQLiteDaoDefinition value) {
@@ -263,14 +300,29 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 		return classTableName;
 	}
 
+	/**
+	 * Dao type name.
+	 *
+	 * @param value the value
+	 * @return the type name
+	 */
 	public static TypeName daoTypeName(SQLiteDaoDefinition value) {
 		return TypeUtility.mergeTypeNameWithSuffix(value.getTypeName(), SUFFIX);
 	}
 
+	/**
+	 * Dao interface type name.
+	 *
+	 * @param value the value
+	 * @return the type name
+	 */
 	public static TypeName daoInterfaceTypeName(SQLiteDaoDefinition value) {
 		return value.getTypeName();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor#visit(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
+	 */
 	@Override
 	public void visit(SQLiteModelMethod value) throws Exception {
 		if (value.getAnnotation(BindSqlInsert.class) != null) {

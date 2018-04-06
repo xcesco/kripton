@@ -25,33 +25,93 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ByteDao.
+ */
 @BindDao(ByteBean.class)
 public interface ByteDao {
 	
+	/**
+	 * Select one.
+	 *
+	 * @return the byte bean
+	 */
 	@BindSqlSelect()
 	ByteBean selectOne();	
 	
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @return the byte bean
+	 */
 	@BindSqlSelect(where = "value=${value}")
 	ByteBean selectOne(List<Short> value);
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value}")
 	void selectOne(List<Byte> value, OnReadBeanListener<ByteBean> listener);	
 
+	/**
+	 * Select one.
+	 *
+	 * @param value the value
+	 * @param listener the listener
+	 */
 	@BindSqlSelect(where = "value=${value}")
 	void selectOne(List<Short> value, OnReadCursorListener listener);
 	
+	/**
+	 * Select list.
+	 *
+	 * @param value the value
+	 * @return the list
+	 */
 	@BindSqlSelect(where = "value=${value}")
 	List<ByteBean> selectList(List<Short> value);
 	
+	/**
+	 * Update one.
+	 *
+	 * @param value the value
+	 * @param id the id
+	 * @param paramValue the param value
+	 * @return the long
+	 */
 	@BindSqlUpdate(where = "id=${id} and value=${paramValue}")
 	long updateOne(List<Byte> value, long id, List<Byte> paramValue);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(long id, List<Byte> value);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return the long
+	 */
 	@BindSqlInsert()
 	long insert(ByteBean bean);
 	
+	/**
+	 * Delete.
+	 *
+	 * @param paramValue the param value
+	 * @return the long
+	 */
 	@BindSqlDelete(where="value=${paramValue}")
 	long delete(List<Byte> paramValue);
 	

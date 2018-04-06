@@ -17,13 +17,25 @@ package sqlite.quickstart.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Company.
+ */
 @BindType
 public class Company {
 
+    /** The name. */
     public String name;
+    
+    /** The catch phrase. */
     public String catchPhrase;
+    
+    /** The bs. */
     public String bs;
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return name;

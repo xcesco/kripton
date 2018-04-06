@@ -19,8 +19,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Version.
+ */
 public abstract class Version {
 	
+	/** The version. */
 	private static String VERSION = "development";
 
 	static {
@@ -39,6 +44,11 @@ public abstract class Version {
 
 	
 
+	/**
+	 * Gets the version.
+	 *
+	 * @return the version
+	 */
 	public static String getVersion() {
 		return VERSION;
 	}

@@ -20,6 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Decorate an interface to define a database schema. This definition is needed
@@ -28,7 +29,7 @@ import java.lang.annotation.Target;
  * </p>
  * 
  * <p>
- * For every managed entity referred in {{@link #dao()} attribute, will be used
+ * For every managed entity referred in {{@link #daoSet()} attribute, will be used
  * the associated {@link BindDao} definition.
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -39,29 +40,29 @@ import java.lang.annotation.Target;
 public @interface BindDataSource {
 
 	/**
-	 * DAOs to include in the database schema
-	 * 
+	 * DAOs to include in the database schema.
+	 *
 	 * @return class to include in the database schema
 	 */
 	Class<?>[] daoSet();
 
 	/**
-	 * Name of database file
-	 * 
+	 * Name of database file.
+	 *
 	 * @return database name
 	 */
 	String fileName();
 
 	/**
-	 * Database version
-	 * 
+	 * Database version.
+	 *
 	 * @return database version
 	 */
 	int version() default 1;
 
 	/**
-	 * if true, generate log info
-	 * 
+	 * if true, generate log info.
+	 *
 	 * @return true if you want to produce log code
 	 */
 	boolean log() default true;
@@ -84,30 +85,39 @@ public @interface BindDataSource {
 	 * <pre>
 	 * xeno.schema.1.sql
 	 * </pre>
-	 * 
-	 * @return
+	 *
+	 * @return true, if successful
 	 */
 	boolean schema() default false;
 
 	/**
-	 * if true, generate async task
-	 * 
+	 * if true, generate async task.
+	 *
 	 * @return true if you want to generate async task class
 	 */
 	boolean asyncTask() default false;
 
 	/**
-	 * if true, generate cursor wrapper
-	 * 
+	 * if true, generate cursor wrapper.
+	 *
 	 * @return true if you want to generate cursor wrapper
 	 */
 	boolean cursorWrapper() default false;
 
 	/**
-	 * if true, generate rx support
-	 * 
+	 * if true, generate rx support.
+	 *
 	 * @return true if you want to generate rx support
 	 */
 	boolean rx() default false;
 
+	/**
+	 * Global sql type adapters. These adapter are applied to every property that
+	 * adapter supports.
+	 * 
+	 * <strong>This adapters is ovverride by specific type adapter</strong> 
+	 *
+	 * @return the bind sql adapter[]
+	 */
+	BindSqlAdapter[] typeAdapters() default {};
 }

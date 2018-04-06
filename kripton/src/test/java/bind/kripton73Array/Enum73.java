@@ -15,6 +15,14 @@
  *******************************************************************************/
 package bind.kripton73Array;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum Enum73.
+ */
 public enum Enum73 {
-	VALUE_1, VALUE_2;
+	
+	/** The value 1. */
+	VALUE_1, 
+ /** The value 2. */
+ VALUE_2;
 }

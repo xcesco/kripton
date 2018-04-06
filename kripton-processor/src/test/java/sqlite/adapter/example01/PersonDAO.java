@@ -21,9 +21,19 @@ import java.util.List;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface PersonDAO.
+ */
 @BindDao(Person.class)
 public interface PersonDAO {
 
+	/**
+	 * Select by birthday.
+	 *
+	 * @param birthDay the birth day
+	 * @return the list
+	 */
 	@BindSqlSelect(where="birthDay=${birthDay}")
 	public List<Person> selectByBirthday(Date birthDay);
 }

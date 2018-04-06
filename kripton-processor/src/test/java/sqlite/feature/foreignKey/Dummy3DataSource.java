@@ -17,6 +17,9 @@ package sqlite.feature.foreignKey;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
+/**
+ * The Interface Dummy3DataSource.
+ */
 @BindDataSource(fileName="test.db", daoSet = { DaoBeanA_5.class, DaoBeanA_6.class })
 public interface Dummy3DataSource {
 

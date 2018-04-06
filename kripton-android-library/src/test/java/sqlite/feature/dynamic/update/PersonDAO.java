@@ -1,18 +1,18 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *******************************************************************************/
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.dynamic.update;
 
 import java.util.List;
@@ -27,6 +27,7 @@ import com.abubusoft.kripton.android.annotation.BindContentProviderEntry.Multipl
 
 import sqlite.feature.contentprovider.kripton35.entities.Person;
 
+// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 27/09/2016.
  */
@@ -35,18 +36,41 @@ import sqlite.feature.contentprovider.kripton35.entities.Person;
 @BindContentProviderPath(path="persons",typeName="person")
 public interface PersonDAO {
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlInsert
 	@BindContentProviderEntry
 	boolean insert(Person bean);
 	
+	/**
+	 * Update.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlUpdate
 	@BindContentProviderEntry
 	boolean update(Person bean);
 	
+	/**
+	 * Select all.
+	 *
+	 * @return the list
+	 */
 	@BindSqlSelect
 	@BindContentProviderEntry
 	List<Person> selectAll();
 	
+	/**
+	 * Select one.
+	 *
+	 * @param id the id
+	 * @return the person
+	 */
 	@BindSqlSelect(where="id=${id}")
 	@BindContentProviderEntry(path="/#", multiplicityResult=MultiplicityResultType.ONE)
 	Person selectOne(long id);

@@ -17,11 +17,17 @@ package bind.kripton81MoreCoverageTests;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean81All.
+ */
 @BindType
 public class Bean81All {
 	
+	/** The id. */
 	protected long id;
 	
+	/** The value bean. */
 	public Bean81All valueBean;
 
 //	public BigDecimal valueBigDecimal;
@@ -73,7 +79,8 @@ public class Bean81All {
 //	
 //	public short valueShortType;
 	
-	public String valueString;
+	/** The value string. */
+public String valueString;
 	
 //	public Time valueTime;
 //	
@@ -81,7 +88,10 @@ public class Bean81All {
 //	
 //	public URL valueUrl;
 	
-	@Override
+	/* (non-Javadoc)
+ * @see java.lang.Object#equals(java.lang.Object)
+ */
+@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -105,10 +115,18 @@ public class Bean81All {
 		return true;
 	}
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -119,6 +137,11 @@ public class Bean81All {
 		return result;
 	}
 	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}

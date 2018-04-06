@@ -21,18 +21,44 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UnknownPropertyInJQLException.
+ */
 public class UnknownPropertyInJQLException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new unknown property in JQL exception.
+	 *
+	 * @param method the method
+	 * @param propertyName the property name
+	 */
 	public UnknownPropertyInJQLException(SQLiteModelMethod method, String propertyName) {
 		this(method, null, propertyName);
 	}
 	
+	/**
+	 * Instantiates a new unknown property in JQL exception.
+	 *
+	 * @param method the method
+	 * @param className the class name
+	 * @param propertyName the property name
+	 */
 	public UnknownPropertyInJQLException(SQLiteModelMethod method, String className, String propertyName) {		
 		super(String.format("In DAO '%s' in method '%s', unknown property '%s' is used", method.getParent().getName(), method.getName(), (StringUtils.hasText(className) ? className + "." : "")+propertyName));		
 	}
 	
+	/**
+	 * Instantiates a new unknown property in JQL exception.
+	 *
+	 * @param method the method
+	 * @param annotation the annotation
+	 * @param attribute the attribute
+	 * @param propertyName the property name
+	 */
 	public UnknownPropertyInJQLException(SQLiteModelMethod method, Class<? extends Annotation> annotation, AnnotationAttributeType attribute, String propertyName) {
 		super(String.format("In DAO '%s' in method '%s', unknown property '%s' is used in annotation '%s' attribute '%s'", method.getParent().getName(), method.getName(), propertyName, annotation.getSimpleName(), attribute));
 	}

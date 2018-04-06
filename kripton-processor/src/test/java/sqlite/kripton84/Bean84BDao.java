@@ -22,21 +22,55 @@ import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Bean84BDao.
+ */
 @BindDao(Bean84B.class)
 public interface Bean84BDao {
 
+	/**
+	 * Select by id.
+	 *
+	 * @param param1 the param 1
+	 * @return the bean 84 B
+	 */
 	@BindSqlSelect(where="id = ${id}")
 	Bean84B selectById(@BindSqlParam("id") long param1);
 	
+	/**
+	 * Select by bean.
+	 *
+	 * @param param1 the param 1
+	 * @return the bean 84 B
+	 */
 	@BindSqlSelect(where="cast(columnBean as TEXT) = ${param1}")
 	Bean84B selectByBean(Bean84B2 param1);
 	
+	/**
+	 * Insert.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlInsert
 	boolean insert(Bean84B bean);
 	
+	/**
+	 * Update all.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlUpdate
 	boolean updateAll(Bean84B bean);
 	
+	/**
+	 * Delete all.
+	 *
+	 * @param bean the bean
+	 * @return true, if successful
+	 */
 	@BindSqlDelete
 	boolean deleteAll(Bean84B bean);
 }

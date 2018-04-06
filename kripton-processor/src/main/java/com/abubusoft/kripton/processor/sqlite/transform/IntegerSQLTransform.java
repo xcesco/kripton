@@ -18,14 +18,19 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.squareup.javapoet.MethodSpec.Builder;
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java Integer object
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Transformer between a string and a Java Integer object.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class IntegerSQLTransform extends WrappedSQLTransformation {
 
+	/**
+	 * Instantiates a new integer SQL transform.
+	 *
+	 * @param nullable the nullable
+	 */
 	public IntegerSQLTransform(boolean nullable) {
 		super(nullable);
 		defaultValue = "0";
@@ -37,11 +42,17 @@ public class IntegerSQLTransform extends WrappedSQLTransformation {
 		this.WRITE_COSTANT="";
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.AbstractSQLTransform#generateDefaultValue(com.squareup.javapoet.MethodSpec.Builder)
+	 */
 	@Override
 	public void generateDefaultValue(Builder methodBuilder) {
 		methodBuilder.addCode(defaultValue);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#getColumnType()
+	 */
 	@Override
 	public SQLiteColumnType getColumnType() {
 		return SQLiteColumnType.INTEGER;

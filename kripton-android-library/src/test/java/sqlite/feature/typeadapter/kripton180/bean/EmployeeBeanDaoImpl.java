@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License.  You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ ******************************************************************************/
 package sqlite.feature.typeadapter.kripton180.bean;
 
 import android.database.Cursor;
@@ -24,42 +39,62 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLong;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Employee</code>, based on interface <code>EmployeeBeanDao</code>
- * </p>
+ * </p>.
  *
- *  @see Employee
- *  @see EmployeeBeanDao
- *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
+ * @see Employee
+ * @see EmployeeBeanDao
+ * @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
+  
+  /** The Constant SELECT_BY_ID_SQL1. */
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
 
+  /** The Constant SELECT_BY_ID_J_Q_L_SQL2. */
   private static final String SELECT_BY_ID_J_Q_L_SQL2 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
 
+  /** The Constant SELECT_BY_ALL_SQL3. */
   private static final String SELECT_BY_ALL_SQL3 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
+  /** The Constant SELECT_BY_ALL_J_Q_L_SQL4. */
   private static final String SELECT_BY_ALL_J_Q_L_SQL4 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
+  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
+  /** The insert JQL prepared statement 1. */
   private static SQLiteStatement insertJQLPreparedStatement1;
 
+  /** The update prepared statement 2. */
   private static SQLiteStatement updatePreparedStatement2;
 
+  /** The update by id prepared statement 3. */
   private static SQLiteStatement updateByIdPreparedStatement3;
 
+  /** The update JQL prepared statement 4. */
   private static SQLiteStatement updateJQLPreparedStatement4;
 
+  /** The update by id JQL prepared statement 5. */
   private static SQLiteStatement updateByIdJQLPreparedStatement5;
 
+  /** The delete prepared statement 6. */
   private static SQLiteStatement deletePreparedStatement6;
 
+  /** The delete JQL prepared statement 7. */
   private static SQLiteStatement deleteJQLPreparedStatement7;
 
+  /** The delete by id prepared statement 8. */
   private static SQLiteStatement deleteByIdPreparedStatement8;
 
+  /**
+   * Instantiates a new employee bean dao impl.
+   *
+   * @param context the context
+   */
   public EmployeeBeanDaoImpl(SQLContext context) {
     super(context);
   }
@@ -1286,6 +1321,9 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     return result;
   }
 
+  /**
+   * Clear compiled statements.
+   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

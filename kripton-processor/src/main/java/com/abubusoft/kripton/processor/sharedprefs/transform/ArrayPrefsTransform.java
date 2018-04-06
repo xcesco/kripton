@@ -17,10 +17,9 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
 /**
- * Transformer between an array field to base64 encoded string and viceversa
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
+ * Transformer between an array field to base64 encoded string and viceversa.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class ArrayPrefsTransform extends AbstractGeneratedPrefsTransform {
 	

@@ -17,10 +17,21 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UnknownParamUsedInJQLException.
+ */
 public class UnknownParamUsedInJQLException extends KriptonProcessorException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8462705406839489618L;
 
+	/**
+	 * Instantiates a new unknown param used in JQL exception.
+	 *
+	 * @param method the method
+	 * @param paramName the param name
+	 */
 	public UnknownParamUsedInJQLException(SQLiteModelMethod method, String paramName) {
 		super(String.format("In DAO '%s', method '%s' uses param '%s' that is unknown", method.getParent().getName(), method.getName(),  paramName));		
 	}

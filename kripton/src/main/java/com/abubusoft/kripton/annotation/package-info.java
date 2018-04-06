@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+
 /**
- * This package contains annotations used to decorate POJO.  
+ * This package contains annotations used to mark POJO beans.
+ * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */

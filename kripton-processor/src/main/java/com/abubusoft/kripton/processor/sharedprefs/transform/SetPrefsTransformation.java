@@ -30,12 +30,22 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SetPrefsTransformation.
+ */
 public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 
+	/**
+	 * Instantiates a new sets the prefs transformation.
+	 */
 	public SetPrefsTransformation() {
 		super(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.AbstractGeneratedPrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
+	 */
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName,
 			PrefsProperty property, boolean readAll) {
@@ -120,6 +130,9 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.AbstractGeneratedPrefsTransform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
+	 */
 	@Override
 	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName,
 			PrefsProperty property) {
@@ -154,8 +167,10 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 	}
 
 	/**
-	 * @param property
-	 * @return
+	 * Checks if is string set.
+	 *
+	 * @param property the property
+	 * @return true, if is string set
 	 */
 	public static boolean isStringSet(PrefsProperty property) {
 		boolean isStringSet = false;

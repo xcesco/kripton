@@ -21,13 +21,17 @@ import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestStack44330452.
+ */
 @RunWith(JUnit4.class)
 public class TestStack44330452 extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * OK
-	 * 
-	 * @throws Throwable
+	 * OK.
+	 *
+	 * @throws Throwable the throwable
 	 */
 	@Test
 	public void testOK() throws Throwable {

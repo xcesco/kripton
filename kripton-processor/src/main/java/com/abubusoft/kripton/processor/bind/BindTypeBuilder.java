@@ -58,27 +58,41 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class BindTypeBuilder.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class BindTypeBuilder {
 
+	/**
+	 * The Class VisitResult.
+	 */
 	// protected static
 	public static class VisitResult {
 
+		/**
+		 * Instantiates a new visit result.
+		 *
+		 * @param elementUtils the element utils
+		 */
 		public VisitResult(Elements elementUtils) {
 			this.elementUtils = elementUtils;
 		}
 
+		/** The raw type. */
 		public TypeMirror rawType;
 
+		/** The argument types. */
 		public List<? extends TypeMirror> argumentTypes;
 
+		/** The element utils. */
 		public Elements elementUtils;
 
 	}
 
+	/** The visitor. */
 	protected static AbstractElementVisitor7<Void, VisitResult> visitor = new AbstractElementVisitor7<Void, VisitResult>() {
 
 		@Override
@@ -122,14 +136,19 @@ public abstract class BindTypeBuilder {
 
 	};
 
+	/** The Constant PREFIX. */
 	protected static final String PREFIX = "";
 
+	/** The Constant SUFFIX. */
 	protected static final String SUFFIX = KriptonBinder.MAPPER_CLASS_SUFFIX;
 
 	/**
+	 * Generate.
+	 *
+	 * @param filer the filer
+	 * @param item the item
 	 * @return typeName of generated class
-	 * 
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String generate(Filer filer, BindEntity item) throws IOException {
 		Elements elementUtils = BaseProcessor.elementUtils;
@@ -223,9 +242,9 @@ public abstract class BindTypeBuilder {
 	 * <p>
 	 * Generate method to parse xml stream.
 	 * </p>
-	 * 
-	 * @param bean
-	 *            kind of object to manage
+	 *
+	 * @param context the context
+	 * @param bean            kind of object to manage
 	 */
 	private static void generateParseOnXml(BindTypeContext context, BindEntity bean) {
 		// @formatter:off
@@ -302,6 +321,15 @@ public abstract class BindTypeBuilder {
 		context.builder.addMethod(methodBuilder.build());
 	}
 
+	/**
+	 * Generate parser on xml end element.
+	 *
+	 * @param context the context
+	 * @param methodBuilder the method builder
+	 * @param instanceName the instance name
+	 * @param parserName the parser name
+	 * @param entity the entity
+	 */
 	private static void generateParserOnXmlEndElement(BindTypeContext context, MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
 		methodBuilder.beginControlFlow("if (elementName.equals($L.getName()))", parserName);
 		methodBuilder.addStatement("currentTag = elementName");
@@ -310,6 +338,13 @@ public abstract class BindTypeBuilder {
 
 	}
 
+	/**
+	 * Generate parse on xml attributes.
+	 *
+	 * @param context the context
+	 * @param methodBuilder the method builder
+	 * @param entity the entity
+	 */
 	private static void generateParseOnXmlAttributes(BindTypeContext context, MethodSpec.Builder methodBuilder, BindEntity entity) {
 		BindTransform bindTransform;
 
@@ -363,6 +398,15 @@ public abstract class BindTypeBuilder {
 		}
 	}
 
+	/**
+	 * Generate parser on xml start element.
+	 *
+	 * @param context the context
+	 * @param methodBuilder the method builder
+	 * @param instanceName the instance name
+	 * @param parserName the parser name
+	 * @param entity the entity
+	 */
 	private static void generateParserOnXmlStartElement(BindTypeContext context, MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
 		BindTransform bindTransform;
 		// start and inner bean
@@ -424,10 +468,13 @@ public abstract class BindTypeBuilder {
 	}
 
 	/**
-	 * Parse entity properties and write code to read only CData Text fields
-	 * 
-	 * @param methodBuilder
-	 * @param entity
+	 * Parse entity properties and write code to read only CData Text fields.
+	 *
+	 * @param context the context
+	 * @param methodBuilder the method builder
+	 * @param instanceName the instance name
+	 * @param parserName the parser name
+	 * @param entity the entity
 	 */
 	private static void generateParserOnXmlCharacters(BindTypeContext context, MethodSpec.Builder methodBuilder, String instanceName, String parserName, BindEntity entity) {
 		BindTransform bindTransform;
@@ -449,6 +496,12 @@ public abstract class BindTypeBuilder {
 		}
 	}
 
+	/**
+	 * Generate parse on jackson.
+	 *
+	 * @param context the context
+	 * @param entity the entity
+	 */
 	private static void generateParseOnJackson(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJackson")
@@ -516,6 +569,12 @@ public abstract class BindTypeBuilder {
 
 	}
 
+	/**
+	 * Generate parse on jackson as string.
+	 *
+	 * @param context the context
+	 * @param entity the entity
+	 */
 	private static void generateParseOnJacksonAsString(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnJacksonAsString")
@@ -582,6 +641,12 @@ public abstract class BindTypeBuilder {
 
 	}
 
+	/**
+	 * Generate serialize on jackson.
+	 *
+	 * @param context the context
+	 * @param entity the entity
+	 */
 	private static void generateSerializeOnJackson(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJackson")
@@ -626,6 +691,12 @@ public abstract class BindTypeBuilder {
 		context.builder.addMethod(methodBuilder.build());
 	}
 
+	/**
+	 * Generate serialize on jackson as string.
+	 *
+	 * @param context the context
+	 * @param entity the entity
+	 */
 	private static void generateSerializeOnJacksonAsString(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnJacksonAsString")
@@ -670,6 +741,12 @@ public abstract class BindTypeBuilder {
 
 	}
 
+	/**
+	 * Generate serialize on xml.
+	 *
+	 * @param context the context
+	 * @param entity the entity
+	 */
 	private static void generateSerializeOnXml(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("serializeOnXml").addJavadoc("method for xml serialization\n").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)

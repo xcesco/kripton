@@ -17,23 +17,35 @@ package sqlite.quickstart.model;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class User.
+ */
 @BindType
 public class User {
 
+    /** The id. */
     public long id;
 
+    /** The name. */
     public String name;
 
+    /** The username. */
     public String username;
 
+    /** The email. */
     public String email;
 
+    /** The address. */
     public Address address;
 
+    /** The phone. */
     public String phone;
 
+    /** The website. */
     public String website;
 
+    /** The company. */
     public Company company;
 
 }

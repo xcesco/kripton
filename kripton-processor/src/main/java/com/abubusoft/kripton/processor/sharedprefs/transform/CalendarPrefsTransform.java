@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.CalendarUtils;
 
+// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Calendar object
  * 
@@ -25,6 +26,9 @@ import com.abubusoft.kripton.common.CalendarUtils;
  */
 public class CalendarPrefsTransform extends WrappedPrefsTransform {
 
+	/**
+	 * Instantiates a new calendar prefs transform.
+	 */
 	public CalendarPrefsTransform() {
 		super(CalendarUtils.class);
 	}

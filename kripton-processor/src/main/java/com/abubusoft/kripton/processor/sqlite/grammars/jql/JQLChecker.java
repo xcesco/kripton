@@ -67,10 +67,20 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_name
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JQLChecker.
+ */
 public class JQLChecker {
 
+	/** The instance. */
 	protected static JQLChecker instance;
 
+	/**
+	 * Gets the single instance of JQLChecker.
+	 *
+	 * @return single instance of JQLChecker
+	 */
 	public static final JQLChecker getInstance() {
 		if (instance == null) {
 			instance = new JQLChecker();
@@ -79,24 +89,59 @@ public class JQLChecker {
 		return instance;
 	}
 
+	/** The walker. */
 	ParseTreeWalker walker = new ParseTreeWalker();
 
+	/**
+	 * Instantiates a new JQL checker.
+	 */
 	private JQLChecker() {
 
 	}
 
+	/**
+	 * Analyze internal.
+	 *
+	 * @param <L> the generic type
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @param listener the listener
+	 */
 	protected <L extends JqlBaseListener> void analyzeInternal(JQLContext jqlContext, final String jql, L listener) {
 		walker.walk(listener, prepareParser(jqlContext, jql).value0);
 	}
 
+	/**
+	 * Analyze variable statement internal.
+	 *
+	 * @param <L> the generic type
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @param listener the listener
+	 */
 	protected <L extends JqlBaseListener> void analyzeVariableStatementInternal(JQLContext jqlContext, final String jql, L listener) {
 		walker.walk(listener, prepareVariableStatement(jqlContext, jql).value0);
 	}
 
+	/**
+	 * Analyze.
+	 *
+	 * @param <L> the generic type
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @param listener the listener
+	 */
 	public <L extends JqlBaseListener> void analyze(final JQLContext jqlContext, final JQL jql, L listener) {
 		analyzeInternal(jqlContext, jql.value, listener);
 	}
 
+	/**
+	 * Prepare parser.
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @return the pair
+	 */
 	protected Pair<ParserRuleContext, CommonTokenStream> prepareParser(final JQLContext jqlContext, final String jql) {
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(jql));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -126,10 +171,11 @@ public class JQLChecker {
 	 * <li>order_stmt</li>
 	 * <li>limit_stmt</li>
 	 * <li>offset_stmt</li>
-	 * </ul>
-	 * 
-	 * @param jql
-	 * @return
+	 * </ul>.
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @return the pair
 	 */
 	protected Pair<ParserRuleContext, CommonTokenStream> prepareVariableStatement(final JQLContext jqlContext, final String jql) {
 		JqlLexer lexer = new JqlLexer(CharStreams.fromString(jql));
@@ -150,9 +196,11 @@ public class JQLChecker {
 
 	/**
 	 * Retrieve set of projected field.
-	 * 
-	 * @param jql
-	 * @return
+	 *
+	 * @param jqlContext the jql context
+	 * @param jqlValue the jql value
+	 * @param entity the entity
+	 * @return the sets the
 	 */
 	public Set<JQLProjection> extractProjections(final JQLContext jqlContext, String jqlValue, final Finder<SQLProperty> entity) {
 		final Set<JQLProjection> result = new LinkedHashSet<JQLProjection>();
@@ -226,6 +274,14 @@ public class JQLChecker {
 		return result;
 	}
 
+	/**
+	 * Extract columns to insert or update.
+	 *
+	 * @param jqlContext the jql context
+	 * @param jqlValue the jql value
+	 * @param entity the entity
+	 * @return the sets the
+	 */
 	public Set<String> extractColumnsToInsertOrUpdate(final JQLContext jqlContext, String jqlValue, final Finder<SQLProperty> entity) {
 		final Set<String> result = new LinkedHashSet<String>();
 
@@ -279,10 +335,11 @@ public class JQLChecker {
 	}
 
 	/**
-	 * Replace place holder with element passed by listener
-	 * 
-	 * @param jql
-	 * @param listener
+	 * Replace place holder with element passed by listener.
+	 *
+	 * @param context the context
+	 * @param jql the jql
+	 * @param listener the listener
 	 * @return string obtained by replacements
 	 */
 	public String replaceFromVariableStatement(JQLContext context, String jql, final JQLReplacerListener listener) {
@@ -291,22 +348,38 @@ public class JQLChecker {
 		return replaceFromVariableStatementInternal(context, jql, replace, rewriterListener);
 	}
 
+	/** The replace. */
 	List<Triple<Token, Token, String>> replace = new ArrayList<>();
 
 	/**
-	 * 
-	 * @author Francesco Benincasa (info@abubusoft.com)
+	 * The listener interface for receiving JQLRewriter events.
+	 * The class that is interested in processing a JQLRewriter
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addJQLRewriterListener</code> method. When
+	 * the JQLRewriter event occurs, that object's appropriate
+	 * method is invoked.
 	 *
+	 * @author Francesco Benincasa (info@abubusoft.com)
 	 */
 	public class JQLRewriterListener extends JqlBaseListener {
 
+		/** The listener. */
 		private JQLReplacerListener listener;
 
+		/**
+		 * Inits the.
+		 *
+		 * @param listener the listener
+		 */
 		public void init(JQLReplacerListener listener) {
 			this.listener = listener;
 			replace.clear();
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterTable_name(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext)
+		 */
 		@Override
 		public void enterTable_name(Table_nameContext ctx) {
 			String value = listener.onTableName(ctx.getText());
@@ -318,6 +391,9 @@ public class JQLChecker {
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterBind_parameter(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext)
+		 */
 		@Override
 		public void enterBind_parameter(Bind_parameterContext ctx) {
 			String value;
@@ -334,6 +410,9 @@ public class JQLChecker {
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterColumn_name_to_update(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_to_updateContext)
+		 */
 		@Override
 		public void enterColumn_name_to_update(Column_name_to_updateContext ctx) {
 			String value = listener.onColumnNameToUpdate(ctx.getText());
@@ -345,6 +424,9 @@ public class JQLChecker {
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
 		
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterColumn_fully_qualified_name(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_fully_qualified_nameContext)
+		 */
 		@Override
 		public void enterColumn_fully_qualified_name(Column_fully_qualified_nameContext ctx) {			
 			String value = listener.onColumnFullyQualifiedName(ctx.table_simple_name()!=null ? ctx.table_simple_name().getText() :"", ctx.column_simple_name().getText());
@@ -356,6 +438,9 @@ public class JQLChecker {
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterColumn_name(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext)
+		 */
 		@Override
 		public void enterColumn_name(Column_nameContext ctx) {
 			String value = listener.onColumnName(ctx.getText());
@@ -367,6 +452,9 @@ public class JQLChecker {
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterBind_dynamic_sql(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext)
+		 */
 		@Override
 		public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
 			String value = listener.onDynamicSQL(JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText()));
@@ -378,44 +466,64 @@ public class JQLChecker {
 			replace.add(new Triple<Token, Token, String>(ctx.start, ctx.stop, value));
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterWhere_stmt(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext)
+		 */
 		@Override
 		public void enterWhere_stmt(Where_stmtContext ctx) {
 			listener.onWhereStatementBegin(ctx);
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#exitWhere_stmt(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext)
+		 */
 		@Override
 		public void exitWhere_stmt(Where_stmtContext ctx) {
 			listener.onWhereStatementEnd(ctx);
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterColumn_name_set(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext)
+		 */
 		@Override
 		public void enterColumn_name_set(Column_name_setContext ctx) {
 			listener.onColumnNameSetBegin(ctx);
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#exitColumn_name_set(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext)
+		 */
 		@Override
 		public void exitColumn_name_set(Column_name_setContext ctx) {
 			listener.onColumnNameSetEnd(ctx);
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#enterColumn_value_set(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext)
+		 */
 		@Override
 		public void enterColumn_value_set(Column_value_setContext ctx) {
 			listener.onColumnValueSetBegin(ctx);
 		}
 
+		/* (non-Javadoc)
+		 * @see com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener#exitColumn_value_set(com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext)
+		 */
 		@Override
 		public void exitColumn_value_set(Column_value_setContext ctx) {
 			listener.onColumnValueSetEnd(ctx);
 		}
 	}
 
+	/** The rewriter listener. */
 	JQLRewriterListener rewriterListener = new JQLRewriterListener();
 
 	/**
-	 * Replace place holder with element passed by listener
-	 * 
-	 * @param jql
-	 * @param listener
+	 * Replace place holder with element passed by listener.
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @param listener the listener
 	 * @return string obtained by replacements
 	 */
 	public String replace(final JQLContext jqlContext, JQL jql, final JQLReplacerListener listener) {
@@ -423,11 +531,11 @@ public class JQLChecker {
 	}
 
 	/**
-	 * Replace place holder with element passed by listener
-	 * 
-	 * @param jql
-	 *            string
-	 * @param listener
+	 * Replace place holder with element passed by listener.
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql            string
+	 * @param listener the listener
 	 * @return string obtained by replacements
 	 */
 	public String replace(final JQLContext jqlContext, String jql, final JQLReplacerListener listener) {
@@ -437,6 +545,15 @@ public class JQLChecker {
 
 	}
 
+	/**
+	 * Replace internal.
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @param replace the replace
+	 * @param rewriterListener the rewriter listener
+	 * @return the string
+	 */
 	private String replaceInternal(final JQLContext jqlContext, String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareParser(jqlContext, jql);
 		walker.walk(rewriterListener, parser.value0);
@@ -450,6 +567,15 @@ public class JQLChecker {
 		return rewriter.getText();
 	}
 
+	/**
+	 * Replace from variable statement internal.
+	 *
+	 * @param context the context
+	 * @param jql the jql
+	 * @param replace the replace
+	 * @param rewriterListener the rewriter listener
+	 * @return the string
+	 */
 	private String replaceFromVariableStatementInternal(JQLContext context, String jql, final List<Triple<Token, Token, String>> replace, JqlBaseListener rewriterListener) {
 		Pair<ParserRuleContext, CommonTokenStream> parser = prepareVariableStatement(context, jql);
 		walker.walk(rewriterListener, parser.value0);
@@ -463,17 +589,37 @@ public class JQLChecker {
 		return rewriter.getText();
 	}
 
+	/**
+	 * The Class JQLParameterName.
+	 */
 	public static class JQLParameterName {
+		
+		/**
+		 * Instantiates a new JQL parameter name.
+		 *
+		 * @param value the value
+		 */
 		private JQLParameterName(String value) {
 			values = value.split("\\.");
 		}
 
+		/** The values. */
 		private String[] values;
 
+		/**
+		 * Gets the value.
+		 *
+		 * @return the value
+		 */
 		public String getValue() {
 			return values[values.length - 1];
 		}
 
+		/**
+		 * Gets the bean name.
+		 *
+		 * @return the bean name
+		 */
 		public String getBeanName() {
 			if (isNested())
 				return values[0];
@@ -481,10 +627,21 @@ public class JQLChecker {
 			return "";
 		}
 
+		/**
+		 * Checks if is nested.
+		 *
+		 * @return true, if is nested
+		 */
 		public boolean isNested() {
 			return values.length > 1;
 		}
 
+		/**
+		 * Parses the.
+		 *
+		 * @param value the value
+		 * @return the JQL parameter name
+		 */
 		public static JQLParameterName parse(String value) {
 			return new JQLParameterName(value);
 		}
@@ -495,8 +652,9 @@ public class JQLChecker {
 	 * Verify sql is syntactally correct, otherwise a KriptonProcessorException
 	 * will be thrown.
 	 * </p>
-	 * 
-	 * @param sql
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
 	 */
 	public void verify(final JQLContext jqlContext, final JQL jql) {
 		this.analyzeInternal(jqlContext, jql.value, new JqlBaseListener());
@@ -504,9 +662,10 @@ public class JQLChecker {
 
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
-	 * 
-	 * @param jql
-	 * @return
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @return the list
 	 */
 	public List<JQLPlaceHolder> extractPlaceHoldersAsList(final JQLContext jqlContext, String jql) {
 		return extractPlaceHolders(jqlContext, jql, new ArrayList<JQLPlaceHolder>());
@@ -514,9 +673,10 @@ public class JQLChecker {
 
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
-	 * 
-	 * @param jql
-	 * @return
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @return the sets the
 	 */
 	public Set<JQLPlaceHolder> extractPlaceHoldersAsSet(final JQLContext jqlContext, String jql) {
 		return extractPlaceHolders(jqlContext, jql, new LinkedHashSet<JQLPlaceHolder>());
@@ -524,9 +684,10 @@ public class JQLChecker {
 
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
-	 * 
-	 * @param jql
-	 * @return
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @return the sets the
 	 */
 	public Set<JQLPlaceHolder> extractPlaceHoldersFromVariableStatementAsSet(JQLContext jqlContext, String jql) {
 		return extractPlaceHoldersFromVariableStatement(jqlContext, jql, new LinkedHashSet<JQLPlaceHolder>());
@@ -534,14 +695,24 @@ public class JQLChecker {
 
 	/**
 	 * Extract all bind parameters and dynamic part used in query.
-	 * 
-	 * @param jql
-	 * @return
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @return the list
 	 */
 	public List<JQLPlaceHolder> extractFromVariableStatement(JQLContext jqlContext, String jql) {
 		return extractPlaceHoldersFromVariableStatement(jqlContext, jql, new ArrayList<JQLPlaceHolder>());
 	}
 
+	/**
+	 * Extract place holders.
+	 *
+	 * @param <L> the generic type
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @param result the result
+	 * @return the l
+	 */
 	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHolders(final JQLContext jqlContext, String jql, final L result) {
 		final One<Boolean> valid = new One<>();
 		valid.value0 = false;
@@ -568,6 +739,15 @@ public class JQLChecker {
 		return result;
 	}
 
+	/**
+	 * Extract place holders from variable statement.
+	 *
+	 * @param <L> the generic type
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @param result the result
+	 * @return the l
+	 */
 	private <L extends Collection<JQLPlaceHolder>> L extractPlaceHoldersFromVariableStatement(final JQLContext jqlContext, String jql, final L result) {
 		final One<Boolean> valid = new One<>();
 
@@ -604,10 +784,11 @@ public class JQLChecker {
 	 * 
 	 * <p>
 	 * Note that only first level of variable statements will be replaced.
-	 * 
-	 * @param jql
-	 * @param listener
-	 * @return
+	 *
+	 * @param jqlContext the jql context
+	 * @param jql the jql
+	 * @param listener the listener
+	 * @return the string
 	 */
 	public String replaceVariableStatements(final JQLContext jqlContext, final String jql, final JQLReplaceVariableStatementListener listener) {
 		final List<Triple<Token, Token, String>> replace = new ArrayList<>();

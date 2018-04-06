@@ -20,6 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Used to manage an URI managed by a content provider path for annotated data
@@ -61,17 +62,25 @@ public @interface BindContentProviderEntry {
 	public String path() default "";
 	
 	/**
-	 * Define numerosity of result of operation exposed by content provider
-	 * @return
+	 * Define numerosity of result of operation exposed by content provider.
+	 *
+	 * @return the multiplicity result type
 	 */
 	public MultiplicityResultType multiplicityResult() default MultiplicityResultType.DEFAULT;
 	
+	/**
+	 * The Enum MultiplicityResultType.
+	 */
 	public enum MultiplicityResultType {
 		/**
 		 * default means: select return many rows, other operation only one.
 		 */
 		DEFAULT,
+		
+		/** The one. */
 		ONE,
+		
+		/** The many. */
 		MANY
 	}
 

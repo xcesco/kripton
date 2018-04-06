@@ -18,11 +18,17 @@ package shared.kripton198;
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AppPreferences.
+ */
 @BindSharedPreferences
 public class AppPreferences {
 
+	/** The value float. */
 	public float valueFloat=5.0f;
 	
+	/** The value boolean. */
 	@BindPreference("value")
 	public boolean valueBoolean;
 		

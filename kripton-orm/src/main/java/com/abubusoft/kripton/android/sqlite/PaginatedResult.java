@@ -17,6 +17,7 @@ package com.abubusoft.kripton.android.sqlite;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Allow to manage SQL result pages with LIMIT clause.
@@ -25,32 +26,53 @@ import java.util.List;
  * <p>
  * See <a href="https://www.sqlite.org/lang_select.html">here</a> for more info.
  * </p>
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
  *
- * @param <E>
+ * @author Francesco Benincasa (info@abubusoft.com)
+ * @param <E> the element type
  */
 public abstract class PaginatedResult<E> {
 	
+	/**
+	 * Instantiates a new paginated result.
+	 */
 	protected PaginatedResult()
 	{
 		initialized=false;
 	}
 	
+	/** The initialized. */
 	protected boolean initialized;
 
+	/** The first row. */
 	protected int firstRow;
 
+	/** The list. */
 	protected List<E> list;
 
+	/** The page size. */
 	protected int pageSize;
 
+	/**
+	 * Execute.
+	 *
+	 * @return the list
+	 */
 	public abstract List<E> execute();
 
+	/**
+	 * First row.
+	 *
+	 * @return the int
+	 */
 	public int firstRow() {
 		return firstRow;
 	}
 
+	/**
+	 * Next page.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean nextPage() {
 		if (initialized)
 		{
@@ -62,6 +84,12 @@ public abstract class PaginatedResult<E> {
 		return execute().size()>0;
 	}
 
+	/**
+	 * Goto page.
+	 *
+	 * @param page the page
+	 * @return true, if successful
+	 */
 	public boolean gotoPage(int page) {
 		firstRow = pageSize * page ;
 		
@@ -73,6 +101,11 @@ public abstract class PaginatedResult<E> {
 		return execute().size()>0;
 	}
 
+	/**
+	 * Previous page.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean previousPage() {
 		firstRow -= pageSize;
 
@@ -82,15 +115,30 @@ public abstract class PaginatedResult<E> {
 		return execute().size()>0;
 	}
 	
+	/**
+	 * Checks for next.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasNext()
 	{
 		return list.size()>0;
 	}
 
+	/**
+	 * List.
+	 *
+	 * @return the list
+	 */
 	public List<E> list() {
 		return list;
 	}
 
+	/**
+	 * Page size.
+	 *
+	 * @return the int
+	 */
 	public int pageSize() {
 		return pageSize;
 	}

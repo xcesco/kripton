@@ -19,6 +19,9 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 import sqlite.feature.paginatedResult.Dao1Person;
 
+/**
+ * The Interface Person1DataSource.
+ */
 @BindDataSource(daoSet= { Dao1Person.class }, fileName = "person1.db", log=true)
 public interface Person1DataSource {
 

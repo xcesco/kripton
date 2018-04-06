@@ -17,12 +17,18 @@ package bind.kripton1110.model.stage2;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Pap.
+ */
 @BindType
 public class Pap {
 
 
+/** The official. */
 public String official;
 
+/** The common. */
 public String common;
 
 }

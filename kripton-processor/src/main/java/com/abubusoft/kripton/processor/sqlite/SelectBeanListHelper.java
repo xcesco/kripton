@@ -41,11 +41,12 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
- * @param <ElementUtils>
- * 
+ * The Class SelectBeanListHelper.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
+ * @param <ElementUtils> the generic type
  * @since 17/mag/2016
  */
 public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenerator {
@@ -129,6 +130,12 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		methodBuilder.endControlFlow();
 	}
 
+	/**
+	 * Define collection.
+	 *
+	 * @param listClazzName the list clazz name
+	 * @return the type name
+	 */
 	static TypeName defineCollection(ClassName listClazzName) {
 		try {
 			Class<?> clazz = Class.forName(listClazzName.toString());

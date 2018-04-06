@@ -16,14 +16,17 @@
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Transformer between a string and a Java String object
- * 
- * @author xcesco
+ * Transformer between a string and a Java String object.
  *
+ * @author xcesco
  */
 public class StringPrefsTransform extends AbstractPrimitivePrefsTransform {
 	
+	/**
+	 * Instantiates a new string prefs transform.
+	 */
 	public StringPrefsTransform()
 	{
 		super(false, true);

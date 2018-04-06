@@ -36,16 +36,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
+// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Base class for data source
  * </p>
- * 
+ * .
+ *
  * @author Francesco Benincasa (info@abubusoft.com)
- * 
  */
 public abstract class AbstractDataSource implements AutoCloseable {
 
+	/** The on error listener. */
 	protected OnErrorListener onErrorListener = new OnErrorListener() {
 		@Override
 		public void onError(Throwable e) {
@@ -53,29 +55,38 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		}
 	};
 
+	/**
+	 * On session opened.
+	 */
 	protected void onSessionOpened() {
 		this.context.onSessionOpened();
 
 	}
 
+	/**
+	 * On session closed.
+	 *
+	 * @return the sets the
+	 */
 	protected Set<Integer> onSessionClosed() {
 		return this.context.onSessionClosed();
 
 	}
 
 	/**
-	 * Get error listener, in transations
-	 * 
-	 * @return
+	 * Get error listener, in transations.
+	 *
+	 * @return the on error listener
 	 */
 	public OnErrorListener getOnErrorListener() {
 		return onErrorListener;
 	}
 
 	/**
-	 * Set error listener for transactions
-	 * 
+	 * Set error listener for transactions.
+	 *
 	 * @param onErrorListener
+	 *            the new on error listener
 	 */
 	public void setOnErrorListener(OnErrorListener onErrorListener) {
 		this.onErrorListener = onErrorListener;
@@ -83,11 +94,12 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	/**
 	 * Interface for database operations.
-	 * 
 	 *
 	 * @param <E>
+	 *            the element type
 	 */
 	public interface AbstractExecutable<E extends BindDaoFactory> {
+
 		/**
 		 * Execute transation. Method need to return
 		 * {@link TransactionResult#COMMIT} to commit results or
@@ -95,12 +107,20 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		 * thrown, a rollback will be done.
 		 *
 		 * @param daoFactory
-		 * @return
-		 * @throws Throwable
+		 *            the dao factory
+		 * @return the transaction result
 		 */
 		TransactionResult onExecute(E daoFactory);
 	}
 
+	/**
+	 * The listener interface for receiving onError events. The class that is
+	 * interested in processing a onError event implements this interface, and
+	 * the object created with that class is registered with a component using
+	 * the component's <code>addOnErrorListener</code> method. When the onError
+	 * event occurs, that object's appropriate method is invoked.
+	 *
+	 */
 	public interface OnErrorListener {
 		/**
 		 * Manages error situations.
@@ -111,68 +131,123 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		void onError(Throwable e);
 	}
 
+	/**
+	 * The Enum TypeStatus.
+	 */
 	public static enum TypeStatus {
-		CLOSED, READ_AND_WRITE_OPENED, READ_ONLY_OPENED
+
+		/** The closed. */
+		CLOSED,
+		/** The read and write opened. */
+		READ_AND_WRITE_OPENED,
+		/** The read only opened. */
+		READ_ONLY_OPENED
 	}
 
-	/**
-	 * database instance
-	 */
+	/** database instance. */
 	SQLiteDatabase database;
 
 	/**
-	 * used to clear prepared statements
+	 * used to clear prepared statements.
 	 */
 	public abstract void clearCompiledStatements();
 
+	/** The log enabled. */
 	public boolean logEnabled;
 
+	/** The lock access. */
 	private final ReentrantReadWriteLock lockAccess = new ReentrantReadWriteLock();
 
+	/** The lock db. */
 	private final ReentrantLock lockDb = new ReentrantLock();
 
+	/** The lock read access. */
 	private final Lock lockReadAccess = lockAccess.readLock();
 
+	/** The lock read write access. */
 	private final Lock lockReadWriteAccess = lockAccess.writeLock();
 
 	/**
 	 * <p>
-	 * <file name used to save database,/p>
+	 * file name used to save database,
+	 * </p>
+	 * .
 	 */
 	public final String name;
 
+	/** The open counter. */
 	private AtomicInteger openCounter = new AtomicInteger();
 
+	/** The options. */
 	protected DataSourceOptions options;
 
+	/** The sqlite helper. */
 	protected SQLiteOpenHelper sqliteHelper;
 
+	/** The context. */
 	protected SQLContextImpl context;
 
+	/**
+	 * Context.
+	 *
+	 * @return the SQL context
+	 */
 	protected SQLContext context() {
 		return context;
 	}
 
+	/**
+	 * Content values for update.
+	 *
+	 * @param compiledStatement
+	 *            the compiled statement
+	 * @return the kripton content values
+	 */
 	protected KriptonContentValues contentValuesForUpdate(SQLiteStatement compiledStatement) {
 		return context.contentValuesForUpdate(compiledStatement);
 	}
 
+	/**
+	 * Content values.
+	 *
+	 * @param compiledStatement
+	 *            the compiled statement
+	 * @return the kripton content values
+	 */
 	protected KriptonContentValues contentValues(SQLiteStatement compiledStatement) {
 		return context.contentValues(compiledStatement);
 	}
 
+	/**
+	 * Content values for content provider.
+	 *
+	 * @param values
+	 *            the values
+	 * @return the kripton content values
+	 */
 	protected KriptonContentValues contentValuesForContentProvider(ContentValues values) {
 		return context.contentValuesForContentProvider(values);
 	}
 
+	/**
+	 * Sql builder.
+	 *
+	 * @return the string builder
+	 */
 	protected StringBuilder sqlBuilder() {
 		return context.sqlBuilder();
 	}
 
+	/**
+	 * Checks if is log enabled.
+	 *
+	 * @return true, if is log enabled
+	 */
 	public boolean isLogEnabled() {
 		return context.isLogEnabled();
 	}
 
+	/** The status. */
 	protected ThreadLocal<TypeStatus> status = new ThreadLocal<TypeStatus>() {
 
 		@Override
@@ -182,15 +257,14 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	};
 
-	/**
-	 * if true, database was update during this application run
-	 */
+	/** if true, database was update during this application run. */
 	protected boolean versionChanged;
 
 	/**
 	 * <p>
 	 * True if dataSource is just created
 	 * </p>
+	 * .
 	 */
 	protected boolean justCreated = false;
 
@@ -198,6 +272,9 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * <p>
 	 * True if dataSource is just created
 	 * </p>
+	 * .
+	 *
+	 * @return true, if is just created
 	 */
 	public boolean isJustCreated() {
 		return justCreated;
@@ -207,17 +284,39 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * <p>
 	 * database version
 	 * </p>
+	 * .
 	 */
 	protected int version;
 
+	/**
+	 * Gets the version.
+	 *
+	 * @return the version
+	 */
 	public int getVersion() {
 		return version;
 	}
 
+	/**
+	 * Sets the version.
+	 *
+	 * @param version
+	 *            the new version
+	 */
 	void setVersion(int version) {
 		this.version = version;
 	}
 
+	/**
+	 * Instantiates a new abstract data source.
+	 *
+	 * @param name
+	 *            the name
+	 * @param version
+	 *            the version
+	 * @param options
+	 *            the options
+	 */
 	protected AbstractDataSource(String name, int version, DataSourceOptions options) {
 		DataSourceOptions optionsValue = (options == null) ? DataSourceOptions.builder().build() : options;
 
@@ -283,10 +382,22 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	}
 
+	/**
+	 * Force close.
+	 */
 	void forceClose() {
 		openCounter.set(0);
 	}
 
+	/**
+	 * Builds the task list.
+	 *
+	 * @param previousVersion
+	 *            the previous version
+	 * @param currentVersion
+	 *            the current version
+	 * @return the list
+	 */
 	protected List<SQLiteUpdateTask> buildTaskList(int previousVersion, int currentVersion) {
 		List<SQLiteUpdateTask> result = new ArrayList<>();
 
@@ -308,6 +419,12 @@ public abstract class AbstractDataSource implements AutoCloseable {
 
 	}
 
+	/**
+	 * Creates the helper.
+	 *
+	 * @param options
+	 *            the options
+	 */
 	protected void createHelper(DataSourceOptions options) {
 		if (KriptonLibrary.context() == null)
 			throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
@@ -341,8 +458,8 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 * <p>
 	 * Return database object or runtimeexception if no database is opened.
 	 * </p>
-	 * 
-	 * @return
+	 *
+	 * @return the SQ lite database
 	 */
 	public SQLiteDatabase database() {
 		if (database == null)
@@ -375,16 +492,40 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	}
 
 	/**
+	 * Checks if is upgraded version.
+	 *
 	 * @return the upgradedVersion
 	 */
 	public boolean isUpgradedVersion() {
 		return versionChanged;
 	}
 
+	/**
+	 * On configure.
+	 *
+	 * @param database
+	 *            the database
+	 */
 	public abstract void onConfigure(SQLiteDatabase database);
 
+	/**
+	 * On create.
+	 *
+	 * @param database
+	 *            the database
+	 */
 	public abstract void onCreate(SQLiteDatabase database);
 
+	/**
+	 * On downgrade.
+	 *
+	 * @param db
+	 *            the db
+	 * @param oldVersion
+	 *            the old version
+	 * @param newVersion
+	 *            the new version
+	 */
 	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
 			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, false);
@@ -392,6 +533,16 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * On upgrade.
+	 *
+	 * @param db
+	 *            the db
+	 * @param oldVersion
+	 *            the old version
+	 * @param newVersion
+	 *            the new version
+	 */
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (AbstractDataSource.this.options.databaseLifecycleHandler != null) {
 			AbstractDataSource.this.options.databaseLifecycleHandler.onUpdate(db, oldVersion, newVersion, true);
@@ -467,17 +618,6 @@ public abstract class AbstractDataSource implements AutoCloseable {
 		}
 
 		return database;
-	}
-
-	/**
-	 * Define options for data source. It must be defined
-	 * <strong>before</strong> open first connection.
-	 * 
-	 * @param options
-	 *            options
-	 */
-	public void setOptions(DataSourceOptions options) {
-		this.options = options;
 	}
 
 }

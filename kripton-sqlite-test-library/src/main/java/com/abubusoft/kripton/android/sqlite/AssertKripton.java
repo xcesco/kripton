@@ -17,19 +17,20 @@ package com.abubusoft.kripton.android.sqlite;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class AssertKripton.
  *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 public abstract class AssertKripton {
 
 	/**
-	 * Assertion which generate an exception if expression is not true
-	 * 
-	 * @param <E>
-	 * 
-	 * @param expression
-	 * @param message
+	 * Assertion which generate an exception if expression is not true.
+	 *
+	 * @param expression the expression
+	 * @param messageFormat the message format
+	 * @param args the args
 	 */
 	public static void assertTrue(boolean expression, String messageFormat, Object... args) {
 		if (!expression)
@@ -38,16 +39,22 @@ public abstract class AssertKripton {
 	}
 
 
+	/**
+	 * Fail.
+	 *
+	 * @param messageFormat the message format
+	 * @param args the args
+	 */
 	public static void fail(String messageFormat, Object... args) {
 		assertTrue(false, messageFormat, args);
 	}
 
 	/**
-	 * Fails if expression is true
-	 * 
-	 * @param expression
-	 * @param messageFormat
-	 * @param args
+	 * Fails if expression is true.
+	 *
+	 * @param expression the expression
+	 * @param messageFormat the message format
+	 * @param args the args
 	 */
 	public static void fail(boolean expression, String messageFormat, Object... args) {
 		assertTrue(!expression, messageFormat, args);

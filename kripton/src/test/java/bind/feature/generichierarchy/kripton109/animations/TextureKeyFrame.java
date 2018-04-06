@@ -20,12 +20,20 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feature.generichierarchy.kripton109.animations.texture.TextureRegion;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TextureKeyFrame.
+ */
 @BindType
 public class TextureKeyFrame extends KeyFrame {
 
+	/**
+	 * Instantiates a new texture key frame.
+	 */
 	public TextureKeyFrame() {
 	}
 
+	/** The texture region. */
 	@Bind
 	public TextureRegion textureRegion;
 

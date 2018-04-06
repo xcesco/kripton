@@ -17,13 +17,22 @@ package sqlite.kripton84;
 
 import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Bean84B.
+ */
 @BindType
 public class Bean84B {
 	
+	/** The id. */
 	public long id;
 	
+	/** The column bean. */
 	public Bean84B2 columnBean;
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -33,6 +42,9 @@ public class Bean84B {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

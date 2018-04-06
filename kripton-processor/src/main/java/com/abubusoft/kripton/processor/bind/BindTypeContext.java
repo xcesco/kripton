@@ -28,12 +28,31 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BindTypeContext.
+ */
 public class BindTypeContext {
+	
+	/** The builder. */
 	public TypeSpec.Builder builder;
+	
+	/** The already generated methods. */
 	public Set<String> alreadyGeneratedMethods;
+	
+	/** The modifiers. */
 	public Modifier[] modifiers;
+	
+	/** The bean type name. */
 	private TypeName beanTypeName;
 
+	/**
+	 * Instantiates a new bind type context.
+	 *
+	 * @param builder the builder
+	 * @param beanTypeName the bean type name
+	 * @param modifiers the modifiers
+	 */
 	public BindTypeContext(TypeSpec.Builder builder, TypeName beanTypeName, Modifier ... modifiers) {
 		this.builder=builder;
 		this.beanTypeName=beanTypeName;
@@ -41,6 +60,13 @@ public class BindTypeContext {
 		this.modifiers=modifiers;
 	}
 
+	/**
+	 * Gets the bind mapper name.
+	 *
+	 * @param context the context
+	 * @param typeName the type name
+	 * @return the bind mapper name
+	 */
 	public String getBindMapperName(BindTypeContext context, TypeName typeName) {
 		Converter<String, String> format = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		TypeName bindMapperName=TypeUtility.mergeTypeNameWithSuffix(typeName,BindTypeBuilder.SUFFIX);

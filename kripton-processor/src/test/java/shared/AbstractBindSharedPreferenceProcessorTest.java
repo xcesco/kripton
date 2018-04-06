@@ -21,7 +21,15 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 
 import base.BaseProcessorTest;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractBindSharedPreferenceProcessorTest.
+ */
 public abstract class AbstractBindSharedPreferenceProcessorTest extends BaseProcessorTest {
+	
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		if (BaseProcessor.DEBUG_MODE) {

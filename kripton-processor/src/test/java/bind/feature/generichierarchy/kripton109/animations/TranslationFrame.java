@@ -20,13 +20,32 @@ import com.abubusoft.kripton.annotation.BindType;
 
 import bind.feature.generichierarchy.kripton109.animations.math.Vector3;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TranslationFrame.
+ */
 @BindType
 public class TranslationFrame extends KeyFrame {
 
+	/**
+	 * Builds the.
+	 *
+	 * @param duration the duration
+	 * @return the translation frame
+	 */
 	public static TranslationFrame build(long duration) {
 		return build(0f, 0f, 0f, duration);
 	}
 
+	/**
+	 * Builds the.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 * @param duration the duration
+	 * @return the translation frame
+	 */
 	public static TranslationFrame build(float x, float y, float z, long duration) {
 		TranslationFrame frame = new TranslationFrame();
 
@@ -36,9 +55,13 @@ public class TranslationFrame extends KeyFrame {
 		return frame;
 	}
 
+	/** The translation. */
 	@Bind
 	public Vector3 translation = new Vector3();
 
+	/**
+	 * Instantiates a new translation frame.
+	 */
 	public TranslationFrame() {
 	}
 

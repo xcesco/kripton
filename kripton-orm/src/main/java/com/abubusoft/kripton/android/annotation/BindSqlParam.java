@@ -23,21 +23,25 @@ import java.lang.annotation.Target;
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 import com.abubusoft.kripton.android.sqlite.NoAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface BindSqlParam.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface BindSqlParam {
 
 	/**
 	 * Name used into jql to rapresents this parameter.
-	 * 
-	 * @return
+	 *
+	 * @return the string
 	 */
 	String value() default "";
 
 	/**
 	 * used type adapter.
-	 * 
-	 * @return
+	 *
+	 * @return the class&lt;? extends sql type adapter&lt;?,?&gt;&gt;
 	 */
 	Class<? extends SqlTypeAdapter<?, ?>> adapter() default NoAdapter.class;
 }
