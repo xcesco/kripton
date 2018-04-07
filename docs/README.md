@@ -12,7 +12,7 @@ I write Kripton Library to simplify tasks about persist data on Android platform
  * in a SharedPreferences
  * remotely with REST services
 
-There are many other open source library to accomplish these tasks, but my goal was to simplify my life as developer, creating a library that allow to accomplish this task in a simply and uniform way… and with performance in mind.
+There are many other open source library to accomplish these tasks, but my goal was to simplify my life as developer, creating a library that allows to accomplish this task in a simply and uniform way… and with performance in mind.
 I didn’t reinvent the wheel, Kripton is based on many great libraries like Jackson for data format conversion, Java poet, Xml pull parsing, Antlr and many others.
 To work with REST service i simply wrote an integration library between Kripton with Retrofit.
 As you know, reflection is bad thing if we talk about performance on Android Platform. This is the reason for which Kripton is heavily based on annotation processors that works at compile time an write for us the boilerplate code need to persist data.
@@ -249,11 +249,6 @@ The integration between Kripton and Retrofit is done by KriptonBinderConverterFa
 This post was only an introduction on Kripton Persistence Library. It’s a powerfull library that can help development on Android Platform.
 If you like Kripton, give it a star on github, thank you.
 You can found Kripton Persistence Library on github. Moreover, you can consult my blob Abubusoft.com.
-
-## Donate
-If you like Kripton and you want to support its development, please donate!
-
-<a href='https://pledgie.com/campaigns/33279'><img alt='Click here to lend your support to: Support Kripton Persistence Library and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/33279.png?skin_name=chrome' border='0' ></a>
 
 ## License
 
