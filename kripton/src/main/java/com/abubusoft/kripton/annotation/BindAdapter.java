@@ -33,6 +33,97 @@ import com.abubusoft.kripton.TypeAdapter;
  * generation.</strong>
  * </p>
  * 
+ * <p>
+ * Every supported java type in Kripton has a specific representation in its
+ * persisted state. This annotation allows to persist a field of a specific type
+ * in can be applied to a public field or a field with getter and setter. It is
+ * not used in SharedPreference and SQLite generation.
+ * </p>
+ * <p>
+ * For example:
+ * </p>
+ * 
+ * <pre>
+ * &#64;BindType
+ * public class Bean {
+ * 
+ * 	&#64;BindXml(xmlType = XmlType.ATTRIBUTE)
+ * 	public String description;
+ * 
+ * 	&#64;BindXml(xmlType = XmlType.ATTRIBUTE)
+ * 	public int id;
+ * 
+ * 	public Date date;
+ * }
+ * </pre>
+ * <p>
+ * Its rapresentation in JSON:
+ * </p>
+ * 
+ * <pre>
+ * {"date":"2017-01-23T00:35:24.728Z","description":"hello","id":0}
+ * </pre>
+ * 
+ * Its rapresentation in XML (indented for readibility reasons):
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;bean description="hello" id="0"&gt;
+  &lt;date>2017-01-23T00:35:24.728Z&lt;/date&gt;
+&lt;/bean&gt;
+ * </pre>
+ * 
+ * As you notice, field date is persisted like a string
+ * 2017-01-23T00:35:24.728Z. To persist date as a long, just change annotations
+ * and write an adapter class named DateAdapter:
+ * 
+ * <pre>
+ * &#64;BindType
+ * public class Bean {
+ * 
+ * 	&#64;BindXml(xmlType = XmlType.ATTRIBUTE)
+ * 	public String description;
+ * 
+ * 	&#64;BindXml(xmlType = XmlType.ATTRIBUTE)
+ * 	public int id;
+ * 
+ * 	&#64;BindAdapter(adapter = DateAdapter.class, dataType = Long.class)
+ * 	public Date date;
+ * }
+ * </pre>
+ * 
+ * 
+ * <pre>
+ * public class DateAdapter implements BindTypeAdapter&lt;Date, Long&gt; {
+ * 
+ * 	&#64;Override
+ * 	public Date toJava(Long dataValue) throws Exception {
+ * 		return new Date(dataValue);
+ * 	}
+ * 
+ * 	&#64;Override
+ * 	public Long toData(Date javaValue) throws Exception {
+ * 		return javaValue.getTime();
+ * 	}
+ * }
+ * </pre>
+ * 
+ * 
+ * Bean's rapresentation in JSON:
+ * 
+ * <pre>
+ * {"date":1485132009409,"description":"hello","id":0}
+ * </pre>
+ * 
+ * Its rapresentation in XML (indented for readibility reasons):
+ * 
+ * <pre>
+ * &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+ *  &lt;bean description="hello" id="0"&gt;
+ *    &lt;date&gt;1485132009409&lt;/date&gt;
+ *  &lt;/bean&gt;
+ * </pre>
+ * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */

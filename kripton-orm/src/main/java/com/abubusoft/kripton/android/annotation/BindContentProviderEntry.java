@@ -24,7 +24,8 @@ import java.lang.annotation.Target;
 /**
  * <p>
  * Used to manage an URI managed by a content provider path for annotated data
- * source. This annotation can be used only on methods of DAO definition.
+ * source. <strong>This annotation can be used only on methods of DAO
+ * definition</strong>.
  * </p>
  * <p>
  * To use this annotation on DAO method, there are some constraints to respect.
@@ -37,11 +38,40 @@ import java.lang.annotation.Target;
  * </ul>
  * 
  * <h3>Examples</h3>
- * <p>What follows is an examples of UPDATE method with a parameter used in content provider too.</p>
+ * <p>
+ * What follows is an examples of UPDATE method with a parameter used in content
+ * provider too.
+ * </p>
+ * 
  * <pre>
- * &#64;BindContentProviderEntry(path="${bean.id}")
- * &#64;BindSqlUpdate(where="id=${bean.id}")
- * int updateBean(Person bean);
+ * &#64;BindContentProviderPath(path = "cheese")
+ * &#64;BindDao(Cheese.class)
+ * public interface CheeseDao {
+ * 
+ * 	&#64;BindSqlSelect(fields = "count(*)")
+ * 	int count();
+ * 
+ * 	&#64;BindContentProviderEntry
+ * 	&#64;BindSqlInsert
+ * 	long insert(Cheese cheese);
+ * 
+ * 	&#64;BindContentProviderEntry()
+ * 	&#64;BindSqlSelect
+ * 	List<Cheese> selectAll();
+ * 
+ * 	&#64;BindContentProviderEntry(path = "${id}")
+ * 	&#64;BindSqlSelect(where = "id=${id}")
+ * 	Cheese selectById(long id);
+ * 
+ * 	&#64;BindContentProviderEntry(path = "${id}")
+ * 	&#64;BindSqlDelete(where = "id=${id}")
+ * 	int deleteById(long id);
+ * 
+ * 	&#64;BindContentProviderEntry(path = "${cheese.id}")
+ * 	&#64;BindSqlUpdate(where = "id=${cheese.id}")
+ * 	int update(Cheese cheese);
+ * 
+ * }
  * </pre>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -55,19 +85,20 @@ import java.lang.annotation.Target;
 public @interface BindContentProviderEntry {
 
 	/**
-	 * Define the segment path associated to DAO. <strong>Do not insert '/' at beginning of path, it's automatically added.</strong>
+	 * Define the segment path associated to DAO. <strong>Do not insert '/' at
+	 * beginning of path, it's automatically added.</strong>
 	 * 
 	 * @return content provider authority
 	 */
 	public String path() default "";
-	
+
 	/**
 	 * Define numerosity of result of operation exposed by content provider.
 	 *
 	 * @return the multiplicity result type
 	 */
 	public MultiplicityResultType multiplicityResult() default MultiplicityResultType.DEFAULT;
-	
+
 	/**
 	 * The Enum MultiplicityResultType.
 	 */
@@ -76,10 +107,10 @@ public @interface BindContentProviderEntry {
 		 * default means: select return many rows, other operation only one.
 		 */
 		DEFAULT,
-		
+
 		/** The one. */
 		ONE,
-		
+
 		/** The many. */
 		MANY
 	}

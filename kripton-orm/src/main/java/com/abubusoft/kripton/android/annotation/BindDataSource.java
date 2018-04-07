@@ -20,17 +20,332 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
- * Decorate an interface to define a database schema. This definition is needed
- * to generate a {@link com.abubusoft.kripton.android.sqlite.AbstractDataSource}
- * instance.
+ * This annotation decorate an interface to define a datasource associated to a
+ * database schema. Between its attributes there is a DAO collection. Every DAO
+ * is defined by an interface annotated with [[@BindDao|@BindDao]]. Every DAO
+ * and is associated to a specific Java class which is associated to a specific
+ * table.
+ * 
+ * A data source class name have to finish with `DataSource` suffix.
+ * </p>
+ * 
+ * <h2>Attributes</h2>
+ * <p>
+ * List of attributes is:
+ * </p>
+ * <ul>
+ * <li><strong>asyncTask</strong>: if true, generate async task name
+ * `Bind&lt;data source name without DataSource prefix&gt;AsyncTask`</li>
+ * <li><strong>cursorWrapper</strong>: if true, generate a wrapped cursor for
+ * every Java class managed by data-source. Cursor's name is `Bind<data source
+ * name without DataSource prefix>Cursor`.</li>
+ * <li><strong>daoSet</strong>: the collection of DAO associated to
+ * data-source.</li>
+ * <li><strong>fileName</strong>: filename used to store database</li>
+ * <li><strong>rx</strong>: enable reactive programming support. It's necessary
+ * to include in project RX dependencies.</li>
+ * <li><strong>log</strong>: controls generation of the log of SQL on
+ * logcat.</li>
+ * <li><strong>typeAdapters</strong>: Global sql-type-adapters. These adapters
+ * are applied to every property that adapter supports.</li>
+ * <li><strong>version</strong>: database version. The default version is
+ * 1.</li>
+ * </ul>
+ * 
+ * <h2>Usage</h2> Consider this interface to define a data source:
+ * 
+ * <pre>
+ * &#64;BindDataSource(daoSet = { PersonDao.class }, fileName = "feature01.db")
+ * public interface SampleDataSource {
+ * }
+ * </pre>
+ * 
+ * <p>
+ * With this interface, it is defined a data source name `SampleDataSource ` and
+ * is referred a DAO named `PersonDao`.
  * </p>
  * 
  * <p>
- * For every managed entity referred in {{@link #daoSet()} attribute, will be used
- * the associated {@link BindDao} definition.
+ * When Kripton annotation processor process interface `SampleDataSource `, it
+ * generate a class name `BindSampleDataSource ` similar to:
+ * </p>
+ * 
+ * <pre>
+ * public class BindSampleDataSource extends AbstractDataSource implements BindSampleDaoFactory, SampleDataSource {
+ * 	static BindSampleDataSource instance;
+ * 
+ * 	protected PersonDaoImpl personDao = new PersonDaoImpl(this);
+ * 
+ * 	private final DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+ * 
+ * 	protected BindSampleDataSource(DataSourceOptions options) {
+ * 		super("feature01.db", 1, options);
+ * 	}
+ * 
+ * 	&#64;Override
+ * 	public PersonDaoImpl getPersonDao() {
+ * 		return personDao;
+ * 	}
+ * 
+ * 	public void execute(Transaction transaction) {
+ * 		execute(transaction, onErrorListener);
+ * 	}
+ * 
+ * 	public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
+ * 		boolean needToOpened = !this.isOpenInWriteMode();
+ * 		&#64;SuppressWarnings("resource")
+ * 		SQLiteDatabase connection = needToOpened ? openWritableDatabase() : database();
+ * 		try {
+ * 			connection.beginTransaction();
+ * 			if (transaction != null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
+ * 				connection.setTransactionSuccessful();
+ * 			}
+ * 		} catch (Throwable e) {
+ * 			Logger.error(e.getMessage());
+ * 			e.printStackTrace();
+ * 			if (onErrorListener != null)
+ * 				onErrorListener.onError(e);
+ * 		} finally {
+ * 			try {
+ * 				connection.endTransaction();
+ * 			} catch (Throwable e) {
+ * 				Logger.warn("error closing transaction %s", e.getMessage());
+ * 			}
+ * 			if (needToOpened) {
+ * 				close();
+ * 			}
+ * 		}
+ * 	}
+ * 
+ * 	public &lt;T&gt; T executeBatch(Batch&lt;T&gt; commands) {
+ * 		return executeBatch(commands, false);
+ * 	}
+ * 
+ * 	public &lt;T&gt; T executeBatch(Batch&lt;T&gt; commands, boolean writeMode) {
+ * 		boolean needToOpened = writeMode ? !this.isOpenInWriteMode() : !this.isOpen();
+ * 		if (needToOpened) {
+ * 			if (writeMode) {
+ * 				openWritableDatabase();
+ * 			} else {
+ * 				openReadOnlyDatabase();
+ * 			}
+ * 		}
+ * 		try {
+ * 			if (commands != null) {
+ * 				return commands.onExecute(new DataSourceSingleThread());
+ * 			}
+ * 		} catch (Throwable e) {
+ * 			Logger.error(e.getMessage());
+ * 			e.printStackTrace();
+ * 			throw (e);
+ * 		} finally {
+ * 			if (needToOpened) {
+ * 				close();
+ * 			}
+ * 		}
+ * 		return null;
+ * 	}
+ * 
+ * 	public static synchronized BindSampleDataSource instance() {
+ * 		if (instance == null) {
+ * 			instance = new BindSampleDataSource(null);
+ * 		}
+ * 		return instance;
+ * 	}
+ * 
+ * 	public static BindSampleDataSource open() {
+ * 		BindSampleDataSource instance = instance();
+ * 		instance.openWritableDatabase();
+ * 		return instance;
+ * 	}
+ * 
+ * 	public static BindSampleDataSource openReadOnly() {
+ * 		BindSampleDataSource instance = instance();
+ * 		instance.openReadOnlyDatabase();
+ * 		return instance;
+ * 	}
+ * 
+ * 	&#64;Override
+ * 	public void onCreate(SQLiteDatabase database) {
+ * 		// generate tables
+ * 		// log section BEGIN
+ * 		if (this.logEnabled) {
+ * 			Logger.info("Create database '%s' version %s", this.name, this.getVersion());
+ * 		}
+ * 		// log section END
+ * 		// log section BEGIN
+ * 		if (this.logEnabled) {
+ * 			Logger.info("DDL: %s", PersonTable.CREATE_TABLE_SQL);
+ * 		}
+ * 		// log section END
+ * 		database.execSQL(PersonTable.CREATE_TABLE_SQL);
+ * 		// if we have a populate task (previous and current are same), try to
+ * 		// execute it
+ * 		if (options.updateTasks != null) {
+ * 			SQLiteUpdateTask task = findPopulateTaskList(database.getVersion());
+ * 			if (task != null) {
+ * 				// log section BEGIN
+ * 				if (this.logEnabled) {
+ * 					Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+ * 				}
+ * 				// log section END
+ * 				task.execute(database);
+ * 				// log section BEGIN
+ * 				if (this.logEnabled) {
+ * 					Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+ * 				}
+ * 				// log section END
+ * 			}
+ * 		}
+ * 		if (options.databaseLifecycleHandler != null) {
+ * 			options.databaseLifecycleHandler.onCreate(database);
+ * 		}
+ * 	}
+ * 
+ * 	&#64;Override
+ * 	public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
+ * 		// log section BEGIN
+ * 		if (this.logEnabled) {
+ * 			Logger.info("Update database '%s' from version %s to version %s", this.name, previousVersion, currentVersion);
+ * 		}
+ * 		// log section END
+ * 		// if we have a list of update task, try to execute them
+ * 		if (options.updateTasks != null) {
+ * 			List&lt;SQLiteUpdateTask&gt; tasks = buildTaskList(previousVersion, currentVersion);
+ * 			for (SQLiteUpdateTask task : tasks) {
+ * 				// log section BEGIN
+ * 				if (this.logEnabled) {
+ * 					Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+ * 				}
+ * 				// log section END
+ * 				task.execute(database);
+ * 				// log section BEGIN
+ * 				if (this.logEnabled) {
+ * 					Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+ * 				}
+ * 				// log section END
+ * 			}
+ * 		} else {
+ * 			// drop all tables
+ * 			SQLiteUpdateTaskHelper.dropTablesAndIndices(database);
+ * 
+ * 			// generate tables
+ * 			// log section BEGIN
+ * 			if (this.logEnabled) {
+ * 				Logger.info("DDL: %s", PersonTable.CREATE_TABLE_SQL);
+ * 			}
+ * 			// log section END
+ * 			database.execSQL(PersonTable.CREATE_TABLE_SQL);
+ * 		}
+ * 		if (options.databaseLifecycleHandler != null) {
+ * 			options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
+ * 		}
+ * 	}
+ * 
+ * 	&#64;Override
+ * 	public void onConfigure(SQLiteDatabase database) {
+ * 		// configure database
+ * 		if (options.databaseLifecycleHandler != null) {
+ * 			options.databaseLifecycleHandler.onConfigure(database);
+ * 		}
+ * 	}
+ * 
+ * 	public void clearCompiledStatements() {
+ * 		PersonDaoImpl.clearCompiledStatements();
+ * 	}
+ * 
+ * 	public static synchronized BindSampleDataSource build(DataSourceOptions options) {
+ * 		if (instance == null) {
+ * 			instance = new BindSampleDataSource(options);
+ * 		}
+ * 		instance.openWritableDatabase();
+ * 		instance.close();
+ * 		return instance;
+ * 	}
+ * 
+ * 	public static synchronized BindSampleDataSource build() {
+ * 		return build(DataSourceOptions.builder().build());
+ * 	}
+ * 
+ * 	public interface Transaction extends AbstractDataSource.AbstractExecutable&lt;BindSampleDaoFactory&gt; {
+ * 		TransactionResult onExecute(BindSampleDaoFactory daoFactory);
+ * 	}
+ * 
+ * 	public interface Batch&lt;T&gt; {
+ * 		T onExecute(BindSampleDaoFactory daoFactory);
+ * 	}
+ * 
+ * 	class DataSourceSingleThread implements BindSampleDaoFactory {
+ * 		private SQLContextSingleThreadImpl _context;
+ * 
+ * 		private PersonDaoImpl _personDao;
+ * 
+ * 		DataSourceSingleThread() {
+ * 			_context = new SQLContextSingleThreadImpl(BindSampleDataSource.this);
+ * 		}
+ * 
+ * 		public PersonDaoImpl getPersonDao() {
+ * 			if (_personDao == null) {
+ * 				_personDao = new PersonDaoImpl(_context);
+ * 			}
+ * 			return _personDao;
+ * 		}
+ * 
+ * 		public DataSourceSingleThread bindToThread() {
+ * 			_context.bindToThread();
+ * 			return this;
+ * 		}
+ * 	}
+ * }
+ * </pre>
+ * 
+ * <p>
+ * Generated data source class derived from <a href=
+ * "https://github.com/xcesco/kripton/blob/master/KriptonAndroidLibrary/src/main/java/com/abubusoft/kripton/android/sqlite/AbstractDataSource.java)
+ * that derive from
+ * [SQLiteOpenHelper](http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/database/sqlite/SQLiteOpenHelper.java">AbstractDataSource</a>.
+ * </p>
+ * 
+ * <p>
+ * To use a data source in a client application, just retrieve a reference to
+ * singleton instance of data source
+ * </p>
+ * 
+ * <pre>
+ * BindSampleDataSource dataSource = BindSampleDataSource.instance();
+ * </pre>
+ * <p>
+ * To execute a transaction, just invoke the following code
+ * </p>
+ * 
+ * <pre>
+dataSource.execute(new Transaction() {
+
+  &#64;Override
+  public TransationResultonExecute(BindSampleDaoFactory daoFactory) {
+    DaoPersonImpl dao = daoFactory.getPersonDao();
+
+    long result = dao.insertRaw1("test", 52);
+    dao.insertRaw2("test2", 23)
+    
+    // commit transaction
+    return TransationResult.COMMIT;
+  }
+
+});
+ * </pre>
+ * 
+ * <p>
+ * If you want to use directly DAO without a transaction just retrieve DAO
+ * implementation from data-source
+ * </p>
+ * 
+ * <pre>
+ * PersonDaoImpl dao = dataSource.getPersonDao();
+ * dao.insertRaw1("test", 52);
+ * </pre>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -112,10 +427,10 @@ public @interface BindDataSource {
 	boolean rx() default false;
 
 	/**
-	 * Global sql type adapters. These adapter are applied to every property that
-	 * adapter supports.
+	 * Global sql type adapters. These adapter are applied to every property
+	 * that adapter supports.
 	 * 
-	 * <strong>This adapters is ovverride by specific type adapter</strong> 
+	 * <strong>This adapters is ovverride by specific type adapter</strong>
 	 *
 	 * @return the bind sql adapter[]
 	 */

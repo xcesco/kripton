@@ -24,12 +24,47 @@ import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
 
-// TODO: Auto-generated Javadoc
 /**
+ * This annotation allow to customize binding from Java bean's field to SQLite
+ * table's columns.
+ * 
+ * <h3>Attributes</h3>
+ * <ul>
+ * <li><strong>columnType</strong>: specifty if column is a PRIMARY_KEY, UNIQUE,
+ * or STANDARD. Default value is STANDARD.</li>
+ * <li><strong>enabled</strong>: if false means that associated field is not
+ * binded to SQLite database table. Default value is true.</li> *
+ * <li><strong>foreignKey</strong>: link to entity/class linked by this field if
+ * it is a foreign key. It can be used only on long/Long column type.</li>
+ * <li><strong>nullable</strong> if true, column can be set to
+ * <code>null</code>. Default value is <code>true</code></li>
+ * <li><strong>onDelete</strong> Action to take on foreign key constraint during
+ * a DELETE operation. It's used only if foreignKey is defined.</li>
+ * <li><strong>onUpdate</strong> Action to take on foreign key constraint during
+ * an UPDATE operation. It's used only if foreignKey is defined.</li>
+ * <li><strong>value</strong>: name of the column. If not present, the column
+ * name is same of field. It must be specified in java style naming conventions.
+ * nullable: if true, column can be set to null. Default value is true.</li>
+ * </ul>
+ * 
+ * <h3>Usage</h3>
  * <p>
- * Allow to define specific behaviour of a field treated like a SQLite table
- * column.
- * </p>
+ * Just an example:</li>
+ * 
+ * <pre>
+ * &#64;BindType
+ * public class User {
+ * 
+ * 	&#64;BindColumn(columnType = ColumnType.PRIMARY_KEY)
+ * 	public long id;
+ * 
+ * 	&#64;Bind(enabled = false)
+ * 	public int index;
+ * 
+ * 	&#64;BindColumn("picture")
+ * 	public String pictureUrl;
+ * }
+ * </pre>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -47,9 +82,7 @@ public @interface BindColumn {
 	 *
 	 * @return true to create a column for this attribute
 	 */
-	boolean enabled()
-
-	default true;
+	boolean enabled() default true;
 
 	/**
 	 * Name of the column. If not present, the column name is same of field. It
@@ -57,18 +90,14 @@ public @interface BindColumn {
 	 * 
 	 * @return name of the column
 	 */
-	public String value()
-
-	default "";
+	public String value() default "";
 
 	/**
 	 * Type of column.
 	 *
 	 * @return type of the column
 	 */
-	public ColumnType columnType()
-
-	default ColumnType.STANDARD;
+	public ColumnType columnType() default ColumnType.STANDARD;
 
 	/**
 	 * if true, column can be set to null.

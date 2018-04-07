@@ -19,8 +19,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-// TODO: Auto-generated Javadoc
+ 
 /**
  * <p>
  * When a class is converted to a table, the name of table is obtained from Java
@@ -40,7 +39,7 @@ import java.lang.annotation.Target;
  * 
  * <pre>
  * &#064;BindType
- * &#064;BindTable("WsBean")
+ * &#064;BindTable("ws_bean")
  * public class Bean05 {
  * 
  * 	&#064;BindColumn(columnType = ColumnType.PRIMARY_KEY)
@@ -59,6 +58,13 @@ import java.lang.annotation.Target;
  * <p>
  * Its associated table name is <code>ws_bean</code>.
  * </p>
+ * 
+ * <h2>Attributes</h2>
+ * <ul>
+ * <li><strong>indexes</strong>: allows to define generic indexes on the table.</li>
+ * <li><strong>name</strong> name of the table.</li>
+ * <li><strong>uniqueIndexes</strong> defines the unique indexes on the table.</li>
+ * </ul>
  * 
  * @author xcesco
  *

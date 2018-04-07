@@ -20,13 +20,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// TODO: Auto-generated Javadoc
 /**
- * Allow to delete a bean from a database. You can use bean as input parameter
- * or method parameters like bean property, but you can not use mixed case.
+ * This annotation allows to delete a bean from a database. You can use bean as
+ * input parameter or method parameters like bean property, but you can not use
+ * mixed case.
  * 
  * <p>
  * For example suppose we persist bean <code>Person</code> defined as follow:
+ * </p>
  * 
  * <pre>
  * &#064;BindType
@@ -84,7 +85,7 @@ import java.lang.annotation.Target;
  * <h2>Case 2 - method use its parameters like bean properties</h2>
  * 
  * <p>
- * The other way to define an INSERT query is using a bean as input parameter:
+ * The other way to define an DELETE SQL is using a bean as input parameter:
  * 
  * <pre>
  * &#064;BindDao(Person.class)
@@ -96,14 +97,10 @@ import java.lang.annotation.Target;
  * </pre>
  * 
  * <p>
- * You can use attribute <b>value</b> to define which property insert into query
- * or you can use attribute <b>excludedFields</b> to avoid to insert some
- * fields, <b>but you can not use both attributes in the same method
- * definition</b>. Values of this attribute will be used like bean property
- * name. At the end of the insert, bean will have id value set to last row id
- * used to insert bean into table. If you specify a return type for methods, it
- * has to be of type <code>int, long, Integer, Long</code> and it will contains
- * same value like row id.
+ * If you specify a return type for methods, it has to be of type
+ * <code>int, long, Integer, Long</code> and it will contains the number of
+ * deleted rows.
+ * </p>
  * 
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -128,8 +125,7 @@ public @interface BindSqlDelete {
 	 * name indeed of column and table names. Moreover, it is possibile to
 	 * specify where to use the dynamic parts of query through dynamic
 	 * statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE,
-	 * DYNAMIC_PAGE_OFFSET, encapsulated in
-	 * <code>#{dynamic-part-name}</code>
+	 * DYNAMIC_PAGE_OFFSET, encapsulated in <code>#{dynamic-part-name}</code>
 	 * </p>
 	 * 
 	 * <p>

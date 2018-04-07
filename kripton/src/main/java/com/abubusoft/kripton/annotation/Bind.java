@@ -49,8 +49,8 @@ public @interface Bind {
 	public static final String MAP_KEY_DEFAULT = "key";
 
 	/**
-	 * true if this field must be persisted. Note that {@link BindDisabled}
-	 * annotation override this value.
+	 * true if this field must be persisted. Note that **@BindDisabled**
+	 * annotation overrides this value.
 	 * 
 	 * @return true if field is enabled
 	 */
@@ -64,24 +64,24 @@ public @interface Bind {
 	public String value() default "";
 
 	/**
-	 * name of element represents key of a map's entry. <b>Used only by map
-	 * type.</b>
+	 * name of the element represents key of a map's entry. <b>Used only by map
+	 * type</b>.
 	 * 
 	 * @return name of map key. Default is {@link #MAP_KEY_DEFAULT}
 	 */
 	public String mapKeyName() default MAP_KEY_DEFAULT;
 
 	/**
-	 * name of element represents value of a map's entry. <b>Used only by map
-	 * type.</b>
+	 * name of the element represents the value of a map's entry. <b>Used only
+	 * by map type</b>.
 	 * 
 	 * @return name of map. Default is {@link #MAP_VALUE_DEFAULT}
 	 */
 	public String mapValueName() default MAP_VALUE_DEFAULT;
 
 	/**
-	 * specifies the order of pojo fields during mapping. Order is specified
-	 * entire schema.
+	 * specifies the order of POJO fields during mapping. The order is specified
+	 * the entire schema.
 	 * 
 	 * @return order of field
 	 */
