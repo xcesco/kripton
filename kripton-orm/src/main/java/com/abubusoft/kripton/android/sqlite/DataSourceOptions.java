@@ -27,7 +27,6 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * Options to build a data source.
  *

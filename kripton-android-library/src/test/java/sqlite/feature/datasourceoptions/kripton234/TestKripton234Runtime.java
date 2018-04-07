@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.DatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
