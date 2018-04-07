@@ -218,7 +218,8 @@ public class Post {
   public long id;
   public String title;
   public String body;
-}```
+}
+```
 
 And the we can define the REST client interface:
 
