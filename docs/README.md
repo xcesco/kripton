@@ -25,18 +25,18 @@ To configure Kripton on an gradle project, you have to include these lines in yo
 dependencies {
     ...
     // annotation processors
-    annotationProcessor"com.abubusoft:kripton-processor:3.5.0"
+    annotationProcessor"com.abubusoft:kripton-processor:4.0.0"
     ...
     // dependencies
-    implementation "com.abubusoft:kripton-android-library:3.5.0"
-    implementation "com.abubusoft:kripton-retrofit-converter:3.5.0"
+    implementation "com.abubusoft:kripton-android-library:4.0.0"    
     ...
 }
 ```
 
-The Kripton-processor is the artifact that contains annotation processors. Kripton-android-libray contains core classes and references to all-you-need to execute the generated code. Kripton-retrofit-converter is the Retrofit integration (if you don’t need REST service, you don’t have to include it).
-Persistence on file system
-Just image that in your application you have to manage a Person object. You simply need to persist on a file, just to reload the data in a second time. We define the Person class in this way:
+The `Kripton-processor` is the artifact that contains annotation processors. `Kripton-android-libray` contains core classes and references to all-you-need to execute the generated code. 
+
+## Persistence on file system
+Just image that in your application you have to manage a `Person` object. You simply need to persist on a file, just to reload the data in a second time. We define the Person class in this way:
 
 ```java
 @BindType
@@ -48,7 +48,7 @@ public class Person{
 }
 ```
 
-When you compile your project, Kripton annotation processor will find Person class marked with @BindType annotation and will generate all the needed code for us. So, in your code to persist a Person’s instance you can simply write:
+When you compile your project, Kripton annotation processor will find Person class marked with `@BindType` annotation and will generate all the needed code for us. So, in your code to persist a Person’s instance you can simply write:
 
 ```java
 // define the Person object
@@ -71,10 +71,11 @@ The conversion is based on code that Kripton write for us during compile time. T
 For more information about these features you can visit Kripton wiki .
 Persistence on SQLite database
 This is the persistence mechanism on which i worked a lot. You probably know that manage SQLite database on Android application is very very boring task. If you don’t know this, please read the official documentation. I used the DAO pattern to approach at the database management. In the DAO pattern we can found:
- * A *data model* composed by simple POJO objects in Java world, and tables in SQLite world.
- * *Data Access Object interfaces* that define how to access to database
- * *Data Access Object implementation* that implements the DAO interfaces
- * A *database* that is composed by DAOs and data model.
+
+ * A **data model** composed by simple POJO objects in Java world, and tables in SQLite world.
+ * **Data Access Object interfaces** that define how to access to database
+ * **Data Access Object implementation** that implements the DAO interfaces
+ * A **database** that is composed by DAOs and data model.
 
 Kripton need the developer defines the data model with BindTable annotated java classes, the DAO’s interfaces with BindDao annotated Java interface and a data source (the database) by an BindDataSource annotated Java interface. At compile time, Kripton will generate all needed code to implements DAO interfaces and to manage data source.
 We can take the previous Person example to see how define a SQLite database with a persons table, and a DAO interface with some methods to do CRUD operations (Create Read Update Delete). The data model is rapresented by Person class:
@@ -91,8 +92,8 @@ public class Person{
 ```
 
 Just two things:
-every SQLite table need a id column of type Long or long. It’s a constraint that Kripton required for every table and it is a best practice for SQLite databases.
-BindTable is the annotation used to mark a data model that will be used in a SQLite database.
+ * every SQLite table need a id column of type Long or long. It’s a constraint that Kripton required for every table and it is a best practice for SQLite databases.
+ * BindTable is the annotation used to mark a data model that will be used in a SQLite database.
 
 The DAO interface definition is:
 
@@ -133,16 +134,16 @@ public interface PersonDataSource {
 
 When the project is compiled, Kripton annotation processor will generate for us the code that implements the data source defined by the data model, the DAO and datasource interfaces.
 The need annotations to define a data source with Kripton is:
- * *BindDataSource*: defines a datasource
- * *BindDao*: define the DAO interface
- * *BindTable*: associate a class to a table
- * *BindInsert|Update|Select|Delete*: defines SQL to manage tables
+ * **BindDataSource**: defines a datasource
+ * **BindDao**: define the DAO interface
+ * **BindTable**: associate a class to a table
+ * **BindInsert**,**Update**,**Select**,**Delete**: defines SQL to manage tables
 
 As you notice in the source code there are other used annotations, needed if you want to generate a Content Provider too:
 
- * *BindContentProvider*: allows to generate a content provider
- * *BindContentProviderPath*: include DAO in the content provider definition
- * *BindContentProviderEntry*: include DAO’s method in the content provider definition
+ * **BindContentProvider**: allows to generate a content provider
+ * **BindContentProviderPath**: include DAO in the content provider definition
+ * **BindContentProviderEntry**: include DAO’s method in the content provider definition
 
 Yes, given a data source definition, Kripton can generate a content provider just with a couple of extra annotations. In your application, to use generated implementation of datasource you can use code like this:
 
@@ -170,9 +171,11 @@ BindPersonDataSource.instance().executeBatch(daoFactory -> {
 });
 ```
 
-For a PersonDataSource interface, Kripton generate a BindPersonDataSource class that implements the datasource which allows to work in a thread-safe way and exposing all DAO defined in PersonDataSource interface. The generated datasource exposes some methods to work in a transation mode and in shared connection mode. You can see an example of generated DAO implementation and of generated Data Source implementation. As you can observe from source code, all generated classes are well documented!
+For a `PersonDataSource` interface, Kripton generate a `BindPersonDataSource` class that implements the datasource which allows to work in a thread-safe way and exposing all DAO defined in `PersonDataSource` interface. The generated datasource exposes some methods to work in a transation mode and in shared connection mode. You can see an example of generated DAO implementation and of generated Data Source implementation. As you can observe from source code, all generated classes are well documented!
 There are other features that i want to mention: the capability to generate log of SQL operation, the capability to support RX library and the capability to test database version migration with helper classes.
-Persistence with SharePreferences
+
+
+## Persistence with SharePreferences
 Shared Preferences is another standard way to persists data on Android Platform. In almost all the case, they are used to manage user’s application settings. Kripton allow to generate a Shared Preferences wrapper that allow to access to settings properties in a strong type way. Just an example: suppose to rapresents the application’s setting with the AppPreferences class:
 
 ```java
@@ -199,14 +202,14 @@ prefs.edit().putValueBoolean(true).commit();
 You can use String, primitive types, List, Map, Sets or other object as SharedPreference’s attributes. The complex type will be converted in its JSON rapresentation.
 Persistence with REST Web service
 Last but not least persistence type covered by Kripton is the one which use REST service. There are many library that permits to generate REST service client easily. The one that I prefer is Retrofit.
-So, I decide to integrate Kripton with Retrofit, just to use Kripton persistence mechanism in Retrofit library. I want to show you here how simple is to work with them.
+So, I decide to integrate Kripton with Retrofit, just to use Kripton persistence mechanism in `Retrofit library`. I want to show you here how simple is to work with them.
 For example we want to consune the REST service at
 
 ```
 https://jsonplaceholder.typicode.com/posts/
 ```
 
-So we define a Post class with Kripton BindType annotation
+So we define a `Post` class with Kripton `BindType` annotation
 
 ```java
 @BindType
