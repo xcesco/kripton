@@ -52,7 +52,7 @@ import bind.kripton81MoreCoverageTests.Test81CompileSuite;
 		Test74CompileSuite.class,
 		Test75CompileSuite.class,
 		Test76CompileSuite.class,
-		Test77.class,
+		Test77.class,		
 		Test78CompileSuite.class,
 		Test80CompileSuite.class,
 		Test81CompileSuite.class,

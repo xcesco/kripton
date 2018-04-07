@@ -23,8 +23,12 @@ import java.lang.annotation.Target;
 /**
  * <p>
  * Annotation used to mark a generated bind map. This annotation is usefully in
- * android context, when proguard may need a marker to sign class which need to
+ * android context, when <code>proguard</code> may need a marker to sign class which need to
  * be compacted.
+ * </p>
+ * 
+ * <p>
+ * <strong>Developer does not need to use this annotation.</strong>
  * </p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
@@ -33,12 +37,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface BindMap {
-	
+
 	/**
 	 * binded bean class
 	 * 
-	 * @return
-	 * 		associated bean class
+	 * @return associated bean class
 	 */
 	Class<?> value();
 

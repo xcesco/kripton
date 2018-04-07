@@ -22,14 +22,34 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
-// TODO: Auto-generated Javadoc
 /**
- * Allow to insert a bean into database. You can use bean as input parameter or
+ * <p>
+ * Allows to insert a bean into database. You can use bean as input parameter or
  * method parameters like bean property, but you can not use mixed case.
+ * </p>
+ * 
+ * <h2>Attributes</h2>
+ * <ul>
+ * <li><strong>conflictAlgorithm</strong>: specifies the conflict algorithm to
+ * apply during the insert operation. See here for more information.</li>
+ * <li><strong>excludedFields</strong>: properties to exclude into INSERT
+ * command. To use only if the method has only one parameter and its type is the
+ * same of supported bean.</li>
+ * <li><strong>fields</strong>: allows to specify which fields method need to
+ * take from bean used as input parameter.</li>
+ * <li><strong>value</strong>: bean properties to include into INSERT command.
+ * To use only if method has only one parameter and its type is the same of
+ * supported bean.</li>
+ * <li><strong>includePrimaryKey</strong>: Allow to include primary key into
+ * INSERT command. To use only if the method has only one parameter and its type
+ * is the same of supported bean.</li>
+ * <li><strong>jql</strong>: allows specifying the entire query with JQL.</li>
+ * </ul>
  * 
  * <p>
  * For example suppose we want to persist bean <code>Person</code> defined as
  * follow:
+ * </p>
  * 
  * <pre>
  * &#064;BindType
@@ -91,11 +111,10 @@ import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
  * 
  * <pre>
  * &#064;BindDao(Person.class)
- * public interface PersonDAO
- * {
+ * public interface PersonDAO {
  * 
- *  &#064;BindInsert(excludedFields={"name", "surname"})
- *  void insertThree(Person bean);
+ * 	&#064;BindInsert(excludedFields = { "name", "surname" })
+ * 	void insertThree(Person bean);
  * }
  * </pre>
  * 
@@ -131,7 +150,8 @@ public @interface BindSqlInsert {
 	/**
 	 * <p>
 	 * bean properties to include into INSERT command. <b>To use only if method
-	 * have only one parameter and its type is the same of DAO's supported bean</b>.
+	 * have only one parameter and its type is the same of DAO's supported
+	 * bean</b>.
 	 * </p>
 	 * 
 	 * @return property's names to include
@@ -141,8 +161,8 @@ public @interface BindSqlInsert {
 	/**
 	 * <p>
 	 * Allow to include primary key into INSERT command. <b>To use only if
-	 * method have only one parameter and its type is the same of DAO's supported
-	 * bean</b>.
+	 * method have only one parameter and its type is the same of DAO's
+	 * supported bean</b>.
 	 * </p>
 	 * 
 	 * @return true if you need to include primary key in INSERT COMMAND
@@ -158,25 +178,30 @@ public @interface BindSqlInsert {
 	 * @return property's names to exclude
 	 */
 	String[] excludedFields() default {};
-	
+
 	/**
 	 * 
 	 * <p>
-	 * JQL value. With this attribute, it is possibile to specify directly the JQL code. JQL means that you can write SQL using field's names and class name indeed
-	 * of column and table names. Moreover, it is possibile to specify where to use the dynamic parts of query through dynamic statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE, DYNAMIC_PAGE_OFFSET, encapsulated
-	 * in <code>#{dynamic-part-name}</code>
+	 * JQL value. With this attribute, it is possibile to specify directly the
+	 * JQL code. JQL means that you can write SQL using field's names and class
+	 * name indeed of column and table names. Moreover, it is possibile to
+	 * specify where to use the dynamic parts of query through dynamic
+	 * statements like DYNAMIC_WHERE, DYNAMIC_ORDER_BY, DYNAMIC_PAGE_SIZE,
+	 * DYNAMIC_PAGE_OFFSET, encapsulated in <code>#{dynamic-part-name}</code>
 	 * </p>
 	 * 
-	 * <p>For example, for a <code>select</code> statement, you can write:</p>
+	 * <p>
+	 * For example, for a <code>select</code> statement, you can write:
+	 * </p>
 	 * 
 	 * <pre>
-	 * SELECT * FROM media WHERE mediaId IN (SELECT mediaId FROM fav WHERE #{DYNAMIC_WHERE}) ORDER BY indx DESC LIMIT 0, 100 
+	 * SELECT * FROM media WHERE mediaId IN (SELECT mediaId FROM fav WHERE #{DYNAMIC_WHERE}) ORDER BY indx DESC LIMIT 0, 100
 	 * </pre>
 	 * 
-	 * <strong>If you use this attribute, no other attributes can be defined for the annotation</strong>.
+	 * <strong>If you use this attribute, no other attributes can be defined for
+	 * the annotation</strong>.
 	 * 
-	 * @return
-	 * 	JQL code specified by user
+	 * @return JQL code specified by user
 	 */
 	String jql() default "";
 

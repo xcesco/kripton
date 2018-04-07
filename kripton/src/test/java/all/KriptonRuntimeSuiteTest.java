@@ -55,7 +55,7 @@ import bind.kripton81MoreCoverageTests.TestRuntime81Suite;
 		TestRuntime87Suite.class,
 		TestRuntimeEnumSuite.class,
 		TestRuntimeHierarchySuite.class,
-		TestRuntimeDirectMapSuite.class		
+		TestRuntimeDirectMapSuite.class
 		 })
 //@formatter:on
 public class KriptonRuntimeSuiteTest {
