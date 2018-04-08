@@ -21,7 +21,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * This annotation is used to mark generated DAO interface parts used in many 2 many relationship.
  *
