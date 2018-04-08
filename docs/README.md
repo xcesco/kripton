@@ -104,19 +104,23 @@ public interface PersonDao {
   @BindContentProviderEntry
   @BindSqlSelect(orderBy="name")
   List<Person> selectAll();
+  
   @BindSqlSelect(jql="select * from person order by name")
   List<Person> selectTwo();
-  @BindSqlSelect()
+  
+  @BindSqlSelect()  
   List<Person> selectThree(@BindSqlDynamicOrderBy String orderBy);
   @BindSqlSelect(where = "id=${work.id}")
   List<E> selectById(@BindSqlParam("work") E bean);
+  
   @BindContentProviderEntry
   @BindSqlInsert
   void insert(Person bean);
+  
   @BindContentProviderEntry  
   @BindSqlUpdate(where = "id=${work.id}")
   boolean update(@BindSqlParam("work") Person bean);
-  
+   
   @BindContentProviderEntry  
   @BindSqlDelete(where = "id=${work.id}")
   boolean delete(@BindSqlParam("work") Person bean);
@@ -182,7 +186,7 @@ Shared Preferences is another standard way to persists data on Android Platform.
 @BindSharedPreferences
 public class AppPreferences {
   public float valueFloat=5.0f;
-  @BindPreference(“value”)
+  @BindPreference("value")
   public boolean valueBoolean;
 }
 ```
@@ -225,7 +229,7 @@ And the we can define the REST client interface:
 
 ```java
 public interface JsonPlaceHolderService {
-  @POST(“/posts/”)
+  @POST("/posts/")
   Call<List<Post>> getAllPost();
 }
 ```
@@ -235,7 +239,7 @@ The code to consume the REST service is:
 ```java
 // create retrofit using Kripton converter factory
 Retrofit retrofit = new Retrofit.Builder()
-  .baseUrl(“https://jsonplaceholder.typicode.com/")
+  .baseUrl("https://jsonplaceholder.typicode.com/")
   .addConverterFactory(KriptonBinderConverterFactory.create())
   .build();
 JsonPlaceHolderService service = Retrofit.create(JsonPlaceHolderService.class);
