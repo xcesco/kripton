@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.typeadapter.kripton180.bean.insertselect;
 
 import com.abubusoft.kripton.android.Logger;
@@ -37,26 +22,18 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLong;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Employee</code>, based on interface <code>EmployeeBeanInsertSelectDao</code>
- * </p>.
+ * </p>
  *
- * @see Employee
- * @see EmployeeBeanInsertSelectDao
- * @see sqlite.feature.typeadapter.kripton180.EmployeeTable
+ *  @see Employee
+ *  @see EmployeeBeanInsertSelectDao
+ *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeBeanInsertSelectDaoImpl extends Dao implements EmployeeBeanInsertSelectDao {
-  
-  /** The Constant subject. */
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
-  /**
-   * Instantiates a new employee bean insert select dao impl.
-   *
-   * @param context the context
-   */
   public EmployeeBeanInsertSelectDaoImpl(SQLContext context) {
     super(context);
   }
@@ -137,18 +114,10 @@ public class EmployeeBeanInsertSelectDaoImpl extends Dao implements EmployeeBean
     bean.id=result;
   }
 
-  /**
-   * Subject.
-   *
-   * @return the publish subject
-   */
   public PublishSubject<SQLiteEvent> subject() {
     return subject;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
   }
 }

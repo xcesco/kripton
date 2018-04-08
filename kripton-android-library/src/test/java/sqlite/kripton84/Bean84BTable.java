@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton84;
 
 import com.abubusoft.kripton.BinderUtils;
@@ -27,7 +12,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Bean84B</code> is associated to table <code>bean84_b</code>
@@ -36,14 +20,27 @@ import com.fasterxml.jackson.core.JsonToken;
  *  @see Bean84B
  */
 public class Bean84BTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table bean84_b. */
+  /**
+   * Costant represents typeName of table bean84_b
+   */
   public static final String TABLE_NAME = "bean84_b";
 
-  /** <p> DDL to create table bean84_b </p>  <pre>CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT, column_bean BLOB);</pre>. */
+  /**
+   * <p>
+   * DDL to create table bean84_b
+   * </p>
+   *
+   * <pre>CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT, column_bean BLOB);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_b (id INTEGER PRIMARY KEY AUTOINCREMENT, column_bean BLOB);";
 
-  /** <p> DDL to drop table bean84_b </p>  <pre>DROP TABLE IF EXISTS bean84_b;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table bean84_b
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS bean84_b;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean84_b;";
 
   /**
@@ -60,17 +57,17 @@ public class Bean84BTable implements SQLiteTable {
    */
   public static final String COLUMN_COLUMN_BEAN = "column_bean";
 
-  /** Bean84B2BindMap. */
+  /**
+   * Bean84B2BindMap */
   private static Bean84B2BindMap bean84B2BindMap = BinderUtils.mapperFor(Bean84B2.class);
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_COLUMN_BEAN};
 
   /**
-   * for attribute columnBean serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute columnBean serialization
    */
   public static byte[] serializeColumnBean(Bean84B2 value) {
     if (value==null) {
@@ -92,10 +89,7 @@ public class Bean84BTable implements SQLiteTable {
   }
 
   /**
-   * for attribute columnBean parsing.
-   *
-   * @param input the input
-   * @return the bean 84 B 2
+   * for attribute columnBean parsing
    */
   public static Bean84B2 parseColumnBean(byte[] input) {
     if (input==null) {
@@ -117,9 +111,7 @@ public class Bean84BTable implements SQLiteTable {
   }
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -127,9 +119,7 @@ public class Bean84BTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

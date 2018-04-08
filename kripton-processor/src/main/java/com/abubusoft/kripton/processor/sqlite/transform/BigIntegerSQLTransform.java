@@ -20,8 +20,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import java.math.BigInteger;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -84,8 +84,8 @@ class BigIntegerSQLTransform extends AbstractSQLTransform {
 	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#getColumnType()
 	 */
 	@Override
-	public SQLiteColumnType getColumnType() {
-		return SQLiteColumnType.TEXT;
+	public ColumnAffinityType getColumnType() {
+		return ColumnAffinityType.TEXT;
 	}
 
 }

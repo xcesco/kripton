@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.paginatedResult;
 
 import android.database.Cursor;
@@ -31,41 +16,31 @@ import java.util.Date;
 import java.util.List;
 import sqlite.feature.paginatedResult.model.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>Dao3Person</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see Dao3Person
- * @see sqlite.feature.paginatedResult.model.PersonTable
+ *  @see Person
+ *  @see Dao3Person
+ *  @see sqlite.feature.paginatedResult.model.PersonTable
  */
 public class Dao3PersonImpl extends Dao implements Dao3Person {
-  
-  /** The insert one prepared statement 0. */
   private static SQLiteStatement insertOnePreparedStatement0;
 
-  /** The Constant SELECT_ALL_SQL1. */
   private static final String SELECT_ALL_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name";
 
-  /** The delete all prepared statement 1. */
   private static SQLiteStatement deleteAllPreparedStatement1;
 
-  /**
-   * Instantiates a new dao 3 person impl.
-   *
-   * @param context the context
-   */
   public Dao3PersonImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE id>${value} ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -74,13 +49,14 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
+   * @param value
+   * 	is binded to <code>${value}</code>
    * @return paginated result.
    */
   @Override
@@ -91,9 +67,9 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE id>${value} ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -102,14 +78,16 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
-   * @param paginatedResult 	handler of paginated result
+   * @param value
+   * 	is binded to <code>${value}</code>
+   * @param paginatedResult
+   * 	handler of paginated result
    * @return result list
    */
   private List<Person> select(long value, PaginatedResult4 paginatedResult) {
@@ -198,19 +176,24 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
    * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
    * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param name 	is binded to column value <strong>name</strong>
-   * @param surname 	is binded to column value <strong>surname</strong>
-   * @param birthCity 	is binded to column value <strong>birth_city</strong>
-   * @param birthDay 	is binded to column value <strong>birth_day</strong>
+   * @param name
+   * 	is binded to column value <strong>name</strong>
+   * @param surname
+   * 	is binded to column value <strong>surname</strong>
+   * @param birthCity
+   * 	is binded to column value <strong>birth_city</strong>
+   * @param birthDay
+   * 	is binded to column value <strong>birth_day</strong>
+   *
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
@@ -267,9 +250,9 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -277,7 +260,7 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -340,11 +323,12 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
-   * </dl>.
+   * </dl>
+   *
    *
    * @return number of deleted records
    */
@@ -377,9 +361,6 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertOnePreparedStatement0!=null) {
       insertOnePreparedStatement0.close();
@@ -391,27 +372,14 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
     }
   }
 
-  /**
-   * The Class PaginatedResult4.
-   */
   public class PaginatedResult4 extends PaginatedResult<Person> {
-    
-    /** The value. */
     long value;
 
-    /**
-     * Instantiates a new paginated result 4.
-     *
-     * @param value the value
-     */
     PaginatedResult4(long value) {
       this.value=value;
       this.pageSize=10;
     }
 
-    /* (non-Javadoc)
-     * @see com.abubusoft.kripton.android.sqlite.PaginatedResult#execute()
-     */
     public List<Person> execute() {
       list=Dao3PersonImpl.this.select(value, this);
       return list;

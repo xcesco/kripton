@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton64;
 
 import com.abubusoft.kripton.BinderUtils;
@@ -31,7 +16,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Bean64A</code> is associated to table <code>bean64_a</code>
@@ -40,14 +24,27 @@ import java.util.Set;
  *  @see Bean64A
  */
 public class Bean64ATable implements SQLiteTable {
-  
-  /** Costant represents typeName of table bean64_a. */
+  /**
+   * Costant represents typeName of table bean64_a
+   */
   public static final String TABLE_NAME = "bean64_a";
 
-  /** <p> DDL to create table bean64_a </p>  <pre>CREATE TABLE bean64_a (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>. */
+  /**
+   * <p>
+   * DDL to create table bean64_a
+   * </p>
+   *
+   * <pre>CREATE TABLE bean64_a (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_a (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);";
 
-  /** <p> DDL to drop table bean64_a </p>  <pre>DROP TABLE IF EXISTS bean64_a;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table bean64_a
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS bean64_a;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean64_a;";
 
   /**
@@ -78,17 +75,17 @@ public class Bean64ATable implements SQLiteTable {
    */
   public static final String COLUMN_ID = "id";
 
-  /** Bean64ABindMap. */
+  /**
+   * Bean64ABindMap */
   private static Bean64ABindMap bean64ABindMap = BinderUtils.mapperFor(Bean64A.class);
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_VALUE_MAP_STRING_BEAN, COLUMN_VALUE_SET_STRING, COLUMN_VALUE_STRING, COLUMN_ID};
 
   /**
-   * for attribute valueMapStringBean serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueMapStringBean serialization
    */
   public static byte[] serializeValueMapStringBean(Map<String, Bean64A> value) {
     if (value==null) {
@@ -130,10 +127,7 @@ public class Bean64ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueMapStringBean parsing.
-   *
-   * @param input the input
-   * @return the map
+   * for attribute valueMapStringBean parsing
    */
   public static Map<String, Bean64A> parseValueMapStringBean(byte[] input) {
     if (input==null) {
@@ -172,10 +166,7 @@ public class Bean64ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueSetString serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueSetString serialization
    */
   public static byte[] serializeValueSetString(Set<String> value) {
     if (value==null) {
@@ -209,10 +200,7 @@ public class Bean64ATable implements SQLiteTable {
   }
 
   /**
-   * for attribute valueSetString parsing.
-   *
-   * @param input the input
-   * @return the sets the
+   * for attribute valueSetString parsing
    */
   public static Set<String> parseValueSetString(byte[] input) {
     if (input==null) {
@@ -246,9 +234,7 @@ public class Bean64ATable implements SQLiteTable {
   }
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -256,9 +242,7 @@ public class Bean64ATable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

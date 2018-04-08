@@ -33,11 +33,12 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import sqlite.feat.includeFields.TestIncludeFieldsRuntimeSuite;
+import sqlite.feature.columnaffinity.TestColumnAffinitySuite;
 import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
 import sqlite.feature.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feature.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.feature.globaltypeadapters.TestGlobalTypeAdapterRuntimeSuite;
+import sqlite.feature.includefields.TestIncludeFieldsRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
 import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
 import sqlite.feature.multithread.TestRuntimeMultithreadSuite;
@@ -72,7 +73,8 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	// unverified results	
 	TestForeignKeyRuntimeSuite.class,
 	TestIncludeFieldsRuntimeSuite.class,
-	TestRuntimeMany2ManySuite.class, 
+	TestRuntimeMany2ManySuite.class,
+	TestColumnAffinitySuite.class,
 	
 	Test64RuntimeSuite.class,
 	Test84RuntimeSuite.class,

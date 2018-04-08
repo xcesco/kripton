@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.stack45184504;
 
 import android.database.Cursor;
@@ -27,32 +12,22 @@ import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>FileBean</code>, based on interface <code>FileBeanDao</code>
- * </p>.
+ * </p>
  *
- * @see FileBean
- * @see FileBeanDao
- * @see FileBeanTable
+ *  @see FileBean
+ *  @see FileBeanDao
+ *  @see FileBeanTable
  */
 public class FileBeanDaoImpl extends Dao implements FileBeanDao {
-  
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The Constant SELECT_BY_ID_SQL1. */
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, content, content_type FROM files WHERE id=?";
 
-  /**
-   * Instantiates a new file bean dao impl.
-   *
-   * @param context the context
-   */
   public FileBeanDaoImpl(SQLContext context) {
     super(context);
   }
@@ -132,17 +107,21 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO files (name, content_type, content) VALUES (${name}, ${contentType}, ${content})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>contentType</dt><dd>is binded to query's parameter <strong>${contentType}</strong> and method's parameter <strong>contentType</strong></dd>
    * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param name 	is binded to column value <strong>name</strong>
-   * @param contentType 	is binded to column value <strong>content_type</strong>
-   * @param content 	is binded to column value <strong>content</strong>
+   * @param name
+   * 	is binded to column value <strong>name</strong>
+   * @param contentType
+   * 	is binded to column value <strong>content_type</strong>
+   * @param content
+   * 	is binded to column value <strong>content</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -200,9 +179,9 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name, content, content_type FROM files WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -210,13 +189,14 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>content_type</dt><dd>is associated to bean's property <strong>contentType</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -274,9 +254,6 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

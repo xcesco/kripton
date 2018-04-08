@@ -13,28 +13,33 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feat.includeFields;
+package sqlite.feature.includefields;
 
-import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
+import java.io.IOException;
+
+import org.junit.Test;
+
+import base.BaseAndroidTest;
 
 // TODO: Auto-generated Javadoc
 /**
- * <p>
- * Represents dao factory interface for PersonDataSource.
- * This class expose database interface through Dao attribute.
- * </p>
+ * The Class TestIncludeFieldsRuntime.
  *
- * @see PersonDataSource
- * @see PersonDAO
- * @see PersonDAOImpl
- * @see Person
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
-public interface BindPersonDaoFactory extends BindDaoFactory {
-  
-  /**
-   * retrieve dao PersonDAO.
-   *
-   * @return the person DAO
-   */
-  PersonDAOImpl getPersonDAO();
+public class TestIncludeFieldsRuntime extends BaseAndroidTest {
+
+	/**
+	 * Test run sqlite 1.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
+	@Test
+	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
+			
+
+	}
+
 }

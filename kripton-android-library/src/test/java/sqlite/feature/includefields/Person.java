@@ -13,16 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.includeFields;
+package sqlite.feature.includefields;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
+import java.util.Date;
 
-import sqlite.feat.includeFields.PersonDAO;
+import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.annotation.BindType;
 
+// TODO: Auto-generated Javadoc
 /**
- * The Interface PersonDataSource.
+ * The Class Person.
  */
-@BindDataSource(daoSet= { PersonDAO.class }, fileName = "person.db", log=true)
-public interface PersonDataSource {
-
+@BindType
+@BindTable(indexes={"birthCity, birthDay"})
+public class Person {
+  
+  /** The id. */
+  public long id;
+  
+  
+  /** The name. */
+  @BindColumn(columnType=ColumnType.INDEXED)
+  public String name;
+  
+  /** The surname. */
+  public String surname;
+  
+  /** The birth city. */
+  public String birthCity;
+  
+  /** The birth day. */
+  public Date birthDay;
+  
+  /** The type name. */
+  public String typeName;
 }

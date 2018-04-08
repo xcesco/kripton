@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton62;
 
 import android.content.SharedPreferences;
@@ -36,25 +21,28 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is the shared preference binder defined for Bean.
+ * This class is the shared preference binder defined for Bean
  *
  * @see Bean
  */
 public class BindBeanSharedPreferences extends AbstractSharedPreference {
-  
-  /** instance of shared preferences. */
+  /**
+   * instance of shared preferences
+   */
   private static BindBeanSharedPreferences instance;
 
-  /** working instance of bean. */
+  /**
+   * working instance of bean
+   */
   private final Bean defaultBean;
 
-  /** BeanBindMap. */
+  /**
+   * BeanBindMap */
   private BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
   /**
-   * constructor.
+   * constructor
    */
   private BindBeanSharedPreferences() {
     // no typeName specified, using default shared preferences
@@ -63,18 +51,14 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * create an editor to modify shared preferences.
-   *
-   * @return the bind editor
+   * create an editor to modify shared preferences
    */
   public BindEditor edit() {
     return new BindEditor();
   }
 
   /**
-   * force to refresh values.
-   *
-   * @return the bind bean shared preferences
+   * force to refresh values
    */
   public BindBeanSharedPreferences refresh() {
     // no typeName specified, using default shared preferences
@@ -83,7 +67,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reset shared preferences.
+   * reset shared preferences
    */
   public void reset() {
     Bean bean=new Bean();
@@ -91,7 +75,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read bean entirely.
+   * read bean entirely
    *
    * @return read bean
    */
@@ -154,7 +138,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write bean entirely.
+   * write bean entirely
    *
    * @param bean bean to entirely write
    */
@@ -234,7 +218,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property id.
+   * read property id
    *
    * @return property id value
    */
@@ -243,7 +227,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property value.
+   * read property value
    *
    * @return property value value
    */
@@ -252,7 +236,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueByteSet.
+   * read property valueByteSet
    *
    * @return property valueByteSet value
    */
@@ -263,7 +247,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueShortSet.
+   * read property valueShortSet
    *
    * @return property valueShortSet value
    */
@@ -274,7 +258,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueIntegerSet.
+   * read property valueIntegerSet
    *
    * @return property valueIntegerSet value
    */
@@ -285,7 +269,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueStringSet.
+   * read property valueStringSet
    *
    * @return property valueStringSet value
    */
@@ -296,7 +280,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCharacterSet.
+   * read property valueCharacterSet
    *
    * @return property valueCharacterSet value
    */
@@ -307,7 +291,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueFloatSet.
+   * read property valueFloatSet
    *
    * @return property valueFloatSet value
    */
@@ -318,7 +302,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueDoubleSet.
+   * read property valueDoubleSet
    *
    * @return property valueDoubleSet value
    */
@@ -329,7 +313,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBigDecimalSet.
+   * read property valueBigDecimalSet
    *
    * @return property valueBigDecimalSet value
    */
@@ -340,7 +324,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBeanSet.
+   * read property valueBeanSet
    *
    * @return property valueBeanSet value
    */
@@ -351,7 +335,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueEnumTypeSet.
+   * read property valueEnumTypeSet
    *
    * @return property valueEnumTypeSet value
    */
@@ -362,10 +346,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueByteSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueByteSet serialization
    */
   protected String serializeValueByteSet(Set<Byte> value) {
     if (value==null) {
@@ -399,10 +380,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueByteSet parsing.
-   *
-   * @param input the input
-   * @return the sets the
+   * for attribute valueByteSet parsing
    */
   protected Set<Byte> parseValueByteSet(String input) {
     if (input==null) {
@@ -436,10 +414,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueShortSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueShortSet serialization
    */
   protected String serializeValueShortSet(HashSet<Short> value) {
     if (value==null) {
@@ -473,10 +448,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueShortSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueShortSet parsing
    */
   protected HashSet<Short> parseValueShortSet(String input) {
     if (input==null) {
@@ -510,10 +482,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueIntegerSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueIntegerSet serialization
    */
   protected String serializeValueIntegerSet(LinkedHashSet<Integer> value) {
     if (value==null) {
@@ -547,10 +516,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueIntegerSet parsing.
-   *
-   * @param input the input
-   * @return the linked hash set
+   * for attribute valueIntegerSet parsing
    */
   protected LinkedHashSet<Integer> parseValueIntegerSet(String input) {
     if (input==null) {
@@ -584,10 +550,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueCharacterSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueCharacterSet serialization
    */
   protected String serializeValueCharacterSet(Set<Character> value) {
     if (value==null) {
@@ -621,10 +584,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueCharacterSet parsing.
-   *
-   * @param input the input
-   * @return the sets the
+   * for attribute valueCharacterSet parsing
    */
   protected Set<Character> parseValueCharacterSet(String input) {
     if (input==null) {
@@ -658,10 +618,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueFloatSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueFloatSet serialization
    */
   protected String serializeValueFloatSet(HashSet<Float> value) {
     if (value==null) {
@@ -695,10 +652,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueFloatSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueFloatSet parsing
    */
   protected HashSet<Float> parseValueFloatSet(String input) {
     if (input==null) {
@@ -732,10 +686,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueDoubleSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueDoubleSet serialization
    */
   protected String serializeValueDoubleSet(HashSet<Double> value) {
     if (value==null) {
@@ -769,10 +720,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueDoubleSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueDoubleSet parsing
    */
   protected HashSet<Double> parseValueDoubleSet(String input) {
     if (input==null) {
@@ -806,10 +754,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBigDecimalSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueBigDecimalSet serialization
    */
   protected String serializeValueBigDecimalSet(HashSet<BigDecimal> value) {
     if (value==null) {
@@ -843,10 +788,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBigDecimalSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueBigDecimalSet parsing
    */
   protected HashSet<BigDecimal> parseValueBigDecimalSet(String input) {
     if (input==null) {
@@ -880,10 +822,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBeanSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueBeanSet serialization
    */
   protected String serializeValueBeanSet(LinkedHashSet<Bean> value) {
     if (value==null) {
@@ -917,10 +856,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBeanSet parsing.
-   *
-   * @param input the input
-   * @return the linked hash set
+   * for attribute valueBeanSet parsing
    */
   protected LinkedHashSet<Bean> parseValueBeanSet(String input) {
     if (input==null) {
@@ -954,10 +890,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueEnumTypeSet serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueEnumTypeSet serialization
    */
   protected String serializeValueEnumTypeSet(HashSet<EnumType> value) {
     if (value==null) {
@@ -991,10 +924,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueEnumTypeSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueEnumTypeSet parsing
    */
   protected HashSet<EnumType> parseValueEnumTypeSet(String input) {
     if (input==null) {
@@ -1031,9 +961,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * get instance of shared preferences.
-   *
-   * @return the bind bean shared preferences
+   * get instance of shared preferences
    */
   public static synchronized BindBeanSharedPreferences instance() {
     if (instance==null) {
@@ -1043,21 +971,14 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * editor class for shared preferences.
+   * editor class for shared preferences
    */
   public class BindEditor extends AbstractEditor {
-    
-    /**
-     * Instantiates a new bind editor.
-     */
     private BindEditor() {
     }
 
     /**
-     * modifier for property id.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property id
      */
     public BindEditor putId(long value) {
       editor.putLong("id",value);
@@ -1066,10 +987,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property value.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property value
      */
     public BindEditor putValue(String value) {
       editor.putString("value",value);
@@ -1078,10 +996,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueByteSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueByteSet
      */
     public BindEditor putValueByteSet(Set<Byte> value) {
       if (value!=null)  {
@@ -1095,10 +1010,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueShortSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueShortSet
      */
     public BindEditor putValueShortSet(HashSet<Short> value) {
       if (value!=null)  {
@@ -1112,10 +1024,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueIntegerSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueIntegerSet
      */
     public BindEditor putValueIntegerSet(LinkedHashSet<Integer> value) {
       if (value!=null)  {
@@ -1129,10 +1038,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueStringSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueStringSet
      */
     public BindEditor putValueStringSet(HashSet<String> value) {
       editor.putStringSet("value_string_set",value);
@@ -1141,10 +1047,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueCharacterSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueCharacterSet
      */
     public BindEditor putValueCharacterSet(Set<Character> value) {
       if (value!=null)  {
@@ -1158,10 +1061,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueFloatSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueFloatSet
      */
     public BindEditor putValueFloatSet(HashSet<Float> value) {
       if (value!=null)  {
@@ -1175,10 +1075,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueDoubleSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueDoubleSet
      */
     public BindEditor putValueDoubleSet(HashSet<Double> value) {
       if (value!=null)  {
@@ -1192,10 +1089,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBigDecimalSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueBigDecimalSet
      */
     public BindEditor putValueBigDecimalSet(HashSet<BigDecimal> value) {
       if (value!=null)  {
@@ -1209,10 +1103,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBeanSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueBeanSet
      */
     public BindEditor putValueBeanSet(LinkedHashSet<Bean> value) {
       if (value!=null)  {
@@ -1226,10 +1117,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueEnumTypeSet.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueEnumTypeSet
      */
     public BindEditor putValueEnumTypeSet(HashSet<EnumType> value) {
       if (value!=null)  {

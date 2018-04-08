@@ -410,7 +410,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
 				break;
 			case STANDARD:
-				break;
+				break;		
 			}
 
 			boolean nullable = item.isNullable();
@@ -667,18 +667,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		uniqueString = "UNIQUE ";
 		indexes = entity.index;
-		// entity.annotationTable.getAttributeAsArray(AnnotationAttributeType.UNIQUE_INDEXES);
-		// CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT,
-		// student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id)
-		// REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES
-		// seminar(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on
-		// seminar_2_student (student_id asc, seminar_id desc);
 
 		if (indexes == null || indexes.size() == 0)
 			return result;
-
-		// CREATE INDEX index_name ON tab_name (column1, column2)
-		// Matcher matcher = patternIndex.matcher(rawIndexes);
 
 		List<String> listCreateIndex = new ArrayList<>();
 		List<String> listDropIndex = new ArrayList<>();

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.jql.kripton164;
 
 import android.database.sqlite.SQLiteStatement;
@@ -24,26 +9,18 @@ import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>CollegeStudent</code>, based on interface <code>CollegeStudentDao</code>
- * </p>.
+ * </p>
  *
- * @see CollegeStudent
- * @see CollegeStudentDao
- * @see CollegeStudentTable
+ *  @see CollegeStudent
+ *  @see CollegeStudentDao
+ *  @see CollegeStudentTable
  */
 public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
-  
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /**
-   * Instantiates a new college student dao impl.
-   *
-   * @param context the context
-   */
   public CollegeStudentDaoImpl(SQLContext context) {
     super(context);
   }
@@ -168,9 +145,6 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
     bean.id=result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

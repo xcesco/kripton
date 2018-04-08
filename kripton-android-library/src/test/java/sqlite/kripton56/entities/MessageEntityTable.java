@@ -1,23 +1,7 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton56.entities;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>MessageEntity</code> is associated to table <code>message</code>
@@ -26,14 +10,27 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see MessageEntity
  */
 public class MessageEntityTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table message. */
+  /**
+   * Costant represents typeName of table message
+   */
   public static final String TABLE_NAME = "message";
 
-  /** <p> DDL to create table message </p>  <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);</pre>. */
+  /**
+   * <p>
+   * DDL to create table message
+   * </p>
+   *
+   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);";
 
-  /** <p> DDL to drop table message </p>  <pre>DROP TABLE IF EXISTS message;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table message
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS message;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS message;";
 
   /**
@@ -92,13 +89,13 @@ public class MessageEntityTable implements SQLiteTable {
    */
   public static final String COLUMN_UPDATE_TIME = "update_time";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_CHANNEL_ID, COLUMN_OWNER_TYPE, COLUMN_FACE_UID, COLUMN_TEXT, COLUMN_OWNER_UID, COLUMN_CHANNEL_UID, COLUMN_UPDATE_TIME};
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -106,9 +103,7 @@ public class MessageEntityTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

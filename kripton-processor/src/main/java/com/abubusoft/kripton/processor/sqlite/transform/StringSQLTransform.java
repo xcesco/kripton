@@ -17,8 +17,8 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
@@ -76,8 +76,8 @@ public class StringSQLTransform  extends TypeAdapterAwareSQLTransform {
 	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#getColumnType()
 	 */
 	@Override
-	public SQLiteColumnType getColumnType() {
-		return SQLiteColumnType.TEXT;
+	public ColumnAffinityType getColumnType() {
+		return ColumnAffinityType.TEXT;
 	}
 	
 	/* (non-Javadoc)

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton41;
 
 import android.database.sqlite.SQLiteStatement;
@@ -24,26 +9,18 @@ import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBeanInsertOK</code>
- * </p>.
+ * </p>
  *
- * @see Bean01
- * @see DaoBeanInsertOK
- * @see Bean01Table
+ *  @see Bean01
+ *  @see DaoBeanInsertOK
+ *  @see Bean01Table
  */
 public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
-  
-  /** The insert distance prepared statement 0. */
   private static SQLiteStatement insertDistancePreparedStatement0;
 
-  /**
-   * Instantiates a new dao bean insert OK impl.
-   *
-   * @param context the context
-   */
   public DaoBeanInsertOKImpl(SQLContext context) {
     super(context);
   }
@@ -51,15 +28,18 @@ public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean01 (id, value) VALUES (${id}, ${value})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to column value <strong>id</strong>
-   * @param value 	is binded to column value <strong>value</strong>
+   * @param id
+   * 	is binded to column value <strong>id</strong>
+   * @param value
+   * 	is binded to column value <strong>value</strong>
+   *
    * @return <code>true</code> if record is inserted, <code>false</code> otherwise
    */
   @Override
@@ -114,9 +94,6 @@ public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
     return result!=-1;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertDistancePreparedStatement0!=null) {
       insertDistancePreparedStatement0.close();

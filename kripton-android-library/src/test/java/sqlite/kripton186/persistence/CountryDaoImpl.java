@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton186.persistence;
 
 import android.database.Cursor;
@@ -29,41 +14,28 @@ import java.util.List;
 import sqlite.kripton186.model.Country;
 import sqlite.kripton186.model.CountryTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Country</code>, based on interface <code>CountryDao</code>
- * </p>.
+ * </p>
  *
- * @see Country
- * @see CountryDao
- * @see CountryTable
+ *  @see Country
+ *  @see CountryDao
+ *  @see CountryTable
  */
 public class CountryDaoImpl extends Dao implements CountryDao {
-  
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /** The Constant SELECT_BY_ID_SQL6. */
   private static final String SELECT_BY_ID_SQL6 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE id = ?";
 
-  /** The delete by id prepared statement 1. */
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
-  /** The Constant SELECT_ALL_SQL7. */
   private static final String SELECT_ALL_SQL7 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country ORDER BY name asc";
 
-  /** The Constant SELECT_BY_CALLING_CODE_SQL8. */
   private static final String SELECT_BY_CALLING_CODE_SQL8 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE calling_code = ?";
 
-  /** The Constant SELECT_BY_COUNTRY_SQL9. */
   private static final String SELECT_BY_COUNTRY_SQL9 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE code = ?";
 
-  /**
-   * Instantiates a new country dao impl.
-   *
-   * @param context the context
-   */
   public CountryDaoImpl(SQLContext context) {
     super(context);
   }
@@ -148,9 +120,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE id = ${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -161,13 +133,14 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>translated_name</dt><dd>is associated to bean's property <strong>translatedName</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -228,14 +201,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM country WHERE id = ${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
@@ -270,9 +245,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, area, code, calling_code, region, name, translated_name FROM country ORDER BY name asc</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -282,7 +257,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>translated_name</dt><dd>is associated to bean's property <strong>translatedName</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -348,9 +323,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE calling_code = ${callingCode}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -361,13 +336,14 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>translated_name</dt><dd>is associated to bean's property <strong>translatedName</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${callingCode}</dt><dd>is binded to method's parameter <strong>callingCode</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param callingCode 	is binded to <code>${callingCode}</code>
+   * @param callingCode
+   * 	is binded to <code>${callingCode}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -427,9 +403,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE code = ${code}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -440,13 +416,14 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>translated_name</dt><dd>is associated to bean's property <strong>translatedName</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${code}</dt><dd>is binded to method's parameter <strong>code</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param code 	is binded to <code>${code}</code>
+   * @param code
+   * 	is binded to <code>${code}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -504,9 +481,6 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

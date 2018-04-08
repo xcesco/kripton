@@ -31,12 +31,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.lang.model.type.TypeMirror;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.MethodSpec;
@@ -57,12 +58,18 @@ public abstract class SQLTransformer {
 	/**
 	 * "resultBean", "cursor","indexes["+(i++)+"]".
 	 *
-	 * @param methodBuilder the method builder
-	 * @param beanClass the bean class
-	 * @param property the property
-	 * @param beanName the bean name
-	 * @param cursorName the cursor name
-	 * @param indexName the index name
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param beanClass
+	 *            the bean class
+	 * @param property
+	 *            the property
+	 * @param beanName
+	 *            the bean name
+	 * @param cursorName
+	 *            the cursor name
+	 * @param indexName
+	 *            the index name
 	 */
 	public static void cursor2Java(MethodSpec.Builder methodBuilder, TypeName beanClass, ModelProperty property, String beanName, String cursorName, String indexName) {
 		TypeName typeName = property.getPropertyType().getTypeName();
@@ -79,15 +86,19 @@ public abstract class SQLTransformer {
 	/**
 	 * Used to convert a property of managed bean to contentValue.
 	 *
-	 * @param methodBuilder the method builder
-	 * @param beanClass the bean class
-	 * @param beanName the bean name
-	 * @param property the property
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param beanClass
+	 *            the bean class
+	 * @param beanName
+	 *            the bean name
+	 * @param property
+	 *            the property
 	 */
 	public static void javaProperty2ContentValues(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property) {
 		TypeName typeName = null;
 
-		if (property!=null && property.getPropertyType() != null) {
+		if (property != null && property.getPropertyType() != null) {
 			typeName = property.getPropertyType().getTypeName();
 		}
 
@@ -103,17 +114,22 @@ public abstract class SQLTransformer {
 	/**
 	 * Used to convert a property of managed bean to where condition.
 	 *
-	 * @param methodBuilder the method builder
-	 * @param method the method
-	 * @param paramName the param name
-	 * @param paramType the param type
-	 * @param property the property
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param method
+	 *            the method
+	 * @param paramName
+	 *            the param name
+	 * @param paramType
+	 *            the param type
+	 * @param property
+	 *            the property
 	 */
 	public static void javaProperty2WhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramType, ModelProperty property) {
 		if (property != null && property.hasTypeAdapter()) {
 			methodBuilder.addCode(AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER, SQLTypeAdapterUtils.class,
 					typeName(property.typeAdapter.adapterClazz), PropertyUtility.getter(paramName, paramType, property));
-		} else if (property!=null) {
+		} else if (property != null) {
 			SQLTransform transform = lookup(property.getPropertyType().getTypeName());
 
 			AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, paramType);
@@ -128,11 +144,16 @@ public abstract class SQLTransformer {
 	 * type adpter, because it eventually use the one define in associated
 	 * bean's attribute
 	 *
-	 * @param methodBuilder the method builder
-	 * @param method the method
-	 * @param paramName the param name
-	 * @param paramType the param type
-	 * @param property the property
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param method
+	 *            the method
+	 * @param paramName
+	 *            the param name
+	 * @param paramType
+	 *            the param type
+	 * @param property
+	 *            the property
 	 */
 	public static void javaMethodParam2ContentValues(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramType, ModelProperty property) {
 		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(paramName), method, "method's parameter '%s' can not use a type adapter", paramName);
@@ -146,10 +167,14 @@ public abstract class SQLTransformer {
 	/**
 	 * Used to convert a generic parameter to where conditions.
 	 *
-	 * @param methodBuilder the method builder
-	 * @param method the method
-	 * @param paramName the param name
-	 * @param paramType the param type
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param method
+	 *            the method
+	 * @param paramName
+	 *            the param name
+	 * @param paramType
+	 *            the param type
 	 */
 	public static void javaMethodParam2WhereConditions(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, String paramName, TypeName paramType) {
 		if (method.hasAdapterForParam(paramName)) {
@@ -166,7 +191,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Get transformer for type.
 	 *
-	 * @param typeMirror the type mirror
+	 * @param typeMirror
+	 *            the type mirror
 	 * @return transform
 	 */
 	public static SQLTransform lookup(TypeMirror typeMirror) {
@@ -180,7 +206,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Get transformer for type.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return transform
 	 */
 	public static SQLTransform lookup(TypeName typeName) {
@@ -201,7 +228,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Gets the transform.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return the transform
 	 */
 	private static SQLTransform getTransform(TypeName typeName) {
@@ -261,7 +289,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Gets the sql transform.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return the sql transform
 	 */
 	static SQLTransform getSqlTransform(TypeName typeName) {
@@ -279,7 +308,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Gets the net transform.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return the net transform
 	 */
 	static SQLTransform getNetTransform(TypeName typeName) {
@@ -293,7 +323,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Checks if is supported JDK type.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return true, if is supported JDK type
 	 */
 	public static boolean isSupportedJDKType(TypeName typeName) {
@@ -329,7 +360,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Gets the math transform.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return the math transform
 	 */
 	static SQLTransform getMathTransform(TypeName typeName) {
@@ -345,7 +377,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Get Java primitive type Transformable.
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the primitive transform
 	 */
 	static SQLTransform getPrimitiveTransform(TypeName type) {
@@ -380,7 +413,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Get Java primitive wrapping type Transformable.
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the language transform
 	 */
 	static SQLTransform getLanguageTransform(TypeName type) {
@@ -419,7 +453,8 @@ public abstract class SQLTransformer {
 	/**
 	 * Get java.util type Transformable
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the util transform
 	 */
 
@@ -448,12 +483,18 @@ public abstract class SQLTransformer {
 	/**
 	 * Reset bean.
 	 *
-	 * @param methodBuilder the method builder
-	 * @param beanClass the bean class
-	 * @param beanName the bean name
-	 * @param property the property
-	 * @param cursorName the cursor name
-	 * @param indexName the index name
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param beanClass
+	 *            the bean class
+	 * @param beanName
+	 *            the bean name
+	 * @param property
+	 *            the property
+	 * @param cursorName
+	 *            the cursor name
+	 * @param indexName
+	 *            the index name
 	 */
 	public static void resetBean(MethodSpec.Builder methodBuilder, TypeName beanClass, String beanName, ModelProperty property, String cursorName, String indexName) {
 		SQLTransform transform = lookup(property.getElement().asType());
@@ -465,13 +506,20 @@ public abstract class SQLTransformer {
 
 	}
 
+
 	/**
-	 * Column type as string.
+	 * Detect column type. If column affinity is specified by annotation,
+	 * affinity column is used.
 	 *
-	 * @param property the property
-	 * @return the string
+	 * @param property
+	 *            the property
+	 * @return the SQlite column type as string
 	 */
-	public static String columnTypeAsString(ModelProperty property) {
+	public static String columnTypeAsString(SQLProperty property) {
+		if (property.columnAffinityType!=null && ColumnAffinityType.AUTO != property.columnAffinityType) {
+			return property.columnAffinityType.toString();
+		}
+		
 		TypeName typeName = property.getPropertyType().getTypeName();
 		if (property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
@@ -482,39 +530,7 @@ public abstract class SQLTransformer {
 		if (transform == null) {
 			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
 		}
-		return transform.getColumnTypeAsString();
-
-	}
-
-	/**
-	 * Column type.
-	 *
-	 * @param property the property
-	 * @return the SQ lite column type
-	 */
-	public static SQLiteColumnType columnType(ModelProperty property) {
-		SQLTransform transform = lookup(property.getElement().asType());
-
-		if (transform == null) {
-			throw new IllegalArgumentException("Transform of " + property.getElement().asType() + " not supported");
-		}
-		return transform.getColumnType();
-
-	}
-
-	/**
-	 * Column type.
-	 *
-	 * @param property the property
-	 * @return the SQ lite column type
-	 */
-	public static SQLiteColumnType columnType(TypeName property) {
-		SQLTransform transform = lookup(property);
-
-		if (transform == null) {
-			throw new IllegalArgumentException("Transform of " + property + " not supported");
-		}
-		return transform.getColumnType();
+		return transform.getColumnType().toString();
 
 	}
 

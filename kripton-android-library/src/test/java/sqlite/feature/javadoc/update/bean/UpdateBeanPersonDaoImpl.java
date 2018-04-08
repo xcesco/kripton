@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.javadoc.update.bean;
 
 import android.content.ContentValues;
@@ -30,59 +15,40 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.Set;
 import sqlite.feature.javadoc.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>UpdateBeanPersonDao</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see UpdateBeanPersonDao
- * @see sqlite.feature.javadoc.PersonTable
+ *  @see Person
+ *  @see UpdateBeanPersonDao
+ *  @see sqlite.feature.javadoc.PersonTable
  */
 public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao {
-  
-  /** The update all beans prepared statement 0. */
   private static SQLiteStatement updateAllBeansPreparedStatement0;
 
-  /** The Constant updateAllBeans0ColumnSet. */
   private static final Set<String> updateAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  /** The update one bean prepared statement 1. */
   private static SQLiteStatement updateOneBeanPreparedStatement1;
 
-  /** The Constant updateOneBean1ColumnSet. */
   private static final Set<String> updateOneBean1ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  /** The Constant updateOneBeanWithDynamic2ColumnSet. */
   private static final Set<String> updateOneBeanWithDynamic2ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  /** The Constant updateOneBeanWithDynamicAndArgs3ColumnSet. */
   private static final Set<String> updateOneBeanWithDynamicAndArgs3ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  /** The update all beans JQL prepared statement 2. */
   private static SQLiteStatement updateAllBeansJQLPreparedStatement2;
 
-  /** The Constant updateAllBeansJQL4ColumnSet. */
   private static final Set<String> updateAllBeansJQL4ColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
-  /** The update from select JQL prepared statement 3. */
   private static SQLiteStatement updateFromSelectJQLPreparedStatement3;
 
-  /** The Constant updateFromSelectJQL5ColumnSet. */
   private static final Set<String> updateFromSelectJQL5ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  /** The Constant updateBeanDynamic6ColumnSet. */
   private static final Set<String> updateBeanDynamic6ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  /** The Constant updateBeanDynamicWithArgs7ColumnSet. */
   private static final Set<String> updateBeanDynamicWithArgs7ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  /**
-   * Instantiates a new update bean person dao impl.
-   *
-   * @param context the context
-   */
   public UpdateBeanPersonDaoImpl(SQLContext context) {
     super(context);
   }
@@ -1374,9 +1340,6 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updateAllBeansPreparedStatement0!=null) {
       updateAllBeansPreparedStatement0.close();

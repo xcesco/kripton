@@ -15,24 +15,21 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for TiledMapAnimation.
+ * This class is binder map for TiledMapAnimation
  *
  * @see TiledMapAnimation
  */
 @BindMap(TiledMapAnimation.class)
 public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> {
-  
-  /** TranslationFrameBindMap. */
+  /**
+   * TranslationFrameBindMap */
   private TranslationFrameBindMap translationFrameBindMap = BinderUtils.mapperFor(TranslationFrame.class);
 
-  /** TextureKeyFrameBindMap. */
+  /**
+   * TextureKeyFrameBindMap */
   private TextureKeyFrameBindMap textureKeyFrameBindMap = BinderUtils.mapperFor(TextureKeyFrame.class);
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(TiledMapAnimation object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -97,9 +94,6 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(TiledMapAnimation object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -175,12 +169,7 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(TiledMapAnimation object, XMLSerializer xmlSerializer,
@@ -255,11 +244,7 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the tiled map animation
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public TiledMapAnimation parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -332,11 +317,7 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the tiled map animation
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public TiledMapAnimation parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -419,12 +400,7 @@ public class TiledMapAnimationBindMap extends AbstractMapper<TiledMapAnimation> 
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the tiled map animation
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public TiledMapAnimation parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

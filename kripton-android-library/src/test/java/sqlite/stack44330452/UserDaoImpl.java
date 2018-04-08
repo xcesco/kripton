@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.stack44330452;
 
 import android.database.Cursor;
@@ -24,39 +9,31 @@ import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>User</code>, based on interface <code>UserDao</code>
- * </p>.
+ * </p>
  *
- * @see User
- * @see UserDao
- * @see UserTable
+ *  @see User
+ *  @see UserDao
+ *  @see UserTable
  */
 public class UserDaoImpl extends Dao implements UserDao {
-  
-  /** The Constant LOAD_USER_SQL1. */
   private static final String LOAD_USER_SQL1 = "SELECT id FROM user";
 
-  /**
-   * Instantiates a new user dao impl.
-   *
-   * @param context the context
-   */
   public UserDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id FROM user</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -108,9 +85,6 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
   }
 }

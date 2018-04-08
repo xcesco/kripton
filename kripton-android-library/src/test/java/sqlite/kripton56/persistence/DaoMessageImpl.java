@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton56.persistence;
 
 import android.database.sqlite.SQLiteStatement;
@@ -26,26 +11,18 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import sqlite.kripton56.entities.OwnerType;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>MessageEntity</code>, based on interface <code>DaoMessage</code>
- * </p>.
+ * </p>
  *
- * @see sqlite.kripton56.entities.MessageEntity
- * @see DaoMessage
- * @see sqlite.kripton56.entities.MessageEntityTable
+ *  @see sqlite.kripton56.entities.MessageEntity
+ *  @see DaoMessage
+ *  @see sqlite.kripton56.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends Dao implements DaoMessage {
-  
-  /** The update by id prepared statement 0. */
   private static SQLiteStatement updateByIdPreparedStatement0;
 
-  /**
-   * Instantiates a new dao message impl.
-   *
-   * @param context the context
-   */
   public DaoMessageImpl(SQLContext context) {
     super(context);
   }
@@ -53,19 +30,22 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE message SET owner_type=:ownerType WHERE id = ${id}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>owner_type</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param ownerType 	is used as updated field <strong>ownerType</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param ownerType
+   * 	is used as updated field <strong>ownerType</strong>
+   *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
   @Override
@@ -112,9 +92,6 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     return result!=0;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updateByIdPreparedStatement0!=null) {
       updateByIdPreparedStatement0.close();

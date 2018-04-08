@@ -30,6 +30,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindContentProvider;
@@ -449,6 +450,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						property.setNullable(AnnotationUtility.extractAsBoolean(property, annotationBindColumn, AnnotationAttributeType.NULLABLE));
 						ColumnType columnType = ColumnType.valueOf(AnnotationUtility.extractAsEnumerationValue(property, annotationBindColumn, AnnotationAttributeType.COLUMN_TYPE));
 
+						// detect affinity type
+						property.columnAffinityType = ColumnAffinityType.valueOf(AnnotationUtility.extractAsEnumerationValue(property, annotationBindColumn, AnnotationAttributeType.COLUMN_AFFINITY));
+
+						
 						property.columnType = columnType;
 						property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
 

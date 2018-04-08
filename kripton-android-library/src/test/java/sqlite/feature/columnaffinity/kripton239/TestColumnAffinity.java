@@ -13,16 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feat.includeFields;
+package sqlite.feature.columnaffinity.kripton239;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
-import sqlite.feat.includeFields.PersonDAO;
+import base.BaseAndroidTest;
 
-/**
- * The Interface PersonDataSource.
- */
-@BindDataSource(daoSet= { PersonDAO.class }, fileName = "person.db", log=true)
-public interface PersonDataSource {
+@Config(manifest = Config.NONE)
+@RunWith(RobolectricTestRunner.class)
+public class TestColumnAffinity extends BaseAndroidTest {
+
+
+	@Test
+	public void testRunCompile() {
+		Assert.assertEquals(PersonTable.CREATE_TABLE_SQL.contains("name BLOB"), true);
+	}
+
+
 
 }

@@ -13,33 +13,23 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feat.includeFields;
+package sqlite.feature.columnaffinity;
 
-import java.io.IOException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import org.junit.Test;
+import sqlite.feature.columnaffinity.kripton239.TestColumnAffinity;
 
-import base.BaseAndroidTest;
-
-// TODO: Auto-generated Javadoc
 /**
- * The Class TestIncludeFieldsRuntime.
- *
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class TestContentProviderRuntimeSuite.
  */
-public class TestIncludeFieldsRuntime extends BaseAndroidTest {
-
-	/**
-	 * Test run sqlite 1.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
-	@Test
-	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
-			
-
-	}
-
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestColumnAffinity.class
+		 })
+//@formatter:on
+public class TestColumnAffinitySuite  {
+	
 }

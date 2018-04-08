@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton209.model2;
 
 import android.database.Cursor;
@@ -27,32 +12,22 @@ import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>User</code>, based on interface <code>UserDao</code>
- * </p>.
+ * </p>
  *
- * @see User
- * @see UserDao
- * @see UserTable
+ *  @see User
+ *  @see UserDao
+ *  @see UserTable
  */
 public class UserDaoImpl extends Dao implements UserDao {
-  
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /** The Constant GET_ALL_USERS_SQL3. */
   private static final String GET_ALL_USERS_SQL3 = "SELECT id, user_name FROM user";
 
-  /** The Constant GET_USER_BY_ID_SQL4. */
   private static final String GET_USER_BY_ID_SQL4 = "SELECT id, user_name FROM user WHERE id = ?";
 
-  /**
-   * Instantiates a new user dao impl.
-   *
-   * @param context the context
-   */
   public UserDaoImpl(SQLContext context) {
     super(context);
   }
@@ -124,14 +99,14 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, user_name FROM user</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>user_name</dt><dd>is associated to bean's property <strong>userName</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -187,21 +162,22 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, user_name FROM user WHERE id = ${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>user_name</dt><dd>is associated to bean's property <strong>userName</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -249,9 +225,6 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

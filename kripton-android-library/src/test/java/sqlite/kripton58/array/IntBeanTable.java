@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton58.array;
 
 import com.abubusoft.kripton.KriptonBinder;
@@ -28,7 +13,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>IntBean</code> is associated to table <code>int_bean</code>
@@ -37,14 +21,27 @@ import java.util.ArrayList;
  *  @see IntBean
  */
 public class IntBeanTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table int_bean. */
+  /**
+   * Costant represents typeName of table int_bean
+   */
   public static final String TABLE_NAME = "int_bean";
 
-  /** <p> DDL to create table int_bean </p>  <pre>CREATE TABLE int_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>. */
+  /**
+   * <p>
+   * DDL to create table int_bean
+   * </p>
+   *
+   * <pre>CREATE TABLE int_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE int_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);";
 
-  /** <p> DDL to drop table int_bean </p>  <pre>DROP TABLE IF EXISTS int_bean;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table int_bean
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS int_bean;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS int_bean;";
 
   /**
@@ -68,14 +65,13 @@ public class IntBeanTable implements SQLiteTable {
    */
   public static final String COLUMN_VALUE2 = "value2";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE2};
 
   /**
-   * for attribute value serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute value serialization
    */
   public static byte[] serializeValue(int[] value) {
     if (value==null) {
@@ -108,10 +104,7 @@ public class IntBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value parsing.
-   *
-   * @param input the input
-   * @return the int[]
+   * for attribute value parsing
    */
   public static int[] parseValue(byte[] input) {
     if (input==null) {
@@ -145,10 +138,7 @@ public class IntBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value2 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(Integer[] value) {
     if (value==null) {
@@ -185,10 +175,7 @@ public class IntBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value2 parsing.
-   *
-   * @param input the input
-   * @return the integer[]
+   * for attribute value2 parsing
    */
   public static Integer[] parseValue2(byte[] input) {
     if (input==null) {
@@ -222,9 +209,7 @@ public class IntBeanTable implements SQLiteTable {
   }
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -232,9 +217,7 @@ public class IntBeanTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

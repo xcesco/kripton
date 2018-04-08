@@ -14,18 +14,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Bean81A.
+ * This class is binder map for Bean81A
  *
  * @see Bean81A
  */
 @BindMap(Bean81A.class)
 public class Bean81ABindMap extends AbstractMapper<Bean81A> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(Bean81A object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -59,9 +54,6 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(Bean81A object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -96,12 +88,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Bean81A object, XMLSerializer xmlSerializer, int currentEventType)
@@ -138,11 +125,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the bean 81 A
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public Bean81A parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -192,11 +175,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the bean 81 A
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public Bean81A parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -246,12 +225,7 @@ public class Bean81ABindMap extends AbstractMapper<Bean81A> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the bean 81 A
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public Bean81A parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

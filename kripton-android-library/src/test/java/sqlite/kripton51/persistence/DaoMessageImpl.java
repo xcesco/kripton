@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton51.persistence;
 
 import android.database.Cursor;
@@ -31,44 +16,33 @@ import sqlite.kripton51.entities.MessageEntity;
 import sqlite.kripton51.entities.OwnerType;
 import sqlite.kripton51.internal.MessageType;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>MessageEntity</code>, based on interface <code>DaoMessage</code>
- * </p>.
+ * </p>
  *
- * @see MessageEntity
- * @see DaoMessage
- * @see sqlite.kripton51.entities.MessageEntityTable
+ *  @see MessageEntity
+ *  @see DaoMessage
+ *  @see sqlite.kripton51.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends Dao implements DaoMessage {
-  
-  /** The Constant SELECT_BY_CHANNEL_SQL1. */
   private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ?";
 
-  /** The update by id prepared statement 0. */
   private static SQLiteStatement updateByIdPreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The Constant SELECT_BY_UID_SQL2. */
   private static final String SELECT_BY_UID_SQL2 = "SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?";
 
-  /**
-   * Instantiates a new dao message impl.
-   *
-   * @param context the context
-   */
   public DaoMessageImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ${channelId}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -82,13 +56,14 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${channelId}</dt><dd>is binded to method's parameter <strong>channelId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param channelId 	is binded to <code>${channelId}</code>
+   * @param channelId
+   * 	is binded to <code>${channelId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -320,9 +295,9 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ${uid}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -336,13 +311,14 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${uid}</dt><dd>is binded to method's parameter <strong>uid</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param uid 	is binded to <code>${uid}</code>
+   * @param uid
+   * 	is binded to <code>${uid}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -406,9 +382,6 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updateByIdPreparedStatement0!=null) {
       updateByIdPreparedStatement0.close();

@@ -21,6 +21,7 @@ import javax.lang.model.element.Element;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
@@ -57,22 +58,25 @@ public class SQLProperty extends ManagedModelProperty {
 
 		onDeleteAction = ForeignKeyAction.NO_ACTION;
 		onUpdateAction = ForeignKeyAction.NO_ACTION;
-		
-		//TODO check global type adapter
+
+		// TODO check global type adapter
 	}
 
 	/**
 	 * Instantiates a new SQL property.
 	 *
-	 * @param entity the entity
-	 * @param element the element
-	 * @param modelAnnotations the model annotations
+	 * @param entity
+	 *            the entity
+	 * @param element
+	 *            the element
+	 * @param modelAnnotations
+	 *            the model annotations
 	 */
 	public SQLProperty(SQLiteEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
 		parentTypeName = TypeUtility.className(getParent().getName());
-
+	
 		// @BindSqlAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
 		if (annotationBindAdapter != null) {
@@ -111,7 +115,8 @@ public class SQLProperty extends ManagedModelProperty {
 	/**
 	 * Sets the primary key.
 	 *
-	 * @param primaryKey            the primaryKey to set
+	 * @param primaryKey
+	 *            the primaryKey to set
 	 */
 	public void setPrimaryKey(boolean primaryKey) {
 		this.primaryKey = primaryKey;
@@ -129,7 +134,8 @@ public class SQLProperty extends ManagedModelProperty {
 	/**
 	 * Sets the nullable.
 	 *
-	 * @param nullable            the nullable to set
+	 * @param nullable
+	 *            the nullable to set
 	 */
 	public void setNullable(boolean nullable) {
 		this.nullable = nullable;
@@ -149,6 +155,11 @@ public class SQLProperty extends ManagedModelProperty {
 
 	/** type of column. */
 	public ColumnType columnType;
+
+	/**
+	 * Affinity type of the column.
+	 */
+	public ColumnAffinityType columnAffinityType;
 
 	/** The parent type name. */
 	protected TypeName parentTypeName;

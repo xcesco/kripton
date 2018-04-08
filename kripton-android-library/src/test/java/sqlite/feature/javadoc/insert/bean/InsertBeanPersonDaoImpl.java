@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.javadoc.insert.bean;
 
 import android.content.ContentValues;
@@ -30,41 +15,28 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.Set;
 import sqlite.feature.javadoc.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>InsertBeanPersonDao</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see InsertBeanPersonDao
- * @see sqlite.feature.javadoc.PersonTable
+ *  @see Person
+ *  @see InsertBeanPersonDao
+ *  @see sqlite.feature.javadoc.PersonTable
  */
 public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao {
-  
-  /** The insert one bean prepared statement 0. */
   private static SQLiteStatement insertOneBeanPreparedStatement0;
 
-  /** The Constant insertOneBean0ColumnSet. */
   private static final Set<String> insertOneBean0ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
-  /** The insert one bean field name prepared statement 1. */
   private static SQLiteStatement insertOneBeanFieldNamePreparedStatement1;
 
-  /** The Constant insertOneBeanFieldName1ColumnSet. */
   private static final Set<String> insertOneBeanFieldName1ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  /** The insert one bean field surname prepared statement 2. */
   private static SQLiteStatement insertOneBeanFieldSurnamePreparedStatement2;
 
-  /** The Constant insertOneBeanFieldSurname2ColumnSet. */
   private static final Set<String> insertOneBeanFieldSurname2ColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
-  /**
-   * Instantiates a new insert bean person dao impl.
-   *
-   * @param context the context
-   */
   public InsertBeanPersonDaoImpl(SQLContext context) {
     super(context);
   }
@@ -468,9 +440,6 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     bean.id=result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertOneBeanPreparedStatement0!=null) {
       insertOneBeanPreparedStatement0.close();

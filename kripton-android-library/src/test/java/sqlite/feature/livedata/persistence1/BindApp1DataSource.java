@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.livedata.persistence1;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -29,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 import sqlite.feature.livedata.data.PersonTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Represents implementation of datasource App1DataSource.
@@ -43,37 +27,40 @@ import sqlite.feature.livedata.data.PersonTable;
  * @see Person
  */
 public class BindApp1DataSource extends AbstractDataSource implements BindApp1DaoFactory, App1DataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindApp1DataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao DaoPerson1. */
+  /**
+   * Unique identifier for Dao DaoPerson1
+   */
   public static final int DAO_PERSON1_UID = 0;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new PersonTable()};
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected DaoPerson1Impl daoPerson1 = new DaoPerson1Impl(context);
 
-  /** Used only in transactions (that can be executed one for time. */
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  /**
-   * Instantiates a new bind app 1 data source.
-   *
-   * @param options the options
-   */
   protected BindApp1DataSource(DataSourceOptions options) {
     super("app.db", 2, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.livedata.persistence1.BindApp1DaoFactory#getDaoPerson1()
-   */
   @Override
   public DaoPerson1Impl getDaoPerson1() {
     return daoPerson1;
@@ -128,9 +115,8 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -139,10 +125,10 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -166,8 +152,6 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind app 1 data source
    */
   public static BindApp1DataSource instance() {
     BindApp1DataSource result=instance;
@@ -214,9 +198,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -243,11 +225,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -291,9 +269,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -303,18 +279,12 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     DaoPerson1Impl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind app 1 data source
    */
   public static BindApp1DataSource build(DataSourceOptions options) {
     BindApp1DataSource result=instance;
@@ -348,9 +318,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -360,56 +328,43 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindApp1DaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindApp1DaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindApp1DaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindApp1DaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The dao person 1. */
     protected DaoPerson1Impl _daoPerson1;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindApp1DataSource.this);
     }
 
     /**
-     * retrieve dao DaoPerson1.
      *
-     * @return the dao person 1
+     * retrieve dao DaoPerson1
      */
     public DaoPerson1Impl getDaoPerson1() {
       if (_daoPerson1==null) {
@@ -418,25 +373,16 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
       return _daoPerson1;
     }
 
-    /**
-     * On session opened.
-     */
     protected void onSessionOpened() {
       // support for live data
       _context.onSessionOpened();
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
       // support for live data
       _context.onSessionOpened();
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
       // support for live data
       Set<Integer> daosWithEvents=_context.onSessionClosed();
@@ -445,11 +391,6 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
       }
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

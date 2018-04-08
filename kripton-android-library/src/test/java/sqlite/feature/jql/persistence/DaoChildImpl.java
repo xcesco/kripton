@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.jql.persistence;
 
 import android.database.Cursor;
@@ -28,62 +13,47 @@ import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.jql.entities.Child;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Child</code>, based on interface <code>DaoChild</code>
- * </p>.
+ * </p>
  *
- * @see Child
- * @see DaoChild
- * @see sqlite.feature.jql.entities.ChildTable
+ *  @see Child
+ *  @see DaoChild
+ *  @see sqlite.feature.jql.entities.ChildTable
  */
 public class DaoChildImpl extends Dao implements DaoChild {
-  
-  /** The Constant SELECT_ALL_SQL1. */
   private static final String SELECT_ALL_SQL1 = "SELECT _id, name, parent_id FROM child";
 
-  /** The insert bean prepared statement 0. */
   private static SQLiteStatement insertBeanPreparedStatement0;
 
-  /** The Constant SELECT_BY_PARENT_SQL2. */
   private static final String SELECT_BY_PARENT_SQL2 = "select * from child where parent_id in (select _id from person where _id=?)";
 
-  /** The Constant SELECT_BY_PARENT2_SQL3. */
   private static final String SELECT_BY_PARENT2_SQL3 = "select count(*) from child where parent_id in (select _id from person where _id=?)";
 
-  /** The Constant SELECT_BY_PARENT_ID_SQL4. */
   private static final String SELECT_BY_PARENT_ID_SQL4 = "SELECT _id, name, parent_id FROM child WHERE parent_id=?";
 
-  /** The insert by copy 3 prepared statement 1. */
   private static SQLiteStatement insertByCopy3PreparedStatement1;
 
-  /** The insert by copy prepared statement 2. */
   private static SQLiteStatement insertByCopyPreparedStatement2;
 
-  /** The update JQL prepared statement 3. */
   private static SQLiteStatement updateJQLPreparedStatement3;
 
-  /**
-   * Instantiates a new dao child impl.
-   *
-   * @param context the context
-   */
   public DaoChildImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT _id, name, parent_id FROM child</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -142,17 +112,18 @@ public class DaoChildImpl extends Dao implements DaoChild {
   /**
    * <p>SQL insert:</p>
    * <pre>INSERT INTO child (name, parent_id) VALUES (${name}, ${parentId})</pre>
-   * 
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
-   * 
+   *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
    * </dl>
    *
-   * @param bean 	is mapped to parameter <strong>bean</strong>
-   * @return the child
+   * @param bean
+   * 	is mapped to parameter <strong>bean</strong>
+   *
    */
   @Override
   public Child insertBean(Child bean) {
@@ -209,22 +180,23 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>select * from child where parent_id in (select _id from person where _id=${parentId})</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${parentId}</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param parentId 	is binded to <code>${parentId}</code>
+   * @param parentId
+   * 	is binded to <code>${parentId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -282,20 +254,21 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>select count(*) from child where parent_id in (select _id from person where _id=${parentId})</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${parentId}</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param parentId 	is binded to <code>${parentId}</code>
+   * @param parentId
+   * 	is binded to <code>${parentId}</code>
    * @return single value extracted by query.
    */
   @Override
@@ -338,22 +311,23 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT _id, name, parent_id FROM child WHERE parent_id=${parentId}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>parent_id</dt><dd>is associated to bean's property <strong>parentId</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${parentId}</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param parentId 	is binded to <code>${parentId}</code>
+   * @param parentId
+   * 	is binded to <code>${parentId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -412,17 +386,21 @@ public class DaoChildImpl extends Dao implements DaoChild {
   /**
    * <h2>SQL insert</h2>
    * <pre>insert into child (name, parent_id) select name, parent_id from child where _id=${parentId} or _id=${parent} or _id=${aliasParentId}</pre>
-   * 
+   *
    * <h2>Method parameters used as sql parameters</h2>
    * <dl>
    * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>${parentId}</strong></dd>
    * 	<dt>parent</dt><dd>is binded to query's parameter <strong>${parent}</strong></dd>
    * 	<dt>aliasParentId</dt><dd>is binded to query's parameter <strong>${aliasParentId}</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param parentId 	is used as parameter
-   * @param aliasParentId 	is used as parameter
-   * @param parent 	is used as parameter
+   * @param parentId
+   * 	is used as parameter
+   * @param aliasParentId
+   * 	is used as parameter
+   * @param parent
+   * 	is used as parameter
+   *
    */
   @Override
   public void insertByCopy(long parentId, long aliasParentId, long parent) {
@@ -533,15 +511,18 @@ public class DaoChildImpl extends Dao implements DaoChild {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO child (parent_id, name) VALUES (${parentId}, ${name})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param parentId 	is binded to column value <strong>parent_id</strong>
-   * @param name 	is binded to column value <strong>name</strong>
+   * @param parentId
+   * 	is binded to column value <strong>parent_id</strong>
+   * @param name
+   * 	is binded to column value <strong>name</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -599,19 +580,21 @@ public class DaoChildImpl extends Dao implements DaoChild {
   /**
    * <h2>SQL update</h2>
    * <pre>update or replace child set name=:name where parent_id=${a}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>name</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${a}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param parentId 	is used as where parameter <strong>${a}</strong>
-   * @param name 	is used as updated field <strong>name</strong>
+   * @param parentId
+   * 	is used as where parameter <strong>${a}</strong>
+   * @param name
+   * 	is used as updated field <strong>name</strong>
    */
   @Override
   public void updateJQL(long parentId, String name) {
@@ -659,21 +642,22 @@ public class DaoChildImpl extends Dao implements DaoChild {
   /**
    * <h2>SQL update</h2>
    * <pre>update or replace child set parent_id=${parentId}, name=(select _id from person where _id=${parentId} )  where parent_id=${parentId}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>parent_id</li>
    * 	<li>name</li>
    * </ul>
-   * 
+   *
    * <h2>Parameters:</h2>
    * <dl>
    * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
    * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
    * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param parentId 	is used as for parameter <strong>parentId</strong>
+   * @param parentId
+   * 	is used as for parameter <strong>parentId</strong>
    */
   @Override
   public void updateJQL2(long parentId) {
@@ -714,9 +698,6 @@ public class DaoChildImpl extends Dao implements DaoChild {
     database().execSQL("update or replace child set parent_id=?, name=(select _id from person where _id=? )  where parent_id=?", _contentValues.whereArgsAsArray());
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertBeanPreparedStatement0!=null) {
       insertBeanPreparedStatement0.close();

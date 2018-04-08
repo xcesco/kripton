@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton58.array2;
 
 import android.database.Cursor;
@@ -40,65 +25,49 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>LongBean</code>, based on interface <code>LongDao</code>
- * </p>.
+ * </p>
  *
- * @see LongBean
- * @see LongDao
- * @see LongBeanTable
+ *  @see LongBean
+ *  @see LongDao
+ *  @see LongBeanTable
  */
 public class LongDaoImpl extends Dao implements LongDao {
-  
-  /** The Constant SELECT_ONE_SQL1. */
   private static final String SELECT_ONE_SQL1 = "SELECT id, value, value2 FROM long_bean";
 
-  /** The Constant SELECT_ONE_SQL2. */
   private static final String SELECT_ONE_SQL2 = "SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?";
 
-  /** The Constant SELECT_ONE_SQL3. */
   private static final String SELECT_ONE_SQL3 = "SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?";
 
-  /** The Constant SELECT_ONE_SQL4. */
   private static final String SELECT_ONE_SQL4 = "SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?";
 
-  /** The Constant SELECT_LIST_SQL5. */
   private static final String SELECT_LIST_SQL5 = "SELECT id, value, value2 FROM long_bean WHERE value=? and value2=?";
 
-  /** The update one prepared statement 0. */
   private static SQLiteStatement updateOnePreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The insert prepared statement 2. */
   private static SQLiteStatement insertPreparedStatement2;
 
-  /** The delete prepared statement 3. */
   private static SQLiteStatement deletePreparedStatement3;
 
-  /**
-   * Instantiates a new long dao impl.
-   *
-   * @param context the context
-   */
   public LongDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM long_bean</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return selected bean or <code>null</code>.
    */
@@ -150,24 +119,26 @@ public class LongDaoImpl extends Dao implements LongDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value} and value2=${value2}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
-   * @param value2 	is binded to <code>${value2}</code>
+   * @param value
+   * 	is binded to <code>${value}</code>
+   * @param value2
+   * 	is binded to <code>${value2}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -220,25 +191,28 @@ public class LongDaoImpl extends Dao implements LongDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value} and value2=${value2}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
-   * @param value2 	is binded to <code>${value2}</code>
-   * @param listener 	is the LongBean listener
+   * @param value
+   * 	is binded to <code>${value}</code>
+   * @param value2
+   * 	is binded to <code>${value2}</code>
+   * @param listener
+   * 	is the LongBean listener
    */
   @Override
   public void selectOne(long[] value, Long[] value2, OnReadBeanListener<LongBean> listener) {
@@ -296,25 +270,28 @@ public class LongDaoImpl extends Dao implements LongDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value} and value2=${value2}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
-   * @param value2 	is binded to <code>${value2}</code>
-   * @param listener 	is the cursor listener
+   * @param value
+   * 	is binded to <code>${value}</code>
+   * @param value2
+   * 	is binded to <code>${value2}</code>
+   * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectOne(long[] value, Long[] value2, OnReadCursorListener listener) {
@@ -357,24 +334,26 @@ public class LongDaoImpl extends Dao implements LongDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM long_bean WHERE value=${value} and value2=${value2}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
-   * @param value2 	is binded to <code>${value2}</code>
+   * @param value
+   * 	is binded to <code>${value}</code>
+   * @param value2
+   * 	is binded to <code>${value2}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -434,21 +413,25 @@ public class LongDaoImpl extends Dao implements LongDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE long_bean SET id=:id WHERE value=${value} and value2=${value2}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>id</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
    * 	<dt>${value2}</dt><dd>is mapped to method's parameter <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as updated field <strong>id</strong>
-   * @param value 	is used as where parameter <strong>${value}</strong>
-   * @param value2 	is used as where parameter <strong>${value2}</strong>
+   * @param id
+   * 	is used as updated field <strong>id</strong>
+   * @param value
+   * 	is used as where parameter <strong>${value}</strong>
+   * @param value2
+   * 	is used as where parameter <strong>${value2}</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -499,17 +482,21 @@ public class LongDaoImpl extends Dao implements LongDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO long_bean (id, value, value2) VALUES (${id}, ${value}, ${value2})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is binded to query's parameter <strong>${value2}</strong> and method's parameter <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to column value <strong>id</strong>
-   * @param value 	is binded to column value <strong>value</strong>
-   * @param value2 	is binded to column value <strong>value2</strong>
+   * @param id
+   * 	is binded to column value <strong>id</strong>
+   * @param value
+   * 	is binded to column value <strong>value</strong>
+   * @param value2
+   * 	is binded to column value <strong>value2</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -638,16 +625,19 @@ public class LongDaoImpl extends Dao implements LongDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM long_bean WHERE value=${value} and value2=${value2}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
    * 	<dt>${value2}</dt><dd>is mapped to method's parameter <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is used as where parameter <strong>${value}</strong>
-   * @param value2 	is used as where parameter <strong>${value2}</strong>
+   * @param value
+   * 	is used as where parameter <strong>${value}</strong>
+   * @param value2
+   * 	is used as where parameter <strong>${value2}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -682,10 +672,7 @@ public class LongDaoImpl extends Dao implements LongDao {
   }
 
   /**
-   * for param serializer2 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer2 serialization
    */
   private byte[] serializer2(Long[] value) {
     if (value==null) {
@@ -721,10 +708,7 @@ public class LongDaoImpl extends Dao implements LongDao {
   }
 
   /**
-   * for param parser2 parsing.
-   *
-   * @param input the input
-   * @return the long[]
+   * for param parser2 parsing
    */
   private Long[] parser2(byte[] input) {
     if (input==null) {
@@ -758,10 +742,7 @@ public class LongDaoImpl extends Dao implements LongDao {
   }
 
   /**
-   * for param serializer1 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer1 serialization
    */
   private byte[] serializer1(long[] value) {
     if (value==null) {
@@ -793,10 +774,7 @@ public class LongDaoImpl extends Dao implements LongDao {
   }
 
   /**
-   * for param parser1 parsing.
-   *
-   * @param input the input
-   * @return the long[]
+   * for param parser1 parsing
    */
   private long[] parser1(byte[] input) {
     if (input==null) {
@@ -829,9 +807,6 @@ public class LongDaoImpl extends Dao implements LongDao {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updateOnePreparedStatement0!=null) {
       updateOnePreparedStatement0.close();

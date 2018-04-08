@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.foreignKey;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -27,7 +12,6 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Represents implementation of datasource DummyDataSource.
@@ -44,51 +28,55 @@ import java.util.List;
  * @see BeanA_2
  */
 public class BindDummyDataSource extends AbstractDataSource implements BindDummyDaoFactory, DummyDataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindDummyDataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao DaoBeanA_1. */
+  /**
+   * Unique identifier for Dao DaoBeanA_1
+   */
   public static final int DAO_BEAN_A_1_UID = 0;
 
-  /** Unique identifier for Dao DaoBeanA_2. */
+  /**
+   * Unique identifier for Dao DaoBeanA_2
+   */
   public static final int DAO_BEAN_A_2_UID = 1;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new BeanA_2Table(), new BeanA_1Table()};
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected DaoBeanA_1Impl daoBeanA_1 = new DaoBeanA_1Impl(context);
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected DaoBeanA_2Impl daoBeanA_2 = new DaoBeanA_2Impl(context);
 
-  /** Used only in transactions (that can be executed one for time. */
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  /**
-   * Instantiates a new bind dummy data source.
-   *
-   * @param options the options
-   */
   protected BindDummyDataSource(DataSourceOptions options) {
     super("test.db", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.foreignKey.BindDummyDaoFactory#getDaoBeanA_1()
-   */
   @Override
   public DaoBeanA_1Impl getDaoBeanA_1() {
     return daoBeanA_1;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.foreignKey.BindDummyDaoFactory#getDaoBeanA_2()
-   */
   @Override
   public DaoBeanA_2Impl getDaoBeanA_2() {
     return daoBeanA_2;
@@ -143,9 +131,8 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -154,10 +141,10 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -181,8 +168,6 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind dummy data source
    */
   public static BindDummyDataSource instance() {
     BindDummyDataSource result=instance;
@@ -229,9 +214,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -264,11 +247,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -318,9 +297,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -331,9 +308,6 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     DaoBeanA_1Impl.clearCompiledStatements();
     DaoBeanA_2Impl.clearCompiledStatements();
@@ -341,9 +315,6 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind dummy data source
    */
   public static BindDummyDataSource build(DataSourceOptions options) {
     BindDummyDataSource result=instance;
@@ -377,9 +348,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -389,59 +358,45 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindDummyDaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindDummyDaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindDummyDaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindDummyDaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The dao bean A 1. */
     protected DaoBeanA_1Impl _daoBeanA_1;
 
-    /** The dao bean A 2. */
     protected DaoBeanA_2Impl _daoBeanA_2;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindDummyDataSource.this);
     }
 
     /**
-     * retrieve dao DaoBeanA_1.
      *
-     * @return the dao bean A 1
+     * retrieve dao DaoBeanA_1
      */
     public DaoBeanA_1Impl getDaoBeanA_1() {
       if (_daoBeanA_1==null) {
@@ -451,9 +406,8 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
     }
 
     /**
-     * retrieve dao DaoBeanA_2.
      *
-     * @return the dao bean A 2
+     * retrieve dao DaoBeanA_2
      */
     public DaoBeanA_2Impl getDaoBeanA_2() {
       if (_daoBeanA_2==null) {
@@ -462,29 +416,15 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
       return _daoBeanA_2;
     }
 
-    /**
-     * On session opened.
-     */
     protected void onSessionOpened() {
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

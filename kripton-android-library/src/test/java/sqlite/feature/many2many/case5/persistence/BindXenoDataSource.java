@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.many2many.case5.persistence;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -31,7 +16,6 @@ import sqlite.feature.many2many.case5.model.PersonTable;
 import sqlite.feature.many2many.case5.model.PhoneNumberTable;
 import sqlite.feature.many2many.case5.model.PrefixConfigTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Represents implementation of datasource XenoDataSource.
@@ -57,93 +41,100 @@ import sqlite.feature.many2many.case5.model.PrefixConfigTable;
  * @see Person
  */
 public class BindXenoDataSource extends AbstractDataSource implements BindXenoDaoFactory, XenoDataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindXenoDataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao PhoneDao. */
+  /**
+   * Unique identifier for Dao PhoneDao
+   */
   public static final int PHONE_DAO_UID = 0;
 
-  /** Unique identifier for Dao PrefixConfigDao. */
+  /**
+   * Unique identifier for Dao PrefixConfigDao
+   */
   public static final int PREFIX_CONFIG_DAO_UID = 1;
 
-  /** Unique identifier for Dao CountryDao. */
+  /**
+   * Unique identifier for Dao CountryDao
+   */
   public static final int COUNTRY_DAO_UID = 2;
 
-  /** Unique identifier for Dao Person2PhoneDao. */
+  /**
+   * Unique identifier for Dao Person2PhoneDao
+   */
   public static final int PERSON2_PHONE_DAO_UID = 3;
 
-  /** Unique identifier for Dao PersonDao. */
+  /**
+   * Unique identifier for Dao PersonDao
+   */
   public static final int PERSON_DAO_UID = 4;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new PersonTable(), new PrefixConfigTable(), new PhoneNumberTable(), new CountryTable(), new PersonPhoneNumberTable()};
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(context);
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected PrefixConfigDaoImpl prefixConfigDao = new PrefixConfigDaoImpl(context);
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected CountryDaoImpl countryDao = new CountryDaoImpl(context);
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected Person2PhoneDaoImpl person2PhoneDao = new Person2PhoneDaoImpl(context);
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected PersonDaoImpl personDao = new PersonDaoImpl(context);
 
-  /** Used only in transactions (that can be executed one for time. */
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  /**
-   * Instantiates a new bind xeno data source.
-   *
-   * @param options the options
-   */
   protected BindXenoDataSource(DataSourceOptions options) {
     super("xeno.db", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.many2many.case5.persistence.BindXenoDaoFactory#getPhoneDao()
-   */
   @Override
   public PhoneDaoImpl getPhoneDao() {
     return phoneDao;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.many2many.case5.persistence.BindXenoDaoFactory#getPrefixConfigDao()
-   */
   @Override
   public PrefixConfigDaoImpl getPrefixConfigDao() {
     return prefixConfigDao;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.many2many.case5.persistence.BindXenoDaoFactory#getCountryDao()
-   */
   @Override
   public CountryDaoImpl getCountryDao() {
     return countryDao;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.many2many.case5.persistence.BindXenoDaoFactory#getPerson2PhoneDao()
-   */
   @Override
   public Person2PhoneDaoImpl getPerson2PhoneDao() {
     return person2PhoneDao;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.many2many.case5.persistence.BindXenoDaoFactory#getPersonDao()
-   */
   @Override
   public PersonDaoImpl getPersonDao() {
     return personDao;
@@ -198,9 +189,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -209,10 +199,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -236,8 +226,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind xeno data source
    */
   public static BindXenoDataSource instance() {
     BindXenoDataSource result=instance;
@@ -284,9 +272,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -337,11 +323,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -409,9 +391,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -422,9 +402,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     PhoneDaoImpl.clearCompiledStatements();
     PrefixConfigDaoImpl.clearCompiledStatements();
@@ -435,9 +412,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind xeno data source
    */
   public static BindXenoDataSource build(DataSourceOptions options) {
     BindXenoDataSource result=instance;
@@ -471,9 +445,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -483,68 +455,51 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindXenoDaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindXenoDaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindXenoDaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindXenoDaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The phone dao. */
     protected PhoneDaoImpl _phoneDao;
 
-    /** The prefix config dao. */
     protected PrefixConfigDaoImpl _prefixConfigDao;
 
-    /** The country dao. */
     protected CountryDaoImpl _countryDao;
 
-    /** The person 2 phone dao. */
     protected Person2PhoneDaoImpl _person2PhoneDao;
 
-    /** The person dao. */
     protected PersonDaoImpl _personDao;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindXenoDataSource.this);
     }
 
     /**
-     * retrieve dao PhoneDao.
      *
-     * @return the phone dao
+     * retrieve dao PhoneDao
      */
     public PhoneDaoImpl getPhoneDao() {
       if (_phoneDao==null) {
@@ -554,9 +509,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
 
     /**
-     * retrieve dao PrefixConfigDao.
      *
-     * @return the prefix config dao
+     * retrieve dao PrefixConfigDao
      */
     public PrefixConfigDaoImpl getPrefixConfigDao() {
       if (_prefixConfigDao==null) {
@@ -566,9 +520,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
 
     /**
-     * retrieve dao CountryDao.
      *
-     * @return the country dao
+     * retrieve dao CountryDao
      */
     public CountryDaoImpl getCountryDao() {
       if (_countryDao==null) {
@@ -578,9 +531,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
 
     /**
-     * retrieve dao Person2PhoneDao.
      *
-     * @return the person 2 phone dao
+     * retrieve dao Person2PhoneDao
      */
     public Person2PhoneDaoImpl getPerson2PhoneDao() {
       if (_person2PhoneDao==null) {
@@ -590,9 +542,8 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
 
     /**
-     * retrieve dao PersonDao.
      *
-     * @return the person dao
+     * retrieve dao PersonDao
      */
     public PersonDaoImpl getPersonDao() {
       if (_personDao==null) {
@@ -601,29 +552,15 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       return _personDao;
     }
 
-    /**
-     * On session opened.
-     */
     protected void onSessionOpened() {
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

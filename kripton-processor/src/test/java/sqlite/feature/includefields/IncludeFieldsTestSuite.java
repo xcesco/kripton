@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.sqlite.model;
+package sqlite.feature.includefields;
 
-// TODO: Auto-generated Javadoc
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+import base.BaseProcessorTest;
+
 /**
- * The Enum SQLiteColumnType.
+ * The Class IncludeFieldsTestSuite.
  */
-public enum SQLiteColumnType {
-	
-	/** The blob. */
-	BLOB, 
- /** The text. */
- TEXT, 
- /** The integer. */
- INTEGER, 
- /** The real. */
- REAL;
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		IncludeFieldsTest.class		
+		 })
+//@formatter:on
+public class IncludeFieldsTestSuite extends BaseProcessorTest {
 
 }

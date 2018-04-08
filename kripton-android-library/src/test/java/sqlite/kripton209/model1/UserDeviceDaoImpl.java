@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton209.model1;
 
 import android.database.Cursor;
@@ -27,66 +12,53 @@ import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>UserDevice</code>, based on interface <code>GeneratedUserDeviceDao</code>
- * </p>.
+ * </p>
  *
- * @see UserDevice
- * @see GeneratedUserDeviceDao
- * @see UserDeviceTable
+ *  @see UserDevice
+ *  @see GeneratedUserDeviceDao
+ *  @see UserDeviceTable
  */
 public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
-  
-  /** The Constant SELECT_BY_ID_SQL5. */
   private static final String SELECT_BY_ID_SQL5 = "SELECT id, user_id, device_id FROM user_device WHERE id=?";
 
-  /** The Constant SELECT_BY_USER_ID_SQL6. */
   private static final String SELECT_BY_USER_ID_SQL6 = "SELECT id, user_id, device_id FROM user_device WHERE user_id=?";
 
-  /** The Constant SELECT_BY_DEVICE_ID_SQL7. */
   private static final String SELECT_BY_DEVICE_ID_SQL7 = "SELECT id, user_id, device_id FROM user_device WHERE device_id=?";
 
-  /** The delete by id prepared statement 0. */
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
-  /** The delete by user id prepared statement 1. */
   private static SQLiteStatement deleteByUserIdPreparedStatement1;
 
-  /** The delete by device id prepared statement 2. */
   private static SQLiteStatement deleteByDeviceIdPreparedStatement2;
 
-  /** The insert prepared statement 3. */
   private static SQLiteStatement insertPreparedStatement3;
 
-  /**
-   * Instantiates a new user device dao impl.
-   *
-   * @param context the context
-   */
   public UserDeviceDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, user_id, device_id FROM user_device WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>device_id</dt><dd>is associated to bean's property <strong>deviceId</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -138,22 +110,23 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, user_id, device_id FROM user_device WHERE user_id=${userId}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>device_id</dt><dd>is associated to bean's property <strong>deviceId</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${userId}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param userId 	is binded to <code>${userId}</code>
+   * @param userId
+   * 	is binded to <code>${userId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -211,22 +184,23 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, user_id, device_id FROM user_device WHERE device_id=${deviceId}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>device_id</dt><dd>is associated to bean's property <strong>deviceId</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${deviceId}</dt><dd>is binded to method's parameter <strong>deviceId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param deviceId 	is binded to <code>${deviceId}</code>
+   * @param deviceId
+   * 	is binded to <code>${deviceId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -285,14 +259,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE id=${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -328,14 +304,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE user_id=${userId}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${userId}</dt><dd>is mapped to method's parameter <strong>userId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param userId 	is used as where parameter <strong>${userId}</strong>
+   * @param userId
+   * 	is used as where parameter <strong>${userId}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -371,14 +349,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE device_id=${deviceId}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${deviceId}</dt><dd>is mapped to method's parameter <strong>deviceId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param deviceId 	is used as where parameter <strong>${deviceId}</strong>
+   * @param deviceId
+   * 	is used as where parameter <strong>${deviceId}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -481,9 +461,6 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     return (int)result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (deleteByIdPreparedStatement0!=null) {
       deleteByIdPreparedStatement0.close();

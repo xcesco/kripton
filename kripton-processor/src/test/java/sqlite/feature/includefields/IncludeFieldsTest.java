@@ -13,40 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.includeFields;
+package sqlite.feature.includefields;
 
-import java.util.Date;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.annotation.BindType;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.includefields.Person;
+import sqlite.feature.includefields.PersonDAO;
+import sqlite.feature.includefields.PersonDataSource;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Person.
+ * The Class IncludeFieldsTest.
  */
-@BindType
-@BindTable(indexes={"birthCity, birthDay"})
-public class Person {
-  
-  /** The id. */
-  public long id;
-  
-  
-  /** The name. */
-  @BindColumn(columnType=ColumnType.INDEXED)
-  public String name;
-  
-  /** The surname. */
-  public String surname;
-  
-  /** The birth city. */
-  public String birthCity;
-  
-  /** The birth day. */
-  public Date birthDay;
-  
-  /** The type name. */
-  public String typeName;
+@RunWith(JUnit4.class)
+public class IncludeFieldsTest extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
+	 */
+	@Test
+	public void test01() throws Throwable {
+		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
+	}
+
 }

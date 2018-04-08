@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.contentprovider.kripton213.case1;
 
 import android.content.ContentValues;
@@ -32,66 +17,49 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Cheese</code>, based on interface <code>CheeseDao</code>
- * </p>.
+ * </p>
  *
- * @see Cheese
- * @see CheeseDao
- * @see CheeseTable
+ *  @see Cheese
+ *  @see CheeseDao
+ *  @see CheeseTable
  */
 public class CheeseDaoImpl extends Dao implements CheeseDao {
-  
-  /** The Constant COUNT_SQL1. */
   private static final String COUNT_SQL1 = "SELECT count(*) FROM cheeses";
 
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /** The Constant insert0ColumnSet. */
   private static final Set<String> insert0ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  /** The Constant SELECT_ALL_SQL2. */
   private static final String SELECT_ALL_SQL2 = "SELECT id, name FROM cheeses";
 
-  /** The Constant selectAll1ColumnSet. */
   private static final Set<String> selectAll1ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
-  /** The Constant SELECT_BY_ID_SQL3. */
   private static final String SELECT_BY_ID_SQL3 = "SELECT id, name FROM cheeses WHERE id=?";
 
-  /** The Constant selectById2ColumnSet. */
   private static final Set<String> selectById2ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
-  /** The delete by id prepared statement 1. */
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
-  /** The update prepared statement 2. */
   private static SQLiteStatement updatePreparedStatement2;
 
-  /** The Constant update4ColumnSet. */
   private static final Set<String> update4ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  /**
-   * Instantiates a new cheese dao impl.
-   *
-   * @param context the context
-   */
   public CheeseDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT count(*) FROM cheeses</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
-   * </dl>.
+   * </dl>
    *
    * @return single value extracted by query.
    */
@@ -246,14 +214,14 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name FROM cheeses</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -310,22 +278,20 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name FROM Cheese</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name FROM cheeses</pre>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://com.abubusoft.contentprovidersample.provider/cheese"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectAll1(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -374,21 +340,22 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name FROM cheeses WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -439,27 +406,25 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name FROM Cheese WHERE id=${id}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, name FROM cheeses WHERE id=${id}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${id}</strong> at path segment 1</li>
    * </ul>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://com.abubusoft.contentprovidersample.provider/cheese/#"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectById2(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -518,14 +483,16 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM cheeses WHERE id=${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -759,9 +726,6 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

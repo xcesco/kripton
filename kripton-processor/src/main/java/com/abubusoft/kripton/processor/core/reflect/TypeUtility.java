@@ -377,7 +377,10 @@ public abstract class TypeUtility {
 		case REAL:
 			methodBuilder.addCode("String.valueOf(");
 			break;
+		default:
+			break;
 		}
+		
 	}
 
 	/**

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.many2many.entity;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -29,7 +14,6 @@ import java.util.List;
 import sqlite.feature.many2many.CityTable;
 import sqlite.feature.many2many.PersonTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Represents implementation of datasource PersonCirtyOk1DataSource.
@@ -49,65 +33,70 @@ import sqlite.feature.many2many.PersonTable;
  * @see PersonCityOk1
  */
 public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements BindPersonCirtyOk1DaoFactory, PersonCirtyOk1DataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindPersonCirtyOk1DataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao PersonOk1Dao. */
+  /**
+   * Unique identifier for Dao PersonOk1Dao
+   */
   public static final int PERSON_OK1_DAO_UID = 0;
 
-  /** Unique identifier for Dao CityOk1Dao. */
+  /**
+   * Unique identifier for Dao CityOk1Dao
+   */
   public static final int CITY_OK1_DAO_UID = 1;
 
-  /** Unique identifier for Dao PersonCityOk1Dao. */
+  /**
+   * Unique identifier for Dao PersonCityOk1Dao
+   */
   public static final int PERSON_CITY_OK1_DAO_UID = 2;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new PersonCityOk1Table(), new CityTable(), new PersonTable()};
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected PersonOk1DaoImpl personOk1Dao = new PersonOk1DaoImpl(context);
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected CityOk1DaoImpl cityOk1Dao = new CityOk1DaoImpl(context);
 
-  /** <p>dao instance</p>. */
+  /**
+   * <p>dao instance</p>
+   */
   protected PersonCityOk1DaoImpl personCityOk1Dao = new PersonCityOk1DaoImpl(context);
 
-  /** Used only in transactions (that can be executed one for time. */
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  /**
-   * Instantiates a new bind person cirty ok 1 data source.
-   *
-   * @param options the options
-   */
   protected BindPersonCirtyOk1DataSource(DataSourceOptions options) {
     super("person.db", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.many2many.entity.BindPersonCirtyOk1DaoFactory#getPersonOk1Dao()
-   */
   @Override
   public PersonOk1DaoImpl getPersonOk1Dao() {
     return personOk1Dao;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.many2many.entity.BindPersonCirtyOk1DaoFactory#getCityOk1Dao()
-   */
   @Override
   public CityOk1DaoImpl getCityOk1Dao() {
     return cityOk1Dao;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.many2many.entity.BindPersonCirtyOk1DaoFactory#getPersonCityOk1Dao()
-   */
   @Override
   public PersonCityOk1DaoImpl getPersonCityOk1Dao() {
     return personCityOk1Dao;
@@ -162,9 +151,8 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -173,10 +161,10 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -200,8 +188,6 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind person cirty ok 1 data source
    */
   public static BindPersonCirtyOk1DataSource instance() {
     BindPersonCirtyOk1DataSource result=instance;
@@ -248,9 +234,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -289,11 +273,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -349,9 +329,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -362,9 +340,6 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     PersonOk1DaoImpl.clearCompiledStatements();
     CityOk1DaoImpl.clearCompiledStatements();
@@ -373,9 +348,6 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind person cirty ok 1 data source
    */
   public static BindPersonCirtyOk1DataSource build(DataSourceOptions options) {
     BindPersonCirtyOk1DataSource result=instance;
@@ -409,9 +381,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -421,62 +391,47 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindPersonCirtyOk1DaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindPersonCirtyOk1DaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindPersonCirtyOk1DaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The person ok 1 dao. */
     protected PersonOk1DaoImpl _personOk1Dao;
 
-    /** The city ok 1 dao. */
     protected CityOk1DaoImpl _cityOk1Dao;
 
-    /** The person city ok 1 dao. */
     protected PersonCityOk1DaoImpl _personCityOk1Dao;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindPersonCirtyOk1DataSource.this);
     }
 
     /**
-     * retrieve dao PersonOk1Dao.
      *
-     * @return the person ok 1 dao
+     * retrieve dao PersonOk1Dao
      */
     public PersonOk1DaoImpl getPersonOk1Dao() {
       if (_personOk1Dao==null) {
@@ -486,9 +441,8 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     }
 
     /**
-     * retrieve dao CityOk1Dao.
      *
-     * @return the city ok 1 dao
+     * retrieve dao CityOk1Dao
      */
     public CityOk1DaoImpl getCityOk1Dao() {
       if (_cityOk1Dao==null) {
@@ -498,9 +452,8 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     }
 
     /**
-     * retrieve dao PersonCityOk1Dao.
      *
-     * @return the person city ok 1 dao
+     * retrieve dao PersonCityOk1Dao
      */
     public PersonCityOk1DaoImpl getPersonCityOk1Dao() {
       if (_personCityOk1Dao==null) {
@@ -509,29 +462,15 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
       return _personCityOk1Dao;
     }
 
-    /**
-     * On session opened.
-     */
     protected void onSessionOpened() {
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

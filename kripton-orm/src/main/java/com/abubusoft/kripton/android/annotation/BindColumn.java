@@ -20,6 +20,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoForeignKey;
@@ -127,5 +128,15 @@ public @interface BindColumn {
 	 * @return action to take
 	 */
 	public ForeignKeyAction onUpdate() default ForeignKeyAction.NO_ACTION;
+
+	/**
+	 * Allows to specify column affinity. Usually it was take directly from
+	 * field type. Default value is AUTO.
+	 * 
+	 * @return type affinity for the column. AUTO value means column type is
+	 *         derived from field type.
+	 * 
+	 */
+	public ColumnAffinityType columnAffinity() default ColumnAffinityType.AUTO;
 
 }

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.many2many.case6.persistence;
 
 import android.database.Cursor;
@@ -30,56 +15,41 @@ import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.many2many.case6.model.PersonPhone;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>PersonPhone</code>, based on interface <code>GeneratedPerson2PhoneDao</code>
- * </p>.
+ * </p>
  *
- * @see PersonPhone
- * @see GeneratedPerson2PhoneDao
- * @see sqlite.feature.many2many.case6.model.PersonPhoneTable
+ *  @see PersonPhone
+ *  @see GeneratedPerson2PhoneDao
+ *  @see sqlite.feature.many2many.case6.model.PersonPhoneTable
  */
 public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao {
-  
-  /** The Constant SELECT_BY_DATE_SQL11. */
   private static final String SELECT_BY_DATE_SQL11 = "SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE buy_date>?";
 
-  /** The Constant SELECT_BY_ID_SQL12. */
   private static final String SELECT_BY_ID_SQL12 = "SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE id=?";
 
-  /** The Constant SELECT_BY_PERSON_ID_SQL13. */
   private static final String SELECT_BY_PERSON_ID_SQL13 = "SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE person_id=?";
 
-  /** The Constant SELECT_BY_PHONE_NUMBER_ID_SQL14. */
   private static final String SELECT_BY_PHONE_NUMBER_ID_SQL14 = "SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE phone_number_id=?";
 
-  /** The delete by id prepared statement 0. */
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
-  /** The delete by person id prepared statement 1. */
   private static SQLiteStatement deleteByPersonIdPreparedStatement1;
 
-  /** The delete by phone number id prepared statement 2. */
   private static SQLiteStatement deleteByPhoneNumberIdPreparedStatement2;
 
-  /** The insert prepared statement 3. */
   private static SQLiteStatement insertPreparedStatement3;
 
-  /**
-   * Instantiates a new person 2 phone dao impl.
-   *
-   * @param context the context
-   */
   public Person2PhoneDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE buy_date>${since}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -87,13 +57,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * 	<dt>phone_number_id</dt><dd>is associated to bean's property <strong>phoneNumberId</strong></dd>
    * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${since}</dt><dd>is binded to method's parameter <strong>since</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param since 	is binded to <code>${since}</code>
+   * @param since
+   * 	is binded to <code>${since}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -153,9 +124,9 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -163,13 +134,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * 	<dt>phone_number_id</dt><dd>is associated to bean's property <strong>phoneNumberId</strong></dd>
    * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -223,9 +195,9 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE person_id=${personId}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -233,13 +205,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * 	<dt>phone_number_id</dt><dd>is associated to bean's property <strong>phoneNumberId</strong></dd>
    * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${personId}</dt><dd>is binded to method's parameter <strong>personId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param personId 	is binded to <code>${personId}</code>
+   * @param personId
+   * 	is binded to <code>${personId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -299,9 +272,9 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE phone_number_id=${phoneNumberId}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -309,13 +282,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * 	<dt>phone_number_id</dt><dd>is associated to bean's property <strong>phoneNumberId</strong></dd>
    * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${phoneNumberId}</dt><dd>is binded to method's parameter <strong>phoneNumberId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param phoneNumberId 	is binded to <code>${phoneNumberId}</code>
+   * @param phoneNumberId
+   * 	is binded to <code>${phoneNumberId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -376,14 +350,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone WHERE id=${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -419,14 +395,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone WHERE person_id=${personId}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${personId}</dt><dd>is mapped to method's parameter <strong>personId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param personId 	is used as where parameter <strong>${personId}</strong>
+   * @param personId
+   * 	is used as where parameter <strong>${personId}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -462,14 +440,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone WHERE phone_number_id=${phoneNumberId}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${phoneNumberId}</dt><dd>is mapped to method's parameter <strong>phoneNumberId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param phoneNumberId 	is used as where parameter <strong>${phoneNumberId}</strong>
+   * @param phoneNumberId
+   * 	is used as where parameter <strong>${phoneNumberId}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -574,9 +554,6 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     return (int)result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (deleteByIdPreparedStatement0!=null) {
       deleteByIdPreparedStatement0.close();

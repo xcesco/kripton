@@ -10,18 +10,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for OpenGLSettings.
+ * This class is binder map for OpenGLSettings
  *
  * @see OpenGLSettings
  */
 @BindMap(OpenGLSettings.class)
 public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(OpenGLSettings object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -54,9 +49,6 @@ public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(OpenGLSettings object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -85,12 +77,7 @@ public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(OpenGLSettings object, XMLSerializer xmlSerializer,
@@ -132,11 +119,7 @@ public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the open GL settings
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public OpenGLSettings parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -183,11 +166,7 @@ public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the open GL settings
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public OpenGLSettings parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -234,12 +213,7 @@ public class OpenGLSettingsBindMap extends AbstractMapper<OpenGLSettings> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the open GL settings
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public OpenGLSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

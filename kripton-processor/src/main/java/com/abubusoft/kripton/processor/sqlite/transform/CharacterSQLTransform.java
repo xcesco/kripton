@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.squareup.javapoet.MethodSpec.Builder;
 
 // TODO: Auto-generated Javadoc
@@ -55,8 +55,8 @@ class CharacterSQLTransform extends WrappedSQLTransformation {
 	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#getColumnType()
 	 */
 	@Override
-	public SQLiteColumnType getColumnType() {
-		return SQLiteColumnType.INTEGER;
+	public ColumnAffinityType getColumnType() {
+		return ColumnAffinityType.INTEGER;
 	}
 
 }

@@ -1,23 +1,7 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton38;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Bean03</code> is associated to table <code>bean03</code>
@@ -26,14 +10,27 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see Bean03
  */
 public class Bean03Table implements SQLiteTable {
-  
-  /** Costant represents typeName of table bean03. */
+  /**
+   * Costant represents typeName of table bean03
+   */
   public static final String TABLE_NAME = "bean03";
 
-  /** <p> DDL to create table bean03 </p>  <pre>CREATE TABLE bean03 (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);</pre>. */
+  /**
+   * <p>
+   * DDL to create table bean03
+   * </p>
+   *
+   * <pre>CREATE TABLE bean03 (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean03 (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);";
 
-  /** <p> DDL to drop table bean03 </p>  <pre>DROP TABLE IF EXISTS bean03;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table bean03
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS bean03;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean03;";
 
   /**
@@ -50,13 +47,13 @@ public class Bean03Table implements SQLiteTable {
    */
   public static final String COLUMN_TEXT = "text";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_TEXT};
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -64,9 +61,7 @@ public class Bean03Table implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

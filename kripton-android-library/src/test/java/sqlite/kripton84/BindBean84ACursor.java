@@ -1,74 +1,82 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton84;
 
 import android.database.Cursor;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Cursor implementation for entity <code>Bean84A</code>
- * </p>.
- *
- * @see Bean84A
+ * </p>
+ *  @see Bean84A
  */
 public class BindBean84ACursor {
-  
-  /** Cursor used to read database. */
+  /**
+   * Cursor used to read database
+   */
   protected Cursor cursor;
 
-  /** Index for column "id". */
+  /**
+   * Index for column "id"
+   */
   protected int index0;
 
-  /** Index for column "param1". */
+  /**
+   * Index for column "param1"
+   */
   protected int index1;
 
-  /** Index for column "param2". */
+  /**
+   * Index for column "param2"
+   */
   protected int index2;
 
-  /** Index for column "param3". */
+  /**
+   * Index for column "param3"
+   */
   protected int index3;
 
-  /** Index for column "param4". */
+  /**
+   * Index for column "param4"
+   */
   protected int index4;
 
-  /** Index for column "columnListString". */
+  /**
+   * Index for column "columnListString"
+   */
   protected int index5;
 
-  /** Index for column "columnMapIntegerString". */
+  /**
+   * Index for column "columnMapIntegerString"
+   */
   protected int index6;
 
-  /** Index for column "columnArrayChar". */
+  /**
+   * Index for column "columnArrayChar"
+   */
   protected int index7;
 
-  /** Index for column "columnArrayCharType". */
+  /**
+   * Index for column "columnArrayCharType"
+   */
   protected int index8;
 
-  /** Index for column "columnBean". */
+  /**
+   * Index for column "columnBean"
+   */
   protected int index9;
 
-  /** Index for column "columnArrayByteType". */
+  /**
+   * Index for column "columnArrayByteType"
+   */
   protected int index10;
 
-  /** Index for column "valueString". */
+  /**
+   * Index for column "valueString"
+   */
   protected int index11;
 
   /**
-   * <p>Constructor</p>.
+   * <p>Constructor</p>
    *
    * @param cursor cursor used to read from database
    */
@@ -77,10 +85,9 @@ public class BindBean84ACursor {
   }
 
   /**
-   * <p>Wrap cursor with this class</p>.
+   * <p>Wrap cursor with this class</p>
    *
    * @param cursor cursor to include
-   * @return the bind bean 84 A cursor
    */
   public BindBean84ACursor wrap(Cursor cursor) {
     this.cursor=cursor;
@@ -181,10 +188,9 @@ public class BindBean84ACursor {
   }
 
   /**
-   * <p>Create a binded cursor starting from a cursor</p>.
+   * <p>Create a binded cursor starting from a cursor</p>
    *
    * @param cursor to wrap
-   * @return the bind bean 84 A cursor
    */
   public static BindBean84ACursor create(Cursor cursor) {
     return new BindBean84ACursor(cursor);
@@ -192,13 +198,10 @@ public class BindBean84ACursor {
 
   /**
    * <p>Listener for row read from database.</p>
-   *
-   * @see OnBean84AEvent
    */
   public interface OnBean84AListener {
-    
     /**
-     * Method executed for each row extracted from database.
+     * Method executed for each row extracted from database
      *
      * @param bean loaded from database. Only selected columns/fields are valorized
      * @param rowPosition position of row

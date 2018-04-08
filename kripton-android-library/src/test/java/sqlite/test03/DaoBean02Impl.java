@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.test03;
 
 import android.database.sqlite.SQLiteStatement;
@@ -24,41 +9,28 @@ import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBean02</code>
- * </p>.
+ * </p>
  *
- * @see Bean01
- * @see DaoBean02
- * @see Bean01Table
+ *  @see Bean01
+ *  @see DaoBean02
+ *  @see Bean01Table
  */
 public class DaoBean02Impl extends Dao implements DaoBean02 {
-  
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The delete prepared statement 2. */
   private static SQLiteStatement deletePreparedStatement2;
 
-  /** The delete prepared statement 3. */
   private static SQLiteStatement deletePreparedStatement3;
 
-  /** The update prepared statement 4. */
   private static SQLiteStatement updatePreparedStatement4;
 
-  /** The update prepared statement 5. */
   private static SQLiteStatement updatePreparedStatement5;
 
-  /**
-   * Instantiates a new dao bean 02 impl.
-   *
-   * @param context the context
-   */
   public DaoBean02Impl(SQLContext context) {
     super(context);
   }
@@ -142,15 +114,18 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean01 (value, message_date) VALUES (${value}, ${messageDate})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
    * 	<dt>messageDate</dt><dd>is binded to query's parameter <strong>${messageDate}</strong> and method's parameter <strong>messageDate</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to column value <strong>value</strong>
-   * @param messageDate 	is binded to column value <strong>message_date</strong>
+   * @param value
+   * 	is binded to column value <strong>value</strong>
+   * @param messageDate
+   * 	is binded to column value <strong>message_date</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -208,14 +183,16 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean01 WHERE id=${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -295,19 +272,22 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE bean01 SET value=:value WHERE id>${id}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>value</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is used as updated field <strong>value</strong>
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param value
+   * 	is used as updated field <strong>value</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -425,9 +405,6 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

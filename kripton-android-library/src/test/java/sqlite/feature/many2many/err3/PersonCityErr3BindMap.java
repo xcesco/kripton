@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.many2many.err3;
 
 import com.abubusoft.kripton.AbstractMapper;
@@ -25,18 +10,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for PersonCityErr3.
+ * This class is binder map for PersonCityErr3
  *
  * @see PersonCityErr3
  */
 @BindMap(PersonCityErr3.class)
 public class PersonCityErr3BindMap extends AbstractMapper<PersonCityErr3> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(PersonCityErr3 object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -61,9 +41,6 @@ public class PersonCityErr3BindMap extends AbstractMapper<PersonCityErr3> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(PersonCityErr3 object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -86,12 +63,7 @@ public class PersonCityErr3BindMap extends AbstractMapper<PersonCityErr3> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(PersonCityErr3 object, XMLSerializer xmlSerializer,
@@ -123,11 +95,7 @@ public class PersonCityErr3BindMap extends AbstractMapper<PersonCityErr3> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the person city err 3
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public PersonCityErr3 parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -166,11 +134,7 @@ public class PersonCityErr3BindMap extends AbstractMapper<PersonCityErr3> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the person city err 3
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public PersonCityErr3 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -209,12 +173,7 @@ public class PersonCityErr3BindMap extends AbstractMapper<PersonCityErr3> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the person city err 3
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public PersonCityErr3 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

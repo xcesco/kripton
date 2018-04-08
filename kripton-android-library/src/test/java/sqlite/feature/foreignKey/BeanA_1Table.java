@@ -1,23 +1,7 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.foreignKey;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>BeanA_1</code> is associated to table <code>bean_a_1</code>
@@ -26,14 +10,27 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see BeanA_1
  */
 public class BeanA_1Table implements SQLiteTable {
-  
-  /** Costant represents typeName of table bean_a_1. */
+  /**
+   * Costant represents typeName of table bean_a_1
+   */
   public static final String TABLE_NAME = "bean_a_1";
 
-  /** <p> DDL to create table bean_a_1 </p>  <pre>CREATE TABLE bean_a_1 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_2(id));</pre>. */
+  /**
+   * <p>
+   * DDL to create table bean_a_1
+   * </p>
+   *
+   * <pre>CREATE TABLE bean_a_1 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_2(id));</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean_a_1 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_a2_id INTEGER, value_string TEXT, FOREIGN KEY(bean_a2_id) REFERENCES bean_a_2(id));";
 
-  /** <p> DDL to drop table bean_a_1 </p>  <pre>DROP TABLE IF EXISTS bean_a_1;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table bean_a_1
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS bean_a_1;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean_a_1;";
 
   /**
@@ -57,13 +54,13 @@ public class BeanA_1Table implements SQLiteTable {
    */
   public static final String COLUMN_VALUE_STRING = "value_string";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_BEAN_A2_ID, COLUMN_VALUE_STRING};
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -71,9 +68,7 @@ public class BeanA_1Table implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

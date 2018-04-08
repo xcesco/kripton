@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feat.includeFields;
+package sqlite.feature.includefields;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
-import sqlite.feat.includeFields.Person;
+import sqlite.feature.includefields.Person;
 
 // TODO: Auto-generated Javadoc
 /**

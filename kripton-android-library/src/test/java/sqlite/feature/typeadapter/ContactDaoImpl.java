@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.typeadapter;
 
 import android.database.Cursor;
@@ -32,92 +17,65 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Contact</code>, based on interface <code>ContactDao</code>
- * </p>.
+ * </p>
  *
- * @see Contact
- * @see ContactDao
- * @see ContactTable
+ *  @see Contact
+ *  @see ContactDao
+ *  @see ContactTable
  */
 public class ContactDaoImpl extends Dao implements ContactDao {
-  
-  /** The Constant SELECT_BY_SURNAME_WITH_ADAPTER_SQL1. */
   private static final String SELECT_BY_SURNAME_WITH_ADAPTER_SQL1 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
 
-  /** The Constant SELECT_BY_SURNAME_SQL2. */
   private static final String SELECT_BY_SURNAME_SQL2 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
 
-  /** The delete compact bean prepared statement 0. */
   private static SQLiteStatement deleteCompactBeanPreparedStatement0;
 
-  /** The delete compact raw prepared statement 1. */
   private static SQLiteStatement deleteCompactRawPreparedStatement1;
 
-  /** The delete JQL bean prepared statement 2. */
   private static SQLiteStatement deleteJQLBeanPreparedStatement2;
 
-  /** The delete JQL raw prepared statement 3. */
   private static SQLiteStatement deleteJQLRawPreparedStatement3;
 
-  /** The Constant SELECT_COMPACT_BEAN_SQL3. */
   private static final String SELECT_COMPACT_BEAN_SQL3 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=?  and type=?";
 
-  /** The Constant SELECT_J_Q_L_BEAN_LISTENER_SQL4. */
   private static final String SELECT_J_Q_L_BEAN_LISTENER_SQL4 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=? and password=? and type=?";
 
-  /** The Constant SELEC_J_Q_L_BEAN_SQL5. */
   private static final String SELEC_J_Q_L_BEAN_SQL5 = "SELECT birth_day, password, type FROM contact WHERE id=? and password=? and type=?";
 
-  /** The Constant SELECT_J_Q_L_RAW_SQL6. */
   private static final String SELECT_J_Q_L_RAW_SQL6 = "SELECT * FROM contact WHERE password=? and type=?";
 
-  /** The Constant SELECT_COMPACT_RAW_SQL7. */
   private static final String SELECT_COMPACT_RAW_SQL7 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE password=? and type=?";
 
-  /** The update compact bean prepared statement 4. */
   private static SQLiteStatement updateCompactBeanPreparedStatement4;
 
-  /** The update compact raw 1 prepared statement 5. */
   private static SQLiteStatement updateCompactRaw1PreparedStatement5;
 
-  /** The update compact raw 2 prepared statement 6. */
   private static SQLiteStatement updateCompactRaw2PreparedStatement6;
 
-  /** The update JQL bean prepared statement 7. */
   private static SQLiteStatement updateJQLBeanPreparedStatement7;
 
-  /** The update JQL raw prepared statement 8. */
   private static SQLiteStatement updateJQLRawPreparedStatement8;
 
-  /** The insert compact raw prepared statement 9. */
   private static SQLiteStatement insertCompactRawPreparedStatement9;
 
-  /** The insert compact bean prepared statement 10. */
   private static SQLiteStatement insertCompactBeanPreparedStatement10;
 
-  /** The insert JQL bean prepared statement 11. */
   private static SQLiteStatement insertJQLBeanPreparedStatement11;
 
-  /** The insert JQL raw prepared statement 12. */
   private static SQLiteStatement insertJQLRawPreparedStatement12;
 
-  /**
-   * Instantiates a new contact dao impl.
-   *
-   * @param context the context
-   */
   public ContactDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=${dummyTest}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -128,13 +86,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${dummyTest}</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param dummy 	is binded to <code>${dummyTest}</code>
+   * @param dummy
+   * 	is binded to <code>${dummyTest}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -203,9 +162,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=${dummy}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -216,13 +175,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param dummy 	is binded to <code>${dummy}</code>
+   * @param dummy
+   * 	is binded to <code>${dummy}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -335,16 +295,18 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM contact WHERE password=${password} and type=${type}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${password}</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
    * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param password 	is used as where parameter <strong>${password}</strong>
-   * @param type 	is used as where parameter <strong>${type}</strong>
+   * @param password
+   * 	is used as where parameter <strong>${password}</strong>
+   * @param type
+   * 	is used as where parameter <strong>${type}</strong>
    */
   @Override
   public void deleteCompactRaw(String password, ContactType type) {
@@ -422,16 +384,19 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM contact WHERE id=${id} and type=${type}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param type 	is used as where parameter <strong>${type}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param type
+   * 	is used as where parameter <strong>${type}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -737,9 +702,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT * FROM contact WHERE password=${password} and type=${type}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -750,15 +715,17 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${password}</dt><dd>is binded to method's parameter <strong>password</strong></dd>
    * 	<dt>${type}</dt><dd>is binded to method's parameter <strong>type</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param password 	is binded to <code>${password}</code>
-   * @param type 	is binded to <code>${type}</code>
+   * @param password
+   * 	is binded to <code>${password}</code>
+   * @param type
+   * 	is binded to <code>${type}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -828,9 +795,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE password=${password} and type=${type}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -841,15 +808,17 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${password}</dt><dd>is binded to method's parameter <strong>password</strong></dd>
    * 	<dt>${type}</dt><dd>is binded to method's parameter <strong>type</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param password 	is binded to <code>${password}</code>
-   * @param type 	is binded to <code>${type}</code>
+   * @param password
+   * 	is binded to <code>${password}</code>
+   * @param type
+   * 	is binded to <code>${type}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -989,21 +958,25 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE contact SET password=:password, type=:type WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>password</li>
    * 	<li>type</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param password 	is used as updated field <strong>password</strong>
-   * @param type 	is used as updated field <strong>type</strong>
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param password
+   * 	is used as updated field <strong>password</strong>
+   * @param type
+   * 	is used as updated field <strong>type</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -1054,23 +1027,28 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=${password} and type=${type}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>birth_day</li>
    * 	<li>id</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${password}</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
    * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param birthDay 	is used as updated field <strong>birthDay</strong>
-   * @param password 	is used as where parameter <strong>${password}</strong>
-   * @param type 	is used as where parameter <strong>${type}</strong>
-   * @param id 	is used as updated field <strong>id</strong>
+   * @param birthDay
+   * 	is used as updated field <strong>birthDay</strong>
+   * @param password
+   * 	is used as where parameter <strong>${password}</strong>
+   * @param type
+   * 	is used as where parameter <strong>${type}</strong>
+   * @param id
+   * 	is used as updated field <strong>id</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -1191,23 +1169,28 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=${password} and type=${type}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>birth_day</li>
    * 	<li>id</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${password}</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
    * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param password 	is used as where parameter <strong>${password}</strong>
-   * @param birthDay 	is used as updated field <strong>birthDay</strong>
-   * @param type 	is used as where parameter <strong>${type}</strong>
-   * @param id 	is used as updated field <strong>id</strong>
+   * @param password
+   * 	is used as where parameter <strong>${password}</strong>
+   * @param birthDay
+   * 	is used as updated field <strong>birthDay</strong>
+   * @param type
+   * 	is used as where parameter <strong>${type}</strong>
+   * @param id
+   * 	is used as updated field <strong>id</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -1259,17 +1242,21 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO contact (password, type, id) VALUES (${password}, ${type}, ${id})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>password</dt><dd>is binded to query's parameter <strong>${password}</strong> and method's parameter <strong>password</strong></dd>
    * 	<dt>type</dt><dd>is binded to query's parameter <strong>${type}</strong> and method's parameter <strong>type</strong></dd>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param password 	is binded to column value <strong>password</strong>
-   * @param type 	is binded to column value <strong>type</strong>
-   * @param id 	is binded to column value <strong>id</strong>
+   * @param password
+   * 	is binded to column value <strong>password</strong>
+   * @param type
+   * 	is binded to column value <strong>type</strong>
+   * @param id
+   * 	is binded to column value <strong>id</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -1470,18 +1457,21 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO contact (password, type, id) VALUES (${password}, ${type}, ${id})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>password</dt><dd>is binded to query's parameter <strong>${password}</strong> and method's parameter <strong>password</strong></dd>
    * 	<dt>type</dt><dd>is binded to query's parameter <strong>${type}</strong> and method's parameter <strong>type</strong></dd>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param password 	is binded to column value <strong>password</strong>
-   * @param birthDay the birth day
-   * @param type 	is binded to column value <strong>type</strong>
-   * @param id 	is binded to column value <strong>id</strong>
+   * @param password
+   * 	is binded to column value <strong>password</strong>
+   * @param type
+   * 	is binded to column value <strong>type</strong>
+   * @param id
+   * 	is binded to column value <strong>id</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -1537,9 +1527,6 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (deleteCompactBeanPreparedStatement0!=null) {
       deleteCompactBeanPreparedStatement0.close();

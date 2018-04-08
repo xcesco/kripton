@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.test05firt_aid;
 
 import android.database.Cursor;
@@ -27,41 +12,31 @@ import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>FirstAid</code>, based on interface <code>FirstAidDao</code>
- * </p>.
+ * </p>
  *
- * @see FirstAid
- * @see FirstAidDao
- * @see FirstAidTable
+ *  @see FirstAid
+ *  @see FirstAidDao
+ *  @see FirstAidTable
  */
 public class FirstAidDaoImpl extends Dao implements FirstAidDao {
-  
-  /** The Constant SELECT_ALL_SQL1. */
   private static final String SELECT_ALL_SQL1 = "SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY description";
 
-  /** The delete all prepared statement 0. */
   private static SQLiteStatement deleteAllPreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /**
-   * Instantiates a new first aid dao impl.
-   *
-   * @param context the context
-   */
   public FirstAidDaoImpl(SQLContext context) {
     super(context);
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, uid, description, info, longitude, latitude, address, address2, city, phone, total_patient_count, white_waiting_patients, white_visiting_patients, white_average_waiting_time, green_waiting_patients, green_visiting_patients, green_average_waiting_time, yellow_waiting_patients, yellow_visiting_patients, yellow_average_waiting_time, red_waiting_patients, red_average_waiting_time FROM first_aid ORDER BY description</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -86,7 +61,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
    * 	<dt>yellow_average_waiting_time</dt><dd>is associated to bean's property <strong>yellowAverageWaitingTime</strong></dd>
    * 	<dt>red_waiting_patients</dt><dd>is associated to bean's property <strong>redWaitingPatients</strong></dd>
    * 	<dt>red_average_waiting_time</dt><dd>is associated to bean's property <strong>redAverageWaitingTime</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -183,11 +158,12 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM first_aid WHERE 1=1</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
-   * </dl>.
+   * </dl>
+   *
    *
    * @return number of deleted records
    */
@@ -328,9 +304,6 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
     return (int)result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (deleteAllPreparedStatement0!=null) {
       deleteAllPreparedStatement0.close();

@@ -1,23 +1,8 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
-package sqlite.feat.includeFields;
+package sqlite.feature.includefields;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * <p>
  * Entity <code>Person</code> is associated to table <code>person</code>
@@ -26,14 +11,27 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see Person
  */
 public class PersonTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table person. */
+  /**
+   * Costant represents typeName of table person
+   */
   public static final String TABLE_NAME = "person";
 
-  /** <p> DDL to create table person </p>  <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_0 on person (birth_city, birth_day);</pre>. */
+  /**
+   * <p>
+   * DDL to create table person
+   * </p>
+   *
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_0 on person (birth_city, birth_day);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_0 on person (birth_city, birth_day);";
 
-  /** <p> DDL to drop table person </p>  <pre> DROP INDEX IF EXISTS idx_person_name; DROP INDEX IF EXISTS idx_person_1;DROP TABLE IF EXISTS person;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table person
+   * </p>
+   *
+   * <pre> DROP INDEX IF EXISTS idx_person_name; DROP INDEX IF EXISTS idx_person_1;DROP TABLE IF EXISTS person;</pre>
+   */
   public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_person_name; DROP INDEX IF EXISTS idx_person_1;DROP TABLE IF EXISTS person;";
 
   /**
@@ -78,13 +76,13 @@ public class PersonTable implements SQLiteTable {
    */
   public static final String COLUMN_TYPE_NAME = "type_name";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_SURNAME, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY, COLUMN_TYPE_NAME};
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -92,9 +90,7 @@ public class PersonTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {
