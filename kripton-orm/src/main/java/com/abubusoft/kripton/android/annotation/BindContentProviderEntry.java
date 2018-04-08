@@ -57,7 +57,7 @@ import java.lang.annotation.Target;
  * 
  * 	&#64;BindContentProviderEntry()
  * 	&#64;BindSqlSelect
- * 	List<Cheese> selectAll();
+ * 	List&lt;Cheese&gt; selectAll();
  * 
  * 	&#64;BindContentProviderEntry(path = "${id}")
  * 	&#64;BindSqlSelect(where = "id=${id}")

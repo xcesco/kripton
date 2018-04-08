@@ -34,7 +34,7 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
  * <li><strong>columnType</strong>: specifty if column is a PRIMARY_KEY, UNIQUE,
  * or STANDARD. Default value is STANDARD.</li>
  * <li><strong>enabled</strong>: if false means that associated field is not
- * binded to SQLite database table. Default value is true.</li> *
+ * binded to SQLite database table. Default value is true.</li>
  * <li><strong>foreignKey</strong>: link to entity/class linked by this field if
  * it is a foreign key. It can be used only on long/Long column type.</li>
  * <li><strong>nullable</strong> if true, column can be set to
@@ -50,7 +50,8 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
  * 
  * <h3>Usage</h3>
  * <p>
- * Just an example:</li>
+ * Just an example:
+ * </p>
  * 
  * <pre>
  * &#64;BindType

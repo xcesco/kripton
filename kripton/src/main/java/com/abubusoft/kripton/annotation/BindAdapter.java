@@ -69,7 +69,7 @@ import com.abubusoft.kripton.TypeAdapter;
  * <pre>
  * &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
 &lt;bean description="hello" id="0"&gt;
-  &lt;date>2017-01-23T00:35:24.728Z&lt;/date&gt;
+  &lt;date&gt;2017-01-23T00:35:24.728Z&lt;/date&gt;
 &lt;/bean&gt;
  * </pre>
  * 
