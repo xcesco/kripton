@@ -353,8 +353,7 @@ public final class KriptonContentValues {
 			return;
 		}
 
-		names.add(key);
-		// values.put(key, value);
+		names.add(key);		
 		args.add(value);
 		valueType.add(ParamType.LONG);
 	}
