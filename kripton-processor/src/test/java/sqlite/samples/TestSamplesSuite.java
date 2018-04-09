@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.quickstart;
-
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+package sqlite.samples;
 
 import base.BaseProcessorTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import sqlite.samples.chat.TestSampleChat;
 
 /**
  * The Class TestSamplesSuite.
@@ -27,9 +27,9 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestQuickstart.class
+		TestSampleChat.class
 		 })
 //@formatter:on
-public class TestQuickstartSuite extends BaseProcessorTest {
+public class TestSamplesSuite extends BaseProcessorTest {
 
 }

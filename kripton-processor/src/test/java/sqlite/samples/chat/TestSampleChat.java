@@ -13,23 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.quickstart;
+package sqlite.samples.chat;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.samples.chat.model.*;
 
-import base.BaseProcessorTest;
+import java.io.IOException;
 
 /**
- * The Class TestSamplesSuite.
+ * The Class TestSampleChat.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestQuickstart.class
-		 })
-//@formatter:on
-public class TestQuickstartSuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class TestSampleChat extends AbstractBindSQLiteProcessorTest {
+
+    @Test
+	public void test01() throws IOException, InstantiationException, IllegalAccessException {
+		buildDataSourceProcessorTest(DaoBase.class, Entity.class, DaoMessage.class, Message.class, User.class, DaoUser.class, AppDataSource.class);
+	}
+
 
 }
