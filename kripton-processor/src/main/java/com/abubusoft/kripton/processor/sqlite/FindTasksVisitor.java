@@ -30,7 +30,6 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class FindTasksVisitor.
  */

@@ -223,7 +223,6 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 					entry.getValue().accept(typeAdapterVisitors, key);
 				}
 			}
-
 		}
 
 		// TODO add supported type and check about types

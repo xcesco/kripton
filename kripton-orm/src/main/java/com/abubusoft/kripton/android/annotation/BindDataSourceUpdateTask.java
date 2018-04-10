@@ -11,7 +11,6 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface BindDataSourceUpdateTask.
  */

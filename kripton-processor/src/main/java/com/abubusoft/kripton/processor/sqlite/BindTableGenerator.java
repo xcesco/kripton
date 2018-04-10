@@ -17,9 +17,13 @@ package com.abubusoft.kripton.processor.sqlite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.Filer;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
@@ -28,6 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
+import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
@@ -94,7 +99,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 * @param model the model
 	 */
 	public BindTableGenerator(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
-		super(elementUtils, filer, model);
+		super(elementUtils, filer, model);				
 	}
 
 	/**
@@ -337,7 +342,6 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	public static ClassName tableClassName(SQLiteDaoDefinition dao, SQLiteEntity entity) {
 		String entityName = BindDataSourceSubProcessor.generateEntityQualifiedName(dao, entity);
 
-		// return TypeUtility.className(entity.getName() + SUFFIX);
 		return TypeUtility.className(entityName + SUFFIX);
 
 	}
@@ -351,6 +355,22 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		// generate the class name that represents the table
 		String classTableName = getTableClassName(entity.getSimpleName());
+		
+		FindIndexesVisitor valueVisitor = new FindIndexesVisitor();
+		List<? extends AnnotationMirror> annotationMirrors = entity.getElement().getAnnotationMirrors();
+		for (AnnotationMirror annotationMirror : annotationMirrors) {
+			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
+
+			if (BindTable.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
+					// The 'entry.getKey()' here is the annotation attribute
+					// name.
+					String key = entry.getKey().getSimpleName().toString();
+					entry.getValue().accept(valueVisitor, key);
+				}
+			}
+		}
+		
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
@@ -594,7 +614,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		if (unique) {
 			uniqueString = "UNIQUE ";
-			indexes = annotationTable.getAttributeAsArray(AnnotationAttributeType.UNIQUE_INDEXES);
+			//TODO fix
+			//indexes = annotationTable.getAttributeAsArray(AnnotationAttributeType.UNIQUE_INDEXES);
 		} else {
 			uniqueString = "";
 			indexes = annotationTable.getAttributeAsArray(AnnotationAttributeType.INDEXES);

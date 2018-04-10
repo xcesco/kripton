@@ -73,7 +73,8 @@ public enum AnnotationAttributeType {
 	/** The include primary key. */
 	INCLUDE_PRIMARY_KEY("includePrimaryKey"),
 	/** The indexes. */
-	INDEXES("indexes"),
+	INDEXES("indexes"),	
+	
 
 	/** The map entry type. */
 	MAP_ENTRY_TYPE("mapEntryType"),
@@ -119,8 +120,10 @@ public enum AnnotationAttributeType {
 	/** The where. */
 	WHERE("where"),
 
-	/** The unique indexes. */
-	UNIQUE_INDEXES("uniqueIndexes"),
+	/**
+	 * used to define a unique index
+	 */
+	UNIQUE("unique"),
 
 	/** The xml element tag. */
 	XML_ELEMENT_TAG("elementTag"),

@@ -87,15 +87,6 @@ public @interface BindTable {
 	 * 
 	 * @return indexes definition
 	 */
-	String[] indexes() default {};
-	
-	/**
-	 * <p>
-	 * Allow to crete unique (multicolumn or single column) indexes for this table. 
-	 * </p>
-	 * 
-	 * @return indexes definition
-	 */
-	String[] uniqueIndexes() default {};
-	
+	BindIndex[] indexes() default {};
+		
 }
