@@ -600,7 +600,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 * @param counter the counter
 	 * @return the pair
 	 */
-	public static Pair<String, String> buldIndexes(final SQLiteEntity entity, boolean unique, int counter) {
+	public static Pair<String, String> buldIndexes(final SQLiteEntity entity, List<String> indexList, boolean unique, int counter) {
 		Pair<String, String> result = new Pair<>();
 		result.value0 = "";
 		result.value1 = "";
