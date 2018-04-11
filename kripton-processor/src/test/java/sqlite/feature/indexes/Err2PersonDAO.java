@@ -26,7 +26,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface Err2PersonDAO.
  */

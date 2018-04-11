@@ -15,6 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton111.model;
 
+import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -23,7 +24,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class PhoneNumber.
  */
 @BindType
-@BindTable(indexes={"actionType"})
+@BindTable(indexes=@BindIndex({"actionType"}))
 public class PhoneNumber {
 
     /** The id. */

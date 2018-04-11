@@ -95,7 +95,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PrefixConfigTable(), new CountryTable(), new PersonTable(), new PhoneNumberTable(), new PersonPhoneNumberTable()};
+  static final SQLiteTable[] TABLES = {new PrefixConfigTable(), new PhoneNumberTable(), new PersonTable(), new CountryTable(), new PersonPhoneNumberTable()};
 
   /**
    * <p>dao instance</p>
@@ -628,10 +628,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(CountryTable.CREATE_TABLE_SQL);
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
@@ -640,10 +640,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    database.execSQL(CountryTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
@@ -696,10 +696,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(CountryTable.CREATE_TABLE_SQL);
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
@@ -708,10 +708,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      database.execSQL(CountryTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);

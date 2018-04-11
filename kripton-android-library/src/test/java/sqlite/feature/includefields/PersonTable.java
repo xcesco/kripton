@@ -2,7 +2,6 @@ package sqlite.feature.includefields;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-
 /**
  * <p>
  * Entity <code>Person</code> is associated to table <code>person</code>

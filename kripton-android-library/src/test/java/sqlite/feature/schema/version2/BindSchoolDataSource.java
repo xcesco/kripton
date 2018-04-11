@@ -67,7 +67,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new Seminar2StudentTable(), new ProfessorTable(), new StudentTable(), new SeminarTable()};
+  static final SQLiteTable[] TABLES = {new SeminarTable(), new StudentTable(), new Seminar2StudentTable(), new ProfessorTable()};
 
   /**
    * <p>dao instance</p>
@@ -266,16 +266,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(StudentTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
@@ -328,16 +328,16 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(SeminarTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(StudentTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);

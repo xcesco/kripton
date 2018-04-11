@@ -22,12 +22,10 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.SimpleAnnotationValueVisitor7;
 
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 
 public class FindIndexesVisitor extends SimpleAnnotationValueVisitor7<Void, String> {
@@ -44,7 +42,7 @@ public class FindIndexesVisitor extends SimpleAnnotationValueVisitor7<Void, Stri
 	 *
 	 * @return the tasks
 	 */
-	public ArrayList<Pair<List<String>, Boolean>> getIndexes() {
+	public ArrayList<Pair<List<String>, Boolean>> getAllIndexes() {
 		return indexes;
 	}
 
@@ -56,6 +54,29 @@ public class FindIndexesVisitor extends SimpleAnnotationValueVisitor7<Void, Stri
 		}
 
 		return null;
+	}
+	
+	public ArrayList<Pair<List<String>, Boolean>> getUniqueIndexes() {
+		return getIndexes(true);
+	}
+	
+	public ArrayList<Pair<List<String>, Boolean>> getNotUniqueIndexes() {
+		return getIndexes(false);
+	}
+	
+	protected ArrayList<Pair<List<String>, Boolean>> getIndexes(boolean unique) {
+		ArrayList<Pair<List<String>, Boolean>> result=new ArrayList<Pair<List<String>, Boolean>>();
+				
+		
+		for(Pair<List<String>, Boolean> item: indexes) {
+			if (item.value1==unique)
+			{
+				result.add(item);
+			}
+			
+		}
+		
+		return result;
 	}
 
 	/*

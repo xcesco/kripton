@@ -35,18 +35,18 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
+   * <pre>INSERT INTO person (type_name, surname, birth_city, birth_day) VALUES (${typeName}, ${surname}, ${birthCity}, ${birthDay})</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>typeName</dt><dd>is binded to query's parameter <strong>${typeName}</strong> and method's parameter <strong>typeName</strong></dd>
    * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
    * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
    * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
-   * @param name
-   * 	is binded to column value <strong>name</strong>
+   * @param typeName
+   * 	is binded to column value <strong>type_name</strong>
    * @param surname
    * 	is binded to column value <strong>surname</strong>
    * @param birthCity
@@ -56,15 +56,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    */
   @Override
-  public void insertOne(String name, String surname, String birthCity, Date birthDay) {
+  public void insertOne(String typeName, String surname, String birthCity, Date birthDay) {
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO person (type_name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
       insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
-    _contentValues.put("name", name);
+    _contentValues.put("type_name", typeName);
     _contentValues.put("surname", surname);
     _contentValues.put("birth_city", birthCity);
     _contentValues.put("birth_day", DateUtils.write(birthDay));

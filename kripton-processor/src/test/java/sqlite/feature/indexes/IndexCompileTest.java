@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
+import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.indexes.Person;
@@ -31,7 +32,7 @@ import sqlite.feature.indexes.PersonDataSource;
  * The Class IndexTest.
  */
 @RunWith(JUnit4.class)
-public class IndexTest extends AbstractBindSQLiteProcessorTest {
+public class IndexCompileTest extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition.
@@ -63,7 +64,7 @@ public class IndexTest extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void error2() throws Throwable {
-		this.expectedException(KriptonProcessorException.class);
+		this.expectedException(UnknownPropertyInJQLException.class);
 		buildDataSourceProcessorTest(Err2PersonDataSource.class, Err2PersonDAO.class, Err2Person.class);
 	}	
 	

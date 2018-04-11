@@ -4,17 +4,17 @@
 package sqlite.feature.schema.version2;
 
 import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Seminar2Student.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 @BindType
-@BindTable(name="seminar_2_student", uniqueIndexes={"studentId asc, seminarId desc"})
+@BindTable(name="seminar_2_student", indexes=@BindIndex(value={"studentId asc"," seminarId desc"}, unique=true))
 public class Seminar2Student  {
 
 	/** The id. */

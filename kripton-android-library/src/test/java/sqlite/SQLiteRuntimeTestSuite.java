@@ -25,6 +25,7 @@ import sqlite.feature.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feature.foreignKey.TestForeignKeyRuntimeSuite;
 import sqlite.feature.globaltypeadapters.TestGlobalTypeAdapterRuntimeSuite;
 import sqlite.feature.includefields.TestIncludeFieldsRuntimeSuite;
+import sqlite.feature.indexes.TestIndexesRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
 import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
 import sqlite.feature.multithread.TestRuntimeMultithreadSuite;
@@ -59,6 +60,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	// unverified results	
 	TestForeignKeyRuntimeSuite.class,
 	TestIncludeFieldsRuntimeSuite.class,
+	TestIndexesRuntimeSuite.class,
 	TestRuntimeMany2ManySuite.class,
 	TestColumnAffinitySuite.class,
 	

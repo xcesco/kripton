@@ -95,7 +95,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestJavadocFeatureSuite.class,
 			TestDynamicSuite.class,
 			TestSchemaSuite.class,
-			IndexTestSuite.class,
+			IndexTestSuite.class,			
 			TestTypeAdapterSuite.class,			
 			TestCompileMany2ManySuite.class,
 			TestGlobalSqlTypeAdaptersSuite.class,

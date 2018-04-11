@@ -38,13 +38,13 @@ public interface PersonDAO {
 	/**
 	 * Insert one.
 	 *
-	 * @param name the name
+	 * @param typeName the typeName
 	 * @param surname the surname
 	 * @param birthCity the birth city
 	 * @param birthDay the birth day
 	 */
 	@BindSqlInsert
-	void insertOne(String name, String surname, String birthCity, Date birthDay);
+	void insertOne(String typeName, String surname, String birthCity, Date birthDay);
 
 	/**
 	 * Select all.

@@ -59,7 +59,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new BookTable(), new LoanTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new LoanTable(), new BookTable()};
 
   /**
    * <p>dao instance</p>

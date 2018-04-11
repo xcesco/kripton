@@ -17,6 +17,7 @@ package sqlite.feature.includefields;
 
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
@@ -32,14 +33,20 @@ public class TestIncludeFieldsRuntime extends BaseAndroidTest {
 	/**
 	 * Test run sqlite 1.
 	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
 	 */
 	@Test
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
-			
+		final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_0 on person (birth_city, birth_day);";
+		final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_person_name; DROP INDEX IF EXISTS idx_person_1;DROP TABLE IF EXISTS person;";
 
+		Assert.assertTrue(CREATE_TABLE_SQL.equals(PersonTable.CREATE_TABLE_SQL));
+		Assert.assertTrue(DROP_TABLE_SQL.equals(PersonTable.DROP_TABLE_SQL));
 	}
 
 }

@@ -2,7 +2,6 @@ package sqlite.feature.includefields;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 
-
 /**
  * <p>
  * Represents dao factory interface for PersonDataSource.
