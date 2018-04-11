@@ -22,20 +22,20 @@ import bind.bindenum.TestEnumSuite;
 import bind.directmap.TestDirectMapSuite;
 import bind.feature.generichierarchy.TestGenericHierarchySuite;
 import bind.feature.generichierarchy.kripton109.Test109CompileSuite;
-import bind.feature.typeAdapter.kripton87.Test87CompileSuite;
+import bind.feature.typeadapter.kripton87.Test87CompileSuite;
 import bind.kripton110.TestCompile110;
 import bind.kripton42faster.Test42CompileSuite;
 import bind.kripton70.Test70CompileSuite;
-import bind.kripton71List.Test71CompileSuite;
+import bind.kripton71list.Test71CompileSuite;
 import bind.kripton72.Test72CompileSuite;
-import bind.kripton73Array.Test73CompileSuite;
-import bind.kripton74Map.Test74CompileSuite;
-import bind.kripton75ByteArray.Test75CompileSuite;
-import bind.kripton76Errors.Test76CompileSuite;
+import bind.kripton73array.Test73CompileSuite;
+import bind.kripton74map.Test74CompileSuite;
+import bind.kripton75bytearray.Test75CompileSuite;
+import bind.kripton76errors.Test76CompileSuite;
 import bind.kripton77.Test77;
 import bind.kripton78.Test78CompileSuite;
-import bind.kripton80ContextCollection.Test80CompileSuite;
-import bind.kripton81MoreCoverageTests.Test81CompileSuite;
+import bind.kripton80contextcollection.Test80CompileSuite;
+import bind.kripton81morecoveragetests.Test81CompileSuite;
 
 /**
  * The Class BindCompileTestSuite.

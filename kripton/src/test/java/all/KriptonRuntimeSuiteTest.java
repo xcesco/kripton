@@ -21,17 +21,17 @@ import org.junit.runners.Suite;
 import bind.bindenum.TestRuntimeEnumSuite;
 import bind.directmap.TestRuntimeDirectMapSuite;
 import bind.feature.generichierarchy.TestRuntimeHierarchySuite;
-import bind.feature.typeAdapter.kripton87.TestRuntime87Suite;
+import bind.feature.typeadapter.kripton87.TestRuntime87Suite;
 import bind.kripton42faster.TestRuntime42Suite;
 import bind.kripton70.TestRuntime70Suite;
-import bind.kripton71List.TestRuntime71Suite;
+import bind.kripton71list.TestRuntime71Suite;
 import bind.kripton72.TestRuntime72Suite;
-import bind.kripton73Array.TestRuntime73Suite;
-import bind.kripton74Map.TestRuntime74Suite;
-import bind.kripton75ByteArray.TestRuntime75Suite;
+import bind.kripton73array.TestRuntime73Suite;
+import bind.kripton74map.TestRuntime74Suite;
+import bind.kripton75bytearray.TestRuntime75Suite;
 import bind.kripton78.TestRuntime78Suite;
-import bind.kripton80ContextCollection.TestRuntime80Suite;
-import bind.kripton81MoreCoverageTests.TestRuntime81Suite;
+import bind.kripton80contextcollection.TestRuntime80Suite;
+import bind.kripton81morecoveragetests.TestRuntime81Suite;
 
 /**
  * The Class KriptonRuntimeSuiteTest.
