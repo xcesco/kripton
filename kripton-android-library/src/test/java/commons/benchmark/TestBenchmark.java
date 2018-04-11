@@ -25,6 +25,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import commons.benchmark.model.Response;
 
@@ -53,7 +54,7 @@ public class TestBenchmark {
 			Response output = KriptonBinder.jsonBind().parse(input, Response.class);
 
 			if (!"success".equals(output.status)) {
-				throw new RuntimeException();
+				throw new KriptonRuntimeException();
 			}
 		}
 		long end = System.currentTimeMillis();

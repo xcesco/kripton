@@ -21,6 +21,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
 
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+
 // TODO: Auto-generated Javadoc
 /**
  * An API for translating text. 
@@ -63,7 +65,7 @@ public abstract class CharSequenceTranslator {
             return writer.toString();
         } catch (final IOException ioe) {
             // this should never ever happen while writing to a StringWriter
-            throw new RuntimeException(ioe);
+            throw new KriptonRuntimeException(ioe);
         }
     }
 

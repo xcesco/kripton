@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
 
 // TODO: Auto-generated Javadoc
@@ -237,11 +238,11 @@ public class TestDependiciesFinder {
 
 			@Override
 			public void generateError(Dummy item) {
-				throw new RuntimeException("circular path on " + item.name);
+				throw new KriptonRuntimeException("circular path on " + item.name);
 			}
 		};
 
-		List<Dummy> output = sorder.order();
+		//List<Dummy> output = sorder.order();
 		//System.out.println("Output: " + output);
 	}
 }

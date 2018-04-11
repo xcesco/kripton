@@ -23,7 +23,7 @@ public class Main {
 				Response output = KriptonBinder.jsonBind().parse(input, Response.class);
 
 				if (!"success".equals(output.status)) {
-					throw new RuntimeException();
+					throw new KriptonRuntimeException();
 				}
 			}
 			long end = System.currentTimeMillis();

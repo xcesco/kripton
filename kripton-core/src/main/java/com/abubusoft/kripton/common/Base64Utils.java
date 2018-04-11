@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
+
 // TODO: Auto-generated Javadoc
 /**
  * 
@@ -82,7 +84,7 @@ public class Base64Utils {
             obuf[wp] = (byte)(b2 << 6 & 0xc0 | b3 & 0x3f);
             return 3;
         default:
-            throw new RuntimeException("Couldn't decode.");
+            throw new KriptonRuntimeException("Couldn't decode.");
         }
     }
 
