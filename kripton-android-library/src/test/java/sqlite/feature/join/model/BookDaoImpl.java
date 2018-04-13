@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -26,8 +25,8 @@ public class BookDaoImpl extends Dao implements BookDao {
 
   private static final String FIND_BOOKS_BORROWED_BY_USER_SQL1 = "SELECT * FROM book INNER JOIN loan ON loan.book_id == book.id WHERE loan.user_id == ? ";
 
-  public BookDaoImpl(SQLContext context) {
-    super(context);
+  public BookDaoImpl(BindAppDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

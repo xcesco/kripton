@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -53,8 +52,8 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
 
   private static final Set<String> selectWithJQLAndInnerSQL8ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  public SelectBeanPersonDaoImpl(SQLContext context) {
-    super(context);
+  public SelectBeanPersonDaoImpl(BindSelectBeanPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

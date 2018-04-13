@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -41,8 +40,8 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
-  public PhoneDaoImpl(SQLContext context) {
-    super(context);
+  public PhoneDaoImpl(BindXenoDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.speed.model.Person;
@@ -30,8 +29,8 @@ public class PersonDaoImpl extends Dao implements PersonDao {
 
   private static SQLiteStatement deletePreparedStatement2;
 
-  public PersonDaoImpl(SQLContext context) {
-    super(context);
+  public PersonDaoImpl(BindPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

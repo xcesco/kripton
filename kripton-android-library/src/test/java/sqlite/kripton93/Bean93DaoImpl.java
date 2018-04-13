@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -38,8 +37,8 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
   private static SQLiteStatement insertRollbackPreparedStatement5;
 
-  public Bean93DaoImpl(SQLContext context) {
-    super(context);
+  public Bean93DaoImpl(BindBean93DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

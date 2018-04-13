@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -72,22 +73,22 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * <p>dao instance</p>
    */
-  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(context);
+  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(context);
+  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(context);
+  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoStudentImpl daoStudent = new DaoStudentImpl(context);
+  protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -466,7 +467,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      */
     public DaoProfessorImpl getDaoProfessor() {
       if (_daoProfessor==null) {
-        _daoProfessor=new DaoProfessorImpl(_context);
+        _daoProfessor=new DaoProfessorImpl(this);
       }
       return _daoProfessor;
     }
@@ -477,7 +478,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      */
     public DaoSeminarImpl getDaoSeminar() {
       if (_daoSeminar==null) {
-        _daoSeminar=new DaoSeminarImpl(_context);
+        _daoSeminar=new DaoSeminarImpl(this);
       }
       return _daoSeminar;
     }
@@ -488,7 +489,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      */
     public DaoSeminar2StudentImpl getDaoSeminar2Student() {
       if (_daoSeminar2Student==null) {
-        _daoSeminar2Student=new DaoSeminar2StudentImpl(_context);
+        _daoSeminar2Student=new DaoSeminar2StudentImpl(this);
       }
       return _daoSeminar2Student;
     }
@@ -499,9 +500,14 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      */
     public DaoStudentImpl getDaoStudent() {
       if (_daoStudent==null) {
-        _daoStudent=new DaoStudentImpl(_context);
+        _daoStudent=new DaoStudentImpl(this);
       }
       return _daoStudent;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

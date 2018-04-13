@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -23,8 +22,8 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
 
   private static SQLiteStatement deleteOnePreparedStatement0;
 
-  public DaoBean03Impl(SQLContext context) {
-    super(context);
+  public DaoBean03Impl(BindDummy03DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

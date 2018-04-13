@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -29,8 +28,8 @@ public class PostDaoImpl extends Dao implements PostDao {
 
   private static final String SELECT_ONE_BY_USER_ID_SQL4 = "SELECT user_id, id, title, body FROM post WHERE id = ?";
 
-  public PostDaoImpl(SQLContext context) {
-    super(context);
+  public PostDaoImpl(BindQuickStartDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

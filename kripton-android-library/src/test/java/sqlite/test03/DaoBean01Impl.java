@@ -4,7 +4,6 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,8 @@ import java.util.List;
 public class DaoBean01Impl extends Dao implements DaoBean01 {
   private static final String LIST_ALL_SQL1 = "SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1";
 
-  public DaoBean01Impl(SQLContext context) {
-    super(context);
+  public DaoBean01Impl(BindDummy01DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

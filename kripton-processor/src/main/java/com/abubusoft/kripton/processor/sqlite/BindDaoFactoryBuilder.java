@@ -29,6 +29,7 @@ import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -71,6 +72,22 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 		schemaName = schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
 
 		return schemaName;
+	}
+	
+	/**
+	 * Given a schema, generate its daoFactory name.
+	 *
+	 * @param schema the schema
+	 * @return the string
+	 */
+	public static ClassName generateDaoFactoryClassName(SQLiteDatabaseSchema schema) {
+		String schemaName = schema.getName();
+		schemaName = PREFIX + schemaName;
+
+		schemaName = schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
+
+		String packageName=TypeUtility.extractPackageName(schema.getElement());
+		return ClassName.get(packageName, schemaName);
 	}
 
 	/**

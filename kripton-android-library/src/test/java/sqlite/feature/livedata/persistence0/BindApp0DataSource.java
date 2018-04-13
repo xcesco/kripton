@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
@@ -66,7 +67,7 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
   /**
    * <p>dao instance</p>
    */
-  protected DaoPerson0Impl daoPerson0 = new DaoPerson0Impl(context);
+  protected DaoPerson0Impl daoPerson0 = new DaoPerson0Impl(this);
 
   protected Scheduler globalSubscribeOn;
 
@@ -718,9 +719,14 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
      */
     public DaoPerson0Impl getDaoPerson0() {
       if (_daoPerson0==null) {
-        _daoPerson0=new DaoPerson0Impl(_context);
+        _daoPerson0=new DaoPerson0Impl(this);
       }
       return _daoPerson0;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

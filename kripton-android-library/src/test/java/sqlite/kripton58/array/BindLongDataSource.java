@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
   /**
    * <p>dao instance</p>
    */
-  protected LongDaoImpl longDao = new LongDaoImpl(context);
+  protected LongDaoImpl longDao = new LongDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -366,9 +367,14 @@ public class BindLongDataSource extends AbstractDataSource implements BindLongDa
      */
     public LongDaoImpl getLongDao() {
       if (_longDao==null) {
-        _longDao=new LongDaoImpl(_context);
+        _longDao=new LongDaoImpl(this);
       }
       return _longDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

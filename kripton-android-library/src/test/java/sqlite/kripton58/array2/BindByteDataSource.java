@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
   /**
    * <p>dao instance</p>
    */
-  protected ByteDaoImpl byteDao = new ByteDaoImpl(context);
+  protected ByteDaoImpl byteDao = new ByteDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -366,9 +367,14 @@ public class BindByteDataSource extends AbstractDataSource implements BindByteDa
      */
     public ByteDaoImpl getByteDao() {
       if (_byteDao==null) {
-        _byteDao=new ByteDaoImpl(_context);
+        _byteDao=new ByteDaoImpl(this);
       }
       return _byteDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

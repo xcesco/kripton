@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
@@ -65,7 +66,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   /**
    * <p>dao instance</p>
    */
-  protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(context);
+  protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(this);
 
   protected Scheduler globalSubscribeOn;
 
@@ -722,9 +723,14 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
      */
     public EmployeeBeanInsertSelectDaoImpl getEmployeeBeanInsertSelectDao() {
       if (_employeeBeanInsertSelectDao==null) {
-        _employeeBeanInsertSelectDao=new EmployeeBeanInsertSelectDaoImpl(_context);
+        _employeeBeanInsertSelectDao=new EmployeeBeanInsertSelectDaoImpl(this);
       }
       return _employeeBeanInsertSelectDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

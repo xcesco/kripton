@@ -7,7 +7,6 @@ import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.SQLTimeUtils;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
@@ -67,8 +66,8 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   private static SQLiteStatement insertJQLRawPreparedStatement12;
 
-  public ContactDaoImpl(SQLContext context) {
-    super(context);
+  public ContactDaoImpl(BindContactDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

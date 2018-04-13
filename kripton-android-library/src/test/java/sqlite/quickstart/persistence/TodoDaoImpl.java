@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -29,8 +28,8 @@ public class TodoDaoImpl extends Dao implements TodoDao {
 
   private static final String SELECT_ONE_BY_USER_ID_SQL8 = "SELECT id, user_id, title, completed FROM todo WHERE id = ?";
 
-  public TodoDaoImpl(SQLContext context) {
-    super(context);
+  public TodoDaoImpl(BindQuickStartDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

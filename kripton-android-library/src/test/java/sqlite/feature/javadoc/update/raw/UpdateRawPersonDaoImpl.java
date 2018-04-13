@@ -7,7 +7,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -42,8 +41,8 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
   private static final Set<String> updateBeanDynamicWithArgs4ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  public UpdateRawPersonDaoImpl(SQLContext context) {
-    super(context);
+  public UpdateRawPersonDaoImpl(BindUpdateRawPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

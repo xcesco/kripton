@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -56,12 +57,12 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>dao instance</p>
    */
-  protected DaoAlbumImpl daoAlbum = new DaoAlbumImpl(context);
+  protected DaoAlbumImpl daoAlbum = new DaoAlbumImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoSongImpl daoSong = new DaoSongImpl(context);
+  protected DaoSongImpl daoSong = new DaoSongImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -400,7 +401,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      */
     public DaoAlbumImpl getDaoAlbum() {
       if (_daoAlbum==null) {
-        _daoAlbum=new DaoAlbumImpl(_context);
+        _daoAlbum=new DaoAlbumImpl(this);
       }
       return _daoAlbum;
     }
@@ -411,9 +412,14 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      */
     public DaoSongImpl getDaoSong() {
       if (_daoSong==null) {
-        _daoSong=new DaoSongImpl(_context);
+        _daoSong=new DaoSongImpl(this);
       }
       return _daoSong;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

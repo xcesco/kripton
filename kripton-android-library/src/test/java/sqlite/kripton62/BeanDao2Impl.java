@@ -10,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -57,8 +56,8 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
 
   private static SQLiteStatement updateOnePreparedStatement4;
 
-  public BeanDao2Impl(SQLContext context) {
-    super(context);
+  public BeanDao2Impl(BindBean2DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

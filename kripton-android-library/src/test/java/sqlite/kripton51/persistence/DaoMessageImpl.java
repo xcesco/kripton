@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -34,8 +33,8 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
   private static final String SELECT_BY_UID_SQL2 = "SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?";
 
-  public DaoMessageImpl(SQLContext context) {
-    super(context);
+  public DaoMessageImpl(BindWhisperDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

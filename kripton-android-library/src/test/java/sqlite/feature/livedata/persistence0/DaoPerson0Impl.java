@@ -7,7 +7,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.android.sqlite.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.common.StringUtils;
@@ -41,8 +40,8 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
-  public DaoPerson0Impl(SQLContext context) {
-    super(context);
+  public DaoPerson0Impl(BindApp0DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

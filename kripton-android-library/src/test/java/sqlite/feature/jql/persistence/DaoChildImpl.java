@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -39,8 +38,8 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   private static SQLiteStatement updateJQLPreparedStatement3;
 
-  public DaoChildImpl(SQLContext context) {
-    super(context);
+  public DaoChildImpl(BindFamilyDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

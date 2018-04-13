@@ -4,7 +4,6 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,8 @@ import java.util.List;
 public class Bean8DaoImpl extends Dao implements Bean8Dao {
   private static final String SELECT_ALL_SQL1 = "SELECT id, ignore2 FROM bean8";
 
-  public Bean8DaoImpl(SQLContext context) {
-    super(context);
+  public Bean8DaoImpl(BindBean8DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

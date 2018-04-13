@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>dao instance</p>
    */
-  protected DaoBeanInsertOKImpl daoBeanInsertOK = new DaoBeanInsertOKImpl(context);
+  protected DaoBeanInsertOKImpl daoBeanInsertOK = new DaoBeanInsertOKImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -366,9 +367,14 @@ public class BindDummy04DataSource extends AbstractDataSource implements BindDum
      */
     public DaoBeanInsertOKImpl getDaoBeanInsertOK() {
       if (_daoBeanInsertOK==null) {
-        _daoBeanInsertOK=new DaoBeanInsertOKImpl(_context);
+        _daoBeanInsertOK=new DaoBeanInsertOKImpl(this);
       }
       return _daoBeanInsertOK;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

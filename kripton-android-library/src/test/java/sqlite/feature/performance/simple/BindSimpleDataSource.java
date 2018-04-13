@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
   /**
    * <p>dao instance</p>
    */
-  protected SimpleAddressDaoImpl simpleAddressDao = new SimpleAddressDaoImpl(context);
+  protected SimpleAddressDaoImpl simpleAddressDao = new SimpleAddressDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -342,9 +343,14 @@ public class BindSimpleDataSource extends AbstractDataSource implements BindSimp
      */
     public SimpleAddressDaoImpl getSimpleAddressDao() {
       if (_simpleAddressDao==null) {
-        _simpleAddressDao=new SimpleAddressDaoImpl(_context);
+        _simpleAddressDao=new SimpleAddressDaoImpl(this);
       }
       return _simpleAddressDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

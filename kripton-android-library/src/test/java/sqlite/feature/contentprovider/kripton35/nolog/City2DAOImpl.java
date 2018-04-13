@@ -8,7 +8,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -33,8 +32,8 @@ public class City2DAOImpl extends Dao implements City2DAO {
 
   private static final Set<String> selectCityFromPerson1ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
-  public City2DAOImpl(SQLContext context) {
-    super(context);
+  public City2DAOImpl(BindPerson2DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

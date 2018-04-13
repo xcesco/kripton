@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -35,8 +34,8 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
   private static final String SELECT_ALL_SQL3 = "SELECT id, action_type, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number";
 
-  public PhoneDaoImpl(SQLContext context) {
-    super(context);
+  public PhoneDaoImpl(BindXenoDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -32,8 +31,8 @@ public class TrackDaoImpl extends Dao implements TrackDao {
 
   private static SQLiteStatement deleteByIdPreparedStatement2;
 
-  public TrackDaoImpl(SQLContext context) {
-    super(context);
+  public TrackDaoImpl(BindArtistDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

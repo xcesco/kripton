@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -38,8 +37,8 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
   private static final String SELECT_BY_COUNTRY_SQL9 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE code = ?";
 
-  public CountryDaoImpl(SQLContext context) {
-    super(context);
+  public CountryDaoImpl(BindXenoDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

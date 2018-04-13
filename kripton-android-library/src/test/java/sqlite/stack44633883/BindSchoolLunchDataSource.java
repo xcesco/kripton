@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   /**
    * <p>dao instance</p>
    */
-  protected SchoolLunchDAOImpl schoolLunchDAO = new SchoolLunchDAOImpl(context);
+  protected SchoolLunchDAOImpl schoolLunchDAO = new SchoolLunchDAOImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -366,9 +367,14 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
      */
     public SchoolLunchDAOImpl getSchoolLunchDAO() {
       if (_schoolLunchDAO==null) {
-        _schoolLunchDAO=new SchoolLunchDAOImpl(_context);
+        _schoolLunchDAO=new SchoolLunchDAOImpl(this);
       }
       return _schoolLunchDAO;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

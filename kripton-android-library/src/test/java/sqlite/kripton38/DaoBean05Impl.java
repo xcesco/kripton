@@ -10,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -72,8 +71,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   private static final String GET_ONE_SQL10 = "SELECT content FROM ws_bean WHERE pk=?";
 
-  public DaoBean05Impl(SQLContext context) {
-    super(context);
+  public DaoBean05Impl(BindDummy05DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

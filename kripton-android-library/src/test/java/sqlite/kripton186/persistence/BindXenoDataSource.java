@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -67,17 +68,17 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * <p>dao instance</p>
    */
-  protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(context);
+  protected PhoneDaoImpl phoneDao = new PhoneDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected PrefixConfigDaoImpl prefixConfigDao = new PrefixConfigDaoImpl(context);
+  protected PrefixConfigDaoImpl prefixConfigDao = new PrefixConfigDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected CountryDaoImpl countryDao = new CountryDaoImpl(context);
+  protected CountryDaoImpl countryDao = new CountryDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -435,7 +436,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      */
     public PhoneDaoImpl getPhoneDao() {
       if (_phoneDao==null) {
-        _phoneDao=new PhoneDaoImpl(_context);
+        _phoneDao=new PhoneDaoImpl(this);
       }
       return _phoneDao;
     }
@@ -446,7 +447,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      */
     public PrefixConfigDaoImpl getPrefixConfigDao() {
       if (_prefixConfigDao==null) {
-        _prefixConfigDao=new PrefixConfigDaoImpl(_context);
+        _prefixConfigDao=new PrefixConfigDaoImpl(this);
       }
       return _prefixConfigDao;
     }
@@ -457,9 +458,14 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
      */
     public CountryDaoImpl getCountryDao() {
       if (_countryDao==null) {
-        _countryDao=new CountryDaoImpl(_context);
+        _countryDao=new CountryDaoImpl(this);
       }
       return _countryDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

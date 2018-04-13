@@ -9,7 +9,6 @@ import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -64,8 +63,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
   private static final Set<String> selectBean12ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  public Person2DAOImpl(SQLContext context) {
-    super(context);
+  public Person2DAOImpl(BindPerson2DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

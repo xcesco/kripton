@@ -7,7 +7,6 @@ import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -33,8 +32,8 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
 
   private static SQLiteStatement deleteAllPreparedStatement1;
 
-  public Dao4PersonImpl(SQLContext context) {
-    super(context);
+  public Dao4PersonImpl(BindPerson4DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

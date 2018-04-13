@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   /**
    * <p>dao instance</p>
    */
-  protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(context);
+  protected Bean8DaoImpl bean8Dao = new Bean8DaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -366,9 +367,14 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
      */
     public Bean8DaoImpl getBean8Dao() {
       if (_bean8Dao==null) {
-        _bean8Dao=new Bean8DaoImpl(_context);
+        _bean8Dao=new Bean8DaoImpl(this);
       }
       return _bean8Dao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

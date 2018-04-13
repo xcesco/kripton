@@ -5,7 +5,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
@@ -21,8 +20,8 @@ import com.abubusoft.kripton.common.Triple;
 public class DaoSeminar2StudentImpl extends Dao implements DaoSeminar2Student {
   private static SQLiteStatement insertPreparedStatement0;
 
-  public DaoSeminar2StudentImpl(SQLContext context) {
-    super(context);
+  public DaoSeminar2StudentImpl(BindSchoolDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

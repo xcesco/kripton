@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   /**
    * <p>dao instance</p>
    */
-  protected FirstAidDaoImpl firstAidDao = new FirstAidDaoImpl(context);
+  protected FirstAidDaoImpl firstAidDao = new FirstAidDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -366,9 +367,14 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
      */
     public FirstAidDaoImpl getFirstAidDao() {
       if (_firstAidDao==null) {
-        _firstAidDao=new FirstAidDaoImpl(_context);
+        _firstAidDao=new FirstAidDaoImpl(this);
       }
       return _firstAidDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

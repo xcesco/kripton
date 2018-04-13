@@ -4,7 +4,6 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,8 @@ import java.util.List;
 public class PetDaoImpl extends Dao implements PetDao {
   private static final String LOAD_PET_SQL2 = "SELECT id, user_id, name FROM pet";
 
-  public PetDaoImpl(SQLContext context) {
-    super(context);
+  public PetDaoImpl(BindPetUserDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

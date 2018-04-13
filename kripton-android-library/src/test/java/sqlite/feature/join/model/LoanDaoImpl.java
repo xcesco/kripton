@@ -5,7 +5,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -22,8 +21,8 @@ import com.abubusoft.kripton.common.Triple;
 public class LoanDaoImpl extends Dao implements LoanDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  public LoanDaoImpl(SQLContext context) {
-    super(context);
+  public LoanDaoImpl(BindAppDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

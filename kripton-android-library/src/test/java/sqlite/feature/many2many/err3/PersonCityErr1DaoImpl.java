@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -36,8 +35,8 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
   private static SQLiteStatement insertPreparedStatement3;
 
-  public PersonCityErr1DaoImpl(SQLContext context) {
-    super(context);
+  public PersonCityErr1DaoImpl(BindPersonCirtyErr3DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

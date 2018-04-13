@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -64,17 +65,17 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   /**
    * <p>dao instance</p>
    */
-  protected ArtistDaoImpl artistDao = new ArtistDaoImpl(context);
+  protected ArtistDaoImpl artistDao = new ArtistDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected AlbumDaoImpl albumDao = new AlbumDaoImpl(context);
+  protected AlbumDaoImpl albumDao = new AlbumDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected TrackDaoImpl trackDao = new TrackDaoImpl(context);
+  protected TrackDaoImpl trackDao = new TrackDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -433,7 +434,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
      */
     public ArtistDaoImpl getArtistDao() {
       if (_artistDao==null) {
-        _artistDao=new ArtistDaoImpl(_context);
+        _artistDao=new ArtistDaoImpl(this);
       }
       return _artistDao;
     }
@@ -444,7 +445,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
      */
     public AlbumDaoImpl getAlbumDao() {
       if (_albumDao==null) {
-        _albumDao=new AlbumDaoImpl(_context);
+        _albumDao=new AlbumDaoImpl(this);
       }
       return _albumDao;
     }
@@ -455,9 +456,14 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
      */
     public TrackDaoImpl getTrackDao() {
       if (_trackDao==null) {
-        _trackDao=new TrackDaoImpl(_context);
+        _trackDao=new TrackDaoImpl(this);
       }
       return _trackDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

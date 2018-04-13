@@ -8,7 +8,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -49,8 +48,8 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
   private static SQLiteStatement deleteAllPreparedStatement3;
 
-  public Bean84ADaoImpl(SQLContext context) {
-    super(context);
+  public Bean84ADaoImpl(BindBean84ADaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

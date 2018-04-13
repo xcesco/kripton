@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -64,17 +65,17 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   /**
    * <p>dao instance</p>
    */
-  protected PersonDaoImpl personDao = new PersonDaoImpl(context);
+  protected PersonDaoImpl personDao = new PersonDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected CityDaoImpl cityDao = new CityDaoImpl(context);
+  protected CityDaoImpl cityDao = new CityDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonCityDaoImpl personCityDao = new PersonCityDaoImpl(context);
+  protected PersonCityDaoImpl personCityDao = new PersonCityDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -433,7 +434,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
      */
     public PersonDaoImpl getPersonDao() {
       if (_personDao==null) {
-        _personDao=new PersonDaoImpl(_context);
+        _personDao=new PersonDaoImpl(this);
       }
       return _personDao;
     }
@@ -444,7 +445,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
      */
     public CityDaoImpl getCityDao() {
       if (_cityDao==null) {
-        _cityDao=new CityDaoImpl(_context);
+        _cityDao=new CityDaoImpl(this);
       }
       return _cityDao;
     }
@@ -455,9 +456,14 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
      */
     public PersonCityDaoImpl getPersonCityDao() {
       if (_personCityDao==null) {
-        _personCityDao=new PersonCityDaoImpl(_context);
+        _personCityDao=new PersonCityDaoImpl(this);
       }
       return _personCityDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

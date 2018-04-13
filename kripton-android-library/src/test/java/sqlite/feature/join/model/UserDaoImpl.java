@@ -5,7 +5,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
@@ -21,8 +20,8 @@ import com.abubusoft.kripton.common.Triple;
 public class UserDaoImpl extends Dao implements UserDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  public UserDaoImpl(SQLContext context) {
-    super(context);
+  public UserDaoImpl(BindAppDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

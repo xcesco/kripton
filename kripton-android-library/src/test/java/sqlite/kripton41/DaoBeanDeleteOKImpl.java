@@ -5,7 +5,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 
 /**
@@ -20,8 +19,8 @@ import com.abubusoft.kripton.common.StringUtils;
 public class DaoBeanDeleteOKImpl extends Dao implements DaoBeanDeleteOK {
   private static SQLiteStatement deleteDistancePreparedStatement0;
 
-  public DaoBeanDeleteOKImpl(SQLContext context) {
-    super(context);
+  public DaoBeanDeleteOKImpl(BindDummy08DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

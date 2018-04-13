@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected CollegeStudentDaoImpl collegeStudentDao = new CollegeStudentDaoImpl(context);
+  protected CollegeStudentDaoImpl collegeStudentDao = new CollegeStudentDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -366,9 +367,14 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
      */
     public CollegeStudentDaoImpl getCollegeStudentDao() {
       if (_collegeStudentDao==null) {
-        _collegeStudentDao=new CollegeStudentDaoImpl(_context);
+        _collegeStudentDao=new CollegeStudentDaoImpl(this);
       }
       return _collegeStudentDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

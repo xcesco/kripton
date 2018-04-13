@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   /**
    * <p>dao instance</p>
    */
-  protected CheeseDaoImpl cheeseDao = new CheeseDaoImpl(context);
+  protected CheeseDaoImpl cheeseDao = new CheeseDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -375,9 +376,14 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
      */
     public CheeseDaoImpl getCheeseDao() {
       if (_cheeseDao==null) {
-        _cheeseDao=new CheeseDaoImpl(_context);
+        _cheeseDao=new CheeseDaoImpl(this);
       }
       return _cheeseDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

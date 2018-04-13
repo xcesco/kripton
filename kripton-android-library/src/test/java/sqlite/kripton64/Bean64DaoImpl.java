@@ -11,7 +11,6 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CalendarUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.CurrencyUtils;
@@ -356,8 +355,8 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
    * Bean64BindMap */
   private Bean64BindMap bean64BindMap = BinderUtils.mapperFor(Bean64.class);
 
-  public Bean64DaoImpl(SQLContext context) {
-    super(context);
+  public Bean64DaoImpl(BindBean64DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

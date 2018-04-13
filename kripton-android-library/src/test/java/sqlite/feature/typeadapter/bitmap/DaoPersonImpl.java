@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -27,8 +26,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   private static final String LIST_SQL1 = "SELECT id, image FROM person";
 
-  public DaoPersonImpl(SQLContext context) {
-    super(context);
+  public DaoPersonImpl(BindAppDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -76,22 +77,22 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * <p>dao instance</p>
    */
-  protected UserDaoImpl userDao = new UserDaoImpl(context);
+  protected UserDaoImpl userDao = new UserDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected PostDaoImpl postDao = new PostDaoImpl(context);
+  protected PostDaoImpl postDao = new PostDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected CommentDaoImpl commentDao = new CommentDaoImpl(context);
+  protected CommentDaoImpl commentDao = new CommentDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected TodoDaoImpl todoDao = new TodoDaoImpl(context);
+  protected TodoDaoImpl todoDao = new TodoDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -470,7 +471,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
      */
     public UserDaoImpl getUserDao() {
       if (_userDao==null) {
-        _userDao=new UserDaoImpl(_context);
+        _userDao=new UserDaoImpl(this);
       }
       return _userDao;
     }
@@ -481,7 +482,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
      */
     public PostDaoImpl getPostDao() {
       if (_postDao==null) {
-        _postDao=new PostDaoImpl(_context);
+        _postDao=new PostDaoImpl(this);
       }
       return _postDao;
     }
@@ -492,7 +493,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
      */
     public CommentDaoImpl getCommentDao() {
       if (_commentDao==null) {
-        _commentDao=new CommentDaoImpl(_context);
+        _commentDao=new CommentDaoImpl(this);
       }
       return _commentDao;
     }
@@ -503,9 +504,14 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
      */
     public TodoDaoImpl getTodoDao() {
       if (_todoDao==null) {
-        _todoDao=new TodoDaoImpl(_context);
+        _todoDao=new TodoDaoImpl(this);
       }
       return _todoDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

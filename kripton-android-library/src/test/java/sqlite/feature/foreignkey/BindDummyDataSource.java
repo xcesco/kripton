@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -56,12 +57,12 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
   /**
    * <p>dao instance</p>
    */
-  protected DaoBeanA_1Impl daoBeanA_1 = new DaoBeanA_1Impl(context);
+  protected DaoBeanA_1Impl daoBeanA_1 = new DaoBeanA_1Impl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoBeanA_2Impl daoBeanA_2 = new DaoBeanA_2Impl(context);
+  protected DaoBeanA_2Impl daoBeanA_2 = new DaoBeanA_2Impl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -400,7 +401,7 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
      */
     public DaoBeanA_1Impl getDaoBeanA_1() {
       if (_daoBeanA_1==null) {
-        _daoBeanA_1=new DaoBeanA_1Impl(_context);
+        _daoBeanA_1=new DaoBeanA_1Impl(this);
       }
       return _daoBeanA_1;
     }
@@ -411,9 +412,14 @@ public class BindDummyDataSource extends AbstractDataSource implements BindDummy
      */
     public DaoBeanA_2Impl getDaoBeanA_2() {
       if (_daoBeanA_2==null) {
-        _daoBeanA_2=new DaoBeanA_2Impl(_context);
+        _daoBeanA_2=new DaoBeanA_2Impl(this);
       }
       return _daoBeanA_2;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

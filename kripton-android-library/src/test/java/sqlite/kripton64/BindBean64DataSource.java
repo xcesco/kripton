@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -48,7 +49,7 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
   /**
    * <p>dao instance</p>
    */
-  protected Bean64DaoImpl bean64Dao = new Bean64DaoImpl(context);
+  protected Bean64DaoImpl bean64Dao = new Bean64DaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -366,9 +367,14 @@ public class BindBean64DataSource extends AbstractDataSource implements BindBean
      */
     public Bean64DaoImpl getBean64Dao() {
       if (_bean64Dao==null) {
-        _bean64Dao=new Bean64DaoImpl(_context);
+        _bean64Dao=new Bean64DaoImpl(this);
       }
       return _bean64Dao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

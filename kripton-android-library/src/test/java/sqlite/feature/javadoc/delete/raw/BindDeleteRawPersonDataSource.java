@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -49,7 +50,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected DeleteRawPersonDaoImpl deleteRawPersonDao = new DeleteRawPersonDaoImpl(context);
+  protected DeleteRawPersonDaoImpl deleteRawPersonDao = new DeleteRawPersonDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -367,9 +368,14 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
      */
     public DeleteRawPersonDaoImpl getDeleteRawPersonDao() {
       if (_deleteRawPersonDao==null) {
-        _deleteRawPersonDao=new DeleteRawPersonDaoImpl(_context);
+        _deleteRawPersonDao=new DeleteRawPersonDaoImpl(this);
       }
       return _deleteRawPersonDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

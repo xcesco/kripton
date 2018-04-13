@@ -6,12 +6,12 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
+import sqlite.feature.globaltypeadapters.model1.BindPerson1DaoFactory;
 import sqlite.feature.globaltypeadapters.model1.Date2Long;
 
 /**
@@ -28,8 +28,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   private static SQLiteStatement insertPreparedStatement0;
 
-  public DaoPersonImpl(SQLContext context) {
-    super(context);
+  public DaoPersonImpl(BindPerson1DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

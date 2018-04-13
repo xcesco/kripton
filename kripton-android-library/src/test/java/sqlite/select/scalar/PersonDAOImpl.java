@@ -4,7 +4,6 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.Date;
@@ -23,8 +22,8 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   private static final String SELECT_ALL2_SQL2 = "SELECT birth_day FROM person ORDER BY type_name";
 
-  public PersonDAOImpl(SQLContext context) {
-    super(context);
+  public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

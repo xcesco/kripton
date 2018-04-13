@@ -3,7 +3,6 @@ package sqlite.feature.typeadapter.kripton180.raw.insertselect;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -21,8 +20,8 @@ import io.reactivex.subjects.PublishSubject;
 public class EmployeeRawInsertSelectDaoImpl extends Dao implements EmployeeRawInsertSelectDao {
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
-  public EmployeeRawInsertSelectDaoImpl(SQLContext context) {
-    super(context);
+  public EmployeeRawInsertSelectDaoImpl(BindKripton180RawInsertSelectDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

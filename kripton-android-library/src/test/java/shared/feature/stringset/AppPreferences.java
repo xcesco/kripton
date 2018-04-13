@@ -16,6 +16,7 @@
 package shared.feature.stringset;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;

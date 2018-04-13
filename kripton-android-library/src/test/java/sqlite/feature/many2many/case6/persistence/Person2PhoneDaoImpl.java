@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -41,8 +40,8 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   private static SQLiteStatement insertPreparedStatement3;
 
-  public Person2PhoneDaoImpl(SQLContext context) {
-    super(context);
+  public Person2PhoneDaoImpl(BindXenoDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

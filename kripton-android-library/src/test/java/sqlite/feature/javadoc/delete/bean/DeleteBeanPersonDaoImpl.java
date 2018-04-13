@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import sqlite.feature.javadoc.Person;
 
@@ -28,8 +27,8 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
 
   private static SQLiteStatement deleteBeanPreparedStatement3;
 
-  public DeleteBeanPersonDaoImpl(SQLContext context) {
-    super(context);
+  public DeleteBeanPersonDaoImpl(BindDeleteBeanPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

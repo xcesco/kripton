@@ -5,7 +5,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -23,8 +22,8 @@ import sqlite.kripton56.entities.OwnerType;
 public class DaoMessageImpl extends Dao implements DaoMessage {
   private static SQLiteStatement updateByIdPreparedStatement0;
 
-  public DaoMessageImpl(SQLContext context) {
-    super(context);
+  public DaoMessageImpl(BindWhisperDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

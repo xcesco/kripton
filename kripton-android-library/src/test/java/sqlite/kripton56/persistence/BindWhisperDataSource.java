@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -49,7 +50,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * <p>dao instance</p>
    */
-  protected DaoMessageImpl daoMessage = new DaoMessageImpl(context);
+  protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -367,9 +368,14 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
      */
     public DaoMessageImpl getDaoMessage() {
       if (_daoMessage==null) {
-        _daoMessage=new DaoMessageImpl(_context);
+        _daoMessage=new DaoMessageImpl(this);
       }
       return _daoMessage;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

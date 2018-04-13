@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -49,7 +50,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected UpdateRawPersonDaoImpl updateRawPersonDao = new UpdateRawPersonDaoImpl(context);
+  protected UpdateRawPersonDaoImpl updateRawPersonDao = new UpdateRawPersonDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -367,9 +368,14 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
      */
     public UpdateRawPersonDaoImpl getUpdateRawPersonDao() {
       if (_updateRawPersonDao==null) {
-        _updateRawPersonDao=new UpdateRawPersonDaoImpl(_context);
+        _updateRawPersonDao=new UpdateRawPersonDaoImpl(this);
       }
       return _updateRawPersonDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

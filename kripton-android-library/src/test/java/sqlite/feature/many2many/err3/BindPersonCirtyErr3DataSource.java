@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -66,17 +67,17 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
   /**
    * <p>dao instance</p>
    */
-  protected PersonErr3DaoImpl personErr3Dao = new PersonErr3DaoImpl(context);
+  protected PersonErr3DaoImpl personErr3Dao = new PersonErr3DaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected CityErr3DaoImpl cityErr3Dao = new CityErr3DaoImpl(context);
+  protected CityErr3DaoImpl cityErr3Dao = new CityErr3DaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonCityErr1DaoImpl personCityErr1Dao = new PersonCityErr1DaoImpl(context);
+  protected PersonCityErr1DaoImpl personCityErr1Dao = new PersonCityErr1DaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -435,7 +436,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
      */
     public PersonErr3DaoImpl getPersonErr3Dao() {
       if (_personErr3Dao==null) {
-        _personErr3Dao=new PersonErr3DaoImpl(_context);
+        _personErr3Dao=new PersonErr3DaoImpl(this);
       }
       return _personErr3Dao;
     }
@@ -446,7 +447,7 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
      */
     public CityErr3DaoImpl getCityErr3Dao() {
       if (_cityErr3Dao==null) {
-        _cityErr3Dao=new CityErr3DaoImpl(_context);
+        _cityErr3Dao=new CityErr3DaoImpl(this);
       }
       return _cityErr3Dao;
     }
@@ -457,9 +458,14 @@ public class BindPersonCirtyErr3DataSource extends AbstractDataSource implements
      */
     public PersonCityErr1DaoImpl getPersonCityErr1Dao() {
       if (_personCityErr1Dao==null) {
-        _personCityErr1Dao=new PersonCityErr1DaoImpl(_context);
+        _personCityErr1Dao=new PersonCityErr1DaoImpl(this);
       }
       return _personCityErr1Dao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

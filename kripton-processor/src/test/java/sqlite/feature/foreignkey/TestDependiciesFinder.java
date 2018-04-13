@@ -242,7 +242,7 @@ public class TestDependiciesFinder {
 			}
 		};
 
-		//List<Dummy> output = sorder.order();
+		sorder.order();
 		//System.out.println("Output: " + output);
 	}
 }

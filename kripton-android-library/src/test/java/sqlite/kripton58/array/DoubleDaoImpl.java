@@ -10,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -53,8 +52,8 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
 
   private static SQLiteStatement deletePreparedStatement3;
 
-  public DoubleDaoImpl(SQLContext context) {
-    super(context);
+  public DoubleDaoImpl(BindDoubleDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

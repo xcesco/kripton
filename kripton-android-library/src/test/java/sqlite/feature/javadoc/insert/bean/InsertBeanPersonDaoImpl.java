@@ -7,7 +7,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -37,8 +36,8 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
 
   private static final Set<String> insertOneBeanFieldSurname2ColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
-  public InsertBeanPersonDaoImpl(SQLContext context) {
-    super(context);
+  public InsertBeanPersonDaoImpl(BindInsertBeanPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

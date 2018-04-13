@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -64,17 +65,17 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>dao instance</p>
    */
-  protected BookDaoImpl bookDao = new BookDaoImpl(context);
+  protected BookDaoImpl bookDao = new BookDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected UserDaoImpl userDao = new UserDaoImpl(context);
+  protected UserDaoImpl userDao = new UserDaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected LoanDaoImpl loanDao = new LoanDaoImpl(context);
+  protected LoanDaoImpl loanDao = new LoanDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -433,7 +434,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      */
     public BookDaoImpl getBookDao() {
       if (_bookDao==null) {
-        _bookDao=new BookDaoImpl(_context);
+        _bookDao=new BookDaoImpl(this);
       }
       return _bookDao;
     }
@@ -444,7 +445,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      */
     public UserDaoImpl getUserDao() {
       if (_userDao==null) {
-        _userDao=new UserDaoImpl(_context);
+        _userDao=new UserDaoImpl(this);
       }
       return _userDao;
     }
@@ -455,9 +456,14 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      */
     public LoanDaoImpl getLoanDao() {
       if (_loanDao==null) {
-        _loanDao=new LoanDaoImpl(_context);
+        _loanDao=new LoanDaoImpl(this);
       }
       return _loanDao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

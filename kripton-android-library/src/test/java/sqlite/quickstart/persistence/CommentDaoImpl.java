@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -29,8 +28,8 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
   private static final String SELECT_ONE_BY_POST_ID_SQL6 = "SELECT post_id, id, name, email, body FROM comment WHERE id = ?";
 
-  public CommentDaoImpl(SQLContext context) {
-    super(context);
+  public CommentDaoImpl(BindQuickStartDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

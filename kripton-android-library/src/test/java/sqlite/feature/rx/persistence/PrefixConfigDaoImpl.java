@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -37,8 +36,8 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
-  public PrefixConfigDaoImpl(SQLContext context) {
-    super(context);
+  public PrefixConfigDaoImpl(BindXenoDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

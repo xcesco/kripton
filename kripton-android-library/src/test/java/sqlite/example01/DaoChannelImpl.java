@@ -10,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -95,8 +94,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   private static final String SELECT_BEAN8_SQL14 = "SELECT update_time FROM channel WHERE update_time=?";
 
-  public DaoChannelImpl(SQLContext context) {
-    super(context);
+  public DaoChannelImpl(BindDummy01DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

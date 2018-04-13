@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -66,17 +67,17 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   /**
    * <p>dao instance</p>
    */
-  protected PersonOk1DaoImpl personOk1Dao = new PersonOk1DaoImpl(context);
+  protected PersonOk1DaoImpl personOk1Dao = new PersonOk1DaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected CityOk1DaoImpl cityOk1Dao = new CityOk1DaoImpl(context);
+  protected CityOk1DaoImpl cityOk1Dao = new CityOk1DaoImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonCityOk1DaoImpl personCityOk1Dao = new PersonCityOk1DaoImpl(context);
+  protected PersonCityOk1DaoImpl personCityOk1Dao = new PersonCityOk1DaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -435,7 +436,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
      */
     public PersonOk1DaoImpl getPersonOk1Dao() {
       if (_personOk1Dao==null) {
-        _personOk1Dao=new PersonOk1DaoImpl(_context);
+        _personOk1Dao=new PersonOk1DaoImpl(this);
       }
       return _personOk1Dao;
     }
@@ -446,7 +447,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
      */
     public CityOk1DaoImpl getCityOk1Dao() {
       if (_cityOk1Dao==null) {
-        _cityOk1Dao=new CityOk1DaoImpl(_context);
+        _cityOk1Dao=new CityOk1DaoImpl(this);
       }
       return _cityOk1Dao;
     }
@@ -457,9 +458,14 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
      */
     public PersonCityOk1DaoImpl getPersonCityOk1Dao() {
       if (_personCityOk1Dao==null) {
-        _personCityOk1Dao=new PersonCityOk1DaoImpl(_context);
+        _personCityOk1Dao=new PersonCityOk1DaoImpl(this);
       }
       return _personCityOk1Dao;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

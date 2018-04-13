@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -30,8 +29,8 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   private static final String SELECT_BY_ID_SQL2 = "SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?";
 
-  public UserDaoImpl(SQLContext context) {
-    super(context);
+  public UserDaoImpl(BindQuickStartDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**

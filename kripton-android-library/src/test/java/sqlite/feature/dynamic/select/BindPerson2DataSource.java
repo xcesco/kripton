@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -49,7 +50,7 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
   /**
    * <p>dao instance</p>
    */
-  protected PersonDAO2Impl personDAO2 = new PersonDAO2Impl(context);
+  protected PersonDAO2Impl personDAO2 = new PersonDAO2Impl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -367,9 +368,14 @@ public class BindPerson2DataSource extends AbstractDataSource implements BindPer
      */
     public PersonDAO2Impl getPersonDAO2() {
       if (_personDAO2==null) {
-        _personDAO2=new PersonDAO2Impl(_context);
+        _personDAO2=new PersonDAO2Impl(this);
       }
       return _personDAO2;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

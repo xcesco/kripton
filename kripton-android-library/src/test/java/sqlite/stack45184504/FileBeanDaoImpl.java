@@ -6,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
@@ -28,8 +27,8 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
 
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, content, content_type FROM files WHERE id=?";
 
-  public FileBeanDaoImpl(SQLContext context) {
-    super(context);
+  public FileBeanDaoImpl(BindExampleDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
