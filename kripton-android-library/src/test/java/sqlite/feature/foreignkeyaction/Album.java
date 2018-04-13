@@ -30,7 +30,7 @@ public class Album {
 	public long id;
 
 	/** The artist id. */
-	@BindColumn(foreignKey=Artist.class, onDelete=ForeignKeyAction.CASCADE, onUpdate=ForeignKeyAction.CASCADE)
+	@BindColumn(parentEntity=Artist.class, onDelete=ForeignKeyAction.CASCADE, onUpdate=ForeignKeyAction.CASCADE)
 	public long artistId;
 	
 	/** The name. */

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.android.sqlite;
+package sqlite.feature.relations;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+import base.BaseProcessorTest;
 
 /**
- * Rapresents dummy foreign key.
- * 
- * @author Francesco Benincasa (info@abubusoft.com)
- *
+ * The Class TestRXSuite.
  */
-public interface NoForeignKey {
+@RunWith(Suite.class) 
+// @formatter:off
+@Suite.SuiteClasses({ TestCompileRelation1.class,
+	TestCompileRelation2.class,
+	TestCompileRelationErr1.class})
+// @formatter:on
+public class TestRelationSuite extends BaseProcessorTest {
 
 }

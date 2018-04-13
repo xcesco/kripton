@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.core;
 
 import javax.lang.model.element.ExecutableElement;
 
-// TODO: Auto-generated Javadoc
 /**
  * Attribute typeName used in annotations. Introduced to avoid to type typeName
  * attribute as string
@@ -54,7 +53,7 @@ public enum AnnotationAttributeType {
 	/** The filename. */
 	FILENAME("fileName"),
 	/** The foreign key. */
-	FOREIGN_KEY("foreignKey"),
+	PARENT_ENTITY("parentEntity"),
 
 	/** The generate async task. */
 	GENERATE_ASYNC_TASK("asyncTask"),

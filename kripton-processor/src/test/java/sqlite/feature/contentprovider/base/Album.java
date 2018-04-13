@@ -30,6 +30,6 @@ public class Album extends Entity{
 	public String name;
 	
 	/** The artist id. */
-	@BindColumn(foreignKey=Artist.class, onUpdate=ForeignKeyAction.CASCADE)
+	@BindColumn(parentEntity=Artist.class, onUpdate=ForeignKeyAction.CASCADE)
 	public long artistId;
 }

@@ -30,7 +30,7 @@ public class BeanA_6 {
 	public long id;
 	
 	/** The bean A 2 id. */
-	@BindColumn(foreignKey=BeanA_5.class, nullable=false)
+	@BindColumn(parentEntity=BeanA_5.class, nullable=false)
 	public Long beanA2Id;
 	
 	/** The value string 2. */

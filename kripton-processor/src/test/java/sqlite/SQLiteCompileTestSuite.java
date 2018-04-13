@@ -39,6 +39,7 @@ import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
 import sqlite.feature.paginatedresult.TestPaginatedResultSuite;
 import sqlite.feature.performance.TestPerformanceSuite;
+import sqlite.feature.relations.TestRelationSuite;
 import sqlite.feature.rx.TestRXSuite;
 import sqlite.feature.schema.TestSchemaSuite;
 import sqlite.feature.speed.TestCompileSpeed;
@@ -104,6 +105,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestCompileSpeed.class,
 			TestLiveDataSuite.class,
 			TestJoinFeatureSuite.class,
+			TestRelationSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,

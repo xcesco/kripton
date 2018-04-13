@@ -28,7 +28,7 @@ public class PersonPhoneNumber {
    * Foreign key to Person model class
    */
   @BindColumn(
-      foreignKey = Person.class,
+      parentEntity = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
   public long personId;
@@ -37,7 +37,7 @@ public class PersonPhoneNumber {
    * Foreign key to PhoneNumber model class
    */
   @BindColumn(
-      foreignKey = PhoneNumber.class,
+      parentEntity = PhoneNumber.class,
       onDelete = ForeignKeyAction.CASCADE
   )
   public long phoneNumberId;

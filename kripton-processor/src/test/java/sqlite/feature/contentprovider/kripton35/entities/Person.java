@@ -32,11 +32,11 @@ public class Person {
 	public long id;
 
 	/** The parent id. */
-	@BindColumn(value = "alias_parent_id", foreignKey = Person.class, nullable = true)
+	@BindColumn(value = "alias_parent_id", parentEntity = Person.class, nullable = true)
 	public long parentId;
 
 	/** The city. */
-	@BindColumn(foreignKey = City.class)
+	@BindColumn(parentEntity = City.class)
 	public long city;
 
 	/** The birth city. */

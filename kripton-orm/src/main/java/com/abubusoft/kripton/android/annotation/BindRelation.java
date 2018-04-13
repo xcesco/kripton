@@ -27,6 +27,8 @@ import java.lang.annotation.Target;
  * single bean as rapresentation of relation between two table.
  * </p>
  * 
+ * <p><strong>This annotation can be used on List or Set type field.</strong></p>
+ * 
  * <p>
  * Image the following model:
  * </p>
@@ -54,7 +56,7 @@ import java.lang.annotation.Target;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 public @interface BindRelation {
 
 	/**
@@ -63,6 +65,7 @@ public @interface BindRelation {
 	 * can be omitted.
 	 * 
 	 * @return
+	 * 		field name in children table used as foreign key for this relation
 	 */
-	String field() default "";
+	String foreignKey() default "";
 }

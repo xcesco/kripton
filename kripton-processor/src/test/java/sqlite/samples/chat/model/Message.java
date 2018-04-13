@@ -7,9 +7,9 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 public class Message extends Entity {
     public String content;
 
-    @BindColumn(foreignKey = User.class)
+    @BindColumn(parentEntity = User.class)
     public long senderId;
 
-    @BindColumn(foreignKey = User.class)
+    @BindColumn(parentEntity = User.class)
     public long receiverId;
 }

@@ -26,7 +26,7 @@ public class UserDevice {
    * Foreign key to User model class
    */
   @BindColumn(
-      foreignKey = User.class,
+      parentEntity = User.class,
       onDelete = ForeignKeyAction.CASCADE
   )
   public long userId;
@@ -35,7 +35,7 @@ public class UserDevice {
    * Foreign key to Device model class
    */
   @BindColumn(
-      foreignKey = Device.class,
+      parentEntity = Device.class,
       onDelete = ForeignKeyAction.CASCADE
   )
   public long deviceId;

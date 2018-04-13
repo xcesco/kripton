@@ -29,7 +29,7 @@ public class Pet {
 	public long id;
 
 	/** The user id. */
-	@BindColumn(foreignKey = User.class)
+	@BindColumn(parentEntity = User.class)
 	public long userId;
 	
 	/** The name. */

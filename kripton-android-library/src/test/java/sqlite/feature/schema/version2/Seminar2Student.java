@@ -22,10 +22,10 @@ public class Seminar2Student  {
 	public long id;
 	
 	/** The student id. */
-	@BindColumn(foreignKey=Student.class)
+	@BindColumn(parentEntity=Student.class)
 	public long studentId;
 	
 	/** The seminar id. */
-	@BindColumn(foreignKey=Seminar.class)
+	@BindColumn(parentEntity=Seminar.class)
 	public long seminarId;
 }

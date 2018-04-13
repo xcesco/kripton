@@ -425,7 +425,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.columnName = entity.idName;
 			property.setNullable(false);
 			property.setPrimaryKey(true);
-			property.foreignClassName = null;
+			property.parentClassName = null;
 			properties.add(property);
 		}
 
@@ -436,7 +436,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.setNullable(false);
 			property.setPrimaryKey(false);
 			property.onDeleteAction = ForeignKeyAction.CASCADE;
-			property.foreignClassName = entity.entity1Name.toString();
+			property.parentClassName = entity.entity1Name.toString();
 			properties.add(property);
 		}
 
@@ -447,7 +447,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.setNullable(false);
 			property.setPrimaryKey(false);
 			property.onDeleteAction = ForeignKeyAction.CASCADE;
-			property.foreignClassName = entity.entity2Name.toString();
+			property.parentClassName = entity.entity2Name.toString();
 			properties.add(property);
 		}
 

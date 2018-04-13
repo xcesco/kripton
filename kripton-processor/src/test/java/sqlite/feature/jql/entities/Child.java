@@ -26,6 +26,6 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Child extends Bean {
 
 	/** The parent id. */
-	@BindColumn(foreignKey=Person.class)
+	@BindColumn(parentEntity=Person.class)
 	public long parentId;
 }

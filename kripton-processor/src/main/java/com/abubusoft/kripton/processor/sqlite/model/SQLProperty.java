@@ -25,7 +25,7 @@ import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
-import com.abubusoft.kripton.android.sqlite.NoForeignKey;
+import com.abubusoft.kripton.android.sqlite.NoParentEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -54,7 +54,7 @@ public class SQLProperty extends ManagedModelProperty {
 		super(null, null, null);
 
 		this.name = name;
-		this.parentTypeName = parentTypeName;
+		this.relationParentTypeName = parentTypeName;
 
 		onDeleteAction = ForeignKeyAction.NO_ACTION;
 		onUpdateAction = ForeignKeyAction.NO_ACTION;
@@ -75,7 +75,7 @@ public class SQLProperty extends ManagedModelProperty {
 	public SQLProperty(SQLiteEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
-		parentTypeName = TypeUtility.className(getParent().getName());
+		relationParentTypeName = TypeUtility.className(getParent().getName());
 	
 		// @BindSqlAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
@@ -162,10 +162,10 @@ public class SQLProperty extends ManagedModelProperty {
 	public ColumnAffinityType columnAffinityType;
 
 	/** The parent type name. */
-	protected TypeName parentTypeName;
+	protected TypeName relationParentTypeName;
 
 	/** class name of referred table. */
-	public String foreignClassName;
+	public String parentClassName;
 
 	/** The on delete action. */
 	public ForeignKeyAction onDeleteAction;
@@ -179,7 +179,7 @@ public class SQLProperty extends ManagedModelProperty {
 	 * @return true, if successful
 	 */
 	public boolean hasForeignKeyClassName() {
-		return !StringUtils.isEmpty(foreignClassName) && !NoForeignKey.class.getName().equals(foreignClassName);
+		return !StringUtils.isEmpty(parentClassName) && !NoParentEntity.class.getName().equals(parentClassName);
 	}
 
 	/**
@@ -187,7 +187,7 @@ public class SQLProperty extends ManagedModelProperty {
 	 *
 	 * @return the parent type name
 	 */
-	public TypeName getParentTypeName() {
-		return parentTypeName;
+	public TypeName getRelationParentTypeName() {
+		return relationParentTypeName;
 	}
 }

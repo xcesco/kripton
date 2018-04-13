@@ -88,7 +88,6 @@ import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.subjects.PublishSubject;
 
-// TODO: Auto-generated Javadoc
 /**
  * Generates database class.
  *

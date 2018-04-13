@@ -17,11 +17,11 @@ package com.abubusoft.kripton.android.sqlite;
 
 
 /**
- * Rapresents dummy foreign key.
+ * Rapresents dummy parent entity. It is used in field which are not foreign key.
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
  */
-public interface NoEntity {
+public interface NoParentEntity {
 
 }

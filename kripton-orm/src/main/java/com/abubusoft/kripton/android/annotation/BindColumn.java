@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
-import com.abubusoft.kripton.android.sqlite.NoForeignKey;
+import com.abubusoft.kripton.android.sqlite.NoParentEntity;
 
 /**
  * This annotation allow to customize binding from Java bean's field to SQLite
@@ -109,12 +109,12 @@ public @interface BindColumn {
 	public boolean nullable() default NULLABLE_DEFAULT;
 
 	/**
-	 * Represents foreign key to another entity/table. It can be used only on
-	 * long/Long column type
+	 * Indicates that this field will be used as foreign key in a relationship with the specified entity.
+	 *  It can be used only on long/Long column type.
 	 * 
 	 * @return foreign entity class to reference
 	 */
-	public Class<?> foreignKey() default NoForeignKey.class;
+	public Class<?> parentEntity() default NoParentEntity.class;
 
 	/**
 	 * Action to take on foreign key constraint during DELETE operation.

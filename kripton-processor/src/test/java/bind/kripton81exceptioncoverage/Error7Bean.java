@@ -41,6 +41,6 @@ public class Error7Bean {
 	public String ignore2;
 
 	/** The foreign. */
-	@BindColumn(foreignKey = Error7_1Bean.class)
+	@BindColumn(parentEntity = Error7_1Bean.class)
 	public Error7_1Bean foreign;
 }

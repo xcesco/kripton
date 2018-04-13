@@ -29,6 +29,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
@@ -41,6 +42,7 @@ import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
+import com.abubusoft.kripton.android.annotation.BindRelation;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -99,6 +101,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.TypeName;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -109,7 +112,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	// private SQLiteDatabaseSchema currentSchema;
 
 	/** The property annotation filter. */
-	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).build();
+	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class).add(BindColumn.class).add(BindSqlAdapter.class).add(BindRelation.class).build();
 
 	/** The global dao elements. */
 	public final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
@@ -336,9 +339,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		for (SQLiteEntity entity : schema.getEntities()) {
 			for (SQLProperty property : entity.getCollection()) {
 				if (property.hasForeignKeyClassName()) {
-					SQLiteEntity reference = schema.getEntity(property.foreignClassName);
+					SQLiteEntity reference = schema.getEntity(property.parentClassName);
 
-					AssertKripton.asserTrueOrUnspecifiedBeanException(reference != null, schema, entity, property.foreignClassName);
+					AssertKripton.asserTrueOrUnspecifiedBeanException(reference != null, schema, entity, property.parentClassName);
 
 					if (!entity.equals(reference)) {
 						entity.referedEntities.add(reference);
@@ -433,7 +436,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						if (bindAllFields) {
 							return false;
 						} else {
-							throw new InvalidDefinition("@BindDisabled can not be used with @BindType(allField=false)");
+							throw new InvalidDefinition(String.format("@%s can not be used with @%s(allField=false)", BindDisabled.class, BindType.class));
 						}
 					}
 
@@ -445,6 +448,19 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					if (!bindAllFields && annotationBindColumn == null) {
 						return false;
 					}
+					
+					if (property.hasAnnotation(BindRelation.class)) {
+						// ignore for the moment
+						AssertKripton.assertTrueOfInvalidDefinition(annotationBindColumn==null, property,String.format("annotations @%s and @%s can not be used together", BindRelation.class.getSimpleName(), BindColumn.class.getSimpleName()));
+						
+						
+						//more check must be done later, after model is fully builded
+						//check: it must be set or list
+						//TypeName propertyType = TypeUtility.typeName(property.getElement());
+						//AssertKripton.assertTrueOfInvalidDefinition(TypeUtility.isList(propertyType) || TypeUtility.isSet(propertyType) || TypeUtility.isArray(propertyType), property,String.format("@%s can be used only on a List, Set o array type field", BindRelation.class));
+						
+						return false;
+					}
 
 					if (annotationBindColumn != null) {
 						property.setNullable(AnnotationUtility.extractAsBoolean(property, annotationBindColumn, AnnotationAttributeType.NULLABLE));
@@ -452,13 +468,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 						// detect affinity type
 						property.columnAffinityType = ColumnAffinityType.valueOf(AnnotationUtility.extractAsEnumerationValue(property, annotationBindColumn, AnnotationAttributeType.COLUMN_AFFINITY));
-
 						
 						property.columnType = columnType;
 						property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
 
-						String foreignClassName = annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.FOREIGN_KEY);
-						property.foreignClassName = foreignClassName;
+						String parentClassName = annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.PARENT_ENTITY);
+						property.parentClassName = parentClassName;
 						if (property.hasForeignKeyClassName() && property.columnType == ColumnType.PRIMARY_KEY) {
 							AssertKripton.failIncompatibleAttributesInAnnotationException("In class '%s' property '%s' can not be defined as PRIMARY KEY and FOREIGN KEY",
 									bindEntity.getElement().asType(), property.getName());

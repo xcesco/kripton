@@ -26,7 +26,7 @@ public class PersonCity {
    * Foreign key to Person model class
    */
   @BindColumn(
-      foreignKey = Person.class,
+      parentEntity = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
   public long personId;
@@ -35,7 +35,7 @@ public class PersonCity {
    * Foreign key to City model class
    */
   @BindColumn(
-      foreignKey = City.class,
+      parentEntity = City.class,
       onDelete = ForeignKeyAction.CASCADE
   )
   public long cityId;
