@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -56,12 +57,12 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>dao instance</p>
    */
-  protected DaoUserImpl daoUser = new DaoUserImpl(context);
+  protected DaoUserImpl daoUser = new DaoUserImpl(this);
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoMessageImpl daoMessage = new DaoMessageImpl(context);
+  protected DaoMessageImpl daoMessage = new DaoMessageImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -400,7 +401,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      */
     public DaoUserImpl getDaoUser() {
       if (_daoUser==null) {
-        _daoUser=new DaoUserImpl(_context);
+        _daoUser=new DaoUserImpl(this);
       }
       return _daoUser;
     }
@@ -411,9 +412,14 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
      */
     public DaoMessageImpl getDaoMessage() {
       if (_daoMessage==null) {
-        _daoMessage=new DaoMessageImpl(_context);
+        _daoMessage=new DaoMessageImpl(this);
       }
       return _daoMessage;
+    }
+
+    @Override
+    public SQLContext context() {
+      return _context;
     }
 
     protected void onSessionOpened() {

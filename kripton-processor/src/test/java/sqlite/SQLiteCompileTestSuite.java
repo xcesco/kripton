@@ -22,6 +22,7 @@ import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
+import sqlite.feature.columnaffinity.TestColumnAffinityTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
 import sqlite.feature.datasourceoptions.FeatureDataSourceOptionsTest;
 import sqlite.feature.dynamic.TestDynamicSuite;
@@ -68,6 +69,7 @@ import sqlite.kripton84.Test84Suite;
 import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
 import sqlite.quickstart.TestQuickstartSuite;
+import sqlite.samples.TestSamplesSuite;
 import sqlite.select.TestSelectSuite;
 import sqlite.stack44330452.TestStack44330452Suite;
 import sqlite.stack44633883.TestStack44633883Suite;
@@ -106,6 +108,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestLiveDataSuite.class,
 			TestJoinFeatureSuite.class,
 			TestRelationSuite.class,
+			TestColumnAffinityTestSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,
@@ -146,6 +149,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestStack45184504Suite.class,	
 			Test205Suite.class,
 			FeatureDataSourceOptionsTest.class,
+			
+			TestSamplesSuite.class,
 						
 			TestPerformanceSuite.class,
 			TestSelectSuite.class,

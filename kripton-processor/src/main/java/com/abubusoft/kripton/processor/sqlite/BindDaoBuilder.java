@@ -36,7 +36,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.android.sqlite.Dao;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.android.sqlite.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;

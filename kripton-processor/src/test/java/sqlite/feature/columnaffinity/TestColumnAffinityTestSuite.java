@@ -30,6 +30,6 @@ import base.BaseProcessorTest;
 		ColumnAffinityTest.class		
 		 })
 //@formatter:on
-public class ColumnAffinityTestSuite extends BaseProcessorTest {
+public class TestColumnAffinityTestSuite extends BaseProcessorTest {
 
 }
