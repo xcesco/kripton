@@ -398,7 +398,7 @@ public class BaseProcessorTest {
 		try {
 			final Map<String, String> mapSet = new HashMap<>();
 			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
-
+ 
 			SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
 			GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 			resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
