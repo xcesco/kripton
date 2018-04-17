@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource Bean64ADataSource.
+ * Implementation of the Bean64ADataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

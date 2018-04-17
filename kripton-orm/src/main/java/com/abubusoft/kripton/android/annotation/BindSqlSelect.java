@@ -157,8 +157,8 @@ import java.lang.annotation.Target;
  * }
  * </pre>
  * <p>
- * When Kripton annotation processor examine <code>BindDao</code> annotation, it generates
- * the following DAO implementations:
+ * When Kripton annotation processor examine <code>BindDao</code> annotation, it
+ * generates the following DAO implementations:
  * </p>
  * 
  * <pre>
@@ -172,8 +172,12 @@ import java.lang.annotation.Target;
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
- * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(
+ * 				StringUtils.formatSQL(
+ * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
+ * 				(Object[]) args);
+ * 		Cursor cursor = database().rawQuery(
+ * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
  * 		LinkedList&lt;Person&gt; resultList = new LinkedList&lt;Person&gt;();
@@ -219,8 +223,13 @@ import java.lang.annotation.Target;
  * 		// build where condition
  * 		String[] args = { (name == null ? null : name) };
  * 
- * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name"), (Object[]) args);
- * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name", args);
+ * 		Logger.info(
+ * 				StringUtils.formatSQL(
+ * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name"),
+ * 				(Object[]) args);
+ * 		Cursor cursor = database().rawQuery(
+ * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name",
+ * 				args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
  * 		HashSet&lt;Person&gt; resultList = new HashSet&lt;Person&gt;();
@@ -266,8 +275,12 @@ import java.lang.annotation.Target;
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
- * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(
+ * 				StringUtils.formatSQL(
+ * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
+ * 				(Object[]) args);
+ * 		Cursor cursor = database().rawQuery(
+ * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 		Person resultBean = new Person();
  * 		try {
@@ -320,8 +333,12 @@ import java.lang.annotation.Target;
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
- * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(
+ * 				StringUtils.formatSQL(
+ * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
+ * 				(Object[]) args);
+ * 		Cursor cursor = database().rawQuery(
+ * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
  * 		try {
@@ -464,5 +481,16 @@ public @interface BindSqlSelect {
 	 * @return JQL code specified by user
 	 */
 	String jql() default "";
+
+	/**
+	 * <p>
+	 * Used to specify which queries need to be invoked to fill fields that represent relation
+	 * with other entities.
+	 * </p>
+	 * 
+	 * @return set of selects used to fill fields defined as relation
+	 * 
+	 */
+	BindSqlChildSelect[] childrenSelects() default {};
 
 }

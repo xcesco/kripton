@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource Dummy2DataSource.
+ * Implementation of the Dummy2DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

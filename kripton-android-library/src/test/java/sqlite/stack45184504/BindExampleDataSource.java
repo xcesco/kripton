@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource ExampleDataSource.
+ * Implementation of the ExampleDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

@@ -17,7 +17,7 @@ import sqlite.feature.many2many.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource PersonCirtyErr3DataSource.
+ * Implementation of the PersonCirtyErr3DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

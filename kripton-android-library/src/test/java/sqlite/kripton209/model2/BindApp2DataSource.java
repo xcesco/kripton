@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource App2DataSource.
+ * Implementation of the App2DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

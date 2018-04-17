@@ -16,7 +16,7 @@ import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
 /**
  * <p>
- * Represents implementation of datasource Kripton180BeanDataSource.
+ * Implementation of the Kripton180BeanDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

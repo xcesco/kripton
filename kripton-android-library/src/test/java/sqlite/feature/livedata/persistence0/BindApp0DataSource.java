@@ -33,7 +33,7 @@ import sqlite.feature.livedata.data.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource App0DataSource.
+ * Implementation of the App0DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

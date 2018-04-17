@@ -16,7 +16,7 @@ import sqlite.feature.paginatedresult.model.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource Person3DataSource.
+ * Implementation of the Person3DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

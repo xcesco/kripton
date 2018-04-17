@@ -16,7 +16,7 @@ import sqlite.feature.dynamic.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource Person2DataSource.
+ * Implementation of the Person2DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

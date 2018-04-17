@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource Bean8DataSource.
+ * Implementation of the Bean8DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

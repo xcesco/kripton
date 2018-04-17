@@ -13,13 +13,11 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 
 /**
  * The Interface BindDataSourceUpdateTask.
+ * 
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
 @Retention(CLASS)
 @Target(ANNOTATION_TYPE)
-/**
- * @author Francesco Benincasa (info@abubusoft.com)
- *
- */
 public @interface BindDataSourceUpdateTask {
 
 	/**
@@ -28,7 +26,7 @@ public @interface BindDataSourceUpdateTask {
 	 * @return the int
 	 */
 	int version();
-	
+
 	/**
 	 * Task.
 	 *

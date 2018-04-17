@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource Bean2DataSource.
+ * Implementation of the Bean2DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

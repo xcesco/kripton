@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource SchoolLunchDataSource.
+ * Implementation of the SchoolLunchDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

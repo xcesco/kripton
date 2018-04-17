@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource Dummy04DataSource.
+ * Implementation of the Dummy04DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

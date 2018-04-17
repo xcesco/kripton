@@ -19,7 +19,7 @@ import sqlite.quickstart.model.UserTable;
 
 /**
  * <p>
- * Represents implementation of datasource QuickStartDataSource.
+ * Implementation of the QuickStartDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

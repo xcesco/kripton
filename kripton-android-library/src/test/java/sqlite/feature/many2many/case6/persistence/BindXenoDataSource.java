@@ -20,7 +20,7 @@ import sqlite.feature.many2many.case6.model.PrefixConfigTable;
 
 /**
  * <p>
- * Represents implementation of datasource XenoDataSource.
+ * Implementation of the XenoDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource Bean96DataSource.
+ * Implementation of the Bean96DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

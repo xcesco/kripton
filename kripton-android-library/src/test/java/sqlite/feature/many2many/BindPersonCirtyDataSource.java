@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * Represents implementation of datasource PersonCirtyDataSource.
+ * Implementation of the PersonCirtyDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *

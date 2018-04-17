@@ -16,7 +16,7 @@ import sqlite.feature.javadoc.PersonTable;
 
 /**
  * <p>
- * Represents implementation of datasource DeleteBeanPersonDataSource.
+ * Implementation of the DeleteBeanPersonDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
