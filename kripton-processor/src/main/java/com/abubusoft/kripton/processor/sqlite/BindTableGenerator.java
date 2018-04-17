@@ -226,7 +226,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			// foreign key
 			String foreignClassName = item.parentClassName;
-			if (item.hasForeignKeyClassName()) {
+			if (item.isForeignKey()) {
 				SQLiteEntity reference = model.getEntity(foreignClassName);
 
 				if (reference == null) {
@@ -473,7 +473,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			// foreign key
 			String foreignClassName = item.parentClassName;
-			if (item.hasForeignKeyClassName()) {
+			if (item.isForeignKey()) {
 				SQLiteEntity reference = model.getEntity(foreignClassName);
 
 				if (reference == null) {
@@ -764,7 +764,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				.addJavadoc(
 						"Entity's property <code>$L</code> is associated to table column <code>$L</code>. This costant represents column name.\n",
 						kriptonProperty.getName(), kriptonProperty.columnName)
-				.addJavadoc("\n @see $T#$L\n", kriptonProperty.getRelationParentTypeName(), kriptonProperty.getName()).build();
+				.addJavadoc("\n @see $T#$L\n", kriptonProperty.getEntityTypeName(), kriptonProperty.getName()).build();
 		// @formatter:on
 		classBuilder.addField(fieldSpec);
 	}

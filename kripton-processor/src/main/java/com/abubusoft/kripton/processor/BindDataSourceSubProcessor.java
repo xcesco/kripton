@@ -16,6 +16,7 @@
 package com.abubusoft.kripton.processor;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -56,6 +57,7 @@ import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
@@ -100,6 +102,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.TypeName;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -186,6 +189,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			}
 
 			analyzeForeignKey(currentSchema);
+			
+			// Relation must be done AFTER foreign key building!!!
+			analyzeRelations(currentSchema);
 
 			String msg;
 			if (currentSchema.getCollection().size() == 0) {
@@ -211,6 +217,43 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		} // end foreach dataSource
 
 		return true;
+	}
+
+	/**
+	 * Analyze relation between entities
+	 * @param currentSchema
+	 */
+	private void analyzeRelations(SQLiteDatabaseSchema schema) {
+		for (SQLiteEntity entity : schema.getEntities()) {
+			// if there is not relations, go on
+			if (entity.relations.size()==0) continue;
+			
+			for (Triple<String, Element, SQLiteEntity> item: entity.relations) {
+				TypeName typeName=TypeUtility.typeName(item.value1.asType());			
+				if (TypeUtility.isSet(typeName) || TypeUtility.isList(typeName)) { }
+				else if (TypeUtility.isArray(typeName)) {
+					
+				} else {
+					AssertKripton.assertTrueOfInvalidDefinition(false, , message);
+				}
+			}
+			
+			/*
+			for (SQLProperty property : entity.getCollection()) {
+				property.
+				
+				if (property.isForeignKey()) {
+					SQLiteEntity reference = schema.getEntity(property.parentClassName);
+
+					AssertKripton.asserTrueOrUnspecifiedBeanException(reference != null, schema, entity, property.parentClassName);
+
+					if (!entity.equals(reference)) {
+						entity.referedEntities.add(reference);
+					}
+				}
+
+			}*/
+		}
 	}
 
 	/**
@@ -336,7 +379,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	private void analyzeForeignKey(SQLiteDatabaseSchema schema) {
 		for (SQLiteEntity entity : schema.getEntities()) {
 			for (SQLProperty property : entity.getCollection()) {
-				if (property.hasForeignKeyClassName()) {
+				if (property.isForeignKey()) {
 					SQLiteEntity reference = schema.getEntity(property.parentClassName);
 
 					AssertKripton.asserTrueOrUnspecifiedBeanException(reference != null, schema, entity, property.parentClassName);
@@ -448,10 +491,11 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					}
 					
 					if (property.hasAnnotation(BindRelation.class)) {
-						// ignore for the moment
+						ModelAnnotation annotationBindRelation = property.getAnnotation(BindRelation.class);
+						// add relation (SQLEntity is for the moment set to null
 						AssertKripton.assertTrueOfInvalidDefinition(annotationBindColumn==null, property,String.format("annotations @%s and @%s can not be used together", BindRelation.class.getSimpleName(), BindColumn.class.getSimpleName()));
-						
-						
+						entity.relations.add(new Triple<String, Element, SQLiteEntity>(annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY), property.getElement(), null));
+												
 						//more check must be done later, after model is fully builded
 						//check: it must be set or list
 						//TypeName propertyType = TypeUtility.typeName(property.getElement());
@@ -472,7 +516,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 						String parentClassName = annotationBindColumn.getAttributeAsClassName(AnnotationAttributeType.PARENT_ENTITY);
 						property.parentClassName = parentClassName;
-						if (property.hasForeignKeyClassName() && property.columnType == ColumnType.PRIMARY_KEY) {
+						if (property.isForeignKey() && property.columnType == ColumnType.PRIMARY_KEY) {
 							AssertKripton.failIncompatibleAttributesInAnnotationException("In class '%s' property '%s' can not be defined as PRIMARY KEY and FOREIGN KEY",
 									bindEntity.getElement().asType(), property.getName());
 						}
@@ -480,12 +524,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						ForeignKeyAction onDeleteAction = ForeignKeyAction.valueOf(AnnotationUtility.extractAsEnumerationValue(property, annotationBindColumn, AnnotationAttributeType.ON_DELETE));
 						ForeignKeyAction onUpdateAction = ForeignKeyAction.valueOf(AnnotationUtility.extractAsEnumerationValue(property, annotationBindColumn, AnnotationAttributeType.ON_UPDATE));
 
-						if (!property.hasForeignKeyClassName() && onDeleteAction != ForeignKeyAction.NO_ACTION) {
+						if (!property.isForeignKey() && onDeleteAction != ForeignKeyAction.NO_ACTION) {
 							String msg = String.format("In class '%s', property '%s' defines 'onDelete' attribute but it is not a foreign key", bindEntity.getElement().asType(), property.getName());
 							AssertKripton.failIncompatibleAttributesInAnnotationException(msg);
 						}
 
-						if (!property.hasForeignKeyClassName() && onUpdateAction != ForeignKeyAction.NO_ACTION) {
+						if (!property.isForeignKey() && onUpdateAction != ForeignKeyAction.NO_ACTION) {
 							String msg = String.format("In class '%s', property '%s' defines 'onUpdate' attribute but it is not a foreign key", bindEntity.getElement().asType(), property.getName());
 							AssertKripton.failIncompatibleAttributesInAnnotationException(msg);
 						}

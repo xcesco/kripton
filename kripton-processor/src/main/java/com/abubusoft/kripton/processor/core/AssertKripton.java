@@ -377,6 +377,20 @@ public abstract class AssertKripton {
 	 * @param property the property
 	 * @param message the message
 	 */
+	public static void assertTrueOfInvalidDefinition(boolean expression, SQLiteEntity entity, Element propertyElement, String message) {
+		if (!expression) {
+			String msg = String.format("In class '%s', property '%s' has invalid definition: %s", entity.getElement().asType().toString(), propertyElement.get .getName(), message);
+			throw (new InvalidDefinition(msg));
+		}		
+	}
+	
+	/**
+	 * Assert true of invalid definition.
+	 *
+	 * @param expression the expression
+	 * @param property the property
+	 * @param message the message
+	 */
 	public static void assertTrueOfInvalidDefinition(boolean expression, SQLProperty property, String message) {
 		if (!expression) {
 			String msg = String.format("In class '%s', property '%s' has invalid definition: %s", property.getParent().getElement().asType().toString(), property.getName(), message);

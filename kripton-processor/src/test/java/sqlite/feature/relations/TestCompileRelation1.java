@@ -23,11 +23,11 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.relations.case1.Album;
 import sqlite.feature.relations.case1.AppDataSource;
 import sqlite.feature.relations.case1.DaoAlbum;
+import sqlite.feature.relations.case1.DaoBase;
 import sqlite.feature.relations.case1.DaoSong;
 import sqlite.feature.relations.case1.Song;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestCompileRX.
  */
@@ -41,7 +41,7 @@ public class TestCompileRelation1 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws Throwable {		
-		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, AppDataSource.class, Song.class);
+		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, DaoBase.class, AppDataSource.class, Song.class);
 	}
 
 }

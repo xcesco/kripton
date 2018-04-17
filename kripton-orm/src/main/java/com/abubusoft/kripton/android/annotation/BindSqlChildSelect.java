@@ -21,26 +21,30 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p></p>
-
+ * <p>
+ * </p>
+ * 
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface BindSqlChildSelect {
-	
-	/**
-	 * field's name to use as parameter of dao's query to fill field annnotated with <code>BindRelation</code>
-	 * @return
-	 */
-	String foreignKey();
 
 	/**
-	 * method's name of child entity of relation to invoke to fill field. This method must have only one parameter: the foreign key value
+	 * Relation name associated to field annnotated with
+	 * <code>BindRelation</code> that need to be valirized with this subquery.
 	 * 
 	 * @return
-	 * 		method of child dao to use 
+	 * 		name of relation
+	 */
+	String relation();
+
+	/**
+	 * method's name of dao associated to child entity of relation to invoke to fill field. This
+	 * method must have only one parameter: the foreign key value
+	 * 
+	 * @return method of child dao to use
 	 */
 	String method() default "";
 

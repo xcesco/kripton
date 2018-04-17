@@ -52,7 +52,13 @@ public enum AnnotationAttributeType {
 	FIELDS("fields"),
 	/** The filename. */
 	FILENAME("fileName"),
-	/** The foreign key. */
+		
+	/**
+	 * foreign key
+	 */
+	FOREIGN_KEY("foreignKey"),
+	
+	/** parent entity */
 	PARENT_ENTITY("parentEntity"),
 
 	/** The generate async task. */
@@ -143,7 +149,7 @@ public enum AnnotationAttributeType {
 	ID_NAME("idName"),
 
 	/** The relationship. */
-	RELATIONSHIP("relationship"),
+	RELATION("relation"),
 
 	/** The in memory. */
 	IN_MEMORY("inMemory"),

@@ -15,13 +15,17 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.lang.model.element.Element;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -29,7 +33,6 @@ import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLiteEntity.
  */
@@ -46,6 +49,11 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 
 	/** The schema. */
 	public SQLiteDatabaseSchema schema;
+
+	/**
+	 * Set of relation field declared.
+	 */
+	public List<Triple<String, Element, SQLiteEntity>> relations=new ArrayList<Triple<String, Element, SQLiteEntity>>();
 
 	/**
 	 * Instantiates a new SQ lite entity.

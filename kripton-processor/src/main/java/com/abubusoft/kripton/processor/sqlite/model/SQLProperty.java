@@ -54,7 +54,7 @@ public class SQLProperty extends ManagedModelProperty {
 		super(null, null, null);
 
 		this.name = name;
-		this.relationParentTypeName = parentTypeName;
+		this.entityTypeName = parentTypeName;
 
 		onDeleteAction = ForeignKeyAction.NO_ACTION;
 		onUpdateAction = ForeignKeyAction.NO_ACTION;
@@ -75,7 +75,7 @@ public class SQLProperty extends ManagedModelProperty {
 	public SQLProperty(SQLiteEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
-		relationParentTypeName = TypeUtility.className(getParent().getName());
+		entityTypeName = TypeUtility.className(getParent().getName());
 	
 		// @BindSqlAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
@@ -162,7 +162,7 @@ public class SQLProperty extends ManagedModelProperty {
 	public ColumnAffinityType columnAffinityType;
 
 	/** The parent type name. */
-	protected TypeName relationParentTypeName;
+	protected TypeName entityTypeName;
 
 	/** class name of referred table. */
 	public String parentClassName;
@@ -178,7 +178,7 @@ public class SQLProperty extends ManagedModelProperty {
 	 *
 	 * @return true, if successful
 	 */
-	public boolean hasForeignKeyClassName() {
+	public boolean isForeignKey() {
 		return !StringUtils.isEmpty(parentClassName) && !NoParentEntity.class.getName().equals(parentClassName);
 	}
 
@@ -187,7 +187,7 @@ public class SQLProperty extends ManagedModelProperty {
 	 *
 	 * @return the parent type name
 	 */
-	public TypeName getRelationParentTypeName() {
-		return relationParentTypeName;
+	public TypeName getEntityTypeName() {
+		return entityTypeName;
 	}
 }

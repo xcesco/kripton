@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 @BindDao(Song.class)
-public interface DaoSong {
+public interface DaoSong extends DaoBase<Song> {
 
 	@BindSqlSelect
 	List<Song> selectAll();
