@@ -24,12 +24,12 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.common.StringUtils;
-import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.Touple;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
 /**
@@ -58,7 +58,7 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	 * </ol>
 	 * 
 	 */
-	public List<Triple<String, SQLProperty, SQLiteEntity>> relations = new ArrayList<Triple<String, SQLProperty, SQLiteEntity>>();
+	public List<Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>> relations = new ArrayList<Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>>();
 
 	/**
 	 * Instantiates a new SQ lite entity.

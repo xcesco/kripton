@@ -664,7 +664,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		
 		for (Pair<List<String>, Boolean> index : indexList) {
 			String createIndex = String.format(" CREATE %sINDEX idx_%s_%s on %s (%s)", uniqueString,
-					entity.getTableName(), counter++, entity.getTableName(), StringUtils.join(", ", index.value0));
+					entity.getTableName(), counter++, entity.getTableName(), StringUtils.join(index.value0,", "));
 			String dropIndex = String.format(" DROP INDEX IF EXISTS idx_%s_%s", entity.getTableName(), counter);
 
 			final One<Integer> fieldCounter = new One<Integer>(0);
