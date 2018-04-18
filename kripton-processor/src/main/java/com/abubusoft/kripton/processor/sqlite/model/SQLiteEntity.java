@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.element.Element;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
@@ -52,24 +51,31 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 
 	/**
 	 * Set of relation field declared.
+	 * <ol>
+	 * <li>name of foreign key used in child table</li>
+	 * <li>property used as relation. This property is not referenced in the property set.</li>
+	 * <li>child entity</li>
+	 * </ol>
+	 * 
 	 */
-	public List<Triple<String, Element, SQLiteEntity>> relations=new ArrayList<Triple<String, Element, SQLiteEntity>>();
+	public List<Triple<String, SQLProperty, SQLiteEntity>> relations = new ArrayList<Triple<String, SQLProperty, SQLiteEntity>>();
 
 	/**
 	 * Instantiates a new SQ lite entity.
 	 *
-	 * @param schema the schema
-	 * @param bindEntity the bind entity
+	 * @param schema
+	 *            the schema
+	 * @param bindEntity
+	 *            the bind entity
 	 */
 	public SQLiteEntity(SQLiteDatabaseSchema schema, BindEntity bindEntity) {
 		super(bindEntity.getElement());
-		
-		this.annotations=bindEntity.getAnnotations();
-		this.schema=schema;
+
+		this.annotations = bindEntity.getAnnotations();
+		this.schema = schema;
 
 		buildTableName(BaseProcessor.elementUtils, schema);
 	}
-
 
 	/**
 	 * Check how many PK are defined in entity. Only one field can be PK.
@@ -106,7 +112,9 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 		return id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.core.Finder#getTableName()
 	 */
 	public String getTableName() {
@@ -116,8 +124,10 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	/**
 	 * Builds the table name.
 	 *
-	 * @param elementUtils the element utils
-	 * @param schema the schema
+	 * @param elementUtils
+	 *            the element utils
+	 * @param schema
+	 *            the schema
 	 * @return the string
 	 */
 	private String buildTableName(Elements elementUtils, SQLiteDatabaseSchema schema) {

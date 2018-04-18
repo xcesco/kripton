@@ -228,13 +228,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			// if there is not relations, go on
 			if (entity.relations.size()==0) continue;
 			
-			for (Triple<String, Element, SQLiteEntity> item: entity.relations) {
-				TypeName typeName=TypeUtility.typeName(item.value1.asType());			
+			for (Triple<String, SQLProperty, SQLiteEntity> item: entity.relations) {
+				TypeName typeName=TypeUtility.typeName(item.value1.getElement());			
 				if (TypeUtility.isSet(typeName) || TypeUtility.isList(typeName)) { }
 				else if (TypeUtility.isArray(typeName)) {
 					
 				} else {
-					AssertKripton.assertTrueOfInvalidDefinition(false, , message);
+					AssertKripton.assertTrueOfInvalidDefinition(false, item.value1,String.format("invalid type for @%s annotated element",BindRelation.class.getSimpleName()));
 				}
 			}
 			
@@ -494,7 +494,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						ModelAnnotation annotationBindRelation = property.getAnnotation(BindRelation.class);
 						// add relation (SQLEntity is for the moment set to null
 						AssertKripton.assertTrueOfInvalidDefinition(annotationBindColumn==null, property,String.format("annotations @%s and @%s can not be used together", BindRelation.class.getSimpleName(), BindColumn.class.getSimpleName()));
-						entity.relations.add(new Triple<String, Element, SQLiteEntity>(annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY), property.getElement(), null));
+						entity.relations.add(new Triple<String, SQLProperty, SQLiteEntity>(annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY), property, null));
 												
 						//more check must be done later, after model is fully builded
 						//check: it must be set or list
