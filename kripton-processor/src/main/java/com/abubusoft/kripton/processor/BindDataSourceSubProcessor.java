@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -234,9 +235,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * Analyze relation between entities
 	 * 
 	 * @param currentSchema
+	 * @throws IOException
 	 */
-	private void analyzeRelations(SQLiteDatabaseSchema schema) {
-		// resolve child entity		
+	private void analyzeRelations(SQLiteDatabaseSchema schema) {		
+		// resolve child entity
 		for (SQLiteEntity entity : schema.getEntities()) {
 			// if there is not relations, go on
 			if (entity.relations.size() == 0)
@@ -245,29 +247,35 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			for (Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> item : entity.relations) {
 				TypeName typeName = TypeUtility.typeName(item.value0.getElement());
 				if (TypeUtility.isSet(typeName) || TypeUtility.isList(typeName) || TypeUtility.isArray(typeName)) {
-					//ASSERT: list, set or array of type
-					AssertKripton.assertTrueOfInvalidDefinition(((ParameterizedTypeName) typeName).typeArguments.size()==1, item.value0, String
-							.format("invalid type for @%s annotated element", BindRelation.class.getSimpleName()));
+					// ASSERT: list, set or array of type
+					AssertKripton.assertTrueOfInvalidDefinition(
+							((ParameterizedTypeName) typeName).typeArguments.size() == 1, item.value0, String.format(
+									"invalid type for @%s annotated element", BindRelation.class.getSimpleName()));
 					typeName = ((ParameterizedTypeName) typeName).typeArguments.get(0);
-					
-					item.value2=schema.getEntity(typeName.toString());
-					item.value3=SQLRelationType.ONE_2_MANY;
-					//ASSERT: check if type is in schema definition
-					AssertKripton.assertTrueOfInvalidDefinition(item.value2!=null, item.value0, String
-							.format("type %s is not a valid entity to use in a relation", typeName));
-					
-					//ASSERT: check if child entity has field
+
+					item.value2 = schema.getEntity(typeName.toString());
+					item.value3 = SQLRelationType.ONE_2_MANY;
+					// ASSERT: check if type is in schema definition
+					AssertKripton.assertTrueOfInvalidDefinition(item.value2 != null, item.value0,
+							String.format("type %s is not a valid entity to use in a relation", typeName));
+
+					// ASSERT: check if child entity has field
 					SQLProperty foreignKeyProperty = item.value2.findPropertyByName(item.value1);
-					AssertKripton.assertTrueOfInvalidDefinition(foreignKeyProperty!=null, item.value0, String
-							.format("@%s#%s referers a no existing field '%s#%s'", BindRelation.class.getSimpleName(), AnnotationAttributeType.FOREIGN_KEY.getValue(), item.value2.getName(), item.value0));
-					
+					AssertKripton.assertTrueOfInvalidDefinition(foreignKeyProperty != null, item.value0,
+							String.format("@%s#%s referers a no existing field '%s#%s'",
+									BindRelation.class.getSimpleName(), AnnotationAttributeType.FOREIGN_KEY.getValue(),
+									item.value2.getName(), item.value0));
+
 				} else {
-					item.value2=schema.getEntity(typeName.toString());
-					item.value3=SQLRelationType.ONE_2_ONE;
-					//ASSERT: check valid type
-					AssertKripton.assertTrueOfInvalidDefinition(item.value2!=null, item.value0, String
+					item.value2 = schema.getEntity(typeName.toString());
+					item.value3 = SQLRelationType.ONE_2_ONE;
+					// ASSERT: check valid type
+					AssertKripton.assertTrueOfInvalidDefinition(item.value2 != null, item.value0, String
 							.format("invalid type for @%s annotated element", BindRelation.class.getSimpleName()));
 				}
+
+				//SQLiteDaoDefinition daoDefinition = schema.findDaoDefinitionForEntity(item.value2);
+				//daoDefinition.relatedEntities								
 			}
 
 			/*
@@ -336,6 +344,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			globalBeanElements.put(item.toString(), (TypeElement) item);
 		}
 
+		// generate dao
 		Set<? extends Element> generatedDaos = roundEnv.getElementsAnnotatedWith(BindGeneratedDao.class);
 		for (Element item : generatedDaos) {
 			String keyToReplace = AnnotationUtility.extractAsClassName(item, BindGeneratedDao.class,
@@ -559,8 +568,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 										String.format("annotations @%s and @%s can not be used together",
 												BindRelation.class.getSimpleName(), BindColumn.class.getSimpleName()));
 								entity.relations.add(new Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>(
-										property, annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY),
-										null, null));
+										property,
+										annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY), null,
+										null));
 
 								// more check must be done later, after model is
 								// fully builded

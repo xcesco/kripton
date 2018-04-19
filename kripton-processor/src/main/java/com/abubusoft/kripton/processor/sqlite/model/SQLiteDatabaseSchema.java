@@ -58,10 +58,12 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	public final String configPopulatorClazz;
 
 	/** The class name converter. */
-	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
+	public Converter<String, String> classNameConverter = CaseFormat.UPPER_CAMEL
+			.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	/** The column name converter. */
-	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.LOWER_UNDERSCORE);
+	public Converter<String, String> columnNameConverter = CaseFormat.LOWER_CAMEL
+			.converterTo(CaseFormat.LOWER_UNDERSCORE);
 
 	/** The entities. */
 	protected Map<String, SQLiteEntity> entities = new HashMap<String, SQLiteEntity>();
@@ -170,25 +172,42 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	/**
 	 * Instantiates a new SQ lite database schema.
 	 *
-	 * @param item the item
-	 * @param schemaFileName the schema file name
-	 * @param schemaVersion the schema version
-	 * @param schema the schema
-	 * @param log the log
-	 * @param asyncTask the async task
-	 * @param generateCursor the generate cursor
-	 * @param generateRx the generate rx
-	 * @param daoIntoDataSource the dao into data source
-	 * @param configCursorFactoryClass the config cursor factory class
-	 * @param configDatabaseErrorHandlerClass the config database error handler class
-	 * @param configDatabaseLifecycleHandlerClass the config database lifecycle handler class
-	 * @param configInMemory the config in memory
-	 * @param configLogEnabled the config log enabled
-	 * @param configPopulatorClass the config populator class
+	 * @param item
+	 *            the item
+	 * @param schemaFileName
+	 *            the schema file name
+	 * @param schemaVersion
+	 *            the schema version
+	 * @param schema
+	 *            the schema
+	 * @param log
+	 *            the log
+	 * @param asyncTask
+	 *            the async task
+	 * @param generateCursor
+	 *            the generate cursor
+	 * @param generateRx
+	 *            the generate rx
+	 * @param daoIntoDataSource
+	 *            the dao into data source
+	 * @param configCursorFactoryClass
+	 *            the config cursor factory class
+	 * @param configDatabaseErrorHandlerClass
+	 *            the config database error handler class
+	 * @param configDatabaseLifecycleHandlerClass
+	 *            the config database lifecycle handler class
+	 * @param configInMemory
+	 *            the config in memory
+	 * @param configLogEnabled
+	 *            the config log enabled
+	 * @param configPopulatorClass
+	 *            the config populator class
 	 */
-	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log, boolean asyncTask, boolean generateCursor, boolean generateRx,
-			List<String> daoIntoDataSource, String configCursorFactoryClass, String configDatabaseErrorHandlerClass, String configDatabaseLifecycleHandlerClass, boolean configInMemory,
-			boolean configLogEnabled, String configPopulatorClass) {
+	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log,
+			boolean asyncTask, boolean generateCursor, boolean generateRx, List<String> daoIntoDataSource,
+			String configCursorFactoryClass, String configDatabaseErrorHandlerClass,
+			String configDatabaseLifecycleHandlerClass, boolean configInMemory, boolean configLogEnabled,
+			String configPopulatorClass) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -208,17 +227,20 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		FindSqlTypeAdapterVisitor typeAdapterVisitors = new FindSqlTypeAdapterVisitor();
 		List<? extends AnnotationMirror> annotationMirrors = item.getAnnotationMirrors();
 		for (AnnotationMirror annotationMirror : annotationMirrors) {
-			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
+			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
+					.getElementValues();
 
 			if (BindDataSourceOptions.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
-				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
+						.entrySet()) {
 					// The 'entry.getKey()' here is the annotation attribute
 					// name.
 					String key = entry.getKey().getSimpleName().toString();
 					entry.getValue().accept(valueVisitor, key);
 				}
 			} else if (BindDataSource.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
-				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
+						.entrySet()) {
 					String key = entry.getKey().getSimpleName().toString();
 					entry.getValue().accept(typeAdapterVisitors, key);
 				}
@@ -230,7 +252,9 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 			List<String> list = typeAdapterVisitors.getAdapters();
 			for (String typeAdapter : list) {
 				String sourceType = TypeAdapterHelper.detectSourceType(typeAdapter);
-				AssertKripton.assertTrueOrInvalidGlobalTypeApdaterException(!globalSqlTypeAdapter.containsKey(sourceType), this, typeAdapter, globalSqlTypeAdapter.get(sourceType));
+				AssertKripton.assertTrueOrInvalidGlobalTypeApdaterException(
+						!globalSqlTypeAdapter.containsKey(sourceType), this, typeAdapter,
+						globalSqlTypeAdapter.get(sourceType));
 
 				globalSqlTypeAdapter.put(sourceType, typeAdapter);
 			}
@@ -242,7 +266,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 
 		this.configCursorFactoryClazz = fillClazz(configCursorFactoryClass, NoCursorFactory.class);
 		this.configDatabaseErrorHandlerClazz = fillClazz(configDatabaseErrorHandlerClass, NoDatabaseErrorHandler.class);
-		this.configDatabaseLifecycleHandlerClazz = fillClazz(configDatabaseLifecycleHandlerClass, NoDatabaseLifecycleHandler.class);
+		this.configDatabaseLifecycleHandlerClazz = fillClazz(configDatabaseLifecycleHandlerClass,
+				NoDatabaseLifecycleHandler.class);
 		this.configPopulatorClazz = fillClazz(configPopulatorClass, NoPopulator.class);
 
 	}
@@ -250,8 +275,10 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	/**
 	 * Fill clazz.
 	 *
-	 * @param configClazz the config clazz
-	 * @param clazz the clazz
+	 * @param configClazz
+	 *            the config clazz
+	 * @param clazz
+	 *            the clazz
 	 * @return the string
 	 */
 	private String fillClazz(String configClazz, Class<?> clazz) {
@@ -273,7 +300,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	/**
 	 * Adds the entity.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 */
 	public void addEntity(SQLiteEntity value) {
 		entities.put(value.getName(), value);
@@ -295,8 +323,10 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	/**
 	 * property in different class, but same name, must have same column name.
 	 *
-	 * @param listEntity the list entity
-	 * @param p the p
+	 * @param listEntity
+	 *            the list entity
+	 * @param p
+	 *            the p
 	 */
 	private void checkName(Set<SQLProperty> listEntity, SQLProperty p) {
 		for (SQLProperty item : listEntity) {
@@ -326,7 +356,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	/**
 	 * Gets the entity.
 	 *
-	 * @param entityClassName the entity class name
+	 * @param entityClassName
+	 *            the entity class name
 	 * @return the entity
 	 */
 	public SQLiteEntity getEntity(String entityClassName) {
@@ -336,7 +367,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	/**
 	 * Gets the entity by simple name.
 	 *
-	 * @param entityName the entity name
+	 * @param entityName
+	 *            the entity name
 	 * @return the entity by simple name
 	 */
 	public Finder<SQLProperty> getEntityBySimpleName(String entityName) {
@@ -359,7 +391,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	/**
 	 * Gets the property by simple name.
 	 *
-	 * @param propertyName the property name
+	 * @param propertyName
+	 *            the property name
 	 * @return the property by simple name
 	 */
 	public Set<SQLProperty> getPropertyBySimpleName(String propertyName) {
@@ -372,8 +405,10 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	/**
 	 * get a.
 	 *
-	 * @param method the method
-	 * @param propertyName the property name
+	 * @param method
+	 *            the method
+	 * @param propertyName
+	 *            the property name
 	 * @return the string
 	 */
 	public String findColumnNameByPropertyName(SQLiteModelMethod method, String propertyName) {
@@ -386,7 +421,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 			set.add(item.columnName);
 		}
 
-		AssertKripton.assertTrueOrInvalidMethodSignException(result != null && set.size() == 1, method, "in JQL attribute can not translate property %s", propertyName);
+		AssertKripton.assertTrueOrInvalidMethodSignException(result != null && set.size() == 1, method,
+				"in JQL attribute can not translate property %s", propertyName);
 
 		return result;
 	}
@@ -420,7 +456,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	 */
 	public ClassName getGeneratedClass() {
 		String packageName = getElement().asType().toString();
-		return TypeUtility.className(packageName.substring(0, packageName.lastIndexOf(".")) + "." + getGeneratedClassName());
+		return TypeUtility
+				.className(packageName.substring(0, packageName.lastIndexOf(".")) + "." + getGeneratedClassName());
 	}
 
 	/**
@@ -436,6 +473,16 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		}
 
 		return false;
+	}
+
+	public SQLiteDaoDefinition findDaoDefinitionForEntity(SQLiteEntity entity) {
+		for (SQLiteDaoDefinition item:collection) {
+			if (item.getEntity().getName().equals(entity.getName())) {
+				return item;
+			}
+		}
+		
+		return null;
 	}
 
 }

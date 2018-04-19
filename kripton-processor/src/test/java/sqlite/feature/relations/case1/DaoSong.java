@@ -10,4 +10,7 @@ public interface DaoSong extends DaoBase<Song> {
 
 	@BindSqlSelect
 	List<Song> selectAll();
+	
+	@BindSqlSelect
+	List<Song> selectByAlbumId(long albumId);
 }

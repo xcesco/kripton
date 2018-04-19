@@ -52,9 +52,10 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	/**
 	 * Set of relation field declared.
 	 * <ol>
-	 * <li>name of foreign key used in child table</li>
+	 * <li>name of property in parent entity</li>
 	 * <li>property used as relation. This property is not referenced in the property set.</li>
 	 * <li>child entity</li>
+	 * <li>relation type</li>
 	 * </ol>
 	 * 
 	 */

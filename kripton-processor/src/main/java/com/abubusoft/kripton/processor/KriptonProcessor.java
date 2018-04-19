@@ -29,7 +29,6 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Annotation processor for json/xml/etc.
  *

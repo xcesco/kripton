@@ -133,8 +133,6 @@ public class BindM2MBuilder extends AbstractBuilder {
 	private void generateDaoPart(M2MEntity entity) throws IOException {
 		String daoClassName = entity.daoName.simpleName();
 
-		//PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
-		//String daoPackageName = pkg.getQualifiedName().toString();
 		String daoPackageName = entity.daoName.packageName();
 		String entityPackageName=entity.getPackageName();
 		String generatedDaoClassName = "Generated" + daoClassName;
