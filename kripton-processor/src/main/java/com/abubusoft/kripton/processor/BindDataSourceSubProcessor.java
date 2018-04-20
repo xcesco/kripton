@@ -44,6 +44,7 @@ import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
 import com.abubusoft.kripton.android.annotation.BindRelation;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
+import com.abubusoft.kripton.android.annotation.BindSqlChildSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
@@ -57,6 +58,7 @@ import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.bind.BindEntityBuilder;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
@@ -274,8 +276,29 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							.format("invalid type for @%s annotated element", BindRelation.class.getSimpleName()));
 				}
 
-				//SQLiteDaoDefinition daoDefinition = schema.findDaoDefinitionForEntity(item.value2);
-				//daoDefinition.relatedEntities								
+				SQLiteDaoDefinition parentDaoDefinition = schema.findDaoDefinitionForEntity(entity);			
+				
+				for (SQLiteModelMethod method:parentDaoDefinition.getCollection()) {
+					if (method.hasChildrenSelects()) {
+						// Pair<relation name, method name>
+						for (Triple<String, String, SQLiteModelMethod> childrenSelect: method.childrenSelects) {
+							Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> relation = entity.findRelationByParentProperty(childrenSelect.value0);
+							
+							SQLiteDaoDefinition childDaoDefinition = schema.findDaoDefinitionForEntity(relation.value2);							
+							SQLiteModelMethod subMethod=childDaoDefinition.get(childrenSelect.value1);
+							
+							// check existence of method
+							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod!=null, method, "an nonexistent method '%s#%s' is referred by @%s annotation ", childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class);
+							
+							// check signature
+							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod.getParameters().size()==1, method, " method '%s#%s' referred by @%s annotation can have one parameter binded to %s property", childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class, relation.value1);
+							
+							// set sub method to invoke
+							childrenSelect.value2=subMethod;
+						}
+					}
+				}
+								
 			}
 
 			/*

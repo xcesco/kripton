@@ -46,6 +46,6 @@ public @interface BindSqlChildSelect {
 	 * 
 	 * @return method of child dao to use
 	 */
-	String method() default "";
+	String method();
 
 }

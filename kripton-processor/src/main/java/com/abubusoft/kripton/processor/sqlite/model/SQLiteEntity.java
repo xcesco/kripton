@@ -144,4 +144,19 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 
 	}
 
+	/**
+	 * find a relation specifing parent field name, that is the name of the relation
+	 * @param parentFieldName
+	 * @return
+	 */
+	public Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> findRelationByParentProperty(String parentFieldName) {
+		for (Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> item:relations) {
+			if (item.value0.getName().equals(parentFieldName)) {
+				return item;
+			}
+		}		
+		
+		return null;
+	}
+
 }

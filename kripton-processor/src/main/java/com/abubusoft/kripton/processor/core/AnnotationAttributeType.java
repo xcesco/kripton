@@ -52,12 +52,12 @@ public enum AnnotationAttributeType {
 	FIELDS("fields"),
 	/** The filename. */
 	FILENAME("fileName"),
-		
+
 	/**
 	 * foreign key
 	 */
 	FOREIGN_KEY("foreignKey"),
-	
+
 	/** parent entity */
 	PARENT_ENTITY("parentEntity"),
 
@@ -78,8 +78,7 @@ public enum AnnotationAttributeType {
 	/** The include primary key. */
 	INCLUDE_PRIMARY_KEY("includePrimaryKey"),
 	/** The indexes. */
-	INDEXES("indexes"),	
-	
+	INDEXES("indexes"),
 
 	/** The map entry type. */
 	MAP_ENTRY_TYPE("mapEntryType"),
@@ -193,7 +192,17 @@ public enum AnnotationAttributeType {
 	 * column affinity type.
 	 * </p>
 	 */
-	COLUMN_AFFINITY("columnAffinity");
+	COLUMN_AFFINITY("columnAffinity"),
+
+	/**
+	 * method
+	 */
+	METHOD("method"),
+
+	/**
+	 * list of child select used to fill field marked as relations
+	 */
+	CHILDREN_SELECT("childrenSelects");
 
 	/** The value. */
 	private String value;

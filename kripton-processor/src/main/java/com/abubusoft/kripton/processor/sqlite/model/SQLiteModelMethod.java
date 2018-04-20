@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
@@ -31,15 +33,16 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
-import com.abubusoft.kripton.android.sqlite.NoAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.NoAdapter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -49,6 +52,7 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
+import com.abubusoft.kripton.processor.sqlite.FindSqlChildSelectVisitor;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
@@ -72,11 +76,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * The Interface OnFoundDynamicParameter.
 	 */
 	interface OnFoundDynamicParameter {
-		
+
 		/**
 		 * On found parameter.
 		 *
-		 * @param parameterName the parameter name
+		 * @param parameterName
+		 *            the parameter name
 		 */
 		void onFoundParameter(String parameterName);
 	}
@@ -179,7 +184,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/** if true, means that this method returns live data. */
 	private boolean liveDataEnabled;
-	
+
 	/**
 	 * Checks for live data.
 	 *
@@ -195,13 +200,30 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public ParameterizedTypeName liveDataReturnClass;
 
 	/**
+	 * list of children selects. Valid only for select methods
+	 */
+	public List<Triple<String, String, SQLiteModelMethod>> childrenSelects=new ArrayList<>();
+	
+	/**
+	 * has children selects 
+	 * @return
+	 */
+	public boolean hasChildrenSelects() {
+		return childrenSelects.size()>0;
+	}
+
+	/**
 	 * Instantiates a new SQ lite model method.
 	 *
-	 * @param parent the parent
-	 * @param element the element
-	 * @param annotationList the annotation list
+	 * @param parent
+	 *            the parent
+	 * @param element
+	 *            the element
+	 * @param annotationList
+	 *            the annotation list
 	 */
-	public SQLiteModelMethod(SQLiteDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
+	public SQLiteModelMethod(SQLiteDaoDefinition parent, ExecutableElement element,
+			List<ModelAnnotation> annotationList) {
 		super(element);
 
 		// before proceed convert typevariable in right typename
@@ -231,7 +253,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				}
 
 				// check for adapter
-				String paramAdapter = AnnotationUtility.extractAsClassName(p, BindSqlParam.class, AnnotationAttributeType.ADAPTER);
+				String paramAdapter = AnnotationUtility.extractAsClassName(p, BindSqlParam.class,
+						AnnotationAttributeType.ADAPTER);
 				if (!NoAdapter.class.getCanonicalName().equals(paramAdapter)) {
 					this.parameterName2Adapter.put(p.getSimpleName().toString(), paramAdapter);
 				}
@@ -244,12 +267,14 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			BindSqlDynamicWhere paramDynamicWhereName = p.getAnnotation(BindSqlDynamicWhere.class);
 			if (paramDynamicWhereName != null) {
 				this.dynamicWhereParameterName = p.getSimpleName().toString();
-				PrependType prepend = PrependType.valueOf(AnnotationUtility.extractAsEnumerationValue(p, BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
+				PrependType prepend = PrependType.valueOf(AnnotationUtility.extractAsEnumerationValue(p,
+						BindSqlDynamicWhere.class, AnnotationAttributeType.PREPEND));
 				this.dynamicWherePrepend = prepend;
 
 				// CONSTRAINT: @BindSqlWhere can be used only on String
 				// parameter type
-				AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(p.asType())),
+				AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
+						TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(p.asType())),
 						getParent().getElement(), getElement(), p, BindSqlDynamicWhere.class);
 			}
 
@@ -261,51 +286,55 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				// only String[] parameter can be marked as dynamicWhereArgs
 				// CONSTRAINT: @BindSqlWhereArgs can be used only on
 				// String[] parameter type
-				AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(ArrayTypeName.of(String.class), TypeUtility.typeName(p.asType())),
+				AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
+						TypeUtility.isEquals(ArrayTypeName.of(String.class), TypeUtility.typeName(p.asType())),
 						getParent().getElement(), getElement(), p, BindSqlDynamicWhereParams.class);
 			}
 		}
 
 		// looks for dynamic where conditions
-		findStringDynamicStatement(parent, BindSqlDynamicWhere.class, unsupportedSQLForDynamicWhere, new OnFoundDynamicParameter() {
+		findStringDynamicStatement(parent, BindSqlDynamicWhere.class, unsupportedSQLForDynamicWhere,
+				new OnFoundDynamicParameter() {
 
-			@Override
-			public void onFoundParameter(String parameterName) {
-				dynamicWhereParameterName = parameterName;
-			}
+					@Override
+					public void onFoundParameter(String parameterName) {
+						dynamicWhereParameterName = parameterName;
+					}
 
-		});
+				});
 
 		// looks for dynamic orderBy conditions
-		findStringDynamicStatement(parent, BindSqlDynamicOrderBy.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
+		findStringDynamicStatement(parent, BindSqlDynamicOrderBy.class, unsupportedSQLForDynamicOrderBy,
+				new OnFoundDynamicParameter() {
 
-			@Override
-			public void onFoundParameter(String parameterName) {
-				dynamicOrderByParameterName = parameterName;
-			}
+					@Override
+					public void onFoundParameter(String parameterName) {
+						dynamicOrderByParameterName = parameterName;
+					}
 
-		});
+				});
 
 		// looks for dynamic pageSize
-		findIntDynamicStatement(parent, BindSqlPageSize.class, unsupportedSQLForDynamicOrderBy, new OnFoundDynamicParameter() {
+		findIntDynamicStatement(parent, BindSqlPageSize.class, unsupportedSQLForDynamicOrderBy,
+				new OnFoundDynamicParameter() {
 
-			@Override
-			public void onFoundParameter(String parameterName) {
-				dynamicPageSizeName = parameterName;
-			}
+					@Override
+					public void onFoundParameter(String parameterName) {
+						dynamicPageSizeName = parameterName;
+					}
 
-		});
+				});
 
 		// check if we have jql annotation attribute
 		String preparedJql = getJQLDeclared();
 
 		this.jql = JQLBuilder.buildJQL(this, preparedJql);
-		
+
 		// live data support
-		this.liveDataEnabled=SQLiteModelMethod.isLiveData(this);
+		this.liveDataEnabled = SQLiteModelMethod.isLiveData(this);
 		if (liveDataEnabled) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) getReturnClass();
-			this.liveDataReturnClass=returnParameterizedTypeName;					
+			this.liveDataReturnClass = returnParameterizedTypeName;
 			setReturnClass(returnParameterizedTypeName.typeArguments.get(0));
 		}
 
@@ -319,8 +348,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				methodPath = annotation.path();
 			}
 
-			AssertKripton.assertTrue(!this.hasDynamicPageSizeConditions(), "Method %s.%s can not be marked with @%s annotation and contains parameter with @%s annotation", getParent().getName(),
-					getName(), BindContentProviderEntry.class.getSimpleName(), BindSqlPageSize.class.getSimpleName(), IncompatibleAnnotationException.class);
+			AssertKripton.assertTrue(!this.hasDynamicPageSizeConditions(),
+					"Method %s.%s can not be marked with @%s annotation and contains parameter with @%s annotation",
+					getParent().getName(), getName(), BindContentProviderEntry.class.getSimpleName(),
+					BindSqlPageSize.class.getSimpleName(), IncompatibleAnnotationException.class);
 
 			this.contentProviderEntryPathEnabled = true;
 			this.contentProviderEntryPath = methodPath;
@@ -332,65 +363,99 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			String contentProviderUri = contentProviderUri();
 
-			AssertKripton.assertTrueOrInvalidMethodSignException(!contentProviderUri.endsWith("/"), this, " content provider URI '%s' can not finish with '/'", contentProviderUri);
-			AssertKripton.assertTrueOrInvalidMethodSignException(!this.contentProviderPath().contains("//"), this, " content provider URI '%s' can not contain with '//'", contentProviderUri);
+			AssertKripton.assertTrueOrInvalidMethodSignException(!contentProviderUri.endsWith("/"), this,
+					" content provider URI '%s' can not finish with '/'", contentProviderUri);
+			AssertKripton.assertTrueOrInvalidMethodSignException(!this.contentProviderPath().contains("//"), this,
+					" content provider URI '%s' can not contain with '//'", contentProviderUri);
 
 			List<ContentUriPlaceHolder> uriParams = ContentUriChecker.getInstance().extract(contentProviderUri);
-			String uriTemplate = ContentUriChecker.getInstance().replace(contentProviderUri(), new UriPlaceHolderReplacerListener() {
+			String uriTemplate = ContentUriChecker.getInstance().replace(contentProviderUri(),
+					new UriPlaceHolderReplacerListener() {
 
-				@Override
-				public String onParameterName(int pathSegmentIndex, String name) {
-					JQLParameterName pName = JQLParameterName.parse(name);
+						@Override
+						public String onParameterName(int pathSegmentIndex, String name) {
+							JQLParameterName pName = JQLParameterName.parse(name);
 
-					String propertyName = pName.getValue();
+							String propertyName = pName.getValue();
 
-					SQLProperty entityProperty = entity.get(propertyName);
-					TypeName methodParamTypeName = SQLiteModelMethod.this.findParameterTypeByAliasOrName(name);
+							SQLProperty entityProperty = entity.get(propertyName);
+							TypeName methodParamTypeName = SQLiteModelMethod.this.findParameterTypeByAliasOrName(name);
 
-					if (entityProperty != null) {
-						TypeName entityPropertyType = entityProperty.getPropertyType().getTypeName();
-						if (TypeUtility.isString(entityPropertyType)) {
-							return "*";
-						} else if (TypeUtility.isTypeIncludedIn(entityPropertyType, Long.class, Long.TYPE)) {
-							return "#";
-						} else {
-							AssertKripton.fail("In '%s.%s', parameter '%s' of type '%s', can not be used in path content provider path '%s'", getParent().getName(), getName(), name,
-									entityPropertyType, contentProviderUri());
+							if (entityProperty != null) {
+								TypeName entityPropertyType = entityProperty.getPropertyType().getTypeName();
+								if (TypeUtility.isString(entityPropertyType)) {
+									return "*";
+								} else if (TypeUtility.isTypeIncludedIn(entityPropertyType, Long.class, Long.TYPE)) {
+									return "#";
+								} else {
+									AssertKripton.fail(
+											"In '%s.%s', parameter '%s' of type '%s', can not be used in path content provider path '%s'",
+											getParent().getName(), getName(), name, entityPropertyType,
+											contentProviderUri());
+								}
+							} else if (methodParamTypeName != null) {
+								if (methodParamTypeName != null
+										&& TypeUtility.isTypeIncludedIn(methodParamTypeName, String.class)) {
+									return "*";
+								} else if (methodParamTypeName != null
+										&& TypeUtility.isTypeIncludedIn(methodParamTypeName, Long.class, Long.TYPE)) {
+									return "#";
+								} else {
+									AssertKripton.fail(
+											"In '%s.%s', parameter '%s' has an invalid type '%s' to be used in path content provider path '%s'",
+											getParent().getName(), getName(), name, methodParamTypeName,
+											contentProviderUri());
+								}
+
+							} else {
+								AssertKripton.fail(
+										"Invalid parameter '%s' is used in content provider path '%s' associated to method '%s.%s'",
+										name, contentProviderUri(), getParent().getName(), getName());
+							}
+							return null;
+
 						}
-					} else if (methodParamTypeName != null) {
-						if (methodParamTypeName != null && TypeUtility.isTypeIncludedIn(methodParamTypeName, String.class)) {
-							return "*";
-						} else if (methodParamTypeName != null && TypeUtility.isTypeIncludedIn(methodParamTypeName, Long.class, Long.TYPE)) {
-							return "#";
-						} else {
-							AssertKripton.fail("In '%s.%s', parameter '%s' has an invalid type '%s' to be used in path content provider path '%s'", getParent().getName(), getName(), name,
-									methodParamTypeName, contentProviderUri());
-						}
-
-					} else {
-						AssertKripton.fail("Invalid parameter '%s' is used in content provider path '%s' associated to method '%s.%s'", name, contentProviderUri(), getParent().getName(), getName());
-					}
-					return null;
-
-				}
-			});
+					});
 
 			this.contentProviderUriVariables = uriParams;
 			this.contentProviderUriTemplate = uriTemplate;
 
 			// if we have a path, we have to remove the initial /
-			this.contentProviderEntryPathTemplate = uriTemplate.substring(getParent().getParent().contentProviderUri().length());
+			this.contentProviderEntryPathTemplate = uriTemplate
+					.substring(getParent().getParent().contentProviderUri().length());
 			if (this.contentProviderEntryPathTemplate.startsWith("/"))
 				contentProviderEntryPathTemplate = this.contentProviderEntryPathTemplate.substring(1);
 
 			// INSERT from SELECT type SQL can not be used with content provider
-			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.INSERT && this.jql.containsSelectOperation), this,
+			AssertKripton.assertTrueOrInvalidMethodSignException(
+					!(this.jql.operationType == JQLType.INSERT && this.jql.containsSelectOperation), this,
 					" INSERT-FROM-SELECT sql can not be used for content provider");
 
 			// UPDATE from SELECT type SQL can not be used with content provider
-			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.UPDATE && this.jql.containsSelectOperation), this,
+			AssertKripton.assertTrueOrInvalidMethodSignException(
+					!(this.jql.operationType == JQLType.UPDATE && this.jql.containsSelectOperation), this,
 					" UPDATE-FROM-SELECT sql can not be used for content provider");
+		}
 
+		if (element.getAnnotation(BindSqlSelect.class) != null) {
+			FindSqlChildSelectVisitor visitor = new FindSqlChildSelectVisitor();
+
+			for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
+				Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
+						.getElementValues();
+
+				if (BindSqlSelect.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
+					for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
+							.entrySet()) {
+						String key = entry.getKey().getSimpleName().toString();
+						entry.getValue().accept(visitor, key);
+					}
+					List<Triple<String, String, SQLiteModelMethod>> childrenSelects = visitor.getChildrenSelects();
+					this.childrenSelects=childrenSelects;
+					
+					break;
+				}
+			}
 		}
 
 	}
@@ -398,36 +463,38 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Checks if is live data.
 	 *
-	 * @param methodDefinition the method definition
+	 * @param methodDefinition
+	 *            the method definition
 	 * @return true, if is live data
 	 */
-	public static boolean isLiveData(SQLiteModelMethod methodDefinition)  {
-		boolean result=false;
-		
+	public static boolean isLiveData(SQLiteModelMethod methodDefinition) {
+		boolean result = false;
+
 		TypeName returnTypeName = methodDefinition.getReturnClass();
 		if (returnTypeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
-			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;			
+			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
 			Class<?> wrapperClazz;
 			try {
 				wrapperClazz = Class.forName(returnParameterizedClassName.toString());
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				throw(new KriptonRuntimeException(e));
+				throw (new KriptonRuntimeException(e));
 			}
-			
+
 			if ("android.arch.lifecycle.LiveData".equals(wrapperClazz.getName())) {
-				result=true;							
+				result = true;
 			}
 		}
-		
+
 		return result;
 	}
 
 	/**
 	 * Checks for adapter for param.
 	 *
-	 * @param paramName the param name
+	 * @param paramName
+	 *            the param name
 	 * @return true, if successful
 	 */
 	public boolean hasAdapterForParam(String paramName) {
@@ -454,8 +521,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (StringUtils.hasText(jql)) {
 				counter++;
 
-				AssertKripton.assertTrue(selectAnnotation.getAttributeCount() > 1, "Annotation %s in method %s.%s have more than one annotation with JQL attribute", selectAnnotation.getSimpleName(),
-						this.getParent().getName(), this.getName());
+				AssertKripton.assertTrue(selectAnnotation.getAttributeCount() > 1,
+						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
+						selectAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
 			}
 		}
 
@@ -464,8 +532,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (StringUtils.hasText(jql)) {
 				counter++;
 
-				AssertKripton.assertTrue(inserAnnotation.getAttributeCount() > 1, "Annotation %s in method %s.%s have more than one annotation with JQL attribute", inserAnnotation.getSimpleName(),
-						this.getParent().getName(), this.getName());
+				AssertKripton.assertTrue(inserAnnotation.getAttributeCount() > 1,
+						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
+						inserAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
 			}
 		}
 
@@ -474,8 +543,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (StringUtils.hasText(jql)) {
 				counter++;
 
-				AssertKripton.assertTrue(updateAnnotation.getAttributeCount() > 1, "Annotation %s in method %s.%s have more than one annotation with JQL attribute", updateAnnotation.getSimpleName(),
-						this.getParent().getName(), this.getName());
+				AssertKripton.assertTrue(updateAnnotation.getAttributeCount() > 1,
+						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
+						updateAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
 			}
 		}
 
@@ -484,12 +554,14 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (StringUtils.hasText(jql)) {
 				counter++;
 
-				AssertKripton.assertTrue(deleteAnnotation.getAttributeCount() > 1, "Annotation %s in method %s.%s have more than one annotation with JQL attribute", deleteAnnotation.getSimpleName(),
-						this.getParent().getName(), this.getName());
+				AssertKripton.assertTrue(deleteAnnotation.getAttributeCount() > 1,
+						"Annotation %s in method %s.%s have more than one annotation with JQL attribute",
+						deleteAnnotation.getSimpleName(), this.getParent().getName(), this.getName());
 			}
 		}
 
-		AssertKripton.assertTrue(counter <= 1, "Method %s.%s have more than one annotation with JQL attribute", this.getParent().getName(), this.getName());
+		AssertKripton.assertTrue(counter <= 1, "Method %s.%s have more than one annotation with JQL attribute",
+				this.getParent().getName(), this.getName());
 
 		// remove unscape charater (example \'%\' -> '%')
 		jql = StringEscapeUtils.unescapeEcmaScript(jql);
@@ -497,8 +569,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
 	 */
 	@Override
 	public void accept(SQLiteModelElementVisitor visitor) throws Exception {
@@ -524,14 +600,19 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * annotation. When it is found, a client action is required through
 	 * listener.
 	 *
-	 * @param <A> the generic type
-	 * @param parent the parent
-	 * @param annotationClazz the annotation clazz
-	 * @param unsupportedQueryType the unsupported query type
-	 * @param listener the listener
+	 * @param <A>
+	 *            the generic type
+	 * @param parent
+	 *            the parent
+	 * @param annotationClazz
+	 *            the annotation clazz
+	 * @param unsupportedQueryType
+	 *            the unsupported query type
+	 * @param listener
+	 *            the listener
 	 */
-	private <A extends Annotation> void findStringDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
-			OnFoundDynamicParameter listener) {
+	private <A extends Annotation> void findStringDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz,
+			List<Class<? extends Annotation>> unsupportedQueryType, OnFoundDynamicParameter listener) {
 
 		int counter = 0;
 		for (VariableElement p : element.getParameters()) {
@@ -539,18 +620,22 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (annotation != null) {
 				// Dynamic queries can not be used in Inser SQL.
 				for (Class<? extends Annotation> item : unsupportedQueryType) {
-					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.",
+					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this,
+							"in this method is not allowed to mark parameters with @%s annotation.",
 							annotationClazz.getSimpleName());
 				}
 
-				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isString(TypeUtility.typeName(p)), this, "only String parameters can be marked with @%s annotation.",
+				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isString(TypeUtility.typeName(p)),
+						this, "only String parameters can be marked with @%s annotation.",
 						annotationClazz.getSimpleName());
 
 				listener.onFoundParameter(p.getSimpleName().toString());
 				counter++;
 			}
 		}
-		AssertKripton.assertTrueOrInvalidMethodSignException(counter < 2, this, "there are %s parameters marked with @%s. Only one is allowed.", counter, annotationClazz.getSimpleName());
+		AssertKripton.assertTrueOrInvalidMethodSignException(counter < 2, this,
+				"there are %s parameters marked with @%s. Only one is allowed.", counter,
+				annotationClazz.getSimpleName());
 	}
 
 	/**
@@ -558,14 +643,19 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * annotation. When it is found, a client action is required through
 	 * listener.
 	 *
-	 * @param <A> the generic type
-	 * @param parent the parent
-	 * @param annotationClazz the annotation clazz
-	 * @param unsupportedQueryType the unsupported query type
-	 * @param listener the listener
+	 * @param <A>
+	 *            the generic type
+	 * @param parent
+	 *            the parent
+	 * @param annotationClazz
+	 *            the annotation clazz
+	 * @param unsupportedQueryType
+	 *            the unsupported query type
+	 * @param listener
+	 *            the listener
 	 */
-	private <A extends Annotation> void findIntDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
-			OnFoundDynamicParameter listener) {
+	private <A extends Annotation> void findIntDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz,
+			List<Class<? extends Annotation>> unsupportedQueryType, OnFoundDynamicParameter listener) {
 
 		int counter = 0;
 		for (VariableElement p : element.getParameters()) {
@@ -573,25 +663,30 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			if (annotation != null) {
 				// Dynamic queries can not be used in Inser SQL.
 				for (Class<? extends Annotation> item : unsupportedQueryType) {
-					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this, "in this method is not allowed to mark parameters with @%s annotation.",
+					AssertKripton.assertTrueOrInvalidMethodSignException(element.getAnnotation(item) == null, this,
+							"in this method is not allowed to mark parameters with @%s annotation.",
 							annotationClazz.getSimpleName());
 				}
 
-				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isTypeIncludedIn(TypeUtility.typeName(p), Integer.TYPE), this,
+				AssertKripton.assertTrueOrInvalidMethodSignException(
+						TypeUtility.isTypeIncludedIn(TypeUtility.typeName(p), Integer.TYPE), this,
 						"only a int parameter can be marked with @%s annotation.", annotationClazz.getSimpleName());
 
 				listener.onFoundParameter(p.getSimpleName().toString());
 				counter++;
 			}
 		}
-		AssertKripton.assertTrueOrInvalidMethodSignException(counter < 2, this, "there are %s parameters marked with @%s. Only one is allowed.", counter, annotationClazz.getSimpleName());
+		AssertKripton.assertTrueOrInvalidMethodSignException(counter < 2, this,
+				"there are %s parameters marked with @%s. Only one is allowed.", counter,
+				annotationClazz.getSimpleName());
 	}
 
 	/**
 	 * Retrieve for a method's parameter its alias, used to work with queries.
 	 * If no alias is present, typeName will be used.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return the string
 	 */
 	public String findParameterAliasByName(String name) {
@@ -605,7 +700,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Check if method contains a parameter with value as typeName.
 	 *
-	 * @param nameOrAlias            parameter typeName to find
+	 * @param nameOrAlias
+	 *            parameter typeName to find
 	 * @return TypeMirror associated
 	 */
 	public String findParameterNameByAlias(String nameOrAlias) {
@@ -628,7 +724,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Check if method contains a parameter with value as typeName.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return TypeMirror associated
 	 */
 	public TypeName findParameterTypeByAliasOrName(String name) {
@@ -687,7 +784,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Checks if is this dynamic where conditions name.
 	 *
-	 * @param parameterName the parameter name
+	 * @param parameterName
+	 *            the parameter name
 	 * @return true, if is this dynamic where conditions name
 	 */
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
@@ -706,7 +804,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Checks if is this dynamic page size name.
 	 *
-	 * @param parameterName the parameter name
+	 * @param parameterName
+	 *            the parameter name
 	 * @return true, if is this dynamic page size name
 	 */
 	public boolean isThisDynamicPageSizeName(String parameterName) {
@@ -716,11 +815,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Checks if is this dynamic where args name.
 	 *
-	 * @param parameterName the parameter name
+	 * @param parameterName
+	 *            the parameter name
 	 * @return true, if is this dynamic where args name
 	 */
 	public boolean isThisDynamicWhereArgsName(String parameterName) {
-		return StringUtils.hasText(dynamicWhereArgsParameterName) && parameterName.equals(dynamicWhereArgsParameterName);
+		return StringUtils.hasText(dynamicWhereArgsParameterName)
+				&& parameterName.equals(dynamicWhereArgsParameterName);
 	}
 
 	/**
@@ -741,7 +842,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		if (!contentProviderEntryPathEnabled)
 			return "";
 
-		return this.getParent().contentProviderUri() + (StringUtils.hasText(contentProviderEntryPath) ? ("/" + contentProviderEntryPath) : "");
+		return this.getParent().contentProviderUri()
+				+ (StringUtils.hasText(contentProviderEntryPath) ? ("/" + contentProviderEntryPath) : "");
 	}
 
 	/**
@@ -756,12 +858,16 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return (StringUtils.hasText(contentProviderEntryPath) ? ("/" + contentProviderEntryPath) : "");
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext#getContextDescription()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext#
+	 * getContextDescription()
 	 */
 	@Override
 	public String getContextDescription() {
-		String msg = String.format("In method '%s.%s'", getParent().getElement().getSimpleName().toString(), getElement().getSimpleName().toString());
+		String msg = String.format("In method '%s.%s'", getParent().getElement().getSimpleName().toString(),
+				getElement().getSimpleName().toString());
 
 		return msg;
 	}
@@ -769,7 +875,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Gets the adapter for param.
 	 *
-	 * @param paramName the param name
+	 * @param paramName
+	 *            the param name
 	 * @return the adapter for param
 	 */
 	public TypeName getAdapterForParam(String paramName) {
@@ -817,7 +924,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @return true, if successful
 	 */
 	public boolean hasDynamicParts() {
-		return hasDynamicOrderByConditions() || hasDynamicPageSizeConditions() || hasDynamicWhereConditions() || this.jql.hasDynamicParts();
+		return hasDynamicOrderByConditions() || hasDynamicPageSizeConditions() || hasDynamicWhereConditions()
+				|| this.jql.hasDynamicParts();
 
 	}
 
