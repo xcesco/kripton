@@ -27,7 +27,11 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
   public DaoAlbumImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
+    
+    this.daoFactory=daoFactory;
   }
+  
+  private BindAppDaoFactory daoFactory;
 
   /**
    * <p>SQL insert:</p>
@@ -141,6 +145,8 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("name");
+        
+        DaoSongImpl daoSong = daoFactory.getDaoSong();
 
         do
          {
@@ -148,6 +154,8 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
           resultBean.id=_cursor.getLong(index0);
           if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          // sub query: resultBean.setSongs(DaoSong#selectByAlbumId(resultBean.id))
+          resultBean.setSongs(daoSong.selectByAlbumId(resultBean.id));
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

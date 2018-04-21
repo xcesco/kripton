@@ -93,6 +93,9 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 
 			i++;
 		}
+		
+		generateSubQueries(methodBuilder, method);
+		
 		methodBuilder.addCode("\n");
 
 		methodBuilder.endControlFlow();

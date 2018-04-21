@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,6 +93,8 @@ import com.abubusoft.kripton.processor.sqlite.BindCursorBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDaoBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
+import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
+import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLRelationType;
@@ -237,9 +238,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * Analyze relation between entities
 	 * 
 	 * @param currentSchema
+	 * @throws  
 	 * @throws IOException
 	 */
-	private void analyzeRelations(SQLiteDatabaseSchema schema) {		
+	private void analyzeRelations(SQLiteDatabaseSchema schema)  {		
 		// resolve child entity
 		for (SQLiteEntity entity : schema.getEntities()) {
 			// if there is not relations, go on
@@ -276,6 +278,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							.format("invalid type for @%s annotated element", BindRelation.class.getSimpleName()));
 				}
 
+				// get dao definition for entitiy
 				SQLiteDaoDefinition parentDaoDefinition = schema.findDaoDefinitionForEntity(entity);			
 				
 				for (SQLiteModelMethod method:parentDaoDefinition.getCollection()) {
@@ -292,6 +295,26 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							
 							// check signature
 							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod.getParameters().size()==1, method, " method '%s#%s' referred by @%s annotation can have one parameter binded to %s property", childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class, relation.value1);
+							
+							// check parameter type
+							AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isTypeIncludedIn(subMethod.getParameters().get(0).value1, Long.TYPE, Long.class), method, " method '%s#%s' referred by @%s annotation can have only one parameter of type Long or long", childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class, relation.value1);
+							
+							SelectType selectResultType = SelectBuilderUtility.detectSelectType(method);							
+							// specified dao can only return bean of a type 
+							//TypeName returnTypeName = method.getReturnClass();
+							
+							
+							switch (relation.value3) {
+							case ONE_2_MANY:
+								// we can have a set or a list
+								AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType==SelectType.LIST_BEAN, method, " method '%s#%s' referred by @%s annotation does not return an acceptable value fro %s property", childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class, relation.value1);
+								break;
+							case ONE_2_ONE:
+								// we can receive only a bean
+								AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType==SelectType.BEAN, method, " method '%s#%s' referred by @%s annotation does not return an acceptable value fro %s property", childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class, relation.value1);
+								break;
+							}
+							
 							
 							// set sub method to invoke
 							childrenSelect.value2=subMethod;
