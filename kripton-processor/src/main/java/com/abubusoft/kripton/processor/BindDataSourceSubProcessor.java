@@ -348,8 +348,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		// ASSERT: check if child entity has field
 		SQLProperty foreignKeyProperty = referredEntity.getForeignKeysToEntity(entity, item.value1);
-		AssertKripton.assertTrueOfInvalidDefinition(foreignKeyProperty != null, item.value0, String.format("@%s#%s referers a no foreign key/no existing field '%s#%s'",
-				BindRelation.class.getSimpleName(), AnnotationAttributeType.FOREIGN_KEY.getValue(), item.value2.getName(), item.value0.getName()));
+		AssertKripton.assertTrueOfInvalidDefinition(foreignKeyProperty != null, item.value0, String.format("@%s#%s referers an invalid foreign key or no existing field '%s#%s'",
+				BindRelation.class.getSimpleName(), AnnotationAttributeType.FOREIGN_KEY.getValue(), referredEntity.getName(), item.value0.getName()));
 	}
 
 	/**

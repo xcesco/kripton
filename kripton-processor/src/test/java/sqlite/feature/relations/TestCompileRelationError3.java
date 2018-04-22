@@ -19,6 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.relations.error3.Album;
 import sqlite.feature.relations.error3.AppDataSource;
@@ -42,9 +44,8 @@ public class TestCompileRelationError3 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompileError() throws Throwable {
-		// this.expectedException(InvalidDefinition.class, "property 'songs' has
-		// invalid definition: type java.lang.Long is not a valid entity to use
-		// in a relation");
+		this.expectedException(InvalidDefinition.class,
+				"In class 'sqlite.feature.relations.error3.Album', property 'songs' has invalid definition: @BindRelation#foreignKey referers an invalid foreign key or no existing field 'sqlite.feature.relations.error3.Artist#songs'");
 		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, DaoArtist.class, Artist.class, AppDataSource.class, Song.class);
 	}
 

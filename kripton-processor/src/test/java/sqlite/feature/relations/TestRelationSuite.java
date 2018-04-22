@@ -23,11 +23,14 @@ import base.BaseProcessorTest;
 /**
  * The Class TestRXSuite.
  */
-@RunWith(Suite.class) 
+@RunWith(Suite.class)
 // @formatter:off
 @Suite.SuiteClasses({ TestCompileRelation1.class,
 	TestCompileRelation2.class,
-	TestCompileRelationError1.class})
+	TestCompileRelationError1.class,
+	TestCompileRelationError2.class,
+	TestCompileRelationError3.class,
+	TestCompileRelationError4.class})
 // @formatter:on
 public class TestRelationSuite extends BaseProcessorTest {
 
