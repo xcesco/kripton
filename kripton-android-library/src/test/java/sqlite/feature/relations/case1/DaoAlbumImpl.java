@@ -25,13 +25,12 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
   private static final String SELECT_ALBUMS_SQL1 = "SELECT id, name FROM album";
 
+  private BindAppDaoFactory daoFactory;
+
   public DaoAlbumImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
-    
     this.daoFactory=daoFactory;
   }
-  
-  private BindAppDaoFactory daoFactory;
 
   /**
    * <p>SQL insert:</p>
@@ -95,7 +94,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
-    bean.id=result;
+    bean.setId(result);
   }
 
   /**
@@ -145,17 +144,15 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("name");
-        
-        DaoSongImpl daoSong = daoFactory.getDaoSong();
 
         do
          {
           resultBean=new Album();
 
-          resultBean.id=_cursor.getLong(index0);
+          resultBean.setId(_cursor.getLong(index0));
           if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          // sub query: resultBean.setSongs(DaoSong#selectByAlbumId(resultBean.id))
-          resultBean.setSongs(daoSong.selectByAlbumId(resultBean.id));
+          // sub query: resultBean.setSongs(this.daoFactory.getDaoSong().selectByAlbumId(resultBean.getId()))
+          resultBean.setSongs(this.daoFactory.getDaoSong().selectByAlbumId(resultBean.getId()));
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

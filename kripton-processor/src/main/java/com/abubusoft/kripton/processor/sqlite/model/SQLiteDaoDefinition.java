@@ -71,7 +71,8 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	 * Convert type variable in correct type. This must be done before work on
 	 * SQLMethod
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 */
 	void resolveTypeVariable(SQLiteModelMethod value) {
 		// before proceed, we need to resolve typeVariables
@@ -83,8 +84,11 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.core.ModelBucket#add(com.abubusoft.kripton.processor.core.ModelEntity)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.core.ModelBucket#add(com.abubusoft.
+	 * kripton.processor.core.ModelEntity)
 	 */
 	@Override
 	public void add(SQLiteModelMethod value) {
@@ -139,14 +143,18 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/**
 	 * Instantiates a new SQ lite dao definition.
 	 *
-	 * @param databaseSchema the database schema
-	 * @param name the name
-	 * @param element the element
-	 * @param entityClassName the entity class name
-	 * @param generated the generated
+	 * @param databaseSchema
+	 *            the database schema
+	 * @param name
+	 *            the name
+	 * @param element
+	 *            the element
+	 * @param entityClassName
+	 *            the entity class name
+	 * @param generated
+	 *            the generated
 	 */
-	public SQLiteDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element,
-			String entityClassName, boolean generated) {
+	public SQLiteDaoDefinition(SQLiteDatabaseSchema databaseSchema, String name, TypeElement element, String entityClassName, boolean generated) {
 		super(element.getSimpleName().toString(), element);
 		this.generated = generated;
 		this.parent = new WeakReference<SQLiteDatabaseSchema>(databaseSchema);
@@ -176,15 +184,20 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/**
 	 * Resolve type variable.
 	 *
-	 * @param inputTypeName the input type name
+	 * @param inputTypeName
+	 *            the input type name
 	 * @return the type name
 	 */
 	public TypeName resolveTypeVariable(TypeName inputTypeName) {
 		return typeVariableResolver.resolve(inputTypeName);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
 	 */
 	@Override
 	public void accept(SQLiteModelElementVisitor visitor) throws Exception {
@@ -212,7 +225,11 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/** map of params for which generate a java2Content method converter. */
 	public Map<TypeName, String> managedParams = new HashMap<TypeName, String>();
 
-	/** <p> if <code>true</code> indicates that content provider generation is enabled. */
+	/**
+	 * <p>
+	 * if <code>true</code> indicates that content provider generation is
+	 * enabled.
+	 */
 	public boolean contentProviderEnabled;
 
 	/** Base path associated to content provider. */
@@ -227,7 +244,8 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/**
 	 * Build and register prepared statement name.
 	 *
-	 * @param methodName the method name
+	 * @param methodName
+	 *            the method name
 	 * @return the string
 	 */
 	String buildPreparedStatementName(String methodName) {
@@ -252,7 +270,8 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/**
 	 * Generate java 2 content serializer.
 	 *
-	 * @param paramTypeName the param type name
+	 * @param paramTypeName
+	 *            the param type name
 	 * @return the string
 	 */
 	public String generateJava2ContentSerializer(TypeName paramTypeName) {
@@ -266,7 +285,8 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/**
 	 * Generate java 2 content parser.
 	 *
-	 * @param paramTypeName the param type name
+	 * @param paramTypeName
+	 *            the param type name
 	 * @return the string
 	 */
 	public String generateJava2ContentParser(TypeName paramTypeName) {
@@ -304,7 +324,8 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	/**
 	 * Adds the implemented interface.
 	 *
-	 * @param className the class name
+	 * @param className
+	 *            the class name
 	 */
 	public void addImplementedInterface(TypeName className) {
 		this.implementedInterface.add(className);
@@ -320,17 +341,27 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	public TypeName getTypeName() {
 		return TypeUtility.typeName(TypeUtility.extractPackageName(this.element), name);
 	}
-	
+
 	/**
 	 * Checks for live data.
 	 *
 	 * @return true, if successful
 	 */
-	public boolean hasLiveData() {		
-		for(SQLiteModelMethod item:collection) {
-			if (item.hasLiveData()) return true;
+	public boolean hasLiveData() {
+		for (SQLiteModelMethod item : collection) {
+			if (item.hasLiveData())
+				return true;
 		}
-		
+
+		return false;
+	}
+
+	public boolean hasRelations() {
+		for (SQLiteModelMethod method : this.collection) {
+			if (method.hasChildrenSelects()) {
+				return true;
+			}
+		}
 		return false;
 	}
 

@@ -108,9 +108,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Instantiates a new bind data source builder.
 	 *
-	 * @param elementUtils the element utils
-	 * @param filer the filer
-	 * @param model the model
+	 * @param elementUtils
+	 *            the element utils
+	 * @param filer
+	 *            the filer
+	 * @param model
+	 *            the model
 	 */
 	public BindDataSourceBuilder(Elements elementUtils, Filer filer, SQLiteDatabaseSchema model) {
 		super(elementUtils, filer, model);
@@ -119,10 +122,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate database.
 	 *
-	 * @param elementUtils the element utils
-	 * @param filer the filer
-	 * @param schema the schema
-	 * @throws Exception the exception
+	 * @param elementUtils
+	 *            the element utils
+	 * @param filer
+	 *            the filer
+	 * @param schema
+	 *            the schema
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
 		BindDaoFactoryBuilder visitor = new BindDaoFactoryBuilder(elementUtils, filer, schema);
@@ -138,9 +145,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate schema.
 	 *
-	 * @param schema the schema
-	 * @throws FileNotFoundException the file not found exception
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param schema
+	 *            the schema
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	private static void generateSchema(SQLiteDatabaseSchema schema) throws FileNotFoundException, IOException {
 		// when we run in JUNIT of Kripton, we don't have to generate schemas
@@ -181,7 +191,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Define file name.
 	 *
-	 * @param model the model
+	 * @param model
+	 *            the model
 	 * @return the string
 	 */
 	static String defineFileName(SQLiteDatabaseSchema model) {
@@ -200,7 +211,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate dataSource name.
 	 *
-	 * @param schema the schema
+	 * @param schema
+	 *            the schema
 	 * @return associated class name
 	 */
 	public static ClassName generateDataSourceName(SQLiteDatabaseSchema schema) {
@@ -216,11 +228,16 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Builds the data source.
 	 *
-	 * @param elementUtils the element utils
-	 * @param filer the filer
-	 * @param schema the schema
-	 * @param daoFactoryName the dao factory name
-	 * @throws Exception the exception
+	 * @param elementUtils
+	 *            the element utils
+	 * @param filer
+	 *            the filer
+	 * @param schema
+	 *            the schema
+	 * @param daoFactoryName
+	 *            the dao factory name
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void buildDataSource(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, String daoFactoryName) throws Exception {
 		ClassName daoFactoryClazz = className(daoFactoryName);
@@ -261,8 +278,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			// TypeName daoInterfaceName =
 			// BindDaoBuilder.daoInterfaceTypeName(dao);
 			TypeName daoImplName = BindDaoBuilder.daoTypeName(dao);
-			classBuilder.addField(
-					FieldSpec.builder(daoImplName, convert.convert(dao.getName()), Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").initializer("new $T(this)", daoImplName).build());
+			classBuilder
+					.addField(FieldSpec.builder(daoImplName, convert.convert(dao.getName()), Modifier.PROTECTED).addJavadoc("<p>dao instance</p>\n").initializer("new $T(this)", daoImplName).build());
 
 			// dao with connections
 			{
@@ -331,9 +348,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// generate single thread datasource
 		generateDataSourceSingleThread(schema, dataSourceClassName.simpleName());
 
-		// generate build		
+		// generate build
 		generateInstanceOrBuild(schema, dataSourceClassName.simpleName(), false);
-		
 
 		{
 			Builder f = FieldSpec.builder(ArrayTypeName.of(SQLiteTable.class), "TABLES", Modifier.FINAL, Modifier.STATIC).addJavadoc("List of tables compose datasource\n");
@@ -370,7 +386,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate constructor.
 	 *
-	 * @param schema the schema
+	 * @param schema
+	 *            the schema
 	 */
 	private void generateConstructor(SQLiteDatabaseSchema schema) {
 		// constructor
@@ -382,8 +399,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate Dao's UID. If specified, prefix will be used to
 	 *
-	 * @param classBuilder the class builder
-	 * @param schema the schema
+	 * @param classBuilder
+	 *            the class builder
+	 * @param schema
+	 *            the schema
 	 */
 	public static void generateDaoUids(TypeSpec.Builder classBuilder, SQLiteDatabaseSchema schema) {
 
@@ -397,8 +416,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate data source single thread.
 	 *
-	 * @param schema the schema
-	 * @param dataSourceName the data source name
+	 * @param schema
+	 *            the schema
+	 * @param dataSourceName
+	 *            the data source name
 	 */
 	private void generateDataSourceSingleThread(SQLiteDatabaseSchema schema, String dataSourceName) {
 		// class DataSourceSingleThread
@@ -432,15 +453,15 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// constructor
 		clazzBuilder.addMethod(constructorBuilder.build());
-		
-		// public SQLContext context() 
+
+		// public SQLContext context()
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("context").addModifiers(Modifier.PUBLIC).returns(SQLContext.class);
 			methodBuilder.addAnnotation(Override.class);
 			methodBuilder.addStatement("return _context");
 			clazzBuilder.addMethod(methodBuilder.build());
 		}
-	    
+
 		// onSessionOpened
 		{
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onSessionOpened").addModifiers(Modifier.PROTECTED).returns(Void.TYPE);
@@ -503,7 +524,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Extract dao field name for internal data source.
 	 *
-	 * @param dao the dao
+	 * @param dao
+	 *            the dao
 	 * @return the string
 	 */
 	private String extractDaoFieldNameForInternalDataSource(SQLiteDaoDefinition dao) {
@@ -511,11 +533,16 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	}
 
 	/**
-	 * Generate inner code for instance and build methods. Inspired by <a href="https://www.journaldev.com/171/thread-safety-in-java-singleton-classes-with-example-code">this link<</a>
+	 * Generate inner code for instance and build methods. Inspired by <a href=
+	 * "https://www.journaldev.com/171/thread-safety-in-java-singleton-classes-with-example-code">this
+	 * link<</a>
 	 *
-	 * @param schema the schema
-	 * @param schemaName the schema name
-	 * @param instance the instance
+	 * @param schema
+	 *            the schema
+	 * @param schemaName
+	 *            the schema name
+	 * @param instance
+	 *            the instance
 	 */
 	private void generateInstanceOrBuild(SQLiteDatabaseSchema schema, String schemaName, boolean instance) {
 		// instance
@@ -568,16 +595,16 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		if (!instance) {
 			methodBuilder.nextControlFlow("else");
-			methodBuilder.addStatement("throw new $T($S)", KriptonRuntimeException.class, "Datasource "+schemaName+" is already builded");
+			methodBuilder.addStatement("throw new $T($S)", KriptonRuntimeException.class, "Datasource " + schemaName + " is already builded");
 		}
 		methodBuilder.endControlFlow();
 		methodBuilder.endControlFlow();
 		if (!instance) {
 			methodBuilder.nextControlFlow("else");
-			methodBuilder.addStatement("throw new $T($S)", KriptonRuntimeException.class, "Datasource "+schemaName+" is already builded");
+			methodBuilder.addStatement("throw new $T($S)", KriptonRuntimeException.class, "Datasource " + schemaName + " is already builded");
 		}
 		methodBuilder.endControlFlow();
-	
+
 		methodBuilder.addCode("return result;\n");
 
 		classBuilder.addMethod(methodBuilder.build());
@@ -586,37 +613,41 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate populate.
 	 *
-	 * @param schema the schema
-	 * @param methodBuilder the method builder
-	 * @param instance the instance
+	 * @param schema
+	 *            the schema
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param instance
+	 *            the instance
 	 */
 	private void generatePopulate(SQLiteDatabaseSchema schema, MethodSpec.Builder methodBuilder, boolean instance) {
-		
+
 		methodBuilder.beginControlFlow("try");
 		methodBuilder.addStatement("instance.openWritableDatabase()");
 		methodBuilder.addStatement("instance.close()");
-		
+
 		if ((instance && schema.configPopulatorClazz != null) || (!instance)) {
 			methodBuilder.addComment("force database DDL run");
 			methodBuilder.beginControlFlow("if (options.populator!=null && instance.justCreated)");
 			methodBuilder.addComment("run populator only a time");
 			methodBuilder.addStatement("instance.justCreated=false");
-			
+
 			methodBuilder.addComment("run populator");
 			methodBuilder.addStatement("options.populator.execute()");
 			methodBuilder.endControlFlow();
 		}
 		methodBuilder.nextControlFlow("catch($T e)", Throwable.class);
 		methodBuilder.addStatement("$T.error(e.getMessage())", Logger.class);
-		methodBuilder.addStatement("e.printStackTrace()");		
-		
+		methodBuilder.addStatement("e.printStackTrace()");
+
 		methodBuilder.endControlFlow();
 	}
 
 	/**
 	 * Generate open.
 	 *
-	 * @param schemaName the schema name
+	 * @param schemaName
+	 *            the schema name
 	 */
 	private void generateOpen(String schemaName) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("open").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
@@ -635,7 +666,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate open read only.
 	 *
-	 * @param schemaName the schema name
+	 * @param schemaName
+	 *            the schema name
 	 */
 	private void generateOpenReadOnly(String schemaName) {
 		// instance
@@ -655,8 +687,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate on create.
 	 *
-	 * @param schema the schema
-	 * @param orderedEntities the ordered entities
+	 * @param schema
+	 *            the schema
+	 * @param orderedEntities
+	 *            the ordered entities
 	 * @return true, if successful
 	 */
 	private boolean generateOnCreate(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
@@ -733,8 +767,10 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate on upgrade.
 	 *
-	 * @param schema the schema
-	 * @param orderedEntities the ordered entities
+	 * @param schema
+	 *            the schema
+	 * @param orderedEntities
+	 *            the ordered entities
 	 */
 	private void generateOnUpgrade(SQLiteDatabaseSchema schema, List<SQLiteEntity> orderedEntities) {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("onUpgrade").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
@@ -838,7 +874,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate on configure.
 	 *
-	 * @param useForeignKey the use foreign key
+	 * @param useForeignKey
+	 *            the use foreign key
 	 */
 	private void generateOnConfigure(boolean useForeignKey) {
 		// onConfigure
@@ -862,7 +899,8 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate ordered entities list.
 	 *
-	 * @param schema the schema
+	 * @param schema
+	 *            the schema
 	 * @return the list
 	 */
 	private List<SQLiteEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
@@ -896,9 +934,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generat execute transaction rx.
 	 *
-	 * @param dataSourceName the data source name
-	 * @param daoFactory the dao factory
-	 * @param rxType the rx type
+	 * @param dataSourceName
+	 *            the data source name
+	 * @param daoFactory
+	 *            the dao factory
+	 * @param rxType
+	 *            the rx type
 	 */
 	public void generatExecuteTransactionRx(ClassName dataSourceName, String daoFactory, RxType rxType) {
 		String parameterName = "transaction";
@@ -954,9 +995,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generat execute batch rx.
 	 *
-	 * @param dataSourceName the data source name
-	 * @param daoFactory the dao factory
-	 * @param rxType the rx type
+	 * @param dataSourceName
+	 *            the data source name
+	 * @param daoFactory
+	 *            the dao factory
+	 * @param rxType
+	 *            the rx type
 	 */
 	public void generatExecuteBatchRx(ClassName dataSourceName, String daoFactory, RxType rxType) {
 		String parameterName = "batch";
@@ -1044,10 +1088,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * <p>
 	 * Generate RX observable support
-	 * </p>.
+	 * </p>
+	 * .
 	 *
-	 * @param dataSourceName the data source name
-	 * @param daoFactory the dao factory
+	 * @param dataSourceName
+	 *            the data source name
+	 * @param daoFactory
+	 *            the dao factory
 	 */
 	public void generateRx(ClassName dataSourceName, String daoFactory) {
 		classBuilder.addField(FieldSpec.builder(Scheduler.class, "globalSubscribeOn", Modifier.PROTECTED).build());
@@ -1086,32 +1133,34 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 * The Enum RxInterfaceType.
 	 */
 	private enum RxInterfaceType {
-		
+
 		/** The batch. */
-		BATCH, 
- /** The transaction. */
- TRANSACTION
+		BATCH,
+		/** The transaction. */
+		TRANSACTION
 	}
 
 	/**
 	 * The Enum RxType.
 	 */
 	private enum RxType {
-		
+
 		/** The observable. */
-		OBSERVABLE(Observable.class, true), 
- /** The single. */
- SINGLE(Single.class, false), 
- /** The maybe. */
- MAYBE(Maybe.class, false), 
- /** The flowable. */
- FLOWABLE(Flowable.class, true);
+		OBSERVABLE(Observable.class, true),
+		/** The single. */
+		SINGLE(Single.class, false),
+		/** The maybe. */
+		MAYBE(Maybe.class, false),
+		/** The flowable. */
+		FLOWABLE(Flowable.class, true);
 
 		/**
 		 * Instantiates a new rx type.
 		 *
-		 * @param clazz the clazz
-		 * @param onComplete the on complete
+		 * @param clazz
+		 *            the clazz
+		 * @param onComplete
+		 *            the on complete
 		 */
 		private RxType(Class<?> clazz, boolean onComplete) {
 			this.clazz = clazz;
@@ -1120,7 +1169,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		/** The clazz. */
 		public Class<?> clazz;
-		
+
 		/** The on complete. */
 		public boolean onComplete;
 
@@ -1129,9 +1178,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * Generate rx interface.
 	 *
-	 * @param daoFactory the dao factory
-	 * @param interfaceType the interface type
-	 * @param clazz the clazz
+	 * @param daoFactory
+	 *            the dao factory
+	 * @param interfaceType
+	 *            the interface type
+	 * @param clazz
+	 *            the clazz
 	 */
 	private void generateRxInterface(String daoFactory, RxInterfaceType interfaceType, Class<?> clazz) {
 		// create interfaces
@@ -1172,9 +1224,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * <p>
 	 * Generate transaction an execute method
-	 * </p>.
+	 * </p>
+	 * .
 	 *
-	 * @param daoFactory the dao factory
+	 * @param daoFactory
+	 *            the dao factory
 	 */
 	public void generateMethodExecuteTransaction(String daoFactory) {
 		// create interface
@@ -1261,9 +1315,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	/**
 	 * <p>
 	 * Generate transaction an execute method
-	 * </p>.
+	 * </p>
+	 * .
 	 *
-	 * @param daoFactory the dao factory
+	 * @param daoFactory
+	 *            the dao factory
 	 */
 	public void generateMethodExecuteBatch(String daoFactory) {
 		// create interface

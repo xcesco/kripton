@@ -15,7 +15,6 @@
  ******************************************************************************/
 package sqlite;
 
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -30,6 +29,7 @@ import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
 import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
 import sqlite.feature.multithread.TestRuntimeMultithreadSuite;
 import sqlite.feature.paginatedresult.TestPaginatedResultRuntimeSuite;
+import sqlite.feature.relations.TestFeatureRelationRuntimeSuite;
 import sqlite.feature.schema.TestSchemaRuntimeSuite;
 import sqlite.feature.speed.TestSpeedRuntime;
 import sqlite.kripton209.Test209RuntimeSuite;
@@ -56,6 +56,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestContentProviderRuntime.class,
 	TestSchemaRuntimeSuite.class,
 	TestGlobalTypeAdapterRuntimeSuite.class,
+	TestFeatureRelationRuntimeSuite.class,
 	
 	// unverified results	
 	TestForeignKeyRuntimeSuite.class,

@@ -54,18 +54,10 @@ public class FindSqlChildSelectVisitor extends SimpleAnnotationValueVisitor7<Voi
 
 	@Override
 	public Void visitAnnotation(AnnotationMirror a, String p) {
-		if (AnnotationAttributeType.CHILDREN_SELECT.getValue().equals(p)) {
-			activate = true;
-		}
 
-		for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : a.getElementValues()
-				.entrySet()) {			
+		for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : a.getElementValues().entrySet()) {
 			String key = entry.getKey().getSimpleName().toString();
-			entry.getValue().accept(this, key);			
-		}
-
-		if (AnnotationAttributeType.CHILDREN_SELECT.getValue().equals(p)) {
-			activate = false;
+			entry.getValue().accept(this, key);
 		}
 
 		return null;
@@ -75,27 +67,31 @@ public class FindSqlChildSelectVisitor extends SimpleAnnotationValueVisitor7<Voi
 	public Void visitString(String s, String p) {
 
 		if (activate && AnnotationAttributeType.RELATION.getValue().equals(p)) {
-			current.value0=s;
+			current.value0 = s;
 		}
 
 		if (activate && AnnotationAttributeType.METHOD.getValue().equals(p)) {
-			current.value1=s;
+			current.value1 = s;
 		}
 
 		return null;
 	}
-	
+
 	@Override
 	public Void visitType(TypeMirror t, String p) {
 		return null;
 	}
-	
+
 	@Override
 	public Void visitArray(List<? extends AnnotationValue> vals, String p) {
-		for (AnnotationValue val : vals) {
-			current = new Triple<>();
-			childrenSelects.add(current);
-			val.accept(this, p);
+		if (AnnotationAttributeType.CHILDREN_SELECT.getValue().equals(p)) {
+			activate = true;
+			for (AnnotationValue val : vals) {
+				current = new Triple<>();
+				childrenSelects.add(current);
+				val.accept(this, p);
+			}
+			activate = false;
 		}
 		return null;
 	}
