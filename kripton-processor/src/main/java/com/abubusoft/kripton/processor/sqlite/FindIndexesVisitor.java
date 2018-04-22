@@ -22,7 +22,6 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.SimpleAnnotationValueVisitor7;
 
 import com.abubusoft.kripton.common.Pair;
@@ -49,33 +48,31 @@ public class FindIndexesVisitor extends SimpleAnnotationValueVisitor7<Void, Stri
 	@Override
 	public Void visitBoolean(boolean b, String p) {
 		if (inTasks && AnnotationAttributeType.UNIQUE.getValue().equals(p)) {
-			// add value			
+			// add value
 			currentValue.value1 = b;
 		}
 
 		return null;
 	}
-	
+
 	public ArrayList<Pair<List<String>, Boolean>> getUniqueIndexes() {
 		return getIndexes(true);
 	}
-	
+
 	public ArrayList<Pair<List<String>, Boolean>> getNotUniqueIndexes() {
 		return getIndexes(false);
 	}
-	
+
 	protected ArrayList<Pair<List<String>, Boolean>> getIndexes(boolean unique) {
-		ArrayList<Pair<List<String>, Boolean>> result=new ArrayList<Pair<List<String>, Boolean>>();
-				
-		
-		for(Pair<List<String>, Boolean> item: indexes) {
-			if (item.value1==unique)
-			{
+		ArrayList<Pair<List<String>, Boolean>> result = new ArrayList<Pair<List<String>, Boolean>>();
+
+		for (Pair<List<String>, Boolean> item : indexes) {
+			if (item.value1 == unique) {
 				result.add(item);
 			}
-			
+
 		}
-		
+
 		return result;
 	}
 
@@ -88,7 +85,7 @@ public class FindIndexesVisitor extends SimpleAnnotationValueVisitor7<Void, Stri
 	 */
 	@Override
 	public Void visitString(String s, String p) {
-		if (inTasks && AnnotationAttributeType.VALUE.getValue().equals(p)){
+		if (inTasks && AnnotationAttributeType.VALUE.getValue().equals(p)) {
 			currentValue.value0.add(s);
 		}
 
@@ -109,7 +106,7 @@ public class FindIndexesVisitor extends SimpleAnnotationValueVisitor7<Void, Stri
 		}
 
 		if (inTasks) {
-			currentValue=new Pair<List<String>, Boolean>(new ArrayList<String>(), false);
+			currentValue = new Pair<List<String>, Boolean>(new ArrayList<String>(), false);
 			for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : a.getElementValues().entrySet()) {
 				String key = entry.getKey().getSimpleName().toString();
 				entry.getValue().accept(this, key);
@@ -119,34 +116,6 @@ public class FindIndexesVisitor extends SimpleAnnotationValueVisitor7<Void, Stri
 
 		if (AnnotationAttributeType.INDEXES.getValue().equals(p)) {
 			inTasks = false;
-		}
-
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.lang.model.util.SimpleAnnotationValueVisitor6#visitType(javax.lang.
-	 * model.type.TypeMirror, java.lang.Object)
-	 */
-	@Override
-	public Void visitType(TypeMirror t, String p) {
-		// System.out.printf(">> %s classValue: %s\n", p, t.toString());
-
-		if (inTasks && AnnotationAttributeType.INDEXES.getValue().equals(p)) {
-			// add value
-			/*
-			 * currentValue = (currentValue == null) ? new Pair<Integer,
-			 * String>() : currentValue;
-			 * 
-			 * currentValue.value1=t.toString();
-			 * 
-			 * if (currentValue.value0!=null &&
-			 * StringUtils.hasText(currentValue.value1)) {
-			 * tasks.add(currentValue); currentValue=null; }
-			 */
 		}
 
 		return null;
