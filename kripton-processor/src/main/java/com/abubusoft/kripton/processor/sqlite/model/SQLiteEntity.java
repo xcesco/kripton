@@ -53,7 +53,8 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	 * Set of relation field declared.
 	 * <ol>
 	 * <li>name of property in parent entity</li>
-	 * <li>property used as relation. This property is not referenced in the property set.</li>
+	 * <li>property used as relation. This property is not referenced in the
+	 * property set.</li>
 	 * <li>child entity</li>
 	 * <li>relation type</li>
 	 * </ol>
@@ -118,6 +119,7 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	 * 
 	 * @see com.abubusoft.kripton.processor.core.Finder#getTableName()
 	 */
+	@Override
 	public String getTableName() {
 		return tableName;
 	}
@@ -145,17 +147,38 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	}
 
 	/**
-	 * find a relation specifing parent field name, that is the name of the relation
+	 * find a relation specifing parent field name, that is the name of the
+	 * relation
+	 * 
 	 * @param parentFieldName
 	 * @return
 	 */
 	public Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> findRelationByParentProperty(String parentFieldName) {
-		for (Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> item:relations) {
+		for (Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> item : relations) {
 			if (item.value0.getName().equals(parentFieldName)) {
 				return item;
 			}
-		}		
-		
+		}
+
+		return null;
+	}
+
+	/**
+	 * retrieve property defined as foreign key to entity parameter or null
+	 * 
+	 * @param entity
+	 *            referred entity
+	 * @param fieldName
+	 * @return property used as foreign key
+	 */
+	public SQLProperty getForeignKeysToEntity(SQLiteEntity entity, String fieldName) {
+
+		for (SQLProperty item : this.collection) {
+			if (item.isForeignKey() && entity.getName().equals(item.foreignParentClassName) && item.getName().equals(fieldName)) {
+				return item;
+			}
+		}
+
 		return null;
 	}
 

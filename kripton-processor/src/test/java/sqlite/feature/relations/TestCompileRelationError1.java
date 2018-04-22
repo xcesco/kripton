@@ -15,20 +15,35 @@
  *******************************************************************************/
 package sqlite.feature.relations;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
+
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.relations.error1.Album;
+import sqlite.feature.relations.error1.AppDataSource;
+import sqlite.feature.relations.error1.DaoAlbum;
+import sqlite.feature.relations.error1.DaoSong;
+import sqlite.feature.relations.error1.Song;
+
 
 /**
- * The Class TestRXSuite.
+ * The Class TestCompileRelationErr1.
  */
-@RunWith(Suite.class) 
-// @formatter:off
-@Suite.SuiteClasses({ TestCompileRelation1.class,
-	TestCompileRelation2.class,
-	TestCompileRelationError1.class})
-// @formatter:on
-public class TestRelationSuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class TestCompileRelationError1 extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * Test compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
+	@Test
+	public void testCompileError() throws Throwable {
+		this.expectedException(InvalidDefinition.class);
+		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, AppDataSource.class, Song.class);
+	}
 
 }

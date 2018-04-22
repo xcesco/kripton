@@ -76,7 +76,7 @@ public class SQLProperty extends ManagedModelProperty {
 		super(entity, element, modelAnnotations);
 
 		entityTypeName = TypeUtility.className(getParent().getName());
-	
+
 		// @BindSqlAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
 		if (annotationBindAdapter != null) {
@@ -164,8 +164,8 @@ public class SQLProperty extends ManagedModelProperty {
 	/** The parent type name. */
 	protected TypeName entityTypeName;
 
-	/** class name of referred table. */
-	public String parentClassName;
+	/** class name of referred table as foreignKey */
+	public String foreignParentClassName;
 
 	/** The on delete action. */
 	public ForeignKeyAction onDeleteAction;
@@ -179,7 +179,7 @@ public class SQLProperty extends ManagedModelProperty {
 	 * @return true, if successful
 	 */
 	public boolean isForeignKey() {
-		return !StringUtils.isEmpty(parentClassName) && !NoParentEntity.class.getName().equals(parentClassName);
+		return !StringUtils.isEmpty(foreignParentClassName) && !NoParentEntity.class.getName().equals(foreignParentClassName);
 	}
 
 	/**

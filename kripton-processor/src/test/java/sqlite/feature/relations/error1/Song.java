@@ -1,4 +1,4 @@
-package sqlite.feature.relations.err1;
+package sqlite.feature.relations.error1;
 
 import com.abubusoft.kripton.android.annotation.BindColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;

@@ -72,11 +72,13 @@ public class BaseProcessorTest {
 	/**
 	 * Log.
 	 *
-	 * @param message the message
-	 * @param objects the objects
+	 * @param message
+	 *            the message
+	 * @param objects
+	 *            the objects
 	 */
 	public void log(String message, Object... objects) {
-		if (objects.length==0) {
+		if (objects.length == 0) {
 			System.out.println(message);
 		} else {
 			System.out.println(String.format(message, objects));
@@ -87,8 +89,10 @@ public class BaseProcessorTest {
 	 * Test each elements of two collections. It does not matter the
 	 * collections' kind. Elements are compared by reflection.
 	 *
-	 * @param collection1 the collection 1
-	 * @param collection2 the collection 2
+	 * @param collection1
+	 *            the collection 1
+	 * @param collection2
+	 *            the collection 2
 	 */
 	public void checkCollectionExactly(Collection<?> collection1, Collection<?> collection2) {
 		assertEquals("collections does not have same size", collection1.size(), collection2.size());
@@ -131,10 +135,14 @@ public class BaseProcessorTest {
 	/**
 	 * Expected exception.
 	 *
-	 * @param <E> the element type
-	 * @param clazzException the clazz exception
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
+	 * @param <E>
+	 *            the element type
+	 * @param clazzException
+	 *            the clazz exception
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
 	 */
 	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException) throws InstantiationException, IllegalAccessException {
 		expectedEx.expect(AssertionError.class);
@@ -142,41 +150,61 @@ public class BaseProcessorTest {
 	}
 
 	/**
+	 * Expected exception.
+	 *
+	 * @param <E>
+	 *            the element type
+	 * @param clazzException
+	 *            the clazz exception
+	 * @param containedMessage
+	 *            contained message
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 */
+	public <E extends KriptonProcessorException> void expectedException(Class<E> clazzException, String containedMessage) throws InstantiationException, IllegalAccessException {
+		expectedEx.expect(AssertionError.class);
+		expectedEx.expectMessage(clazzException.getSimpleName());
+		expectedEx.expectMessage(containedMessage);
+	}
+
+	/**
 	 * The Enum TestType.
 	 */
 	public enum TestType {
-		
+
 		/** The compare. */
-		COMPARE, 
- /** The prepare test android library. */
- PREPARE_TEST_ANDROID_LIBRARY, 
- /** The prepare test java library. */
- PREPARE_TEST_JAVA_LIBRARY, 
- /** The none. */
- NONE;
+		COMPARE,
+		/** The prepare test android library. */
+		PREPARE_TEST_ANDROID_LIBRARY,
+		/** The prepare test java library. */
+		PREPARE_TEST_JAVA_LIBRARY,
+		/** The none. */
+		NONE;
 	}
 
 	/**
 	 * The Enum PathSourceType.
 	 */
 	public enum PathSourceType {
-		
+
 		/** The src test java. */
-		SRC_TEST_JAVA("src/test/java/"), 
- /** The src test expected. */
- SRC_TEST_EXPECTED("src/test/expected/"), 
- /** The target test result. */
- TARGET_TEST_RESULT("target/test/generated/"), 
- /** The dest test android library. */
- DEST_TEST_ANDROID_LIBRARY(
-				"../kripton-android-library/src/test/java/"), 
- /** The dest test java library. */
- DEST_TEST_JAVA_LIBRARY("../kripton/src/test/java/");
+		SRC_TEST_JAVA("src/test/java/"),
+		/** The src test expected. */
+		SRC_TEST_EXPECTED("src/test/expected/"),
+		/** The target test result. */
+		TARGET_TEST_RESULT("target/test/generated/"),
+		/** The dest test android library. */
+		DEST_TEST_ANDROID_LIBRARY("../kripton-android-library/src/test/java/"),
+		/** The dest test java library. */
+		DEST_TEST_JAVA_LIBRARY("../kripton/src/test/java/");
 
 		/**
 		 * Instantiates a new path source type.
 		 *
-		 * @param path the path
+		 * @param path
+		 *            the path
 		 */
 		private PathSourceType(String path) {
 			this.path = path;
@@ -199,7 +227,8 @@ public class BaseProcessorTest {
 		 * Create a file starting with specified folder. Path have to start
 		 * without "/"
 		 *
-		 * @param fileNameWithRelativePath the file name with relative path
+		 * @param fileNameWithRelativePath
+		 *            the file name with relative path
 		 * @return the file
 		 */
 		public File createFile(String fileNameWithRelativePath) {
@@ -213,9 +242,11 @@ public class BaseProcessorTest {
 	/**
 	 * Source.
 	 *
-	 * @param clazz the clazz
+	 * @param clazz
+	 *            the clazz
 	 * @return the java file object
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	protected static JavaFileObject source(Class<?> clazz) throws IOException {
 		return getSourceFile(PathSourceType.SRC_TEST_JAVA, clazz);
@@ -224,9 +255,11 @@ public class BaseProcessorTest {
 	/**
 	 * Sources.
 	 *
-	 * @param clazzes the clazzes
+	 * @param clazzes
+	 *            the clazzes
 	 * @return the list
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	protected List<JavaFileObject> sources(Class<?>... clazzes) throws IOException {
 		List<JavaFileObject> list = new ArrayList<JavaFileObject>();
@@ -241,9 +274,12 @@ public class BaseProcessorTest {
 	/**
 	 * Write generated file.
 	 *
-	 * @param basePath the base path
-	 * @param javaFileObject the java file object
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param basePath
+	 *            the base path
+	 * @param javaFileObject
+	 *            the java file object
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	protected static void writeGeneratedFile(PathSourceType basePath, JavaFileObject javaFileObject) throws IOException {
 		PathSourceType pathSourceType = basePath;
@@ -271,9 +307,11 @@ public class BaseProcessorTest {
 	/**
 	 * Compare generated file.
 	 *
-	 * @param javaFileObject the java file object
+	 * @param javaFileObject
+	 *            the java file object
 	 * @return true, if successful
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	protected static boolean compareGeneratedFile(JavaFileObject javaFileObject) throws IOException {
 		PathSourceType pathSourceType = PathSourceType.SRC_TEST_EXPECTED;
@@ -288,7 +326,8 @@ public class BaseProcessorTest {
 	/**
 	 * Gets the string from input stream.
 	 *
-	 * @param is the is
+	 * @param is
+	 *            the is
 	 * @return the string from input stream
 	 */
 	protected static String getStringFromInputStream(InputStream is) {
@@ -323,10 +362,13 @@ public class BaseProcessorTest {
 	/**
 	 * Generate an java file object.
 	 *
-	 * @param pathSourceType the path source type
-	 * @param clazz the clazz
+	 * @param pathSourceType
+	 *            the path source type
+	 * @param clazz
+	 *            the clazz
 	 * @return the source file
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	protected static JavaFileObject getSourceFile(PathSourceType pathSourceType, Class<?> clazz) throws IOException {
 		Path path = Paths.get(pathSourceType.getPath(), clazz.getCanonicalName().replace(".", Character.toString(File.separatorChar)) + ".java");
@@ -339,8 +381,10 @@ public class BaseProcessorTest {
 	/**
 	 * With generated source counter.
 	 *
-	 * @param realValue the real value
-	 * @param aspected the aspected
+	 * @param realValue
+	 *            the real value
+	 * @param aspected
+	 *            the aspected
 	 */
 	protected void withGeneratedSourceCounter(long realValue, long aspected) {
 		Assert.assertEquals(realValue, aspected);
@@ -349,11 +393,15 @@ public class BaseProcessorTest {
 	/**
 	 * Builds the shared preferences processor test.
 	 *
-	 * @param classesToTest the classes to test
+	 * @param classesToTest
+	 *            the classes to test
 	 * @return the long
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	protected long buildSharedPreferencesProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(KriptonProcessor.class, classesToTest);
@@ -362,11 +410,15 @@ public class BaseProcessorTest {
 	/**
 	 * Builds the bind processor test.
 	 *
-	 * @param classesToTest the classes to test
+	 * @param classesToTest
+	 *            the classes to test
 	 * @return the long
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	protected long buildBindProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(KriptonProcessor.class, classesToTest);
@@ -375,22 +427,27 @@ public class BaseProcessorTest {
 	/**
 	 * Builds the data source processor test.
 	 *
-	 * @param classesToTest the classes to test
+	 * @param classesToTest
+	 *            the classes to test
 	 * @return the long
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	protected long buildDataSourceProcessorTest(Class<?>... classesToTest) throws InstantiationException, IllegalAccessException, IOException {
 		return buildTest(KriptonProcessor.class, classesToTest);
 	}
-	
 
 	/**
 	 * Build standard test.
 	 *
-	 * @param processorClazz the processor clazz
-	 * @param classesToTest            classes to compile and test
+	 * @param processorClazz
+	 *            the processor clazz
+	 * @param classesToTest
+	 *            classes to compile and test
 	 * @return count of generated sources
 	 */
 	protected long buildTest(Class<? extends BaseProcessor> processorClazz, Class<?>... classesToTest) {
@@ -398,7 +455,7 @@ public class BaseProcessorTest {
 		try {
 			final Map<String, String> mapSet = new HashMap<>();
 			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
- 
+
 			SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
 			GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
 			resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
@@ -456,7 +513,7 @@ public class BaseProcessorTest {
 			}
 
 		} catch (Throwable e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 		return counter.longValue();

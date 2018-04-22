@@ -19,31 +19,33 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.exceptions.InvalidDefinition;
-
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.relations.err1.Album;
-import sqlite.feature.relations.err1.AppDataSource;
-import sqlite.feature.relations.err1.DaoAlbum;
-import sqlite.feature.relations.err1.DaoSong;
-import sqlite.feature.relations.err1.Song;
-
+import sqlite.feature.relations.error3.Album;
+import sqlite.feature.relations.error3.AppDataSource;
+import sqlite.feature.relations.error3.Artist;
+import sqlite.feature.relations.error3.DaoAlbum;
+import sqlite.feature.relations.error3.DaoArtist;
+import sqlite.feature.relations.error3.DaoSong;
+import sqlite.feature.relations.error3.Song;
 
 /**
  * The Class TestCompileRelationErr1.
  */
 @RunWith(JUnit4.class)
-public class TestCompileRelationErr1 extends AbstractBindSQLiteProcessorTest {
+public class TestCompileRelationError3 extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * Test compile.
 	 *
-	 * @throws Throwable the throwable
+	 * @throws Throwable
+	 *             the throwable
 	 */
 	@Test
 	public void testCompileError() throws Throwable {
-		this.expectedException(InvalidDefinition.class);
-		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, AppDataSource.class, Song.class);
+		// this.expectedException(InvalidDefinition.class, "property 'songs' has
+		// invalid definition: type java.lang.Long is not a valid entity to use
+		// in a relation");
+		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, DaoArtist.class, Artist.class, AppDataSource.class, Song.class);
 	}
 
 }

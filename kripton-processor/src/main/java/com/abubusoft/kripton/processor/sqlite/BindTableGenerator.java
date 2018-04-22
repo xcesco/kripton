@@ -225,7 +225,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			}
 
 			// foreign key
-			String foreignClassName = item.parentClassName;
+			String foreignClassName = item.foreignParentClassName;
 			if (item.isForeignKey()) {
 				SQLiteEntity reference = model.getEntity(foreignClassName);
 
@@ -472,7 +472,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			}
 
 			// foreign key
-			String foreignClassName = item.parentClassName;
+			String foreignClassName = item.foreignParentClassName;
 			if (item.isForeignKey()) {
 				SQLiteEntity reference = model.getEntity(foreignClassName);
 

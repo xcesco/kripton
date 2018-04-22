@@ -1,4 +1,4 @@
-package sqlite.feature.relations.err1;
+package sqlite.feature.relations.error1;
 
 import java.util.List;
 
