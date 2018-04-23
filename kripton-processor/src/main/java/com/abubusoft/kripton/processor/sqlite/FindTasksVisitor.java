@@ -75,25 +75,6 @@ public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String
 	}
 
 	/* (non-Javadoc)
-	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitString(java.lang.String, java.lang.Object)
-	 */
-	@Override
-	public Void visitString(String s, String p) {
-		//System.out.printf(">> %s stringValue: %s\n", p, s);
-						
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitEnumConstant(javax.lang.model.element.VariableElement, java.lang.Object)
-	 */
-	@Override
-	public Void visitEnumConstant(VariableElement c, String p) {
-		//System.out.printf(">> %s enumValue: %s\n", p, c.getSimpleName());
-		return null;
-	}
-
-	/* (non-Javadoc)
 	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitAnnotation(javax.lang.model.element.AnnotationMirror, java.lang.Object)
 	 */
 	@Override
