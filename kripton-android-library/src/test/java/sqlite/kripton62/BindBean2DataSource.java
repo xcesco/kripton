@@ -1,24 +1,10 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton62;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -27,10 +13,9 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
- * Represents implementation of datasource Bean2DataSource.
+ * Implementation of the Bean2DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -41,37 +26,40 @@ import java.util.List;
  * @see Bean2
  */
 public class BindBean2DataSource extends AbstractDataSource implements BindBean2DaoFactory, Bean2DataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindBean2DataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao BeanDao2. */
+  /**
+   * Unique identifier for Dao BeanDao2
+   */
   public static final int BEAN_DAO2_UID = 0;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new Bean2Table()};
 
-  /** <p>dao instance</p>. */
-  protected BeanDao2Impl beanDao2 = new BeanDao2Impl(context);
-
-  /** Used only in transactions (that can be executed one for time. */
-  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  /**
+   * <p>dao instance</p>
+   */
+  protected BeanDao2Impl beanDao2 = new BeanDao2Impl(this);
 
   /**
-   * Instantiates a new bind bean 2 data source.
-   *
-   * @param options the options
+   * Used only in transactions (that can be executed one for time
    */
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindBean2DataSource(DataSourceOptions options) {
     super("dummy", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.kripton62.BindBean2DaoFactory#getBeanDao2()
-   */
   @Override
   public BeanDao2Impl getBeanDao2() {
     return beanDao2;
@@ -126,9 +114,8 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -137,10 +124,10 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -164,8 +151,6 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind bean 2 data source
    */
   public static BindBean2DataSource instance() {
     BindBean2DataSource result=instance;
@@ -212,9 +197,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -241,11 +224,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -289,9 +268,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -301,18 +278,12 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     BeanDao2Impl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind bean 2 data source
    */
   public static BindBean2DataSource build(DataSourceOptions options) {
     BindBean2DataSource result=instance;
@@ -346,9 +317,7 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -358,87 +327,65 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindBean2DaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindBean2DaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindBean2DaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindBean2DaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The bean dao 2. */
     protected BeanDao2Impl _beanDao2;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindBean2DataSource.this);
     }
 
     /**
-     * retrieve dao BeanDao2.
      *
-     * @return the bean dao 2
+     * retrieve dao BeanDao2
      */
     public BeanDao2Impl getBeanDao2() {
       if (_beanDao2==null) {
-        _beanDao2=new BeanDao2Impl(_context);
+        _beanDao2=new BeanDao2Impl(this);
       }
       return _beanDao2;
     }
 
-    /**
-     * On session opened.
-     */
+    @Override
+    public SQLContext context() {
+      return _context;
+    }
+
     protected void onSessionOpened() {
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

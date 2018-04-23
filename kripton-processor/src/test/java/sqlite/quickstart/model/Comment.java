@@ -28,7 +28,7 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Comment {
 
     /** The post id. */
-    @BindColumn(foreignKey = Post.class)
+    @BindColumn(parentEntity = Post.class)
     public long postId;
 
     /** The id. */

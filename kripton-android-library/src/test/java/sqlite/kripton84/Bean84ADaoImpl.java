@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton84;
 
 import android.database.Cursor;
@@ -23,7 +8,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -40,53 +24,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean84A</code>, based on interface <code>Bean84ADao</code>
- * </p>.
+ * </p>
  *
- * @see Bean84A
- * @see Bean84ADao
- * @see Bean84ATable
+ *  @see Bean84A
+ *  @see Bean84ADao
+ *  @see Bean84ATable
  */
 public class Bean84ADaoImpl extends Dao implements Bean84ADao {
-  
-  /** The Constant SELECT_ALL_SQL1. */
   private static final String SELECT_ALL_SQL1 = "SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a";
 
-  /** The Constant SELECT_BY_ID_SQL2. */
   private static final String SELECT_BY_ID_SQL2 = "SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=?";
 
-  /** The Constant SELECT_WHERE_SQL3. */
   private static final String SELECT_WHERE_SQL3 = "SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string=? and column_map_integer_string=? and column_array_char=?  and column_array_char_type=?";
 
-  /** The insert all prepared statement 0. */
   private static SQLiteStatement insertAllPreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The update all prepared statement 2. */
   private static SQLiteStatement updateAllPreparedStatement2;
 
-  /** The delete all prepared statement 3. */
   private static SQLiteStatement deleteAllPreparedStatement3;
 
-  /**
-   * Instantiates a new bean 84 A dao impl.
-   *
-   * @param context the context
-   */
-  public Bean84ADaoImpl(SQLContext context) {
-    super(context);
+  public Bean84ADaoImpl(BindBean84ADaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -101,7 +71,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    * 	<dt>column_bean</dt><dd>is associated to bean's property <strong>columnBean</strong></dd>
    * 	<dt>column_array_byte_type</dt><dd>is associated to bean's property <strong>columnArrayByteType</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -177,9 +147,9 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -195,13 +165,14 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    * 	<dt>column_array_byte_type</dt><dd>is associated to bean's property <strong>columnArrayByteType</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>uid</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param uid 	is binded to <code>${id}</code>
+   * @param uid
+   * 	is binded to <code>${id}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -277,9 +248,9 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, param1, param2, param3, param4, column_list_string, column_map_integer_string, column_array_char, column_array_char_type, column_bean, column_array_byte_type, value_string FROM bean84_a WHERE column_list_string=${param1} and column_map_integer_string=${param2} and column_array_char=${param3}  and column_array_char_type=${param4}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -295,19 +266,23 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    * 	<dt>column_array_byte_type</dt><dd>is associated to bean's property <strong>columnArrayByteType</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${param1}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
    * 	<dt>${param2}</dt><dd>is binded to method's parameter <strong>param2</strong></dd>
    * 	<dt>${param3}</dt><dd>is binded to method's parameter <strong>param3</strong></dd>
    * 	<dt>${param4}</dt><dd>is binded to method's parameter <strong>param4</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param param1 	is binded to <code>${param1}</code>
-   * @param param2 	is binded to <code>${param2}</code>
-   * @param param3 	is binded to <code>${param3}</code>
-   * @param param4 	is binded to <code>${param4}</code>
+   * @param param1
+   * 	is binded to <code>${param1}</code>
+   * @param param2
+   * 	is binded to <code>${param2}</code>
+   * @param param3
+   * 	is binded to <code>${param3}</code>
+   * @param param4
+   * 	is binded to <code>${param4}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -476,13 +451,15 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean84_a (column_list_string) VALUES (${param1})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>param1</dt><dd>is binded to query's parameter <strong>${param1}</strong> and method's parameter <strong>param1</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param param1 	is binded to column value <strong>column_list_string</strong>
+   * @param param1
+   * 	is binded to column value <strong>column_list_string</strong>
+   *
    * @return <code>true</code> if record is inserted, <code>false</code> otherwise
    */
   @Override
@@ -615,9 +592,11 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM bean84_a</pre>.
+   * <pre>DELETE FROM bean84_a</pre>
    *
-   * @param bean 	is used as ${bean}
+   * @param bean
+   * 	is used as ${bean}
+   *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
@@ -650,10 +629,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param serializer4 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer4 serialization
    */
   private byte[] serializer4(char[] value) {
     if (value==null) {
@@ -685,10 +661,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param parser4 parsing.
-   *
-   * @param input the input
-   * @return the char[]
+   * for param parser4 parsing
    */
   private char[] parser4(byte[] input) {
     if (input==null) {
@@ -722,10 +695,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param serializer3 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer3 serialization
    */
   private byte[] serializer3(Character[] value) {
     if (value==null) {
@@ -761,10 +731,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param parser3 parsing.
-   *
-   * @param input the input
-   * @return the character[]
+   * for param parser3 parsing
    */
   private Character[] parser3(byte[] input) {
     if (input==null) {
@@ -798,10 +765,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param serializer1 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer1 serialization
    */
   private byte[] serializer1(List<String> value) {
     if (value==null) {
@@ -837,10 +801,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param parser1 parsing.
-   *
-   * @param input the input
-   * @return the list
+   * for param parser1 parsing
    */
   private List<String> parser1(byte[] input) {
     if (input==null) {
@@ -874,10 +835,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param serializer2 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer2 serialization
    */
   private byte[] serializer2(Map<Integer, String> value) {
     if (value==null) {
@@ -917,10 +875,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param parser2 parsing.
-   *
-   * @param input the input
-   * @return the map
+   * for param parser2 parsing
    */
   private Map<Integer, String> parser2(byte[] input) {
     if (input==null) {
@@ -958,9 +913,6 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertAllPreparedStatement0!=null) {
       insertAllPreparedStatement0.close();

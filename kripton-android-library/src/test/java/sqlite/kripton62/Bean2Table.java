@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton62;
 
 import com.abubusoft.kripton.BinderUtils;
@@ -33,7 +18,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Bean2</code> is associated to table <code>bean2</code>
@@ -42,14 +26,27 @@ import java.util.Set;
  *  @see Bean2
  */
 public class Bean2Table implements SQLiteTable {
-  
-  /** Costant represents typeName of table bean2. */
+  /**
+   * Costant represents typeName of table bean2
+   */
   public static final String TABLE_NAME = "bean2";
 
-  /** <p> DDL to create table bean2 </p>  <pre>CREATE TABLE bean2 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);</pre>. */
+  /**
+   * <p>
+   * DDL to create table bean2
+   * </p>
+   *
+   * <pre>CREATE TABLE bean2 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE bean2 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_byte_set BLOB, value_short_set BLOB, value_integer_set BLOB, value_string_set BLOB, value_character_set BLOB, value_float_set BLOB, value_double_set BLOB, value_big_decimal_set BLOB, value_bean_set BLOB, value_enum_type_set BLOB);";
 
-  /** <p> DDL to drop table bean2 </p>  <pre>DROP TABLE IF EXISTS bean2;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table bean2
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS bean2;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean2;";
 
   /**
@@ -136,17 +133,17 @@ public class Bean2Table implements SQLiteTable {
    */
   public static final String COLUMN_VALUE_ENUM_TYPE_SET = "value_enum_type_set";
 
-  /** BeanBindMap. */
+  /**
+   * BeanBindMap */
   private static BeanBindMap beanBindMap = BinderUtils.mapperFor(Bean.class);
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE_BYTE_SET, COLUMN_VALUE_SHORT_SET, COLUMN_VALUE_INTEGER_SET, COLUMN_VALUE_STRING_SET, COLUMN_VALUE_CHARACTER_SET, COLUMN_VALUE_FLOAT_SET, COLUMN_VALUE_DOUBLE_SET, COLUMN_VALUE_BIG_DECIMAL_SET, COLUMN_VALUE_BEAN_SET, COLUMN_VALUE_ENUM_TYPE_SET};
 
   /**
-   * for attribute valueByteSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueByteSet serialization
    */
   public static byte[] serializeValueByteSet(Set<Byte> value) {
     if (value==null) {
@@ -180,10 +177,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueByteSet parsing.
-   *
-   * @param input the input
-   * @return the sets the
+   * for attribute valueByteSet parsing
    */
   public static Set<Byte> parseValueByteSet(byte[] input) {
     if (input==null) {
@@ -217,10 +211,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueShortSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueShortSet serialization
    */
   public static byte[] serializeValueShortSet(HashSet<Short> value) {
     if (value==null) {
@@ -254,10 +245,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueShortSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueShortSet parsing
    */
   public static HashSet<Short> parseValueShortSet(byte[] input) {
     if (input==null) {
@@ -291,10 +279,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueIntegerSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueIntegerSet serialization
    */
   public static byte[] serializeValueIntegerSet(LinkedHashSet<Integer> value) {
     if (value==null) {
@@ -328,10 +313,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueIntegerSet parsing.
-   *
-   * @param input the input
-   * @return the linked hash set
+   * for attribute valueIntegerSet parsing
    */
   public static LinkedHashSet<Integer> parseValueIntegerSet(byte[] input) {
     if (input==null) {
@@ -365,10 +347,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueStringSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueStringSet serialization
    */
   public static byte[] serializeValueStringSet(HashSet<String> value) {
     if (value==null) {
@@ -402,10 +381,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueStringSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueStringSet parsing
    */
   public static HashSet<String> parseValueStringSet(byte[] input) {
     if (input==null) {
@@ -439,10 +415,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueCharacterSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueCharacterSet serialization
    */
   public static byte[] serializeValueCharacterSet(Set<Character> value) {
     if (value==null) {
@@ -476,10 +449,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueCharacterSet parsing.
-   *
-   * @param input the input
-   * @return the sets the
+   * for attribute valueCharacterSet parsing
    */
   public static Set<Character> parseValueCharacterSet(byte[] input) {
     if (input==null) {
@@ -513,10 +483,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueFloatSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueFloatSet serialization
    */
   public static byte[] serializeValueFloatSet(HashSet<Float> value) {
     if (value==null) {
@@ -550,10 +517,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueFloatSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueFloatSet parsing
    */
   public static HashSet<Float> parseValueFloatSet(byte[] input) {
     if (input==null) {
@@ -587,10 +551,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueDoubleSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueDoubleSet serialization
    */
   public static byte[] serializeValueDoubleSet(HashSet<Double> value) {
     if (value==null) {
@@ -624,10 +585,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueDoubleSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueDoubleSet parsing
    */
   public static HashSet<Double> parseValueDoubleSet(byte[] input) {
     if (input==null) {
@@ -661,10 +619,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueBigDecimalSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueBigDecimalSet serialization
    */
   public static byte[] serializeValueBigDecimalSet(HashSet<BigDecimal> value) {
     if (value==null) {
@@ -698,10 +653,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueBigDecimalSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueBigDecimalSet parsing
    */
   public static HashSet<BigDecimal> parseValueBigDecimalSet(byte[] input) {
     if (input==null) {
@@ -735,10 +687,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueBeanSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueBeanSet serialization
    */
   public static byte[] serializeValueBeanSet(LinkedHashSet<Bean> value) {
     if (value==null) {
@@ -772,10 +721,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueBeanSet parsing.
-   *
-   * @param input the input
-   * @return the linked hash set
+   * for attribute valueBeanSet parsing
    */
   public static LinkedHashSet<Bean> parseValueBeanSet(byte[] input) {
     if (input==null) {
@@ -809,10 +755,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueEnumTypeSet serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute valueEnumTypeSet serialization
    */
   public static byte[] serializeValueEnumTypeSet(HashSet<EnumType> value) {
     if (value==null) {
@@ -846,10 +789,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * for attribute valueEnumTypeSet parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute valueEnumTypeSet parsing
    */
   public static HashSet<EnumType> parseValueEnumTypeSet(byte[] input) {
     if (input==null) {
@@ -886,9 +826,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -896,9 +834,7 @@ public class Bean2Table implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

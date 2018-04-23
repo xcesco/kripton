@@ -31,11 +31,11 @@ public class PersonPhone {
 	public long id;
 	
 	/** The person id. */
-	@BindColumn(foreignKey=Person.class)
+	@BindColumn(parentEntity=Person.class)
 	public long personId;
 	
 	/** The phone number id. */
-	@BindColumn(foreignKey=PhoneNumber.class)
+	@BindColumn(parentEntity=PhoneNumber.class)
 	public long phoneNumberId;
 	
 	/** The buy date. */

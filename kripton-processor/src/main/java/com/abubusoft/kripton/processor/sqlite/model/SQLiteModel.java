@@ -18,7 +18,6 @@ package com.abubusoft.kripton.processor.sqlite.model;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLiteModel.
  */

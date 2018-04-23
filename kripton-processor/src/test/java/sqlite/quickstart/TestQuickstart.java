@@ -37,7 +37,7 @@ import sqlite.quickstart.persistence.UserDao;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TestQuickstart.
+ * The Class TestSampleChat.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */

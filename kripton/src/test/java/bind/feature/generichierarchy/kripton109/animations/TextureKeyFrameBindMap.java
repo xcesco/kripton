@@ -14,21 +14,17 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for TextureKeyFrame.
+ * This class is binder map for TextureKeyFrame
  *
  * @see TextureKeyFrame
  */
 @BindMap(TextureKeyFrame.class)
 public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
-  
-  /** TextureRegionBindMap. */
+  /**
+   * TextureRegionBindMap */
   private TextureRegionBindMap textureRegionBindMap = BinderUtils.mapperFor(TextureRegion.class);
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(TextureKeyFrame object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -58,9 +54,6 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(TextureKeyFrame object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -92,12 +85,7 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(TextureKeyFrame object, XMLSerializer xmlSerializer,
@@ -129,11 +117,7 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the texture key frame
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public TextureKeyFrame parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -176,11 +160,7 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the texture key frame
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public TextureKeyFrame parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -223,12 +203,7 @@ public class TextureKeyFrameBindMap extends AbstractMapper<TextureKeyFrame> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the texture key frame
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public TextureKeyFrame parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

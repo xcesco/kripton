@@ -192,7 +192,7 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 *
 	 * @return the SQL context
 	 */
-	protected SQLContext context() {
+	public SQLContext context() {
 		return context;
 	}
 

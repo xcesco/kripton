@@ -1,24 +1,10 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton209.model1;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -27,10 +13,9 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
- * Represents implementation of datasource App1DataSource.
+ * Implementation of the App1DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -47,65 +32,70 @@ import java.util.List;
  * @see UserDevice
  */
 public class BindApp1DataSource extends AbstractDataSource implements BindApp1DaoFactory, App1DataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindApp1DataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao DeviceDao. */
+  /**
+   * Unique identifier for Dao DeviceDao
+   */
   public static final int DEVICE_DAO_UID = 0;
 
-  /** Unique identifier for Dao UserDao. */
+  /**
+   * Unique identifier for Dao UserDao
+   */
   public static final int USER_DAO_UID = 1;
 
-  /** Unique identifier for Dao UserDeviceDao. */
+  /**
+   * Unique identifier for Dao UserDeviceDao
+   */
   public static final int USER_DEVICE_DAO_UID = 2;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new UserTable(), new DeviceTable(), new UserDeviceTable()};
 
-  /** <p>dao instance</p>. */
-  protected DeviceDaoImpl deviceDao = new DeviceDaoImpl(context);
-
-  /** <p>dao instance</p>. */
-  protected UserDaoImpl userDao = new UserDaoImpl(context);
-
-  /** <p>dao instance</p>. */
-  protected UserDeviceDaoImpl userDeviceDao = new UserDeviceDaoImpl(context);
-
-  /** Used only in transactions (that can be executed one for time. */
-  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  /**
+   * <p>dao instance</p>
+   */
+  protected DeviceDaoImpl deviceDao = new DeviceDaoImpl(this);
 
   /**
-   * Instantiates a new bind app 1 data source.
-   *
-   * @param options the options
+   * <p>dao instance</p>
    */
+  protected UserDaoImpl userDao = new UserDaoImpl(this);
+
+  /**
+   * <p>dao instance</p>
+   */
+  protected UserDeviceDaoImpl userDeviceDao = new UserDeviceDaoImpl(this);
+
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindApp1DataSource(DataSourceOptions options) {
     super("app2.db", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.kripton209.model1.BindApp1DaoFactory#getDeviceDao()
-   */
   @Override
   public DeviceDaoImpl getDeviceDao() {
     return deviceDao;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.kripton209.model1.BindApp1DaoFactory#getUserDao()
-   */
   @Override
   public UserDaoImpl getUserDao() {
     return userDao;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.kripton209.model1.BindApp1DaoFactory#getUserDeviceDao()
-   */
   @Override
   public UserDeviceDaoImpl getUserDeviceDao() {
     return userDeviceDao;
@@ -160,9 +150,8 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -171,10 +160,10 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -198,8 +187,6 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind app 1 data source
    */
   public static BindApp1DataSource instance() {
     BindApp1DataSource result=instance;
@@ -246,9 +233,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -287,11 +272,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -347,9 +328,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -360,9 +339,6 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     DeviceDaoImpl.clearCompiledStatements();
     UserDaoImpl.clearCompiledStatements();
@@ -371,9 +347,6 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind app 1 data source
    */
   public static BindApp1DataSource build(DataSourceOptions options) {
     BindApp1DataSource result=instance;
@@ -407,9 +380,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -419,117 +390,91 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindApp1DaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindApp1DaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindApp1DaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindApp1DaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The device dao. */
     protected DeviceDaoImpl _deviceDao;
 
-    /** The user dao. */
     protected UserDaoImpl _userDao;
 
-    /** The user device dao. */
     protected UserDeviceDaoImpl _userDeviceDao;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindApp1DataSource.this);
     }
 
     /**
-     * retrieve dao DeviceDao.
      *
-     * @return the device dao
+     * retrieve dao DeviceDao
      */
     public DeviceDaoImpl getDeviceDao() {
       if (_deviceDao==null) {
-        _deviceDao=new DeviceDaoImpl(_context);
+        _deviceDao=new DeviceDaoImpl(this);
       }
       return _deviceDao;
     }
 
     /**
-     * retrieve dao UserDao.
      *
-     * @return the user dao
+     * retrieve dao UserDao
      */
     public UserDaoImpl getUserDao() {
       if (_userDao==null) {
-        _userDao=new UserDaoImpl(_context);
+        _userDao=new UserDaoImpl(this);
       }
       return _userDao;
     }
 
     /**
-     * retrieve dao UserDeviceDao.
      *
-     * @return the user device dao
+     * retrieve dao UserDeviceDao
      */
     public UserDeviceDaoImpl getUserDeviceDao() {
       if (_userDeviceDao==null) {
-        _userDeviceDao=new UserDeviceDaoImpl(_context);
+        _userDeviceDao=new UserDeviceDaoImpl(this);
       }
       return _userDeviceDao;
     }
 
-    /**
-     * On session opened.
-     */
+    @Override
+    public SQLContext context() {
+      return _context;
+    }
+
     protected void onSessionOpened() {
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

@@ -18,6 +18,7 @@ package sqlite.feature.schema.version2;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -26,7 +27,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Professor.
  */
 @BindType
-@BindTable(indexes={"surname"})
+@BindTable(indexes=@BindIndex({"surname"}))
 public class Professor extends Entity {
 	
 	/** The birth date. */

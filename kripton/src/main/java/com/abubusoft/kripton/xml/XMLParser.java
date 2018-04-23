@@ -366,7 +366,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 				int cut = attrName.indexOf(':');
 
 				if (cut == 0 && !relaxed) {
-					throw new RuntimeException("illegal attribute name: " + attrName + " at " + this);
+					throw new KriptonRuntimeException("illegal attribute name: " + attrName + " at " + this);
 				} else if (cut != -1) {
 					String attrPrefix = attrName.substring(0, cut);
 
@@ -375,7 +375,7 @@ public class XMLParser implements XmlPullParser, Closeable {
 					String attrNs = getNamespace(attrPrefix);
 
 					if (attrNs == null && !relaxed) {
-						throw new RuntimeException("Undefined Prefix: " + attrPrefix + " in " + this);
+						throw new KriptonRuntimeException("Undefined Prefix: " + attrPrefix + " in " + this);
 					}
 
 					attributes[i] = attrNs;

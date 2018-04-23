@@ -34,11 +34,11 @@ public class Loan extends Entity {
     public Date endTime;
 
     /** The book id. */
-    @BindColumn(foreignKey = Book.class)
+    @BindColumn(parentEntity = Book.class)
     public long bookId;
 
     /** The user id. */
-    @BindColumn(foreignKey = User.class)
+    @BindColumn(parentEntity = User.class)
     public long userId;
 
 }

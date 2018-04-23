@@ -15,21 +15,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for ChannelListResponse.
+ * This class is binder map for ChannelListResponse
  *
  * @see ChannelListResponse
  */
 @BindMap(ChannelListResponse.class)
 public class ChannelListResponseBindMap extends AbstractMapper<ChannelListResponse> {
-  
-  /** ChannelBindMap. */
+  /**
+   * ChannelBindMap */
   private ChannelBindMap channelBindMap = BinderUtils.mapperFor(Channel.class);
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(ChannelListResponse object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -104,9 +100,6 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(ChannelListResponse object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -192,12 +185,7 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(ChannelListResponse object, XMLSerializer xmlSerializer,
@@ -276,11 +264,7 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the channel list response
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public ChannelListResponse parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -363,11 +347,7 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the channel list response
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public ChannelListResponse parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -475,12 +455,7 @@ public class ChannelListResponseBindMap extends AbstractMapper<ChannelListRespon
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the channel list response
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public ChannelListResponse parseOnXml(XMLParser xmlParser, int currentEventType) throws

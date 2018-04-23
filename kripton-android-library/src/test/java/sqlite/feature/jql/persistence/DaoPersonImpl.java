@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.jql.persistence;
 
 import android.database.Cursor;
@@ -21,51 +6,41 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.jql.entities.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>DaoPerson</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see DaoPerson
- * @see sqlite.feature.jql.entities.PersonTable
+ *  @see Person
+ *  @see DaoPerson
+ *  @see sqlite.feature.jql.entities.PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  
-  /** The Constant SELECT_ALL_SQL5. */
   private static final String SELECT_ALL_SQL5 = "SELECT _id, name, image FROM person";
 
-  /** The insert bean prepared statement 0. */
   private static SQLiteStatement insertBeanPreparedStatement0;
 
-  /**
-   * Instantiates a new dao person impl.
-   *
-   * @param context the context
-   */
-  public DaoPersonImpl(SQLContext context) {
-    super(context);
+  public DaoPersonImpl(BindFamilyDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT _id, name, image FROM person</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>image</dt><dd>is associated to bean's property <strong>image</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -124,17 +99,18 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <p>SQL insert:</p>
    * <pre>INSERT INTO person (name, image) VALUES (${name}, ${image})</pre>
-   * 
+   *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
-   * 
+   *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>image</dt><dd>is mapped to <strong>${bean.image}</strong></dd>
    * </dl>
    *
-   * @param bean 	is mapped to parameter <strong>bean</strong>
-   * @return the person
+   * @param bean
+   * 	is mapped to parameter <strong>bean</strong>
+   *
    */
   @Override
   public Person insertBean(Person bean) {
@@ -189,9 +165,6 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     return bean;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertBeanPreparedStatement0!=null) {
       insertBeanPreparedStatement0.close();

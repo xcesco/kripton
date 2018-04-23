@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.many2many.case6.persistence;
 
 import android.database.Cursor;
@@ -21,48 +6,34 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import sqlite.feature.many2many.case6.model.PrefixConfig;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>PrefixConfig</code>, based on interface <code>PrefixConfigDao</code>
- * </p>.
+ * </p>
  *
- * @see PrefixConfig
- * @see PrefixConfigDao
- * @see sqlite.feature.many2many.case6.model.PrefixConfigTable
+ *  @see PrefixConfig
+ *  @see PrefixConfigDao
+ *  @see sqlite.feature.many2many.case6.model.PrefixConfigTable
  */
 public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
-  
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /** The Constant SELECT_BY_ID_SQL4. */
   private static final String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ?";
 
-  /** The delete by id prepared statement 1. */
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
-  /** The update by id prepared statement 2. */
   private static SQLiteStatement updateByIdPreparedStatement2;
 
-  /** The Constant SELECT_ONE_SQL5. */
   private static final String SELECT_ONE_SQL5 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config";
 
-  /** The update prepared statement 3. */
   private static SQLiteStatement updatePreparedStatement3;
 
-  /**
-   * Instantiates a new prefix config dao impl.
-   *
-   * @param context the context
-   */
-  public PrefixConfigDaoImpl(SQLContext context) {
-    super(context);
+  public PrefixConfigDaoImpl(BindXenoDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
@@ -141,9 +112,9 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -152,13 +123,14 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    * 	<dt>enabled</dt><dd>is associated to bean's property <strong>enabled</strong></dd>
    * 	<dt>dialog_timeout</dt><dd>is associated to bean's property <strong>dialogTimeout</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -215,14 +187,16 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM prefix_config WHERE id = ${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
@@ -301,9 +275,9 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -311,7 +285,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    * 	<dt>dual_billing_prefix</dt><dd>is associated to bean's property <strong>dualBillingPrefix</strong></dd>
    * 	<dt>enabled</dt><dd>is associated to bean's property <strong>enabled</strong></dd>
    * 	<dt>dialog_timeout</dt><dd>is associated to bean's property <strong>dialogTimeout</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return selected bean or <code>null</code>.
    */
@@ -434,9 +408,6 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

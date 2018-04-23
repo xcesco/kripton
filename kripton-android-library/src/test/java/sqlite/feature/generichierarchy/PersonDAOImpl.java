@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.generichierarchy;
 
 import android.database.Cursor;
@@ -21,50 +6,36 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDAO</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see PersonDAO
- * @see PersonTable
+ *  @see Person
+ *  @see PersonDAO
+ *  @see PersonTable
  */
 public class PersonDAOImpl extends Dao implements PersonDAO {
-  
-  /** The Constant SELECT_BY_ID_SQL1. */
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person WHERE id=?";
 
-  /** The insert thread 1 prepared statement 0. */
   private static SQLiteStatement insertThread1PreparedStatement0;
 
-  /** The update prepared statement 1. */
   private static SQLiteStatement updatePreparedStatement1;
 
-  /** The delete prepared statement 2. */
   private static SQLiteStatement deletePreparedStatement2;
 
-  /** The Constant SELECT_ONE_SQL2. */
   private static final String SELECT_ONE_SQL2 = "SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name";
 
-  /** The Constant SELECT_TWO_SQL3. */
   private static final String SELECT_TWO_SQL3 = "select * from person order by name";
 
-  /**
-   * Instantiates a new person DAO impl.
-   *
-   * @param context the context
-   */
-  public PersonDAOImpl(SQLContext context) {
-    super(context);
+  public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
@@ -333,9 +304,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -343,7 +314,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -405,9 +376,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>select * from person order by name</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -415,7 +386,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -564,9 +535,6 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertThread1PreparedStatement0!=null) {
       insertThread1PreparedStatement0.close();

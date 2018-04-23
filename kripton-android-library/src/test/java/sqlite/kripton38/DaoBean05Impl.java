@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton38;
 
 import android.database.Cursor;
@@ -25,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
@@ -41,86 +25,61 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean05</code>, based on interface <code>DaoBean05</code>
- * </p>.
+ * </p>
  *
- * @see Bean05
- * @see DaoBean05
- * @see Bean05Table
+ *  @see Bean05
+ *  @see DaoBean05
+ *  @see Bean05Table
  */
 public class DaoBean05Impl extends Dao implements DaoBean05 {
-  
-  /** The Constant SELECT_ONE_SQL1. */
   private static final String SELECT_ONE_SQL1 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
 
-  /** The Constant SELECT_ONE_SQL2. */
   private static final String SELECT_ONE_SQL2 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and text=?";
 
-  /** The Constant SELECT_ALL_SQL3. */
   private static final String SELECT_ALL_SQL3 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
 
-  /** The Constant SELECT_P_K_SQL4. */
   private static final String SELECT_P_K_SQL4 = "SELECT pk FROM ws_bean WHERE text = ?";
 
-  /** The Constant SELECT_COUNT_SQL5. */
   private static final String SELECT_COUNT_SQL5 = "SELECT count(*) FROM ws_bean WHERE text = ?";
 
-  /** The Constant SELECT_CURSOR_LISTENER_SQL6. */
   private static final String SELECT_CURSOR_LISTENER_SQL6 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
 
-  /** The Constant SELECT_BEAN_LISTENER_SQL7. */
   private static final String SELECT_BEAN_LISTENER_SQL7 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
 
-  /** The Constant SELECT_ONE_SQL8. */
   private static final String SELECT_ONE_SQL8 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
 
-  /** The Constant SELECT_ONE_SQL9. */
   private static final String SELECT_ONE_SQL9 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
 
-  /** The insert raw prepared statement 0. */
   private static SQLiteStatement insertRawPreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The update one prepared statement 2. */
   private static SQLiteStatement updateOnePreparedStatement2;
 
-  /** The update one prepared statement 3. */
   private static SQLiteStatement updateOnePreparedStatement3;
 
-  /** The delete one prepared statement 4. */
   private static SQLiteStatement deleteOnePreparedStatement4;
 
-  /** The delete one prepared statement 5. */
   private static SQLiteStatement deleteOnePreparedStatement5;
 
-  /** The delete one prepared statement 6. */
   private static SQLiteStatement deleteOnePreparedStatement6;
 
-  /** The delete bean prepared statement 7. */
   private static SQLiteStatement deleteBeanPreparedStatement7;
 
-  /** The Constant GET_ONE_SQL10. */
   private static final String GET_ONE_SQL10 = "SELECT content FROM ws_bean WHERE pk=?";
 
-  /**
-   * Instantiates a new dao bean 05 impl.
-   *
-   * @param context the context
-   */
-  public DaoBean05Impl(SQLContext context) {
-    super(context);
+  public DaoBean05Impl(BindDummy05DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -130,13 +89,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -273,9 +233,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -285,13 +245,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -355,20 +316,21 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT pk FROM ws_bean WHERE text = ${text}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${text}</dt><dd>is binded to method's parameter <strong>text</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param text 	is binded to <code>${text}</code>
+   * @param text
+   * 	is binded to <code>${text}</code>
    * @return collection of single value extracted by query.
    */
   @Override
@@ -419,20 +381,21 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT count(*) FROM ws_bean WHERE text = ${text}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${text}</dt><dd>is binded to method's parameter <strong>text</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param text 	is binded to <code>${text}</code>
+   * @param text
+   * 	is binded to <code>${text}</code>
    * @return single value extracted by query.
    */
   @Override
@@ -475,9 +438,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -487,14 +450,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param listener 	is the cursor listener
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
@@ -536,9 +501,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -548,14 +513,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param listener 	is the Bean05 listener
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param listener
+   * 	is the Bean05 listener
    */
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
@@ -621,9 +588,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -633,14 +600,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param listener 	is the cursor listener
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
@@ -682,9 +651,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -694,14 +663,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param listener 	is the Bean05 listener
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param listener
+   * 	is the Bean05 listener
    */
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
@@ -768,17 +739,21 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO ws_bean (text, content, creation_time) VALUES (${text}, ${content}, ${creationTime})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
    * 	<dt>creationTime</dt><dd>is binded to query's parameter <strong>${creationTime}</strong> and method's parameter <strong>creationTime</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param text 	is binded to column value <strong>text</strong>
-   * @param content 	is binded to column value <strong>content</strong>
-   * @param creationTime 	is binded to column value <strong>creation_time</strong>
+   * @param text
+   * 	is binded to column value <strong>text</strong>
+   * @param content
+   * 	is binded to column value <strong>content</strong>
+   * @param creationTime
+   * 	is binded to column value <strong>creation_time</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -985,25 +960,31 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE ws_bean SET content=:content, text=:text WHERE pk=${uid} and creation_time=${valido} and creation_time=${validoIn}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>content</li>
    * 	<li>text</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${uid}</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
    * 	<dt>${valido}</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
    * 	<dt>${validoIn}</dt><dd>is mapped to method's parameter <strong>validoIn</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param content 	is used as updated field <strong>content</strong>
-   * @param text 	is used as updated field <strong>text</strong>
-   * @param uid 	is used as where parameter <strong>${uid}</strong>
-   * @param validoIn 	is used as where parameter <strong>${validoIn}</strong>
-   * @param valido 	is used as where parameter <strong>${valido}</strong>
+   * @param content
+   * 	is used as updated field <strong>content</strong>
+   * @param text
+   * 	is used as updated field <strong>text</strong>
+   * @param uid
+   * 	is used as where parameter <strong>${uid}</strong>
+   * @param validoIn
+   * 	is used as where parameter <strong>${validoIn}</strong>
+   * @param valido
+   * 	is used as where parameter <strong>${valido}</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -1104,18 +1085,22 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM ws_bean WHERE pk=${uid} and creation_time=${valido} and creation_time=${validoIn}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${uid}</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
    * 	<dt>${valido}</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
    * 	<dt>${validoIn}</dt><dd>is mapped to method's parameter <strong>validoIn</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param uid 	is used as where parameter <strong>${uid}</strong>
-   * @param validoIn 	is used as where parameter <strong>${validoIn}</strong>
-   * @param valido 	is used as where parameter <strong>${valido}</strong>
+   * @param uid
+   * 	is used as where parameter <strong>${uid}</strong>
+   * @param validoIn
+   * 	is used as where parameter <strong>${validoIn}</strong>
+   * @param valido
+   * 	is used as where parameter <strong>${valido}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -1153,14 +1138,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM ws_bean WHERE pk=${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -1239,20 +1226,21 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT content FROM ws_bean WHERE pk=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return single value extracted by query.
    */
   @Override
@@ -1294,10 +1282,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   }
 
   /**
-   * for param serializer1 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer1 serialization
    */
   private byte[] serializer1(Long value) {
     if (value==null) {
@@ -1320,10 +1305,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   }
 
   /**
-   * for param parser1 parsing.
-   *
-   * @param input the input
-   * @return the long
+   * for param parser1 parsing
    */
   private Long parser1(byte[] input) {
     if (input==null) {
@@ -1346,9 +1328,6 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertRawPreparedStatement0!=null) {
       insertRawPreparedStatement0.close();

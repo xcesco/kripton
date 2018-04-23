@@ -15,19 +15,19 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-// TODO: Auto-generated Javadoc
 /**
- * Action type on update or delete. <a href="https://sqlite.org/foreignkeys.html">foreignkeys</a>
+ * Action type on update or delete.
+ * <a href="https://sqlite.org/foreignkeys.html">foreignkeys</a>
  *
  * @author xcesco
  * 
  */
 public enum ForeignKeyAction {
-	
+
 	/** The no action. */
-	NO_ACTION, 
- /** The cascade. */
- CASCADE, 
- /** The set null. */
- SET_NULL
+	NO_ACTION,
+	/** The cascade. */
+	CASCADE,
+	/** The set null. */
+	SET_NULL
 }

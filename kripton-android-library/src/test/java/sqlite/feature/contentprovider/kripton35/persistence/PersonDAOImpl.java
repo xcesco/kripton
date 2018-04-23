@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.contentprovider.kripton35.persistence;
 
 import android.content.ContentValues;
@@ -24,7 +9,6 @@ import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -35,76 +19,52 @@ import java.util.List;
 import java.util.Set;
 import sqlite.feature.contentprovider.kripton35.entities.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDAO</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see PersonDAO
- * @see sqlite.feature.contentprovider.kripton35.entities.PersonTable
+ *  @see Person
+ *  @see PersonDAO
+ *  @see sqlite.feature.contentprovider.kripton35.entities.PersonTable
  */
 public class PersonDAOImpl extends Dao implements PersonDAO {
-  
-  /** The insert bean prepared statement 0. */
   private static SQLiteStatement insertBeanPreparedStatement0;
 
-  /** The Constant insertBean0ColumnSet. */
   private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  /** The insert name prepared statement 1. */
   private static SQLiteStatement insertNamePreparedStatement1;
 
-  /** The Constant insertName1ColumnSet. */
   private static final Set<String> insertName1ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  /** The delete raw prepared statement 2. */
   private static SQLiteStatement deleteRawPreparedStatement2;
 
-  /** The delete bean prepared statement 3. */
   private static SQLiteStatement deleteBeanPreparedStatement3;
 
-  /** The update raw prepared statement 4. */
   private static SQLiteStatement updateRawPreparedStatement4;
 
-  /** The Constant updateRaw5ColumnSet. */
   private static final Set<String> updateRaw5ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  /** The Constant updateRaw6ColumnSet. */
   private static final Set<String> updateRaw6ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  /** The Constant updateRaw7ColumnSet. */
   private static final Set<String> updateRaw7ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  /** The update bean prepared statement 5. */
   private static SQLiteStatement updateBeanPreparedStatement5;
 
-  /** The Constant updateBean8ColumnSet. */
   private static final Set<String> updateBean8ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  /** The Constant selectOne9ColumnSet. */
   private static final Set<String> selectOne9ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  /** The Constant selectAll10ColumnSet. */
   private static final Set<String> selectAll10ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  /** The Constant selectOne11ColumnSet. */
   private static final Set<String> selectOne11ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  /** The Constant SELECT_BEAN_SQL1. */
   private static final String SELECT_BEAN_SQL1 = "SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person";
 
-  /** The Constant selectBean12ColumnSet. */
   private static final Set<String> selectBean12ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  /**
-   * Instantiates a new person DAO impl.
-   *
-   * @param context the context
-   */
-  public PersonDAOImpl(SQLContext context) {
-    super(context);
+  public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
@@ -230,13 +190,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name) VALUES (${tempName})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>tempName</dt><dd>is binded to query's parameter <strong>${tempName}</strong> and method's parameter <strong>tempName</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param tempName 	is binded to column value <strong>name</strong>
+   * @param tempName
+   * 	is binded to column value <strong>name</strong>
+   *
    */
   @Override
   public void insertName(String tempName) {
@@ -342,14 +304,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = ${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -694,19 +658,22 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>name</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param name 	is used as updated field <strong>name</strong>
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param name
+   * 	is used as updated field <strong>name</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -1453,27 +1420,25 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/[*]/test0</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id, #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id, #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${nameTemp}</strong> at path segment 1</li>
    * </ul>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.contentprovider.kripton35/persons/[*]/test0"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectOne9(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -1665,20 +1630,18 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE #{DYNAMIC_WHERE} ORDER BY name asc, #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc, #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.contentprovider.kripton35/persons"
-   * @param projection the projection
-   * @param selection dynamic part of <code>where</code> statement
-   * @param selectionArgs arguments of dynamic part of <code>where</code> statement
-   * @param sortOrder the sort order
+   * @param selection dynamic part of <code>where</code> statement 
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
   Cursor selectAll10(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -1863,27 +1826,25 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/[*]/test1</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${data.name}</strong> at path segment 1</li>
    * </ul>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.contentprovider.kripton35/persons/[*]/test1"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectOne11(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -1947,9 +1908,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1960,7 +1921,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -2029,22 +1990,20 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test3</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, parentId, city, birthCity, birthDay, value, name, surname FROM Person</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person</pre>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.contentprovider.kripton35/persons/test3"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectBean12(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -2174,9 +2133,6 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertBeanPreparedStatement0!=null) {
       insertBeanPreparedStatement0.close();

@@ -1,23 +1,7 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.test05firt_aid;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>FirstAid</code> is associated to table <code>first_aid</code>
@@ -26,14 +10,27 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see FirstAid
  */
 public class FirstAidTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table first_aid. */
+  /**
+   * Costant represents typeName of table first_aid
+   */
   public static final String TABLE_NAME = "first_aid";
 
-  /** <p> DDL to create table first_aid </p>  <pre>CREATE TABLE first_aid (id INTEGER PRIMARY KEY AUTOINCREMENT, uid TEXT UNIQUE, description TEXT, info TEXT, longitude REAL, latitude REAL, address TEXT, address2 TEXT, city TEXT, phone TEXT, total_patient_count INTEGER, white_waiting_patients INTEGER, white_visiting_patients INTEGER, white_average_waiting_time TEXT, green_waiting_patients INTEGER, green_visiting_patients INTEGER, green_average_waiting_time TEXT, yellow_waiting_patients INTEGER, yellow_visiting_patients INTEGER, yellow_average_waiting_time TEXT, red_waiting_patients INTEGER, red_average_waiting_time TEXT);</pre>. */
+  /**
+   * <p>
+   * DDL to create table first_aid
+   * </p>
+   *
+   * <pre>CREATE TABLE first_aid (id INTEGER PRIMARY KEY AUTOINCREMENT, uid TEXT UNIQUE, description TEXT, info TEXT, longitude REAL, latitude REAL, address TEXT, address2 TEXT, city TEXT, phone TEXT, total_patient_count INTEGER, white_waiting_patients INTEGER, white_visiting_patients INTEGER, white_average_waiting_time TEXT, green_waiting_patients INTEGER, green_visiting_patients INTEGER, green_average_waiting_time TEXT, yellow_waiting_patients INTEGER, yellow_visiting_patients INTEGER, yellow_average_waiting_time TEXT, red_waiting_patients INTEGER, red_average_waiting_time TEXT);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE first_aid (id INTEGER PRIMARY KEY AUTOINCREMENT, uid TEXT UNIQUE, description TEXT, info TEXT, longitude REAL, latitude REAL, address TEXT, address2 TEXT, city TEXT, phone TEXT, total_patient_count INTEGER, white_waiting_patients INTEGER, white_visiting_patients INTEGER, white_average_waiting_time TEXT, green_waiting_patients INTEGER, green_visiting_patients INTEGER, green_average_waiting_time TEXT, yellow_waiting_patients INTEGER, yellow_visiting_patients INTEGER, yellow_average_waiting_time TEXT, red_waiting_patients INTEGER, red_average_waiting_time TEXT);";
 
-  /** <p> DDL to drop table first_aid </p>  <pre>DROP TABLE IF EXISTS first_aid;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table first_aid
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS first_aid;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS first_aid;";
 
   /**
@@ -190,13 +187,13 @@ public class FirstAidTable implements SQLiteTable {
    */
   public static final String COLUMN_RED_AVERAGE_WAITING_TIME = "red_average_waiting_time";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_UID, COLUMN_DESCRIPTION, COLUMN_INFO, COLUMN_LONGITUDE, COLUMN_LATITUDE, COLUMN_ADDRESS, COLUMN_ADDRESS2, COLUMN_CITY, COLUMN_PHONE, COLUMN_TOTAL_PATIENT_COUNT, COLUMN_WHITE_WAITING_PATIENTS, COLUMN_WHITE_VISITING_PATIENTS, COLUMN_WHITE_AVERAGE_WAITING_TIME, COLUMN_GREEN_WAITING_PATIENTS, COLUMN_GREEN_VISITING_PATIENTS, COLUMN_GREEN_AVERAGE_WAITING_TIME, COLUMN_YELLOW_WAITING_PATIENTS, COLUMN_YELLOW_VISITING_PATIENTS, COLUMN_YELLOW_AVERAGE_WAITING_TIME, COLUMN_RED_WAITING_PATIENTS, COLUMN_RED_AVERAGE_WAITING_TIME};
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -204,9 +201,7 @@ public class FirstAidTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

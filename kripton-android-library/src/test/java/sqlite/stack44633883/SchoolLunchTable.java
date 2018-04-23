@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.stack44633883;
 
 import com.abubusoft.kripton.KriptonBinder;
@@ -27,7 +12,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.HashSet;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>SchoolLunch</code> is associated to table <code>SchoolLunches</code>
@@ -36,14 +20,27 @@ import java.util.HashSet;
  *  @see SchoolLunch
  */
 public class SchoolLunchTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table SchoolLunches. */
+  /**
+   * Costant represents typeName of table SchoolLunches
+   */
   public static final String TABLE_NAME = "SchoolLunches";
 
-  /** <p> DDL to create table SchoolLunches </p>  <pre>CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, fresh INTEGER, contains_meat INTEGER, fruits BLOB);</pre>. */
+  /**
+   * <p>
+   * DDL to create table SchoolLunches
+   * </p>
+   *
+   * <pre>CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, fresh INTEGER, contains_meat INTEGER, fruits BLOB);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, fresh INTEGER, contains_meat INTEGER, fruits BLOB);";
 
-  /** <p> DDL to drop table SchoolLunches </p>  <pre>DROP TABLE IF EXISTS SchoolLunches;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table SchoolLunches
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS SchoolLunches;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS SchoolLunches;";
 
   /**
@@ -74,14 +71,13 @@ public class SchoolLunchTable implements SQLiteTable {
    */
   public static final String COLUMN_FRUITS = "fruits";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_LUNCH_ID, COLUMN_FRESH, COLUMN_CONTAINS_MEAT, COLUMN_FRUITS};
 
   /**
-   * for attribute fruits serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute fruits serialization
    */
   public static byte[] serializeFruits(HashSet<String> value) {
     if (value==null) {
@@ -115,10 +111,7 @@ public class SchoolLunchTable implements SQLiteTable {
   }
 
   /**
-   * for attribute fruits parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for attribute fruits parsing
    */
   public static HashSet<String> parseFruits(byte[] input) {
     if (input==null) {
@@ -152,9 +145,7 @@ public class SchoolLunchTable implements SQLiteTable {
   }
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -162,9 +153,7 @@ public class SchoolLunchTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

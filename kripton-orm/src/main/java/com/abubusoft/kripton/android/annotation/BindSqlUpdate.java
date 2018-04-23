@@ -38,8 +38,8 @@ import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
  * command. To use only if method have only one parameter and its type is the
  * same of supported bean.</li>
  * <li><strong>where</strong>: where condition. It is possible to specify a
- * parameter binded to method's parameter with the syntax ${<parameter
- * name>}.</li>
+ * parameter binded to method's parameter with the syntax ${<code>parameter
+ * name</code>}.</li>
  * <li><strong>jql</strong>: allows specifying the entire query with JQL.</li>
  * </ul>
  * 
@@ -94,6 +94,7 @@ import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
  * you can use includeFields attribute to include only specific fields. If you
  * specify a return type for methods, it has to be of type int, long, Integer,
  * Long and it will contains updated rows count.</li>
+ * </ul>
  * <p>
  * For interface PersonDAO, Kripton annotation processor will generate the
  * following Person DAO implementation:

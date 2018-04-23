@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton93;
 
 import android.database.Cursor;
@@ -21,62 +6,46 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean93</code>, based on interface <code>Bean93Dao</code>
- * </p>.
+ * </p>
  *
- * @see Bean93
- * @see Bean93Dao
- * @see Bean93Table
+ *  @see Bean93
+ *  @see Bean93Dao
+ *  @see Bean93Table
  */
 public class Bean93DaoImpl extends Dao implements Bean93Dao {
-  
-  /** The Constant SELECT_BY_BEAN_SQL1. */
   private static final String SELECT_BY_BEAN_SQL1 = "SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ? || '%'";
 
-  /** The Constant SELECT_ALL_SQL2. */
   private static final String SELECT_ALL_SQL2 = "SELECT id, name, surname, type_name FROM bean93";
 
-  /** The insert default prepared statement 0. */
   private static SQLiteStatement insertDefaultPreparedStatement0;
 
-  /** The insert abort prepared statement 1. */
   private static SQLiteStatement insertAbortPreparedStatement1;
 
-  /** The insert fail prepared statement 2. */
   private static SQLiteStatement insertFailPreparedStatement2;
 
-  /** The insert ignore prepared statement 3. */
   private static SQLiteStatement insertIgnorePreparedStatement3;
 
-  /** The insert replace prepared statement 4. */
   private static SQLiteStatement insertReplacePreparedStatement4;
 
-  /** The insert rollback prepared statement 5. */
   private static SQLiteStatement insertRollbackPreparedStatement5;
 
-  /**
-   * Instantiates a new bean 93 dao impl.
-   *
-   * @param context the context
-   */
-  public Bean93DaoImpl(SQLContext context) {
-    super(context);
+  public Bean93DaoImpl(BindBean93DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ${name} || '%'</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -84,13 +53,14 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param name 	is binded to <code>${name}</code>
+   * @param name
+   * 	is binded to <code>${name}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -144,16 +114,16 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name, surname, type_name FROM bean93</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -653,9 +623,6 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     return result!=-1;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertDefaultPreparedStatement0!=null) {
       insertDefaultPreparedStatement0.close();

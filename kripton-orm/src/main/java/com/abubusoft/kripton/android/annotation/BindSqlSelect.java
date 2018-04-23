@@ -144,21 +144,21 @@ import java.lang.annotation.Target;
  * &#64;BindDao(Person.class)
  * public interface PersonDAO {
  * 	&#64;BindSqlSelect(orderBy = "name")
- * 	List<Person> selectAll();
+ * 	List&lt;Person&gt; selectAll();
  * 
  * 	&#64;BindSqlSelect(where = "name like ${name} || '%%' ", orderBy = "name")
- * 	Set<Person> selectAll(String name);
+ * 	Set&lt;Person&gt; selectAll(String name);
  * 
  * 	&#64;BindSqlSelect(orderBy = "name")
- * 	void selectBeanListener(OnReadBeanListener<Person> beanListener);
+ * 	void selectBeanListener(OnReadBeanListener&lt;Person&gt; beanListener);
  * 
  * 	&#64;BindSqlSelect(orderBy = "name")
  * 	void selectCursorListener(OnReadCursorListener cursorListener);
  * }
  * </pre>
  * <p>
- * When Kripton annotation processor examine @BindDao annotation, it generates
- * the following DAO implementations:
+ * When Kripton annotation processor examine <code>BindDao</code> annotation, it
+ * generates the following DAO implementations:
  * </p>
  * 
  * <pre>
@@ -168,15 +168,19 @@ import java.lang.annotation.Target;
  * 	}
  * 
  * 	&#64;Override
- * 	public List<Person> selectAll() {
+ * 	public List&lt;Person&gt; selectAll() {
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
- * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(
+ * 				StringUtils.formatSQL(
+ * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
+ * 				(Object[]) args);
+ * 		Cursor cursor = database().rawQuery(
+ * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
- * 		LinkedList<Person> resultList = new LinkedList<Person>();
+ * 		LinkedList&lt;Person&gt; resultList = new LinkedList&lt;Person&gt;();
  * 		Person resultBean = null;
  * 
  * 		if (cursor.moveToFirst()) {
@@ -215,15 +219,20 @@ import java.lang.annotation.Target;
  * 	}
  * 
  * 	&#64;Override
- * 	public Set<Person> selectAll(String name) {
+ * 	public Set&lt;Person&gt; selectAll(String name) {
  * 		// build where condition
  * 		String[] args = { (name == null ? null : name) };
  * 
- * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name"), (Object[]) args);
- * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name", args);
+ * 		Logger.info(
+ * 				StringUtils.formatSQL(
+ * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name"),
+ * 				(Object[]) args);
+ * 		Cursor cursor = database().rawQuery(
+ * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name",
+ * 				args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
- * 		HashSet<Person> resultList = new HashSet<Person>();
+ * 		HashSet&lt;Person&gt; resultList = new HashSet&lt;Person&gt;();
  * 		Person resultBean = null;
  * 
  * 		if (cursor.moveToFirst()) {
@@ -262,12 +271,16 @@ import java.lang.annotation.Target;
  * 	}
  * 
  * 	&#64;Override
- * 	public void selectBeanListener(OnReadBeanListener<Person> beanListener) {
+ * 	public void selectBeanListener(OnReadBeanListener&lt;Person&gt; beanListener) {
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
- * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(
+ * 				StringUtils.formatSQL(
+ * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
+ * 				(Object[]) args);
+ * 		Cursor cursor = database().rawQuery(
+ * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 		Person resultBean = new Person();
  * 		try {
@@ -320,8 +333,12 @@ import java.lang.annotation.Target;
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
- * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(
+ * 				StringUtils.formatSQL(
+ * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
+ * 				(Object[]) args);
+ * 		Cursor cursor = database().rawQuery(
+ * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
  * 		try {
@@ -348,7 +365,7 @@ import java.lang.annotation.Target;
  * instance.openReadOnlyDatabase();
  * 
  * // select 1
- * Set<Person> list = instance.getPersonDAO().selectAll("name");
+ * Set&lt;Person&gt; list = instance.getPersonDAO().selectAll("name");
  * 
  * // select 2
  * instance.getPersonDAO().selectBeanListener(new OnReadBeanListener&lt;Person&gt;() {
@@ -464,5 +481,16 @@ public @interface BindSqlSelect {
 	 * @return JQL code specified by user
 	 */
 	String jql() default "";
+
+	/**
+	 * <p>
+	 * Used to specify which queries need to be invoked to fill fields that represent relation
+	 * with other entities.
+	 * </p>
+	 * 
+	 * @return set of selects used to fill fields defined as relation
+	 * 
+	 */
+	BindSqlChildSelect[] childrenSelects() default {};
 
 }

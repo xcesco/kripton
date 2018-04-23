@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton41;
 
 import android.database.sqlite.SQLiteStatement;
@@ -20,52 +5,47 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBeanUpdateOK</code>
- * </p>.
+ * </p>
  *
- * @see Bean01
- * @see DaoBeanUpdateOK
- * @see Bean01Table
+ *  @see Bean01
+ *  @see DaoBeanUpdateOK
+ *  @see Bean01Table
  */
 public class DaoBeanUpdateOKImpl extends Dao implements DaoBeanUpdateOK {
-  
-  /** The update distance prepared statement 0. */
   private static SQLiteStatement updateDistancePreparedStatement0;
 
-  /**
-   * Instantiates a new dao bean update OK impl.
-   *
-   * @param context the context
-   */
-  public DaoBeanUpdateOKImpl(SQLContext context) {
-    super(context);
+  public DaoBeanUpdateOKImpl(BindDummy06DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE bean01 SET id=:id, value=:value WHERE id=${test}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>id</li>
    * 	<li>value</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${test}</dt><dd>is mapped to method's parameter <strong>test</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as updated field <strong>id</strong>
-   * @param value 	is used as updated field <strong>value</strong>
-   * @param test 	is used as where parameter <strong>${test}</strong>
+   * @param id
+   * 	is used as updated field <strong>id</strong>
+   * @param value
+   * 	is used as updated field <strong>value</strong>
+   * @param test
+   * 	is used as where parameter <strong>${test}</strong>
+   *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
   @Override
@@ -113,9 +93,6 @@ public class DaoBeanUpdateOKImpl extends Dao implements DaoBeanUpdateOK {
     return result!=0;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updateDistancePreparedStatement0!=null) {
       updateDistancePreparedStatement0.close();

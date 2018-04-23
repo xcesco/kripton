@@ -21,7 +21,6 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.squareup.javapoet.TypeSpec.Builder;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractBuilder.
  */

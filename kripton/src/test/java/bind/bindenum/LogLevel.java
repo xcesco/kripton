@@ -18,8 +18,6 @@ package bind.bindenum;
 // TODO: Auto-generated Javadoc
 /**
  * The Enum LogLevel.
- *
- * @author Francesco Benincasa (info@abubusoft.com)
  */
 public enum LogLevel {
 

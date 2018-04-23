@@ -15,24 +15,36 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Enum ColumnType.
+ * ColumnType.
  */
 public enum ColumnType {
-	
-	/** The primary key. */
-	PRIMARY_KEY, 
- /** The unique. */
- UNIQUE, 
- /** The standard. */
- STANDARD,
+
+	/**
+	 * <p>
+	 * Primary key.
+	 * </p>
+	 */
+	PRIMARY_KEY,
+	/**
+	 * <p>
+	 * Unique. It can be considered as alternative key.
+	 * </p>
+	 */
+	UNIQUE,
+	/**
+	 * <p>
+	 * Standard column.
+	 * </p>
+	 */
+	STANDARD,
 	/**
 	 * <p>
 	 * Indexes are special lookup tables that the database search engine can use
 	 * to speed up data retrieval. Simply put, an index is a pointer to data in
 	 * a table. An index in a database is very similar to an index in the back
-	 * of a book.</p>
+	 * of a book.
+	 * </p>
 	 * 
 	 * <p>
 	 * For example, if you want to reference all pages in a book that discuss a
@@ -60,7 +72,11 @@ public enum ColumnType {
 	 * on which there's an index.
 	 * </p>
 	 * 
-	 * <p>See <a href="https://www.tutorialspoint.com/sqlite/sqlite_indexes.htm">here</a> for full documentation.</p>
+	 * <p>
+	 * See <a href=
+	 * "https://www.tutorialspoint.com/sqlite/sqlite_indexes.htm">here</a> for
+	 * full documentation.
+	 * </p>
 	 */
 	INDEXED
 }

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package shared.kripton47;
 
 import android.content.SharedPreferences;
@@ -31,28 +16,32 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is the shared preference binder defined for Security47.
+ * This class is the shared preference binder defined for Security47
  *
  * @see Security47
  */
 public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
-  
-  /** instance of shared preferences. */
+  /**
+   * instance of shared preferences
+   */
   private static BindSecurity47SharedPreferences instance;
 
-  /** working instance of bean. */
+  /**
+   * working instance of bean
+   */
   private final Security47 defaultBean;
 
-  /** DeviceAccessTokenBindMap. */
+  /**
+   * DeviceAccessTokenBindMap */
   private DeviceAccessTokenBindMap deviceAccessTokenBindMap = BinderUtils.mapperFor(DeviceAccessToken.class);
 
-  /** UserIdentityBindMap. */
+  /**
+   * UserIdentityBindMap */
   private UserIdentityBindMap userIdentityBindMap = BinderUtils.mapperFor(UserIdentity.class);
 
   /**
-   * constructor.
+   * constructor
    */
   private BindSecurity47SharedPreferences() {
     // no typeName specified, using default shared preferences
@@ -61,18 +50,14 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * create an editor to modify shared preferences.
-   *
-   * @return the bind editor
+   * create an editor to modify shared preferences
    */
   public BindEditor edit() {
     return new BindEditor();
   }
 
   /**
-   * force to refresh values.
-   *
-   * @return the bind security 47 shared preferences
+   * force to refresh values
    */
   public BindSecurity47SharedPreferences refresh() {
     // no typeName specified, using default shared preferences
@@ -81,7 +66,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reset shared preferences.
+   * reset shared preferences
    */
   public void reset() {
     Security47 bean=new Security47();
@@ -89,7 +74,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read bean entirely.
+   * read bean entirely
    *
    * @return read bean
    */
@@ -112,7 +97,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write bean entirely.
+   * write bean entirely
    *
    * @param bean bean to entirely write
    */
@@ -141,7 +126,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property fcmId.
+   * read property fcmId
    *
    * @return property fcmId value
    */
@@ -150,7 +135,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property authorizationToken.
+   * read property authorizationToken
    *
    * @return property authorizationToken value
    */
@@ -161,7 +146,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property deviceUid.
+   * read property deviceUid
    *
    * @return property deviceUid value
    */
@@ -170,7 +155,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property userIdentity.
+   * read property userIdentity
    *
    * @return property userIdentity value
    */
@@ -181,10 +166,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute authorizationToken serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute authorizationToken serialization
    */
   protected String serializeAuthorizationToken(DeviceAccessToken value) {
     if (value==null) {
@@ -206,10 +188,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute authorizationToken parsing.
-   *
-   * @param input the input
-   * @return the device access token
+   * for attribute authorizationToken parsing
    */
   protected DeviceAccessToken parseAuthorizationToken(String input) {
     if (input==null) {
@@ -231,10 +210,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute userIdentity serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute userIdentity serialization
    */
   protected String serializeUserIdentity(UserIdentity value) {
     if (value==null) {
@@ -256,10 +232,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute userIdentity parsing.
-   *
-   * @param input the input
-   * @return the user identity
+   * for attribute userIdentity parsing
    */
   protected UserIdentity parseUserIdentity(String input) {
     if (input==null) {
@@ -281,9 +254,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * get instance of shared preferences.
-   *
-   * @return the bind security 47 shared preferences
+   * get instance of shared preferences
    */
   public static synchronized BindSecurity47SharedPreferences instance() {
     if (instance==null) {
@@ -293,21 +264,14 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * editor class for shared preferences.
+   * editor class for shared preferences
    */
   public class BindEditor extends AbstractEditor {
-    
-    /**
-     * Instantiates a new bind editor.
-     */
     private BindEditor() {
     }
 
     /**
-     * modifier for property fcmId.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property fcmId
      */
     public BindEditor putFcmId(String value) {
       editor.putString("fcm_id",value);
@@ -316,10 +280,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property authorizationToken.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property authorizationToken
      */
     public BindEditor putAuthorizationToken(DeviceAccessToken value) {
       if (value!=null)  {
@@ -333,10 +294,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property deviceUid.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property deviceUid
      */
     public BindEditor putDeviceUid(String value) {
       editor.putString("device_uid",value);
@@ -345,10 +303,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property userIdentity.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property userIdentity
      */
     public BindEditor putUserIdentity(UserIdentity value) {
       if (value!=null)  {

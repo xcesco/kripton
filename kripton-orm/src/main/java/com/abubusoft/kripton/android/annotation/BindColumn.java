@@ -20,9 +20,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
-import com.abubusoft.kripton.android.sqlite.NoForeignKey;
+import com.abubusoft.kripton.android.sqlite.NoParentEntity;
 
 /**
  * This annotation allow to customize binding from Java bean's field to SQLite
@@ -33,7 +34,7 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
  * <li><strong>columnType</strong>: specifty if column is a PRIMARY_KEY, UNIQUE,
  * or STANDARD. Default value is STANDARD.</li>
  * <li><strong>enabled</strong>: if false means that associated field is not
- * binded to SQLite database table. Default value is true.</li> *
+ * binded to SQLite database table. Default value is true.</li>
  * <li><strong>foreignKey</strong>: link to entity/class linked by this field if
  * it is a foreign key. It can be used only on long/Long column type.</li>
  * <li><strong>nullable</strong> if true, column can be set to
@@ -49,7 +50,8 @@ import com.abubusoft.kripton.android.sqlite.NoForeignKey;
  * 
  * <h3>Usage</h3>
  * <p>
- * Just an example:</li>
+ * Just an example:
+ * </p>
  * 
  * <pre>
  * &#64;BindType
@@ -107,12 +109,12 @@ public @interface BindColumn {
 	public boolean nullable() default NULLABLE_DEFAULT;
 
 	/**
-	 * Represents foreign key to another entity/table. It can be used only on
-	 * long/Long column type
+	 * Indicates that this field will be used as foreign key in a relationship with the specified entity.
+	 *  It can be used only on long/Long column type.
 	 * 
 	 * @return foreign entity class to reference
 	 */
-	public Class<?> foreignKey() default NoForeignKey.class;
+	public Class<?> parentEntity() default NoParentEntity.class;
 
 	/**
 	 * Action to take on foreign key constraint during DELETE operation.
@@ -127,5 +129,15 @@ public @interface BindColumn {
 	 * @return action to take
 	 */
 	public ForeignKeyAction onUpdate() default ForeignKeyAction.NO_ACTION;
+
+	/**
+	 * Allows to specify column affinity. Usually it was take directly from
+	 * field type. Default value is AUTO.
+	 * 
+	 * @return type affinity for the column. AUTO value means column type is
+	 *         derived from field type.
+	 * 
+	 */
+	public ColumnAffinityType columnAffinity() default ColumnAffinityType.AUTO;
 
 }

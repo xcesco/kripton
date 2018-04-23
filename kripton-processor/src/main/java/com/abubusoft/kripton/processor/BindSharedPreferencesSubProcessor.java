@@ -52,7 +52,6 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>Annotation processor for shared preferences.</p>
  * 
@@ -148,7 +147,7 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 					if (bindAllFields) {
 						return false;
 					} else {
-						throw new InvalidDefinition("@BindDisabled can not be used with @BindType(allField=false)");
+						throw new InvalidDefinition(String.format("@%s can not be used with @%s(allField=false)", BindDisabled.class.getSimpleName(), BindType.class.getSimpleName()));
 					}
 				}
 

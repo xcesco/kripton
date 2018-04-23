@@ -21,10 +21,11 @@ import javax.lang.model.element.Element;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
-import com.abubusoft.kripton.android.sqlite.NoForeignKey;
+import com.abubusoft.kripton.android.sqlite.NoParentEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -53,25 +54,28 @@ public class SQLProperty extends ManagedModelProperty {
 		super(null, null, null);
 
 		this.name = name;
-		this.parentTypeName = parentTypeName;
+		this.entityTypeName = parentTypeName;
 
 		onDeleteAction = ForeignKeyAction.NO_ACTION;
 		onUpdateAction = ForeignKeyAction.NO_ACTION;
-		
-		//TODO check global type adapter
+
+		// TODO check global type adapter
 	}
 
 	/**
 	 * Instantiates a new SQL property.
 	 *
-	 * @param entity the entity
-	 * @param element the element
-	 * @param modelAnnotations the model annotations
+	 * @param entity
+	 *            the entity
+	 * @param element
+	 *            the element
+	 * @param modelAnnotations
+	 *            the model annotations
 	 */
 	public SQLProperty(SQLiteEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
-		parentTypeName = TypeUtility.className(getParent().getName());
+		entityTypeName = TypeUtility.className(getParent().getName());
 
 		// @BindSqlAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
@@ -111,7 +115,8 @@ public class SQLProperty extends ManagedModelProperty {
 	/**
 	 * Sets the primary key.
 	 *
-	 * @param primaryKey            the primaryKey to set
+	 * @param primaryKey
+	 *            the primaryKey to set
 	 */
 	public void setPrimaryKey(boolean primaryKey) {
 		this.primaryKey = primaryKey;
@@ -129,7 +134,8 @@ public class SQLProperty extends ManagedModelProperty {
 	/**
 	 * Sets the nullable.
 	 *
-	 * @param nullable            the nullable to set
+	 * @param nullable
+	 *            the nullable to set
 	 */
 	public void setNullable(boolean nullable) {
 		this.nullable = nullable;
@@ -150,11 +156,16 @@ public class SQLProperty extends ManagedModelProperty {
 	/** type of column. */
 	public ColumnType columnType;
 
-	/** The parent type name. */
-	protected TypeName parentTypeName;
+	/**
+	 * Affinity type of the column.
+	 */
+	public ColumnAffinityType columnAffinityType;
 
-	/** class name of referred table. */
-	public String foreignClassName;
+	/** The parent type name. */
+	protected TypeName entityTypeName;
+
+	/** class name of referred table as foreignKey */
+	public String foreignParentClassName;
 
 	/** The on delete action. */
 	public ForeignKeyAction onDeleteAction;
@@ -167,8 +178,8 @@ public class SQLProperty extends ManagedModelProperty {
 	 *
 	 * @return true, if successful
 	 */
-	public boolean hasForeignKeyClassName() {
-		return !StringUtils.isEmpty(foreignClassName) && !NoForeignKey.class.getName().equals(foreignClassName);
+	public boolean isForeignKey() {
+		return !StringUtils.isEmpty(foreignParentClassName) && !NoParentEntity.class.getName().equals(foreignParentClassName);
 	}
 
 	/**
@@ -176,7 +187,7 @@ public class SQLProperty extends ManagedModelProperty {
 	 *
 	 * @return the parent type name
 	 */
-	public TypeName getParentTypeName() {
-		return parentTypeName;
+	public TypeName getEntityTypeName() {
+		return entityTypeName;
 	}
 }

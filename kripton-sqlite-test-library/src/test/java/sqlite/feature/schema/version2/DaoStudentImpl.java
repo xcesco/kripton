@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.schema.version2;
 
 import android.database.sqlite.SQLiteStatement;
@@ -20,32 +5,23 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Student</code>, based on interface <code>DaoStudent</code>
- * </p>.
+ * </p>
  *
- * @see Student
- * @see DaoStudent
- * @see StudentTable
+ *  @see Student
+ *  @see DaoStudent
+ *  @see StudentTable
  */
 public class DaoStudentImpl extends Dao implements DaoStudent {
-  
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /**
-   * Instantiates a new dao student impl.
-   *
-   * @param context the context
-   */
-  public DaoStudentImpl(SQLContext context) {
-    super(context);
+  public DaoStudentImpl(BindSchoolDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
@@ -118,9 +94,6 @@ public class DaoStudentImpl extends Dao implements DaoStudent {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

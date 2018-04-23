@@ -1,50 +1,27 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.dynamic.kripton121;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import sqlite.feature.dynamic.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>Person1DAO</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see Person1DAO
- * @see sqlite.feature.dynamic.PersonTable
+ *  @see Person
+ *  @see Person1DAO
+ *  @see sqlite.feature.dynamic.PersonTable
  */
 public class Person1DAOImpl extends Dao implements Person1DAO {
-  
-  /**
-   * Instantiates a new person 1 DAO impl.
-   *
-   * @param context the context
-   */
-  public Person1DAOImpl(SQLContext context) {
-    super(context);
+  public Person1DAOImpl(BindPerson1DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
@@ -148,9 +125,6 @@ public class Person1DAOImpl extends Dao implements Person1DAO {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
   }
 }

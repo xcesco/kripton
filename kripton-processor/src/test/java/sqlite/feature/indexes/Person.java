@@ -19,15 +19,21 @@ import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */
 @BindType
-@BindTable(indexes={"birthCity, birthDay", "surname"}, uniqueIndexes={"typeName, date"})
+@BindTable(
+		indexes= {
+				@BindIndex({"birthCity", "birthDay"}),
+				@BindIndex({"surname"}),
+				@BindIndex(value={"typeName","date"}, unique=true )
+		}
+)
 public class Person {
   
   /** The id. */

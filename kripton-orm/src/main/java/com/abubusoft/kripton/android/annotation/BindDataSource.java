@@ -39,8 +39,8 @@ import java.lang.annotation.Target;
  * <li><strong>asyncTask</strong>: if true, generate async task name
  * `Bind&lt;data source name without DataSource prefix&gt;AsyncTask`</li>
  * <li><strong>cursorWrapper</strong>: if true, generate a wrapped cursor for
- * every Java class managed by data-source. Cursor's name is `Bind<data source
- * name without DataSource prefix>Cursor`.</li>
+ * every Java class managed by data-source. Cursor's name is <code>Bind{data source
+ * name without DataSource prefix}Cursor</code>.</li>
  * <li><strong>daoSet</strong>: the collection of DAO associated to
  * data-source.</li>
  * <li><strong>fileName</strong>: filename used to store database</li>
@@ -99,7 +99,7 @@ import java.lang.annotation.Target;
  * 		SQLiteDatabase connection = needToOpened ? openWritableDatabase() : database();
  * 		try {
  * 			connection.beginTransaction();
- * 			if (transaction != null && TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
+ * 			if (transaction != null &amp;&amp; TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
  * 				connection.setTransactionSuccessful();
  * 			}
  * 		} catch (Throwable e) {
@@ -302,10 +302,9 @@ import java.lang.annotation.Target;
  * </pre>
  * 
  * <p>
- * Generated data source class derived from <a href=
- * "https://github.com/xcesco/kripton/blob/master/KriptonAndroidLibrary/src/main/java/com/abubusoft/kripton/android/sqlite/AbstractDataSource.java)
- * that derive from
- * [SQLiteOpenHelper](http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/database/sqlite/SQLiteOpenHelper.java">AbstractDataSource</a>.
+ * Generated data source class derived from <a href="https://github.com/xcesco/kripton/blob/master/KriptonAndroidLibrary/src/main/java/com/abubusoft/kripton/android/sqlite/AbstractDataSource.java">AbstractDataSource.java</a>
+ * that derives from
+ * <a href="http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/database/sqlite/SQLiteOpenHelper.java">SQLiteOpenHelper.java</a>.
  * </p>
  * 
  * <p>

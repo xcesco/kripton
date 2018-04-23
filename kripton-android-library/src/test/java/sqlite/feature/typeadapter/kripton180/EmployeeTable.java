@@ -1,23 +1,7 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.typeadapter.kripton180;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>Employee</code> is associated to table <code>employees</code>
@@ -26,14 +10,27 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see Employee
  */
 public class EmployeeTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table employees. */
+  /**
+   * Costant represents typeName of table employees
+   */
   public static final String TABLE_NAME = "employees";
 
-  /** <p> DDL to create table employees </p>  <pre>CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, last_name TEXT, first_name TEXT, birth_date TEXT, hire_date TEXT, address TEXT, field_boolean INTEGER, field_byte INTEGER, field_character INTEGER, field_short INTEGER, field_integer INTEGER, field_long INTEGER, field_float REAL, field_double REAL, field_string TEXT, field_byte_array BLOB);</pre>. */
+  /**
+   * <p>
+   * DDL to create table employees
+   * </p>
+   *
+   * <pre>CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, last_name TEXT, first_name TEXT, birth_date TEXT, hire_date TEXT, address TEXT, field_boolean INTEGER, field_byte INTEGER, field_character INTEGER, field_short INTEGER, field_integer INTEGER, field_long INTEGER, field_float REAL, field_double REAL, field_string TEXT, field_byte_array BLOB);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, last_name TEXT, first_name TEXT, birth_date TEXT, hire_date TEXT, address TEXT, field_boolean INTEGER, field_byte INTEGER, field_character INTEGER, field_short INTEGER, field_integer INTEGER, field_long INTEGER, field_float REAL, field_double REAL, field_string TEXT, field_byte_array BLOB);";
 
-  /** <p> DDL to drop table employees </p>  <pre>DROP TABLE IF EXISTS employees;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table employees
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS employees;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS employees;";
 
   /**
@@ -148,13 +145,13 @@ public class EmployeeTable implements SQLiteTable {
    */
   public static final String COLUMN_FIELD_BYTE_ARRAY = "field_byte_array";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_LAST_NAME, COLUMN_FIRST_NAME, COLUMN_BIRTH_DATE, COLUMN_HIRE_DATE, COLUMN_ADDRESS, COLUMN_FIELD_BOOLEAN, COLUMN_FIELD_BYTE, COLUMN_FIELD_CHARACTER, COLUMN_FIELD_SHORT, COLUMN_FIELD_INTEGER, COLUMN_FIELD_LONG, COLUMN_FIELD_FLOAT, COLUMN_FIELD_DOUBLE, COLUMN_FIELD_STRING, COLUMN_FIELD_BYTE_ARRAY};
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -162,9 +159,7 @@ public class EmployeeTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

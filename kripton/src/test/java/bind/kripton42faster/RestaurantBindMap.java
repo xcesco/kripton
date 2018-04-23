@@ -11,18 +11,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Restaurant.
+ * This class is binder map for Restaurant
  *
  * @see Restaurant
  */
 @BindMap(Restaurant.class)
 public class RestaurantBindMap extends AbstractMapper<Restaurant> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(Restaurant object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -63,9 +58,6 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(Restaurant object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -104,12 +96,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Restaurant object, XMLSerializer xmlSerializer, int currentEventType)
@@ -149,11 +136,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the restaurant
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public Restaurant parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -208,11 +191,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the restaurant
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public Restaurant parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -267,12 +246,7 @@ public class RestaurantBindMap extends AbstractMapper<Restaurant> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the restaurant
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public Restaurant parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

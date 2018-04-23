@@ -22,7 +22,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MethodWithoutSupportedAnnotationException.
  */

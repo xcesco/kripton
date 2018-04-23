@@ -19,6 +19,7 @@ import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -27,23 +28,22 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Err1Person.
  */
 @BindType
-@BindTable(indexes={"birthCity, temp"})
+@BindTable(indexes = @BindIndex({ "birthCity", "temp" }))
 public class Err1Person {
-  
-  /** The id. */
-  public long id;
-  
-  
-  /** The name. */
-  @BindColumn(columnType=ColumnType.INDEXED)
-  public String name;
-  
-  /** The surname. */
-  public String surname;
-  
-  /** The birth city. */
-  public String birthCity;
-  
-  /** The birth day. */
-  public Date birthDay;
+
+	/** The id. */
+	public long id;
+
+	/** The name. */
+	@BindColumn(columnType = ColumnType.INDEXED)
+	public String name;
+
+	/** The surname. */
+	public String surname;
+
+	/** The birth city. */
+	public String birthCity;
+
+	/** The birth day. */
+	public Date birthDay;
 }

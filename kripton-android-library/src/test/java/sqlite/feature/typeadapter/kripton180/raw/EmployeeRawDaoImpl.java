@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.typeadapter.kripton180.raw;
 
 import android.database.Cursor;
@@ -21,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.SQLDateUtils;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -39,71 +23,51 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterLong;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterShort;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Employee</code>, based on interface <code>EmployeeRawDao</code>
- * </p>.
+ * </p>
  *
- * @see Employee
- * @see EmployeeRawDao
- * @see sqlite.feature.typeadapter.kripton180.EmployeeTable
+ *  @see Employee
+ *  @see EmployeeRawDao
+ *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
-  
-  /** The Constant SELECT_BY_ID_SQL1. */
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
 
-  /** The Constant SELECT_BY_ID_J_Q_L_SQL2. */
   private static final String SELECT_BY_ID_J_Q_L_SQL2 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
 
-  /** The Constant SELECT_BY_ALL_WITH_ADAPTER_SQL3. */
   private static final String SELECT_BY_ALL_WITH_ADAPTER_SQL3 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
-  /** The Constant SELECT_BY_ALL_SQL4. */
   private static final String SELECT_BY_ALL_SQL4 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
-  /** The Constant SELECT_BY_ALL_J_Q_L_SQL5. */
   private static final String SELECT_BY_ALL_J_Q_L_SQL5 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
-  /** The Constant SELECT_BY_ALL_J_Q_L_WITH_ADAPTER_SQL6. */
   private static final String SELECT_BY_ALL_J_Q_L_WITH_ADAPTER_SQL6 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /** The insert with adapter prepared statement 1. */
   private static SQLiteStatement insertWithAdapterPreparedStatement1;
 
-  /** The update by id prepared statement 2. */
   private static SQLiteStatement updateByIdPreparedStatement2;
 
-  /** The update prepared statement 3. */
   private static SQLiteStatement updatePreparedStatement3;
 
-  /** The delete prepared statement 4. */
   private static SQLiteStatement deletePreparedStatement4;
 
-  /** The delete JQL prepared statement 5. */
   private static SQLiteStatement deleteJQLPreparedStatement5;
 
-  /** The delete JQL with adapter prepared statement 6. */
   private static SQLiteStatement deleteJQLWithAdapterPreparedStatement6;
 
-  /**
-   * Instantiates a new employee raw dao impl.
-   *
-   * @param context the context
-   */
-  public EmployeeRawDaoImpl(SQLContext context) {
-    super(context);
+  public EmployeeRawDaoImpl(BindKripton180RawDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -123,13 +87,14 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>field_string</dt><dd>is associated to bean's property <strong>fieldString</strong></dd>
    * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -218,9 +183,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -240,13 +205,14 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>field_string</dt><dd>is associated to bean's property <strong>fieldString</strong></dd>
    * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -335,9 +301,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -357,7 +323,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>field_string</dt><dd>is associated to bean's property <strong>fieldString</strong></dd>
    * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
@@ -371,19 +337,30 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>${fieldDouble}</dt><dd>is binded to method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>${fieldString}</dt><dd>is binded to method's parameter <strong>fieldString</strong></dd>
    * 	<dt>${fieldByteArray}</dt><dd>is binded to method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param fieldBoolean 	is binded to <code>${fieldBoolean}</code>
-   * @param fieldByte 	is binded to <code>${fieldByte}</code>
-   * @param fieldCharacter 	is binded to <code>${fieldCharacter}</code>
-   * @param fieldShort 	is binded to <code>${fieldShort}</code>
-   * @param fieldInteger 	is binded to <code>${fieldInteger}</code>
-   * @param fieldLong 	is binded to <code>${fieldLong}</code>
-   * @param fieldFloat 	is binded to <code>${fieldFloat}</code>
-   * @param fieldDouble 	is binded to <code>${fieldDouble}</code>
-   * @param fieldString 	is binded to <code>${fieldString}</code>
-   * @param fieldByteArray 	is binded to <code>${fieldByteArray}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param fieldBoolean
+   * 	is binded to <code>${fieldBoolean}</code>
+   * @param fieldByte
+   * 	is binded to <code>${fieldByte}</code>
+   * @param fieldCharacter
+   * 	is binded to <code>${fieldCharacter}</code>
+   * @param fieldShort
+   * 	is binded to <code>${fieldShort}</code>
+   * @param fieldInteger
+   * 	is binded to <code>${fieldInteger}</code>
+   * @param fieldLong
+   * 	is binded to <code>${fieldLong}</code>
+   * @param fieldFloat
+   * 	is binded to <code>${fieldFloat}</code>
+   * @param fieldDouble
+   * 	is binded to <code>${fieldDouble}</code>
+   * @param fieldString
+   * 	is binded to <code>${fieldString}</code>
+   * @param fieldByteArray
+   * 	is binded to <code>${fieldByteArray}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -484,9 +461,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -506,7 +483,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>field_string</dt><dd>is associated to bean's property <strong>fieldString</strong></dd>
    * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
@@ -520,19 +497,30 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>${fieldDouble}</dt><dd>is binded to method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>${fieldString}</dt><dd>is binded to method's parameter <strong>fieldString</strong></dd>
    * 	<dt>${fieldByteArray}</dt><dd>is binded to method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param fieldBoolean 	is binded to <code>${fieldBoolean}</code>
-   * @param fieldByte 	is binded to <code>${fieldByte}</code>
-   * @param fieldCharacter 	is binded to <code>${fieldCharacter}</code>
-   * @param fieldShort 	is binded to <code>${fieldShort}</code>
-   * @param fieldInteger 	is binded to <code>${fieldInteger}</code>
-   * @param fieldLong 	is binded to <code>${fieldLong}</code>
-   * @param fieldFloat 	is binded to <code>${fieldFloat}</code>
-   * @param fieldDouble 	is binded to <code>${fieldDouble}</code>
-   * @param fieldString 	is binded to <code>${fieldString}</code>
-   * @param fieldByteArray 	is binded to <code>${fieldByteArray}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param fieldBoolean
+   * 	is binded to <code>${fieldBoolean}</code>
+   * @param fieldByte
+   * 	is binded to <code>${fieldByte}</code>
+   * @param fieldCharacter
+   * 	is binded to <code>${fieldCharacter}</code>
+   * @param fieldShort
+   * 	is binded to <code>${fieldShort}</code>
+   * @param fieldInteger
+   * 	is binded to <code>${fieldInteger}</code>
+   * @param fieldLong
+   * 	is binded to <code>${fieldLong}</code>
+   * @param fieldFloat
+   * 	is binded to <code>${fieldFloat}</code>
+   * @param fieldDouble
+   * 	is binded to <code>${fieldDouble}</code>
+   * @param fieldString
+   * 	is binded to <code>${fieldString}</code>
+   * @param fieldByteArray
+   * 	is binded to <code>${fieldByteArray}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -633,9 +621,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -655,7 +643,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>field_string</dt><dd>is associated to bean's property <strong>fieldString</strong></dd>
    * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
@@ -670,19 +658,30 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>${fieldDouble}</dt><dd>is binded to method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>${fieldString}</dt><dd>is binded to method's parameter <strong>fieldString</strong></dd>
    * 	<dt>${fieldByteArray}</dt><dd>is binded to method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param fieldBoolean 	is binded to <code>${fieldBoolean}</code>
-   * @param fieldByte 	is binded to <code>${fieldByte}</code>
-   * @param fieldCharacter 	is binded to <code>${fieldCharacter}</code>
-   * @param fieldShort 	is binded to <code>${fieldShort}</code>
-   * @param fieldInteger 	is binded to <code>${fieldInteger}</code>
-   * @param fieldLong 	is binded to <code>${fieldLong}</code>
-   * @param fieldFloat 	is binded to <code>${fieldFloat}</code>
-   * @param fieldDouble 	is binded to <code>${fieldDouble}</code>
-   * @param fieldString 	is binded to <code>${fieldString}</code>
-   * @param fieldByteArray 	is binded to <code>${fieldByteArray}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param fieldBoolean
+   * 	is binded to <code>${fieldBoolean}</code>
+   * @param fieldByte
+   * 	is binded to <code>${fieldByte}</code>
+   * @param fieldCharacter
+   * 	is binded to <code>${fieldCharacter}</code>
+   * @param fieldShort
+   * 	is binded to <code>${fieldShort}</code>
+   * @param fieldInteger
+   * 	is binded to <code>${fieldInteger}</code>
+   * @param fieldLong
+   * 	is binded to <code>${fieldLong}</code>
+   * @param fieldFloat
+   * 	is binded to <code>${fieldFloat}</code>
+   * @param fieldDouble
+   * 	is binded to <code>${fieldDouble}</code>
+   * @param fieldString
+   * 	is binded to <code>${fieldString}</code>
+   * @param fieldByteArray
+   * 	is binded to <code>${fieldByteArray}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -784,9 +783,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -806,7 +805,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>field_string</dt><dd>is associated to bean's property <strong>fieldString</strong></dd>
    * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
@@ -821,19 +820,30 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>${fieldDouble}</dt><dd>is binded to method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>${fieldString}</dt><dd>is binded to method's parameter <strong>fieldString</strong></dd>
    * 	<dt>${fieldByteArray}</dt><dd>is binded to method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param fieldBoolean 	is binded to <code>${fieldBoolean}</code>
-   * @param fieldByte 	is binded to <code>${fieldByte}</code>
-   * @param fieldCharacter 	is binded to <code>${fieldCharacter}</code>
-   * @param fieldShort 	is binded to <code>${fieldShort}</code>
-   * @param fieldInteger 	is binded to <code>${fieldInteger}</code>
-   * @param fieldLong 	is binded to <code>${fieldLong}</code>
-   * @param fieldFloat 	is binded to <code>${fieldFloat}</code>
-   * @param fieldDouble 	is binded to <code>${fieldDouble}</code>
-   * @param fieldString 	is binded to <code>${fieldString}</code>
-   * @param fieldByteArray 	is binded to <code>${fieldByteArray}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param fieldBoolean
+   * 	is binded to <code>${fieldBoolean}</code>
+   * @param fieldByte
+   * 	is binded to <code>${fieldByte}</code>
+   * @param fieldCharacter
+   * 	is binded to <code>${fieldCharacter}</code>
+   * @param fieldShort
+   * 	is binded to <code>${fieldShort}</code>
+   * @param fieldInteger
+   * 	is binded to <code>${fieldInteger}</code>
+   * @param fieldLong
+   * 	is binded to <code>${fieldLong}</code>
+   * @param fieldFloat
+   * 	is binded to <code>${fieldFloat}</code>
+   * @param fieldDouble
+   * 	is binded to <code>${fieldDouble}</code>
+   * @param fieldString
+   * 	is binded to <code>${fieldString}</code>
+   * @param fieldByteArray
+   * 	is binded to <code>${fieldByteArray}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -936,7 +946,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (${fieldBoolean}, ${fieldByte}, ${fieldCharacter}, ${fieldShort}, ${fieldInteger}, ${fieldLong}, ${fieldFloat}, ${fieldDouble}, ${fieldString}, ${fieldByteArray})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>fieldBoolean</dt><dd>is binded to query's parameter <strong>${fieldBoolean}</strong> and method's parameter <strong>fieldBoolean</strong></dd>
@@ -949,18 +959,29 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>fieldDouble</dt><dd>is binded to query's parameter <strong>${fieldDouble}</strong> and method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>fieldString</dt><dd>is binded to query's parameter <strong>${fieldString}</strong> and method's parameter <strong>fieldString</strong></dd>
    * 	<dt>fieldByteArray</dt><dd>is binded to query's parameter <strong>${fieldByteArray}</strong> and method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param fieldBoolean 	is binded to column value <strong>field_boolean</strong>
-   * @param fieldByte 	is binded to column value <strong>field_byte</strong>
-   * @param fieldCharacter 	is binded to column value <strong>field_character</strong>
-   * @param fieldShort 	is binded to column value <strong>field_short</strong>
-   * @param fieldInteger 	is binded to column value <strong>field_integer</strong>
-   * @param fieldLong 	is binded to column value <strong>field_long</strong>
-   * @param fieldFloat 	is binded to column value <strong>field_float</strong>
-   * @param fieldDouble 	is binded to column value <strong>field_double</strong>
-   * @param fieldString 	is binded to column value <strong>field_string</strong>
-   * @param fieldByteArray 	is binded to column value <strong>field_byte_array</strong>
+   * @param fieldBoolean
+   * 	is binded to column value <strong>field_boolean</strong>
+   * @param fieldByte
+   * 	is binded to column value <strong>field_byte</strong>
+   * @param fieldCharacter
+   * 	is binded to column value <strong>field_character</strong>
+   * @param fieldShort
+   * 	is binded to column value <strong>field_short</strong>
+   * @param fieldInteger
+   * 	is binded to column value <strong>field_integer</strong>
+   * @param fieldLong
+   * 	is binded to column value <strong>field_long</strong>
+   * @param fieldFloat
+   * 	is binded to column value <strong>field_float</strong>
+   * @param fieldDouble
+   * 	is binded to column value <strong>field_double</strong>
+   * @param fieldString
+   * 	is binded to column value <strong>field_string</strong>
+   * @param fieldByteArray
+   * 	is binded to column value <strong>field_byte_array</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -1028,7 +1049,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (${fieldBoolean}, ${fieldByte}, ${fieldCharacter}, ${fieldShort}, ${fieldInteger}, ${fieldLong}, ${fieldFloat}, ${fieldDouble}, ${fieldString}, ${fieldByteArray})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>fieldBoolean</dt><dd>is binded to query's parameter <strong>${fieldBoolean}</strong> and method's parameter <strong>fieldBoolean</strong></dd>
@@ -1041,18 +1062,29 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>fieldDouble</dt><dd>is binded to query's parameter <strong>${fieldDouble}</strong> and method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>fieldString</dt><dd>is binded to query's parameter <strong>${fieldString}</strong> and method's parameter <strong>fieldString</strong></dd>
    * 	<dt>fieldByteArray</dt><dd>is binded to query's parameter <strong>${fieldByteArray}</strong> and method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param fieldBoolean 	is binded to column value <strong>field_boolean</strong>
-   * @param fieldByte 	is binded to column value <strong>field_byte</strong>
-   * @param fieldCharacter 	is binded to column value <strong>field_character</strong>
-   * @param fieldShort 	is binded to column value <strong>field_short</strong>
-   * @param fieldInteger 	is binded to column value <strong>field_integer</strong>
-   * @param fieldLong 	is binded to column value <strong>field_long</strong>
-   * @param fieldFloat 	is binded to column value <strong>field_float</strong>
-   * @param fieldDouble 	is binded to column value <strong>field_double</strong>
-   * @param fieldString 	is binded to column value <strong>field_string</strong>
-   * @param fieldByteArray 	is binded to column value <strong>field_byte_array</strong>
+   * @param fieldBoolean
+   * 	is binded to column value <strong>field_boolean</strong>
+   * @param fieldByte
+   * 	is binded to column value <strong>field_byte</strong>
+   * @param fieldCharacter
+   * 	is binded to column value <strong>field_character</strong>
+   * @param fieldShort
+   * 	is binded to column value <strong>field_short</strong>
+   * @param fieldInteger
+   * 	is binded to column value <strong>field_integer</strong>
+   * @param fieldLong
+   * 	is binded to column value <strong>field_long</strong>
+   * @param fieldFloat
+   * 	is binded to column value <strong>field_float</strong>
+   * @param fieldDouble
+   * 	is binded to column value <strong>field_double</strong>
+   * @param fieldString
+   * 	is binded to column value <strong>field_string</strong>
+   * @param fieldByteArray
+   * 	is binded to column value <strong>field_byte_array</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -1120,7 +1152,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE employees SET field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>field_boolean</li>
@@ -1134,23 +1166,35 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<li>field_string</li>
    * 	<li>field_byte_array</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param fieldBoolean 	is used as updated field <strong>fieldBoolean</strong>
-   * @param fieldByte 	is used as updated field <strong>fieldByte</strong>
-   * @param fieldCharacter 	is used as updated field <strong>fieldCharacter</strong>
-   * @param fieldShort 	is used as updated field <strong>fieldShort</strong>
-   * @param fieldInteger 	is used as updated field <strong>fieldInteger</strong>
-   * @param fieldLong 	is used as updated field <strong>fieldLong</strong>
-   * @param fieldFloat 	is used as updated field <strong>fieldFloat</strong>
-   * @param fieldDouble 	is used as updated field <strong>fieldDouble</strong>
-   * @param fieldString 	is used as updated field <strong>fieldString</strong>
-   * @param fieldByteArray 	is used as updated field <strong>fieldByteArray</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as updated field <strong>fieldBoolean</strong>
+   * @param fieldByte
+   * 	is used as updated field <strong>fieldByte</strong>
+   * @param fieldCharacter
+   * 	is used as updated field <strong>fieldCharacter</strong>
+   * @param fieldShort
+   * 	is used as updated field <strong>fieldShort</strong>
+   * @param fieldInteger
+   * 	is used as updated field <strong>fieldInteger</strong>
+   * @param fieldLong
+   * 	is used as updated field <strong>fieldLong</strong>
+   * @param fieldFloat
+   * 	is used as updated field <strong>fieldFloat</strong>
+   * @param fieldDouble
+   * 	is used as updated field <strong>fieldDouble</strong>
+   * @param fieldString
+   * 	is used as updated field <strong>fieldString</strong>
+   * @param fieldByteArray
+   * 	is used as updated field <strong>fieldByteArray</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -1211,12 +1255,12 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE employees SET first_name=:firstName WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>first_name</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -1230,20 +1274,33 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>${fieldDouble}</dt><dd>is mapped to method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>${fieldString}</dt><dd>is mapped to method's parameter <strong>fieldString</strong></dd>
    * 	<dt>${fieldByteArray}</dt><dd>is mapped to method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param firstName 	is used as updated field <strong>firstName</strong>
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param fieldBoolean 	is used as where parameter <strong>${fieldBoolean}</strong>
-   * @param fieldByte 	is used as where parameter <strong>${fieldByte}</strong>
-   * @param fieldCharacter 	is used as where parameter <strong>${fieldCharacter}</strong>
-   * @param fieldShort 	is used as where parameter <strong>${fieldShort}</strong>
-   * @param fieldInteger 	is used as where parameter <strong>${fieldInteger}</strong>
-   * @param fieldLong 	is used as where parameter <strong>${fieldLong}</strong>
-   * @param fieldFloat 	is used as where parameter <strong>${fieldFloat}</strong>
-   * @param fieldDouble 	is used as where parameter <strong>${fieldDouble}</strong>
-   * @param fieldString 	is used as where parameter <strong>${fieldString}</strong>
-   * @param fieldByteArray 	is used as where parameter <strong>${fieldByteArray}</strong>
+   * @param firstName
+   * 	is used as updated field <strong>firstName</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as where parameter <strong>${fieldBoolean}</strong>
+   * @param fieldByte
+   * 	is used as where parameter <strong>${fieldByte}</strong>
+   * @param fieldCharacter
+   * 	is used as where parameter <strong>${fieldCharacter}</strong>
+   * @param fieldShort
+   * 	is used as where parameter <strong>${fieldShort}</strong>
+   * @param fieldInteger
+   * 	is used as where parameter <strong>${fieldInteger}</strong>
+   * @param fieldLong
+   * 	is used as where parameter <strong>${fieldLong}</strong>
+   * @param fieldFloat
+   * 	is used as where parameter <strong>${fieldFloat}</strong>
+   * @param fieldDouble
+   * 	is used as where parameter <strong>${fieldDouble}</strong>
+   * @param fieldString
+   * 	is used as where parameter <strong>${fieldString}</strong>
+   * @param fieldByteArray
+   * 	is used as where parameter <strong>${fieldByteArray}</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -1305,8 +1362,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -1320,19 +1377,31 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>${fieldDouble}</dt><dd>is mapped to method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>${fieldString}</dt><dd>is mapped to method's parameter <strong>fieldString</strong></dd>
    * 	<dt>${fieldByteArray}</dt><dd>is mapped to method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param fieldBoolean 	is used as where parameter <strong>${fieldBoolean}</strong>
-   * @param fieldByte 	is used as where parameter <strong>${fieldByte}</strong>
-   * @param fieldCharacter 	is used as where parameter <strong>${fieldCharacter}</strong>
-   * @param fieldShort 	is used as where parameter <strong>${fieldShort}</strong>
-   * @param fieldInteger 	is used as where parameter <strong>${fieldInteger}</strong>
-   * @param fieldLong 	is used as where parameter <strong>${fieldLong}</strong>
-   * @param fieldFloat 	is used as where parameter <strong>${fieldFloat}</strong>
-   * @param fieldDouble 	is used as where parameter <strong>${fieldDouble}</strong>
-   * @param fieldString 	is used as where parameter <strong>${fieldString}</strong>
-   * @param fieldByteArray 	is used as where parameter <strong>${fieldByteArray}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as where parameter <strong>${fieldBoolean}</strong>
+   * @param fieldByte
+   * 	is used as where parameter <strong>${fieldByte}</strong>
+   * @param fieldCharacter
+   * 	is used as where parameter <strong>${fieldCharacter}</strong>
+   * @param fieldShort
+   * 	is used as where parameter <strong>${fieldShort}</strong>
+   * @param fieldInteger
+   * 	is used as where parameter <strong>${fieldInteger}</strong>
+   * @param fieldLong
+   * 	is used as where parameter <strong>${fieldLong}</strong>
+   * @param fieldFloat
+   * 	is used as where parameter <strong>${fieldFloat}</strong>
+   * @param fieldDouble
+   * 	is used as where parameter <strong>${fieldDouble}</strong>
+   * @param fieldString
+   * 	is used as where parameter <strong>${fieldString}</strong>
+   * @param fieldByteArray
+   * 	is used as where parameter <strong>${fieldByteArray}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -1380,8 +1449,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -1395,19 +1464,31 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>${fieldDouble}</dt><dd>is mapped to method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>${fieldString}</dt><dd>is mapped to method's parameter <strong>fieldString</strong></dd>
    * 	<dt>${fieldByteArray}</dt><dd>is mapped to method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param fieldBoolean 	is used as where parameter <strong>${fieldBoolean}</strong>
-   * @param fieldByte 	is used as where parameter <strong>${fieldByte}</strong>
-   * @param fieldCharacter 	is used as where parameter <strong>${fieldCharacter}</strong>
-   * @param fieldShort 	is used as where parameter <strong>${fieldShort}</strong>
-   * @param fieldInteger 	is used as where parameter <strong>${fieldInteger}</strong>
-   * @param fieldLong 	is used as where parameter <strong>${fieldLong}</strong>
-   * @param fieldFloat 	is used as where parameter <strong>${fieldFloat}</strong>
-   * @param fieldDouble 	is used as where parameter <strong>${fieldDouble}</strong>
-   * @param fieldString 	is used as where parameter <strong>${fieldString}</strong>
-   * @param fieldByteArray 	is used as where parameter <strong>${fieldByteArray}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as where parameter <strong>${fieldBoolean}</strong>
+   * @param fieldByte
+   * 	is used as where parameter <strong>${fieldByte}</strong>
+   * @param fieldCharacter
+   * 	is used as where parameter <strong>${fieldCharacter}</strong>
+   * @param fieldShort
+   * 	is used as where parameter <strong>${fieldShort}</strong>
+   * @param fieldInteger
+   * 	is used as where parameter <strong>${fieldInteger}</strong>
+   * @param fieldLong
+   * 	is used as where parameter <strong>${fieldLong}</strong>
+   * @param fieldFloat
+   * 	is used as where parameter <strong>${fieldFloat}</strong>
+   * @param fieldDouble
+   * 	is used as where parameter <strong>${fieldDouble}</strong>
+   * @param fieldString
+   * 	is used as where parameter <strong>${fieldString}</strong>
+   * @param fieldByteArray
+   * 	is used as where parameter <strong>${fieldByteArray}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -1455,8 +1536,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -1470,19 +1551,31 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * 	<dt>${fieldDouble}</dt><dd>is mapped to method's parameter <strong>fieldDouble</strong></dd>
    * 	<dt>${fieldString}</dt><dd>is mapped to method's parameter <strong>fieldString</strong></dd>
    * 	<dt>${fieldByteArray}</dt><dd>is mapped to method's parameter <strong>fieldByteArray</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param fieldBoolean 	is used as where parameter <strong>${fieldBoolean}</strong>
-   * @param fieldByte 	is used as where parameter <strong>${fieldByte}</strong>
-   * @param fieldCharacter 	is used as where parameter <strong>${fieldCharacter}</strong>
-   * @param fieldShort 	is used as where parameter <strong>${fieldShort}</strong>
-   * @param fieldInteger 	is used as where parameter <strong>${fieldInteger}</strong>
-   * @param fieldLong 	is used as where parameter <strong>${fieldLong}</strong>
-   * @param fieldFloat 	is used as where parameter <strong>${fieldFloat}</strong>
-   * @param fieldDouble 	is used as where parameter <strong>${fieldDouble}</strong>
-   * @param fieldString 	is used as where parameter <strong>${fieldString}</strong>
-   * @param fieldByteArray 	is used as where parameter <strong>${fieldByteArray}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param fieldBoolean
+   * 	is used as where parameter <strong>${fieldBoolean}</strong>
+   * @param fieldByte
+   * 	is used as where parameter <strong>${fieldByte}</strong>
+   * @param fieldCharacter
+   * 	is used as where parameter <strong>${fieldCharacter}</strong>
+   * @param fieldShort
+   * 	is used as where parameter <strong>${fieldShort}</strong>
+   * @param fieldInteger
+   * 	is used as where parameter <strong>${fieldInteger}</strong>
+   * @param fieldLong
+   * 	is used as where parameter <strong>${fieldLong}</strong>
+   * @param fieldFloat
+   * 	is used as where parameter <strong>${fieldFloat}</strong>
+   * @param fieldDouble
+   * 	is used as where parameter <strong>${fieldDouble}</strong>
+   * @param fieldString
+   * 	is used as where parameter <strong>${fieldString}</strong>
+   * @param fieldByteArray
+   * 	is used as where parameter <strong>${fieldByteArray}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -1527,9 +1620,6 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

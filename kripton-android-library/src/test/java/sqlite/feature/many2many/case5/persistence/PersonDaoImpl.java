@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.many2many.case5.persistence;
 
 import android.database.Cursor;
@@ -21,42 +6,30 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import sqlite.feature.many2many.case5.model.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDao</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see PersonDao
- * @see sqlite.feature.many2many.case5.model.PersonTable
+ *  @see Person
+ *  @see PersonDao
+ *  @see sqlite.feature.many2many.case5.model.PersonTable
  */
 public class PersonDaoImpl extends Dao implements PersonDao {
-  
-  /** The insert prepared statement 0. */
   private static SQLiteStatement insertPreparedStatement0;
 
-  /** The Constant SELECT_BY_ID_SQL10. */
   private static final String SELECT_BY_ID_SQL10 = "SELECT id, name, age FROM person WHERE id = ?";
 
-  /** The delete by id prepared statement 1. */
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
-  /** The update by id prepared statement 2. */
   private static SQLiteStatement updateByIdPreparedStatement2;
 
-  /**
-   * Instantiates a new person dao impl.
-   *
-   * @param context the context
-   */
-  public PersonDaoImpl(SQLContext context) {
-    super(context);
+  public PersonDaoImpl(BindXenoDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
@@ -131,22 +104,23 @@ public class PersonDaoImpl extends Dao implements PersonDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name, age FROM person WHERE id = ${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>age</dt><dd>is associated to bean's property <strong>age</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -199,14 +173,16 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = ${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
@@ -283,9 +259,6 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     return result!=0;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertPreparedStatement0!=null) {
       insertPreparedStatement0.close();

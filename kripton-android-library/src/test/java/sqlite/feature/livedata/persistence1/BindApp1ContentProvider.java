@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.livedata.persistence1;
 
 import android.content.ContentProvider;
@@ -23,7 +8,6 @@ import android.net.Uri;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>This is the content provider generated for {@link App1DataSource}</p>
  *
@@ -57,13 +41,19 @@ public class BindApp1ContentProvider extends ContentProvider {
    */
   public static final String URI = "content://com.abubsoft.kripton";
 
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   private static BindApp1DataSource dataSource;
 
-  /** <p>Content provider authority</p>. */
+  /**
+   * <p>Content provider authority</p>
+   */
   public static final String AUTHORITY = "com.abubsoft.kripton";
 
-  /** <p>URI matcher</p>. */
+  /**
+   * <p>URI matcher</p>
+   */
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
   /**
@@ -84,22 +74,16 @@ public class BindApp1ContentProvider extends ContentProvider {
    */
   private static final Uri URI_PATH_PERSON_3 = Uri.parse(URI+"/persons/*");
 
-  /** The Constant PATH_PERSON_1. */
   static final String PATH_PERSON_1 = "persons";
 
-  /** The Constant PATH_PERSON_2. */
   static final String PATH_PERSON_2 = "persons/#";
 
-  /** The Constant PATH_PERSON_3. */
   static final String PATH_PERSON_3 = "persons/*";
 
-  /** The Constant PATH_PERSON_1_INDEX. */
   static final int PATH_PERSON_1_INDEX = 1;
 
-  /** The Constant PATH_PERSON_2_INDEX. */
   static final int PATH_PERSON_2_INDEX = 2;
 
-  /** The Constant PATH_PERSON_3_INDEX. */
   static final int PATH_PERSON_3_INDEX = 3;
 
   /**
@@ -151,7 +135,6 @@ public class BindApp1ContentProvider extends ContentProvider {
   /**
    * <p>Create datasource and open database in read mode.</p>
    *
-   * @return true, if successful
    * @see android.content.ContentProvider#onCreate()
    */
   @Override
@@ -176,6 +159,7 @@ public class BindApp1ContentProvider extends ContentProvider {
   }
 
   /**
+   *
    * <h2>Supported query operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
@@ -183,12 +167,6 @@ public class BindApp1ContentProvider extends ContentProvider {
    * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}</pre></td><td>{@link DaoPerson1Impl#select0}</td></tr>
    * </table>
    *
-   * @param uri the uri
-   * @param projection the projection
-   * @param selection the selection
-   * @param selectionArgs the selection args
-   * @param sortOrder the sort order
-   * @return the cursor
    */
   @Override
   public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -213,15 +191,13 @@ public class BindApp1ContentProvider extends ContentProvider {
   }
 
   /**
+   *
    * <h2>Supported insert operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
    * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPerson1Impl#insert2}</td></tr>
    * </table>
    *
-   * @param uri the uri
-   * @param contentValues the content values
-   * @return the uri
    */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
@@ -248,17 +224,13 @@ public class BindApp1ContentProvider extends ContentProvider {
   }
 
   /**
+   *
    * <h2>Supported update operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
    * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPerson1Impl#update3}</td></tr>
    * </table>
    *
-   * @param uri the uri
-   * @param contentValues the content values
-   * @param selection the selection
-   * @param selectionArgs the selection args
-   * @return the int
    */
   @Override
   public int update(Uri uri, ContentValues contentValues, String selection,
@@ -283,17 +255,11 @@ public class BindApp1ContentProvider extends ContentProvider {
     return returnRowUpdated;
   }
 
-  /* (non-Javadoc)
-   * @see android.content.ContentProvider#delete(android.net.Uri, java.lang.String, java.lang.String[])
-   */
   @Override
   public int delete(Uri uri, String selection, String[] selectionArgs) {
     throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
   }
 
-  /* (non-Javadoc)
-   * @see android.content.ContentProvider#getType(android.net.Uri)
-   */
   @Override
   public String getType(Uri uri) {
     switch (sURIMatcher.match(uri)) {

@@ -1,24 +1,10 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.livedata.persistence0;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
@@ -45,10 +31,9 @@ import java.util.List;
 import java.util.Set;
 import sqlite.feature.livedata.data.PersonTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
- * Represents implementation of datasource App0DataSource.
+ * Implementation of the App0DataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -59,77 +44,59 @@ import sqlite.feature.livedata.data.PersonTable;
  * @see Person
  */
 public class BindApp0DataSource extends AbstractDataSource implements BindApp0DaoFactory, App0DataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindApp0DataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao DaoPerson0. */
+  /**
+   * Unique identifier for Dao DaoPerson0
+   */
   public static final int DAO_PERSON0_UID = 0;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new PersonTable()};
 
-  /** <p>dao instance</p>. */
-  protected DaoPerson0Impl daoPerson0 = new DaoPerson0Impl(context);
+  /**
+   * <p>dao instance</p>
+   */
+  protected DaoPerson0Impl daoPerson0 = new DaoPerson0Impl(this);
 
-  /** The global subscribe on. */
   protected Scheduler globalSubscribeOn;
 
-  /** The global observe on. */
   protected Scheduler globalObserveOn;
 
-  /** Used only in transactions (that can be executed one for time. */
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  /**
-   * Instantiates a new bind app 0 data source.
-   *
-   * @param options the options
-   */
   protected BindApp0DataSource(DataSourceOptions options) {
     super("app.db", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.livedata.persistence0.BindApp0DaoFactory#getDaoPerson0()
-   */
   @Override
   public DaoPerson0Impl getDaoPerson0() {
     return daoPerson0;
   }
 
-  /**
-   * Global subscribe on.
-   *
-   * @param scheduler the scheduler
-   * @return the bind app 0 data source
-   */
   public BindApp0DataSource globalSubscribeOn(Scheduler scheduler) {
     this.globalSubscribeOn=scheduler;
     return this;
   }
 
-  /**
-   * Global observe on.
-   *
-   * @param scheduler the scheduler
-   * @return the bind app 0 data source
-   */
   public BindApp0DataSource globalObserveOn(Scheduler scheduler) {
     this.globalObserveOn=scheduler;
     return this;
   }
 
-  /**
-   * Execute.
-   *
-   * @param <T> the generic type
-   * @param transaction the transaction
-   * @return the observable
-   */
   public <T> Observable<T> execute(final ObservableTransaction<T> transaction) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
@@ -169,13 +136,6 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return result;
   }
 
-  /**
-   * Execute.
-   *
-   * @param <T> the generic type
-   * @param transaction the transaction
-   * @return the single
-   */
   public <T> Single<T> execute(final SingleTransaction<T> transaction) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
@@ -215,13 +175,6 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return result;
   }
 
-  /**
-   * Execute.
-   *
-   * @param <T> the generic type
-   * @param transaction the transaction
-   * @return the flowable
-   */
   public <T> Flowable<T> execute(final FlowableTransaction<T> transaction) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
@@ -261,13 +214,6 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return result;
   }
 
-  /**
-   * Execute.
-   *
-   * @param <T> the generic type
-   * @param transaction the transaction
-   * @return the maybe
-   */
   public <T> Maybe<T> execute(final MaybeTransaction<T> transaction) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
@@ -307,14 +253,6 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @param writeMode the write mode
-   * @return the observable
-   */
   public <T> Observable<T> executeBatch(final ObservableBatch<T> batch, final boolean writeMode) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
@@ -343,25 +281,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @return the observable
-   */
   public <T> Observable<T> executeBatch(final ObservableBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @param writeMode the write mode
-   * @return the single
-   */
   public <T> Single<T> executeBatch(final SingleBatch<T> batch, final boolean writeMode) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
@@ -390,25 +313,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @return the single
-   */
   public <T> Single<T> executeBatch(final SingleBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @param writeMode the write mode
-   * @return the flowable
-   */
   public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch, final boolean writeMode) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
@@ -437,25 +345,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @return the flowable
-   */
   public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @param writeMode the write mode
-   * @return the maybe
-   */
   public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch, final boolean writeMode) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
@@ -484,22 +377,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @return the maybe
-   */
   public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  /**
-   * Person subject.
-   *
-   * @return the publish subject
-   */
   public PublishSubject<SQLiteEvent> personSubject() {
     return daoPerson0.subject();
   }
@@ -553,9 +434,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -564,10 +444,10 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -591,8 +471,6 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind app 0 data source
    */
   public static BindApp0DataSource instance() {
     BindApp0DataSource result=instance;
@@ -639,9 +517,7 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -668,11 +544,7 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -716,9 +588,7 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -728,18 +598,12 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     DaoPerson0Impl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind app 0 data source
    */
   public static BindApp0DataSource build(DataSourceOptions options) {
     BindApp0DataSource result=instance;
@@ -773,143 +637,41 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
   }
 
-  /**
-   * The Interface ObservableBatch.
-   *
-   * @param <T> the generic type
-   */
   public interface ObservableBatch<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     */
     void onExecute(BindApp0DaoFactory daoFactory, ObservableEmitter<T> emitter);
   }
 
-  /**
-   * The Interface ObservableTransaction.
-   *
-   * @param <T> the generic type
-   */
   public interface ObservableTransaction<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     * @return the transaction result
-     */
     TransactionResult onExecute(BindApp0DaoFactory daoFactory, ObservableEmitter<T> emitter);
   }
 
-  /**
-   * The Interface SingleBatch.
-   *
-   * @param <T> the generic type
-   */
   public interface SingleBatch<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     */
     void onExecute(BindApp0DaoFactory daoFactory, SingleEmitter<T> emitter);
   }
 
-  /**
-   * The Interface SingleTransaction.
-   *
-   * @param <T> the generic type
-   */
   public interface SingleTransaction<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     * @return the transaction result
-     */
     TransactionResult onExecute(BindApp0DaoFactory daoFactory, SingleEmitter<T> emitter);
   }
 
-  /**
-   * The Interface FlowableBatch.
-   *
-   * @param <T> the generic type
-   */
   public interface FlowableBatch<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     */
     void onExecute(BindApp0DaoFactory daoFactory, FlowableEmitter<T> emitter);
   }
 
-  /**
-   * The Interface FlowableTransaction.
-   *
-   * @param <T> the generic type
-   */
   public interface FlowableTransaction<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     * @return the transaction result
-     */
     TransactionResult onExecute(BindApp0DaoFactory daoFactory, FlowableEmitter<T> emitter);
   }
 
-  /**
-   * The Interface MaybeBatch.
-   *
-   * @param <T> the generic type
-   */
   public interface MaybeBatch<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     */
     void onExecute(BindApp0DaoFactory daoFactory, MaybeEmitter<T> emitter);
   }
 
-  /**
-   * The Interface MaybeTransaction.
-   *
-   * @param <T> the generic type
-   */
   public interface MaybeTransaction<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     * @return the transaction result
-     */
     TransactionResult onExecute(BindApp0DaoFactory daoFactory, MaybeEmitter<T> emitter);
   }
 
@@ -917,83 +679,66 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindApp0DaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindApp0DaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindApp0DaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindApp0DaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The dao person 0. */
     protected DaoPerson0Impl _daoPerson0;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindApp0DataSource.this);
     }
 
     /**
-     * retrieve dao DaoPerson0.
      *
-     * @return the dao person 0
+     * retrieve dao DaoPerson0
      */
     public DaoPerson0Impl getDaoPerson0() {
       if (_daoPerson0==null) {
-        _daoPerson0=new DaoPerson0Impl(_context);
+        _daoPerson0=new DaoPerson0Impl(this);
       }
       return _daoPerson0;
     }
 
-    /**
-     * On session opened.
-     */
+    @Override
+    public SQLContext context() {
+      return _context;
+    }
+
     protected void onSessionOpened() {
       // support for live data
       _context.onSessionOpened();
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
       // support for live data
       _context.onSessionOpened();
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
       // support for live data
       Set<Integer> daosWithEvents=_context.onSessionClosed();
@@ -1002,11 +747,6 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
       }
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

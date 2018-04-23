@@ -22,14 +22,16 @@ import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
-import sqlite.feat.includeFields.IncludeFieldsTestSuite;
+import sqlite.feature.childselect.TestChildSelectSuite;
+import sqlite.feature.columnaffinity.TestColumnAffinityTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
 import sqlite.feature.datasourceoptions.FeatureDataSourceOptionsTest;
 import sqlite.feature.dynamic.TestDynamicSuite;
-import sqlite.feature.foreignKey.TestForeignKeySuite;
+import sqlite.feature.foreignkey.TestForeignKeySuite;
 import sqlite.feature.foreignkeyaction.TestForeignKeyActionSuite;
 import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.globaltypeadapters.TestGlobalSqlTypeAdaptersSuite;
+import sqlite.feature.includefields.IncludeFieldsTestSuite;
 import sqlite.feature.indexes.IndexTestSuite;
 import sqlite.feature.javadoc.TestJavadocFeatureSuite;
 import sqlite.feature.join.TestJoinFeatureSuite;
@@ -37,8 +39,9 @@ import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.feature.livedata.TestLiveDataSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.multithread.TestCompileMultithreadSuite;
-import sqlite.feature.paginatedResult.TestPaginatedResultSuite;
+import sqlite.feature.paginatedresult.TestPaginatedResultSuite;
 import sqlite.feature.performance.TestPerformanceSuite;
+import sqlite.feature.relations.TestRelationSuite;
 import sqlite.feature.rx.TestRXSuite;
 import sqlite.feature.schema.TestSchemaSuite;
 import sqlite.feature.speed.TestCompileSpeed;
@@ -67,6 +70,7 @@ import sqlite.kripton84.Test84Suite;
 import sqlite.kripton93.Test93Suite;
 import sqlite.kripton96.Test96Suite;
 import sqlite.quickstart.TestQuickstartSuite;
+import sqlite.samples.TestSamplesSuite;
 import sqlite.select.TestSelectSuite;
 import sqlite.stack44330452.TestStack44330452Suite;
 import sqlite.stack44633883.TestStack44633883Suite;
@@ -95,7 +99,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestJavadocFeatureSuite.class,
 			TestDynamicSuite.class,
 			TestSchemaSuite.class,
-			IndexTestSuite.class,
+			IndexTestSuite.class,			
 			TestTypeAdapterSuite.class,			
 			TestCompileMany2ManySuite.class,
 			TestGlobalSqlTypeAdaptersSuite.class,
@@ -104,6 +108,9 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestCompileSpeed.class,
 			TestLiveDataSuite.class,
 			TestJoinFeatureSuite.class,
+			TestRelationSuite.class,
+			TestColumnAffinityTestSuite.class,
+			TestChildSelectSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,
@@ -144,6 +151,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestStack45184504Suite.class,	
 			Test205Suite.class,
 			FeatureDataSourceOptionsTest.class,
+			
+			TestSamplesSuite.class,
 						
 			TestPerformanceSuite.class,
 			TestSelectSuite.class,

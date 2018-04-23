@@ -30,11 +30,11 @@ import sqlite.feature.many2many.Person;
 public class PersonCityErr4 extends Entity {
 	
 	/** The person id. */
-	@BindColumn(foreignKey=Person.class)
+	@BindColumn(parentEntity=Person.class)
 	public long personId; 
 	
 	/** The city id. */
-	@BindColumn(foreignKey=City.class)
+	@BindColumn(parentEntity=City.class)
 	public long cityId;
 
 }

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton63;
 
 import android.content.SharedPreferences;
@@ -32,22 +17,24 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is the shared preference binder defined for Bean63.
+ * This class is the shared preference binder defined for Bean63
  *
  * @see Bean63
  */
 public class BindBean63SharedPreferences extends AbstractSharedPreference {
-  
-  /** instance of shared preferences. */
+  /**
+   * instance of shared preferences
+   */
   private static BindBean63SharedPreferences instance;
 
-  /** working instance of bean. */
+  /**
+   * working instance of bean
+   */
   private final Bean63 defaultBean;
 
   /**
-   * constructor.
+   * constructor
    */
   private BindBean63SharedPreferences() {
     // no typeName specified, using default shared preferences
@@ -56,18 +43,14 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * create an editor to modify shared preferences.
-   *
-   * @return the bind editor
+   * create an editor to modify shared preferences
    */
   public BindEditor edit() {
     return new BindEditor();
   }
 
   /**
-   * force to refresh values.
-   *
-   * @return the bind bean 63 shared preferences
+   * force to refresh values
    */
   public BindBean63SharedPreferences refresh() {
     // no typeName specified, using default shared preferences
@@ -76,7 +59,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reset shared preferences.
+   * reset shared preferences
    */
   public void reset() {
     Bean63 bean=new Bean63();
@@ -84,7 +67,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read bean entirely.
+   * read bean entirely
    *
    * @return read bean
    */
@@ -107,7 +90,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write bean entirely.
+   * write bean entirely
    *
    * @param bean bean to entirely write
    */
@@ -136,7 +119,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property id.
+   * read property id
    *
    * @return property id value
    */
@@ -145,7 +128,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property value.
+   * read property value
    *
    * @return property value value
    */
@@ -154,7 +137,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueMapStringByte.
+   * read property valueMapStringByte
    *
    * @return property valueMapStringByte value
    */
@@ -165,7 +148,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueMapEnumByte.
+   * read property valueMapEnumByte
    *
    * @return property valueMapEnumByte value
    */
@@ -176,10 +159,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueMapStringByte serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueMapStringByte serialization
    */
   protected String serializeValueMapStringByte(Map<String, Byte> value) {
     if (value==null) {
@@ -220,10 +200,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueMapStringByte parsing.
-   *
-   * @param input the input
-   * @return the map
+   * for attribute valueMapStringByte parsing
    */
   protected Map<String, Byte> parseValueMapStringByte(String input) {
     if (input==null) {
@@ -262,10 +239,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueMapEnumByte serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute valueMapEnumByte serialization
    */
   protected String serializeValueMapEnumByte(HashMap<EnumType, Byte> value) {
     if (value==null) {
@@ -306,10 +280,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueMapEnumByte parsing.
-   *
-   * @param input the input
-   * @return the hash map
+   * for attribute valueMapEnumByte parsing
    */
   protected HashMap<EnumType, Byte> parseValueMapEnumByte(String input) {
     if (input==null) {
@@ -351,9 +322,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * get instance of shared preferences.
-   *
-   * @return the bind bean 63 shared preferences
+   * get instance of shared preferences
    */
   public static synchronized BindBean63SharedPreferences instance() {
     if (instance==null) {
@@ -363,21 +332,14 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * editor class for shared preferences.
+   * editor class for shared preferences
    */
   public class BindEditor extends AbstractEditor {
-    
-    /**
-     * Instantiates a new bind editor.
-     */
     private BindEditor() {
     }
 
     /**
-     * modifier for property id.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property id
      */
     public BindEditor putId(long value) {
       editor.putLong("id",value);
@@ -386,10 +348,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property value.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property value
      */
     public BindEditor putValue(String value) {
       editor.putString("value",value);
@@ -398,10 +357,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueMapStringByte.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueMapStringByte
      */
     public BindEditor putValueMapStringByte(Map<String, Byte> value) {
       if (value!=null)  {
@@ -415,10 +371,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueMapEnumByte.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property valueMapEnumByte
      */
     public BindEditor putValueMapEnumByte(HashMap<EnumType, Byte> value) {
       if (value!=null)  {

@@ -20,7 +20,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// TODO: Auto-generated Javadoc
 /**
  * Given a data-source definition, this annotation allows generating the
  * associated content provider. Basically, this annotation simply specifies the
@@ -52,7 +51,7 @@ import java.lang.annotation.Target;
  * </p>
  * 
  * <pre>
-&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.MyApplication"&gt;
 
@@ -61,9 +60,9 @@ import java.lang.annotation.Target;
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:supportsRtl="true"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme"&gt;
          &lt;activity android:name=".MainActivity"&gt;
-            &lt;intent-filter>
+            &lt;intent-filter&gt;
                &lt;action android:name="android.intent.action.MAIN" /&gt;
                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
             &lt;/intent-filter&gt;

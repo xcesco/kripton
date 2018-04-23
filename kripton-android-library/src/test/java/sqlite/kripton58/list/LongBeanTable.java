@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton58.list;
 
 import com.abubusoft.kripton.KriptonBinder;
@@ -29,7 +14,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>LongBean</code> is associated to table <code>long_bean</code>
@@ -38,14 +22,27 @@ import java.util.List;
  *  @see LongBean
  */
 public class LongBeanTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table long_bean. */
+  /**
+   * Costant represents typeName of table long_bean
+   */
   public static final String TABLE_NAME = "long_bean";
 
-  /** <p> DDL to create table long_bean </p>  <pre>CREATE TABLE long_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>. */
+  /**
+   * <p>
+   * DDL to create table long_bean
+   * </p>
+   *
+   * <pre>CREATE TABLE long_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE long_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);";
 
-  /** <p> DDL to drop table long_bean </p>  <pre>DROP TABLE IF EXISTS long_bean;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table long_bean
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS long_bean;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS long_bean;";
 
   /**
@@ -69,14 +66,13 @@ public class LongBeanTable implements SQLiteTable {
    */
   public static final String COLUMN_VALUE2 = "value2";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE2};
 
   /**
-   * for attribute value serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute value serialization
    */
   public static byte[] serializeValue(List<Long> value) {
     if (value==null) {
@@ -113,10 +109,7 @@ public class LongBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value parsing.
-   *
-   * @param input the input
-   * @return the list
+   * for attribute value parsing
    */
   public static List<Long> parseValue(byte[] input) {
     if (input==null) {
@@ -150,10 +143,7 @@ public class LongBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value2 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for attribute value2 serialization
    */
   public static byte[] serializeValue2(LinkedList<Long> value) {
     if (value==null) {
@@ -190,10 +180,7 @@ public class LongBeanTable implements SQLiteTable {
   }
 
   /**
-   * for attribute value2 parsing.
-   *
-   * @param input the input
-   * @return the linked list
+   * for attribute value2 parsing
    */
   public static LinkedList<Long> parseValue2(byte[] input) {
     if (input==null) {
@@ -227,9 +214,7 @@ public class LongBeanTable implements SQLiteTable {
   }
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -237,9 +222,7 @@ public class LongBeanTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

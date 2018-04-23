@@ -1,47 +1,37 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton96;
 
 import android.database.Cursor;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Cursor implementation for entity <code>Bean96</code>
- * </p>.
- *
- * @see Bean96
+ * </p>
+ *  @see Bean96
  */
 public class BindBean96Cursor {
-  
-  /** Cursor used to read database. */
+  /**
+   * Cursor used to read database
+   */
   protected Cursor cursor;
 
-  /** Index for column "id". */
+  /**
+   * Index for column "id"
+   */
   protected int index0;
 
-  /** Index for column "name". */
+  /**
+   * Index for column "name"
+   */
   protected int index1;
 
-  /** Index for column "surname". */
+  /**
+   * Index for column "surname"
+   */
   protected int index2;
 
   /**
-   * <p>Constructor</p>.
+   * <p>Constructor</p>
    *
    * @param cursor cursor used to read from database
    */
@@ -50,10 +40,9 @@ public class BindBean96Cursor {
   }
 
   /**
-   * <p>Wrap cursor with this class</p>.
+   * <p>Wrap cursor with this class</p>
    *
    * @param cursor cursor to include
-   * @return the bind bean 96 cursor
    */
   public BindBean96Cursor wrap(Cursor cursor) {
     this.cursor=cursor;
@@ -118,10 +107,9 @@ public class BindBean96Cursor {
   }
 
   /**
-   * <p>Create a binded cursor starting from a cursor</p>.
+   * <p>Create a binded cursor starting from a cursor</p>
    *
    * @param cursor to wrap
-   * @return the bind bean 96 cursor
    */
   public static BindBean96Cursor create(Cursor cursor) {
     return new BindBean96Cursor(cursor);
@@ -129,13 +117,10 @@ public class BindBean96Cursor {
 
   /**
    * <p>Listener for row read from database.</p>
-   *
-   * @see OnBean96Event
    */
   public interface OnBean96Listener {
-    
     /**
-     * Method executed for each row extracted from database.
+     * Method executed for each row extracted from database
      *
      * @param bean loaded from database. Only selected columns/fields are valorized
      * @param rowPosition position of row

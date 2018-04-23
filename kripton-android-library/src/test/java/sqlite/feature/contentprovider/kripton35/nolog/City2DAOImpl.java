@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.contentprovider.kripton35.nolog;
 
 import android.content.ContentValues;
@@ -23,44 +8,32 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.Set;
 import sqlite.feature.contentprovider.kripton35.entities.City;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>City</code>, based on interface <code>City2DAO</code>
- * </p>.
+ * </p>
  *
- * @see City
- * @see City2DAO
- * @see sqlite.feature.contentprovider.kripton35.entities.CityTable
+ *  @see City
+ *  @see City2DAO
+ *  @see sqlite.feature.contentprovider.kripton35.entities.CityTable
  */
 public class City2DAOImpl extends Dao implements City2DAO {
-  
-  /** The insert bean prepared statement 0. */
   private static SQLiteStatement insertBeanPreparedStatement0;
 
-  /** The Constant insertBean0ColumnSet. */
   private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  /** The Constant SELECT_CITY_FROM_PERSON_SQL2. */
   private static final String SELECT_CITY_FROM_PERSON_SQL2 = "select * from city where id = (select id from person where id=? )";
 
-  /** The Constant selectCityFromPerson1ColumnSet. */
   private static final Set<String> selectCityFromPerson1ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
-  /**
-   * Instantiates a new city 2 DAO impl.
-   *
-   * @param context the context
-   */
-  public City2DAOImpl(SQLContext context) {
-    super(context);
+  public City2DAOImpl(BindPerson2DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
@@ -138,21 +111,22 @@ public class City2DAOImpl extends Dao implements City2DAO {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>select * from city where id = (select id from person where id=${personId} )</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${personId}</dt><dd>is binded to method's parameter <strong>personId</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param personId 	is binded to <code>${personId}</code>
+   * @param personId
+   * 	is binded to <code>${personId}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -185,27 +159,25 @@ public class City2DAOImpl extends Dao implements City2DAO {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/cities/person/#</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>select * from City where id = (select id from Person where id=${personId} )</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>select * from city where id = (select id from person where id=${personId} )</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${personId}</strong> at path segment 2</li>
    * </ul>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.contentprovider.kripton35.nolog/cities/person/#"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectCityFromPerson1(Uri uri, String[] projection, String selection,
@@ -250,9 +222,6 @@ public class City2DAOImpl extends Dao implements City2DAO {
     return _result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (insertBeanPreparedStatement0!=null) {
       insertBeanPreparedStatement0.close();

@@ -18,9 +18,9 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.getter;
 import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.setter;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.common.EnumUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -104,7 +104,7 @@ public class EnumSQLTransform extends AbstractSQLTransform {
 	 * @see com.abubusoft.kripton.processor.sqlite.transform.SQLTransform#getColumnType()
 	 */
 	@Override
-	public SQLiteColumnType getColumnType() {
-		return SQLiteColumnType.TEXT;
+	public ColumnAffinityType getColumnType() {
+		return ColumnAffinityType.TEXT;
 	}
 }

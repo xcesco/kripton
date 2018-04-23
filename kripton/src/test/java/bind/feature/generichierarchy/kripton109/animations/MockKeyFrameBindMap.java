@@ -11,18 +11,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for MockKeyFrame.
+ * This class is binder map for MockKeyFrame
  *
  * @see MockKeyFrame
  */
 @BindMap(MockKeyFrame.class)
 public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(MockKeyFrame object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -49,9 +44,6 @@ public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(MockKeyFrame object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -77,12 +69,7 @@ public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(MockKeyFrame object, XMLSerializer xmlSerializer, int currentEventType)
@@ -112,11 +99,7 @@ public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the mock key frame
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public MockKeyFrame parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -157,11 +140,7 @@ public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the mock key frame
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public MockKeyFrame parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -202,12 +181,7 @@ public class MockKeyFrameBindMap extends AbstractMapper<MockKeyFrame> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the mock key frame
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public MockKeyFrame parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

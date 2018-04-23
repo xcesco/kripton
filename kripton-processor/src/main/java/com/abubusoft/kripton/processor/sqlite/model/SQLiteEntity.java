@@ -15,7 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.util.Elements;
@@ -27,9 +29,9 @@ import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.Touple;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLiteEntity.
  */
@@ -48,20 +50,34 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	public SQLiteDatabaseSchema schema;
 
 	/**
+	 * Set of relation field declared.
+	 * <ol>
+	 * <li>name of property in parent entity</li>
+	 * <li>property used as relation. This property is not referenced in the
+	 * property set.</li>
+	 * <li>child entity</li>
+	 * <li>relation type</li>
+	 * </ol>
+	 * 
+	 */
+	public List<Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>> relations = new ArrayList<Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>>();
+
+	/**
 	 * Instantiates a new SQ lite entity.
 	 *
-	 * @param schema the schema
-	 * @param bindEntity the bind entity
+	 * @param schema
+	 *            the schema
+	 * @param bindEntity
+	 *            the bind entity
 	 */
 	public SQLiteEntity(SQLiteDatabaseSchema schema, BindEntity bindEntity) {
 		super(bindEntity.getElement());
-		
-		this.annotations=bindEntity.getAnnotations();
-		this.schema=schema;
+
+		this.annotations = bindEntity.getAnnotations();
+		this.schema = schema;
 
 		buildTableName(BaseProcessor.elementUtils, schema);
 	}
-
 
 	/**
 	 * Check how many PK are defined in entity. Only one field can be PK.
@@ -98,9 +114,12 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 		return id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.core.Finder#getTableName()
 	 */
+	@Override
 	public String getTableName() {
 		return tableName;
 	}
@@ -108,8 +127,10 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	/**
 	 * Builds the table name.
 	 *
-	 * @param elementUtils the element utils
-	 * @param schema the schema
+	 * @param elementUtils
+	 *            the element utils
+	 * @param schema
+	 *            the schema
 	 * @return the string
 	 */
 	private String buildTableName(Elements elementUtils, SQLiteDatabaseSchema schema) {
@@ -123,6 +144,42 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 
 		return tableName;
 
+	}
+
+	/**
+	 * find a relation specifing parent field name, that is the name of the
+	 * relation
+	 * 
+	 * @param parentFieldName
+	 * @return
+	 */
+	public Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> findRelationByParentProperty(String parentFieldName) {
+		for (Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> item : relations) {
+			if (item.value0.getName().equals(parentFieldName)) {
+				return item;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * retrieve property defined as foreign key to entity parameter or null
+	 * 
+	 * @param entity
+	 *            referred entity
+	 * @param fieldName
+	 * @return property used as foreign key
+	 */
+	public SQLProperty getForeignKeysToEntity(SQLiteEntity entity, String fieldName) {
+
+		for (SQLProperty item : this.collection) {
+			if (item.isForeignKey() && entity.getName().equals(item.foreignParentClassName) && item.getName().equals(fieldName)) {
+				return item;
+			}
+		}
+
+		return null;
 	}
 
 }

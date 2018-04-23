@@ -1,23 +1,7 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.performance.simple;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Entity <code>SimpleAddressItem</code> is associated to table <code>simple_address_item</code>
@@ -26,14 +10,27 @@ import com.abubusoft.kripton.android.sqlite.SQLiteTable;
  *  @see SimpleAddressItem
  */
 public class SimpleAddressItemTable implements SQLiteTable {
-  
-  /** Costant represents typeName of table simple_address_item. */
+  /**
+   * Costant represents typeName of table simple_address_item
+   */
   public static final String TABLE_NAME = "simple_address_item";
 
-  /** <p> DDL to create table simple_address_item </p>  <pre>CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, city TEXT, state TEXT, phone INTEGER);</pre>. */
+  /**
+   * <p>
+   * DDL to create table simple_address_item
+   * </p>
+   *
+   * <pre>CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, city TEXT, state TEXT, phone INTEGER);</pre>
+   */
   public static final String CREATE_TABLE_SQL = "CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, city TEXT, state TEXT, phone INTEGER);";
 
-  /** <p> DDL to drop table simple_address_item </p>  <pre>DROP TABLE IF EXISTS simple_address_item;</pre>. */
+  /**
+   * <p>
+   * DDL to drop table simple_address_item
+   * </p>
+   *
+   * <pre>DROP TABLE IF EXISTS simple_address_item;</pre>
+   */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS simple_address_item;";
 
   /**
@@ -78,13 +75,13 @@ public class SimpleAddressItemTable implements SQLiteTable {
    */
   public static final String COLUMN_PHONE = "phone";
 
-  /** Columns array. */
+  /**
+   * Columns array
+   */
   private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_ADDRESS, COLUMN_CITY, COLUMN_STATE, COLUMN_PHONE};
 
   /**
-   * Columns array.
-   *
-   * @return the string[]
+   * Columns array
    */
   @Override
   public String[] columns() {
@@ -92,9 +89,7 @@ public class SimpleAddressItemTable implements SQLiteTable {
   }
 
   /**
-   * table name.
-   *
-   * @return the string
+   * table name
    */
   @Override
   public String name() {

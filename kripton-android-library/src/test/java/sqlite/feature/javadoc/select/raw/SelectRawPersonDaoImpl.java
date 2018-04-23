@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.javadoc.select.raw;
 
 import android.database.Cursor;
@@ -21,7 +6,6 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -30,75 +14,56 @@ import java.util.List;
 import java.util.Set;
 import sqlite.feature.javadoc.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>SelectRawPersonDao</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see SelectRawPersonDao
- * @see sqlite.feature.javadoc.PersonTable
+ *  @see Person
+ *  @see SelectRawPersonDao
+ *  @see sqlite.feature.javadoc.PersonTable
  */
 public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
-  
-  /** The Constant SELECT_ALL_BEANS_SQL1. */
   private static final String SELECT_ALL_BEANS_SQL1 = "SELECT id, person_name, person_surname, student FROM person";
 
-  /** The Constant selectAllBeans0ColumnSet. */
   private static final Set<String> selectAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  /** The Constant SELECT_ALL_BEANS_COUNT_SQL2. */
   private static final String SELECT_ALL_BEANS_COUNT_SQL2 = "SELECT count(*) FROM person";
 
-  /** The Constant selectAllBeansCount1ColumnSet. */
   private static final Set<String> selectAllBeansCount1ColumnSet = CollectionUtils.asSet(String.class, "count(*)");
 
-  /** The Constant SELECT_ONE_BEAN_SQL3. */
   private static final String SELECT_ONE_BEAN_SQL3 = "SELECT id, person_name, person_surname, student FROM person WHERE id=?";
 
-  /** The Constant selectOneBean2ColumnSet. */
   private static final Set<String> selectOneBean2ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  /** The Constant selectOneBeanWithDynamic3ColumnSet. */
   private static final Set<String> selectOneBeanWithDynamic3ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  /** The Constant selectOneBeanWithDynamicAndArgs4ColumnSet. */
   private static final Set<String> selectOneBeanWithDynamicAndArgs4ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  /** The Constant selectOneBeanWithDynamicOrder5ColumnSet. */
   private static final Set<String> selectOneBeanWithDynamicOrder5ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  /** The Constant selectOneBeanWithDynamicOrderAndListener6ColumnSet. */
   private static final Set<String> selectOneBeanWithDynamicOrderAndListener6ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  /** The Constant SELECT_WITH_J_Q_L_SQL4. */
   private static final String SELECT_WITH_J_Q_L_SQL4 = "select * from person where id=?";
 
-  /** The Constant selectWithJQL7ColumnSet. */
   private static final Set<String> selectWithJQL7ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  /**
-   * Instantiates a new select raw person dao impl.
-   *
-   * @param context the context
-   */
-  public SelectRawPersonDaoImpl(SQLContext context) {
-    super(context);
+  public SelectRawPersonDaoImpl(BindSelectRawPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, person_name, person_surname, student FROM person</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personName</strong></dd>
    * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -159,22 +124,20 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, personName, personSurname, student FROM Person</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, person_name, person_surname, student FROM person</pre>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.javadoc.bean/persons"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectAllBeans0(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -223,13 +186,13 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT count(*) FROM person</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
-   * </dl>.
+   * </dl>
    *
    * @return single value extracted by query.
    */
@@ -273,22 +236,20 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.javadoc.bean/persons/a</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT count(*) FROM Person</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT count(*) FROM person</pre>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.javadoc.bean/persons/a"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectAllBeansCount1(Uri uri, String[] projection, String selection,
@@ -337,9 +298,9 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -347,13 +308,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -408,27 +370,25 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${id}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${id}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${id}</strong> at path segment 1</li>
    * </ul>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.javadoc.bean/persons/#"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectOneBean2(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -569,25 +529,23 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT personName FROM Person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT person_name FROM person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${id}</strong> at path segment 2</li>
    * </ul>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.javadoc.bean/persons/dynamic/#"
-   * @param projection the projection
-   * @param selection dynamic part of <code>where</code> statement
-   * @param selectionArgs arguments of dynamic part of <code>where</code> statement
-   * @param sortOrder the sort order
+   * @param selection dynamic part of <code>where</code> statement 
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
   Cursor selectOneBeanWithDynamic3(Uri uri, String[] projection, String selection,
@@ -752,26 +710,24 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#/[*]</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${id} and personName=${name} AND #{DYNAMIC_WHERE}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${id} and person_name=${name} AND #{DYNAMIC_WHERE}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${id}</strong> at path segment 2</li>
    * <li><strong>${name}</strong> at path segment 3</li>
    * </ul>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#/[*]"
-   * @param projection the projection
-   * @param selection dynamic part of <code>where</code> statement
-   * @param selectionArgs arguments of dynamic part of <code>where</code> statement
-   * @param sortOrder the sort order
+   * @param selection dynamic part of <code>where</code> statement 
+   * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
   Cursor selectOneBeanWithDynamicAndArgs4(Uri uri, String[] projection, String selection,
@@ -936,27 +892,25 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/#</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${id}</strong> at path segment 2</li>
    * </ul>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.javadoc.bean/persons/dynamicOrder/#"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectOneBeanWithDynamicOrder5(Uri uri, String[] projection, String selection,
@@ -1125,27 +1079,25 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/[*]</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>SELECT id, personName, personSurname, student FROM Person WHERE personSurname=${surname} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE person_surname=${surname} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${surname}</strong> at path segment 2</li>
    * </ul>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/[*]"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectOneBeanWithDynamicOrderAndListener6(Uri uri, String[] projection, String selection,
@@ -1209,9 +1161,9 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>select * from person where id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1219,13 +1171,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * 	<dt>person_surname</dt><dd>is associated to bean's property <strong>personSurname</strong></dd>
    * 	<dt>student</dt><dd>is associated to bean's property <strong>student</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -1280,27 +1233,25 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h1>Content provider URI (SELECT operation):</h1>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/#</pre>
-   * 
+   *
    * <h2>JQL SELECT for Content Provider</h2>
    * <pre>select * from Person where id=${id}</pre>
-   * 
+   *
    * <h2>SQL SELECT for Content Provider</h2>
    * <pre>select * from person where id=${id}</pre>
-   * 
+   *
    * <h3>Path variables defined:</h3>
    * <ul>
    * <li><strong>${id}</strong> at path segment 2</li>
    * </ul>
-   * 
+   *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   * 
+   *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
    *
    * @param uri "content://sqlite.feature.javadoc.bean/persons/jql/#"
-   * @param projection the projection
    * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param sortOrder the sort order
    * @return number of effected rows
    */
   Cursor selectWithJQL7(Uri uri, String[] projection, String selection, String[] selectionArgs,
@@ -1356,9 +1307,6 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     return _result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
   }
 }

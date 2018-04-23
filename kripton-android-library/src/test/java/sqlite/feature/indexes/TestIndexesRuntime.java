@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
@@ -37,6 +38,13 @@ public class TestIndexesRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite1() {	
+		final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);";		                                
+		final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_person_name; DROP INDEX IF EXISTS idx_person_1; DROP INDEX IF EXISTS idx_person_1; DROP INDEX IF EXISTS idx_person_2;DROP TABLE IF EXISTS person;";
+
+		Assert.assertTrue(CREATE_TABLE_SQL.equals(PersonTable.CREATE_TABLE_SQL));
+		Assert.assertTrue(DROP_TABLE_SQL.equals(PersonTable.DROP_TABLE_SQL));
+		
+		
 		BindPersonDataSource dataSource=BindPersonDataSource.instance();
 		
 		dataSource.open();
@@ -47,13 +55,13 @@ public class TestIndexesRuntime extends BaseAndroidTest {
 		}
 		
 		{
-			List<Person> list=dataSource.getPersonDAO().selectOne("nam", "and 1=1", "name asc", new Date());
-			assertTrue(list.get(0).name.equals("name0"));
+			List<Person> list=dataSource.getPersonDAO().selectOne("nam", "1=1", "name asc", new Date());
+			assertTrue(list.get(0).typeName.equals("name0"));
 		}
 		
 		{
-			List<Person> list=dataSource.getPersonDAO().selectOne("name", "and name like 'name%'",  "name desc", new Date());
-			assertTrue(list.get(0).name.equals("name9"));
+			List<Person> list=dataSource.getPersonDAO().selectOne("name", "type_name like 'name%'",  "type_name desc", new Date());
+			assertTrue(list.get(0).typeName.equals("name9"));
 		}
 		dataSource.close();
 	}

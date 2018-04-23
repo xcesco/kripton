@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton58.list;
 
 import android.database.Cursor;
@@ -26,7 +11,6 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -42,71 +26,57 @@ import java.util.List;
 import sqlite.kripton58.BeanInner;
 import sqlite.kripton58.BeanInnerBindMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>BeanBean</code>, based on interface <code>BeanDao</code>
- * </p>.
+ * </p>
  *
- * @see BeanBean
- * @see BeanDao
- * @see BeanBeanTable
+ *  @see BeanBean
+ *  @see BeanDao
+ *  @see BeanBeanTable
  */
 public class BeanDaoImpl extends Dao implements BeanDao {
-  
-  /** The Constant SELECT_ONE_SQL1. */
   private static final String SELECT_ONE_SQL1 = "SELECT id, value, value2 FROM bean_bean";
 
-  /** The Constant SELECT_ONE_SQL2. */
   private static final String SELECT_ONE_SQL2 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
 
-  /** The Constant SELECT_ONE_SQL3. */
   private static final String SELECT_ONE_SQL3 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
 
-  /** The Constant SELECT_ONE_SQL4. */
   private static final String SELECT_ONE_SQL4 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
 
-  /** The Constant SELECT_LIST_SQL5. */
   private static final String SELECT_LIST_SQL5 = "SELECT id, value, value2 FROM bean_bean WHERE value=?";
 
-  /** The update one prepared statement 0. */
   private static SQLiteStatement updateOnePreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The insert prepared statement 2. */
   private static SQLiteStatement insertPreparedStatement2;
 
-  /** The delete prepared statement 3. */
   private static SQLiteStatement deletePreparedStatement3;
 
-  /** BeanBeanBindMap. */
+  /**
+   * BeanBeanBindMap */
   private BeanBeanBindMap beanBeanBindMap = BinderUtils.mapperFor(BeanBean.class);
 
-  /** BeanInnerBindMap. */
+  /**
+   * BeanInnerBindMap */
   private BeanInnerBindMap beanInnerBindMap = BinderUtils.mapperFor(BeanInner.class);
 
-  /**
-   * Instantiates a new bean dao impl.
-   *
-   * @param context the context
-   */
-  public BeanDaoImpl(SQLContext context) {
-    super(context);
+  public BeanDaoImpl(BindBeanDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM bean_bean</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return selected bean or <code>null</code>.
    */
@@ -158,22 +128,23 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
+   * @param value
+   * 	is binded to <code>${value}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -225,23 +196,25 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
-   * @param listener 	is the BeanBean listener
+   * @param value
+   * 	is binded to <code>${value}</code>
+   * @param listener
+   * 	is the BeanBean listener
    */
   @Override
   public void selectOne(List<BeanBean> value, OnReadBeanListener<BeanBean> listener) {
@@ -298,23 +271,25 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
-   * @param listener 	is the cursor listener
+   * @param value
+   * 	is binded to <code>${value}</code>
+   * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectOne(List<BeanBean> value, OnReadCursorListener listener) {
@@ -356,22 +331,23 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * 	<dt>value2</dt><dd>is associated to bean's property <strong>value2</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is binded to <code>${value}</code>
+   * @param value
+   * 	is binded to <code>${value}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -430,21 +406,25 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE bean_bean SET value=:value WHERE id=${id} and value=${paramValue}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>value</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * 	<dt>${paramValue}</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param value 	is used as updated field <strong>value</strong>
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param paramValue 	is used as where parameter <strong>${paramValue}</strong>
+   * @param value
+   * 	is used as updated field <strong>value</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param paramValue
+   * 	is used as where parameter <strong>${paramValue}</strong>
+   *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
   @Override
@@ -495,15 +475,18 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean_bean (id, value) VALUES (${id}, ${value})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to column value <strong>id</strong>
-   * @param value 	is binded to column value <strong>value</strong>
+   * @param id
+   * 	is binded to column value <strong>id</strong>
+   * @param value
+   * 	is binded to column value <strong>value</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -631,14 +614,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean_bean WHERE value=${paramValue}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${paramValue}</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param paramValue 	is used as where parameter <strong>${paramValue}</strong>
+   * @param paramValue
+   * 	is used as where parameter <strong>${paramValue}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -672,10 +657,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param serializer1 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer1 serialization
    */
   private byte[] serializer1(List<BeanBean> value) {
     if (value==null) {
@@ -711,10 +693,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param parser1 parsing.
-   *
-   * @param input the input
-   * @return the list
+   * for param parser1 parsing
    */
   private List<BeanBean> parser1(byte[] input) {
     if (input==null) {
@@ -748,10 +727,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param serializer2 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer2 serialization
    */
   private byte[] serializer2(List<BeanInner> value) {
     if (value==null) {
@@ -787,10 +763,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param parser2 parsing.
-   *
-   * @param input the input
-   * @return the list
+   * for param parser2 parsing
    */
   private List<BeanInner> parser2(byte[] input) {
     if (input==null) {
@@ -823,9 +796,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updateOnePreparedStatement0!=null) {
       updateOnePreparedStatement0.close();

@@ -11,30 +11,29 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for ArgonSettings.
+ * This class is binder map for ArgonSettings
  *
  * @see ArgonSettings
  */
 @BindMap(ArgonSettings.class)
 public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
-  
-  /** ApplicationSettingsBindMap. */
+  /**
+   * ApplicationSettingsBindMap */
   private ApplicationSettingsBindMap applicationSettingsBindMap = BinderUtils.mapperFor(ApplicationSettings.class);
 
-  /** LoggerSettingsBindMap. */
+  /**
+   * LoggerSettingsBindMap */
   private LoggerSettingsBindMap loggerSettingsBindMap = BinderUtils.mapperFor(LoggerSettings.class);
 
-  /** OpenGLSettingsBindMap. */
+  /**
+   * OpenGLSettingsBindMap */
   private OpenGLSettingsBindMap openGLSettingsBindMap = BinderUtils.mapperFor(OpenGLSettings.class);
 
-  /** ViewFrustumSettingsBindMap. */
+  /**
+   * ViewFrustumSettingsBindMap */
   private ViewFrustumSettingsBindMap viewFrustumSettingsBindMap = BinderUtils.mapperFor(ViewFrustumSettings.class);
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(ArgonSettings object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -81,9 +80,6 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(ArgonSettings object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -139,12 +135,7 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(ArgonSettings object, XMLSerializer xmlSerializer,
@@ -194,11 +185,7 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the argon settings
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public ArgonSettings parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -255,11 +242,7 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the argon settings
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public ArgonSettings parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -316,12 +299,7 @@ public class ArgonSettingsBindMap extends AbstractMapper<ArgonSettings> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the argon settings
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public ArgonSettings parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

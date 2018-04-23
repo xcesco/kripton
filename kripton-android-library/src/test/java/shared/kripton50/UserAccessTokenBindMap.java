@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package shared.kripton50;
 
 import com.abubusoft.kripton.AbstractMapper;
@@ -26,18 +11,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for UserAccessToken.
+ * This class is binder map for UserAccessToken
  *
  * @see UserAccessToken
  */
 @BindMap(UserAccessToken.class)
 public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(UserAccessToken object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -60,9 +40,6 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(UserAccessToken object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -85,12 +62,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(UserAccessToken object, XMLSerializer xmlSerializer,
@@ -119,11 +91,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the user access token
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public UserAccessToken parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -160,11 +128,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the user access token
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public UserAccessToken parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -201,12 +165,7 @@ public class UserAccessTokenBindMap extends AbstractMapper<UserAccessToken> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the user access token
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public UserAccessToken parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

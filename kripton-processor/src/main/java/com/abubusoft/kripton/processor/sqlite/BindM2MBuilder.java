@@ -47,6 +47,7 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MModel;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
@@ -59,7 +60,6 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BindM2MBuilder.
  *
@@ -132,8 +132,6 @@ public class BindM2MBuilder extends AbstractBuilder {
 	private void generateDaoPart(M2MEntity entity) throws IOException {
 		String daoClassName = entity.daoName.simpleName();
 
-		//PackageElement pkg = elementUtils.getPackageElement(entity.getPackageName());
-		//String daoPackageName = pkg.getQualifiedName().toString();
 		String daoPackageName = entity.daoName.packageName();
 		String entityPackageName=entity.getPackageName();
 		String generatedDaoClassName = "Generated" + daoClassName;
@@ -395,8 +393,8 @@ public class BindM2MBuilder extends AbstractBuilder {
 		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, field1Name, Modifier.PUBLIC)
 				.addJavadoc("Foreign key to $T model class\n", entity.entity1Name)
 				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
-						.addMember("foreignKey","$T.class", entity.entity1Name)
-						.addMember("onDelete","$T.$L", ForeignKeyAction.class, ForeignKeyAction.CASCADE).build())
+						.addMember(AnnotationAttributeType.PARENT_ENTITY.getValue(),"$T.class", entity.entity1Name)
+						.addMember(AnnotationAttributeType.ON_DELETE.getValue(),"$T.$L", ForeignKeyAction.class, ForeignKeyAction.CASCADE).build())
 				.build();
 		//@formatter:on
 			classBuilder.addField(fieldSpec);
@@ -407,8 +405,8 @@ public class BindM2MBuilder extends AbstractBuilder {
 		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, field2Name, Modifier.PUBLIC)
 				.addJavadoc("Foreign key to $T model class\n", entity.entity2Name)
 				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
-						.addMember("foreignKey","$T.class", entity.entity2Name)
-						.addMember("onDelete","$T.$L", ForeignKeyAction.class, ForeignKeyAction.CASCADE).build())
+						.addMember(AnnotationAttributeType.PARENT_ENTITY.getValue(),"$T.class", entity.entity2Name)
+						.addMember(AnnotationAttributeType.ON_DELETE.getValue(),"$T.$L", ForeignKeyAction.class, ForeignKeyAction.CASCADE).build())
 				.build();
 		//@formatter:on
 			classBuilder.addField(fieldSpec);
@@ -425,7 +423,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.columnName = entity.idName;
 			property.setNullable(false);
 			property.setPrimaryKey(true);
-			property.foreignClassName = null;
+			property.foreignParentClassName = null;
 			properties.add(property);
 		}
 
@@ -436,7 +434,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.setNullable(false);
 			property.setPrimaryKey(false);
 			property.onDeleteAction = ForeignKeyAction.CASCADE;
-			property.foreignClassName = entity.entity1Name.toString();
+			property.foreignParentClassName = entity.entity1Name.toString();
 			properties.add(property);
 		}
 
@@ -447,7 +445,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.setNullable(false);
 			property.setPrimaryKey(false);
 			property.onDeleteAction = ForeignKeyAction.CASCADE;
-			property.foreignClassName = entity.entity2Name.toString();
+			property.foreignParentClassName = entity.entity2Name.toString();
 			properties.add(property);
 		}
 

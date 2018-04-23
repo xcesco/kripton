@@ -22,8 +22,7 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 import com.abubusoft.kripton.android.sqlite.NoAdapter;
-
-// TODO: Auto-generated Javadoc
+ 
 /**
  * The Interface BindSqlParam.
  */

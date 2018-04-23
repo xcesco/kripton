@@ -16,21 +16,17 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for MessageListResponse.
+ * This class is binder map for MessageListResponse
  *
  * @see MessageListResponse
  */
 @BindMap(MessageListResponse.class)
 public class MessageListResponseBindMap extends AbstractMapper<MessageListResponse> {
-  
-  /** MessageBindMap. */
+  /**
+   * MessageBindMap */
   private MessageBindMap messageBindMap = BinderUtils.mapperFor(Message.class);
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(MessageListResponse object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -74,9 +70,6 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(MessageListResponse object, JsonGenerator jacksonSerializer)
       throws Exception {
@@ -127,12 +120,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(MessageListResponse object, XMLSerializer xmlSerializer,
@@ -185,11 +173,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the message list response
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public MessageListResponse parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -245,11 +229,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the message list response
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public MessageListResponse parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -310,12 +290,7 @@ public class MessageListResponseBindMap extends AbstractMapper<MessageListRespon
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the message list response
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public MessageListResponse parseOnXml(XMLParser xmlParser, int currentEventType) throws

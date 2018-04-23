@@ -1,58 +1,34 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.test03;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean01</code>, based on interface <code>DaoBean01</code>
- * </p>.
+ * </p>
  *
- * @see Bean01
- * @see DaoBean01
- * @see Bean01Table
+ *  @see Bean01
+ *  @see DaoBean01
+ *  @see Bean01Table
  */
 public class DaoBean01Impl extends Dao implements DaoBean01 {
-  
-  /** The Constant LIST_ALL_SQL1. */
   private static final String LIST_ALL_SQL1 = "SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1";
 
-  /**
-   * Instantiates a new dao bean 01 impl.
-   *
-   * @param context the context
-   */
-  public DaoBean01Impl(SQLContext context) {
-    super(context);
+  public DaoBean01Impl(BindDummy01DaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>lista</dt><dd>is associated to bean's property <strong>lista</strong></dd>
@@ -61,7 +37,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    * 	<dt>message_text</dt><dd>is associated to bean's property <strong>messageText</strong></dd>
    * 	<dt>bean_list</dt><dd>is associated to bean's property <strong>beanList</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -123,9 +99,6 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
   }
 }

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton58.array2;
 
 import com.abubusoft.kripton.AbstractMapper;
@@ -29,18 +14,13 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for FloatBean.
+ * This class is binder map for FloatBean
  *
  * @see FloatBean
  */
 @BindMap(FloatBean.class)
 public class FloatBeanBindMap extends AbstractMapper<FloatBean> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(FloatBean object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -91,9 +71,6 @@ public class FloatBeanBindMap extends AbstractMapper<FloatBean> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(FloatBean object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -152,12 +129,7 @@ public class FloatBeanBindMap extends AbstractMapper<FloatBean> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(FloatBean object, XMLSerializer xmlSerializer, int currentEventType)
@@ -219,11 +191,7 @@ public class FloatBeanBindMap extends AbstractMapper<FloatBean> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the float bean
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public FloatBean parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -286,11 +254,7 @@ public class FloatBeanBindMap extends AbstractMapper<FloatBean> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the float bean
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public FloatBean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -363,12 +327,7 @@ public class FloatBeanBindMap extends AbstractMapper<FloatBean> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the float bean
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public FloatBean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

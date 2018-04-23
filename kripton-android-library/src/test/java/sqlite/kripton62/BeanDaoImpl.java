@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.kripton62;
 
 import android.database.Cursor;
@@ -25,7 +10,6 @@ import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.BigDecimalUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
@@ -42,62 +26,45 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Bean</code>, based on interface <code>BeanDao</code>
- * </p>.
+ * </p>
  *
- * @see Bean
- * @see BeanDao
- * @see BeanTable
+ *  @see Bean
+ *  @see BeanDao
+ *  @see BeanTable
  */
 public class BeanDaoImpl extends Dao implements BeanDao {
-  
-  /** The Constant SELECT_ONE_SQL1. */
   private static final String SELECT_ONE_SQL1 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean";
 
-  /** The Constant SELECT_ONE_SQL2. */
   private static final String SELECT_ONE_SQL2 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?";
 
-  /** The Constant SELECT_ONE_SQL3. */
   private static final String SELECT_ONE_SQL3 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?";
 
-  /** The Constant SELECT_LIST_SQL4. */
   private static final String SELECT_LIST_SQL4 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?";
 
-  /** The update one prepared statement 0. */
   private static SQLiteStatement updateOnePreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The insert prepared statement 2. */
   private static SQLiteStatement insertPreparedStatement2;
 
-  /** The Constant SELECT_ONE_SQL5. */
   private static final String SELECT_ONE_SQL5 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=?";
 
-  /** The delete prepared statement 3. */
   private static SQLiteStatement deletePreparedStatement3;
 
-  /** The update one prepared statement 4. */
   private static SQLiteStatement updateOnePreparedStatement4;
 
-  /**
-   * Instantiates a new bean dao impl.
-   *
-   * @param context the context
-   */
-  public BeanDaoImpl(SQLContext context) {
-    super(context);
+  public BeanDaoImpl(BindBeanDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -112,7 +79,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return selected bean or <code>null</code>.
    */
@@ -182,9 +149,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -200,14 +167,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param listener 	is the Bean listener
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param listener
+   * 	is the Bean listener
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean> listener) {
@@ -291,9 +260,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -309,14 +278,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
-   * @param listener 	is the cursor listener
+   * @param id
+   * 	is binded to <code>${id}</code>
+   * @param listener
+   * 	is the cursor listener
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
@@ -358,9 +329,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -376,13 +347,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -630,13 +602,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean (value_big_decimal_set) VALUES (${valueBigDecimalSet})</pre>
-   * 
+   *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
    * 	<dt>valueBigDecimalSet</dt><dd>is binded to query's parameter <strong>${valueBigDecimalSet}</strong> and method's parameter <strong>valueBigDecimalSet</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param valueBigDecimalSet 	is binded to column value <strong>value_big_decimal_set</strong>
+   * @param valueBigDecimalSet
+   * 	is binded to column value <strong>value_big_decimal_set</strong>
+   *
    * @return <strong>id</strong> of inserted record
    */
   @Override
@@ -692,9 +666,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=${valueBigDecimalSet}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -710,13 +684,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${valueBigDecimalSet}</dt><dd>is binded to method's parameter <strong>valueBigDecimalSet</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param valueBigDecimalSet 	is binded to <code>${valueBigDecimalSet}</code>
+   * @param valueBigDecimalSet
+   * 	is binded to <code>${valueBigDecimalSet}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -787,14 +762,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value=${valueBigDecimalSet}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param valueBigDecimalSet 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
+   * @param valueBigDecimalSet
+   * 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -830,19 +807,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE bean SET id=:id WHERE value=${valueBigDecimalSet}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>id</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as updated field <strong>id</strong>
-   * @param valueBigDecimalSet 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
+   * @param id
+   * 	is used as updated field <strong>id</strong>
+   * @param valueBigDecimalSet
+   * 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -890,10 +870,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param serializer1 serialization.
-   *
-   * @param value the value
-   * @return the byte[]
+   * for param serializer1 serialization
    */
   private byte[] serializer1(HashSet<BigDecimal> value) {
     if (value==null) {
@@ -926,10 +903,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * for param parser1 parsing.
-   *
-   * @param input the input
-   * @return the hash set
+   * for param parser1 parsing
    */
   private HashSet<BigDecimal> parser1(byte[] input) {
     if (input==null) {
@@ -962,9 +936,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     }
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updateOnePreparedStatement0!=null) {
       updateOnePreparedStatement0.close();

@@ -21,7 +21,6 @@ import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ManagedModelProperty.
  */

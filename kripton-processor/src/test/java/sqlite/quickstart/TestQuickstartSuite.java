@@ -21,7 +21,7 @@ import org.junit.runners.Suite;
 import base.BaseProcessorTest;
 
 /**
- * The Class TestQuickstartSuite.
+ * The Class TestSamplesSuite.
  */
 @RunWith(Suite.class)
 //@formatter:off

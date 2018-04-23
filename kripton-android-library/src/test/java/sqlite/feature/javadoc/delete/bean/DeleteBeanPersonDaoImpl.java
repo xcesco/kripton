@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.javadoc.delete.bean;
 
 import android.database.sqlite.SQLiteStatement;
@@ -21,41 +6,29 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import sqlite.feature.javadoc.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>DeleteBeanPersonDao</code>
- * </p>.
+ * </p>
  *
- * @see Person
- * @see DeleteBeanPersonDao
- * @see sqlite.feature.javadoc.PersonTable
+ *  @see Person
+ *  @see DeleteBeanPersonDao
+ *  @see sqlite.feature.javadoc.PersonTable
  */
 public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao {
-  
-  /** The delete one bean prepared statement 0. */
   private static SQLiteStatement deleteOneBeanPreparedStatement0;
 
-  /** The delete all beans JQL prepared statement 1. */
   private static SQLiteStatement deleteAllBeansJQLPreparedStatement1;
 
-  /** The delete from select all beans JQL prepared statement 2. */
   private static SQLiteStatement deleteFromSelectAllBeansJQLPreparedStatement2;
 
-  /** The delete bean prepared statement 3. */
   private static SQLiteStatement deleteBeanPreparedStatement3;
 
-  /**
-   * Instantiates a new delete bean person dao impl.
-   *
-   * @param context the context
-   */
-  public DeleteBeanPersonDaoImpl(SQLContext context) {
-    super(context);
+  public DeleteBeanPersonDaoImpl(BindDeleteBeanPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
@@ -679,9 +652,6 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (deleteOneBeanPreparedStatement0!=null) {
       deleteOneBeanPreparedStatement0.close();

@@ -1,24 +1,10 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.javadoc.select.bean;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -28,10 +14,9 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
 import sqlite.feature.javadoc.PersonTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
- * Represents implementation of datasource SelectBeanPersonDataSource.
+ * Implementation of the SelectBeanPersonDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -42,37 +27,40 @@ import sqlite.feature.javadoc.PersonTable;
  * @see Person
  */
 public class BindSelectBeanPersonDataSource extends AbstractDataSource implements BindSelectBeanPersonDaoFactory, SelectBeanPersonDataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindSelectBeanPersonDataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao SelectBeanPersonDao. */
+  /**
+   * Unique identifier for Dao SelectBeanPersonDao
+   */
   public static final int SELECT_BEAN_PERSON_DAO_UID = 0;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new PersonTable()};
 
-  /** <p>dao instance</p>. */
-  protected SelectBeanPersonDaoImpl selectBeanPersonDao = new SelectBeanPersonDaoImpl(context);
-
-  /** Used only in transactions (that can be executed one for time. */
-  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  /**
+   * <p>dao instance</p>
+   */
+  protected SelectBeanPersonDaoImpl selectBeanPersonDao = new SelectBeanPersonDaoImpl(this);
 
   /**
-   * Instantiates a new bind select bean person data source.
-   *
-   * @param options the options
+   * Used only in transactions (that can be executed one for time
    */
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindSelectBeanPersonDataSource(DataSourceOptions options) {
     super("person.db", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.javadoc.select.bean.BindSelectBeanPersonDaoFactory#getSelectBeanPersonDao()
-   */
   @Override
   public SelectBeanPersonDaoImpl getSelectBeanPersonDao() {
     return selectBeanPersonDao;
@@ -127,9 +115,8 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -138,10 +125,10 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -165,8 +152,6 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind select bean person data source
    */
   public static BindSelectBeanPersonDataSource instance() {
     BindSelectBeanPersonDataSource result=instance;
@@ -213,9 +198,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -242,11 +225,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -290,9 +269,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -302,18 +279,12 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     SelectBeanPersonDaoImpl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind select bean person data source
    */
   public static BindSelectBeanPersonDataSource build(DataSourceOptions options) {
     BindSelectBeanPersonDataSource result=instance;
@@ -347,9 +318,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -359,87 +328,65 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindSelectBeanPersonDaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindSelectBeanPersonDaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindSelectBeanPersonDaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindSelectBeanPersonDaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The select bean person dao. */
     protected SelectBeanPersonDaoImpl _selectBeanPersonDao;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindSelectBeanPersonDataSource.this);
     }
 
     /**
-     * retrieve dao SelectBeanPersonDao.
      *
-     * @return the select bean person dao
+     * retrieve dao SelectBeanPersonDao
      */
     public SelectBeanPersonDaoImpl getSelectBeanPersonDao() {
       if (_selectBeanPersonDao==null) {
-        _selectBeanPersonDao=new SelectBeanPersonDaoImpl(_context);
+        _selectBeanPersonDao=new SelectBeanPersonDaoImpl(this);
       }
       return _selectBeanPersonDao;
     }
 
-    /**
-     * On session opened.
-     */
+    @Override
+    public SQLContext context() {
+      return _context;
+    }
+
     protected void onSessionOpened() {
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

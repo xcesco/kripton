@@ -12,18 +12,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is binder map for Message.
+ * This class is binder map for Message
  *
  * @see Message
  */
 @BindMap(Message.class)
 public class MessageBindMap extends AbstractMapper<Message> {
-  
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJackson(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJackson(Message object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -75,9 +70,6 @@ public class MessageBindMap extends AbstractMapper<Message> {
     return fieldCount;
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.BinderMapper#serializeOnJacksonAsString(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator)
-   */
   @Override
   public int serializeOnJacksonAsString(Message object, JsonGenerator jacksonSerializer) throws
       Exception {
@@ -130,12 +122,7 @@ public class MessageBindMap extends AbstractMapper<Message> {
   }
 
   /**
-   * method for xml serialization.
-   *
-   * @param object the object
-   * @param xmlSerializer the xml serializer
-   * @param currentEventType the current event type
-   * @throws Exception the exception
+   * method for xml serialization
    */
   @Override
   public void serializeOnXml(Message object, XMLSerializer xmlSerializer, int currentEventType)
@@ -199,11 +186,7 @@ public class MessageBindMap extends AbstractMapper<Message> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the message
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public Message parseOnJackson(JsonParser jacksonParser) throws Exception {
@@ -271,11 +254,7 @@ public class MessageBindMap extends AbstractMapper<Message> {
   }
 
   /**
-   * parse with jackson.
-   *
-   * @param jacksonParser the jackson parser
-   * @return the message
-   * @throws Exception the exception
+   * parse with jackson
    */
   @Override
   public Message parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
@@ -343,12 +322,7 @@ public class MessageBindMap extends AbstractMapper<Message> {
   }
 
   /**
-   * parse xml.
-   *
-   * @param xmlParser the xml parser
-   * @param currentEventType the current event type
-   * @return the message
-   * @throws Exception the exception
+   * parse xml
    */
   @Override
   public Message parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {

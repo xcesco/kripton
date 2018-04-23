@@ -1,24 +1,10 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.typeadapter.kripton180.bean.insertselect;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
@@ -44,10 +30,9 @@ import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import sqlite.feature.typeadapter.kripton180.EmployeeTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
- * Represents implementation of datasource Kripton180BeanInsertSelectDataSource.
+ * Implementation of the Kripton180BeanInsertSelectDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -58,77 +43,59 @@ import sqlite.feature.typeadapter.kripton180.EmployeeTable;
  * @see Employee
  */
 public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource implements BindKripton180BeanInsertSelectDaoFactory, Kripton180BeanInsertSelectDataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindKripton180BeanInsertSelectDataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao EmployeeBeanInsertSelectDao. */
+  /**
+   * Unique identifier for Dao EmployeeBeanInsertSelectDao
+   */
   public static final int EMPLOYEE_BEAN_INSERT_SELECT_DAO_UID = 0;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new EmployeeTable()};
 
-  /** <p>dao instance</p>. */
-  protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(context);
+  /**
+   * <p>dao instance</p>
+   */
+  protected EmployeeBeanInsertSelectDaoImpl employeeBeanInsertSelectDao = new EmployeeBeanInsertSelectDaoImpl(this);
 
-  /** The global subscribe on. */
   protected Scheduler globalSubscribeOn;
 
-  /** The global observe on. */
   protected Scheduler globalObserveOn;
 
-  /** Used only in transactions (that can be executed one for time. */
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  /**
-   * Instantiates a new bind kripton 180 bean insert select data source.
-   *
-   * @param options the options
-   */
   protected BindKripton180BeanInsertSelectDataSource(DataSourceOptions options) {
     super("kripton180.db", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.typeadapter.kripton180.bean.insertselect.BindKripton180BeanInsertSelectDaoFactory#getEmployeeBeanInsertSelectDao()
-   */
   @Override
   public EmployeeBeanInsertSelectDaoImpl getEmployeeBeanInsertSelectDao() {
     return employeeBeanInsertSelectDao;
   }
 
-  /**
-   * Global subscribe on.
-   *
-   * @param scheduler the scheduler
-   * @return the bind kripton 180 bean insert select data source
-   */
   public BindKripton180BeanInsertSelectDataSource globalSubscribeOn(Scheduler scheduler) {
     this.globalSubscribeOn=scheduler;
     return this;
   }
 
-  /**
-   * Global observe on.
-   *
-   * @param scheduler the scheduler
-   * @return the bind kripton 180 bean insert select data source
-   */
   public BindKripton180BeanInsertSelectDataSource globalObserveOn(Scheduler scheduler) {
     this.globalObserveOn=scheduler;
     return this;
   }
 
-  /**
-   * Execute.
-   *
-   * @param <T> the generic type
-   * @param transaction the transaction
-   * @return the observable
-   */
   public <T> Observable<T> execute(final ObservableTransaction<T> transaction) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
@@ -168,13 +135,6 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  /**
-   * Execute.
-   *
-   * @param <T> the generic type
-   * @param transaction the transaction
-   * @return the single
-   */
   public <T> Single<T> execute(final SingleTransaction<T> transaction) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
@@ -214,13 +174,6 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  /**
-   * Execute.
-   *
-   * @param <T> the generic type
-   * @param transaction the transaction
-   * @return the flowable
-   */
   public <T> Flowable<T> execute(final FlowableTransaction<T> transaction) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
@@ -260,13 +213,6 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  /**
-   * Execute.
-   *
-   * @param <T> the generic type
-   * @param transaction the transaction
-   * @return the maybe
-   */
   public <T> Maybe<T> execute(final MaybeTransaction<T> transaction) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
@@ -306,14 +252,6 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @param writeMode the write mode
-   * @return the observable
-   */
   public <T> Observable<T> executeBatch(final ObservableBatch<T> batch, final boolean writeMode) {
     ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
       @Override
@@ -342,25 +280,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @return the observable
-   */
   public <T> Observable<T> executeBatch(final ObservableBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @param writeMode the write mode
-   * @return the single
-   */
   public <T> Single<T> executeBatch(final SingleBatch<T> batch, final boolean writeMode) {
     SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
       @Override
@@ -389,25 +312,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @return the single
-   */
   public <T> Single<T> executeBatch(final SingleBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @param writeMode the write mode
-   * @return the flowable
-   */
   public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch, final boolean writeMode) {
     FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
       @Override
@@ -436,25 +344,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @return the flowable
-   */
   public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @param writeMode the write mode
-   * @return the maybe
-   */
   public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch, final boolean writeMode) {
     MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
       @Override
@@ -483,22 +376,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return result;
   }
 
-  /**
-   * Execute batch.
-   *
-   * @param <T> the generic type
-   * @param batch the batch
-   * @return the maybe
-   */
   public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch) {
     return executeBatch(batch, false);
   }
 
-  /**
-   * Employee subject.
-   *
-   * @return the publish subject
-   */
   public PublishSubject<SQLiteEvent> employeeSubject() {
     return employeeBeanInsertSelectDao.subject();
   }
@@ -552,9 +433,8 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -563,10 +443,10 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -590,8 +470,6 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind kripton 180 bean insert select data source
    */
   public static BindKripton180BeanInsertSelectDataSource instance() {
     BindKripton180BeanInsertSelectDataSource result=instance;
@@ -638,9 +516,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -667,11 +543,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -715,9 +587,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -727,18 +597,12 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     EmployeeBeanInsertSelectDaoImpl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind kripton 180 bean insert select data source
    */
   public static BindKripton180BeanInsertSelectDataSource build(DataSourceOptions options) {
     BindKripton180BeanInsertSelectDataSource result=instance;
@@ -772,147 +636,45 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
   }
 
-  /**
-   * The Interface ObservableBatch.
-   *
-   * @param <T> the generic type
-   */
   public interface ObservableBatch<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     */
     void onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
         ObservableEmitter<T> emitter);
   }
 
-  /**
-   * The Interface ObservableTransaction.
-   *
-   * @param <T> the generic type
-   */
   public interface ObservableTransaction<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     * @return the transaction result
-     */
     TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
         ObservableEmitter<T> emitter);
   }
 
-  /**
-   * The Interface SingleBatch.
-   *
-   * @param <T> the generic type
-   */
   public interface SingleBatch<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     */
     void onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory, SingleEmitter<T> emitter);
   }
 
-  /**
-   * The Interface SingleTransaction.
-   *
-   * @param <T> the generic type
-   */
   public interface SingleTransaction<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     * @return the transaction result
-     */
     TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
         SingleEmitter<T> emitter);
   }
 
-  /**
-   * The Interface FlowableBatch.
-   *
-   * @param <T> the generic type
-   */
   public interface FlowableBatch<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     */
     void onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory, FlowableEmitter<T> emitter);
   }
 
-  /**
-   * The Interface FlowableTransaction.
-   *
-   * @param <T> the generic type
-   */
   public interface FlowableTransaction<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     * @return the transaction result
-     */
     TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
         FlowableEmitter<T> emitter);
   }
 
-  /**
-   * The Interface MaybeBatch.
-   *
-   * @param <T> the generic type
-   */
   public interface MaybeBatch<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     */
     void onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory, MaybeEmitter<T> emitter);
   }
 
-  /**
-   * The Interface MaybeTransaction.
-   *
-   * @param <T> the generic type
-   */
   public interface MaybeTransaction<T> {
-    
-    /**
-     * On execute.
-     *
-     * @param daoFactory the dao factory
-     * @param emitter the emitter
-     * @return the transaction result
-     */
     TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory,
         MaybeEmitter<T> emitter);
   }
@@ -921,87 +683,65 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindKripton180BeanInsertSelectDaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindKripton180BeanInsertSelectDaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindKripton180BeanInsertSelectDaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The employee bean insert select dao. */
     protected EmployeeBeanInsertSelectDaoImpl _employeeBeanInsertSelectDao;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindKripton180BeanInsertSelectDataSource.this);
     }
 
     /**
-     * retrieve dao EmployeeBeanInsertSelectDao.
      *
-     * @return the employee bean insert select dao
+     * retrieve dao EmployeeBeanInsertSelectDao
      */
     public EmployeeBeanInsertSelectDaoImpl getEmployeeBeanInsertSelectDao() {
       if (_employeeBeanInsertSelectDao==null) {
-        _employeeBeanInsertSelectDao=new EmployeeBeanInsertSelectDaoImpl(_context);
+        _employeeBeanInsertSelectDao=new EmployeeBeanInsertSelectDaoImpl(this);
       }
       return _employeeBeanInsertSelectDao;
     }
 
-    /**
-     * On session opened.
-     */
+    @Override
+    public SQLContext context() {
+      return _context;
+    }
+
     protected void onSessionOpened() {
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

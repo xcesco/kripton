@@ -10,7 +10,6 @@ import javax.annotation.processing.Filer;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class JavaWriterHelper.
  *

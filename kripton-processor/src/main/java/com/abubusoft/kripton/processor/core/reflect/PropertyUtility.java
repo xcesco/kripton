@@ -248,7 +248,7 @@ public abstract class PropertyUtility {
 	 * @return the string
 	 */
 	public static String setter(TypeName beanClass, String beanName, ModelProperty property, String value) {
-		return beanName + (beanClass != null ? "." + setter(beanClass, property, value) : "=" + value);
+		return beanName + (beanClass != null ? "." + setter(property, value) : "=" + value);
 	}
 
 	/**
@@ -259,7 +259,7 @@ public abstract class PropertyUtility {
 	 * @param value the value
 	 * @return the string
 	 */
-	private static String setter(TypeName beanClass, ModelProperty property, String value) {
+	private static String setter(ModelProperty property, String value) {
 		if (property.isPublicField())
 			return property.getName() + "=" + value;
 		else if (property.isFieldWithSetter()) {

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.javadoc.delete.raw;
 
 import android.database.sqlite.SQLiteStatement;
@@ -21,56 +6,45 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>DeleteRawPersonDao</code>
- * </p>.
+ * </p>
  *
- * @see sqlite.feature.javadoc.Person
- * @see DeleteRawPersonDao
- * @see sqlite.feature.javadoc.PersonTable
+ *  @see sqlite.feature.javadoc.Person
+ *  @see DeleteRawPersonDao
+ *  @see sqlite.feature.javadoc.PersonTable
  */
 public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
-  
-  /** The delete one bean prepared statement 0. */
   private static SQLiteStatement deleteOneBeanPreparedStatement0;
 
-  /** The delete one bean prepared statement 1. */
   private static SQLiteStatement deleteOneBeanPreparedStatement1;
 
-  /** The delete all beans JQL prepared statement 2. */
   private static SQLiteStatement deleteAllBeansJQLPreparedStatement2;
 
-  /** The delete from select all beans JQL prepared statement 3. */
   private static SQLiteStatement deleteFromSelectAllBeansJQLPreparedStatement3;
 
-  /** The delete raw prepared statement 4. */
   private static SQLiteStatement deleteRawPreparedStatement4;
 
-  /**
-   * Instantiates a new delete raw person dao impl.
-   *
-   * @param context the context
-   */
-  public DeleteRawPersonDaoImpl(SQLContext context) {
-    super(context);
+  public DeleteRawPersonDaoImpl(BindDeleteRawPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id=${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -166,14 +140,16 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE person_surname=${surname}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param surname 	is used as where parameter <strong>${surname}</strong>
+   * @param surname
+   * 	is used as where parameter <strong>${surname}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -267,16 +243,19 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE person_name=${name} and person_surname=${surname} AND student = 0</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param name 	is used as where parameter <strong>${name}</strong>
-   * @param surname 	is used as where parameter <strong>${surname}</strong>
+   * @param name
+   * 	is used as where parameter <strong>${name}</strong>
+   * @param surname
+   * 	is used as where parameter <strong>${surname}</strong>
+   *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
   @Override
@@ -313,16 +292,18 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE person_surname=${surname} and student = (select student from person where person_name=${name})</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param name 	is used as where parameter <strong>${name}</strong>
-   * @param surname 	is used as where parameter <strong>${surname}</strong>
+   * @param name
+   * 	is used as where parameter <strong>${name}</strong>
+   * @param surname
+   * 	is used as where parameter <strong>${surname}</strong>
    */
   @Override
   public void deleteFromSelectAllBeansJQL(String name, String surname) {
@@ -416,14 +397,16 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id=${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -785,9 +768,6 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (deleteOneBeanPreparedStatement0!=null) {
       deleteOneBeanPreparedStatement0.close();

@@ -14,34 +14,22 @@
  * the License.
  ******************************************************************************/
 package sqlite;
-/*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *******************************************************************************/
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import sqlite.feat.includeFields.TestIncludeFieldsRuntimeSuite;
+import sqlite.feature.columnaffinity.TestColumnAffinitySuite;
 import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
 import sqlite.feature.dynamic.TestDynamicRuntimeSuite;
-import sqlite.feature.foreignKey.TestForeignKeyRuntimeSuite;
+import sqlite.feature.foreignkey.TestForeignKeyRuntimeSuite;
 import sqlite.feature.globaltypeadapters.TestGlobalTypeAdapterRuntimeSuite;
+import sqlite.feature.includefields.TestIncludeFieldsRuntimeSuite;
+import sqlite.feature.indexes.TestIndexesRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
 import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
 import sqlite.feature.multithread.TestRuntimeMultithreadSuite;
-import sqlite.feature.paginatedResult.TestPaginatedResultRuntimeSuite;
+import sqlite.feature.paginatedresult.TestPaginatedResultRuntimeSuite;
+import sqlite.feature.relations.TestFeatureRelationRuntimeSuite;
 import sqlite.feature.schema.TestSchemaRuntimeSuite;
 import sqlite.feature.speed.TestSpeedRuntime;
 import sqlite.kripton209.Test209RuntimeSuite;
@@ -68,11 +56,14 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestContentProviderRuntime.class,
 	TestSchemaRuntimeSuite.class,
 	TestGlobalTypeAdapterRuntimeSuite.class,
+	TestFeatureRelationRuntimeSuite.class,
 	
 	// unverified results	
 	TestForeignKeyRuntimeSuite.class,
 	TestIncludeFieldsRuntimeSuite.class,
-	TestRuntimeMany2ManySuite.class, 
+	TestIndexesRuntimeSuite.class,
+	TestRuntimeMany2ManySuite.class,
+	TestColumnAffinitySuite.class,
 	
 	Test64RuntimeSuite.class,
 	Test84RuntimeSuite.class,

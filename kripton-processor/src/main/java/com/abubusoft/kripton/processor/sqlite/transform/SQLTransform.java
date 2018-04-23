@@ -15,8 +15,8 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.transform;
 
+import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.processor.core.ModelProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteColumnType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec.Builder;
@@ -128,7 +128,7 @@ public interface SQLTransform {
 	 *
 	 * @return column type
 	 */
-	SQLiteColumnType getColumnType();
+	ColumnAffinityType getColumnType();
 	
 	/**
 	 * if true, transform can be used as convertion type in a type adapter.

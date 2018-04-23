@@ -1,24 +1,10 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.jql.persistence;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
@@ -29,10 +15,9 @@ import java.util.List;
 import sqlite.feature.jql.entities.ChildTable;
 import sqlite.feature.jql.entities.PersonTable;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
- * Represents implementation of datasource FamilyDataSource.
+ * Implementation of the FamilyDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
@@ -46,51 +31,55 @@ import sqlite.feature.jql.entities.PersonTable;
  * @see Person
  */
 public class BindFamilyDataSource extends AbstractDataSource implements BindFamilyDaoFactory, FamilyDataSource {
-  
-  /** <p>datasource singleton</p>. */
+  /**
+   * <p>datasource singleton</p>
+   */
   static volatile BindFamilyDataSource instance;
 
-  /** <p>Mutex to manage multithread access to instance</p>. */
+  /**
+   * <p>Mutex to manage multithread access to instance</p>
+   */
   private static final Object mutex = new Object();
 
-  /** Unique identifier for Dao DaoChild. */
+  /**
+   * Unique identifier for Dao DaoChild
+   */
   public static final int DAO_CHILD_UID = 0;
 
-  /** Unique identifier for Dao DaoPerson. */
+  /**
+   * Unique identifier for Dao DaoPerson
+   */
   public static final int DAO_PERSON_UID = 1;
 
-  /** List of tables compose datasource. */
+  /**
+   * List of tables compose datasource
+   */
   static final SQLiteTable[] TABLES = {new PersonTable(), new ChildTable()};
 
-  /** <p>dao instance</p>. */
-  protected DaoChildImpl daoChild = new DaoChildImpl(context);
-
-  /** <p>dao instance</p>. */
-  protected DaoPersonImpl daoPerson = new DaoPersonImpl(context);
-
-  /** Used only in transactions (that can be executed one for time. */
-  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+  /**
+   * <p>dao instance</p>
+   */
+  protected DaoChildImpl daoChild = new DaoChildImpl(this);
 
   /**
-   * Instantiates a new bind family data source.
-   *
-   * @param options the options
+   * <p>dao instance</p>
    */
+  protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
+
+  /**
+   * Used only in transactions (that can be executed one for time
+   */
+  protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
+
   protected BindFamilyDataSource(DataSourceOptions options) {
     super("familiy", 1, options);
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.jql.persistence.BindFamilyDaoFactory#getDaoChild()
-   */
   @Override
   public DaoChildImpl getDaoChild() {
     return daoChild;
   }
 
-  /* (non-Javadoc)
-   * @see sqlite.feature.jql.persistence.BindFamilyDaoFactory#getDaoPerson()
-   */
   @Override
   public DaoPersonImpl getDaoPerson() {
     return daoPerson;
@@ -145,9 +134,8 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * <p>Executes a batch opening a read only connection. This method <strong>is thread safe</strong> to avoid concurrent problems.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @return the t
+   * @param commands
+   * 	batch to execute
    */
   public <T> T executeBatch(Batch<T> commands) {
     return executeBatch(commands, false);
@@ -156,10 +144,10 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * <p>Executes a batch. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. if <code>writeMode</code> is set to false, multiple batch operations is allowed.</p>
    *
-   * @param <T> the generic type
-   * @param commands 	batch to execute
-   * @param writeMode 	true to open connection in write mode, false to open connection in read only mode
-   * @return the t
+   * @param commands
+   * 	batch to execute
+   * @param writeMode
+   * 	true to open connection in write mode, false to open connection in read only mode
    */
   public <T> T executeBatch(Batch<T> commands, boolean writeMode) {
     boolean needToOpened=writeMode?!this.isOpenInWriteMode(): !this.isOpen();
@@ -183,8 +171,6 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
 
   /**
    * <p>Retrieve instance.</p>
-   *
-   * @return the bind family data source
    */
   public static BindFamilyDataSource instance() {
     BindFamilyDataSource result=instance;
@@ -231,9 +217,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   }
 
   /**
-   * onCreate.
-   *
-   * @param database the database
+   * onCreate
    */
   @Override
   public void onCreate(SQLiteDatabase database) {
@@ -266,11 +250,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   }
 
   /**
-   * onUpgrade.
-   *
-   * @param database the database
-   * @param previousVersion the previous version
-   * @param currentVersion the current version
+   * onUpgrade
    */
   @Override
   public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
@@ -320,9 +300,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   }
 
   /**
-   * onConfigure.
-   *
-   * @param database the database
+   * onConfigure
    */
   @Override
   public void onConfigure(SQLiteDatabase database) {
@@ -333,9 +311,6 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
     }
   }
 
-  /* (non-Javadoc)
-   * @see com.abubusoft.kripton.android.sqlite.AbstractDataSource#clearCompiledStatements()
-   */
   public void clearCompiledStatements() {
     DaoChildImpl.clearCompiledStatements();
     DaoPersonImpl.clearCompiledStatements();
@@ -343,9 +318,6 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
-   *
-   * @param options the options
-   * @return the bind family data source
    */
   public static BindFamilyDataSource build(DataSourceOptions options) {
     BindFamilyDataSource result=instance;
@@ -379,9 +351,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   }
 
   /**
-   * List of tables compose datasource:.
-   *
-   * @return the SQ lite table[]
+   * List of tables compose datasource:
    */
   public static SQLiteTable[] tables() {
     return TABLES;
@@ -391,102 +361,78 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * Rapresents transational operation.
    */
   public interface Transaction extends AbstractDataSource.AbstractExecutable<BindFamilyDaoFactory> {
-    
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
      * If exception is thrown, a rollback will be done.
      *
-     * @param daoFactory the dao factory
-     * @return the transaction result
+     * @param daoFactory
+     * @return
+     * @throws Throwable
      */
     TransactionResult onExecute(BindFamilyDaoFactory daoFactory);
   }
 
   /**
    * Rapresents batch operation.
-   *
-   * @param <T> the generic type
    */
   public interface Batch<T> {
-    
     /**
      * Execute batch operations.
      *
-     * @param daoFactory the dao factory
-     * @return the t
+     * @param daoFactory
+     * @throws Throwable
      */
     T onExecute(BindFamilyDaoFactory daoFactory);
   }
 
-  /**
-   * The Class DataSourceSingleThread.
-   */
   class DataSourceSingleThread implements BindFamilyDaoFactory {
-    
-    /** The context. */
     private SQLContextInSessionImpl _context;
 
-    /** The dao child. */
     protected DaoChildImpl _daoChild;
 
-    /** The dao person. */
     protected DaoPersonImpl _daoPerson;
 
-    /**
-     * Instantiates a new data source single thread.
-     */
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindFamilyDataSource.this);
     }
 
     /**
-     * retrieve dao DaoChild.
      *
-     * @return the dao child
+     * retrieve dao DaoChild
      */
     public DaoChildImpl getDaoChild() {
       if (_daoChild==null) {
-        _daoChild=new DaoChildImpl(_context);
+        _daoChild=new DaoChildImpl(this);
       }
       return _daoChild;
     }
 
     /**
-     * retrieve dao DaoPerson.
      *
-     * @return the dao person
+     * retrieve dao DaoPerson
      */
     public DaoPersonImpl getDaoPerson() {
       if (_daoPerson==null) {
-        _daoPerson=new DaoPersonImpl(_context);
+        _daoPerson=new DaoPersonImpl(this);
       }
       return _daoPerson;
     }
 
-    /**
-     * On session opened.
-     */
+    @Override
+    public SQLContext context() {
+      return _context;
+    }
+
     protected void onSessionOpened() {
     }
 
-    /**
-     * On session clear.
-     */
     protected void onSessionClear() {
     }
 
-    /**
-     * On session closed.
-     */
     protected void onSessionClosed() {
     }
 
-    /**
-     * Bind to thread.
-     *
-     * @return the data source single thread
-     */
     public DataSourceSingleThread bindToThread() {
       return this;
     }

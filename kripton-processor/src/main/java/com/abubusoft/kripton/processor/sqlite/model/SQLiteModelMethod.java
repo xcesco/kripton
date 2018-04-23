@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
@@ -31,15 +33,16 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere.PrependType;
-import com.abubusoft.kripton.android.sqlite.NoAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
+import com.abubusoft.kripton.android.sqlite.NoAdapter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -49,6 +52,7 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
+import com.abubusoft.kripton.processor.sqlite.FindSqlChildSelectVisitor;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
@@ -72,11 +76,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * The Interface OnFoundDynamicParameter.
 	 */
 	interface OnFoundDynamicParameter {
-		
+
 		/**
 		 * On found parameter.
 		 *
-		 * @param parameterName the parameter name
+		 * @param parameterName
+		 *            the parameter name
 		 */
 		void onFoundParameter(String parameterName);
 	}
@@ -179,7 +184,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/** if true, means that this method returns live data. */
 	private boolean liveDataEnabled;
-	
+
 	/**
 	 * Checks for live data.
 	 *
@@ -195,11 +200,28 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public ParameterizedTypeName liveDataReturnClass;
 
 	/**
+	 * list of children selects. Valid only for select methods
+	 */
+	public List<Triple<String, String, SQLiteModelMethod>> childrenSelects = new ArrayList<>();
+
+	/**
+	 * has children selects
+	 * 
+	 * @return
+	 */
+	public boolean hasChildrenSelects() {
+		return childrenSelects.size() > 0;
+	}
+
+	/**
 	 * Instantiates a new SQ lite model method.
 	 *
-	 * @param parent the parent
-	 * @param element the element
-	 * @param annotationList the annotation list
+	 * @param parent
+	 *            the parent
+	 * @param element
+	 *            the element
+	 * @param annotationList
+	 *            the annotation list
 	 */
 	public SQLiteModelMethod(SQLiteDaoDefinition parent, ExecutableElement element, List<ModelAnnotation> annotationList) {
 		super(element);
@@ -300,12 +322,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		String preparedJql = getJQLDeclared();
 
 		this.jql = JQLBuilder.buildJQL(this, preparedJql);
-		
+
 		// live data support
-		this.liveDataEnabled=SQLiteModelMethod.isLiveData(this);
+		this.liveDataEnabled = SQLiteModelMethod.isLiveData(this);
 		if (liveDataEnabled) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) getReturnClass();
-			this.liveDataReturnClass=returnParameterizedTypeName;					
+			this.liveDataReturnClass = returnParameterizedTypeName;
 			setReturnClass(returnParameterizedTypeName.typeArguments.get(0));
 		}
 
@@ -390,7 +412,26 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			// UPDATE from SELECT type SQL can not be used with content provider
 			AssertKripton.assertTrueOrInvalidMethodSignException(!(this.jql.operationType == JQLType.UPDATE && this.jql.containsSelectOperation), this,
 					" UPDATE-FROM-SELECT sql can not be used for content provider");
+		}
 
+		if (element.getAnnotation(BindSqlSelect.class) != null) {
+			FindSqlChildSelectVisitor visitor = new FindSqlChildSelectVisitor();
+
+			for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
+				Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
+
+				if (BindSqlSelect.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
+					for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
+						String key = entry.getKey().getSimpleName().toString();
+
+						entry.getValue().accept(visitor, key);
+					}
+					List<Triple<String, String, SQLiteModelMethod>> childrenSelects = visitor.getChildrenSelects();
+					this.childrenSelects = childrenSelects;
+
+					break;
+				}
+			}
 		}
 
 	}
@@ -398,36 +439,38 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Checks if is live data.
 	 *
-	 * @param methodDefinition the method definition
+	 * @param methodDefinition
+	 *            the method definition
 	 * @return true, if is live data
 	 */
-	public static boolean isLiveData(SQLiteModelMethod methodDefinition)  {
-		boolean result=false;
-		
+	public static boolean isLiveData(SQLiteModelMethod methodDefinition) {
+		boolean result = false;
+
 		TypeName returnTypeName = methodDefinition.getReturnClass();
 		if (returnTypeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
-			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;			
+			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
 			Class<?> wrapperClazz;
 			try {
 				wrapperClazz = Class.forName(returnParameterizedClassName.toString());
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
-				throw(new KriptonRuntimeException(e));
+				throw (new KriptonRuntimeException(e));
 			}
-			
+
 			if ("android.arch.lifecycle.LiveData".equals(wrapperClazz.getName())) {
-				result=true;							
+				result = true;
 			}
 		}
-		
+
 		return result;
 	}
 
 	/**
 	 * Checks for adapter for param.
 	 *
-	 * @param paramName the param name
+	 * @param paramName
+	 *            the param name
 	 * @return true, if successful
 	 */
 	public boolean hasAdapterForParam(String paramName) {
@@ -497,8 +540,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
 	 */
 	@Override
 	public void accept(SQLiteModelElementVisitor visitor) throws Exception {
@@ -524,11 +571,16 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * annotation. When it is found, a client action is required through
 	 * listener.
 	 *
-	 * @param <A> the generic type
-	 * @param parent the parent
-	 * @param annotationClazz the annotation clazz
-	 * @param unsupportedQueryType the unsupported query type
-	 * @param listener the listener
+	 * @param <A>
+	 *            the generic type
+	 * @param parent
+	 *            the parent
+	 * @param annotationClazz
+	 *            the annotation clazz
+	 * @param unsupportedQueryType
+	 *            the unsupported query type
+	 * @param listener
+	 *            the listener
 	 */
 	private <A extends Annotation> void findStringDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
@@ -558,11 +610,16 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * annotation. When it is found, a client action is required through
 	 * listener.
 	 *
-	 * @param <A> the generic type
-	 * @param parent the parent
-	 * @param annotationClazz the annotation clazz
-	 * @param unsupportedQueryType the unsupported query type
-	 * @param listener the listener
+	 * @param <A>
+	 *            the generic type
+	 * @param parent
+	 *            the parent
+	 * @param annotationClazz
+	 *            the annotation clazz
+	 * @param unsupportedQueryType
+	 *            the unsupported query type
+	 * @param listener
+	 *            the listener
 	 */
 	private <A extends Annotation> void findIntDynamicStatement(SQLiteDaoDefinition parent, Class<A> annotationClazz, List<Class<? extends Annotation>> unsupportedQueryType,
 			OnFoundDynamicParameter listener) {
@@ -591,7 +648,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * Retrieve for a method's parameter its alias, used to work with queries.
 	 * If no alias is present, typeName will be used.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return the string
 	 */
 	public String findParameterAliasByName(String name) {
@@ -605,7 +663,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Check if method contains a parameter with value as typeName.
 	 *
-	 * @param nameOrAlias            parameter typeName to find
+	 * @param nameOrAlias
+	 *            parameter typeName to find
 	 * @return TypeMirror associated
 	 */
 	public String findParameterNameByAlias(String nameOrAlias) {
@@ -628,7 +687,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Check if method contains a parameter with value as typeName.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return TypeMirror associated
 	 */
 	public TypeName findParameterTypeByAliasOrName(String name) {
@@ -687,7 +747,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Checks if is this dynamic where conditions name.
 	 *
-	 * @param parameterName the parameter name
+	 * @param parameterName
+	 *            the parameter name
 	 * @return true, if is this dynamic where conditions name
 	 */
 	public boolean isThisDynamicWhereConditionsName(String parameterName) {
@@ -706,7 +767,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Checks if is this dynamic page size name.
 	 *
-	 * @param parameterName the parameter name
+	 * @param parameterName
+	 *            the parameter name
 	 * @return true, if is this dynamic page size name
 	 */
 	public boolean isThisDynamicPageSizeName(String parameterName) {
@@ -716,7 +778,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Checks if is this dynamic where args name.
 	 *
-	 * @param parameterName the parameter name
+	 * @param parameterName
+	 *            the parameter name
 	 * @return true, if is this dynamic where args name
 	 */
 	public boolean isThisDynamicWhereArgsName(String parameterName) {
@@ -756,8 +819,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return (StringUtils.hasText(contentProviderEntryPath) ? ("/" + contentProviderEntryPath) : "");
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext#getContextDescription()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext#
+	 * getContextDescription()
 	 */
 	@Override
 	public String getContextDescription() {
@@ -769,7 +835,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/**
 	 * Gets the adapter for param.
 	 *
-	 * @param paramName the param name
+	 * @param paramName
+	 *            the param name
 	 * @return the adapter for param
 	 */
 	public TypeName getAdapterForParam(String paramName) {

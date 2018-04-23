@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.javadoc.update.raw;
 
 import android.content.ContentValues;
@@ -22,75 +7,60 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Person</code>, based on interface <code>UpdateRawPersonDao</code>
- * </p>.
+ * </p>
  *
- * @see sqlite.feature.javadoc.Person
- * @see UpdateRawPersonDao
- * @see sqlite.feature.javadoc.PersonTable
+ *  @see sqlite.feature.javadoc.Person
+ *  @see UpdateRawPersonDao
+ *  @see sqlite.feature.javadoc.PersonTable
  */
 public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
-  
-  /** The update all beans prepared statement 0. */
   private static SQLiteStatement updateAllBeansPreparedStatement0;
 
-  /** The update all beans JQL prepared statement 1. */
   private static SQLiteStatement updateAllBeansJQLPreparedStatement1;
 
-  /** The Constant updateAllBeansJQL0ColumnSet. */
   private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "student", "person_name");
 
-  /** The update from select JQL prepared statement 2. */
   private static SQLiteStatement updateFromSelectJQLPreparedStatement2;
 
-  /** The Constant updateFromSelectJQL1ColumnSet. */
   private static final Set<String> updateFromSelectJQL1ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  /** The update bean prepared statement 3. */
   private static SQLiteStatement updateBeanPreparedStatement3;
 
-  /** The Constant updateBean2ColumnSet. */
   private static final Set<String> updateBean2ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  /** The Constant updateBeanDynamic3ColumnSet. */
   private static final Set<String> updateBeanDynamic3ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  /** The Constant updateBeanDynamicWithArgs4ColumnSet. */
   private static final Set<String> updateBeanDynamicWithArgs4ColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  /**
-   * Instantiates a new update raw person dao impl.
-   *
-   * @param context the context
-   */
-  public UpdateRawPersonDaoImpl(SQLContext context) {
-    super(context);
+  public UpdateRawPersonDaoImpl(BindUpdateRawPersonDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>person_name</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
-   * </dl>.
+   * </dl>
    *
-   * @param personName 	is used as updated field <strong>personName</strong>
+   * @param personName
+   * 	is used as updated field <strong>personName</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -139,21 +109,24 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE person SET student = :student, person_name=:personName  where person_surname=${personSurname}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>student</li>
    * 	<li>person_name</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${personSurname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param name 	is used as updated field <strong>personName</strong>
-   * @param surname 	is used as where parameter <strong>${personSurname}</strong>
-   * @param student 	is used as updated field <strong>student</strong>
+   * @param name
+   * 	is used as updated field <strong>personName</strong>
+   * @param surname
+   * 	is used as where parameter <strong>${personSurname}</strong>
+   * @param student
+   * 	is used as updated field <strong>student</strong>
    */
   @Override
   public void updateAllBeansJQL(String name, String surname, boolean student) {
@@ -281,21 +254,23 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=${personName}, student = (select student from person where person_surname=${surname})</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>person_name</li>
    * 	<li>student</li>
    * </ul>
-   * 
+   *
    * <h2>Parameters:</h2>
    * <dl>
    * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param surname 	is used as for parameter <strong>surname</strong>
-   * @param name 	is used as for parameter <strong>personName</strong>
+   * @param surname
+   * 	is used as for parameter <strong>surname</strong>
+   * @param name
+   * 	is used as for parameter <strong>personName</strong>
    */
   @Override
   public void updateFromSelectAllBeansJQL(String surname, String name) {
@@ -338,19 +313,21 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName where student= (select student from person where person_surname=${surname})</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>person_name</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param personName 	is used as updated field <strong>personName</strong>
-   * @param surname 	is used as where parameter <strong>${surname}</strong>
+   * @param personName
+   * 	is used as updated field <strong>personName</strong>
+   * @param surname
+   * 	is used as where parameter <strong>${surname}</strong>
    */
   @Override
   public void updateFromSelectJQL(String personName, String surname) {
@@ -475,19 +452,22 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
   /**
    * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Updated columns:</h2>
    * <ul>
    * 	<li>person_name</li>
    * </ul>
-   * 
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
-   * @param personName 	is used as updated field <strong>personName</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   * @param personName
+   * 	is used as updated field <strong>personName</strong>
+   *
    * @return number of updated records
    */
   @Override
@@ -959,9 +939,6 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updateAllBeansPreparedStatement0!=null) {
       updateAllBeansPreparedStatement0.close();

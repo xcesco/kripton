@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package shared.kripton47;
 
 import android.content.Context;
@@ -31,28 +16,33 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class is the shared preference binder defined for App47.
+ * This class is the shared preference binder defined for App47
  *
  * @see App47
  */
 public class BindApp47SharedPreferences extends AbstractSharedPreference {
-  
-  /** shared preferences typeName for App47. */
+  /**
+   * shared preferences typeName for App47
+   */
   public static final String SHARED_PREFERENCE_NAME = "app47";
 
-  /** instance of shared preferences. */
+  /**
+   * instance of shared preferences
+   */
   private static BindApp47SharedPreferences instance;
 
-  /** working instance of bean. */
+  /**
+   * working instance of bean
+   */
   private final App47 defaultBean;
 
-  /** UserAccessTokenBindMap. */
+  /**
+   * UserAccessTokenBindMap */
   private UserAccessTokenBindMap userAccessTokenBindMap = BinderUtils.mapperFor(UserAccessToken.class);
 
   /**
-   * constructor.
+   * constructor
    */
   private BindApp47SharedPreferences() {
     // using typeName attribute of annotation @BindSharedPreferences as typeName
@@ -61,18 +51,14 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * create an editor to modify shared preferences.
-   *
-   * @return the bind editor
+   * create an editor to modify shared preferences
    */
   public BindEditor edit() {
     return new BindEditor();
   }
 
   /**
-   * force to refresh values.
-   *
-   * @return the bind app 47 shared preferences
+   * force to refresh values
    */
   public BindApp47SharedPreferences refresh() {
     // using typeName attribute of annotation @BindSharedPreferences as typeName
@@ -81,7 +67,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reset shared preferences.
+   * reset shared preferences
    */
   public void reset() {
     App47 bean=new App47();
@@ -89,7 +75,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read bean entirely.
+   * read bean entirely
    *
    * @return read bean
    */
@@ -106,7 +92,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * write bean entirely.
+   * write bean entirely
    *
    * @param bean bean to entirely write
    */
@@ -126,7 +112,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property name.
+   * read property name
    *
    * @return property name value
    */
@@ -135,7 +121,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property userAccessToken.
+   * read property userAccessToken
    *
    * @return property userAccessToken value
    */
@@ -146,10 +132,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute userAccessToken serialization.
-   *
-   * @param value the value
-   * @return the string
+   * for attribute userAccessToken serialization
    */
   protected String serializeUserAccessToken(UserAccessToken value) {
     if (value==null) {
@@ -171,10 +154,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute userAccessToken parsing.
-   *
-   * @param input the input
-   * @return the user access token
+   * for attribute userAccessToken parsing
    */
   protected UserAccessToken parseUserAccessToken(String input) {
     if (input==null) {
@@ -196,9 +176,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * get instance of shared preferences.
-   *
-   * @return the bind app 47 shared preferences
+   * get instance of shared preferences
    */
   public static synchronized BindApp47SharedPreferences instance() {
     if (instance==null) {
@@ -208,21 +186,14 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * editor class for shared preferences.
+   * editor class for shared preferences
    */
   public class BindEditor extends AbstractEditor {
-    
-    /**
-     * Instantiates a new bind editor.
-     */
     private BindEditor() {
     }
 
     /**
-     * modifier for property name.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property name
      */
     public BindEditor putName(String value) {
       editor.putString("name",value);
@@ -231,10 +202,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property userAccessToken.
-     *
-     * @param value the value
-     * @return the bind editor
+     * modifier for property userAccessToken
      */
     public BindEditor putUserAccessToken(UserAccessToken value) {
       if (value!=null)  {

@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2018 Francesco Benincasa (info@abubusoft.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/
 package sqlite.feature.foreignkeyaction;
 
 import android.database.Cursor;
@@ -21,65 +6,53 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * DAO implementation for entity <code>Artist</code>, based on interface <code>ArtistDao</code>
- * </p>.
+ * </p>
  *
- * @see Artist
- * @see ArtistDao
- * @see ArtistTable
+ *  @see Artist
+ *  @see ArtistDao
+ *  @see ArtistTable
  */
 public class ArtistDaoImpl extends Dao implements ArtistDao {
-  
-  /** The Constant SELECT_BY_ID_SQL1. */
   private static final String SELECT_BY_ID_SQL1 = "SELECT id, name FROM artist WHERE id=?";
 
-  /** The Constant SELECT_ALL_SQL2. */
   private static final String SELECT_ALL_SQL2 = "SELECT id, name FROM artist";
 
-  /** The update prepared statement 0. */
   private static SQLiteStatement updatePreparedStatement0;
 
-  /** The insert prepared statement 1. */
   private static SQLiteStatement insertPreparedStatement1;
 
-  /** The delete by id prepared statement 2. */
   private static SQLiteStatement deleteByIdPreparedStatement2;
 
-  /**
-   * Instantiates a new artist dao impl.
-   *
-   * @param context the context
-   */
-  public ArtistDaoImpl(SQLContext context) {
-    super(context);
+  public ArtistDaoImpl(BindArtistDaoFactory daoFactory) {
+    super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name FROM artist WHERE id=${id}</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
-   * 
+   *
    * <h2>Query's parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is binded to <code>${id}</code>
+   * @param id
+   * 	is binded to <code>${id}</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -129,14 +102,14 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
 
   /**
    * <h2>Select SQL:</h2>
-   * 
+   *
    * <pre>SELECT id, name FROM artist</pre>
-   * 
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * </dl>.
+   * </dl>
    *
    * @return collection of bean or empty collection.
    */
@@ -324,14 +297,16 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM artist WHERE id=${id}</pre>
-   * 
-   * 
+   *
+   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * </dl>.
+   * </dl>
    *
-   * @param id 	is used as where parameter <strong>${id}</strong>
+   * @param id
+   * 	is used as where parameter <strong>${id}</strong>
+   *
    * @return number of deleted records
    */
   @Override
@@ -364,9 +339,6 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     return result;
   }
 
-  /**
-   * Clear compiled statements.
-   */
   public static void clearCompiledStatements() {
     if (updatePreparedStatement0!=null) {
       updatePreparedStatement0.close();
