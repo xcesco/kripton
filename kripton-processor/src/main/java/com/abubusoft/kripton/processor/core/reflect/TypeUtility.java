@@ -92,7 +92,8 @@ public abstract class TypeUtility {
 	 * @return true, if is type primitive
 	 */
 	public static boolean isTypePrimitive(TypeName value) {
-		return isTypeIncludedIn(value, Byte.TYPE, Character.TYPE, Boolean.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE);
+		return isTypeIncludedIn(value, Byte.TYPE, Character.TYPE, Boolean.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE,
+				Float.TYPE, Double.TYPE);
 	}
 
 	/**
@@ -103,7 +104,8 @@ public abstract class TypeUtility {
 	 * @return true, if is type wrapped primitive
 	 */
 	public static boolean isTypeWrappedPrimitive(TypeName value) {
-		return isTypeIncludedIn(value, Byte.class, Character.class, Boolean.class, Short.class, Integer.class, Long.class, Float.class, Double.class);
+		return isTypeIncludedIn(value, Byte.class, Character.class, Boolean.class, Short.class, Integer.class,
+				Long.class, Float.class, Double.class);
 	}
 
 	/**
@@ -246,10 +248,12 @@ public abstract class TypeUtility {
 		if (literalType.isArray()) {
 			return ArrayTypeName.of(typeName(literalType.getRawType()));
 		} else if (literalType.isCollection()) {
-			return ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()), typeName(literalType.getTypeParameter()));
+			return ParameterizedTypeName.get(TypeUtility.className(literalType.getRawType()),
+					typeName(literalType.getTypeParameter()));
 		}
 
-		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID };
+		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT,
+				TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID };
 
 		for (TypeName item : values) {
 			if (typeMirror.toString().equals(item.toString())) {
@@ -296,7 +300,8 @@ public abstract class TypeUtility {
 	 * @return typeName
 	 */
 	public static TypeName typeName(String typeName) {
-		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT, TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID };
+		TypeName[] values = { TypeName.BOOLEAN, TypeName.BYTE, TypeName.CHAR, TypeName.DOUBLE, TypeName.FLOAT,
+				TypeName.INT, TypeName.LONG, TypeName.SHORT, TypeName.VOID };
 
 		for (TypeName item : values) {
 			if (item.toString().equals(typeName)) {
@@ -306,7 +311,8 @@ public abstract class TypeUtility {
 
 		LiteralType literalName = LiteralType.of(typeName);
 		if (literalName.isParametrizedType()) {
-			return ParameterizedTypeName.get(className(literalName.getRawType()), typeName(literalName.getTypeParameter()));
+			return ParameterizedTypeName.get(className(literalName.getRawType()),
+					typeName(literalName.getTypeParameter()));
 		}
 		if (literalName.isArray()) {
 			return ArrayTypeName.of(typeName(literalName.getRawType()));
@@ -349,11 +355,14 @@ public abstract class TypeUtility {
 	 *            the property
 	 * @return true is method param is nullable
 	 */
-	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeName> methodParam, ModelProperty property) {
+	public static boolean isNullable(SQLiteModelMethod method, Pair<String, TypeName> methodParam,
+			ModelProperty property) {
 		if (!isNullable(property) && isNullable(methodParam.value1)) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
-			throw (new InvalidMethodSignException(method, String.format("property '%s' is NOT nullable but method parameter '%s' is nullable  ", property.getName(), methodParam.value0)));
+			throw (new InvalidMethodSignException(method,
+					String.format("property '%s' is NOT nullable but method parameter '%s' is nullable  ",
+							property.getName(), methodParam.value0)));
 		}
 		return isNullable(methodParam.value1);
 	}
@@ -368,12 +377,16 @@ public abstract class TypeUtility {
 	 * @param property
 	 *            the property
 	 */
-	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeName> item, ModelProperty property) {
+	public static void checkTypeCompatibility(SQLiteModelMethod method, Pair<String, TypeName> item,
+			ModelProperty property) {
 		if (!TypeUtility.isEquals(item.value1, property.getPropertyType().getTypeName())) {
 			// ASSERT: property is not nullable but method yes, so we throw an
 			// exception
-			throw (new InvalidMethodSignException(method, String.format("property '%s' is type '%s' and method parameter '%s' is type '%s': they must have same type", property.getName(),
-					property.getPropertyType().getTypeName(), item.value0, item.value1.toString())));
+			throw (new InvalidMethodSignException(method,
+					String.format(
+							"property '%s' is type '%s' and method parameter '%s' is type '%s': they must have same type",
+							property.getName(), property.getPropertyType().getTypeName(), item.value0,
+							item.value1.toString())));
 		}
 	}
 
@@ -475,27 +488,6 @@ public abstract class TypeUtility {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Merge type name.
-	 *
-	 * @param prefix
-	 *            the prefix
-	 * @param element
-	 *            the element
-	 * @return the type name
-	 */
-	public static TypeName mergeTypeName(String prefix, TypeElement element) {
-		String fullName = element.getQualifiedName().toString();
-
-		int lastIndex = fullName.lastIndexOf(".");
-
-		String packageName = fullName.substring(0, lastIndex);
-		String className = prefix + fullName.substring(lastIndex + 1);
-
-		return typeName(packageName, className);
-
 	}
 
 	/**
@@ -765,6 +757,16 @@ public abstract class TypeUtility {
 		} catch (ClassNotFoundException e) {
 			return false;
 		}
+	}
+
+	public static boolean isAssignable(TypeName typeName, TypeName assignableTypeName) {		
+		try {
+			Class<?> assignableClazz= Class.forName(assignableTypeName.toString());
+			return isAssignable(typeName, assignableClazz);
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+		
 	}
 
 	/**

@@ -26,6 +26,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelEntity;
@@ -73,11 +74,7 @@ public class PrefsProperty extends ManagedModelProperty {
 			
 			PrefsTransform transform = PrefsTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
 
-			if (!transform.isTypeAdapterAware()) {
-				String msg = String.format("In class '%s', property '%s' is converted in unsupported target type '%s' by @%s", entity.getElement().toString(), getName(), TypeUtility.typeName(typeAdapter.dataType),
-						BindPreferenceAdapter.class.getSimpleName());
-				throw (new IncompatibleAnnotationException(msg));
-			}
+			AssertKripton.assertTrueOfInvalidDefinition(transform.isTypeAdapterAware(), this, String.format("property is converted into an unsupported target type '%s' by @%s",TypeUtility.typeName(typeAdapter.dataType),BindPreferenceAdapter.class.getSimpleName()));
 		}
 	}
 

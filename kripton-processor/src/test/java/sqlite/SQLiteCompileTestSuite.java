@@ -22,6 +22,7 @@ import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
+import sqlite.feature.childselect.TestChildSelectSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinityTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
 import sqlite.feature.datasourceoptions.FeatureDataSourceOptionsTest;
@@ -109,6 +110,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestJoinFeatureSuite.class,
 			TestRelationSuite.class,
 			TestColumnAffinityTestSuite.class,
+			TestChildSelectSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,

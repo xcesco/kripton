@@ -52,7 +52,6 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsModel;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>Annotation processor for shared preferences.</p>
  * 

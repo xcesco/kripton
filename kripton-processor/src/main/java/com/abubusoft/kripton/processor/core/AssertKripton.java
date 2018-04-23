@@ -24,7 +24,6 @@ import javax.lang.model.element.VariableElement;
 
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.ForeignKeyNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
@@ -40,9 +39,9 @@ import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownParamUsedInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
@@ -362,7 +361,7 @@ public abstract class AssertKripton {
 	 * @param property the property
 	 * @param message the message
 	 */
-	public static void assertTrueOfInvalidDefinition(boolean expression, BindProperty property, String message) {
+	public static void assertTrueOfInvalidDefinition(boolean expression, ModelProperty property, String message) {
 		if (!expression) {
 			String msg = String.format("In class '%s', property '%s' has invalid definition: %s", property.getParent().getElement().asType().toString(), property.getName(), message);
 			throw (new InvalidDefinition(msg));

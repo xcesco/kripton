@@ -25,8 +25,10 @@ import base.BaseProcessorTest;
  */
 @RunWith(Suite.class)
 // @formatter:off
-@Suite.SuiteClasses({ TestCompileRelation1.class,
+@Suite.SuiteClasses({
+	TestCompileRelation1.class,
 	TestCompileRelation2.class,
+	TestCompileRelation3.class,
 	TestCompileRelationError1.class,
 	TestCompileRelationError2.class,
 	TestCompileRelationError3.class,
