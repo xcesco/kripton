@@ -1,4 +1,4 @@
-package sqlite.feature.schema.version2;
+package sqlite.feature.livedata.persistence2;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -12,33 +12,26 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
+import java.util.Set;
+import sqlite.feature.livedata.data.PersonTable;
 
 /**
  * <p>
- * Implementation of the SchoolDataSource datasource.
+ * Implementation of the AppDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see SchoolDataSource
- * @see BindSchoolDaoFactory
- * @see DaoProfessor
- * @see DaoProfessorImpl
- * @see Professor
- * @see DaoSeminar
- * @see DaoSeminarImpl
- * @see Seminar
- * @see DaoSeminar2Student
- * @see DaoSeminar2StudentImpl
- * @see Seminar2Student
- * @see DaoStudent
- * @see DaoStudentImpl
- * @see Student
+ * @see AppDataSource
+ * @see BindAppDaoFactory
+ * @see DaoPerson
+ * @see DaoPersonImpl
+ * @see Person
  */
-public class BindSchoolDataSource extends AbstractDataSource implements BindSchoolDaoFactory, SchoolDataSource {
+public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static volatile BindSchoolDataSource instance;
+  static volatile BindAppDataSource instance;
 
   /**
    * <p>Mutex to manage multithread access to instance</p>
@@ -46,77 +39,32 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   private static final Object mutex = new Object();
 
   /**
-   * Unique identifier for Dao DaoProfessor
+   * Unique identifier for Dao DaoPerson
    */
-  public static final int DAO_PROFESSOR_UID = 0;
-
-  /**
-   * Unique identifier for Dao DaoSeminar
-   */
-  public static final int DAO_SEMINAR_UID = 1;
-
-  /**
-   * Unique identifier for Dao DaoSeminar2Student
-   */
-  public static final int DAO_SEMINAR2_STUDENT_UID = 2;
-
-  /**
-   * Unique identifier for Dao DaoStudent
-   */
-  public static final int DAO_STUDENT_UID = 3;
+  public static final int DAO_PERSON_UID = 0;
 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new SeminarTable(), new StudentTable(), new Seminar2StudentTable(), new ProfessorTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoProfessorImpl daoProfessor = new DaoProfessorImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoSeminarImpl daoSeminar = new DaoSeminarImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoSeminar2StudentImpl daoSeminar2Student = new DaoSeminar2StudentImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoStudentImpl daoStudent = new DaoStudentImpl(this);
+  protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
    */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  protected BindSchoolDataSource(DataSourceOptions options) {
-    super("school", 2, options);
+  protected BindAppDataSource(DataSourceOptions options) {
+    super("app.db", 2, options);
   }
 
   @Override
-  public DaoProfessorImpl getDaoProfessor() {
-    return daoProfessor;
-  }
-
-  @Override
-  public DaoSeminarImpl getDaoSeminar() {
-    return daoSeminar;
-  }
-
-  @Override
-  public DaoSeminar2StudentImpl getDaoSeminar2Student() {
-    return daoSeminar2Student;
-  }
-
-  @Override
-  public DaoStudentImpl getDaoStudent() {
-    return daoStudent;
+  public DaoPersonImpl getDaoPerson() {
+    return daoPerson;
   }
 
   /**
@@ -206,8 +154,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindSchoolDataSource instance() {
-    BindSchoolDataSource result=instance;
+  public static BindAppDataSource instance() {
+    BindAppDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
         result=instance;
@@ -216,7 +164,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
           	.inMemory(false)
           	.log(true)
           	.build();
-          instance=result=new BindSchoolDataSource(options);
+          instance=result=new BindAppDataSource(options);
           try {
             instance.openWritableDatabase();
             instance.close();
@@ -234,8 +182,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindSchoolDataSource open() {
-    BindSchoolDataSource instance=instance();
+  public static BindAppDataSource open() {
+    BindAppDataSource instance=instance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -244,8 +192,8 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindSchoolDataSource openReadOnly() {
-    BindSchoolDataSource instance=instance();
+  public static BindAppDataSource openReadOnly() {
+    BindAppDataSource instance=instance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -267,28 +215,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -329,28 +259,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(StudentTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -363,29 +275,25 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 
   public void clearCompiledStatements() {
-    DaoProfessorImpl.clearCompiledStatements();
-    DaoSeminarImpl.clearCompiledStatements();
-    DaoSeminar2StudentImpl.clearCompiledStatements();
-    DaoStudentImpl.clearCompiledStatements();
+    DaoPersonImpl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static BindSchoolDataSource build(DataSourceOptions options) {
-    BindSchoolDataSource result=instance;
+  public static BindAppDataSource build(DataSourceOptions options) {
+    BindAppDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
         result=instance;
         if (result==null) {
-          instance=result=new BindSchoolDataSource(options);
+          instance=result=new BindAppDataSource(options);
           try {
             instance.openWritableDatabase();
             instance.close();
@@ -401,11 +309,11 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
             e.printStackTrace();
           }
         } else {
-          throw new KriptonRuntimeException("Datasource BindSchoolDataSource is already builded");
+          throw new KriptonRuntimeException("Datasource BindAppDataSource is already builded");
         }
       }
     } else {
-      throw new KriptonRuntimeException("Datasource BindSchoolDataSource is already builded");
+      throw new KriptonRuntimeException("Datasource BindAppDataSource is already builded");
     }
     return result;
   }
@@ -420,7 +328,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindSchoolDaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindAppDaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
@@ -430,7 +338,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindSchoolDaoFactory daoFactory);
+    TransactionResult onExecute(BindAppDaoFactory daoFactory);
   }
 
   /**
@@ -443,66 +351,27 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindSchoolDaoFactory daoFactory);
+    T onExecute(BindAppDaoFactory daoFactory);
   }
 
-  class DataSourceSingleThread implements BindSchoolDaoFactory {
+  class DataSourceSingleThread implements BindAppDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    protected DaoProfessorImpl _daoProfessor;
-
-    protected DaoSeminarImpl _daoSeminar;
-
-    protected DaoSeminar2StudentImpl _daoSeminar2Student;
-
-    protected DaoStudentImpl _daoStudent;
+    protected DaoPersonImpl _daoPerson;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInSessionImpl(BindSchoolDataSource.this);
+      _context=new SQLContextInSessionImpl(BindAppDataSource.this);
     }
 
     /**
      *
-     * retrieve dao DaoProfessor
+     * retrieve dao DaoPerson
      */
-    public DaoProfessorImpl getDaoProfessor() {
-      if (_daoProfessor==null) {
-        _daoProfessor=new DaoProfessorImpl(this);
+    public DaoPersonImpl getDaoPerson() {
+      if (_daoPerson==null) {
+        _daoPerson=new DaoPersonImpl(this);
       }
-      return _daoProfessor;
-    }
-
-    /**
-     *
-     * retrieve dao DaoSeminar
-     */
-    public DaoSeminarImpl getDaoSeminar() {
-      if (_daoSeminar==null) {
-        _daoSeminar=new DaoSeminarImpl(this);
-      }
-      return _daoSeminar;
-    }
-
-    /**
-     *
-     * retrieve dao DaoSeminar2Student
-     */
-    public DaoSeminar2StudentImpl getDaoSeminar2Student() {
-      if (_daoSeminar2Student==null) {
-        _daoSeminar2Student=new DaoSeminar2StudentImpl(this);
-      }
-      return _daoSeminar2Student;
-    }
-
-    /**
-     *
-     * retrieve dao DaoStudent
-     */
-    public DaoStudentImpl getDaoStudent() {
-      if (_daoStudent==null) {
-        _daoStudent=new DaoStudentImpl(this);
-      }
-      return _daoStudent;
+      return _daoPerson;
     }
 
     @Override
@@ -511,12 +380,21 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
     }
 
     protected void onSessionOpened() {
+      // support for live data
+      _context.onSessionOpened();
     }
 
     protected void onSessionClear() {
+      // support for live data
+      _context.onSessionOpened();
     }
 
     protected void onSessionClosed() {
+      // support for live data
+      Set<Integer> daosWithEvents=_context.onSessionClosed();
+      if (_daoPerson!=null && daosWithEvents.contains(DAO_PERSON_UID)) {
+        _daoPerson.invalidateLiveData();
+      }
     }
 
     public DataSourceSingleThread bindToThread() {

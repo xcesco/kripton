@@ -19,24 +19,27 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.javadoc.delete.raw.DeleteRawPersonDao;
-import sqlite.feature.javadoc.delete.raw.DeleteRawPersonDataSource;
+import sqlite.feature.javadoc.update.bean.error1.UpdateBeanPersonDao;
+import sqlite.feature.javadoc.update.bean.error1.UpdateBeanPersonDataSource;
 
 /**
- * The Class TestJavadocForDeleteRaw.
+ * The Class TestJavadocForUpdateRaw.
  */
 @RunWith(JUnit4.class)
-public class TestJavadocForDeleteRaw extends AbstractBindSQLiteProcessorTest {
+public class TestJavadocForUpdateBeanError1 extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * Test compile delete raw.
+	 * Test compile update raw.
 	 *
 	 * @throws Throwable the throwable
 	 */
 	@Test
-	public void testCompileDeleteRaw() throws Throwable {
-		buildDataSourceProcessorTest(Person.class, DeleteRawPersonDao.class, DeleteRawPersonDataSource.class);
+	public void testCompileErrorUpdateBean() throws Throwable {		
+		this.expectedException(InvalidMethodSignException.class,"In class 'UpdateBeanPersonDao', method 'updateAllBeans' has an invalid signature: no field was specified for update");
+		buildDataSourceProcessorTest(Person.class, UpdateBeanPersonDao.class, UpdateBeanPersonDataSource.class);
 	}
 
 }

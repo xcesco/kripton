@@ -24,7 +24,6 @@ import sqlite.feature.javadoc.update.raw.UpdateRawPersonDataSource;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestJavadocForUpdateRaw.
  */

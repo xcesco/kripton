@@ -13,30 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.javadoc;
+package sqlite.feature.livedata;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.javadoc.delete.raw.DeleteRawPersonDao;
-import sqlite.feature.javadoc.delete.raw.DeleteRawPersonDataSource;
+import sqlite.feature.livedata.data.Person;
+import sqlite.feature.livedata.persistence2.AppDataSource;
+import sqlite.feature.livedata.persistence2.DaoPerson;
 
 /**
- * The Class TestJavadocForDeleteRaw.
+ * The Class TestLiveDataCompile.
  */
 @RunWith(JUnit4.class)
-public class TestJavadocForDeleteRaw extends AbstractBindSQLiteProcessorTest {
+public class TestLiveDataCompile2 extends AbstractBindSQLiteProcessorTest {
 
+	
 	/**
-	 * Test compile delete raw.
+	 * Test compile 1.
 	 *
 	 * @throws Throwable the throwable
 	 */
 	@Test
-	public void testCompileDeleteRaw() throws Throwable {
-		buildDataSourceProcessorTest(Person.class, DeleteRawPersonDao.class, DeleteRawPersonDataSource.class);
+	public void testCompile() throws Throwable {				
+		//formatter:off
+		buildDataSourceProcessorTest(Person.class, DaoPerson.class, AppDataSource.class);
+		//formatter:on
 	}
 
 }

@@ -26,7 +26,6 @@ import sqlite.feature.livedata.persistence0.DaoPerson0;
 import sqlite.feature.livedata.persistence1.App1DataSource;
 import sqlite.feature.livedata.persistence1.DaoPerson1;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestLiveDataCompile.
  */

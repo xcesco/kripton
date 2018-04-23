@@ -227,14 +227,14 @@ public @interface BindSqlUpdate {
 	ConflictAlgorithmType conflictAlgorithm() default ConflictAlgorithmType.NONE;
 
 	/**
-	 * properties to include into UPDATE command.
+	 * properties to include into UPDATE command. If it is empty, all fields will be used.
 	 *
 	 * @return property's names to include
 	 */
 	String[] fields() default {};
 
 	/**
-	 * properties to exclude from UPDATE command.
+	 * properties to exclude from UPDATE command. If it is empty, no field will be used.
 	 *
 	 * @return property's names to exclude
 	 */

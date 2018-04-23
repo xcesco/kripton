@@ -28,14 +28,20 @@ import base.BaseProcessorTest;
 @Suite.SuiteClasses(
 		{ 
 		TestJavadocForUpdateBean.class,
+		TestJavadocForUpdateBeanError1.class,
+		
 		TestJavadocForUpdateRaw.class,
+		TestJavadocForUpdateRawError1.class,
+		
 		TestJavadocForSelectRaw.class,
 		TestJavadocForSelectBean.class,
+		
 		TestJavadocForDeleteRaw.class,
 		TestJavadocForDeleteBean.class,
+		
+		
 		TestJavadocForInsertRaw.class,
 		TestJavadocForInsertBean.class
-		
 		 })
 //@formatter:on
 public class TestJavadocFeatureSuite extends BaseProcessorTest {
