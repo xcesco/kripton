@@ -61,6 +61,18 @@ public class KriptonProcessor extends BaseProcessor {
 
 		return annotations;
 	}
+	
+	/**
+	 * Retrieve all supported annotation classes. Added for IntelliJ plugin
+	 * 
+	 * @return
+	 * 		set of all supported annotation classes
+	 */
+	public static Set<Class<? extends Annotation>> getAllSupportedAnnotationClasses() {
+		KriptonProcessor processor=new KriptonProcessor();
+
+		return processor.getSupportedAnnotationClasses();
+	}
 
 	/* (non-Javadoc)
 	 * @see com.abubusoft.kripton.processor.BaseProcessor#init(javax.annotation.processing.ProcessingEnvironment)
