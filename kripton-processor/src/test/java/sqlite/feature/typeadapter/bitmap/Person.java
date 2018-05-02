@@ -33,7 +33,6 @@ public class Person {
 	
 	/** The image. */
 	@BindSqlAdapter(adapter = BitmapTypeAdapter.class)
-	@BindColumn()
 	public Bitmap image;
 
 }

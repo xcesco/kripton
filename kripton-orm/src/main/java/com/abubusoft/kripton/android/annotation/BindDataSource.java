@@ -24,11 +24,10 @@ import java.lang.annotation.Target;
  * <p>
  * This annotation decorate an interface to define a datasource associated to a
  * database schema. Between its attributes there is a DAO collection. Every DAO
- * is defined by an interface annotated with [[@BindDao|@BindDao]]. Every DAO
- * and is associated to a specific Java class which is associated to a specific
- * table.
+ * is defined by an interface annotated with @{@link BindDao}. Every DAO and is
+ * associated to a specific Java class which is associated to a specific table.
  * 
- * A data source class name have to finish with `DataSource` suffix.
+ * A data source class name have to finish with <code>DataSource</code> suffix.
  * </p>
  * 
  * <h2>Attributes</h2>
@@ -39,7 +38,8 @@ import java.lang.annotation.Target;
  * <li><strong>asyncTask</strong>: if true, generate async task name
  * `Bind&lt;data source name without DataSource prefix&gt;AsyncTask`</li>
  * <li><strong>cursorWrapper</strong>: if true, generate a wrapped cursor for
- * every Java class managed by data-source. Cursor's name is <code>Bind{data source
+ * every Java class managed by data-source. Cursor's name is
+ * <code>Bind{data source
  * name without DataSource prefix}Cursor</code>.</li>
  * <li><strong>daoSet</strong>: the collection of DAO associated to
  * data-source.</li>
@@ -49,9 +49,15 @@ import java.lang.annotation.Target;
  * <li><strong>log</strong>: controls generation of the log of SQL on
  * logcat.</li>
  * <li><strong>typeAdapters</strong>: Global sql-type-adapters. These adapters
- * are applied to every property that adapter supports.</li>
+ * are applied to every property that adapter supports. See
+ * <a href="https://github.com/xcesco/kripton/wiki/Global-SQL-Type-adapter">this
+ * page</a> for more information.</li>
  * <li><strong>version</strong>: database version. The default version is
  * 1.</li>
+ * <li><strong>schema</strong>: if true generates schema DDL in a separate file
+ * in filder <code>schemas</code>. Visit
+ * <a href="https://github.com/xcesco/kripton/wiki/Generate-schemas">Kripton
+ * wiki</a> for more information about it.</li>
  * </ul>
  * 
  * <h2>Usage</h2> Consider this interface to define a data source:
@@ -99,7 +105,8 @@ import java.lang.annotation.Target;
  * 		SQLiteDatabase connection = needToOpened ? openWritableDatabase() : database();
  * 		try {
  * 			connection.beginTransaction();
- * 			if (transaction != null &amp;&amp; TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
+ * 			if (transaction != null
+ * 					&amp;&amp; TransactionResult.COMMIT == transaction.onExecute(_daoFactorySingleThread.bindToThread())) {
  * 				connection.setTransactionSuccessful();
  * 			}
  * 		} catch (Throwable e) {
@@ -188,13 +195,15 @@ import java.lang.annotation.Target;
  * 			if (task != null) {
  * 				// log section BEGIN
  * 				if (this.logEnabled) {
- * 					Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+ * 					Logger.info("Begin update database from version %s to %s", task.previousVersion,
+ * 							task.currentVersion);
  * 				}
  * 				// log section END
  * 				task.execute(database);
  * 				// log section BEGIN
  * 				if (this.logEnabled) {
- * 					Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+ * 					Logger.info("End update database from version %s to %s", task.previousVersion,
+ * 							task.currentVersion);
  * 				}
  * 				// log section END
  * 			}
@@ -208,7 +217,8 @@ import java.lang.annotation.Target;
  * 	public void onUpgrade(SQLiteDatabase database, int previousVersion, int currentVersion) {
  * 		// log section BEGIN
  * 		if (this.logEnabled) {
- * 			Logger.info("Update database '%s' from version %s to version %s", this.name, previousVersion, currentVersion);
+ * 			Logger.info("Update database '%s' from version %s to version %s", this.name, previousVersion,
+ * 					currentVersion);
  * 		}
  * 		// log section END
  * 		// if we have a list of update task, try to execute them
@@ -217,13 +227,15 @@ import java.lang.annotation.Target;
  * 			for (SQLiteUpdateTask task : tasks) {
  * 				// log section BEGIN
  * 				if (this.logEnabled) {
- * 					Logger.info("Begin update database from version %s to %s", task.previousVersion, task.currentVersion);
+ * 					Logger.info("Begin update database from version %s to %s", task.previousVersion,
+ * 							task.currentVersion);
  * 				}
  * 				// log section END
  * 				task.execute(database);
  * 				// log section BEGIN
  * 				if (this.logEnabled) {
- * 					Logger.info("End update database from version %s to %s", task.previousVersion, task.currentVersion);
+ * 					Logger.info("End update database from version %s to %s", task.previousVersion,
+ * 							task.currentVersion);
  * 				}
  * 				// log section END
  * 			}
@@ -302,9 +314,10 @@ import java.lang.annotation.Target;
  * </pre>
  * 
  * <p>
- * Generated data source class derived from <a href="https://github.com/xcesco/kripton/blob/master/KriptonAndroidLibrary/src/main/java/com/abubusoft/kripton/android/sqlite/AbstractDataSource.java">AbstractDataSource.java</a>
- * that derives from
- * <a href="http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/database/sqlite/SQLiteOpenHelper.java">SQLiteOpenHelper.java</a>.
+ * Generated data source class derived from <a href=
+ * "https://github.com/xcesco/kripton/blob/master/KriptonAndroidLibrary/src/main/java/com/abubusoft/kripton/android/sqlite/AbstractDataSource.java">AbstractDataSource.java</a>
+ * that derives from <a href=
+ * "http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/database/sqlite/SQLiteOpenHelper.java">SQLiteOpenHelper.java</a>.
  * </p>
  * 
  * <p>
@@ -383,7 +396,10 @@ public @interface BindDataSource {
 
 	/**
 	 * <p>
-	 * if true, generate schema sql file, in <code>schema/</code> folder.
+	 * if true, generate schema sql file, in <code>schema/</code> folder. Visit
+	 * this <a href=
+	 * "https://github.com/xcesco/kripton/wiki/Generate-schemas">page</a> for
+	 * more information.
 	 * </p>
 	 * 
 	 * <p>
