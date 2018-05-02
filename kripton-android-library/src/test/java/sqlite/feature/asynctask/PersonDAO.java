@@ -13,37 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.multithread;
+package sqlite.feature.asynctask;
 
-import java.util.Date;
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.annotation.BindType;
+import sqlite.feature.asynctask.Person;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Person.
+ * The Interface PersonDAO.
  */
-@BindType
-@BindTable()
-public class Person {
-  
-  /** The id. */
-  public long id;
-  
-  
-  /** The name. */
-  @BindColumn(columnType=ColumnType.INDEXED)
-  public String name;
-  
-  /** The surname. */
-  public String surname;
-  
-  /** The birth city. */
-  public String birthCity;
-  
-  /** The birth day. */
-  public Date birthDay;
+@BindDao(Person.class)
+public interface PersonDAO {
+
+	/**
+	 * Insert thread 1.
+	 *
+	 * @param bean the bean
+	 */
+	@BindSqlInsert
+	public void insertThread1(Person bean);
+	
+	/**
+	 * Insert thread 2.
+	 *
+	 * @param bean the bean
+	 */
+	@BindSqlInsert
+	public void insertThread2(Person bean);
+	
+	/**
+	 * Select thread 1.
+	 *
+	 * @return the person
+	 */
+	@BindSqlSelect
+	public Person selectThread1();
+	
+	/**
+	 * Select thread 2.
+	 *
+	 * @return the person
+	 */
+	@BindSqlSelect
+	public Person selectThread2();
 }

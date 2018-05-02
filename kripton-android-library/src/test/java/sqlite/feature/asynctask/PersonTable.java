@@ -1,4 +1,4 @@
-package sqlite.feature.multithread;
+package sqlite.feature.asynctask;
 
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 

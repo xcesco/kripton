@@ -24,7 +24,6 @@ import sqlite.feature.rx.model.Country;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 26/02/2017.
  */

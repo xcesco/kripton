@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.multithread;
+package sqlite.feature.asynctask;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,7 +29,6 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import base.BaseAndroidTest;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestRuntimeMultithread.
  */

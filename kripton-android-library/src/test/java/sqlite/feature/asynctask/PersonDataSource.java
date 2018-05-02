@@ -13,31 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.dynamic.select;
+package sqlite.feature.asynctask;
 
-import java.util.List;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import sqlite.feature.asynctask.PersonDAO;
 
-import sqlite.feature.dynamic.Person;
-
-// TODO: Auto-generated Javadoc
 /**
- * The Interface PersonDAO2.
+ * The Interface PersonDataSource.
  */
-@BindDao(Person.class)
-public interface PersonDAO2 {
-
-	/**
-	 * Select.
-	 *
-	 * @param id the id
-	 * @param where the where
-	 * @return the list
-	 */
-	@BindSqlSelect(jql="select * from person where id=${id} #{ DYNAMIC_WHERE }")
-	List<Person> select(long id, @BindSqlDynamicWhere String where);
+@BindDataSource(daoSet= { PersonDAO.class }, fileName = "person.db", log=true, asyncTask=true)
+public interface PersonDataSource {
 
 }

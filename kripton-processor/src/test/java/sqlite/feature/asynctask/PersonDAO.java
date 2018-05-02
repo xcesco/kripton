@@ -13,33 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.multithread;
+package sqlite.feature.asynctask;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.generichierarchy.BaseDAO;
-import sqlite.feature.multithread.Person;
-import sqlite.feature.multithread.PersonDAO;
-import sqlite.feature.multithread.PersonDataSource;
+import sqlite.feature.asynctask.Person;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class TestCompileMultithread.
+ * The Interface PersonDAO.
  */
-@RunWith(JUnit4.class)
-public class TestCompileMultithread extends AbstractBindSQLiteProcessorTest {
+@BindDao(Person.class)
+public interface PersonDAO {
 
 	/**
-	 * OK.
+	 * Insert thread 1.
 	 *
-	 * @throws Throwable the throwable
+	 * @param bean the bean
 	 */
-	@Test
-	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class, BaseDAO.class);
-	}
-
+	@BindSqlInsert
+	public void insertThread1(Person bean);
+	
+	/**
+	 * Insert thread 2.
+	 *
+	 * @param bean the bean
+	 */
+	@BindSqlInsert
+	public void insertThread2(Person bean);
+	
+	/**
+	 * Select thread 1.
+	 *
+	 * @return the person
+	 */
+	@BindSqlSelect
+	public Person selectThread1();
+	
+	/**
+	 * Select thread 2.
+	 *
+	 * @return the person
+	 */
+	@BindSqlSelect
+	public Person selectThread2();
 }

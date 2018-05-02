@@ -13,37 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.multithread;
+package sqlite.feature.asynctask;
 
-import java.util.Date;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
-import com.abubusoft.kripton.annotation.BindType;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.asynctask.Person;
+import sqlite.feature.asynctask.PersonDAO;
+import sqlite.feature.asynctask.PersonDataSource;
+import sqlite.feature.generichierarchy.BaseDAO;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Person.
+ * The Class TestCompileMultithread.
  */
-@BindType
-@BindTable()
-public class Person {
-  
-  /** The id. */
-  public long id;
-  
-  
-  /** The name. */
-  @BindColumn(columnType=ColumnType.INDEXED)
-  public String name;
-  
-  /** The surname. */
-  public String surname;
-  
-  /** The birth city. */
-  public String birthCity;
-  
-  /** The birth day. */
-  public Date birthDay;
+@RunWith(JUnit4.class)
+public class TestCompileMultithread extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * OK.
+	 *
+	 * @throws Throwable the throwable
+	 */
+	@Test
+	public void testOK() throws Throwable {
+		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class, BaseDAO.class);
+	}
+
 }

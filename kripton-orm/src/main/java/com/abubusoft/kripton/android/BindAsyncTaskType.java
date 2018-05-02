@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android;
 
-// TODO: Auto-generated Javadoc
 /**
  * <P>
  * Allows to specify how a BindAsyncTask works with the data source for which it

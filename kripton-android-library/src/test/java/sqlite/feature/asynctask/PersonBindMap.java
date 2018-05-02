@@ -1,4 +1,4 @@
-package sqlite.feature.multithread;
+package sqlite.feature.asynctask;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;

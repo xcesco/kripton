@@ -1,4 +1,4 @@
-package sqlite.feature.multithread;
+package sqlite.feature.asynctask;
 
 import android.os.AsyncTask;
 import com.abubusoft.kripton.android.BindAsyncTaskType;
