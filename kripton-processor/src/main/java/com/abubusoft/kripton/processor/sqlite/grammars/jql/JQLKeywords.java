@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class JQLKeywords.
  */

@@ -18,6 +18,7 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import sqlite.feature.asynctask.TestRuntimeMultithreadSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinitySuite;
 import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
 import sqlite.feature.dynamic.TestDynamicRuntimeSuite;
@@ -27,7 +28,6 @@ import sqlite.feature.includefields.TestIncludeFieldsRuntimeSuite;
 import sqlite.feature.indexes.TestIndexesRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
 import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
-import sqlite.feature.multithread.TestRuntimeMultithreadSuite;
 import sqlite.feature.paginatedresult.TestPaginatedResultRuntimeSuite;
 import sqlite.feature.relations.TestFeatureRelationRuntimeSuite;
 import sqlite.feature.schema.TestSchemaRuntimeSuite;

@@ -23,7 +23,6 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.javadoc.delete.raw.DeleteRawPersonDao;
 import sqlite.feature.javadoc.delete.raw.DeleteRawPersonDataSource;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestJavadocForDeleteRaw.
  */

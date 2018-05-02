@@ -17,7 +17,6 @@ package com.abubusoft.kripton.android.sqlite;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Allow to manage SQL result pages with LIMIT clause.

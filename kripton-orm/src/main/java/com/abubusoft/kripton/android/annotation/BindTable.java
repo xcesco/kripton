@@ -19,52 +19,57 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
- 
+
 /**
  * <p>
- * When a class is converted to a table, the name of table is obtained from Java
- * class name with a upper camel to Lower under score convertion. For example
- * SayHello class name will be transformed in say_hello table name.
- * </p>
+ * This annotation allows to manage the class as data model and will instruct
+ * Kripton to generate an associated table in the data source that contains it.
+ * This annotation allows to specify the table name and the
  * 
- * <p>
- * This annotation allow to specify the name of the associated table associated
- * to a Java class. Note that specified name will be transformed like a Java
+ * When a class is converted to a table, the name of the table is obtained from
+ * Java class name with an upper camel to Lower underscore conversion. For
+ * example `SayHello` class name will be transformed into `say_hello` table
+ * name.
+ * 
+ * This annotation allows specifying the name of the associated table associated
+ * with a Java class. Note that specified name will be transformed like a Java
  * class name.
  * </p>
  * 
- * <p>
- * Take this class
- * </p>
+ * <h3>Attributes</h3>
+ * <ul>
+ * <li><strong>indexes</strong>: allows defining indexes on the table. See
+ * {@link BindIndex} for more informations.</li>
+ * <li><strong>name</strong>: name of the table.</li>
+ * </ul>
+ * 
+ * <h3>Usage</h3>
  * 
  * <pre>
- * &#064;BindType
- * &#064;BindTable("ws_bean")
- * public class Bean05 {
- * 
- * 	&#064;BindColumn(columnType = ColumnType.PRIMARY_KEY)
- * 	protected long pk;
- * 
- * 	protected long number;
- * 
- * 	protected String text;
- * 
- * 	protected byte[] content;
- * 
- * 	protected Date creationTime;
- * }
+&#64;BindTable(
+  name="ws_bean",
+  indexes= {
+    &#64;BindIndex({"birthCity", "birthDay desc"}),
+    &#64;BindIndex({"surname"}),
+    &#64;BindIndex(value={"name","surname", "date desc"}, unique=true )
+  }
+)
+public class Person {
+  ...
+}
  * </pre>
  * 
- * <p>
- * Its associated table name is <code>ws_bean</code>.
- * </p>
+ * Its associated table name is `ws_bean` and it will generate the following
+ * table definition:
  * 
- * <h2>Attributes</h2>
- * <ul>
- * <li><strong>indexes</strong>: allows to define generic indexes on the table.</li>
- * <li><strong>name</strong> name of the table.</li>
- * <li><strong>uniqueIndexes</strong> defines the unique indexes on the table.</li>
- * </ul>
+ * <pre>
+CREATE TABLE ws_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_name TEXT UNIQUE, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); 
+CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); 
+CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); 
+CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); 
+CREATE INDEX idx_person_1 on person (surname);
+ * </pre>
+ * 
  * 
  * @author xcesco
  *
@@ -73,8 +78,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface BindTable {
 	/**
-	 * Name of the table, in SQLite style (with words underline separator). It will be converted during creation of
-	 * table. If null, the name of the table will be the transformed class name.
+	 * Name of the table in SQL world. If null, the name of the
+	 * table will be the transformed class name.
 	 * 
 	 * @return defined name of the table in java style
 	 */
@@ -82,11 +87,11 @@ public @interface BindTable {
 
 	/**
 	 * <p>
-	 * Allow to crete (multicolumn or single column) indexes for this table. 
+	 * Allow to cretae (multicolumn or single column) indexes for this table.
 	 * </p>
 	 * 
 	 * @return indexes definition
 	 */
 	BindIndex[] indexes() default {};
-		
+
 }

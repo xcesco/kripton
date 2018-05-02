@@ -22,7 +22,6 @@ import java.lang.annotation.Target;
 
 import com.abubusoft.kripton.android.sharedprefs.PreferenceTypeAdapter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface BindPreferenceAdapter.
  */

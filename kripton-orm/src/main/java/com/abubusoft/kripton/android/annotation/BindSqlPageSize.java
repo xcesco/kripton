@@ -25,9 +25,19 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * Marks a parameter as pageSize for SQL results
- * </p>.
- *
+ * This annotation is used, in SQL select method in a DAO definition, to define
+ * at runtime the page size for a query with a paginated result.
+ * </p>
+ * 
+ * <pre>
+ * &#64;BindSqlSelect(orderBy = "name")
+ * PaginatedResult<Person> select(@BindSqlPageSize int pageSize);
+ * </pre>
+ * 
+ * <p>
+ * The type parameter can be `int` or `long`.
+ * </p>
+ * 
  * @author xcesco
  */
 @Retention(RetentionPolicy.RUNTIME)

@@ -20,7 +20,6 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InvalidBeanTypeException.
  */

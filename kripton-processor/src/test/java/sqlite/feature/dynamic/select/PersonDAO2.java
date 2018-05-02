@@ -37,7 +37,7 @@ public interface PersonDAO2 {
 	 * @param where the where
 	 * @return the list
 	 */
-	@BindSqlSelect(jql="select * from person where id=${id} and #{ DYNAMIC_WHERE }")
+	@BindSqlSelect(jql="select * from person where id=${id} #{ DYNAMIC_WHERE }")
 	List<Person> select(long id, @BindSqlDynamicWhere String where);
 
 }

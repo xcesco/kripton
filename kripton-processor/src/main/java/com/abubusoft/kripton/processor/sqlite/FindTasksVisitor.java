@@ -22,7 +22,6 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.SimpleAnnotationValueVisitor7;
 
@@ -71,25 +70,6 @@ public class FindTasksVisitor extends SimpleAnnotationValueVisitor7<Void, String
 			}
 		}
 
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitString(java.lang.String, java.lang.Object)
-	 */
-	@Override
-	public Void visitString(String s, String p) {
-		//System.out.printf(">> %s stringValue: %s\n", p, s);
-						
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see javax.lang.model.util.SimpleAnnotationValueVisitor6#visitEnumConstant(javax.lang.model.element.VariableElement, java.lang.Object)
-	 */
-	@Override
-	public Void visitEnumConstant(VariableElement c, String p) {
-		//System.out.printf(">> %s enumValue: %s\n", p, c.getSimpleName());
 		return null;
 	}
 
