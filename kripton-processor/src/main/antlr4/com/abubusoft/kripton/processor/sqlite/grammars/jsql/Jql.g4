@@ -326,6 +326,7 @@ expr
  : literal_value
  | bind_parameter
  | bind_dynamic_sql
+ | expr bind_dynamic_sql
  | column_fully_qualified_name
  | unary_operator expr
  | expr '||' expr

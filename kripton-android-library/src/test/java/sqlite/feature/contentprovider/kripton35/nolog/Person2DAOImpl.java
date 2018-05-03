@@ -314,7 +314,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id = ${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = ${id} #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -355,7 +355,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id = ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id = ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -366,7 +366,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     }
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
     return result!=0;
   }
@@ -376,10 +376,10 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test0/#</pre>
    *
    * <h2>JQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM Person WHERE id = ${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM Person WHERE id = ${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM person WHERE id = ${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = ${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -406,7 +406,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id = ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id = ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -426,7 +426,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     }
     // log section END
 
@@ -628,7 +628,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -673,13 +673,13 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET name=? WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
@@ -689,10 +689,10 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test1/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET name=${name} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=${name} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -718,7 +718,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -733,7 +733,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET name=:name WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -756,7 +756,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -805,7 +805,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -816,7 +816,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     }
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET name=? WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
     return result;
   }
@@ -826,10 +826,10 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test2/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET name=${name} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=${name} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -857,7 +857,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -882,7 +882,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET name=:name WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

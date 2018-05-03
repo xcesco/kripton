@@ -13,32 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.dynamic;
+package sqlite.feature.dynamic.select3;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
-import sqlite.feature.dynamic.kripton121.Kripton121Test;
-import sqlite.feature.dynamic.select.SelectJQLTest;
-import sqlite.feature.dynamic.select2.SelectRawTest;
-import sqlite.feature.dynamic.select3.CompileSelectRawJQLTest;
-import sqlite.feature.dynamic.update.UpdateTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.dynamic.Person;
 
 /**
- * The Class TestDynamicSuite.
+ * The Class SelectTest.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		SelectJQLTest.class,
-		SelectRawTest.class,
-		CompileSelectRawJQLTest.class,
-		UpdateTest.class,
-		Kripton121Test.class
-		 })
-//@formatter:on
-public class TestDynamicSuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class CompileSelectRawJQLTest extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
+	 */
+	@Test
+	public void testCompile() throws Throwable {
+		buildDataSourceProcessorTest(PersonDataSource.class, PersonDAO.class, Person.class);
+	}
 
 }

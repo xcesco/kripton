@@ -13,33 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.dynamic.kripton121;
+package sqlite.feature.dynamic.select3;
 
+import java.util.Date;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.dynamic.Person;
 
 /**
- * The Interface Person1DAO.
+ * The Interface PersonDAO2.
  */
 @BindDao(Person.class)
-public interface Person1DAO {
+public interface PersonDAO {
 
 	/**
-	 * Select one.
+	 * Select.
 	 *
+	 * @param id the id
 	 * @param where the where
-	 * @param orderBy the order by
 	 * @return the list
 	 */
-	@BindSqlSelect
-	List<Person> selectOne(@BindSqlDynamicWhere String where, @BindSqlDynamicOrderBy String orderBy);
+	@BindSqlSelect(jql="select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE}")
+	List<Person> select(String dummy, @BindSqlDynamicWhere String where);
 	
-	// @BindSqlSelect(orderBy="typeName")
-	// void selectCursorListener(OnReadCursorListener cursorListener);
+	@BindSqlInsert
+	void insert(String name, String surname, String birthCity, Date birthDay);
+
+
 }

@@ -447,7 +447,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT person_name FROM person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT person_name FROM person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -483,7 +483,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -531,10 +531,10 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT personName FROM Person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT personName FROM Person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT person_name FROM person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT person_name FROM person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -563,7 +563,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -606,7 +606,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${id} and person_name=${name} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${id} and person_name=${name} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -652,7 +652,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=? and person_name=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE id=? and person_name=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -712,10 +712,10 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#/[*]</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${id} and personName=${name} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${id} and personName=${name} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${id} and person_name=${name} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${id} and person_name=${name} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -747,7 +747,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=? and person_name=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE id=? and person_name=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END

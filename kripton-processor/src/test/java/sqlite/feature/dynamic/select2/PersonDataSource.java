@@ -13,32 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.dynamic;
+package sqlite.feature.dynamic.select2;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import base.BaseProcessorTest;
-import sqlite.feature.dynamic.kripton121.Kripton121Test;
-import sqlite.feature.dynamic.select.SelectJQLTest;
-import sqlite.feature.dynamic.select2.SelectRawTest;
-import sqlite.feature.dynamic.select3.CompileSelectRawJQLTest;
-import sqlite.feature.dynamic.update.UpdateTest;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 /**
- * The Class TestDynamicSuite.
+ * The Interface PersonDataSource.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		SelectJQLTest.class,
-		SelectRawTest.class,
-		CompileSelectRawJQLTest.class,
-		UpdateTest.class,
-		Kripton121Test.class
-		 })
-//@formatter:on
-public class TestDynamicSuite extends BaseProcessorTest {
+@BindDataSource(daoSet= { PersonDAO.class }, fileName = "person.db", log=true)
+public interface PersonDataSource {
 
 }

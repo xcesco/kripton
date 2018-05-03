@@ -473,7 +473,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT person_name FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT person_name FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -509,7 +509,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -557,10 +557,10 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT personname FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT personname FROM Person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT person_name FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT person_name FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -589,7 +589,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -632,7 +632,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -675,7 +675,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -734,10 +734,10 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, personName, personSurname, student FROM Person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -768,7 +768,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END

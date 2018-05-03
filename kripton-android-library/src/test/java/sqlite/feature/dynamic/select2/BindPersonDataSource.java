@@ -1,4 +1,4 @@
-package sqlite.feature.asynctask;
+package sqlite.feature.dynamic.select2;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -12,6 +12,7 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
+import sqlite.feature.dynamic.PersonTable;
 
 /**
  * <p>

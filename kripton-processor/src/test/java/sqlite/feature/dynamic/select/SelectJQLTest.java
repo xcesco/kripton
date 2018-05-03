@@ -32,7 +32,7 @@ import sqlite.feature.dynamic.select.PersonDataSource;
  * The Class SelectTest.
  */
 @RunWith(JUnit4.class)
-public class SelectTest extends AbstractBindSQLiteProcessorTest {
+public class SelectJQLTest extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition.

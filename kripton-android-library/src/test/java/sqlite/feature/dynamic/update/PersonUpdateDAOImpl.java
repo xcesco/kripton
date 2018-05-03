@@ -116,7 +116,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id = ${nameValue} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = ${nameValue} #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -151,18 +151,18 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id = ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id = ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -177,7 +177,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM person WHERE id = ${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = ${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -208,18 +208,18 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id = ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id = ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -234,7 +234,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id = ${nameValue} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id = ${nameValue} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -277,18 +277,18 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id = ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id = ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=? WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET name=? WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET name=:name WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -315,7 +315,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -359,18 +359,18 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id = ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id = ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, surname=?, birth_city=?, birth_day=? WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET name=?, surname=?, birth_city=?, birth_day=? WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birth_city, birth_day=:birth_day WHERE id = ?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birth_city, birth_day=:birth_day WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

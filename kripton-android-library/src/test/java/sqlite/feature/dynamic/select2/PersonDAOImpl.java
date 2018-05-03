@@ -1,4 +1,4 @@
-package sqlite.feature.dynamic.select;
+package sqlite.feature.dynamic.select2;
 
 import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
@@ -12,22 +12,22 @@ import sqlite.feature.dynamic.Person;
 
 /**
  * <p>
- * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDAO2</code>
+ * DAO implementation for entity <code>Person</code>, based on interface <code>PersonDAO</code>
  * </p>
  *
  *  @see Person
- *  @see PersonDAO2
+ *  @see PersonDAO
  *  @see sqlite.feature.dynamic.PersonTable
  */
-public class PersonDAO2Impl extends Dao implements PersonDAO2 {
-  public PersonDAO2Impl(BindPerson2DaoFactory daoFactory) {
+public class PersonDAOImpl extends Dao implements PersonDAO {
+  public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -43,22 +43,15 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
-   * <h2>Query's parameters:</h2>
-   * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * </dl>
-   *
-   * @param id
-   * 	is binded to <code>${id}</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> select(long id, String where) {
+  public List<Person> select(String where) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("select * from person");
+    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
@@ -67,13 +60,12 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" where id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=StringUtils.ifNotEmptyAppend(_sqlDynamicWhere, " WHERE ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
     String _sql=_sqlBuilder.toString();
     // add where arguments
-    _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {

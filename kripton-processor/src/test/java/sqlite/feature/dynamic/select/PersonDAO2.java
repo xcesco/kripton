@@ -23,7 +23,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 import sqlite.feature.dynamic.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface PersonDAO2.
  */
@@ -37,7 +36,7 @@ public interface PersonDAO2 {
 	 * @param where the where
 	 * @return the list
 	 */
-	@BindSqlSelect(jql="select * from person where id=${id} #{ DYNAMIC_WHERE }")
+	@BindSqlSelect(jql="select * from person where id=${id} #{DYNAMIC_WHERE}")
 	List<Person> select(long id, @BindSqlDynamicWhere String where);
 
 }
