@@ -393,7 +393,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -426,18 +426,18 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -456,10 +456,10 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/single2/#</pre>
    *
    * <h2>JQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM Person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -485,7 +485,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -495,7 +495,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -513,7 +513,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
@@ -550,7 +550,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -561,12 +561,12 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     }
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -585,10 +585,10 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    *
    * <h2>JQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM Person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM Person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM person WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -616,7 +616,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -636,7 +636,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;

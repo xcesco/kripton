@@ -29,46 +29,46 @@ public class JQL {
 	 * The Enum JQLType.
 	 */
 	public enum JQLType {
-		
+
 		/** The select. */
-		SELECT, 
- /** The insert. */
- INSERT, 
- /** The update. */
- UPDATE, 
- /** The delete. */
- DELETE
+		SELECT,
+		/** The insert. */
+		INSERT,
+		/** The update. */
+		UPDATE,
+		/** The delete. */
+		DELETE
 	}
 
 	/**
 	 * The Enum JQLDynamicStatementType.
 	 */
 	public enum JQLDynamicStatementType {
-		
+
 		/** The dynamic where. */
-		DYNAMIC_WHERE, 
- /** The dynamic order by. */
- DYNAMIC_ORDER_BY, 
- /** The dynamic page size. */
- DYNAMIC_PAGE_SIZE, 
- /** The dynamic page offset. */
- DYNAMIC_PAGE_OFFSET
+		DYNAMIC_WHERE,
+		/** The dynamic order by. */
+		DYNAMIC_ORDER_BY,
+		/** The dynamic page size. */
+		DYNAMIC_PAGE_SIZE,
+		/** The dynamic page offset. */
+		DYNAMIC_PAGE_OFFSET
 	}
-	
+
 	/**
-	 * Specificies how jql is defined. 
+	 * Specificies how jql is defined.
 	 */
 	public enum JQLDeclarationType {
-		
+
 		/** jql is defined with jql attribute. */
 		JQL_EXPLICIT,
-		
+
 		/** jql is not defined explicity, it's gained from attributes. */
 		JQL_COMPACT;
 	}
-	
+
 	/** The declaration type. */
-	public JQLDeclarationType declarationType=JQLDeclarationType.JQL_COMPACT;
+	public JQLDeclarationType declarationType = JQLDeclarationType.JQL_COMPACT;
 
 	/** jql type. */
 	public JQLType operationType;
@@ -76,19 +76,34 @@ public class JQL {
 	/** JQL statement. */
 	public String value;
 
-	/** <code>true</code> if method's annotation contains <code>where</code> attribute. */
+	/**
+	 * <code>true</code> if method's annotation contains <code>where</code>
+	 * attribute.
+	 */
 	public boolean annotatedWhere;
 
-	/** <code>true</code> if method's annotation contains <code>where</code> attribute. */
+	/**
+	 * <code>true</code> if method's annotation contains <code>where</code>
+	 * attribute.
+	 */
 	public boolean annotatedGroupBy;
 
-	/** <code>true</code> if method's annotation contains <code>having</code> attribute. */
+	/**
+	 * <code>true</code> if method's annotation contains <code>having</code>
+	 * attribute.
+	 */
 	public boolean annotatedHaving;
 
-	/** <code>true</code> if method's annotation contains <code>where</code> attribute. */
+	/**
+	 * <code>true</code> if method's annotation contains <code>where</code>
+	 * attribute.
+	 */
 	public boolean annotatedOrderBy;
 
-	/** <code>true</code> if method's annotation contains <code>page</code> attribute. */
+	/**
+	 * <code>true</code> if method's annotation contains <code>page</code>
+	 * attribute.
+	 */
 	public boolean annotatedPageSize;
 
 	/** The param read bean listener. */
@@ -131,24 +146,27 @@ public class JQL {
 	public boolean annotatedLimit;
 
 	/**
-	 * States that operation is of type INSERT ... SELECT (..) or UPDATE-SELECT-IN. It's a
-	 * particular type of INSERT that need to be managed in a specific way. This
-	 * kind of INSERT can not be used for content provider methods.
+	 * States that operation is of type INSERT ... SELECT (..) or
+	 * UPDATE-SELECT-IN. It's a particular type of INSERT that need to be
+	 * managed in a specific way. This kind of INSERT can not be used for
+	 * content provider methods.
 	 */
 	public boolean containsSelectOperation = false;
-		
+
 	/** used only for INSERT and UPDATE operation. */
-	public ConflictAlgorithmType conflictAlgorithmType=ConflictAlgorithmType.NONE;
-	
+	public ConflictAlgorithmType conflictAlgorithmType = ConflictAlgorithmType.NONE;
+
 	/**
-	 * counter of binded parameter on column value. Typically it incremented by bind parameter used on column values (INSERT SQL).
+	 * counter of binded parameter on column value. Typically it incremented by
+	 * bind parameter used on column values (INSERT SQL).
 	 */
-	public int bindParameterAsColumnValueCounter=0;
-	
+	public int bindParameterAsColumnValueCounter = 0;
+
 	/**
-	 * counter of binded parameter in where condition (INSERT-SELECT, SELECT, DELETE, UPDATE).
+	 * counter of binded parameter in where condition (INSERT-SELECT, SELECT,
+	 * DELETE, UPDATE).
 	 */
-	public int bindParameterOnWhereStatementCounter=0;
+	public int bindParameterOnWhereStatementCounter = 0;
 
 	/**
 	 * if <code>true</code> states that JQL has a static WHERE statement.
@@ -168,14 +186,14 @@ public class JQL {
 	public boolean isDynamicOrderBy() {
 		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_ORDER_BY);
 	}
-	
+
 	/**
 	 * Checks for dynamic parts.
 	 *
 	 * @return true, if successful
 	 */
 	public boolean hasDynamicParts() {
-		return dynamicReplace.size()>0;
+		return dynamicReplace.size() > 0;
 	}
 
 	/**

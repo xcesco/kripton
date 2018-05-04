@@ -20,7 +20,9 @@ import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
 import sqlite.feature.dynamic.kripton121.Kripton121Test;
-import sqlite.feature.dynamic.select.SelectTest;
+import sqlite.feature.dynamic.select.SelectJQLTest;
+import sqlite.feature.dynamic.select2.SelectRawTest;
+import sqlite.feature.dynamic.select3.CompileSelectRawJQLTest;
 import sqlite.feature.dynamic.update.UpdateTest;
 
 /**
@@ -30,7 +32,9 @@ import sqlite.feature.dynamic.update.UpdateTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		SelectTest.class,
+		SelectJQLTest.class,
+		SelectRawTest.class,
+		CompileSelectRawJQLTest.class,
 		UpdateTest.class,
 		Kripton121Test.class
 		 })

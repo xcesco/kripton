@@ -501,7 +501,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -538,18 +538,18 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -568,10 +568,10 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons/single2/#</pre>
    *
    * <h2>JQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM Person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM Person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -597,7 +597,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -607,7 +607,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -625,7 +625,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
@@ -666,7 +666,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -677,12 +677,12 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     }
 
     // generate sql
-    String _sql=String.format("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -701,10 +701,10 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    *
    * <h2>JQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM Person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM Person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL DELETE for Content Provider</h2>
-   * <pre>DELETE FROM person WHERE id=${id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -732,7 +732,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -752,7 +752,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("DELETE FROM person WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;

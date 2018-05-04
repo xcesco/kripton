@@ -2,7 +2,6 @@ package sqlite.feature.asynctask;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;

@@ -326,7 +326,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -370,18 +370,18 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -412,10 +412,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -443,7 +443,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -458,7 +458,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -488,7 +488,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -536,7 +536,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -547,12 +547,12 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     }
 
     // generate sql
-    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -583,10 +583,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -616,7 +616,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -641,7 +641,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -996,7 +996,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -1040,18 +1040,18 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1082,10 +1082,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/more</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1113,7 +1113,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1128,7 +1128,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1158,7 +1158,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
@@ -1206,7 +1206,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1217,12 +1217,12 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     }
 
     // generate sql
-    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET person_name=?, person_surname=?, student=? WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1253,10 +1253,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} AND #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
@@ -1286,7 +1286,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" id=?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -1311,7 +1311,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=?%s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET person_name=:person_name, person_surname=:person_surname, student=:student WHERE id=? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

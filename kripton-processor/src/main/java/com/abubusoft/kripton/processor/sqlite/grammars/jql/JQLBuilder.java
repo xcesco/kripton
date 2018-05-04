@@ -919,14 +919,13 @@ public abstract class JQLBuilder {
 				jql.staticWhereConditions = true;
 				builder.append(StringUtils.startWithSpace(where));
 			}
-
-			StringBuilder dynamicBuffer = new StringBuilder();
-
+			
 			if (StringUtils.hasText(method.dynamicWhereParameterName)) {
-				if (StringUtils.hasText(where)) {
+				StringBuilder dynamicBuffer = new StringBuilder();
+				/*if (StringUtils.hasText(where)) {
 					dynamicBuffer.append(" " + method.dynamicWherePrepend);
 					builder.append(" " + method.dynamicWherePrepend);
-				}
+				}*/
 				dynamicBuffer.append(" #{" + JQLDynamicStatementType.DYNAMIC_WHERE + "}");
 				builder.append(" #{" + JQLDynamicStatementType.DYNAMIC_WHERE + "}");
 

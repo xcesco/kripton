@@ -83,7 +83,7 @@ public abstract class BindBean96AsyncTask<I, U, R> {
   /**
    * Override this method to KRIPTON_DEBUG operation progress on UI-Thread
    */
-  public void onProgressUpdate(U... update) {
+  public void onProgressUpdate(@SuppressWarnings("unchecked") U... update) {
   }
 
   /**
@@ -122,13 +122,14 @@ public abstract class BindBean96AsyncTask<I, U, R> {
       public R doInBackground(@SuppressWarnings("unchecked") I... params) {
         BindBean96DataSource dataSource=BindBean96DataSource.instance();
         R result=null;
-        if (mode==BindAsyncTaskType.READ) dataSource.openReadOnlyDatabase(); else if (mode==BindAsyncTaskType.READ_WRITE) dataSource.openWritableDatabase();
+        boolean needToOpened=false;
+        if (mode==BindAsyncTaskType.READ) { needToOpened=true; dataSource.openReadOnlyDatabase(); } else if (mode==BindAsyncTaskType.READ_WRITE) { needToOpened=true; dataSource.openWritableDatabase();}
         try {
           result=onExecute(dataSource);
         } catch(Throwable e) {
           onError(e);
         } finally {
-          if (dataSource.isOpen()) {
+          if (needToOpened) {
             dataSource.close();
           }
         }

@@ -27,7 +27,7 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where id=${id} and #{ DYNAMIC_WHERE }</pre>
+   * <pre>select * from person where id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -67,7 +67,7 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" where id=? and #{ DYNAMIC_WHERE }";
+    String _sqlWhereStatement=" where id=? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END

@@ -449,7 +449,8 @@ public abstract class SqlBuilderHelper {
 
 				@Override
 				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-					return null;
+					method.jql.dynamicReplace.put(dynamicStatement, "#{"+dynamicStatement+"}");
+					return "";
 				}
 
 				@Override

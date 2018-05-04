@@ -1,7 +1,6 @@
 package sqlite.feature.asynctask;
 
 import android.database.sqlite.SQLiteDatabase;
-
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;

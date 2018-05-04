@@ -43,6 +43,8 @@ public class Touple<V0, V1, V2, V3> extends Triple<V0, V1, V2> {
 	 * @param v0 the v 0
 	 * @param v1 the v 1
 	 * @param v2 the v 2
+	 * @param v3 the v 3
+	 * 
 	 */
 	public Touple(V0 v0, V1 v1, V2 v2, V3 v3) {
 		super(v0, v1, v2);

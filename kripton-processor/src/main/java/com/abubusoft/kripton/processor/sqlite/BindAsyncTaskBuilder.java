@@ -45,7 +45,6 @@ import com.squareup.javapoet.TypeVariableName;
 
 import android.os.AsyncTask;
 
-// TODO: Auto-generated Javadoc
 /**
  * Utility class to generate async task for database operations.
  */
@@ -133,7 +132,7 @@ public class BindAsyncTaskBuilder {
 		builder.addMethod(MethodSpec.methodBuilder("onFinish").addParameter(TypeUtility.typeName("R"), "result").addModifiers(Modifier.PUBLIC).addModifiers(Modifier.ABSTRACT)
 				.addJavadoc("Use this method for operations on UI-thread after execution\n").build());
 
-		builder.addMethod(MethodSpec.methodBuilder("onProgressUpdate").addModifiers(Modifier.PUBLIC).addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.typeName("U")), "update").build())
+		builder.addMethod(MethodSpec.methodBuilder("onProgressUpdate").addModifiers(Modifier.PUBLIC).addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.typeName("U")), "update").addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "$S", "unchecked").build()).build())
 				.varargs().addJavadoc("Override this method to KRIPTON_DEBUG operation progress on UI-Thread\n").build());
 
 		builder.addMethod(MethodSpec.methodBuilder("onError").addParameter(Throwable.class, "exception").addModifiers(Modifier.PUBLIC)
@@ -169,14 +168,15 @@ public class BindAsyncTaskBuilder {
 						.build()).varargs(true)
 				.addStatement("$L dataSource=$L.instance()", dataSourceName, dataSourceName)
 				.addStatement("R result=null")
-				.addStatement("if (mode==$T.READ) dataSource.openReadOnlyDatabase(); else if (mode==$T.READ_WRITE) dataSource.openWritableDatabase()", BindAsyncTaskType.class,BindAsyncTaskType.class)
+				.addStatement("boolean needToOpened=false")
+				.addCode("if (mode==$T.READ) { needToOpened=true; dataSource.openReadOnlyDatabase(); } else if (mode==$T.READ_WRITE) { needToOpened=true; dataSource.openWritableDatabase();}\n", BindAsyncTaskType.class,BindAsyncTaskType.class)
 				//.addStatement("$T sqlite=readOnlyTask ? dataSource.getReadableDatabase() : dataSource.getWritableDatabase()", SQLiteDatabase.class)
 				.beginControlFlow("try")
 				.addStatement("result=onExecute(dataSource)")
 				.nextControlFlow("catch(Throwable e)")
 					.addStatement("onError(e)")
 				.nextControlFlow("finally")
-					.beginControlFlow("if (dataSource.isOpen())")
+					.beginControlFlow("if (needToOpened)")
 					.addStatement("dataSource.close()")
 					.endControlFlow()
 				.endControlFlow()

@@ -34,7 +34,6 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
 /**
  * Generates database class.
  *
