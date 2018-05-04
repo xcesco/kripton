@@ -28,7 +28,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 import base.BaseAndroidTest;
 import sqlite.kripton93.BindBean93DataSource;
-
+import sqlite.kripton96.BindBean96DataSource.Batch;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,37 +36,52 @@ import sqlite.kripton93.BindBean93DataSource;
  *
  * @author xcesco
  */
-@Config(manifest=Config.NONE)
+@Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class Test96Runtime extends BaseAndroidTest {
 
 	/**
 	 * Test run sqlite.
 	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
 	 */
 	@Test
 	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
 		BindBean96DataSource dataSource = BindBean96DataSource.instance();
-		//dataSource.openWritableDatabase();
-		
-		final Bean96 bean=new Bean96();
-		bean.name="all";
+		// dataSource.openWritableDatabase();
+
+		final Bean96 bean = new Bean96();
+		bean.name = "all";
 
 		dataSource.execute(new BindBean96DataSource.Transaction() {
-			
+
 			@Override
 			public TransactionResult onExecute(BindBean96DaoFactory daoFactory) {
 				Bean96DaoImpl dao = daoFactory.getBean96Dao();
-				
+
 				dao.insert(bean);
-				
+
 				Bean96 result = dao.selectByBean("all");
-				assertTrue(result!=null);
-				
+				assertTrue(result != null);
+
 				return TransactionResult.COMMIT;
+			}
+		});
+
+		dataSource.executeBatch(new Batch<Integer>() {
+
+			@Override
+			public Integer onExecute(BindBean96DaoFactory daoFactory) {
+				Bean96DaoImpl dao = daoFactory.getBean96Dao();
+
+				dao.insert(bean);
+
+				return (int) bean.id;
 			}
 		});
 	}
