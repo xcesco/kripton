@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.jql.entities;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -26,6 +26,6 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Child extends Bean {
 
 	/** The parent id. */
-	@BindColumn(parentEntity=Person.class)
+	@BindSqlColumn(parentEntity=Person.class)
 	public long parentId;
 }

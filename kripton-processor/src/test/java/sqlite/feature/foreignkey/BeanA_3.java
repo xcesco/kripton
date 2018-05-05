@@ -16,7 +16,7 @@
 package sqlite.feature.foreignkey;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.feature.foreignkey.BeanA_3;
@@ -29,7 +29,7 @@ import sqlite.feature.foreignkey.BeanA_3;
 public class BeanA_3 {
 
 	/** The id. */
-	@BindColumn(value="pk", columnType=ColumnType.PRIMARY_KEY)
+	@BindSqlColumn(value="pk", columnType=ColumnType.PRIMARY_KEY)
 	public long id;
 	
 	/** The value string 2. */

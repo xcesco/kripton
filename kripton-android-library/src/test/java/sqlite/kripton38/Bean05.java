@@ -18,7 +18,7 @@ package sqlite.kripton38;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
@@ -33,12 +33,12 @@ public class Bean05 {
 
 	/** The pk. */
 	@Bind
-	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
+	@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
 	protected long pk;
 
 	/** The number. */
 	@Bind
-	@BindColumn
+	@BindSqlColumn
 	protected long number;
 
 	/**
@@ -101,17 +101,17 @@ public class Bean05 {
 
 	/** The text. */
 	@Bind
-	@BindColumn
+	@BindSqlColumn
 	protected String text;
 
 	/** The content. */
 	@Bind
-	@BindColumn
+	@BindSqlColumn
 	protected byte[] content;
 
 	/** The creation time. */
 	@Bind
-	@BindColumn
+	@BindSqlColumn
 	protected Date creationTime;
 
 	/**

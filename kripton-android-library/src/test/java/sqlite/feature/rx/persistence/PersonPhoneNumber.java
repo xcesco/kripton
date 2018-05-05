@@ -1,7 +1,7 @@
 package sqlite.feature.rx.persistence;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import sqlite.feature.rx.model.Person;
@@ -19,7 +19,7 @@ public class PersonPhoneNumber {
   /**
    * Primary key
    */
-  @BindColumn(
+  @BindSqlColumn(
       columnType = ColumnType.PRIMARY_KEY
   )
   public long id;
@@ -27,7 +27,7 @@ public class PersonPhoneNumber {
   /**
    * Foreign key to Person model class
    */
-  @BindColumn(
+  @BindSqlColumn(
       parentEntity = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
@@ -36,7 +36,7 @@ public class PersonPhoneNumber {
   /**
    * Foreign key to PhoneNumber model class
    */
-  @BindColumn(
+  @BindSqlColumn(
       parentEntity = PhoneNumber.class,
       onDelete = ForeignKeyAction.CASCADE
   )

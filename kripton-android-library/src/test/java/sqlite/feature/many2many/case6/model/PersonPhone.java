@@ -17,7 +17,7 @@ package sqlite.feature.many2many.case6.model;
 
 import java.sql.Date;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 
 // TODO: Auto-generated Javadoc
@@ -31,11 +31,11 @@ public class PersonPhone {
 	public long id;
 	
 	/** The person id. */
-	@BindColumn(parentEntity=Person.class)
+	@BindSqlColumn(parentEntity=Person.class)
 	public long personId;
 	
 	/** The phone number id. */
-	@BindColumn(parentEntity=PhoneNumber.class)
+	@BindSqlColumn(parentEntity=PhoneNumber.class)
 	public long phoneNumberId;
 	
 	/** The buy date. */

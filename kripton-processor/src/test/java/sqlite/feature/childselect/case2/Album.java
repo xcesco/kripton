@@ -2,7 +2,7 @@ package sqlite.feature.childselect.case2;
 
 import java.util.List;
 
-import com.abubusoft.kripton.android.annotation.BindRelation;
+import com.abubusoft.kripton.android.annotation.BindSqlRelation;
 import com.abubusoft.kripton.android.annotation.BindTable;
 
 @BindTable
@@ -19,7 +19,7 @@ public class Album {
 
 	public String name;
 
-	@BindRelation(foreignKey = "albumId")
+	@BindSqlRelation(foreignKey = "albumId")
 	protected List<Song> songs;
 
 	public List<Song> getSongs() {

@@ -17,7 +17,7 @@ package sqlite.test03;
 
 import java.util.List;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -55,7 +55,7 @@ public class Bean01 {
 	protected long messageDate;
 	
 	/** The message text. */
-	@BindColumn(nullable=false)
+	@BindSqlColumn(nullable=false)
 	protected String messageText;
 	
 	/**

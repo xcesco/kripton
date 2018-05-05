@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.foreignkeyaction;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 
@@ -30,7 +30,7 @@ public class Album {
 	public long id;
 
 	/** The artist id. */
-	@BindColumn(parentEntity=Artist.class, onDelete=ForeignKeyAction.CASCADE, onUpdate=ForeignKeyAction.CASCADE)
+	@BindSqlColumn(parentEntity=Artist.class, onDelete=ForeignKeyAction.CASCADE, onUpdate=ForeignKeyAction.CASCADE)
 	public long artistId;
 	
 	/** The name. */

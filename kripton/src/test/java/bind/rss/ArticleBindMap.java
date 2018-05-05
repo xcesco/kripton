@@ -1,0 +1,374 @@
+package bind.rss;
+
+import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.UrlUtils;
+import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.xml.XMLParser;
+import com.abubusoft.kripton.xml.XMLSerializer;
+import com.abubusoft.kripton.xml.XmlPullParser;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+
+/**
+ * This class is binder map for Article
+ *
+ * @see Article
+ */
+@BindMap(Article.class)
+public class ArticleBindMap extends AbstractMapper<Article> {
+  @Override
+  public int serializeOnJackson(Article object, JsonGenerator jacksonSerializer) throws Exception {
+    jacksonSerializer.writeStartObject();
+    int fieldCount=0;
+
+    // Serialized Field:
+
+    // field author (mapped with "author")
+    if (object.author!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("author", object.author);
+    }
+
+    // field comments (mapped with "comments")
+    if (object.comments!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("comments", UrlUtils.write(object.comments));
+    }
+
+    // field description (mapped with "description")
+    if (object.description!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("description", object.description);
+    }
+
+    // field guid (mapped with "guid")
+    if (object.guid!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("guid", object.guid);
+    }
+
+    // field link (mapped with "link")
+    if (object.link!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("link", UrlUtils.write(object.link));
+    }
+
+    // field title (mapped with "title")
+    if (object.title!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("title", object.title);
+    }
+
+    jacksonSerializer.writeEndObject();
+    return fieldCount;
+  }
+
+  @Override
+  public int serializeOnJacksonAsString(Article object, JsonGenerator jacksonSerializer) throws
+      Exception {
+    jacksonSerializer.writeStartObject();
+    int fieldCount=0;
+
+    // Serialized Field:
+
+    // field author (mapped with "author")
+    if (object.author!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("author", object.author);
+    }
+
+    // field comments (mapped with "comments")
+    if (object.comments!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("comments", UrlUtils.write(object.comments));
+    }
+
+    // field description (mapped with "description")
+    if (object.description!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("description", object.description);
+    }
+
+    // field guid (mapped with "guid")
+    if (object.guid!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("guid", object.guid);
+    }
+
+    // field link (mapped with "link")
+    if (object.link!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("link", UrlUtils.write(object.link));
+    }
+
+    // field title (mapped with "title")
+    if (object.title!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeStringField("title", object.title);
+    }
+
+    jacksonSerializer.writeEndObject();
+    return fieldCount;
+  }
+
+  /**
+   * method for xml serialization
+   */
+  @Override
+  public void serializeOnXml(Article object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
+    if (currentEventType == 0) {
+      xmlSerializer.writeStartElement("item");
+    }
+
+    // Persisted fields:
+
+    // field author (mapped with "author")
+    if (object.author!=null) {
+      xmlSerializer.writeStartElement("author");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.author));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field comments (mapped with "comments")
+    if (object.comments!=null)  {
+      xmlSerializer.writeStartElement("comments");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(UrlUtils.write(object.comments)));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field description (mapped with "description")
+    if (object.description!=null) {
+      xmlSerializer.writeStartElement("description");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.description));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field guid (mapped with "guid")
+    if (object.guid!=null) {
+      xmlSerializer.writeStartElement("guid");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.guid));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field link (mapped with "link")
+    if (object.link!=null)  {
+      xmlSerializer.writeStartElement("link");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(UrlUtils.write(object.link)));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field title (mapped with "title")
+    if (object.title!=null) {
+      xmlSerializer.writeStartElement("title");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.title));
+      xmlSerializer.writeEndElement();
+    }
+
+    if (currentEventType == 0) {
+      xmlSerializer.writeEndElement();
+    }
+  }
+
+  /**
+   * parse with jackson
+   */
+  @Override
+  public Article parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Article instance = new Article();
+    String fieldName;
+    if (jacksonParser.currentToken() == null) {
+      jacksonParser.nextToken();
+    }
+    if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
+      jacksonParser.skipChildren();
+      return instance;
+    }
+    while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
+      fieldName = jacksonParser.getCurrentName();
+      jacksonParser.nextToken();
+
+      // Parse fields:
+      switch (fieldName) {
+          case "author":
+            // field author (mapped with "author")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.author=jacksonParser.getText();
+            }
+          break;
+          case "comments":
+            // field comments (mapped with "comments")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.comments=UrlUtils.read(jacksonParser.getText());
+            }
+          break;
+          case "description":
+            // field description (mapped with "description")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.description=jacksonParser.getText();
+            }
+          break;
+          case "guid":
+            // field guid (mapped with "guid")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.guid=jacksonParser.getText();
+            }
+          break;
+          case "link":
+            // field link (mapped with "link")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.link=UrlUtils.read(jacksonParser.getText());
+            }
+          break;
+          case "title":
+            // field title (mapped with "title")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.title=jacksonParser.getText();
+            }
+          break;
+          default:
+            jacksonParser.skipChildren();
+          break;}
+    }
+    return instance;
+  }
+
+  /**
+   * parse with jackson
+   */
+  @Override
+  public Article parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    Article instance = new Article();
+    String fieldName;
+    if (jacksonParser.getCurrentToken() == null) {
+      jacksonParser.nextToken();
+    }
+    if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
+      jacksonParser.skipChildren();
+      return instance;
+    }
+    while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
+      fieldName = jacksonParser.getCurrentName();
+      jacksonParser.nextToken();
+
+      // Parse fields:
+      switch (fieldName) {
+          case "author":
+            // field author (mapped with "author")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.author=jacksonParser.getText();
+            }
+          break;
+          case "comments":
+            // field comments (mapped with "comments")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.comments=UrlUtils.read(jacksonParser.getText());
+            }
+          break;
+          case "description":
+            // field description (mapped with "description")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.description=jacksonParser.getText();
+            }
+          break;
+          case "guid":
+            // field guid (mapped with "guid")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.guid=jacksonParser.getText();
+            }
+          break;
+          case "link":
+            // field link (mapped with "link")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.link=UrlUtils.read(jacksonParser.getText());
+            }
+          break;
+          case "title":
+            // field title (mapped with "title")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.title=jacksonParser.getText();
+            }
+          break;
+          default:
+            jacksonParser.skipChildren();
+          break;}
+    }
+    return instance;
+  }
+
+  /**
+   * parse xml
+   */
+  @Override
+  public Article parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    Article instance = new Article();
+    int eventType = currentEventType;
+    boolean read=true;
+
+    if (currentEventType == 0) {
+      eventType = xmlParser.next();
+    } else {
+      eventType = xmlParser.getEventType();
+    }
+    String currentTag = xmlParser.getName().toString();
+    String elementName = currentTag;
+    // No attributes found
+
+    //sub-elements
+    while (xmlParser.hasNext() && elementName!=null) {
+      if (read) {
+        eventType = xmlParser.next();
+      } else {
+        eventType = xmlParser.getEventType();
+      }
+      read=true;
+      switch(eventType) {
+          case XmlPullParser.START_TAG:
+            currentTag = xmlParser.getName().toString();
+            switch(currentTag) {
+                case "author":
+                  // property author (mapped on "author")
+                  instance.author=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "comments":
+                  // property comments (mapped on "comments")
+                  instance.comments=UrlUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "description":
+                  // property description (mapped on "description")
+                  instance.description=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "guid":
+                  // property guid (mapped on "guid")
+                  instance.guid=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "link":
+                  // property link (mapped on "link")
+                  instance.link=UrlUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                break;
+                case "title":
+                  // property title (mapped on "title")
+                  instance.title=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                default:
+                break;
+              }
+            break;
+            case XmlPullParser.END_TAG:
+              if (elementName.equals(xmlParser.getName())) {
+                currentTag = elementName;
+                elementName = null;
+              }
+            break;
+            case XmlPullParser.CDSECT:
+            case XmlPullParser.TEXT:
+              // no property is binded to VALUE o CDATA break;
+            default:
+            break;
+        }
+      }
+      return instance;
+    }
+  }

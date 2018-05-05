@@ -18,7 +18,7 @@ package sqlite.feature.paginatedresult.error3;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -34,7 +34,7 @@ public class Err3Person {
 	public long id;
 
 	/** The name. */
-	@BindColumn(columnType = ColumnType.INDEXED)
+	@BindSqlColumn(columnType = ColumnType.INDEXED)
 	public String name;
 
 	/** The surname. */

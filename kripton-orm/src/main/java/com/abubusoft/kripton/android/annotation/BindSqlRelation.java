@@ -37,12 +37,14 @@ import java.lang.annotation.Target;
  * public class Album {
  * 	public long id;
  * 
- * 	&#064;BindRelation
+ * 	&#064;BindSqlRelation
  * 	public List&lt;Song&gt; songs;
  * }
  * 
  * public class Song {
  * 	public long id;
+ * 
+ *  &#064;BindColumn(parentEntity=Album.class)
  * 	public long albumId;
  * }
  * </pre>
@@ -57,7 +59,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface BindRelation {
+public @interface BindSqlRelation {
 
 	/**
 	 * Indicates which field is used in the other table to link this table. If

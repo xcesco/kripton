@@ -17,7 +17,7 @@ package sqlite.example02;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -34,7 +34,7 @@ public class Person {
   
   
   /** The name. */
-  @BindColumn
+  @BindSqlColumn
   public String name;
   
   /** The surname. */

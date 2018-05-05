@@ -16,7 +16,7 @@
 package bind.kripton81exceptioncoverage;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -28,19 +28,19 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Error7Bean {
 
 	/** The id. */
-	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
+	@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
 
 	/** The ignore. */
 	@BindDisabled
-	@BindColumn
+	@BindSqlColumn
 	public String ignore;
 
 	/** The ignore 2. */
-	@BindColumn(enabled = false)
+	@BindSqlColumn(enabled = false)
 	public String ignore2;
 
 	/** The foreign. */
-	@BindColumn(parentEntity = Error7_1Bean.class)
+	@BindSqlColumn(parentEntity = Error7_1Bean.class)
 	public Error7_1Bean foreign;
 }

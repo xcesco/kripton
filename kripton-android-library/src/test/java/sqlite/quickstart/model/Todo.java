@@ -16,7 +16,7 @@
 package sqlite.quickstart.model;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -27,7 +27,7 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Todo {
 
     /** The id. */
-    @BindColumn(columnType = ColumnType.PRIMARY_KEY)
+    @BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
     public long id;
 
     /** The user id. */

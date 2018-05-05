@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.jql.kripton164;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -31,7 +31,7 @@ public class ErrCollegeStudent {
     public String firstName;
 
     /** The surname. */
-    @BindColumn("err_surname")
+    @BindSqlColumn("err_surname")
     public String surname;
 
     /** The id. */

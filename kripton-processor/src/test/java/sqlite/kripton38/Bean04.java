@@ -16,7 +16,7 @@
 package sqlite.kripton38;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -27,7 +27,7 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Bean04 {
 
 	/** The id. */
-	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
+	@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
 	protected long id;
 	
 	/**
@@ -49,7 +49,7 @@ public class Bean04 {
 	}
 
 	/** The text. */
-	@BindColumn
+	@BindSqlColumn
 	protected String text;
 
 	/**

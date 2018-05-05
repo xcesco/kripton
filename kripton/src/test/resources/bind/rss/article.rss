@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+	<title>Eclipse and Android Information</title>
+	<link>http://www.vogella.com</link>
+	<description>Eclipse and Android Information</description>
+	<language>en</language>
+	<copyright>Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Germany (CC BY-NC-SA 3.0)</copyright>
+	<pubDate>Tue, 03 May 2016 11:46:11 +0200</pubDate>
+<item>
+	<title>Android user interface testing with Espresso - Tutorial
+</title>
+	<description> This tutorial describes how to test Android     applications with     the     Android Espresso testing framework.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidTestingEspresso/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidTestingEspresso/article.html</guid>
+
+</item>
+<item>
+	<title>Using the Gradle build system in the Eclipse IDE - Tutorial
+</title>
+	<description>     This article describes how to use the Gradle tooling in Eclipse    </description>
+	<link>http://www.vogella.com/tutorials/EclipseGradle/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseGradle/article.html</guid>
+
+</item>
+<item>
+	<title>Unit tests with Mockito - Tutorial
+</title>
+	<description> This tutorial explains testing with the Mockito framework for writting software tests.    </description>
+	<link>http://www.vogella.com/tutorials/Mockito/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Mockito/article.html</guid>
+
+</item>
+<item>
+	<title>SWT - Tutorial
+</title>
+	<description> This tutorial describes SWT the user interface toolkit used by     the Eclipse IDE.     This article was written using Eclipse 4.5 (Mars).    </description>
+	<link>http://www.vogella.com/tutorials/SWT/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/SWT/article.html</guid>
+
+</item>
+<item>
+	<title>Unit tests with Mockito - Tutorial
+</title>
+	<description> This tutorial explains testing with the Mockito framework for writting software tests.    </description>
+	<link>http://www.vogella.com/tutorials/Mockito/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Mockito/article.html</guid>
+
+</item>
+<item>
+	<title>Unit Testing with JUnit - Tutorial
+</title>
+	<description>     This tutorial explains unit testing with JUnit     4.x. It explains     the creation of JUnit tests. It also covers the     usage of the Eclipse IDE for developing software tests.    </description>
+	<link>http://www.vogella.com/tutorials/JUnit/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JUnit/article.html</guid>
+
+</item>
+<item>
+	<title>Unit Testing with JUnit - Tutorial
+</title>
+	<description>     This tutorial explains unit testing with JUnit     4.x. It explains     the creation of JUnit tests. It also covers the     usage of the Eclipse IDE for developing software tests.    </description>
+	<link>http://www.vogella.com/tutorials/JUnit/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JUnit/article.html</guid>
+
+</item>
+<item>
+	<title>Gerrit code review - Tutorial
+</title>
+	<description> This tutorial explains the usage of the Gerrit code review     system. It describes the setup of Eclipse (with EGit) as well as the     command line setup. Contributing to an Eclipse.org project via Gerrit is also described.    </description>
+	<link>http://www.vogella.com/tutorials/Gerrit/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Gerrit/article.html</guid>
+
+</item>
+<item>
+	<title>Android application and activity life cycle - Tutorial
+</title>
+	<description> This tutorial describes how the Android application and     activity life cycle works.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidLifeCycle/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidLifeCycle/article.html</guid>
+
+</item>
+<item>
+	<title>Git version control with Eclipse (EGit) - Tutorial
+</title>
+	<description> This tutorial describes the usage of EGit; an Eclipse plug-in     to     use the distributed version control system Git.     This tutorial is     based on     Eclipse 4.5 (Mars).    </description>
+	<link>http://www.vogella.com/tutorials/EclipseGit/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseGit/article.html</guid>
+
+</item>
+<item>
+	<title>Android application (performance and more) analysis tools - Tutorial
+</title>
+	<description> This tutorial describes the available tools in Android to     perform a performance analysis of Android     applications.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidTools/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidTools/article.html</guid>
+
+</item>
+<item>
+	<title>Android background processing with Handlers, AsyncTask and
+			Loaders - Tutorial
+		
+</title>
+	<description> This tutorial describes the usage of asynchronous processing in Android applications.     It also covers how to     handle the     application life cycle together with threads. It is     based on Android Studio.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html</guid>
+
+</item>
+<item>
+	<title>Using lists and grids in Android with RecylerView - Tutorial
+		
+</title>
+	<description>     This tutorial describes how to use the RecylerView view together     with activities and fragments in     Android. The     tutorial     is     based on Android 5.0.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidRecyclerView/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidRecyclerView/article.html</guid>
+
+</item>
+<item>
+	<title>Debugging Android applications - Tutorial
+</title>
+	<description> This tutorial describes how to debug Android applications.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidDebugging/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidDebugging/article.html</guid>
+
+</item>
+<item>
+	<title>Using the Android Toolbar (ActionBar) - Tutorial
+</title>
+	<description> This tutorial describes how to use the toolbar widget in your     Android     application.     It is based on     Android     6.0.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidActionBar/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidActionBar/article.html</guid>
+
+</item>
+<item>
+	<title>Register for the Eclipse 4 application life cycle - Tutorial
+</title>
+	<description> This tutorial describes how to use an life cycle handler for     Eclipse RCP     application.    </description>
+	<link>http://www.vogella.com/tutorials/Eclipse4LifeCycle/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Eclipse4LifeCycle/article.html</guid>
+
+</item>
+<item>
+	<title>Migrating Eclipse 3.x plug-ins and RCP applications to Eclipse
+			4 - Tutorial
+		
+</title>
+	<description> This tutorial gives an overview on how to migrate Eclipse     components and application based on the Eclipse 3.x application     model to Eclipse 4. This also includes using the     compatibility     layer     in the     Eclipse platform to run plug-ins     based on the Eclipse     3.x API.    </description>
+	<link>http://www.vogella.com/tutorials/Eclipse4MigrationGuide/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Eclipse4MigrationGuide/article.html</guid>
+
+</item>
+<item>
+	<title>Using FreeMarker templates (FTL)- Tutorial
+</title>
+	<description>     This tutorial explains how can you define FreeMarker templates     and how can you generate output based on these templates. It also     demonstrates the usage of macros.    </description>
+	<link>http://www.vogella.com/tutorials/FreeMarker/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/FreeMarker/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Fragment Projects - Tutorial
+</title>
+	<description> This tutorial describes the purpose and usage of     Eclipse fragment projects    </description>
+	<link>http://www.vogella.com/tutorials/EclipseFragmentProject/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseFragmentProject/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse product and application deployment - Tutorial
+</title>
+	<description> This tutorial describes how the product configuration file and     the deployment process of Eclipse RCP     applications. It is based on     Eclipse 4.5 (Eclipse Mars).    </description>
+	<link>http://www.vogella.com/tutorials/EclipseProductDeployment/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseProductDeployment/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse RCP (Rich Client Platform) - Tutorial
+</title>
+	<description> This tutorial gives an overview about the     Eclipse application     platform using the Eclipse 4 (e4) programming model.     This tutorial describes the creation of Eclipse based     applications, e.g., Eclipse RCP applications. It describes     the     modeled     application concept and the new     programming     model     which is     based     on     annotations and dependency     injection.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseRCP/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseRCP/article.html</guid>
+
+</item>
+<item>
+	<title>Google Maps Android API v2 - Tutorial
+</title>
+	<description> This tutorial describes the usage     of Google Maps in your     Android application.     It is based on     Eclipse 4.4, Java 1.7 and Android     4.4.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidGoogleMaps/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidGoogleMaps/article.html</guid>
+
+</item>
+<item>
+	<title>Solutions for common Android development problems with the Eclipse IDE- Tutorial
+</title>
+	<description> This article lists common problems during Android development with the Eclipse IDE     and potential solutions.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidDevelopmentProblems/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidDevelopmentProblems/article.html</guid>
+
+</item>
+<item>
+	<title>OSGi Services - Tutorial
+</title>
+	<description> This tutorial explains the usage of OSGi services primary     focusing on the usage of declarative services.     Eclipse Equinox is     used as an     stand-alone OSGi     server. For     this tutorial Eclipse 4.4     (Luna) is     used.    </description>
+	<link>http://www.vogella.com/tutorials/OSGiServices/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/OSGiServices/article.html</guid>
+
+</item>
+<item>
+	<title>How to implement an ArrayList structure in Java - Tutorial
+</title>
+	<description> This article describes how to implement     a list data structure     in     Java.     The implementations in this articles are for demonstration and     education purpose.     They do not try to be as efficient as the standard     libraries and they     are not intended to be an replacement for the     standard Java libraries structures.    </description>
+	<link>http://www.vogella.com/tutorials/JavaDatastructureList/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaDatastructureList/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Tycho for building Eclipse Plug-ins, OSGi bundles and RCP applications - Tutorial
+		
+</title>
+	<description> This tutorial describes the usage of Eclipse Tycho to build     Eclipse plug-ins and Eclipse RCP applications. This     tutorial is based on Eclipse 4.5 and Tycho 0.23.0.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseTycho/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseTycho/article.html</guid>
+
+</item>
+<item>
+	<title>Android Camera API - Tutorial
+</title>
+	<description> This tutorial describes how to use the camera API in Android.     The tutorial is     based on Eclipse 4.2, Java 1.6 and Android 4.2.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidCamera/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidCamera/article.html</guid>
+
+</item>
+<item>
+	<title>Android Intents - Tutorial
+</title>
+	<description>     This tutorials describes the usage of intents to communicate     between Android components.     It is     based on Eclipse 4.4, Java 1.6 and     Android 4.4.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidIntent/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidIntent/article.html</guid>
+
+</item>
+<item>
+	<title>Android Live Wallpaper - Tutorial
+</title>
+	<description> This tutorial describes the creation of live wallpapers for     Android. It is     based on Eclipse     4.2, Java 1.6 and     Android 4.1     (Ice Cream     Sandwich).    </description>
+	<link>http://www.vogella.com/tutorials/AndroidLiveWallpaper/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidLiveWallpaper/article.html</guid>
+
+</item>
+<item>
+	<title>Android Notifications - Tutorial
+</title>
+	<description> This article describes how to use the Notification Manager in     Android. It is     based on Android Studio and Android 5.0.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidNotifications/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidNotifications/article.html</guid>
+
+</item>
+<item>
+	<title>Android BroadcastReceiver - Tutorial
+</title>
+	<description>     This tutorial describes how to create and consume broadcast receivers in Android.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidBroadcastReceiver/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidBroadcastReceiver/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Commands Advanced - Tutorial
+</title>
+	<description> This article describes use cases for Eclipse commands     which go     beyond the simple one for adding commands to menus,     toolbars, etc.    This article is based on Eclipse Indigo (3.7).    </description>
+	<link>http://www.vogella.com/tutorials/EclipseCommandsAdvanced/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseCommandsAdvanced/article.html</guid>
+
+</item>
+<item>
+	<title>Android Services - Tutorial
+</title>
+	<description>     This tutorial describes how to create and consume Android     services. It is based on and Android 6.0.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidServices/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidServices/article.html</guid>
+
+</item>
+<item>
+	<title>Scheduling of tasks in Android with the AlarmManager and the
+			JobScheduler - Tutorial
+		
+</title>
+	<description> This tutorial describes how to schedule tasks in Android. It     looks at the AlarmManager as well on the JobScheduler API.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidTaskScheduling/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidTaskScheduling/article.html</guid>
+
+</item>
+<item>
+	<title>Android Gestures - Tutorial
+</title>
+	<description> This tutorial describes how to use Gestures and the GestureOverylayVIew in Android. The tutorial is     based on Eclipse 3.6, Java 1.6 and Android 2.3     (Gingerbread).    </description>
+	<link>http://www.vogella.com/tutorials/AndroidGestures/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidGestures/article.html</guid>
+
+</item>
+<item>
+	<title>Using lists in Android (ListView) - Tutorial
+</title>
+	<description>     This tutorial describes how to use the ListView view together     with activities and fragments in     Android. The     tutorial     is     based on     Android 5.0.    </description>
+	<link>http://www.vogella.com/tutorials/AndroidListView/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidListView/article.html</guid>
+
+</item>
+<item>
+	<title>JAXB - Tutorial
+</title>
+	<description>     This tutorial give an     introduction to Java Architecture for XML     Binding (JAXB). This     tutorial is based on Java 6.0.    </description>
+	<link>http://www.vogella.com/tutorials/JAXB/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JAXB/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Editor Plugin - Tutorial
+</title>
+	<description> This tutorial describes how to create an editor and how this     editor can be filled from a view. The tutorial is based on Eclipse     3.7 (Eclipse Indigo).    </description>
+	<link>http://www.vogella.com/tutorials/EclipseEditors/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseEditors/article.html</guid>
+
+</item>
+<item>
+	<title>Google App Engine for Java - Tutorial
+</title>
+	<description> This article describes the creation of a Java web application     on the Google App Engine. It uses JPA. The tutorial is based on Java     1.7, Eclipse     4.4 and GAE     version 1.4.2.    </description>
+	<link>http://www.vogella.com/tutorials/GoogleAppEngineJava/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/GoogleAppEngineJava/article.html</guid>
+
+</item>
+<item>
+	<title>REST with Java (JAX-RS) using Jersey - Tutorial
+</title>
+	<description>     This tutorial explains how to develop RESTful web services in     Java     with the JAX-RS reference implementation     Jersey.         In this tutorial Eclipse 4.5 (Mars), Java 1.8, Tomcat 6.0 and     JAX-RS 2.0     (with Jersey     2.11) is used.    </description>
+	<link>http://www.vogella.com/tutorials/REST/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/REST/article.html</guid>
+
+</item>
+<item>
+	<title>Testing with EasyMock - Tutorial
+</title>
+	<description> This tutorial explains testing with the EasyMock framework     within Eclipse. It is based on the EasyMock 3.1 release.    </description>
+	<link>http://www.vogella.com/tutorials/EasyMock/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EasyMock/article.html</guid>
+
+</item>
+<item>
+	<title>Cascading Style Sheets (CSS) - Tutorial
+</title>
+	<description>This article explains how to use CSS for     styling HTML pages.    </description>
+	<link>http://www.vogella.com/tutorials/CSS/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/CSS/article.html</guid>
+
+</item>
+<item>
+	<title>Git - Tutorial
+</title>
+	<description>     This tutorial explains the usage of the distributed     version     control system Git via the command line.     The examples were done on     Linux (Ubuntu), but should also work on other operating systems like     Microsoft Windows.    </description>
+	<link>http://www.vogella.com/tutorials/Git/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Git/article.html</guid>
+
+</item>
+<item>
+	<title>XSLT - Extensible Stylesheet Language for Transformations - Tutorial
+</title>
+	<description> This articles explains how to do a XSLT transformations on the     command line or via     the Eclipse XSL project.    </description>
+	<link>http://www.vogella.com/tutorials/XSLT/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/XSLT/article.html</guid>
+
+</item>
+<item>
+	<title>Android Networking - Tutorial
+</title>
+	<description> This article describes how to access web resources via HTTP in     Android.     It is based on Eclipse 4.4, Java 1.6 and Android 5.0 (Lollipop).    </description>
+	<link>http://www.vogella.com/tutorials/AndroidNetworking/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidNetworking/article.html</guid>
+
+</item>
+<item>
+	<title>Introduction to Android development with Android Studio - Tutorial
+</title>
+	<description>     This tutorial describes how to create Android     applications. It     describes the usage of Android Studio. It is based     on     Android     5.0 (Lollipop).    </description>
+	<link>http://www.vogella.com/tutorials/Android/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Android/article.html</guid>
+
+</item>
+<item>
+	<title>Android Location API  - Tutorial
+</title>
+	<description> This tutorial describes the usage of the Android Location API.     It is based on     Eclipse 3.7, Java 1.6 and Android 4.0 (Ice Cream Sandwich).    </description>
+	<link>http://www.vogella.com/tutorials/AndroidLocationAPI/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AndroidLocationAPI/article.html</guid>
+
+</item>
+<item>
+	<title>How to implement common datastructures (List, Stack, Map) in
+			plain Java - Tutorial
+</title>
+	<description> This article describes how to implement     data     structures (List     Stack, Map) in Java.     The implementations in this articles are for demonstration and     education purpose.     They do not try to be as efficient as the standard     libraries and they     are not intended to be an replacement for the     standard libraries.    </description>
+	<link>http://www.vogella.com/tutorials/JavaDatastructures/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaDatastructures/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Zest -
+			Tutorial
+</title>
+	<description> Eclipse Zest is a visualization toolkit for graphs. This     tutorial explains how to create directly a Zest graph and how to use     the JFace abstraction.  In this tutorial Eclipse 3.6 (Eclipse Helios) is used.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseZest/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseZest/article.html</guid>
+
+</item>
+<item>
+	<title>Apache Derby Database - Tutorial
+</title>
+	<description> This articles explains how to install the Apache Derby     database,     how to start the Derby server, how to connect via Java to     Derby and     how to use the Derby command line tool to issue SQL     statements. The installation of Apache Derby as Windows Service is     also explained.     </description>
+	<link>http://www.vogella.com/tutorials/ApacheDerby/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/ApacheDerby/article.html</guid>
+
+</item>
+<item>
+	<title>MySQL and Java JDBC - Tutorial
+</title>
+	<description>     This tutorial describes how to use Java JDBC to connect to     MySQL and     perform SQL queries, database inserts and deletes.    </description>
+	<link>http://www.vogella.com/tutorials/MySQLJava/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/MySQLJava/article.html</guid>
+
+</item>
+<item>
+	<title>MySQL - Tutorial
+</title>
+	<description> This tutorial explains how to install MySQL and how to create     and query a database. This tutorial is using Ubuntu.     This article uses Java 1.6 and MySQL 5.5.</description>
+	<link>http://www.vogella.com/tutorials/MySQL/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/MySQL/article.html</guid>
+
+</item>
+<item>
+	<title>Quicksort in Java - Tutorial
+</title>
+	<description> This article describes how to implement Quicksort with Java.    </description>
+	<link>http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaAlgorithmsQuicksort/article.html</guid>
+
+</item>
+<item>
+	<title>Mergesort in
+			Java - Tutorial
+</title>
+	<description> This article describes how to implement Mergesort with Java.    </description>
+	<link>http://www.vogella.com/tutorials/JavaAlgorithmsMergesort/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaAlgorithmsMergesort/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse RCP and Plugin Internationalization - Tutorial
+</title>
+	<description> This article describes how to externalize your strings in     Eclipse RCP and Eclipse plug-ins and how to support different     languages. Includes how to translate your Eclipse 4.x workbench     model.         This article is based on Eclipse 4.2 (Eclipse Juno).    </description>
+	<link>http://www.vogella.com/tutorials/EclipseInternationalization/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseInternationalization/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Modeling Framework (EMF) - Tutorial
+</title>
+	<description>     This tutorial describes the usage of Eclipse EMF, a framework     for modeling your data model and creating Java code from it. This tutorial is                 based on                 Eclipse 4.6 (Eclipse Neon).    </description>
+	<link>http://www.vogella.com/tutorials/EclipseEMF/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseEMF/article.html</guid>
+
+</item>
+<item>
+	<title>Using the Checkstyle Eclipse plug-in - Tutorial
+</title>
+	<description> This tutorial will describe the usage of the Checkstyle     plug-in     for Eclipse.    </description>
+	<link>http://www.vogella.com/tutorials/Checkstyle/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Checkstyle/article.html</guid>
+
+</item>
+<item>
+	<title>FindBugs in Eclipse - Tutorial
+</title>
+	<description> This tutorial describes the usage of the FindBugs plug-in     for     Eclipse. It is based on Eclipse 4.6.    </description>
+	<link>http://www.vogella.com/tutorials/Findbugs/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Findbugs/article.html</guid>
+
+</item>
+<item>
+	<title>How to create Eclipse plug-ins from Java libraries (JAR files) - Tutorial
+</title>
+	<description> This article describes the manual process of     converting a Java library to an Eclipse plug-ins (OSGi     bundles) from standard Java libraries delivered as JAR files. This     article is based on Eclipse 4.5.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseJarToPlugin/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseJarToPlugin/article.html</guid>
+
+</item>
+<item>
+	<title>Java Networking - Using HttpURLConnection to download files from the Internet - Tutorial
+</title>
+	<description> This article describes how to use the java.net package to     access the web resources. The setting of a proxy is     also     described.    </description>
+	<link>http://www.vogella.com/tutorials/JavaNetworking/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaNetworking/article.html</guid>
+
+</item>
+<item>
+	<title>Creating PDF with Java and iText - Tutorial
+</title>
+	<description> This article demonstrate how to create PDF files with Java and     the iText library. In this tutorial iText version 5.0.x is used    </description>
+	<link>http://www.vogella.com/tutorials/JavaPDF/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaPDF/article.html</guid>
+
+</item>
+<item>
+	<title>JFreeChart - Tutorial
+</title>
+	<description> This article describes the usage of the Java library     JFreeChart. As example we create a pie chart.    </description>
+	<link>http://www.vogella.com/tutorials/JFreeChart/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JFreeChart/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Preferences - Tutorial
+</title>
+	<description> This article describes the usage of Eclipse preferences and     preference pages. Within this tutorial Eclipse 4.5 (Mars) is used.    </description>
+	<link>http://www.vogella.com/tutorials/EclipsePreferences/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipsePreferences/article.html</guid>
+
+</item>
+<item>
+	<title>Towers of Hanoi - Java - Tutorial
+</title>
+	<description> This article describes how to solve the Towers of Hanoi in     Java. </description>
+	<link>http://www.vogella.com/tutorials/JavaAlgorithmsTowersOfHanoi/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaAlgorithmsTowersOfHanoi/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse JDT - Abstract Syntax Tree (AST) and the Java Model -
+			Tutorial
+</title>
+	<description> This tutorial describes how the Eclipse JDT (Java Development     Tools) and the Eclipse AST (Abstract Syntax Tree) can be used to     access, change and read the elements of a Java program.     In this tutorial Eclipse 4.4 is used.Level of this tutorial: Advanced</description>
+	<link>http://www.vogella.com/tutorials/EclipseJDT/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseJDT/article.html</guid>
+
+</item>
+<item>
+	<title>Prime Factorization - Algorithm in Java - Tutorial
+</title>
+	<description> This tutorial describes how to perform prime factorization of an integer with     Java.    </description>
+	<link>http://www.vogella.com/tutorials/JavaAlgorithmsPrimeFactorization/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaAlgorithmsPrimeFactorization/article.html</guid>
+
+</item>
+<item>
+	<title>Determine Prime Number with the Sieve of Eratosthenes
+			- Algorithm in Java - Tutorial
+</title>
+	<description> This article describes the calculation of prime numbers with     the sieve of Eratosthenes in Java</description>
+	<link>http://www.vogella.com/tutorials/JavaAlgorithmsPrimeNumbers/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaAlgorithmsPrimeNumbers/article.html</guid>
+
+</item>
+<item>
+	<title>Shuffle an Array or a List - Algorithm in Java - Tutorial
+		
+</title>
+	<description> This article describes how to shuffle the content of an array     or a list in Java. After the shuffle the elements in the array or     the list are     randomly sorted.    </description>
+	<link>http://www.vogella.com/tutorials/JavaAlgorithmsShuffle/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaAlgorithmsShuffle/article.html</guid>
+
+</item>
+<item>
+	<title>Euclid's algorithm for the greatest common divisor in
+			Java - Tutorial
+</title>
+	<description> This article describes how to calculate in Java the greatest common     divisor of two positive number with Euclid's algorithm. </description>
+	<link>http://www.vogella.com/tutorials/JavaAlgorithmsEuclid/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaAlgorithmsEuclid/article.html</guid>
+
+</item>
+<item>
+	<title>Java web development with Eclipse WTP - Tutorial
+</title>
+	<description>     This tutorial describes the development of servlets with     Eclipse WTP. This tutorial is based on Eclipse     4.5 (Mars) and Tomcat 7.0 and JDK 1.8.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseWTP/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseWTP/article.html</guid>
+
+</item>
+<item>
+	<title>Java concurrency (multi-threading) - Tutorial
+</title>
+	<description>This article describes how to do concurrent programming     with     Java. It covers the concepts of parallel programming, immutability,     threads, the     executor framework (thread pools),     futures, callables CompletableFuture and     the     fork-join framework.    </description>
+	<link>http://www.vogella.com/tutorials/JavaConcurrency/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaConcurrency/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Forms API - Tutorial
+</title>
+	<description> This article describes how to build user interfaces using     Eclipse Forms.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseForms/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseForms/article.html</guid>
+
+</item>
+<item>
+	<title>Extending the Eclipse IDE - Plug-in development - Tutorial
+</title>
+	<description> This article describes the creation and deployment of     Eclipse     plug-ins. The article is based on     Eclipse     4.4 (Luna)     and Java     1.6.    </description>
+	<link>http://www.vogella.com/tutorials/EclipsePlugIn/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipsePlugIn/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Source Code - Tutorial
+</title>
+	<description>     This     tutorial explains how to work with the     Eclipse source     code.     It assumes that you are already familiar with     using     the Eclipse IDE     and     is based on Eclipse 4.4 (Eclipse Luna).    </description>
+	<link>http://www.vogella.com/tutorials/EclipseCodeAccess/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseCodeAccess/article.html</guid>
+
+</item>
+<item>
+	<title>Adding menus, toolbar and popup menus to the Eclipse IDE - Tutorial
+</title>
+	<description> This tutorials describes how to add commands, menus and     toolbar entries to the Eclipse IDE.    This article is based on Eclipse Kepler (4.3).    </description>
+	<link>http://www.vogella.com/tutorials/EclipseCommands/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseCommands/article.html</guid>
+
+</item>
+<item>
+	<title>Apache Ant - Tutorial
+</title>
+	<description> This tutorial describes the usage of Ant as a build tool to     compile Java     code, pack this code into     an executable jar and how to     create     Javadoc. The usage of Ant is     demonstrated within Eclipse and     from the command line. This tutorial     is based on Apache Ant 1.8.x.    </description>
+	<link>http://www.vogella.com/tutorials/ApacheAnt/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/ApacheAnt/article.html</guid>
+
+</item>
+<item>
+	<title>Java Regex - Tutorial
+</title>
+	<description>This tutorial introduces the usage of regular     expressions and     describes their implementation     in Java. It also provides several Java     regular expression     examples.    </description>
+	<link>http://www.vogella.com/tutorials/JavaRegularExpressions/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaRegularExpressions/article.html</guid>
+
+</item>
+<item>
+	<title>Google App Engine - Python Development (with Eclipse) -
+			Tutorial
+</title>
+	<description> This article describes the creation of a web application with     Python on     the Google App Engine. The example created in this article will be a simple Todo     list.     The usage of the email API will get demonstrated. Also     conditions in     the Django web template and formating of dates will     get demonstrated.     The article demonstrates optionally the usage of Eclipse for     developing, running and debugging the Google App Engine application.    </description>
+	<link>http://www.vogella.com/tutorials/GoogleAppEngine/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/GoogleAppEngine/article.html</guid>
+
+</item>
+<item>
+	<title>JSF (JavaServer Faces) - Tutorial
+</title>
+	<description> This article describes how to develop JavaServer Faces web     applications with Eclipse WTP JSF tooling. It demonstrates managed     beans,     validators, external     resource bundles and the JSF navigation     concept.     This tutorial was developed with Java 1.6, JavaServerFaces     1.2, the Apache MyFaces JSF implementation, Tomcat 6.0 and Eclipse     3.6.    </description>
+	<link>http://www.vogella.com/tutorials/JavaServerFaces/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaServerFaces/article.html</guid>
+
+</item>
+<item>
+	<title>GWT - Tutorial
+</title>
+	<description> This tutorial describes how to develop a Web application with     GWT and     the Google Plugin for Eclipse. This article assumes basic     Eclipse and Java     knowledge. The tutorial     was developed     using JDK 1.6,     GWT 2.3 and Eclipse 3.7.</description>
+	<link>http://www.vogella.com/tutorials/GWT/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/GWT/article.html</guid>
+
+</item>
+<item>
+	<title>OSGi Modularity - Tutorial
+</title>
+	<description> This tutorial gives an overview of OSGi and its modularity     layer.     For this tutorial Eclipse 4.5 (Luna) is used.    </description>
+	<link>http://www.vogella.com/tutorials/OSGi/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/OSGi/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse Extension Points and Extensions - Tutorial
+</title>
+	<description> This tutorial describes the definition and usage of the     Eclipse     Extension Points. The article is written for and     Eclipse     4.2 but you can easily adjust it for Eclipse 3.x.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseExtensionPoint/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseExtensionPoint/article.html</guid>
+
+</item>
+<item>
+	<title>The Spring Jdbc Template for database access - Tutorial
+</title>
+	<description> This article describes the usage of the Spring JDBC Template     in a stand-alone application.</description>
+	<link>http://www.vogella.com/tutorials/SpringJDBC/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/SpringJDBC/article.html</guid>
+
+</item>
+<item>
+	<title>Eclipse RCP based on the 3.x API - Tutorial
+</title>
+	<description> This tutorial describes how to develop Eclipse RCP     applications with Eclipse 3.x API.    </description>
+	<link>http://www.vogella.com/tutorials/Eclipse3RCP/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Eclipse3RCP/article.html</guid>
+
+</item>
+<item>
+	<title>JFace Data Binding - Tutorial
+</title>
+	<description> This tutorial explains Eclipse JFace Data Binding which can be     used to synchronize data between different objects.     This tutorial is     based on Eclipse 4.4 and Java 1.7.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseDataBinding/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseDataBinding/article.html</guid>
+
+</item>
+<item>
+	<title>Dependency Injection with the Spring Framework - Tutorial
+</title>
+	<description> This article describes how to use dependency injection with     the Spring Framework.     It first describes dependency injection as a general     principle, gives then an overview of Spring and explains then the     configuration of Spring with annotations and with XML.    </description>
+	<link>http://www.vogella.com/tutorials/SpringDependencyInjection/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/SpringDependencyInjection/article.html</guid>
+
+</item>
+<item>
+	<title>Reporting with Eclipse BIRT and Java Objects (POJO's)
+			- Tutorial
+</title>
+	<description> This tutorial describes how to use Eclipse BIRT for reporting     on simple Java Objects (POJO's). The     tutorial explains also how to deploy the resulting BIRT     report     into a     webcontainer (Tomcat) and how to use it in an Eclipse     RCP     application. Eclipse 3.7 (Indigo) is used for this tutorial.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseBIRT/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseBIRT/article.html</guid>
+
+</item>
+<item>
+	<title>Grails Development - Tutorial
+</title>
+	<description> This article explains how to build a Grails application.     This     article is based on Java 1.6 and Grails 2.4.4.    </description>
+	<link>http://www.vogella.com/tutorials/Grails/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Grails/article.html</guid>
+
+</item>
+<item>
+	<title>Excel and Java - Read and Write Excel with Java - Tutorial
+</title>
+	<description> This article demonstrate how to create and how to read Excel     files with the Java Excel API.    </description>
+	<link>http://www.vogella.com/tutorials/JavaExcel/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaExcel/article.html</guid>
+
+</item>
+<item>
+	<title>JPA 2.0 with EclipseLink - Tutorial
+</title>
+	<description> This tutorial explains how to use EclipseLink, the reference     implementation for the Java Persistence API (JPA). The usage of     EclipseLink is demonstrated for stand-alone Java applications     (outside the     Java EE environment). The EclipseLink 2.3.X     implementation is used for this tutorial.    </description>
+	<link>http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaPersistenceAPI/article.html</guid>
+
+</item>
+<item>
+	<title>Ajax with the Dojo Toolkit - Tutorial
+</title>
+	<description>     This article describes the usage of the Dojo toolkit for     JavaScript programming. Dojo is an Ajax toolkit.    </description>
+	<link>http://www.vogella.com/tutorials/AjaxwithDojo/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/AjaxwithDojo/article.html</guid>
+
+</item>
+<item>
+	<title>Java and XML - Tutorial
+</title>
+	<description>     This article gives an introduction into XML and its usage     with Java. The Java Streaming API for XML (Stax) and the Java XPath     library are explained and demonstrated.    </description>
+	<link>http://www.vogella.com/tutorials/JavaXML/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaXML/article.html</guid>
+
+</item>
+<item>
+	<title>RSS feeds with Java - Tutorial
+</title>
+	<description> This tutorial explains how to read and create RSS feeds with     Java. It uses the Stax XML API. Eclipse     is used as the Java IDE and Java7 is used.    </description>
+	<link>http://www.vogella.com/tutorials/RSSFeed/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/RSSFeed/article.html</guid>
+
+</item>
+<item>
+	<title>Introduction to the Eclipse JFace Table API - Tutorial
+</title>
+	<description> This tutorial explains the usage of Eclipse JFace     TableViewer     including label and content provider. This tutorial is based on     Eclipse 4.3.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseJFaceTable/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseJFaceTable/article.html</guid>
+
+</item>
+<item>
+	<title>DocBook - Tutorial
+</title>
+	<description>     This tutorial explains how to write DocBook files in Eclipse     and how to convert these files into various output formats, e.g., to     HTML and PDF. It also explains how to configure XInclude to divide     the information into different source files.         This tutorial uses Docbook 4.5, the Saxon XLST processor in     version 6.5.5, Eclipse 4.3 and the XLST stylesheets in version     1.77.1.    </description>
+	<link>http://www.vogella.com/tutorials/DocBook/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/DocBook/article.html</guid>
+
+</item>
+<item>
+	<title>Microsoft and Java Integration with Eclipse - Tutorial
+</title>
+	<description> This article will demonstrate how Eclipse SWT can be used to     integrate / use Microsoft applications. Eclipse is using the SWT GUI     framework. SWT does allow to integrated Microsoft application via     OLE (Object Linking and Embedding).Microsoft Outlook, Microsoft     Excel and the File explorer are used as examples. The examples used     are based on Eclipse RCP as this makes it easy to demonstrate the     usage but work also with stand-alone Java application (which are     using SWT). This article assumes that you are already familiar with using     the Eclipse IDE and with developing simple Eclipse RCP applications.    </description>
+	<link>http://www.vogella.com/tutorials/EclipseMicrosoftIntegration/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/EclipseMicrosoftIntegration/article.html</guid>
+
+</item>
+<item>
+	<title>Java Logging API - Tutorial
+</title>
+	<description>     This article describes how to use the Logging API in     Java     programs. It includes an example for creating an HTML logger.    </description>
+	<link>http://www.vogella.com/tutorials/Logging/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/Logging/article.html</guid>
+
+</item>
+<item>
+	<title>Java Preferences API - Tutorial
+</title>
+	<description>     This tutorial gives a introduction into the Java     Preference API     to save key/value pairs for a Java application.    </description>
+	<link>http://www.vogella.com/tutorials/JavaPreferences/article.html</link>
+	<author>lars.vogel@vogella.com (Lars Vogel)</author>
+	<guid>http://www.vogella.com/tutorials/JavaPreferences/article.html</guid>
+
+</item>
+
+</channel>
+</rss>

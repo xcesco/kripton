@@ -18,7 +18,7 @@ package sqlite.stack44633883;
 import java.util.HashSet;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 
 // TODO: Auto-generated Javadoc
@@ -29,7 +29,7 @@ import com.abubusoft.kripton.android.annotation.BindTable;
 public class SchoolLunch {
     
     /** The lunch id. */
-    @BindColumn(columnType=ColumnType.PRIMARY_KEY)
+    @BindSqlColumn(columnType=ColumnType.PRIMARY_KEY)
     private long lunchId;
 
     /**

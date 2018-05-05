@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.join.model;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindTable;
 
 import java.sql.Date;
@@ -34,11 +34,11 @@ public class Loan extends Entity {
     public Date endTime;
 
     /** The book id. */
-    @BindColumn(parentEntity = Book.class)
+    @BindSqlColumn(parentEntity = Book.class)
     public long bookId;
 
     /** The user id. */
-    @BindColumn(parentEntity = User.class)
+    @BindSqlColumn(parentEntity = User.class)
     public long userId;
 
 }

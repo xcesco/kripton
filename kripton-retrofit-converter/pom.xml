@@ -12,6 +12,8 @@
 	<name>Kripton Retrofit Converter</name>	
 	<artifactId>kripton-retrofit-converter</artifactId>	
 	<packaging>jar</packaging>
+	
+	<properties><java.version>1.8</java.version></properties>
 
 	<description>Kripton adapter for Retrofit library</description>
 		

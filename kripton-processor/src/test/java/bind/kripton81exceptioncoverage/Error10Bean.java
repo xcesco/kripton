@@ -18,7 +18,7 @@ package bind.kripton81exceptioncoverage;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -29,7 +29,7 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Error10Bean {
 
 	/** The id. */
-	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
+	@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
 
 	/** The name. */

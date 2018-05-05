@@ -16,7 +16,7 @@
 package sqlite.example01;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -30,7 +30,7 @@ public class ChannelMessage extends UidEntity {
 	private static final long serialVersionUID = -2411765210163916759L;
 
 	/** The id. */
-	@BindColumn(columnType = ColumnType.PRIMARY_KEY)
+	@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
 	protected long id;
 
 	/** The image. */

@@ -36,6 +36,7 @@ import bind.kripton77.Test77;
 import bind.kripton78.Test78CompileSuite;
 import bind.kripton80contextcollection.Test80CompileSuite;
 import bind.kripton81morecoveragetests.Test81CompileSuite;
+import bind.rss.TestRSSCompile;
 
 /**
  * The Class BindCompileTestSuite.
@@ -53,6 +54,7 @@ import bind.kripton81morecoveragetests.Test81CompileSuite;
 		Test75CompileSuite.class,
 		Test76CompileSuite.class,
 		Test77.class,		
+		TestRSSCompile.class,
 		Test78CompileSuite.class,
 		Test80CompileSuite.class,
 		Test81CompileSuite.class,

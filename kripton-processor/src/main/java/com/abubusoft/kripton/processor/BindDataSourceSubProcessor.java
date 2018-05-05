@@ -32,7 +32,7 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
@@ -41,7 +41,7 @@ import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
-import com.abubusoft.kripton.android.annotation.BindRelation;
+import com.abubusoft.kripton.android.annotation.BindSqlRelation;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlChildSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
@@ -121,7 +121,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	/** The property annotation filter. */
 	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class)
-			.add(BindColumn.class).add(BindSqlAdapter.class).add(BindRelation.class).build();
+			.add(BindSqlColumn.class).add(BindSqlAdapter.class).add(BindSqlRelation.class).build();
 
 	/** The global dao elements. */
 	public final Map<String, TypeElement> globalDaoElements = new HashMap<String, TypeElement>();
@@ -258,7 +258,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					// ASSERT: list, set of type
 					AssertKripton.assertTrueOfInvalidDefinition(
 							((ParameterizedTypeName) typeName).typeArguments.size() == 1, item.value0, String.format(
-									"invalid type for @%s annotated element", BindRelation.class.getSimpleName()));
+									"invalid type for @%s annotated element", BindSqlRelation.class.getSimpleName()));
 
 					typeName = ((ParameterizedTypeName) typeName).typeArguments.get(0);
 
@@ -393,13 +393,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> item, SQLiteEntity referredEntity) {
 		// ASSERT: check valid type
 		AssertKripton.assertTrueOfInvalidDefinition(referredEntity != null, item.value0,
-				String.format("invalid type for @%s annotated element", BindRelation.class.getSimpleName()));
+				String.format("invalid type for @%s annotated element", BindSqlRelation.class.getSimpleName()));
 
 		// ASSERT: check if child entity has field
 		SQLProperty foreignKeyProperty = referredEntity.getForeignKeysToEntity(entity, item.value1);
 		AssertKripton.assertTrueOfInvalidDefinition(foreignKeyProperty != null, item.value0,
 				String.format("@%s#%s referers an invalid foreign key or no existing field '%s#%s'",
-						BindRelation.class.getSimpleName(), AnnotationAttributeType.FOREIGN_KEY.getValue(),
+						BindSqlRelation.class.getSimpleName(), AnnotationAttributeType.FOREIGN_KEY.getValue(),
 						referredEntity.getName(), item.value0.getName()));
 	}
 
@@ -658,7 +658,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								}
 							}
 
-							ModelAnnotation annotationBindColumn = property.getAnnotation(BindColumn.class);
+							ModelAnnotation annotationBindColumn = property.getAnnotation(BindSqlColumn.class);
 							if (annotationBindColumn != null && AnnotationUtility.extractAsBoolean(property,
 									annotationBindColumn, AnnotationAttributeType.ENABLED) == false) {
 								return false;
@@ -668,13 +668,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								return false;
 							}
 
-							if (property.hasAnnotation(BindRelation.class)) {
-								ModelAnnotation annotationBindRelation = property.getAnnotation(BindRelation.class);
+							if (property.hasAnnotation(BindSqlRelation.class)) {
+								ModelAnnotation annotationBindRelation = property.getAnnotation(BindSqlRelation.class);
 								// add relation (SQLEntity is for the moment set
 								// to null
 								AssertKripton.assertTrueOfInvalidDefinition(annotationBindColumn == null, property,
 										String.format("annotations @%s and @%s can not be used together",
-												BindRelation.class.getSimpleName(), BindColumn.class.getSimpleName()));
+												BindSqlRelation.class.getSimpleName(), BindSqlColumn.class.getSimpleName()));
 								entity.relations.add(new Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>(
 										property,
 										annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY), null,

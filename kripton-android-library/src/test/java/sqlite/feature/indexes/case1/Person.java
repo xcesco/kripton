@@ -18,7 +18,7 @@ package sqlite.feature.indexes.case1;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.annotation.BindType;
@@ -40,7 +40,7 @@ public class Person {
   public long id;
    
   
-  @BindColumn(columnType=ColumnType.UNIQUE)
+  @BindSqlColumn(columnType=ColumnType.UNIQUE)
   public String aliasName;
   
   
@@ -49,11 +49,11 @@ public class Person {
   
   
   /** The name. */
-  @BindColumn(columnType=ColumnType.INDEXED)
+  @BindSqlColumn(columnType=ColumnType.INDEXED)
   public String name;
   
   /** The surname. */
-  @BindColumn(columnType=ColumnType.INDEXED)
+  @BindSqlColumn(columnType=ColumnType.INDEXED)
   public String surname;
   
   /** The birth city. */

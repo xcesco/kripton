@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.many2many.err2;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.feature.many2many.Entity;
@@ -29,7 +29,7 @@ import sqlite.feature.many2many.Person;
 public class PersonCityErr2 extends Entity {
 	
 	/** The person id. */
-	@BindColumn(parentEntity=Person.class)
+	@BindSqlColumn(parentEntity=Person.class)
 	public long personId; 
 	
 	/** The city id. */

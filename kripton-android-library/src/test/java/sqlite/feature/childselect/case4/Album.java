@@ -1,6 +1,6 @@
 package sqlite.feature.childselect.case4;
 
-import com.abubusoft.kripton.android.annotation.BindRelation;
+import com.abubusoft.kripton.android.annotation.BindSqlRelation;
 import com.abubusoft.kripton.android.annotation.BindTable;
 
 @BindTable
@@ -17,7 +17,7 @@ public class Album {
 
 	public String name;
 
-	@BindRelation(foreignKey = "albumId")
+	@BindSqlRelation(foreignKey = "albumId")
 	protected Song songs;
 
 	public Song getSongs() {

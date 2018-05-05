@@ -17,7 +17,7 @@ package sqlite.stack44330452;
 
 import java.util.List;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -31,6 +31,6 @@ public class User {
 	public long id;
 	
 	/** The pets. */
-	@BindColumn(enabled=false)
+	@BindSqlColumn(enabled=false)
 	public List<Pet> pets;
 }

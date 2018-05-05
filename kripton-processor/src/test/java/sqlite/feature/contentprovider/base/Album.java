@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.contentprovider.base;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -30,6 +30,6 @@ public class Album extends Entity{
 	public String name;
 	
 	/** The artist id. */
-	@BindColumn(parentEntity=Artist.class, onUpdate=ForeignKeyAction.CASCADE)
+	@BindSqlColumn(parentEntity=Artist.class, onUpdate=ForeignKeyAction.CASCADE)
 	public long artistId;
 }

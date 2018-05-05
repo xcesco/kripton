@@ -29,7 +29,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
@@ -371,7 +371,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, entity.idName, Modifier.PUBLIC)
 				.addJavadoc("Primary key\n")
-				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+				.addAnnotation(AnnotationSpec.builder(BindSqlColumn.class)
 						.addMember("columnType","$T.$L", ColumnType.class, ColumnType.PRIMARY_KEY).build())
 				.build();
 		//@formatter:on
@@ -392,7 +392,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, field1Name, Modifier.PUBLIC)
 				.addJavadoc("Foreign key to $T model class\n", entity.entity1Name)
-				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+				.addAnnotation(AnnotationSpec.builder(BindSqlColumn.class)
 						.addMember(AnnotationAttributeType.PARENT_ENTITY.getValue(),"$T.class", entity.entity1Name)
 						.addMember(AnnotationAttributeType.ON_DELETE.getValue(),"$T.$L", ForeignKeyAction.class, ForeignKeyAction.CASCADE).build())
 				.build();
@@ -404,7 +404,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		//@formatter:off
 		FieldSpec fieldSpec = FieldSpec.builder(Long.TYPE, field2Name, Modifier.PUBLIC)
 				.addJavadoc("Foreign key to $T model class\n", entity.entity2Name)
-				.addAnnotation(AnnotationSpec.builder(BindColumn.class)
+				.addAnnotation(AnnotationSpec.builder(BindSqlColumn.class)
 						.addMember(AnnotationAttributeType.PARENT_ENTITY.getValue(),"$T.class", entity.entity2Name)
 						.addMember(AnnotationAttributeType.ON_DELETE.getValue(),"$T.$L", ForeignKeyAction.class, ForeignKeyAction.CASCADE).build())
 				.build();
