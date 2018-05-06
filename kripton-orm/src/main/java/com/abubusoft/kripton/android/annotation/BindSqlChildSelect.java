@@ -32,17 +32,17 @@ import java.lang.annotation.Target;
 public @interface BindSqlChildSelect {
 
 	/**
-	 * Relation name associated to field annnotated with
-	 * <code>BindRelation</code> that need to be valirized with this subquery.
+	 * Field annnotated with <code>BindRelation</code> that need to be valorized
+	 * with this subquery.
 	 * 
-	 * @return
-	 * 		name of relation
+	 * @return name of relation
 	 */
-	String relation();
+	String field();
 
 	/**
-	 * method's name of dao associated to child entity of relation to invoke to fill field. This
-	 * method must have only one parameter: the foreign key value
+	 * method's name of dao associated to child entity of relation to invoke to
+	 * fill field. This method must have only one parameter: the foreign key
+	 * value
 	 * 
 	 * @return method of child dao to use
 	 */

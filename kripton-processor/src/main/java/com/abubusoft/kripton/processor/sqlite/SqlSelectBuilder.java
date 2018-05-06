@@ -50,7 +50,6 @@ import com.squareup.javapoet.TypeSpec.Builder;
 import android.database.Cursor;
 import android.net.Uri;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SqlSelectBuilder.
  */

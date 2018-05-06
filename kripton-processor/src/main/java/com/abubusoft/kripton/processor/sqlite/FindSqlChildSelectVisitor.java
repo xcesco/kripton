@@ -66,7 +66,7 @@ public class FindSqlChildSelectVisitor extends SimpleAnnotationValueVisitor7<Voi
 	@Override
 	public Void visitString(String s, String p) {
 
-		if (activate && AnnotationAttributeType.RELATION.getValue().equals(p)) {
+		if (activate && AnnotationAttributeType.FIELD.getValue().equals(p)) {
 			current.value0 = s;
 		}
 

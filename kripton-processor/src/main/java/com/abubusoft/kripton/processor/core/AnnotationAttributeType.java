@@ -147,8 +147,8 @@ public enum AnnotationAttributeType {
 	/** The id name. */
 	ID_NAME("idName"),
 
-	/** The relationship. */
-	RELATION("relation"),
+	/** Field. */
+	FIELD("field"),
 
 	/** The in memory. */
 	IN_MEMORY("inMemory"),

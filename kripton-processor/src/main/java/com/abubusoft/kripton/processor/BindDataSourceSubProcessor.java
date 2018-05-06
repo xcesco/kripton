@@ -287,23 +287,44 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							final Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> relation = entity
 									.findRelationByParentProperty(childrenSelect.value0);
 
-							final SQLiteDaoDefinition childDaoDefinition = schema.findDaoDefinitionForEntity(relation.value2);
+							final SQLiteDaoDefinition childDaoDefinition = schema
+									.findDaoDefinitionForEntity(relation.value2);
 							final SQLiteModelMethod subMethod = childDaoDefinition.get(childrenSelect.value1);
+
+							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod != null, method,
+									" method '%s#%s', referred by @%s annotation, does not exists",
+									childDaoDefinition.getTypeName(), childrenSelect.value1,
+									BindSqlChildSelect.class.getSimpleName());
+
 							// set sub method to invoke
 							childrenSelect.value2 = subMethod;
-							
-							final String conditionToTest1=relation.value1+"=${"+subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0)+"}";
-							final String conditionToTest2="${"+subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0)+"}="+relation.value1;
-							
+
+							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod.getParameters().size() == 1,
+									method, " method '%s#%s', referred by @%s annotation, can have only one parameter",
+									childDaoDefinition.getTypeName(), subMethod.getName(),
+									BindSqlChildSelect.class.getSimpleName());
+
+							final String conditionToTest1 = relation.value1 + "=${"
+									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + "}";
+							final String conditionToTest2 = "${"
+									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + "}="
+									+ relation.value1;
+
 							JQLChecker.getInstance().analyze(subMethod, subMethod.jql, new JqlBaseListener() {
 
 								@Override
 								public void enterWhere_stmt_clauses(Where_stmt_clausesContext ctx) {
 
-									AssertKripton.assertTrueOrInvalidMethodSignException(ctx.getText().contains(conditionToTest2) || ctx.getText().contains(conditionToTest1),method," method '%s#%s' referred by @%s annotation must have a where condition like '%s' or '%s'",
-											childDaoDefinition.getTypeName(), subMethod.getName(), BindSqlChildSelect.class.getSimpleName(), conditionToTest1, conditionToTest2);
+									AssertKripton.assertTrueOrInvalidMethodSignException(
+											ctx.getText().contains(conditionToTest2)
+													|| ctx.getText().contains(conditionToTest1),
+											method,
+											" method '%s#%s' referred by @%s annotation must have a where condition like '%s' or '%s'",
+											childDaoDefinition.getTypeName(), subMethod.getName(),
+											BindSqlChildSelect.class.getSimpleName(), conditionToTest1,
+											conditionToTest2);
 								}
-								
+
 							});
 
 							TypeName parentFieldTypeName = relation.value0.getPropertyType().getTypeName();
@@ -314,8 +335,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 													.isList(subMethod.getReturnClass()))
 													&& (TypeUtility.isSet(parentFieldTypeName) == TypeUtility
 															.isSet(subMethod.getReturnClass()))),
-									method,
-									"field '%s#%s' is incompatible with '%s#%s' referred by @%s annotation ",
+									method, "field '%s#%s' is incompatible with '%s#%s' referred by @%s annotation ",
 									TypeUtility.typeName(relation.value0.getParent().getElement()).toString(),
 									relation.value0.getName(), childDaoDefinition.getTypeName(), childrenSelect.value1,
 									BindSqlChildSelect.class.getSimpleName());
@@ -323,14 +343,15 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							// check existence of method
 							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod != null, method,
 									"an nonexistent method '%s#%s' is referred by @%s annotation ",
-									childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class.getSimpleName());
+									childDaoDefinition.getTypeName(), relation.value1,
+									BindSqlChildSelect.class.getSimpleName());
 
 							// check signature
 							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod.getParameters().size() == 1,
 									method,
 									" method '%s#%s' referred by @%s annotation can have one parameter binded to %s property",
-									childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class.getSimpleName(),
-									relation.value1);
+									childDaoDefinition.getTypeName(), relation.value1,
+									BindSqlChildSelect.class.getSimpleName(), relation.value1);
 
 							// check parameter type
 							AssertKripton.assertTrueOrInvalidMethodSignException(
@@ -338,8 +359,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 											Long.class),
 									method,
 									" method '%s#%s' referred by @%s annotation can have only one parameter of type Long or long",
-									childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class.getSimpleName(),
-									relation.value1);
+									childDaoDefinition.getTypeName(), relation.value1,
+									BindSqlChildSelect.class.getSimpleName(), relation.value1);
 
 							SelectType selectSubMethodResultType = SelectBuilderUtility.detectSelectType(subMethod);
 							// specified dao can only return bean of a type
@@ -352,20 +373,19 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								AssertKripton.assertTrueOrInvalidMethodSignException(
 										selectSubMethodResultType == SelectType.LIST_BEAN, method,
 										" method '%s#%s' referred by @%s annotation does not return an acceptable value from '%s' property",
-										childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class.getSimpleName(),
-										relation.value1);
+										childDaoDefinition.getTypeName(), relation.value1,
+										BindSqlChildSelect.class.getSimpleName(), relation.value1);
 								break;
 							case ONE_2_ONE:
 								// we can receive only a bean
 								AssertKripton.assertTrueOrInvalidMethodSignException(
 										selectSubMethodResultType == SelectType.BEAN, method,
 										" method '%s#%s' referred by @%s annotation does not return an acceptable value from '%s' property",
-										childDaoDefinition.getTypeName(), relation.value1, BindSqlChildSelect.class.getSimpleName(),
-										relation.value1);
+										childDaoDefinition.getTypeName(), relation.value1,
+										BindSqlChildSelect.class.getSimpleName(), relation.value1);
 								break;
 							}
 
-							
 						}
 					}
 				}
@@ -396,11 +416,16 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				String.format("invalid type for @%s annotated element", BindSqlRelation.class.getSimpleName()));
 
 		// ASSERT: check if child entity has field
-		SQLProperty foreignKeyProperty = referredEntity.getForeignKeysToEntity(entity, item.value1);
-		AssertKripton.assertTrueOfInvalidDefinition(foreignKeyProperty != null, item.value0,
-				String.format("@%s#%s referers an invalid foreign key or no existing field '%s#%s'",
+		List<SQLProperty> foreignKeyPropertyList = referredEntity.getForeignKeysToEntity(entity, item.value1);
+		AssertKripton.assertTrueOfInvalidDefinition(foreignKeyPropertyList.size() == 1, item.value0,
+				String.format("@%s#%s need to specify a valid foreign key to entity '%s'",
 						BindSqlRelation.class.getSimpleName(), AnnotationAttributeType.FOREIGN_KEY.getValue(),
-						referredEntity.getName(), item.value0.getName()));
+						referredEntity.getName()));
+
+		// set field name in case it is no specified
+		if (!StringUtils.hasText(item.value1)) {
+			item.value1 = foreignKeyPropertyList.get(0).getName();
+		}
 	}
 
 	/**
@@ -674,7 +699,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								// to null
 								AssertKripton.assertTrueOfInvalidDefinition(annotationBindColumn == null, property,
 										String.format("annotations @%s and @%s can not be used together",
-												BindSqlRelation.class.getSimpleName(), BindSqlColumn.class.getSimpleName()));
+												BindSqlRelation.class.getSimpleName(),
+												BindSqlColumn.class.getSimpleName()));
 								entity.relations.add(new Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>(
 										property,
 										annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY), null,

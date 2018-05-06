@@ -45,7 +45,7 @@ public class TestCompileRelationError3 extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testCompileError() throws Throwable {
 		this.expectedException(InvalidDefinition.class,
-				"In class 'sqlite.feature.relations.error3.Album', property 'songs' has invalid definition: @BindRelation#foreignKey referers an invalid foreign key or no existing field 'sqlite.feature.relations.error3.Artist#songs'");
+				"InvalidDefinition: In class 'sqlite.feature.relations.error3.Album', property 'songs' has invalid definition: @BindSqlRelation#foreignKey need to specify a valid foreign key to entity 'sqlite.feature.relations.error3.Artist'");
 		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, DaoArtist.class, Artist.class, AppDataSource.class, Song.class);
 	}
 

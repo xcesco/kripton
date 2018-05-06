@@ -42,7 +42,7 @@ public class TestCompileRelationError2 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompileError() throws Throwable {
-		this.expectedException(InvalidDefinition.class, "In class 'sqlite.feature.relations.error2.Album', property 'songs' has invalid definition: invalid type for @BindRelation annotated element");
+		this.expectedException(InvalidDefinition.class, "In class 'sqlite.feature.relations.error2.Album', property 'songs' has invalid definition: invalid type for @BindSqlRelation annotated element");														 
 		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, AppDataSource.class, Song.class);
 	}
 

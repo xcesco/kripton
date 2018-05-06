@@ -33,7 +33,10 @@ import base.BaseProcessorTest;
 	
 	TestChildSelectError1.class,
 	TestChildSelectError2.class,
-	TestChildSelectError3.class
+	TestChildSelectError3.class,
+	TestChildSelectError4.class,
+	TestChildSelectError5.class,
+	TestChildSelectError6.class
 	})
 // @formatter:on
 public class TestChildSelectSuite extends BaseProcessorTest {
