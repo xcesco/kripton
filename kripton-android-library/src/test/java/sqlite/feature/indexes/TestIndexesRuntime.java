@@ -25,7 +25,6 @@ import org.junit.Test;
 
 import base.BaseAndroidTest;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestIndexesRuntime.
  *

@@ -1,4 +1,4 @@
-package sqlite.feature.dynamic.update;
+package sqlite.feature.dynamic.update1;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;

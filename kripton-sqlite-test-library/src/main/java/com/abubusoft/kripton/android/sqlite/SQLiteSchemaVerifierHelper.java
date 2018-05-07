@@ -96,7 +96,7 @@ public abstract class SQLiteSchemaVerifierHelper {
 
 			@Override
 			public void onRow(SQLiteDatabase db, String name, String sql) {
-				String drop = "drop " + type.toString().toLowerCase() + " " + name;
+				String drop = "DROP " + type.toString().toUpperCase() + " " + name;
 				Logger.info(drop);
 				db.execSQL(drop);
 
@@ -159,14 +159,14 @@ public abstract class SQLiteSchemaVerifierHelper {
 	 * Retrieve all indexes as a Map of (name, sql).
 	 *
 	 * @param db the db
-	 * @return the all indexes
+	 * @return indexes
 	 */
 	public static Map<String, String> getAllIndexes(SQLiteDatabase db) {
 		return SQLiteUpdateTaskHelper.getAllIndexes(db);
 	}
 
 	/**
-	 * Execute SQL.
+	 * Execute SQL contained in raw resource.
 	 *
 	 * @param database the database
 	 * @param context the context
@@ -352,6 +352,8 @@ public abstract class SQLiteSchemaVerifierHelper {
 		Set<String> actualSql = new HashSet<String>();
 		actualSql.addAll(SQLiteSchemaVerifierHelper.getAllTables(database).values());
 		actualSql.addAll(SQLiteSchemaVerifierHelper.getAllIndexes(database).values());
+				
+		Logger.info("DATABASE SCHEMA %s", database.getVersion());
 
 		if (actualSql.size() != expectedSQL.size()) {
 			Logger.error(

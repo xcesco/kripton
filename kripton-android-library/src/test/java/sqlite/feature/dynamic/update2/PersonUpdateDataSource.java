@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.dynamic.update;
+package sqlite.feature.dynamic.update2;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 /**
- * The Interface Err1UpdateDataSource.
+ * The Interface PersonUpdateDataSource.
  */
-@BindDataSource(daoSet= { Err1UpdateDAO.class }, fileName = "person.db", log=true)
-public interface Err1UpdateDataSource {
+@BindDataSource(daoSet= { PersonUpdateDAO.class }, fileName = "person.db", log=true)
+public interface PersonUpdateDataSource {
 
 }

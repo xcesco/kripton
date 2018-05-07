@@ -35,7 +35,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLiteUpdateTestDatabase.
  */
@@ -44,8 +43,10 @@ public class SQLiteUpdateTestDatabase {
 	/**
 	 * Builder.
 	 *
-	 * @param version the version
-	 * @param initialSchemaInputStream the initial schema input stream
+	 * @param version
+	 *            the version
+	 * @param initialSchemaInputStream
+	 *            the initial schema input stream
 	 * @return the builder
 	 */
 	public static Builder builder(int version, InputStream initialSchemaInputStream) {
@@ -55,9 +56,12 @@ public class SQLiteUpdateTestDatabase {
 	/**
 	 * Builder.
 	 *
-	 * @param version the version
-	 * @param context the context
-	 * @param initialSchemaRawResourceId the initial schema raw resource id
+	 * @param version
+	 *            the version
+	 * @param context
+	 *            the context
+	 * @param initialSchemaRawResourceId
+	 *            the initial schema raw resource id
 	 * @return the builder
 	 */
 	public static Builder builder(int version, Context context, int initialSchemaRawResourceId) {
@@ -81,11 +85,15 @@ public class SQLiteUpdateTestDatabase {
 		/** The initial schema resource raw id. */
 		private int initialSchemaResourceRawId;
 
+		private SQLitePopulator populator;
+
 		/**
 		 * Instantiates a new builder.
 		 *
-		 * @param version the version
-		 * @param initialSchemaInputStream the initial schema input stream
+		 * @param version
+		 *            the version
+		 * @param initialSchemaInputStream
+		 *            the initial schema input stream
 		 */
 		Builder(int version, InputStream initialSchemaInputStream) {
 			this.version = version;
@@ -96,8 +104,10 @@ public class SQLiteUpdateTestDatabase {
 		/**
 		 * Adds the version update task.
 		 *
-		 * @param currentVersion the current version
-		 * @param task the task
+		 * @param currentVersion
+		 *            the current version
+		 * @param task
+		 *            the task
 		 * @return the builder
 		 */
 		public Builder addVersionUpdateTask(int currentVersion, SQLiteUpdateTask task) {
@@ -109,11 +119,13 @@ public class SQLiteUpdateTestDatabase {
 		/**
 		 * Adds the version update task.
 		 *
-		 * @param currentVersion the current version
-		 * @param updateSqlInputStream the update sql input stream
+		 * @param currentVersion
+		 *            the current version
+		 * @param updateSqlInputStream
+		 *            the update sql input stream
 		 * @return the builder
 		 */
-		public Builder addVersionUpdateTask(int currentVersion, InputStream updateSqlInputStream) {			
+		public Builder addVersionUpdateTask(int currentVersion, InputStream updateSqlInputStream) {
 			updateTasks.add(new Pair<>(currentVersion, new SQLiteUpdateTaskFromFile(updateSqlInputStream)));
 
 			return this;
@@ -122,9 +134,12 @@ public class SQLiteUpdateTestDatabase {
 		/**
 		 * Adds the version update task.
 		 *
-		 * @param currentVersion the current version
-		 * @param context the context
-		 * @param updateSqlRawResourceId the update sql raw resource id
+		 * @param currentVersion
+		 *            the current version
+		 * @param context
+		 *            the context
+		 * @param updateSqlRawResourceId
+		 *            the update sql raw resource id
 		 * @return the builder
 		 */
 		public Builder addVersionUpdateTask(int currentVersion, Context context, int updateSqlRawResourceId) {
@@ -132,6 +147,17 @@ public class SQLiteUpdateTestDatabase {
 					context.getResources().openRawResource(updateSqlRawResourceId));
 			updateTasks.add(new Pair<>(currentVersion, task));
 
+			return this;
+		}
+
+		/**
+		 * Add populator for the database
+		 * 
+		 * @param populator
+		 * @return
+		 */
+		public Builder addPopulator(SQLitePopulator populator) {
+			this.populator = populator;
 			return this;
 		}
 
@@ -144,13 +170,14 @@ public class SQLiteUpdateTestDatabase {
 			Collections.sort(updateTasks, new Comparator<Pair<Integer, ? extends SQLiteUpdateTask>>() {
 
 				@Override
-				public int compare(Pair<Integer, ? extends SQLiteUpdateTask> entry0, Pair<Integer, ? extends SQLiteUpdateTask> entry1) {
+				public int compare(Pair<Integer, ? extends SQLiteUpdateTask> entry0,
+						Pair<Integer, ? extends SQLiteUpdateTask> entry1) {
 					return entry0.value0 - entry1.value0;
 				}
 			});
 
 			SQLiteUpdateTestDatabase helper = new SQLiteUpdateTestDatabase(KriptonLibrary.context(), null, version,
-					null, initialSchemaInputStream, initialSchemaResourceRawId, updateTasks);
+					null, initialSchemaInputStream, initialSchemaResourceRawId, populator, updateTasks);
 
 			return helper.create();
 		}
@@ -184,19 +211,31 @@ public class SQLiteUpdateTestDatabase {
 	/** The context. */
 	private Context context;
 
+	private SQLitePopulator populator;
+
 	/**
 	 * Instantiates a new SQ lite update test database.
 	 *
-	 * @param context the context
-	 * @param factory the factory
-	 * @param version the version
-	 * @param errorHandler the error handler
-	 * @param initialSchemaInputStream the initial schema input stream
-	 * @param initialSchemaResourceId the initial schema resource id
-	 * @param updateTasks the update tasks
+	 * @param context
+	 *            the context
+	 * @param factory
+	 *            the factory
+	 * @param version
+	 *            the version
+	 * @param errorHandler
+	 *            the error handler
+	 * @param initialSchemaInputStream
+	 *            the initial schema input stream
+	 * @param initialSchemaResourceId
+	 *            the initial schema resource id
+	 * @param populator
+	 *            populator to execute when database is created
+	 * @param updateTasks
+	 *            the update tasks
 	 */
 	SQLiteUpdateTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler,
-			InputStream initialSchemaInputStream, int initialSchemaResourceId, List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks) {
+			InputStream initialSchemaInputStream, int initialSchemaResourceId, SQLitePopulator populator,
+			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks) {
 		this.version = version;
 		this.factory = factory;
 		this.context = context;
@@ -204,6 +243,7 @@ public class SQLiteUpdateTestDatabase {
 		this.firstSchemaDefinitionInputStream = initialSchemaInputStream;
 		this.firstSchemaDefinitionResourceId = initialSchemaResourceId;
 		this.updateTasks = updateTasks;
+		this.populator = populator;
 	}
 
 	/**
@@ -230,8 +270,15 @@ public class SQLiteUpdateTestDatabase {
 				}
 			}
 		};
-		sqlite.getWritableDatabase();
-		sqlite.close();
+
+		try {
+			SQLiteDatabase currentDatabase = sqlite.getWritableDatabase();
+			if (this.populator!=null) {
+				this.populator.execute(currentDatabase);
+			}
+		} finally {
+			sqlite.close();
+		}
 
 		return this;
 	}
@@ -241,8 +288,10 @@ public class SQLiteUpdateTestDatabase {
 	 * specify the destination version schema and compare it with schema
 	 * resulting by version update applied.
 	 *
-	 * @param version the version
-	 * @param schemaDefinitionInputStream the schema definition input stream
+	 * @param version
+	 *            the version
+	 * @param schemaDefinitionInputStream
+	 *            the schema definition input stream
 	 * @return the SQ lite update test database
 	 */
 	public SQLiteUpdateTestDatabase updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {
@@ -253,7 +302,7 @@ public class SQLiteUpdateTestDatabase {
 				List<SQLiteUpdateTask> task = findTask(oldVersion, newVersion);
 
 				for (SQLiteUpdateTask item : task) {
-					item.execute(db, oldVersion, oldVersion+1);
+					item.execute(db, oldVersion, oldVersion + 1);
 					oldVersion++;
 				}
 			}
@@ -266,7 +315,7 @@ public class SQLiteUpdateTestDatabase {
 		};
 
 		SQLiteSchemaVerifierHelper.verifySchema(sqlite.getWritableDatabase(), schemaDefinitionInputStream);
-		
+
 		return this;
 	}
 
@@ -275,22 +324,28 @@ public class SQLiteUpdateTestDatabase {
 	 * specify the destination version schema and compare it with schema
 	 * resulting by version update applied.
 	 *
-	 * @param version the version
-	 * @param context the context
-	 * @param schemaDefinitionRawResourceId the schema definition raw resource id
+	 * @param version
+	 *            the version
+	 * @param context
+	 *            the context
+	 * @param schemaDefinitionRawResourceId
+	 *            the schema definition raw resource id
 	 * @return the SQ lite update test database
 	 */
-	public SQLiteUpdateTestDatabase updateAndVerify(int version, final Context context, final int schemaDefinitionRawResourceId) {
+	public SQLiteUpdateTestDatabase updateAndVerify(int version, final Context context,
+			final int schemaDefinitionRawResourceId) {
 		updateAndVerify(version, context.getResources().openRawResource(schemaDefinitionRawResourceId));
-		
+
 		return this;
 	}
 
 	/**
 	 * Find task.
 	 *
-	 * @param previousVersion the previous version
-	 * @param currentVersion the current version
+	 * @param previousVersion
+	 *            the previous version
+	 * @param currentVersion
+	 *            the current version
 	 * @return the list
 	 */
 	List<SQLiteUpdateTask> findTask(int previousVersion, int currentVersion) {
@@ -300,7 +355,7 @@ public class SQLiteUpdateTestDatabase {
 			ref.value0 = i;
 			SQLiteUpdateTask t = null;
 			for (Pair<Integer, ? extends SQLiteUpdateTask> item : updateTasks) {
-				if (item.value0-1 == ref.value0) {
+				if (item.value0 - 1 == ref.value0) {
 					t = item.value1;
 					break;
 				}

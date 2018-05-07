@@ -23,7 +23,6 @@ import sqlite.feature.dynamic.kripton121.Kripton121Test;
 import sqlite.feature.dynamic.select.SelectJQLTest;
 import sqlite.feature.dynamic.select2.SelectRawTest;
 import sqlite.feature.dynamic.select3.CompileSelectRawJQLTest;
-import sqlite.feature.dynamic.update.UpdateTest;
 
 /**
  * The Class TestDynamicSuite.
@@ -35,7 +34,8 @@ import sqlite.feature.dynamic.update.UpdateTest;
 		SelectJQLTest.class,
 		SelectRawTest.class,
 		CompileSelectRawJQLTest.class,
-		UpdateTest.class,
+		UpdateTest1.class,
+		UpdateTest2.class,
 		Kripton121Test.class
 		 })
 //@formatter:on

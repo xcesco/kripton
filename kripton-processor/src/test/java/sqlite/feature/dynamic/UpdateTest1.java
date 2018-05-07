@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.dynamic.update;
+package sqlite.feature.dynamic;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,16 +24,19 @@ import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundEx
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.dynamic.Person;
-import sqlite.feature.dynamic.update.PersonUpdateDAO;
-import sqlite.feature.dynamic.update.PersonUpdateDataSource;
+import sqlite.feature.dynamic.update1.Err1UpdateDAO;
+import sqlite.feature.dynamic.update1.Err1UpdateDataSource;
+import sqlite.feature.dynamic.update1.Err2UpdateDAO;
+import sqlite.feature.dynamic.update1.Err2UpdateDataSource;
+import sqlite.feature.dynamic.update1.PersonUpdateDAO;
+import sqlite.feature.dynamic.update1.PersonUpdateDataSource;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class UpdateTest.
  */
 @RunWith(JUnit4.class)
-public class UpdateTest extends AbstractBindSQLiteProcessorTest {
+public class UpdateTest1 extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * No @BindType is put in bean definition.

@@ -37,6 +37,7 @@ import sqlite.feature.many2many.err4.TestCompileMany2ManyErr4;
 		TestCompileMany2Many4.class,
 		TestCompileMany2Many5.class,
 		TestCompileMany2Many6.class,
+		TestCompileMany2Many7.class,
 		
 		TestCompileMany2ManyErr1.class,
 		TestCompileMany2ManyErr2.class,

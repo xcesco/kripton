@@ -299,8 +299,13 @@ public class BindBean2DataSource extends AbstractDataSource implements BindBean2
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

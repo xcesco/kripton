@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.dynamic.update;
+package sqlite.feature.dynamic.update2;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-
-import sqlite.feature.dynamic.update.PersonUpdateDAO;
 
 /**
  * The Interface PersonUpdateDataSource.

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.dynamic.update;
+package sqlite.feature.dynamic.update1;
 
 import java.util.List;
 

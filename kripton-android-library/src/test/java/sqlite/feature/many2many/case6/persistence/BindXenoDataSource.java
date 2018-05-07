@@ -290,16 +290,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
@@ -358,16 +358,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
@@ -429,8 +429,13 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

@@ -18,7 +18,8 @@ package sqlite.feature.contentprovider.kripton213.case1;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.SQLitePopulator;
 
-// TODO: Auto-generated Javadoc
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * The Class SamplePopulator.
  */
@@ -28,7 +29,7 @@ public class SamplePopulator implements SQLitePopulator {
 	 * @see com.abubusoft.kripton.android.sqlite.SQLitePopulator#execute()
 	 */
 	@Override
-	public void execute() {
+	public void execute(SQLiteDatabase database) {
 		Logger.info("execute populator");
 		
 	}

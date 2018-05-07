@@ -1,6 +1,7 @@
-package sqlite.feature.dynamic.update;
+package sqlite.feature.dynamic.update1;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
+
 
 /**
  * <p>

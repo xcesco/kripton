@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.dynamic.update;
+package sqlite.feature.dynamic.update1;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
@@ -22,14 +22,10 @@ import sqlite.feature.dynamic.Person;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface Err1UpdateDAO.
+ * The Interface Err2UpdateDAO.
  */
 @BindDao(Person.class)
-public interface Err1UpdateDAO {
-	
-	/**
-	 * Update.
-	 */
+public interface Err2UpdateDAO {
 	/*
 	@BindSqlInsert
 	void insertOne(String typeName, String surname, String birthCity, Date birthDay);
@@ -37,8 +33,14 @@ public interface Err1UpdateDAO {
 	@BindSqlSelect(where="typeName like ${nameTemp} || '%' ")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
 	*/
-	@BindSqlUpdate
-	void update();
+	
+	/**
+	 * Update.
+	 *
+	 * @param bean the bean
+	 */
+	@BindSqlUpdate(excludedFields={"id", "typeName", "surname", "birthCity" ,"birthDay"})
+	void update(Person bean);
 	
 //	@BindSqlSelect(orderBy="typeName")
 //	void selectCursorListener(OnReadCursorListener cursorListener);
