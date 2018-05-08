@@ -33,12 +33,12 @@ public @interface BindXmlNamespace {
 
 	
 	/**
-	 * alias used to referer the namespace
+	 * prefix used to referer the namespace
 	 * 
 	 * @return
 	 * 		namespace name
 	 */
-	String name();
+	String prefix();
 
 	
 	/**

@@ -65,7 +65,7 @@ public class FindXmlNamespaceVisitor extends SimpleAnnotationValueVisitor7<Void,
 	@Override
 	public Void visitString(String s, String p) {
 
-		if (activate && AnnotationAttributeType.NAME.getValue().equals(p)) {
+		if (activate && AnnotationAttributeType.PREFIX.getValue().equals(p)) {
 			current.value0 = s;
 		}
 

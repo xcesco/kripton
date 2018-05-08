@@ -29,7 +29,7 @@ import com.abubusoft.kripton.xml.XmlType;
  */
 @BindType
 @BindXmlType(namespaces={
-		@BindXmlNamespace(name="tool", uri="http://www.dummy.com")		
+		@BindXmlNamespace(prefix="tool", uri="http://www.dummy.com")		
 		})
 public class Person {
 

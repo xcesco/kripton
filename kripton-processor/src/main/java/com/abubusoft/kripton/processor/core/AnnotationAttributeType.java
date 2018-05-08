@@ -110,9 +110,14 @@ public enum AnnotationAttributeType {
 
 	/** The name. */
 	NAME("name"),
-	
+			
 	/** xml namespace */
 	NAMESPACE("namespace"),
+	
+	/**
+	 * namespace prefix
+	 */
+	PREFIX("prefix"),
 
 	/** The type parameters. */
 	TYPE_PARAMETERS("typeParameters"),
