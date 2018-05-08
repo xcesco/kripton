@@ -18,8 +18,6 @@ package sqlite.feature.dynamic;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import sqlite.feature.dynamic.select3.TestDynamicSelect3Runtime;
-
 
 /**
  * The Class TestDynamicRuntimeSuite.

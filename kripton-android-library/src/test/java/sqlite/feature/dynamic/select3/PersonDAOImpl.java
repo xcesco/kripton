@@ -33,6 +33,110 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
+   * <pre>select * from person where name like ${dummy} || '%' #{DYNAMIC_ORDER_BY}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
+   * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * </dl>
+   *
+   * <h2>Method's parameters and associated dynamic parts:</h2>
+   * <dl>
+   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
+   * </dl>
+   *
+   * @param dummy
+   * 	is binded to <code>${dummy}</code>
+   * @param orderBy
+   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public List<Person> select(String dummy, String orderBy) {
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("select * from person");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sortOrder=orderBy;
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" where name like ? || '%' ";
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+    // generation order - BEGIN
+    String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
+    _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    _contentValues.addWhereArgs((dummy==null?"":dummy));
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
+      Person resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("surname");
+        int index3=_cursor.getColumnIndex("birth_city");
+        int index4=_cursor.getColumnIndex("birth_day");
+
+        do
+         {
+          resultBean=new Person();
+
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
    * <pre>select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
@@ -58,16 +162,20 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * 	is binded to <code>${dummy}</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @param dynParam
+   * 	is binded to <code>${dynParam}</code>
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> select(String dummy, String where) {
+  public List<Person> select(String dummy, String where, String[] dynParam) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("select * from person");
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
+    // initialize dynamic where args
+    String[] _sqlDynamicWhereArgs=dynParam;
     // generation CODE_001 -- END
 
     // manage WHERE arguments -- BEGIN
@@ -77,6 +185,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
+    if (StringUtils.hasText(_sqlDynamicWhere) && _sqlDynamicWhereArgs!=null) {
+      for (String _arg: _sqlDynamicWhereArgs) {
+        _contentValues.addWhereArgs(_arg);
+      }
+    }
     String _sql=_sqlBuilder.toString();
     // add where arguments
     _contentValues.addWhereArgs((dummy==null?"":dummy));

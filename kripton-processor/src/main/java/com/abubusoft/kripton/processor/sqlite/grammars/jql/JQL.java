@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;

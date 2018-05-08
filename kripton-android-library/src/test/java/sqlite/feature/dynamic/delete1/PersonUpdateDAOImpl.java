@@ -1,6 +1,5 @@
 package sqlite.feature.dynamic.delete1;
 
-import android.database.sqlite.SQLiteStatement;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -18,10 +17,6 @@ import sqlite.feature.dynamic.Person;
  *  @see sqlite.feature.dynamic.PersonTable
  */
 public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
-  private static SQLiteStatement deleteRawPreparedStatement0;
-
-  private static SQLiteStatement deleteBeanPreparedStatement1;
-
   public PersonUpdateDAOImpl(BindPersonUpdateDaoFactory daoFactory) {
     super(daoFactory.context());
   }
@@ -51,23 +46,30 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    */
   @Override
   public void deleteRaw(long id, String where) {
-    if (deleteRawPreparedStatement0==null) {
-      // generate static SQL for statement
-      String _sql="DELETE FROM person WHERE id = ? #{DYNAMIC_WHERE}";
-      deleteRawPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
-    KriptonContentValues _contentValues=contentValuesForUpdate(deleteRawPreparedStatement0);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(id));
 
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=sqlBuilder();
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id = ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id = ? #{DYNAMIC_WHERE}");
+      Logger.info("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -77,7 +79,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteRawPreparedStatement0, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
   }
 
   /**
@@ -101,23 +103,30 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    */
   @Override
   public void deleteBean(Person bean, String where) {
-    if (deleteBeanPreparedStatement1==null) {
-      // generate static SQL for statement
-      String _sql="DELETE FROM person WHERE id = ? #{DYNAMIC_WHERE}";
-      deleteBeanPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
-    KriptonContentValues _contentValues=contentValuesForUpdate(deleteBeanPreparedStatement1);
+    KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
     // generation CODE_001 -- BEGIN
     // initialize dynamic where
     String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
+    StringBuilder _sqlBuilder=sqlBuilder();
+
+    // manage WHERE arguments -- BEGIN
+
+    // manage WHERE statement
+    String _sqlWhereStatement=" id = ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    _sqlBuilder.append(_sqlWhereStatement);
+
+    // manage WHERE arguments -- END
+
+    // generate sql
+    String _sql=String.format("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("DELETE FROM person WHERE id = ? #{DYNAMIC_WHERE}");
+      Logger.info("DELETE FROM person WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for where parameters -- BEGIN
       int _whereParamCounter=0;
@@ -127,17 +136,9 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(deleteBeanPreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(_context, _sql, _contentValues);
   }
 
   public static void clearCompiledStatements() {
-    if (deleteRawPreparedStatement0!=null) {
-      deleteRawPreparedStatement0.close();
-      deleteRawPreparedStatement0=null;
-    }
-    if (deleteBeanPreparedStatement1!=null) {
-      deleteBeanPreparedStatement1.close();
-      deleteBeanPreparedStatement1=null;
-    }
   }
 }

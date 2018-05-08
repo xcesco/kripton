@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 /**
  * Define a dynamic order by condition. It is appended to <code>order by</code>
  * statement defined with attribute <code>orderBy</code> in
- * <code>BindSqlSelect</code> annotation.
+ * <code>@BindSqlSelect</code> annotation.
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *

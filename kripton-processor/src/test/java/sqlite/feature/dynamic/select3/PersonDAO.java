@@ -19,7 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
+import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhereParams;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
@@ -31,15 +33,11 @@ import sqlite.feature.dynamic.Person;
 @BindDao(Person.class)
 public interface PersonDAO {
 
-	/**
-	 * Select.
-	 *
-	 * @param id the id
-	 * @param where the where
-	 * @return the list
-	 */
+	@BindSqlSelect(jql="select * from person where name like ${dummy} || '%' #{DYNAMIC_ORDER_BY}")
+	List<Person> select(String dummy, @BindSqlDynamicOrderBy String orderBy);
+	
 	@BindSqlSelect(jql="select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE}")
-	List<Person> select(String dummy, @BindSqlDynamicWhere String where);
+	List<Person> select(String dummy, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] dynParam);
 	
 	@BindSqlInsert
 	void insert(String name, String surname, String birthCity, Date birthDay);

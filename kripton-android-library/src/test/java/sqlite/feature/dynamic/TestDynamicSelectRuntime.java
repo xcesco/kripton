@@ -23,9 +23,8 @@ import java.util.List;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
-import sqlite.feature.dynamic.select.BindPersonDataSource;
+import sqlite.feature.dynamic.select1.BindPersonDataSource;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestDynamicSelectRuntime.
  *
