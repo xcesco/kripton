@@ -20,12 +20,17 @@ import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.BindXmlNamespace;
+import com.abubusoft.kripton.annotation.BindXmlType;
 import com.abubusoft.kripton.xml.XmlType;
 
 /**
  * The Class Person.
  */
 @BindType
+@BindXmlType(namespaces={
+		@BindXmlNamespace(name="tool", uri="http://www.dummy.com")		
+		})
 public class Person {
 
 	/** The name. */

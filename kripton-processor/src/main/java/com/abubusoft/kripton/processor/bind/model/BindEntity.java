@@ -15,14 +15,15 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BindEntity.
  */
@@ -43,7 +44,7 @@ public class BindEntity extends ModelClass<BindProperty> {
 	
 	/** The xml info. */
 	public XmlInfo xmlInfo;
-
+	
 	/**
 	 * The Class XmlInfo.
 	 */
@@ -51,6 +52,11 @@ public class BindEntity extends ModelClass<BindProperty> {
 		
 		/** The label. */
 		public String label;
+		
+		/**
+		 * namespaces set
+		 */
+		public List<Pair<String, String>> namespaces=new ArrayList<>();
 				
 	}
 

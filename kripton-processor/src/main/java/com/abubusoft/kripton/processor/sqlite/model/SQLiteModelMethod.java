@@ -66,7 +66,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLiteModelMethod.
  */
@@ -322,7 +321,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		String preparedJql = getJQLDeclared();
 
 		this.jql = JQLBuilder.buildJQL(this, preparedJql);
-
+		//TODO WORK HERE		
+				
 		// live data support
 		this.liveDataEnabled = SQLiteModelMethod.isLiveData(this);
 		if (liveDataEnabled) {

@@ -21,6 +21,10 @@ import java.util.ArrayList;
  */
 @BindMap(Person.class)
 public class PersonBindMap extends AbstractMapper<Person> {
+  /**
+   * PersonBindMap */
+  private PersonBindMap personBindMap = this;
+
   @Override
   public int serializeOnJackson(Person object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -34,10 +38,17 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("birthday", DateUtils.write(object.birthday));
     }
 
-    // field name (mapped with "tool:name")
+    // field name (mapped with "name")
     if (object.name!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("tool:name", object.name);
+      jacksonSerializer.writeStringField("name", object.name);
+    }
+
+    // field parent (mapped with "parent")
+    if (object.parent!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeFieldName("parent");
+      personBindMap.serializeOnJackson(object.parent, jacksonSerializer);
     }
 
     // field surname (mapped with "surname")
@@ -83,10 +94,19 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("birthday", DateUtils.write(object.birthday));
     }
 
-    // field name (mapped with "tool:name")
+    // field name (mapped with "name")
     if (object.name!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("tool:name", object.name);
+      jacksonSerializer.writeStringField("name", object.name);
+    }
+
+    // field parent (mapped with "parent")
+    if (object.parent!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeFieldName("parent");
+      if (personBindMap.serializeOnJacksonAsString(object.parent, jacksonSerializer)==0) {
+        jacksonSerializer.writeNullField("parent");
+      }
     }
 
     // field surname (mapped with "surname")
@@ -130,6 +150,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
       throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("person");
+      xmlSerializer.writeAttribute("", "xmlns:tool", "http://www.dummy.com");
+      xmlSerializer.writeAttribute("", "xmlns", "http://www.dummy.com");
     }
 
     // Persisted fields:
@@ -138,6 +160,20 @@ public class PersonBindMap extends AbstractMapper<Person> {
     if (object.birthday!=null)  {
       xmlSerializer.writeStartElement("birthday");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(DateUtils.write(object.birthday)));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field name (mapped with "tool:name")
+    if (object.name!=null) {
+      xmlSerializer.writeStartElement("tool:name");
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field parent (mapped with "parent")
+    if (object.parent!=null)  {
+      xmlSerializer.writeStartElement("parent");
+      personBindMap.serializeOnXml(object.parent, xmlSerializer, 2);
       xmlSerializer.writeEndElement();
     }
 
@@ -168,13 +204,6 @@ public class PersonBindMap extends AbstractMapper<Person> {
         xmlSerializer.writeAttribute("emptyCollection", "true");
         xmlSerializer.writeEndElement();
       }
-    }
-
-    // field name (mapped with "tool:name")
-    if (object.name!=null) {
-      xmlSerializer.writeStartElement("tool:name");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.name));
-      xmlSerializer.writeEndElement();
     }
 
     if (currentEventType == 0) {
@@ -208,6 +237,18 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.birthday=DateUtils.read(jacksonParser.getText());
             }
           break;
+          case "name":
+            // field name (mapped with "name")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.name=jacksonParser.getText();
+            }
+          break;
+          case "parent":
+            // field parent (mapped with "parent")
+            if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+              instance.parent=personBindMap.parseOnJackson(jacksonParser);
+            }
+          break;
           case "surname":
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -228,12 +269,6 @@ public class PersonBindMap extends AbstractMapper<Person> {
                 collection.add(item);
               }
               instance.tags=collection;
-            }
-          break;
-          case "tool:name":
-            // field name (mapped with "tool:name")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.name=jacksonParser.getText();
             }
           break;
           default:
@@ -269,6 +304,18 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.birthday=DateUtils.read(jacksonParser.getText());
             }
           break;
+          case "name":
+            // field name (mapped with "name")
+            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+              instance.name=jacksonParser.getText();
+            }
+          break;
+          case "parent":
+            // field parent (mapped with "parent")
+            if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
+              instance.parent=personBindMap.parseOnJacksonAsString(jacksonParser);
+            }
+          break;
           case "surname":
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -296,12 +343,6 @@ public class PersonBindMap extends AbstractMapper<Person> {
             } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
               ArrayList<String> collection=new ArrayList<>();
               instance.tags=collection;
-            }
-          break;
-          case "tool:name":
-            // field name (mapped with "tool:name")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.name=jacksonParser.getText();
             }
           break;
           default:
@@ -345,6 +386,14 @@ public class PersonBindMap extends AbstractMapper<Person> {
                   // property birthday (mapped on "birthday")
                   instance.birthday=DateUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
+                case "tool:name":
+                  // property name (mapped on "tool:name")
+                  instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "parent":
+                  // property parent (mapped on "parent")
+                  instance.parent=personBindMap.parseOnXml(xmlParser, eventType);
+                break;
                 case "surname":
                   // property surname (mapped on "surname")
                   instance.surname=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
@@ -378,10 +427,6 @@ public class PersonBindMap extends AbstractMapper<Person> {
                     instance.tags=collection;
                     read=false;
                   }
-                break;
-                case "tool:name":
-                  // property name (mapped on "tool:name")
-                  instance.name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
                 break;

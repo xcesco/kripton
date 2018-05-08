@@ -25,6 +25,15 @@ public class TestRuntimeNamespace1 extends AbstractBaseTest {
 		person.tags=new ArrayList<String>();
 		person.tags.add("test1");
 		
+		Person person1=new Person();
+		person1.birthday=new Date();
+		person1.name="toni";
+		person1.surname="manero";
+		person1.tags=new ArrayList<String>();
+		person1.tags.add("test1");
+		
+		person.parent=person1;
+		
 		
 		check(person);
 	}

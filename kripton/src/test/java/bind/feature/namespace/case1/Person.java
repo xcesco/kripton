@@ -20,11 +20,17 @@ import java.util.List;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.BindXmlNamespace;
+import com.abubusoft.kripton.annotation.BindXmlType;
 
 /**
  * The Class Person.
  */
 @BindType
+@BindXmlType(namespaces={
+		@BindXmlNamespace(name="tool", uri="http://www.dummy.com"),
+		@BindXmlNamespace(name="", uri="http://www.dummy.com")
+		})
 public class Person {
 
 	/** The name. */
@@ -39,4 +45,6 @@ public class Person {
 	
 	/** The tags. */
 	public List<String> tags;
+	
+	public Person parent;
 }

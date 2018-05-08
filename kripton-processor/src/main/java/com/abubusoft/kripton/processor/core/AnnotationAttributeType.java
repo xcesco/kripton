@@ -205,7 +205,17 @@ public enum AnnotationAttributeType {
 	/**
 	 * list of child select used to fill field marked as relations
 	 */
-	CHILDREN_SELECT("childrenSelects");
+	CHILDREN_SELECT("childrenSelects"), 
+	
+	/**
+	 * set of namespace
+	 */
+	NAMESPACES("namespaces"), 
+	
+	/**
+	 * uri of namespace 
+	 */
+	URI("uri");
 
 	/** The value. */
 	private String value;

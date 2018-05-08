@@ -13,35 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.namespace;
+package sqlite.feature.dynamic;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import bind.feature.namespace.case1.TestCompileCase1;
-import bind.feature.namespace.case2.TestCompileCase2;
-import bind.feature.namespace.case3.TestCompileCase3;
-import bind.feature.namespace.case4.TestCompileCase4;
-import bind.feature.namespace.error1.TestNamespaceError1;
-import bind.feature.namespace.error2.TestNamespaceError2;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.dynamic.delete1.PersonUpdateDAO;
+import sqlite.feature.dynamic.delete1.PersonUpdateDataSource;
 
 /**
- * The Class BindCompileTestSuite.
+ * The Class UpdateTest.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-{//@formatter:off
-		
-	TestCompileCase1.class,
-	TestCompileCase2.class,
-	TestCompileCase3.class,
-	TestCompileCase4.class,
-	
-	TestNamespaceError1.class,
-	TestNamespaceError2.class
-		 })
-//@formatter:on
-public class FeatureNamespaceTestSuite {
+@RunWith(JUnit4.class)
+public class DeleteTest1 extends AbstractBindSQLiteProcessorTest {
 
+	/**
+	 * No @BindType is put in bean definition.
+	 *
+	 * @throws Throwable the throwable
+	 */
+	@Test
+	public void testOK() throws Throwable {
+		buildDataSourceProcessorTest(PersonUpdateDataSource.class, PersonUpdateDAO.class, Person.class);
+	}
+	
 }

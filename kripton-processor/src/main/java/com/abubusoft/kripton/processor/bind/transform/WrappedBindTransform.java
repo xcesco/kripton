@@ -202,11 +202,11 @@ public class WrappedBindTransform extends AbstractBindTransform {
 		if (property.hasTypeAdapter()) {
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.writeAttribute($S, $T.escapeXml10($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")))", serializerName, property.label,
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.escapeXml10($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")))", serializerName, BindProperty.xmlName(property),
 						StringEscapeUtils.class, utilClazz, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				break;
 			case TAG:
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")))", serializerName, StringEscapeUtils.class,
 						utilClazz, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
@@ -223,10 +223,10 @@ public class WrappedBindTransform extends AbstractBindTransform {
 		} else {
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.writeAttribute($S, $T.write($L))", serializerName, property.label, utilClazz, getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.write($L))", serializerName, BindProperty.xmlName(property), utilClazz, getter(beanName, beanClass, property));
 				break;
 			case TAG:
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L)))", serializerName, StringEscapeUtils.class, utilClazz, getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 				break;

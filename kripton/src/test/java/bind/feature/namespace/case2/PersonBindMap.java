@@ -34,10 +34,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("birthday", DateUtils.write(object.birthday));
     }
 
-    // field name (mapped with "tool:name")
+    // field name (mapped with "name")
     if (object.name!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("tool:name", object.name);
+      jacksonSerializer.writeStringField("name", object.name);
     }
 
     // field surname (mapped with "surname")
@@ -83,10 +83,10 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("birthday", DateUtils.write(object.birthday));
     }
 
-    // field name (mapped with "tool:name")
+    // field name (mapped with "name")
     if (object.name!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("tool:name", object.name);
+      jacksonSerializer.writeStringField("name", object.name);
     }
 
     // field surname (mapped with "surname")
@@ -130,6 +130,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
       throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("person");
+      xmlSerializer.writeAttribute("", "xmlns:tool", "http://www.dummy.com");
     }
 
     // Persisted fields:
@@ -200,8 +201,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
 
       // Parse fields:
       switch (fieldName) {
-          case "tool:name":
-            // field name (mapped with "tool:name")
+          case "name":
+            // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.name=jacksonParser.getText();
             }
@@ -261,8 +262,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
 
       // Parse fields:
       switch (fieldName) {
-          case "tool:name":
-            // field name (mapped with "tool:name")
+          case "name":
+            // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.name=jacksonParser.getText();
             }

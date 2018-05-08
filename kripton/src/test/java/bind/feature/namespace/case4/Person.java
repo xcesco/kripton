@@ -18,6 +18,7 @@ package bind.feature.namespace.case4;
 import java.util.Date;
 import java.util.Map;
 
+import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
 
@@ -37,6 +38,7 @@ public class Person {
 	public Date birthday;
 	
 	/** The tags. */
+	@Bind(mapKeyName="key")
 	@BindXml(namespace="tools", elementTag="mapEntry")
 	public Map<String, String> tags;
 }

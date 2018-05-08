@@ -37,7 +37,7 @@ public class TestNamespaceError2 extends AbstractBindTypeProcessorTest {
 	 */
 	@Test
 	public void testError() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(IncompatibleAttributesInAnnotationException.class, "In class 'bind.feature.namespace.error1.Person', property 'name', defined as xml value, can not be used with a namespace");
+		this.expectedException(IncompatibleAttributesInAnnotationException.class, "In class 'bind.feature.namespace.error2.Person', property 'name', defined as xml value, can not be used with a namespace");
 		buildBindProcessorTest(Person.class);
 	}
 

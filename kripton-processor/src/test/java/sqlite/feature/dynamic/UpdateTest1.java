@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
-import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
@@ -31,7 +30,6 @@ import sqlite.feature.dynamic.update1.Err2UpdateDataSource;
 import sqlite.feature.dynamic.update1.PersonUpdateDAO;
 import sqlite.feature.dynamic.update1.PersonUpdateDataSource;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UpdateTest.
  */

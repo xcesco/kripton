@@ -407,13 +407,7 @@ public abstract class SqlBuilderHelper {
 	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, boolean sqlWhereParamsAlreadyDefined) {
 		final JQL jql = method.jql;
 		final JQLChecker jqlChecker = JQLChecker.getInstance();
-
-		// we need always this
-		if (!sqlWhereParamsAlreadyDefined) {
-			// methodBuilder.addStatement("$T<String>
-			// _sqlWhereParams=getWhereParamsArray()", ArrayList.class);
-		}
-
+	
 		if (jql.isWhereConditions()) {
 			// parameters extracted from query
 			final One<String> whereStatement = new One<>();

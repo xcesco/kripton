@@ -45,12 +45,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("surname", object.surname);
     }
 
-    // field tags (mapped with "tools:tags")
+    // field tags (mapped with "tags")
     if (object.tags!=null)  {
       fieldCount++;
       // write wrapper tag
       if (object.tags.size()>0) {
-        jacksonSerializer.writeFieldName("tools:tags");
+        jacksonSerializer.writeFieldName("tags");
         jacksonSerializer.writeStartArray();
         for (Map.Entry<String, String> item: object.tags.entrySet()) {
           jacksonSerializer.writeStartObject();
@@ -64,7 +64,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
         }
         jacksonSerializer.writeEndArray();
       } else {
-        jacksonSerializer.writeNullField("tools:tags");
+        jacksonSerializer.writeNullField("tags");
       }
     }
 
@@ -98,12 +98,12 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("surname", object.surname);
     }
 
-    // field tags (mapped with "tools:tags")
+    // field tags (mapped with "tags")
     if (object.tags!=null)  {
       fieldCount++;
       // write wrapper tag
       if (object.tags.size()>0) {
-        jacksonSerializer.writeFieldName("tools:tags");
+        jacksonSerializer.writeFieldName("tags");
         jacksonSerializer.writeStartArray();
         for (Map.Entry<String, String> item: object.tags.entrySet()) {
           jacksonSerializer.writeStartObject();
@@ -117,7 +117,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
         }
         jacksonSerializer.writeEndArray();
       } else {
-        jacksonSerializer.writeStringField("tools:tags", "null");
+        jacksonSerializer.writeStringField("tags", "null");
       }
     }
 
@@ -163,7 +163,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
       // write wrapper tag
       xmlSerializer.writeStartElement("tools:tags");
       for (Map.Entry<String, String> item: object.tags.entrySet()) {
-        xmlSerializer.writeStartElement("tools:mapEntry");
+        xmlSerializer.writeStartElement("mapEntry");
           if (item.getKey()!=null) {
             xmlSerializer.writeStartElement("key");
             xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.getKey()));
@@ -226,8 +226,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.surname=jacksonParser.getText();
             }
           break;
-          case "tools:tags":
-            // field tags (mapped with "tools:tags")
+          case "tags":
+            // field tags (mapped with "tags")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
               HashMap<String, String> collection=new HashMap<>();
               String key=null;
@@ -292,8 +292,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.surname=jacksonParser.getText();
             }
           break;
-          case "tools:tags":
-            // field tags (mapped with "tools:tags")
+          case "tags":
+            // field tags (mapped with "tags")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
               HashMap<String, String> collection=new HashMap<>();
               String key=null;
@@ -388,7 +388,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
                     HashMap<String, String> collection=new HashMap<>();
                     String key;
                     String value;
-                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("tools:mapEntry")) {
+                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("mapEntry")) {
                       xmlParser.nextTag();
                       key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                       xmlParser.nextTag();

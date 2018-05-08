@@ -34,8 +34,11 @@ import sqlite.feature.dynamic.select3.CompileSelectRawJQLTest;
 		SelectJQLTest.class,
 		SelectRawTest.class,
 		CompileSelectRawJQLTest.class,
+		
 		UpdateTest1.class,
 		UpdateTest2.class,
+		
+		DeleteTest1.class,
 		Kripton121Test.class
 		 })
 //@formatter:on

@@ -64,7 +64,9 @@ import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLPlaceHolder.JQLPlaceHolderType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Columns_to_updateContext;
@@ -462,7 +464,7 @@ public abstract class JQLBuilder {
 			});
 
 			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {
-
+							
 				@Override
 				public String onWhere(String statement) {
 					result.annotatedWhere = true;
@@ -573,7 +575,7 @@ public abstract class JQLBuilder {
 	 * @param preparedJql the prepared jql
 	 * @return the jql
 	 */
-	private static JQL buildJQLUpdate(final SQLiteModelMethod method, final JQL result, Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
+	private static JQL buildJQLUpdate(final SQLiteModelMethod method, final JQL result, final Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlUpdate.class;
 
 		// extract some informaction from method and bean
@@ -588,6 +590,8 @@ public abstract class JQLBuilder {
 			// statement
 			final One<Boolean> inWhereCondition = new One<Boolean>(false);
 			final One<Boolean> inColumnsToUpdate = new One<Boolean>(false);
+			
+			final One<String> whereStatement=new One<String>("");
 
 			JQLChecker.getInstance().analyze(method, result, new JqlBaseListener() {
 
@@ -607,6 +611,15 @@ public abstract class JQLBuilder {
 				@Override
 				public void enterWhere_stmt(Where_stmtContext ctx) {
 					inWhereCondition.value0 = true;
+					
+					//TODO WORK HERE
+					int start = ctx.getStart().getStartIndex() - 1;
+					int stop = ctx.getStop().getStopIndex() + 1;
+
+					if (start == stop)
+						return;
+
+					whereStatement.value0 = result.value.substring(start, stop);					
 				}
 
 				@Override
@@ -622,6 +635,20 @@ public abstract class JQLBuilder {
 						result.bindParameterAsColumnValueCounter++;
 					}
 				}
+				
+				@Override
+				public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
+					JQLDynamicStatementType dynamicType=JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText().toUpperCase());
+					
+					int start = ctx.getStart().getStartIndex() - 1;
+					int stop = ctx.getStop().getStopIndex() + 1;
+					
+					String dynamicWhere=result.value.substring(start, stop);	
+					
+					dynamicReplace.put(dynamicType, dynamicWhere);
+					
+					//super.enterBind_dynamic_sql(ctx);
+				}
 
 				@Override
 				public void enterColumns_to_update(Columns_to_updateContext ctx) {
@@ -634,6 +661,7 @@ public abstract class JQLBuilder {
 				}
 
 			});
+			
 
 			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
@@ -642,14 +670,13 @@ public abstract class JQLBuilder {
 					result.annotatedWhere = true;
 					result.staticWhereConditions = true;
 					return null;
-				}
+				}							
 
 			});
-
+						
 			if (result.containsSelectOperation) {
 				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID), method, "defined JQL requires that method's return type is void");
 			}
-
 		} else {
 			final SQLiteDaoDefinition dao = method.getParent();
 			Set<String> fields;
@@ -921,11 +948,7 @@ public abstract class JQLBuilder {
 			}
 			
 			if (StringUtils.hasText(method.dynamicWhereParameterName)) {
-				StringBuilder dynamicBuffer = new StringBuilder();
-				/*if (StringUtils.hasText(where)) {
-					dynamicBuffer.append(" " + method.dynamicWherePrepend);
-					builder.append(" " + method.dynamicWherePrepend);
-				}*/
+				StringBuilder dynamicBuffer = new StringBuilder();				
 				dynamicBuffer.append(" #{" + JQLDynamicStatementType.DYNAMIC_WHERE + "}");
 				builder.append(" #{" + JQLDynamicStatementType.DYNAMIC_WHERE + "}");
 

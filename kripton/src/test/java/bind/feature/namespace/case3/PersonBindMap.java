@@ -46,13 +46,13 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("surname", object.surname);
     }
 
-    // field tags (mapped with "tools:tags")
+    // field tags (mapped with "tags")
     if (object.tags!=null)  {
       fieldCount++;
       int n=object.tags.size();
       String item;
       // write wrapper tag
-      jacksonSerializer.writeFieldName("tools:tags");
+      jacksonSerializer.writeFieldName("tags");
       jacksonSerializer.writeStartArray();
       for (int i=0; i<n; i++) {
         item=object.tags.get(i);
@@ -95,13 +95,13 @@ public class PersonBindMap extends AbstractMapper<Person> {
       jacksonSerializer.writeStringField("surname", object.surname);
     }
 
-    // field tags (mapped with "tools:tags")
+    // field tags (mapped with "tags")
     if (object.tags!=null)  {
       fieldCount++;
       int n=object.tags.size();
       String item;
       // write wrapper tag
-      jacksonSerializer.writeFieldName("tools:tags");
+      jacksonSerializer.writeFieldName("tags");
       if (n>0) {
         jacksonSerializer.writeStartArray();
         for (int i=0; i<n; i++) {
@@ -220,8 +220,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.surname=jacksonParser.getText();
             }
           break;
-          case "tools:tags":
-            // field tags (mapped with "tools:tags")
+          case "tags":
+            // field tags (mapped with "tags")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
               ArrayList<String> collection=new ArrayList<>();
               String item=null;
@@ -281,8 +281,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
               instance.surname=jacksonParser.getText();
             }
           break;
-          case "tools:tags":
-            // field tags (mapped with "tools:tags")
+          case "tags":
+            // field tags (mapped with "tags")
             if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
               ArrayList<String> collection=new ArrayList<>();
               String item=null;

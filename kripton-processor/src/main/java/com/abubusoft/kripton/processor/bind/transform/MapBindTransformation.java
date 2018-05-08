@@ -196,7 +196,7 @@ public class MapBindTransformation extends AbstractBindTransform {
 		if (property.xmlInfo.isWrappedCollection())
 		{
 			methodBuilder.addCode("// write wrapper tag\n");
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 		}
 		
 		
