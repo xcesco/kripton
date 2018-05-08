@@ -33,7 +33,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where name like ${dummy} || '%' #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -46,7 +46,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
-   * <dt>orderBy</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
+   * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -56,31 +56,27 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * @param dummy
    * 	is binded to <code>${dummy}</code>
-   * @param orderBy
-   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
+   * @param where
+   * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> select(String dummy, String orderBy) {
+  public List<Person> select(String dummy, String where) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("select * from person");
     // generation CODE_001 -- BEGIN
+    // initialize dynamic where
+    String _sqlDynamicWhere=where;
     // generation CODE_001 -- END
-    String _sortOrder=orderBy;
 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" where name like ? || '%' ";
+    String _sqlWhereStatement=" where name like ? || '%' "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
-    // generation order - BEGIN
-    String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
-    _sqlBuilder.append(_sqlOrderByStatement);
-    // generation order - END
-
     String _sql=_sqlBuilder.toString();
     // add where arguments
     _contentValues.addWhereArgs((dummy==null?"":dummy));
@@ -137,7 +133,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE}</pre>
+   * <pre>select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE} #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -151,6 +147,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <h2>Method's parameters and associated dynamic parts:</h2>
    * <dl>
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd>
+   * <dt>order</dt>is part of order statement resolved at runtime. In above SQL it is displayed as #{DYNAMIC_ORDER_BY}</dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -164,10 +161,12 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param dynParam
    * 	is binded to <code>${dynParam}</code>
+   * @param order
+   * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> select(String dummy, String where, String[] dynParam) {
+  public List<Person> select(String dummy, String where, String[] dynParam, String order) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("select * from person");
@@ -177,11 +176,12 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // initialize dynamic where args
     String[] _sqlDynamicWhereArgs=dynParam;
     // generation CODE_001 -- END
+    String _sortOrder=order;
 
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" where name like ? || '%' "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" where name like ? || '%'  "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -190,6 +190,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         _contentValues.addWhereArgs(_arg);
       }
     }
+    // generation order - BEGIN
+    String _sqlOrderByStatement=StringUtils.ifNotEmptyAppend(_sortOrder," ORDER BY ");
+    _sqlBuilder.append(_sqlOrderByStatement);
+    // generation order - END
+
     String _sql=_sqlBuilder.toString();
     // add where arguments
     _contentValues.addWhereArgs((dummy==null?"":dummy));

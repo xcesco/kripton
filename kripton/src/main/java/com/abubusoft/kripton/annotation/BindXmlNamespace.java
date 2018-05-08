@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * This annotation is used to define namespaces used in a xml file.
+ * This annotation is used to define namespaces used in an XML file.
  * </p> 
  * 
  * @author Francesco Benincasa (info@abubusoft.com)

@@ -33,11 +33,11 @@ import sqlite.feature.dynamic.Person;
 @BindDao(Person.class)
 public interface PersonDAO {
 
-	@BindSqlSelect(jql="select * from person where name like ${dummy} || '%' #{DYNAMIC_ORDER_BY}")
-	List<Person> select(String dummy, @BindSqlDynamicOrderBy String orderBy);
-	
 	@BindSqlSelect(jql="select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE}")
-	List<Person> select(String dummy, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] dynParam);
+	List<Person> select(String dummy, @BindSqlDynamicWhere String where);
+	
+	@BindSqlSelect(jql="select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE} #{DYNAMIC_ORDER_BY}")
+	List<Person> select(String dummy, @BindSqlDynamicWhere String where, @BindSqlDynamicWhereParams String[] dynParam, @BindSqlDynamicOrderBy String order);
 	
 	@BindSqlInsert
 	void insert(String name, String surname, String birthCity, Date birthDay);

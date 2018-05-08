@@ -28,8 +28,8 @@ import com.abubusoft.kripton.annotation.BindXmlType;
  */
 @BindType
 @BindXmlType(namespaces={
-		@BindXmlNamespace(name="tool", uri="http://www.dummy.com"),
-		@BindXmlNamespace(name="", uri="http://www.dummy.com")
+		@BindXmlNamespace(prefix="tool", uri="http://www.dummy.com"),
+		@BindXmlNamespace(prefix="", uri="http://www.dummy.com")
 		})
 public class Person {
 

@@ -21,7 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation allow to customize xml persistence of java beans.
+ * This annotation allows to customizing XML persistence of java beans.
  * 
  * <h3>Attributes</h3> Defined attributes are:
  * 
