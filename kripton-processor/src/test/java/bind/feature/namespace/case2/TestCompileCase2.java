@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.generichierarchy.kripton109.test3;
+package bind.feature.namespace.case2;
 
 import java.io.IOException;
 
@@ -24,7 +24,7 @@ import bind.AbstractBindTypeProcessorTest;
 /**
  * The Class TestCompileTest3.
  */
-public class TestCompileTest3 extends AbstractBindTypeProcessorTest {
+public class TestCompileCase2 extends AbstractBindTypeProcessorTest {
 
 	/**
 	 * Test compile.
@@ -35,7 +35,7 @@ public class TestCompileTest3 extends AbstractBindTypeProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(Class3.class, Class2.class, Class1.class);
+		buildBindProcessorTest(Person.class);
 	}
 
 

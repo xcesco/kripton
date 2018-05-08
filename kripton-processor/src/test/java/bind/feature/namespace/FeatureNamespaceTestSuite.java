@@ -13,30 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.generichierarchy.kripton109.test3;
+package bind.feature.namespace;
 
-import java.io.IOException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import org.junit.Test;
-
-import bind.AbstractBindTypeProcessorTest;
+import bind.feature.namespace.case1.TestCompileCase1;
+import bind.feature.namespace.case2.TestCompileCase2;
+import bind.feature.namespace.case3.TestCompileCase3;
+import bind.feature.namespace.case4.TestCompileCase4;
+import bind.feature.namespace.error1.TestNamespaceError1;
+import bind.feature.namespace.error2.TestNamespaceError2;
 
 /**
- * The Class TestCompileTest3.
+ * The Class BindCompileTestSuite.
  */
-public class TestCompileTest3 extends AbstractBindTypeProcessorTest {
-
-	/**
-	 * Test compile.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
-	@Test
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(Class3.class, Class2.class, Class1.class);
-	}
-
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+{//@formatter:off
+		
+	TestCompileCase1.class,
+	TestCompileCase2.class,
+	TestCompileCase3.class,
+	TestCompileCase4.class,
+	
+	TestNamespaceError1.class,
+	TestNamespaceError2.class
+		 })
+//@formatter:on
+public class FeatureNamespaceTestSuite {
 
 }

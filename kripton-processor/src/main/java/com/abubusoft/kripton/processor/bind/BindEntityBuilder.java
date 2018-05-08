@@ -111,7 +111,8 @@ public abstract class BindEntityBuilder {
 		} else {
 			currentEntity.xmlInfo.label = typeNameConverter.convert(beanElement.getSimpleName().toString());
 		}
-
+		
+		
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
 		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<BindEntity, BindProperty>() {
@@ -213,9 +214,21 @@ public abstract class BindEntityBuilder {
 					}
 
 					String xmlType = AnnotationUtility.extractAsEnumerationValue(property.getElement(), BindXml.class, AnnotationAttributeType.XML_TYPE);
-					if (StringUtils.hasText(xmlType))
+					if (StringUtils.hasText(xmlType)) {
 						property.xmlInfo.xmlType = XmlType.valueOf(xmlType);
-
+					}
+					
+					// add namespace to name  
+					String namespace= annotationBindXml.getAttribute(AnnotationAttributeType.NAMESPACE);
+					if (StringUtils.hasText(namespace)) {
+						if (property.xmlInfo.xmlType == XmlType.VALUE || property.xmlInfo.xmlType == XmlType.VALUE_CDATA) {
+							String msg = String.format("In class '%s', property '%s', defined as xml value, can not be used with a namespace", beanElement.asType().toString(), property.getName());
+							throw (new IncompatibleAttributesInAnnotationException(msg));
+						}
+						
+						property.label=StringUtils.nvl(namespace)+":"+property.label;
+						property.xmlInfo.labelItem=StringUtils.nvl(namespace)+":"+property.xmlInfo.labelItem;	
+					}										
 				}
 
 				if (property.xmlInfo.xmlType == XmlType.ATTRIBUTE) {
@@ -246,7 +259,7 @@ public abstract class BindEntityBuilder {
 				}
 
 				if (property.xmlInfo.xmlType == XmlType.VALUE || property.xmlInfo.xmlType == XmlType.VALUE_CDATA) {
-					counterPropertyInValue.inc();
+					counterPropertyInValue.inc();									
 
 					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getTypeName());
 

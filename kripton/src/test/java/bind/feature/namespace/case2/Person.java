@@ -13,30 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.generichierarchy.kripton109.test3;
+package bind.feature.namespace.case2;
 
-import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
-import org.junit.Test;
-
-import bind.AbstractBindTypeProcessorTest;
+import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.xml.XmlType;
 
 /**
- * The Class TestCompileTest3.
+ * The Class Person.
  */
-public class TestCompileTest3 extends AbstractBindTypeProcessorTest {
+@BindType
+public class Person {
 
-	/**
-	 * Test compile.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
-	@Test
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(Class3.class, Class2.class, Class1.class);
-	}
-
-
+	/** The name. */
+	@BindXml(xmlType=XmlType.ATTRIBUTE, namespace="tool")
+	public String name;
+	
+	/** The surname. */
+	public String surname;
+	
+	/** The birthday. */
+	public Date birthday;
+	
+	/** The tags. */
+	public List<String> tags;
 }

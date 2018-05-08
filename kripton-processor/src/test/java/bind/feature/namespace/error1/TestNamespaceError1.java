@@ -13,18 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.generichierarchy.kripton109.test3;
+package bind.feature.namespace.error1;
 
 import java.io.IOException;
 
 import org.junit.Test;
+
+import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
 
 import bind.AbstractBindTypeProcessorTest;
 
 /**
  * The Class TestCompileTest3.
  */
-public class TestCompileTest3 extends AbstractBindTypeProcessorTest {
+public class TestNamespaceError1 extends AbstractBindTypeProcessorTest {
 
 	/**
 	 * Test compile.
@@ -34,8 +36,9 @@ public class TestCompileTest3 extends AbstractBindTypeProcessorTest {
 	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(Class3.class, Class2.class, Class1.class);
+	public void testError() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(IncompatibleAttributesInAnnotationException.class, "In class 'bind.feature.namespace.error1.Person', property 'name', defined as xml value, can not be used with a namespace");
+		buildBindProcessorTest(Person.class);
 	}
 
 

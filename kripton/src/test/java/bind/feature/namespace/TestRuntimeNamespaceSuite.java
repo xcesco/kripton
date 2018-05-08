@@ -13,30 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.feature.generichierarchy.kripton109.test3;
+package bind.feature.namespace;
 
-import java.io.IOException;
-
-import org.junit.Test;
-
-import bind.AbstractBindTypeProcessorTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * The Class TestCompileTest3.
+ * The Class TestRuntimeHierarchySuite.
  */
-public class TestCompileTest3 extends AbstractBindTypeProcessorTest {
-
-	/**
-	 * Test compile.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
-	@Test
-	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(Class3.class, Class2.class, Class1.class);
-	}
-
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+			TestRuntimeNamespace1.class,
+			TestRuntimeNamespace2.class,
+			TestRuntimeNamespace3.class,
+			TestRuntimeNamespace4.class
+		 })
+//@formatter:on
+public class TestRuntimeNamespaceSuite {
 
 }

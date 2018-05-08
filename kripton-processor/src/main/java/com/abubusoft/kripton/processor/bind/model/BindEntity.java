@@ -51,6 +51,7 @@ public class BindEntity extends ModelClass<BindProperty> {
 		
 		/** The label. */
 		public String label;
+				
 	}
 
 }
