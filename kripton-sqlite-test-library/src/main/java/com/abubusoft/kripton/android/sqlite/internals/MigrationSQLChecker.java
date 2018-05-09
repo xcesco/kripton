@@ -25,13 +25,12 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import com.abubusoft.kripton.android.sqlite.AssertKripton;
+import com.abubusoft.kripton.android.sqlite.KriptonAssert;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlLexer;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MigrationSQLChecker.
  */
@@ -101,7 +100,7 @@ public class MigrationSQLChecker {
 			@Override
 			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
 					int charPositionInLine, String msg, RecognitionException e) {
-				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
+				KriptonAssert.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, jql);
 			}
 		});
 

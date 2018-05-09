@@ -17,20 +17,22 @@ package com.abubusoft.kripton.android.sqlite;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class AssertKripton.
+ * Assert class to simplify test assertion linked to datasource usage.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
-public abstract class AssertKripton {
+public abstract class KriptonAssert {
 
 	/**
-	 * Assertion which generate an exception if expression is not true.
+	 * <p>Assertion which generate an exception if expression is not true.</p>
 	 *
-	 * @param expression the expression
-	 * @param messageFormat the message format
-	 * @param args the args
+	 * @param expression
+	 *            the expression
+	 * @param messageFormat
+	 *            the message format
+	 * @param args
+	 *            the args
 	 */
 	public static void assertTrue(boolean expression, String messageFormat, Object... args) {
 		if (!expression)
@@ -38,12 +40,13 @@ public abstract class AssertKripton {
 
 	}
 
-
 	/**
 	 * Fail.
 	 *
-	 * @param messageFormat the message format
-	 * @param args the args
+	 * @param messageFormat
+	 *            the message format
+	 * @param args
+	 *            the args
 	 */
 	public static void fail(String messageFormat, Object... args) {
 		assertTrue(false, messageFormat, args);
@@ -52,14 +55,15 @@ public abstract class AssertKripton {
 	/**
 	 * Fails if expression is true.
 	 *
-	 * @param expression the expression
-	 * @param messageFormat the message format
-	 * @param args the args
+	 * @param expression
+	 *            the expression
+	 * @param messageFormat
+	 *            the message format
+	 * @param args
+	 *            the args
 	 */
 	public static void fail(boolean expression, String messageFormat, Object... args) {
 		assertTrue(!expression, messageFormat, args);
 	}
-
-
 
 }

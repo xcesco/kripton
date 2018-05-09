@@ -38,7 +38,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * The Class SQLiteUpdateTestDatabase.
  */
-public class SQLiteUpdateTestDatabase {
+public class SQLiteTestDatabase {
 
 	/**
 	 * Builder.
@@ -166,7 +166,7 @@ public class SQLiteUpdateTestDatabase {
 		 *
 		 * @return the SQ lite update test database
 		 */
-		public SQLiteUpdateTestDatabase build() {
+		public SQLiteTestDatabase build() {
 			Collections.sort(updateTasks, new Comparator<Pair<Integer, ? extends SQLiteUpdateTask>>() {
 
 				@Override
@@ -176,7 +176,7 @@ public class SQLiteUpdateTestDatabase {
 				}
 			});
 
-			SQLiteUpdateTestDatabase helper = new SQLiteUpdateTestDatabase(KriptonLibrary.context(), null, version,
+			SQLiteTestDatabase helper = new SQLiteTestDatabase(KriptonLibrary.context(), null, version,
 					null, initialSchemaInputStream, initialSchemaResourceRawId, populator, updateTasks);
 
 			return helper.create();
@@ -185,7 +185,7 @@ public class SQLiteUpdateTestDatabase {
 	}
 
 	/** The Constant MIGRATION_TEST. */
-	public static final String MIGRATION_TEST = "migration-test.db";
+	public static final String TEST_DATABASE = "migration-test.db";
 
 	/** The sqlite. */
 	private SQLiteOpenHelper sqlite;
@@ -233,7 +233,7 @@ public class SQLiteUpdateTestDatabase {
 	 * @param updateTasks
 	 *            the update tasks
 	 */
-	SQLiteUpdateTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler,
+	SQLiteTestDatabase(Context context, CursorFactory factory, int version, DatabaseErrorHandler errorHandler,
 			InputStream initialSchemaInputStream, int initialSchemaResourceId, SQLitePopulator populator,
 			List<Pair<Integer, ? extends SQLiteUpdateTask>> updateTasks) {
 		this.version = version;
@@ -251,8 +251,8 @@ public class SQLiteUpdateTestDatabase {
 	 *
 	 * @return the SQ lite update test database
 	 */
-	private SQLiteUpdateTestDatabase create() {
-		sqlite = new SQLiteOpenHelper(context, MIGRATION_TEST, factory, version, errorHandler) {
+	private SQLiteTestDatabase create() {
+		sqlite = new SQLiteOpenHelper(context, TEST_DATABASE, factory, version, errorHandler) {
 
 			@Override
 			public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -263,10 +263,10 @@ public class SQLiteUpdateTestDatabase {
 			public void onCreate(SQLiteDatabase database) {
 				if (firstSchemaDefinitionInputStream != null) {
 					Logger.info("Load DDL from input stream");
-					SQLiteSchemaVerifierHelper.executeSQL(database, firstSchemaDefinitionInputStream);
+					SQLiteTestUtils.executeSQL(database, firstSchemaDefinitionInputStream);
 				} else {
 					Logger.info("Load DDL from resourceId");
-					SQLiteSchemaVerifierHelper.executeSQL(database, context, firstSchemaDefinitionResourceId);
+					SQLiteTestUtils.executeSQL(database, context, firstSchemaDefinitionResourceId);
 				}
 			}
 		};
@@ -294,8 +294,8 @@ public class SQLiteUpdateTestDatabase {
 	 *            the schema definition input stream
 	 * @return the SQ lite update test database
 	 */
-	public SQLiteUpdateTestDatabase updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {
-		sqlite = new SQLiteOpenHelper(context, MIGRATION_TEST, factory, version, errorHandler) {
+	public SQLiteTestDatabase updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {
+		sqlite = new SQLiteOpenHelper(context, TEST_DATABASE, factory, version, errorHandler) {
 
 			@Override
 			public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -314,7 +314,7 @@ public class SQLiteUpdateTestDatabase {
 			}
 		};
 
-		SQLiteSchemaVerifierHelper.verifySchema(sqlite.getWritableDatabase(), schemaDefinitionInputStream);
+		SQLiteTestUtils.verifySchema(sqlite.getWritableDatabase(), schemaDefinitionInputStream);
 
 		return this;
 	}
@@ -332,7 +332,7 @@ public class SQLiteUpdateTestDatabase {
 	 *            the schema definition raw resource id
 	 * @return the SQ lite update test database
 	 */
-	public SQLiteUpdateTestDatabase updateAndVerify(int version, final Context context,
+	public SQLiteTestDatabase updateAndVerify(int version, final Context context,
 			final int schemaDefinitionRawResourceId) {
 		updateAndVerify(version, context.getResources().openRawResource(schemaDefinitionRawResourceId));
 

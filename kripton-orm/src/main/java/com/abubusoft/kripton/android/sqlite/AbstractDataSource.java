@@ -18,6 +18,7 @@
  */
 package com.abubusoft.kripton.android.sqlite;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -428,6 +429,13 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	protected void createHelper(DataSourceOptions options) {
 		if (KriptonLibrary.context() == null)
 			throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
+		
+		if (options.inMemory) {
+			Logger.info("In-memory database");
+		} else {
+			File dbFile=KriptonLibrary.context().getDatabasePath(name);
+			Logger.info("Database file %s", dbFile.getAbsolutePath());
+		}				
 
 		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
 

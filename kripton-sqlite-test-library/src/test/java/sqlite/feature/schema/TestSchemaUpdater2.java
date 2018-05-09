@@ -24,15 +24,13 @@ import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
-import com.abubusoft.kripton.android.sqlite.SQLiteSchemaVerifierHelper;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
-import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTestHelper;
+import com.abubusoft.kripton.android.sqlite.SQLiteTestUtils;
 
 import android.database.sqlite.SQLiteDatabase;
 import base.BaseAndroidTest;
 import sqlite.feature.schema.version2.BindSchoolDataSource;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestSchemaUpdater2.
  */
@@ -47,12 +45,12 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	 */
 	@Test
 	public void testStandardUpdate()  throws Exception {
-		SQLiteUpdateTestHelper.resetInstance(BindSchoolDataSource.class);
+		SQLiteTestUtils.resetDataSourceInstance(BindSchoolDataSource.class);
 		
 		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql")).build());
 		BindSchoolDataSource dataSource=BindSchoolDataSource.open();
 		
-		SQLiteSchemaVerifierHelper.forceSchemaUpdate(dataSource, 3);		
+		SQLiteTestUtils.forceDataSourceSchemaUpdate(dataSource, 3);		
 		dataSource=BindSchoolDataSource.open();
 		
 		Logger.info("finish");
@@ -66,7 +64,7 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 	 */
 	@Test
 	public void testCustomUpdateTwiceStep() throws Exception {	
-		SQLiteUpdateTestHelper.resetInstance(BindSchoolDataSource.class);
+		SQLiteTestUtils.resetDataSourceInstance(BindSchoolDataSource.class);
 		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql"))
 				.addUpdateTask(4, new SQLiteUpdateTask() {
 					
@@ -78,7 +76,7 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 				})
 				.build());
 		
-		SQLiteSchemaVerifierHelper.forceSchemaUpdate(BindSchoolDataSource.instance(), 4);		
+		SQLiteTestUtils.forceDataSourceSchemaUpdate(BindSchoolDataSource.instance(), 4);		
 		
 		Logger.info("finish");
 	}
