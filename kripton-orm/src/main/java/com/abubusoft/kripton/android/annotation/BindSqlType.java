@@ -46,7 +46,7 @@ import java.lang.annotation.Target;
  * <h3>Usage</h3>
  * 
  * <pre>
-&#64;BindTable(
+&#64;BindSqlType(
   name="ws_bean",
   indexes= {
     &#64;BindIndex({"birthCity", "birthDay desc"}),
@@ -76,7 +76,7 @@ CREATE INDEX idx_person_1 on person (surname);
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface BindTable {
+public @interface BindSqlType {
 	/**
 	 * Name of the table in SQL world. If null, the name of the
 	 * table will be the transformed class name.

@@ -32,7 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.CaseFormat;
@@ -386,7 +386,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
 					.getElementValues();
 
-			if (BindTable.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
+			if (BindSqlType.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
 				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
 						.entrySet()) {
 					// The 'entry.getKey()' here is the annotation attribute
@@ -682,7 +682,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					SQLProperty property = entity.findPropertyByName(columnName);
 
 					AssertKripton.assertTrue(property != null, "class '%s' in @%s(indexes) use unknown property '%s'",
-							entity.getName(), BindTable.class.getSimpleName(), columnName);
+							entity.getName(), BindSqlType.class.getSimpleName(), columnName);
 					return property.columnName;
 				}
 
@@ -695,7 +695,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			AssertKripton.assertTrue(fieldCounter.value0 > 0,
 					"class '%s' have @%s(indexes) with no well formed indexes", entity.getName(),
-					BindTable.class.getSimpleName());
+					BindSqlType.class.getSimpleName());
 
 			listCreateIndex.add(createIndex);
 			listDropIndex.add(dropIndex);

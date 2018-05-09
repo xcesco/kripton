@@ -22,7 +22,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.ForeignKeyNotFoundException;
@@ -331,7 +331,7 @@ public abstract class AssertKripton {
 	public static void asserTrueOrMissedAnnotationOnClassException(boolean expression, TypeElement daoElement, String entityName) {
 		if (!expression) {
 			String msg = String.format("Dao '%s' referes a bean '%s' without @%s or @%s annotation", daoElement.getQualifiedName(), TypeUtility.className(entityName), BindType.class.getSimpleName(),
-					BindTable.class.getSimpleName());
+					BindSqlType.class.getSimpleName());
 			throw (new MissedAnnotationOnClass(msg));
 		}
 

@@ -15,13 +15,13 @@
  ******************************************************************************/
 package sqlite.stack45184504;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class FileBean.
  */
-@BindTable(name="files")
+@BindSqlType(name="files")
 public class FileBean {
 	
 	/** The id. */

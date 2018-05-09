@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.many2many;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -23,7 +23,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Person.
  */
 @BindType
-@BindTable(name="persons")
+@BindSqlType(name="persons")
 public class Person extends Entity  {
 
 	/** The name. */

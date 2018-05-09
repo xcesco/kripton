@@ -19,7 +19,7 @@ import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -28,7 +28,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Bean05.
  */
 @BindType
-@BindTable(name="ws_bean")
+@BindSqlType(name="ws_bean")
 public class Bean05 {
 
 	/** The pk. */

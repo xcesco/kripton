@@ -44,7 +44,7 @@ import com.abubusoft.kripton.android.SqlTypeAdapter;
  * <h3>Usage</h3>
  * 
  * <pre>
- * &#64;BindTable
+ * &#64;BindSqlType
  * public class Person {
  * 	public long id;
  * 

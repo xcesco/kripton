@@ -1,9 +1,9 @@
 package sqlite.samples.chat.model;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-@BindTable
+@BindSqlType
 public class Message extends Entity {
     public String content;
 

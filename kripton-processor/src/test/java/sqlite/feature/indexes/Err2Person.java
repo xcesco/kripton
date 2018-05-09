@@ -20,7 +20,7 @@ import java.util.Date;
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindIndex;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -28,7 +28,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Err2Person.
  */
 @BindType
-@BindTable(indexes = { @BindIndex({ "birthCity", "birthDay" }) })
+@BindSqlType(indexes = { @BindIndex({ "birthCity", "birthDay" }) })
 public class Err2Person {
 
 	/** The id. */

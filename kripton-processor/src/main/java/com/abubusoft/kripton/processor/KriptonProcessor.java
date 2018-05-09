@@ -36,6 +36,19 @@ import com.abubusoft.kripton.common.StringUtils;
  */
 public class KriptonProcessor extends BaseProcessor {
 	
+	
+	@Override
+	public Set<String> getSupportedOptions() {
+		Set<String> options = new LinkedHashSet<String>();
+
+		options.addAll(typeProcessor.getSupportedOptions());
+		options.addAll(sharedPreferencesProcessor.getSupportedOptions());
+		options.addAll(dataSourceProcessor.getSupportedOptions());
+		options.addAll(many2ManyProcessor.getSupportedOptions());
+
+		return options;
+	}
+
 	/** The many 2 many processor. */
 	private BindMany2ManySubProcessor many2ManyProcessor = new BindMany2ManySubProcessor();
 

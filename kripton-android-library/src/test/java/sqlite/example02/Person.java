@@ -18,7 +18,7 @@ package sqlite.example02;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -26,7 +26,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Person.
  */
 @BindType
-@BindTable()
+@BindSqlType()
 public class Person {
   
   /** The id. */

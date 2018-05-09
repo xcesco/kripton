@@ -37,14 +37,14 @@ import android.provider.BaseColumns;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * Represents one record of the Cheese table.
  */
-@BindTable(name = "cheeses")
+@BindSqlType(name = "cheeses")
 public class Cheese {
 
     /** The unique ID of the cheese. */

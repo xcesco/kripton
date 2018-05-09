@@ -51,6 +51,7 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
@@ -161,8 +162,14 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// and now, write schema.create.v and schema.drop.v
 		String schemaCreation = defineFileName(schema);
-		File schemaCreatePath = new File("schemas").getAbsoluteFile();
-		File schemaCreateFile = new File("schemas/" + schemaCreation).getAbsoluteFile();
+		
+		String schemaLocation=schema.schemaLocationDirectory;
+		if (!StringUtils.hasText(schemaLocation)){
+			schemaLocation="schemas";
+		}
+		
+		File schemaCreatePath = new File(schemaLocation).getAbsoluteFile();
+		File schemaCreateFile = new File(schemaLocation,schemaCreation).getAbsoluteFile();
 		schemaCreatePath.mkdirs();
 
 		AnnotationProcessorUtilis.infoOnGeneratedFile(BindDataSource.class, schemaCreateFile);

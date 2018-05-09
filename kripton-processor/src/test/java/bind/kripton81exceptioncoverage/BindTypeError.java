@@ -15,12 +15,12 @@
  *******************************************************************************/
 package bind.kripton81exceptioncoverage;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 /**
  * The Interface BindTypeError.
  */
-@BindTable
+@BindSqlType
 public interface BindTypeError {
 
 }

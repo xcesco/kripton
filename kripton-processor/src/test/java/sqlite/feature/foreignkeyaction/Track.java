@@ -16,14 +16,14 @@
 package sqlite.feature.foreignkeyaction;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Track.
  */
-@BindTable
+@BindSqlType
 public class Track {
 
 	/** The id. */

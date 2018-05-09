@@ -16,13 +16,13 @@
 package sqlite.feature.jql.err2;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class BeanErr2.
  */
-@BindTable
+@BindSqlType
 public class BeanErr2 {
 
 	/** The id. */

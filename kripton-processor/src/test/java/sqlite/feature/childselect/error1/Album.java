@@ -3,9 +3,9 @@ package sqlite.feature.childselect.error1;
 import java.util.Set;
 
 import com.abubusoft.kripton.android.annotation.BindSqlRelation;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-@BindTable
+@BindSqlType
 public class Album {
 	private long id;
 

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -32,7 +33,6 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.ColumnAffinityType;
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindContentProvider;
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
 import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
@@ -41,14 +41,15 @@ import com.abubusoft.kripton.android.annotation.BindDaoMany2Many;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
 import com.abubusoft.kripton.android.annotation.BindGeneratedDao;
-import com.abubusoft.kripton.android.annotation.BindSqlRelation;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlChildSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlRelation;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.annotation.BindTable;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.android.sqlite.NoCursorFactory;
 import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
@@ -95,10 +96,10 @@ import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
+import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
-import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLRelationType;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
@@ -117,7 +118,15 @@ import com.squareup.javapoet.TypeName;
  */
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
-	// private SQLiteDatabaseSchema currentSchema;
+	public String SCHEMA_LOCATION_OPTIONS = "kripton.schemaLocation";
+
+	public Set<String> getSupportedOptions() {
+		HashSet<String> result = new HashSet<>();
+
+		result.add(SCHEMA_LOCATION_OPTIONS);
+
+		return result;
+	}
 
 	/** The property annotation filter. */
 	private final AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(BindDisabled.class)
@@ -141,6 +150,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	/** The generated entities. */
 	public Set<GeneratedTypeElement> generatedEntities;
 
+	private String schemaLocationDirectory;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -154,12 +165,23 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		annotations.add(BindType.class);
 		annotations.add(BindDataSource.class);
 		annotations.add(BindDataSourceOptions.class);
-		annotations.add(BindTable.class);
+		annotations.add(BindSqlType.class);
 		annotations.add(BindDao.class);
 		annotations.add(BindDaoMany2Many.class);
 		annotations.add(BindGeneratedDao.class);
 
 		return annotations;
+	}
+
+	@Override
+	public synchronized void init(ProcessingEnvironment processingEnv) {
+		super.init(processingEnv);
+
+		schemaLocationDirectory = processingEnv.getOptions().get(SCHEMA_LOCATION_OPTIONS);
+	}
+
+	public String getSchemaLocationDirectory() {
+		return schemaLocationDirectory;
 	}
 
 	/*
@@ -468,10 +490,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		parseBindType(roundEnv);
 
 		// Put all @BindTable elements in beanElements
-		for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindSqlType.class)) {
 			if (item.getKind() != ElementKind.CLASS) {
 				String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(),
-						item, BindTable.class.getSimpleName());
+						item, BindSqlType.class.getSimpleName());
 				throw (new InvalidKindForAnnotationException(msg));
 			}
 			globalBeanElements.put(item.toString(), (TypeElement) item);
@@ -501,11 +523,11 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	public boolean analyzeRound(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		parseBindType(roundEnv);
 
-		// Put all @BindTable elements in beanElements
-		for (Element item : roundEnv.getElementsAnnotatedWith(BindTable.class)) {
+		// Put all @BindSqlType elements in beanElements
+		for (Element item : roundEnv.getElementsAnnotatedWith(BindSqlType.class)) {
 			if (item.getKind() != ElementKind.CLASS) {
 				String msg = String.format("%s %s, only class can be annotated with @%s annotation", item.getKind(),
-						item, BindTable.class.getSimpleName());
+						item, BindSqlType.class.getSimpleName());
 				throw (new InvalidKindForAnnotationException(msg));
 			}
 			globalBeanElements.put(item.toString(), (TypeElement) item);
@@ -1128,12 +1150,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					AnnotationAttributeType.CURSOR_FACTORY);
 			configDatabaseLifecycleHandler = AnnotationUtility.extractAsClassName(databaseSchema,
 					BindDataSourceOptions.class, AnnotationAttributeType.DATABASE_LIFECYCLE_HANDLER);
-		}
+		} 
 
 		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName,
 				schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper, generateRx,
 				daoIntoDataSource, configCursorFactory, configDatabaseErrorHandler, configDatabaseLifecycleHandler,
-				configInMemory, configLogEnabled, configPopulatorClass);
+				configInMemory, configLogEnabled, configPopulatorClass, getSchemaLocationDirectory());
 
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);

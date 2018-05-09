@@ -17,7 +17,7 @@ package sqlite.feature.typeadapter.bitmap;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 import android.graphics.Bitmap;
 
@@ -25,7 +25,7 @@ import android.graphics.Bitmap;
 /**
  * The Class Person.
  */
-@BindTable
+@BindSqlType
 public class Person {
 	
 	/** The id. */

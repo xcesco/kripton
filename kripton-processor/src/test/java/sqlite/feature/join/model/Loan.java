@@ -16,7 +16,7 @@
 package sqlite.feature.join.model;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 import java.sql.Date;
 
@@ -24,7 +24,7 @@ import java.sql.Date;
 /**
  * Created by xcesco on 20/02/2018.
  */
-@BindTable
+@BindSqlType
 public class Loan extends Entity {
     
     /** The start time. */

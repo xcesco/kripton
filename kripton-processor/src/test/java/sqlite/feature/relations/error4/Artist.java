@@ -3,9 +3,9 @@ package sqlite.feature.relations.error4;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindSqlRelation;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-@BindTable
+@BindSqlType
 public class Artist {
 
 	public long id;

@@ -18,13 +18,13 @@ package sqlite.feature.many2many.case6.model;
 import java.sql.Date;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class PersonPhone.
  */
-@BindTable
+@BindSqlType
 public class PersonPhone {
 
 	/** The id. */

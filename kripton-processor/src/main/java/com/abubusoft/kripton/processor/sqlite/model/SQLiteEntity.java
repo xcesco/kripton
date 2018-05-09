@@ -22,7 +22,7 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
@@ -137,7 +137,7 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 		tableName = getSimpleName();
 		tableName = schema.classNameConverter.convert(tableName);
 
-		String temp = AnnotationUtility.extractAsString(getElement(), BindTable.class, AnnotationAttributeType.NAME);
+		String temp = AnnotationUtility.extractAsString(getElement(), BindSqlType.class, AnnotationAttributeType.NAME);
 		if (StringUtils.hasText(temp)) {
 			tableName = temp;
 		}

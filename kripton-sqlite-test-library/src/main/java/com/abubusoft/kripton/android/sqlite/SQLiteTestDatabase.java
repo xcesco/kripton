@@ -15,6 +15,7 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -317,6 +318,20 @@ public class SQLiteTestDatabase {
 		SQLiteTestUtils.verifySchema(sqlite.getWritableDatabase(), schemaDefinitionInputStream);
 
 		return this;
+	}
+	
+	/**
+	 * Delete database file.
+	 *
+	 * @param context
+	 *            the context
+	 */
+	public static void clearDatabase(Context context) {
+		File dbFile = context.getDatabasePath(SQLiteTestDatabase.TEST_DATABASE);
+		Logger.info("Clear database file %s", dbFile.getAbsolutePath());
+		if (!dbFile.delete()) {
+			Logger.warn("Can not delete database " + dbFile.getAbsolutePath());
+		}
 	}
 
 	/**

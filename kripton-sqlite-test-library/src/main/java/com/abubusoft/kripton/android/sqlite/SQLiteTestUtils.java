@@ -86,20 +86,6 @@ public abstract class SQLiteTestUtils {
 
 	}
 
-	/**
-	 * Delete database file.
-	 *
-	 * @param context
-	 *            the context
-	 */
-	public static void clearDatabase(Context context) {
-		File dbFile = context.getDatabasePath(SQLiteTestDatabase.TEST_DATABASE);
-		Logger.info("Clear database file %s", dbFile.getAbsolutePath());
-		if (!dbFile.delete()) {
-			Logger.warn("Can not delete database " + dbFile.getAbsolutePath());
-		}
-
-	}
 
 	/**
 	 * Query.

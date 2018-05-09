@@ -17,13 +17,13 @@ package sqlite.feature.globaltypeadapters;
 
 import java.sql.Date;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */
-@BindTable
+@BindSqlType
 public class Person {
 
 	/** The id. */

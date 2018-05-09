@@ -19,12 +19,12 @@ import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 /**
  * The Class Person.
  */
-@BindTable
+@BindSqlType
 public class Person {
 	
 	/** The id. */

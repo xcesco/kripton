@@ -16,7 +16,7 @@
 package sqlite.kripton56.entities;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 import sqlite.kripton56.internal.MessageType;
@@ -27,7 +27,7 @@ import sqlite.kripton56.internal.MessageType;
  */
 
 @BindType
-@BindTable(name="message")
+@BindSqlType(name="message")
 public class MessageEntity {
 
     /** The id. */

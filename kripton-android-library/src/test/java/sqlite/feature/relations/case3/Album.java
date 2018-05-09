@@ -3,9 +3,9 @@ package sqlite.feature.relations.case3;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindSqlRelation;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-@BindTable
+@BindSqlType
 public class Album {
 	private long id;
 

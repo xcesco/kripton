@@ -15,7 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton49.entities;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -23,7 +23,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class ChannelEntity.
  */
 @BindType
-@BindTable(name="channel")
+@BindSqlType(name="channel")
 public class ChannelEntity {	
 	
 	/** The owner uid. */

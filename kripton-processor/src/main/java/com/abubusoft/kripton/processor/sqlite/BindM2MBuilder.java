@@ -37,7 +37,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -356,7 +356,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		//@formatter:off
 		classBuilder = TypeSpec.classBuilder(entityClassName)
 				.addModifiers(Modifier.PUBLIC)				
-				.addAnnotation(AnnotationSpec.builder(BindTable.class).addMember("name", "$S",tableName).build());
+				.addAnnotation(AnnotationSpec.builder(BindSqlType.class).addMember("name", "$S",tableName).build());
 		//@formatter:on
 
 		// javadoc for class

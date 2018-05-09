@@ -2,7 +2,7 @@ package sqlite.feature.rx.persistence;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import sqlite.feature.rx.model.Person;
 import sqlite.feature.rx.model.PhoneNumber;
@@ -12,7 +12,7 @@ import sqlite.feature.rx.model.PhoneNumber;
  * Generated entity implementation for <code>PersonPhoneNumber</code>
  * </p>
  */
-@BindTable(
+@BindSqlType(
     name = "person_phone_number"
 )
 public class PersonPhoneNumber {

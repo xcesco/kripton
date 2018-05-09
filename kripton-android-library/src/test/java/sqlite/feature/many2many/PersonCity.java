@@ -2,7 +2,7 @@ package sqlite.feature.many2many;
 
 import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 
 /**
@@ -10,7 +10,7 @@ import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
  * Generated entity implementation for <code>PersonCity</code>
  * </p>
  */
-@BindTable(
+@BindSqlType(
     name = "person_city"
 )
 public class PersonCity {

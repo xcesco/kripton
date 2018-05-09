@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 /**
  * <p>
  * Annotation used to define table's indexes. It can be used in
- * {@link BindTable} annotation.
+ * {@link BindSqlType} annotation.
  * </p>
  * 
  * <h3>Attributes</h3>
@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
  * 
  * <pre>
 &#64;BindType
-&#64;BindTable(
+&#64;BindSqlType(
   indexes= {
     &#64;BindIndex({"birthCity", "birthDay desc"}),
     &#64;BindIndex({"surname"}),
