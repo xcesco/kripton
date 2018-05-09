@@ -3,6 +3,7 @@ package bind.rss;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.TypeAdapterUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
@@ -48,6 +49,10 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
       fieldCount++;
       jacksonSerializer.writeStringField("description", object.description);
     }
+
+    // field id (mapped with "id")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("id", object.id);
 
     // field image (mapped with "image")
     if (object.image!=null)  {
@@ -130,6 +135,9 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
       fieldCount++;
       jacksonSerializer.writeStringField("description", object.description);
     }
+
+    // field id (mapped with "id")
+    jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
 
     // field image (mapped with "image")
     if (object.image!=null)  {
@@ -226,6 +234,11 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.description));
       xmlSerializer.writeEndElement();
     }
+
+    // field id (mapped with "id")
+    xmlSerializer.writeStartElement("id");
+    xmlSerializer.writeLong(object.id);
+    xmlSerializer.writeEndElement();
 
     // field image (mapped with "image")
     if (object.image!=null)  {
@@ -332,6 +345,10 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
               instance.description=jacksonParser.getText();
             }
           break;
+          case "id":
+            // field id (mapped with "id")
+            instance.id=jacksonParser.getLongValue();
+          break;
           case "image":
             // field image (mapped with "image")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
@@ -424,6 +441,10 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.description=jacksonParser.getText();
             }
+          break;
+          case "id":
+            // field id (mapped with "id")
+            instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
           break;
           case "image":
             // field image (mapped with "image")
@@ -528,6 +549,10 @@ public class ChannelBindMap extends AbstractMapper<Channel> {
                 case "description":
                   // property description (mapped on "description")
                   instance.description=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "id":
+                  // property id (mapped on "id")
+                  instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
                 case "image":
                   // property image (mapped on "image")

@@ -25,6 +25,6 @@ public class TestRSSCompile extends AbstractBindTypeProcessorTest {
 	
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildBindProcessorTest(Article.class, Channel.class, RSSFeed.class, DateAdapter.class, Image.class);
+		buildBindProcessorTest(Entity.class, Thumbnail.class, Article.class, Channel.class, RSSFeed.class, DateAdapter.class, Image.class);
 	}
 }

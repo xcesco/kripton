@@ -10,9 +10,9 @@ import com.abubusoft.kripton.xml.XmlType;
 @BindType(value="rss")
 public class RSSFeed {
 
-	@BindXml(xmlType = XmlType.ATTRIBUTE)
-	public String version;
+    @BindXml(xmlType = XmlType.ATTRIBUTE)
+    public String version;
 
-	@Bind("channel")	
-	public List<Channel> channels;
+    @Bind("channel")
+    public List<Channel> channels;
 }

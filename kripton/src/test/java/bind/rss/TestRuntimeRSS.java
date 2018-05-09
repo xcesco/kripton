@@ -32,8 +32,8 @@ import bind.AbstractBaseTest;
 public class TestRuntimeRSS extends AbstractBaseTest {
 
 	@Test
-	public void testRuntimeRSS() throws Exception {
-		File asset=new File("src/test/resources/bind/rss/article.rss");
+	public void testRuntimeVogellaRSS() throws Exception {
+		File asset=new File("src/test/resources/bind/rss/vogella.rss");
 		log(asset.getAbsolutePath());
 		
 		BinderContext context = KriptonBinder.xmlBind();
@@ -43,5 +43,19 @@ public class TestRuntimeRSS extends AbstractBaseTest {
 		assertTrue(result.channels.size()>0);
 		log(result.version+" "+result.channels.size());
 	}
+	
+	@Test
+	public void testRuntimeBBCRSS() throws Exception {
+		File asset=new File("src/test/resources/bind/rss/bbc.rss");
+		log(asset.getAbsolutePath());
+		
+		BinderContext context = KriptonBinder.xmlBind();
+		RSSFeed result = context.parse(asset, RSSFeed.class);
+		
+		assertTrue(result.version.equals("2.0"));
+		assertTrue(result.channels.size()>0);
+		log(result.version+" "+result.channels.size());
+	}
+
 
 }

@@ -1,7 +1,9 @@
 package bind.rss;
 
 import com.abubusoft.kripton.AbstractMapper;
+import com.abubusoft.kripton.BinderUtils;
 import com.abubusoft.kripton.annotation.BindMap;
+import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.xml.XMLParser;
@@ -18,6 +20,10 @@ import com.fasterxml.jackson.core.JsonToken;
  */
 @BindMap(Article.class)
 public class ArticleBindMap extends AbstractMapper<Article> {
+  /**
+   * ThumbnailBindMap */
+  private ThumbnailBindMap thumbnailBindMap = BinderUtils.mapperFor(Thumbnail.class);
+
   @Override
   public int serializeOnJackson(Article object, JsonGenerator jacksonSerializer) throws Exception {
     jacksonSerializer.writeStartObject();
@@ -30,6 +36,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       fieldCount++;
       jacksonSerializer.writeStringField("author", object.author);
     }
+
+    // field channelId (mapped with "channelId")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("channelId", object.channelId);
 
     // field comments (mapped with "comments")
     if (object.comments!=null)  {
@@ -49,6 +59,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       jacksonSerializer.writeStringField("guid", object.guid);
     }
 
+    // field id (mapped with "id")
+    fieldCount++;
+    jacksonSerializer.writeNumberField("id", object.id);
+
     // field link (mapped with "link")
     if (object.link!=null)  {
       fieldCount++;
@@ -59,6 +73,13 @@ public class ArticleBindMap extends AbstractMapper<Article> {
     if (object.title!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("title", object.title);
+    }
+
+    // field thumbnail (mapped with "thumbnail")
+    if (object.thumbnail!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeFieldName("thumbnail");
+      thumbnailBindMap.serializeOnJackson(object.thumbnail, jacksonSerializer);
     }
 
     jacksonSerializer.writeEndObject();
@@ -79,6 +100,9 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       jacksonSerializer.writeStringField("author", object.author);
     }
 
+    // field channelId (mapped with "channelId")
+    jacksonSerializer.writeStringField("channelId", PrimitiveUtils.writeLong(object.channelId));
+
     // field comments (mapped with "comments")
     if (object.comments!=null)  {
       fieldCount++;
@@ -97,6 +121,9 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       jacksonSerializer.writeStringField("guid", object.guid);
     }
 
+    // field id (mapped with "id")
+    jacksonSerializer.writeStringField("id", PrimitiveUtils.writeLong(object.id));
+
     // field link (mapped with "link")
     if (object.link!=null)  {
       fieldCount++;
@@ -107,6 +134,15 @@ public class ArticleBindMap extends AbstractMapper<Article> {
     if (object.title!=null)  {
       fieldCount++;
       jacksonSerializer.writeStringField("title", object.title);
+    }
+
+    // field thumbnail (mapped with "thumbnail")
+    if (object.thumbnail!=null)  {
+      fieldCount++;
+      jacksonSerializer.writeFieldName("thumbnail");
+      if (thumbnailBindMap.serializeOnJacksonAsString(object.thumbnail, jacksonSerializer)==0) {
+        jacksonSerializer.writeNullField("thumbnail");
+      }
     }
 
     jacksonSerializer.writeEndObject();
@@ -121,6 +157,8 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       throws Exception {
     if (currentEventType == 0) {
       xmlSerializer.writeStartElement("item");
+      xmlSerializer.writeAttribute("", "xmlns:dc", "http://purl.org/dc/elements/1.1/");
+      xmlSerializer.writeAttribute("", "xmlns:content", "http://purl.org/dc/elements/1.1/");
     }
 
     // Persisted fields:
@@ -131,6 +169,11 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.author));
       xmlSerializer.writeEndElement();
     }
+
+    // field channelId (mapped with "channelId")
+    xmlSerializer.writeStartElement("channelId");
+    xmlSerializer.writeLong(object.channelId);
+    xmlSerializer.writeEndElement();
 
     // field comments (mapped with "comments")
     if (object.comments!=null)  {
@@ -153,6 +196,11 @@ public class ArticleBindMap extends AbstractMapper<Article> {
       xmlSerializer.writeEndElement();
     }
 
+    // field id (mapped with "id")
+    xmlSerializer.writeStartElement("id");
+    xmlSerializer.writeLong(object.id);
+    xmlSerializer.writeEndElement();
+
     // field link (mapped with "link")
     if (object.link!=null)  {
       xmlSerializer.writeStartElement("link");
@@ -164,6 +212,13 @@ public class ArticleBindMap extends AbstractMapper<Article> {
     if (object.title!=null) {
       xmlSerializer.writeStartElement("title");
       xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.title));
+      xmlSerializer.writeEndElement();
+    }
+
+    // field thumbnail (mapped with "media:thumbnail")
+    if (object.thumbnail!=null)  {
+      xmlSerializer.writeStartElement("media:thumbnail");
+      thumbnailBindMap.serializeOnXml(object.thumbnail, xmlSerializer, 2);
       xmlSerializer.writeEndElement();
     }
 
@@ -198,6 +253,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
               instance.author=jacksonParser.getText();
             }
           break;
+          case "channelId":
+            // field channelId (mapped with "channelId")
+            instance.channelId=jacksonParser.getLongValue();
+          break;
           case "comments":
             // field comments (mapped with "comments")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -216,6 +275,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
               instance.guid=jacksonParser.getText();
             }
           break;
+          case "id":
+            // field id (mapped with "id")
+            instance.id=jacksonParser.getLongValue();
+          break;
           case "link":
             // field link (mapped with "link")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -226,6 +289,12 @@ public class ArticleBindMap extends AbstractMapper<Article> {
             // field title (mapped with "title")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.title=jacksonParser.getText();
+            }
+          break;
+          case "thumbnail":
+            // field thumbnail (mapped with "thumbnail")
+            if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+              instance.thumbnail=thumbnailBindMap.parseOnJackson(jacksonParser);
             }
           break;
           default:
@@ -261,6 +330,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
               instance.author=jacksonParser.getText();
             }
           break;
+          case "channelId":
+            // field channelId (mapped with "channelId")
+            instance.channelId=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
           case "comments":
             // field comments (mapped with "comments")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -279,6 +352,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
               instance.guid=jacksonParser.getText();
             }
           break;
+          case "id":
+            // field id (mapped with "id")
+            instance.id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
+          break;
           case "link":
             // field link (mapped with "link")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -289,6 +366,12 @@ public class ArticleBindMap extends AbstractMapper<Article> {
             // field title (mapped with "title")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               instance.title=jacksonParser.getText();
+            }
+          break;
+          case "thumbnail":
+            // field thumbnail (mapped with "thumbnail")
+            if (jacksonParser.currentToken()==JsonToken.START_OBJECT || jacksonParser.currentToken()==JsonToken.VALUE_STRING) {
+              instance.thumbnail=thumbnailBindMap.parseOnJacksonAsString(jacksonParser);
             }
           break;
           default:
@@ -332,6 +415,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
                   // property author (mapped on "author")
                   instance.author=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
+                case "channelId":
+                  // property channelId (mapped on "channelId")
+                  instance.channelId=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
                 case "comments":
                   // property comments (mapped on "comments")
                   instance.comments=UrlUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
@@ -344,6 +431,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
                   // property guid (mapped on "guid")
                   instance.guid=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
+                case "id":
+                  // property id (mapped on "id")
+                  instance.id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
+                break;
                 case "link":
                   // property link (mapped on "link")
                   instance.link=UrlUtils.read(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
@@ -351,6 +442,10 @@ public class ArticleBindMap extends AbstractMapper<Article> {
                 case "title":
                   // property title (mapped on "title")
                   instance.title=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                break;
+                case "media:thumbnail":
+                  // property thumbnail (mapped on "media:thumbnail")
+                  instance.thumbnail=thumbnailBindMap.parseOnXml(xmlParser, eventType);
                 break;
                 default:
                 break;

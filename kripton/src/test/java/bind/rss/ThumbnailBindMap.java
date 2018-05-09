@@ -3,7 +3,7 @@ package bind.rss;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.PrimitiveUtils;
-import com.abubusoft.kripton.escape.StringEscapeUtils;
+import com.abubusoft.kripton.common.UrlUtils;
 import com.abubusoft.kripton.xml.XMLParser;
 import com.abubusoft.kripton.xml.XMLSerializer;
 import com.abubusoft.kripton.xml.XmlPullParser;
@@ -12,14 +12,15 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
 /**
- * This class is binder map for Image
+ * This class is binder map for Thumbnail
  *
- * @see Image
+ * @see Thumbnail
  */
-@BindMap(Image.class)
-public class ImageBindMap extends AbstractMapper<Image> {
+@BindMap(Thumbnail.class)
+public class ThumbnailBindMap extends AbstractMapper<Thumbnail> {
   @Override
-  public int serializeOnJackson(Image object, JsonGenerator jacksonSerializer) throws Exception {
+  public int serializeOnJackson(Thumbnail object, JsonGenerator jacksonSerializer) throws
+      Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
 
@@ -31,22 +32,10 @@ public class ImageBindMap extends AbstractMapper<Image> {
       jacksonSerializer.writeNumberField("height", object.height);
     }
 
-    // field link (mapped with "link")
-    if (object.link!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("link", object.link);
-    }
-
-    // field title (mapped with "title")
-    if (object.title!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("title", object.title);
-    }
-
     // field url (mapped with "url")
     if (object.url!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("url", object.url);
+      jacksonSerializer.writeStringField("url", UrlUtils.write(object.url));
     }
 
     // field width (mapped with "width")
@@ -60,7 +49,7 @@ public class ImageBindMap extends AbstractMapper<Image> {
   }
 
   @Override
-  public int serializeOnJacksonAsString(Image object, JsonGenerator jacksonSerializer) throws
+  public int serializeOnJacksonAsString(Thumbnail object, JsonGenerator jacksonSerializer) throws
       Exception {
     jacksonSerializer.writeStartObject();
     int fieldCount=0;
@@ -72,22 +61,10 @@ public class ImageBindMap extends AbstractMapper<Image> {
       jacksonSerializer.writeStringField("height", PrimitiveUtils.writeInteger(object.height));
     }
 
-    // field link (mapped with "link")
-    if (object.link!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("link", object.link);
-    }
-
-    // field title (mapped with "title")
-    if (object.title!=null)  {
-      fieldCount++;
-      jacksonSerializer.writeStringField("title", object.title);
-    }
-
     // field url (mapped with "url")
     if (object.url!=null)  {
       fieldCount++;
-      jacksonSerializer.writeStringField("url", object.url);
+      jacksonSerializer.writeStringField("url", UrlUtils.write(object.url));
     }
 
     // field width (mapped with "width")
@@ -103,47 +80,27 @@ public class ImageBindMap extends AbstractMapper<Image> {
    * method for xml serialization
    */
   @Override
-  public void serializeOnXml(Image object, XMLSerializer xmlSerializer, int currentEventType) throws
-      Exception {
+  public void serializeOnXml(Thumbnail object, XMLSerializer xmlSerializer, int currentEventType)
+      throws Exception {
     if (currentEventType == 0) {
-      xmlSerializer.writeStartElement("image");
+      xmlSerializer.writeStartElement("thumbnail");
     }
 
     // Persisted fields:
 
     // field height (mapped with "height")
     if (object.height!=null)  {
-      xmlSerializer.writeStartElement("height");
-      xmlSerializer.writeInt(object.height);
-      xmlSerializer.writeEndElement();
-    }
-
-    // field link (mapped with "link")
-    if (object.link!=null) {
-      xmlSerializer.writeStartElement("link");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.link));
-      xmlSerializer.writeEndElement();
-    }
-
-    // field title (mapped with "title")
-    if (object.title!=null) {
-      xmlSerializer.writeStartElement("title");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.title));
-      xmlSerializer.writeEndElement();
+      xmlSerializer.writeAttribute("height", PrimitiveUtils.writeInteger(object.height));
     }
 
     // field url (mapped with "url")
-    if (object.url!=null) {
-      xmlSerializer.writeStartElement("url");
-      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(object.url));
-      xmlSerializer.writeEndElement();
+    if (object.url!=null)  {
+      xmlSerializer.writeAttribute("url", UrlUtils.write(object.url));
     }
 
     // field width (mapped with "width")
     if (object.width!=null)  {
-      xmlSerializer.writeStartElement("width");
-      xmlSerializer.writeInt(object.width);
-      xmlSerializer.writeEndElement();
+      xmlSerializer.writeAttribute("width", PrimitiveUtils.writeInteger(object.width));
     }
 
     if (currentEventType == 0) {
@@ -155,8 +112,8 @@ public class ImageBindMap extends AbstractMapper<Image> {
    * parse with jackson
    */
   @Override
-  public Image parseOnJackson(JsonParser jacksonParser) throws Exception {
-    Image instance = new Image();
+  public Thumbnail parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Thumbnail instance = new Thumbnail();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -177,22 +134,10 @@ public class ImageBindMap extends AbstractMapper<Image> {
               instance.height=jacksonParser.getIntValue();
             }
           break;
-          case "link":
-            // field link (mapped with "link")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.link=jacksonParser.getText();
-            }
-          break;
-          case "title":
-            // field title (mapped with "title")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.title=jacksonParser.getText();
-            }
-          break;
           case "url":
             // field url (mapped with "url")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.url=jacksonParser.getText();
+              instance.url=UrlUtils.read(jacksonParser.getText());
             }
           break;
           case "width":
@@ -212,8 +157,8 @@ public class ImageBindMap extends AbstractMapper<Image> {
    * parse with jackson
    */
   @Override
-  public Image parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    Image instance = new Image();
+  public Thumbnail parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
+    Thumbnail instance = new Thumbnail();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -234,22 +179,10 @@ public class ImageBindMap extends AbstractMapper<Image> {
               instance.height=PrimitiveUtils.readInteger(jacksonParser.getText(), null);
             }
           break;
-          case "link":
-            // field link (mapped with "link")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.link=jacksonParser.getText();
-            }
-          break;
-          case "title":
-            // field title (mapped with "title")
-            if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.title=jacksonParser.getText();
-            }
-          break;
           case "url":
             // field url (mapped with "url")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.url=jacksonParser.getText();
+              instance.url=UrlUtils.read(jacksonParser.getText());
             }
           break;
           case "width":
@@ -269,8 +202,8 @@ public class ImageBindMap extends AbstractMapper<Image> {
    * parse xml
    */
   @Override
-  public Image parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    Image instance = new Image();
+  public Thumbnail parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
+    Thumbnail instance = new Thumbnail();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -281,7 +214,29 @@ public class ImageBindMap extends AbstractMapper<Image> {
     }
     String currentTag = xmlParser.getName().toString();
     String elementName = currentTag;
-    // No attributes found
+
+    // attributes 
+    String attributeName = null;
+    int attributesCount = xmlParser.getAttributeCount();;
+    for (int attributeIndex = 0; attributeIndex < attributesCount; attributeIndex++) {
+      attributeName = xmlParser.getAttributeName(attributeIndex);
+      switch(attributeName) {
+          case "height":
+            // field height (mapped by "height")
+            instance.height=PrimitiveUtils.readInteger(xmlParser.getAttributeValue(attributeIndex), null);
+          break;
+          case "url":
+            // field url (mapped by "url")
+            instance.url=UrlUtils.read(xmlParser.getAttributeValue(attributeIndex));
+          break;
+          case "width":
+            // field width (mapped by "width")
+            instance.width=PrimitiveUtils.readInteger(xmlParser.getAttributeValue(attributeIndex), null);
+          break;
+          default:
+          break;
+      }
+    }
 
     //sub-elements
     while (xmlParser.hasNext() && elementName!=null) {
@@ -294,44 +249,21 @@ public class ImageBindMap extends AbstractMapper<Image> {
       switch(eventType) {
           case XmlPullParser.START_TAG:
             currentTag = xmlParser.getName().toString();
-            switch(currentTag) {
-                case "height":
-                  // property height (mapped on "height")
-                  instance.height=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
-                break;
-                case "link":
-                  // property link (mapped on "link")
-                  instance.link=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
-                break;
-                case "title":
-                  // property title (mapped on "title")
-                  instance.title=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
-                break;
-                case "url":
-                  // property url (mapped on "url")
-                  instance.url=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
-                break;
-                case "width":
-                  // property width (mapped on "width")
-                  instance.width=PrimitiveUtils.readInteger(xmlParser.getElementAsInt(), null);
-                break;
-                default:
-                break;
-              }
-            break;
-            case XmlPullParser.END_TAG:
-              if (elementName.equals(xmlParser.getName())) {
-                currentTag = elementName;
-                elementName = null;
-              }
-            break;
-            case XmlPullParser.CDSECT:
-            case XmlPullParser.TEXT:
-              // no property is binded to VALUE o CDATA break;
-            default:
-            break;
-        }
+            // No property to manage here
+          break;
+          case XmlPullParser.END_TAG:
+            if (elementName.equals(xmlParser.getName())) {
+              currentTag = elementName;
+              elementName = null;
+            }
+          break;
+          case XmlPullParser.CDSECT:
+          case XmlPullParser.TEXT:
+            // no property is binded to VALUE o CDATA break;
+          default:
+          break;
       }
-      return instance;
     }
+    return instance;
   }
+}
