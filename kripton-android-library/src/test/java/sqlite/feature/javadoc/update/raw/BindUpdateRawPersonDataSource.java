@@ -153,7 +153,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindUpdateRawPersonDataSource instance() {
+  public static BindUpdateRawPersonDataSource getInstance() {
     BindUpdateRawPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
    * @return opened dataSource instance.
    */
   public static BindUpdateRawPersonDataSource open() {
-    BindUpdateRawPersonDataSource instance=instance();
+    BindUpdateRawPersonDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindUpdateRawPersonDataSource extends AbstractDataSource implements
    * @return opened dataSource instance.
    */
   public static BindUpdateRawPersonDataSource openReadOnly() {
-    BindUpdateRawPersonDataSource instance=instance();
+    BindUpdateRawPersonDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

@@ -152,7 +152,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindSampleDataSource instance() {
+  public static BindSampleDataSource getInstance() {
     BindSampleDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -195,7 +195,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
    * @return opened dataSource instance.
    */
   public static BindSampleDataSource open() {
-    BindSampleDataSource instance=instance();
+    BindSampleDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -205,7 +205,7 @@ public class BindSampleDataSource extends AbstractDataSource implements BindSamp
    * @return opened dataSource instance.
    */
   public static BindSampleDataSource openReadOnly() {
-    BindSampleDataSource instance=instance();
+    BindSampleDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

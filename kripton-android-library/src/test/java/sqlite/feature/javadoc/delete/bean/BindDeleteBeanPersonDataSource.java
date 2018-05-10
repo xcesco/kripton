@@ -153,7 +153,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindDeleteBeanPersonDataSource instance() {
+  public static BindDeleteBeanPersonDataSource getInstance() {
     BindDeleteBeanPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
    * @return opened dataSource instance.
    */
   public static BindDeleteBeanPersonDataSource open() {
-    BindDeleteBeanPersonDataSource instance=instance();
+    BindDeleteBeanPersonDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindDeleteBeanPersonDataSource extends AbstractDataSource implement
    * @return opened dataSource instance.
    */
   public static BindDeleteBeanPersonDataSource openReadOnly() {
-    BindDeleteBeanPersonDataSource instance=instance();
+    BindDeleteBeanPersonDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

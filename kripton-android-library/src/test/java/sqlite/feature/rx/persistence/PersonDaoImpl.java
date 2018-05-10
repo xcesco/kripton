@@ -272,7 +272,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     return result!=0;
   }
 
-  public PublishSubject<SQLiteEvent> subject() {
+  public PublishSubject<SQLiteEvent> getSubject() {
     return subject;
   }
 

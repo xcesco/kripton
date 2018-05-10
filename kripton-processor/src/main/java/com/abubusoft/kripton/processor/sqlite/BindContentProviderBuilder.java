@@ -702,7 +702,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.beginControlFlow("if ($T.context()==null)", KriptonLibrary.class);
 		methodBuilder.addStatement("KriptonLibrary.init(getContext())");
 		methodBuilder.endControlFlow();
-		methodBuilder.addStatement("dataSource = $L.instance()", dataSourceNameClazz);
+		methodBuilder.addStatement("dataSource = $L.getInstance()", dataSourceNameClazz);
 		methodBuilder.addStatement("dataSource.openWritableDatabase()");
 
 		methodBuilder.addCode("return true;\n");

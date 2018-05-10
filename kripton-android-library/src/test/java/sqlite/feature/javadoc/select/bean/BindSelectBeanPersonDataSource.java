@@ -153,7 +153,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindSelectBeanPersonDataSource instance() {
+  public static BindSelectBeanPersonDataSource getInstance() {
     BindSelectBeanPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
    * @return opened dataSource instance.
    */
   public static BindSelectBeanPersonDataSource open() {
-    BindSelectBeanPersonDataSource instance=instance();
+    BindSelectBeanPersonDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindSelectBeanPersonDataSource extends AbstractDataSource implement
    * @return opened dataSource instance.
    */
   public static BindSelectBeanPersonDataSource openReadOnly() {
-    BindSelectBeanPersonDataSource instance=instance();
+    BindSelectBeanPersonDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

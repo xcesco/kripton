@@ -380,8 +380,8 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
     return executeBatch(batch, false);
   }
 
-  public PublishSubject<SQLiteEvent> employeeSubject() {
-    return employeeBeanInsertSelectDao.subject();
+  public PublishSubject<SQLiteEvent> getEmployeeSubject() {
+    return employeeBeanInsertSelectDao.getSubject();
   }
 
   /**
@@ -471,7 +471,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindKripton180BeanInsertSelectDataSource instance() {
+  public static BindKripton180BeanInsertSelectDataSource getInstance() {
     BindKripton180BeanInsertSelectDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -500,7 +500,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    * @return opened dataSource instance.
    */
   public static BindKripton180BeanInsertSelectDataSource open() {
-    BindKripton180BeanInsertSelectDataSource instance=instance();
+    BindKripton180BeanInsertSelectDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -510,7 +510,7 @@ public class BindKripton180BeanInsertSelectDataSource extends AbstractDataSource
    * @return opened dataSource instance.
    */
   public static BindKripton180BeanInsertSelectDataSource openReadOnly() {
-    BindKripton180BeanInsertSelectDataSource instance=instance();
+    BindKripton180BeanInsertSelectDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

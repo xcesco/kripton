@@ -26,7 +26,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
 
-// TODO: Auto-generated Javadoc
 /**
  * A LiveData class that can be invalidated and computed on demand.
  * <p>

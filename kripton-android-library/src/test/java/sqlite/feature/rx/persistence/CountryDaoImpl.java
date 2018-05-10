@@ -625,7 +625,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     }
   }
 
-  public PublishSubject<SQLiteEvent> subject() {
+  public PublishSubject<SQLiteEvent> getSubject() {
     return subject;
   }
 

@@ -113,7 +113,7 @@ public class EmployeeBeanInsertSelectDaoImpl extends Dao implements EmployeeBean
     bean.id=result;
   }
 
-  public PublishSubject<SQLiteEvent> subject() {
+  public PublishSubject<SQLiteEvent> getSubject() {
     return subject;
   }
 

@@ -31,11 +31,11 @@ import sqlite.feature.contentprovider.kripton35.entities.Person;
 public class Person2DAOImpl extends Dao implements Person2DAO {
   private static SQLiteStatement insertBeanPreparedStatement0;
 
-  private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "city", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> insertBean0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "city", "birth_city", "birth_day", "value", "name", "surname");
 
   private static SQLiteStatement insertNamePreparedStatement1;
 
-  private static final Set<String> insertName1ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> insertName1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static SQLiteStatement deleteRawPreparedStatement2;
 
@@ -43,25 +43,25 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
   private static SQLiteStatement updateRawPreparedStatement4;
 
-  private static final Set<String> updateRaw5ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateRaw5ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  private static final Set<String> updateRaw6ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateRaw6ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
-  private static final Set<String> updateRaw7ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> updateRaw7ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static SQLiteStatement updateBeanPreparedStatement5;
 
-  private static final Set<String> updateBean8ColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> updateBean8ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> selectOne9ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> selectOne9ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> selectAll10ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> selectAll10ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
-  private static final Set<String> selectOne11ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> selectOne11ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
   private static final String SELECT_BEAN_SQL1 = "SELECT id, alias_parent_id, city, birth_city, birth_day, value, name, surname FROM person";
 
-  private static final Set<String> selectBean12ColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
+  private static final Set<String> selectBean12ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "alias_parent_id", "city", "birth_city", "birth_day", "value", "name", "surname");
 
   public Person2DAOImpl(BindPerson2DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -125,10 +125,10 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param contentValues content values
    * @return new row's id
    */
-  long insertBean0(Uri uri, ContentValues contentValues) {
+  long insertBean0ForContentProvider(Uri uri, ContentValues contentValues) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertBean0ColumnSet.contains(columnName)) {
+      if (!insertBean0ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
@@ -202,10 +202,10 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param contentValues content values
    * @return new row's id
    */
-  long insertName1(Uri uri, ContentValues contentValues) {
+  long insertName1ForContentProvider(Uri uri, ContentValues contentValues) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertName1ColumnSet.contains(columnName)) {
+      if (!insertName1ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/*', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
@@ -284,7 +284,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int deleteRaw2(Uri uri, String selection, String[] selectionArgs) {
+  int deleteRaw2ForContentProvider(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -393,7 +393,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int deleteRaw3(Uri uri, String selection, String[] selectionArgs) {
+  int deleteRaw3ForContentProvider(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -489,7 +489,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int deleteBean4(Uri uri, String selection, String[] selectionArgs) {
+  int deleteBean4ForContentProvider(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -581,7 +581,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int updateRaw5(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  int updateRaw5ForContentProvider(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -597,7 +598,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // Add parameter id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateRaw5ColumnSet.contains(columnName)) {
+      if (!updateRaw5ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -707,7 +708,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int updateRaw6(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  int updateRaw6ForContentProvider(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -725,7 +727,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // Add parameter id at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateRaw6ColumnSet.contains(columnName)) {
+      if (!updateRaw6ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/test1/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -844,7 +846,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int updateRaw7(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  int updateRaw7ForContentProvider(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -874,7 +877,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
       }
     }
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateRaw7ColumnSet.contains(columnName)) {
+      if (!updateRaw7ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/test2/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -977,7 +980,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int updateBean8(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  int updateBean8ForContentProvider(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -993,7 +997,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // Add parameter person.id at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateBean8ColumnSet.contains(columnName)) {
+      if (!updateBean8ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -1149,8 +1153,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectOne9(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectOne9ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -1184,14 +1188,14 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectOne9ColumnSet.contains(columnName)) {
+        if (!selectOne9ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/*/test0', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectOne9ColumnSet) {
+      for (String column: selectOne9ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -1323,8 +1327,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  Cursor selectAll10(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectAll10ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -1359,14 +1363,14 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectAll10ColumnSet.contains(columnName)) {
+        if (!selectAll10ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectAll10ColumnSet) {
+      for (String column: selectAll10ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -1497,8 +1501,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectOne11(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectOne11ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -1524,14 +1528,14 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectOne11ColumnSet.contains(columnName)) {
+        if (!selectOne11ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/*/test1', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectOne11ColumnSet) {
+      for (String column: selectOne11ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -1627,8 +1631,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectBean12(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectBean12ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     // generation CODE_001 -- BEGIN
@@ -1641,14 +1645,14 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectBean12ColumnSet.contains(columnName)) {
+        if (!selectBean12ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35.nolog/persons/test3', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectBean12ColumnSet) {
+      for (String column: selectBean12ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }

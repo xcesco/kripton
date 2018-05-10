@@ -51,7 +51,7 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 
 		final int COUNTER = 200000;
 
-		final BindPersonDataSource ds = BindPersonDataSource.instance();
+		final BindPersonDataSource ds = BindPersonDataSource.getInstance();
 
 		ds.execute(new Transaction() {
 
@@ -88,7 +88,7 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 
 		final int COUNTER = 200;
 
-		final BindPersonDataSource ds = BindPersonDataSource.instance();
+		final BindPersonDataSource ds = BindPersonDataSource.getInstance();
 
 		ds.openWritableDatabase();
 		
@@ -139,7 +139,7 @@ public class TestSpeedRuntime extends BaseAndroidTest {
 
 		final int COUNTER = 10;
 
-		final BindPersonDataSource ds = BindPersonDataSource.instance();
+		final BindPersonDataSource ds = BindPersonDataSource.getInstance();
 
 		ds.openWritableDatabase();
 		

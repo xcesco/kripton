@@ -255,7 +255,10 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 			// invalidateLiveData
 			{
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_INVALIDATE_LIVE_DATA).addModifiers(Modifier.PROTECTED);
+				// check datasource and dao package must be the same, otherwise invalidate must be public				
+												
+				
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_INVALIDATE_LIVE_DATA).addModifiers(value.hasSamePackageOfSchema()?Modifier.PROTECTED: Modifier.PUBLIC);
 				methodBuilder.beginControlFlow("for ($T item: liveDatas)", ParameterizedTypeName.get(ClassName.get(WeakReference.class),
 						ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class))));
 				methodBuilder.beginControlFlow("if (item.get()!=null)");
@@ -278,7 +281,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			ParameterizedTypeName subjectTypeName = ParameterizedTypeName.get(ClassName.get(PublishSubject.class), ClassName.get(SQLiteEvent.class));
 
 			// subject
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("subject").addModifiers(Modifier.PUBLIC);
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getSubject").addModifiers(Modifier.PUBLIC);
 			methodBuilder.addStatement("return subject").returns(subjectTypeName);
 			builder.addMethod(methodBuilder.build());
 

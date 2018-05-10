@@ -40,7 +40,7 @@ public class Test64BRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite() {
-		BindBean64ADataSource dataSource = BindBean64ADataSource.instance();
+		BindBean64ADataSource dataSource = BindBean64ADataSource.getInstance();
 
 		dataSource.execute(new Transaction() {
 

@@ -50,7 +50,7 @@ public class TestPerformanceRuntime extends BaseAndroidTest {
 	public void testRunSave() {
 
 		// delete all
-		final BindSimpleDataSource dataSource = BindSimpleDataSource.instance();
+		final BindSimpleDataSource dataSource = BindSimpleDataSource.getInstance();
 
 		dataSource.execute(new BindSimpleDataSource.Transaction() {
 

@@ -153,7 +153,7 @@ public class BindUpdateBeanPersonDataSource extends AbstractDataSource implement
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindUpdateBeanPersonDataSource instance() {
+  public static BindUpdateBeanPersonDataSource getInstance() {
     BindUpdateBeanPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindUpdateBeanPersonDataSource extends AbstractDataSource implement
    * @return opened dataSource instance.
    */
   public static BindUpdateBeanPersonDataSource open() {
-    BindUpdateBeanPersonDataSource instance=instance();
+    BindUpdateBeanPersonDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindUpdateBeanPersonDataSource extends AbstractDataSource implement
    * @return opened dataSource instance.
    */
   public static BindUpdateBeanPersonDataSource openReadOnly() {
-    BindUpdateBeanPersonDataSource instance=instance();
+    BindUpdateBeanPersonDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

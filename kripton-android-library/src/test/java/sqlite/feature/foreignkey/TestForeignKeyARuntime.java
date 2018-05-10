@@ -46,7 +46,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {				
-		BindDummyDataSource dataSource = BindDummyDataSource.instance();
+		BindDummyDataSource dataSource = BindDummyDataSource.getInstance();
 
 		dataSource.execute(new Transaction() {
 
@@ -87,7 +87,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 	@Test
 	public void testRunSqlite2() throws IOException, InstantiationException, IllegalAccessException {
 
-		BindDummyDataSource dataSource = BindDummyDataSource.instance();
+		BindDummyDataSource dataSource = BindDummyDataSource.getInstance();
 
 		dataSource.execute(new Transaction() {
 
@@ -128,7 +128,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 	@Test
 	public void testRunSqlite3() throws IOException, InstantiationException, IllegalAccessException {
 		
-		BindDummyDataSource dataSource = BindDummyDataSource.instance();
+		BindDummyDataSource dataSource = BindDummyDataSource.getInstance();
 
 		dataSource.execute(new Transaction() {
 
@@ -168,7 +168,7 @@ public class TestForeignKeyARuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite4() throws IOException, InstantiationException, IllegalAccessException {
-		BindDummyDataSource dataSource = BindDummyDataSource.instance();
+		BindDummyDataSource dataSource = BindDummyDataSource.getInstance();
 
 		dataSource.execute(new Transaction() {
 

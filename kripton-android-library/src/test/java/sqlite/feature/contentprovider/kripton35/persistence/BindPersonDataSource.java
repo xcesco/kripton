@@ -172,7 +172,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindPersonDataSource instance() {
+  public static BindPersonDataSource getInstance() {
     BindPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -201,7 +201,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * @return opened dataSource instance.
    */
   public static BindPersonDataSource open() {
-    BindPersonDataSource instance=instance();
+    BindPersonDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -211,7 +211,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * @return opened dataSource instance.
    */
   public static BindPersonDataSource openReadOnly() {
-    BindPersonDataSource instance=instance();
+    BindPersonDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

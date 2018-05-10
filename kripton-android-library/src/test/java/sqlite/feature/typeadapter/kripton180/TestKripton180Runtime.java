@@ -57,7 +57,7 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 		bean.fieldString = "a";
 		bean.hireDate = new java.sql.Date((new java.util.Date()).getTime());
 
-		BindKripton180BeanDataSource dataSource = BindKripton180BeanDataSource.instance();
+		BindKripton180BeanDataSource dataSource = BindKripton180BeanDataSource.getInstance();
 
 		dataSource.execute(new BindKripton180BeanDataSource.Transaction() {
 
@@ -108,7 +108,7 @@ public class TestKripton180Runtime extends BaseAndroidTest {
 		bean.fieldString = "a";
 		bean.hireDate = new java.sql.Date((new java.util.Date()).getTime());
 
-		BindKripton180BeanDataSource dataSource = BindKripton180BeanDataSource.instance();
+		BindKripton180BeanDataSource dataSource = BindKripton180BeanDataSource.getInstance();
 
 		dataSource.execute(new BindKripton180BeanDataSource.Transaction() {
 

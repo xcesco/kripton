@@ -48,7 +48,7 @@ public class Test93Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunInsertDefault() throws IOException, InstantiationException, IllegalAccessException {
-		BindBean93DataSource dataSource = BindBean93DataSource.instance();
+		BindBean93DataSource dataSource = BindBean93DataSource.getInstance();
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
@@ -74,7 +74,7 @@ public class Test93Runtime extends BaseAndroidTest {
 	@Test
 	public void testRunInsertAbort() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedKriptonRuntimeExceptionWithCause(SQLiteConstraintException.class);
-		BindBean93DataSource dataSource = BindBean93DataSource.instance();
+		BindBean93DataSource dataSource = BindBean93DataSource.getInstance();
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
@@ -100,7 +100,7 @@ public class Test93Runtime extends BaseAndroidTest {
 	@Test
 	public void testRunInsertFail() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedKriptonRuntimeExceptionWithCause(SQLiteConstraintException.class);
-		BindBean93DataSource dataSource = BindBean93DataSource.instance();
+		BindBean93DataSource dataSource = BindBean93DataSource.getInstance();
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
@@ -125,7 +125,7 @@ public class Test93Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunInsertIgnore() throws IOException, InstantiationException, IllegalAccessException {
-		BindBean93DataSource dataSource = BindBean93DataSource.instance();
+		BindBean93DataSource dataSource = BindBean93DataSource.getInstance();
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
@@ -150,7 +150,7 @@ public class Test93Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunInsertReplace() throws IOException, InstantiationException, IllegalAccessException {
-		BindBean93DataSource dataSource = BindBean93DataSource.instance();
+		BindBean93DataSource dataSource = BindBean93DataSource.getInstance();
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 
@@ -176,7 +176,7 @@ public class Test93Runtime extends BaseAndroidTest {
 	@Test
 	public void testRunInsertRollback() throws IOException, InstantiationException, IllegalAccessException {
 		this.expectedKriptonRuntimeExceptionWithCause(SQLiteConstraintException.class);
-		BindBean93DataSource dataSource = BindBean93DataSource.instance();
+		BindBean93DataSource dataSource = BindBean93DataSource.getInstance();
 		final Bean93 bean = new Bean93();
 		bean.name = "all";
 

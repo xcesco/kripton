@@ -152,7 +152,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindCollegeStudentsDataSource instance() {
+  public static BindCollegeStudentsDataSource getInstance() {
     BindCollegeStudentsDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
    * @return opened dataSource instance.
    */
   public static BindCollegeStudentsDataSource open() {
-    BindCollegeStudentsDataSource instance=instance();
+    BindCollegeStudentsDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindCollegeStudentsDataSource extends AbstractDataSource implements
    * @return opened dataSource instance.
    */
   public static BindCollegeStudentsDataSource openReadOnly() {
-    BindCollegeStudentsDataSource instance=instance();
+    BindCollegeStudentsDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

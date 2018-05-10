@@ -153,7 +153,7 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindDummy02DataSource instance() {
+  public static BindDummy02DataSource getInstance() {
     BindDummy02DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy02DataSource open() {
-    BindDummy02DataSource instance=instance();
+    BindDummy02DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindDummy02DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy02DataSource openReadOnly() {
-    BindDummy02DataSource instance=instance();
+    BindDummy02DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

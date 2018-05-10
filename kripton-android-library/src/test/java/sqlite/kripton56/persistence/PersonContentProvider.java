@@ -69,7 +69,7 @@ public class PersonContentProvider extends ContentProvider {
 	 */
 	@Override
 	public boolean onCreate() {
-		dataSource = BindWhisperDataSource.instance();
+		dataSource = BindWhisperDataSource.getInstance();
 		return true;
 	}
 

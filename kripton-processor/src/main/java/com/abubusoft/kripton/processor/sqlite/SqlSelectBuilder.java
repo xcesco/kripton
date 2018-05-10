@@ -19,6 +19,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.lang.model.element.Modifier;
+
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.SqlUtils;
 import com.abubusoft.kripton.common.Pair;
@@ -138,7 +140,8 @@ public abstract class SqlSelectBuilder {
 		final Set<String> columns = new LinkedHashSet<>();
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
-
+		if (!method.getParent().hasSamePackageOfSchema()) {methodBuilder.addModifiers(Modifier.PUBLIC); }
+		
 		// params
 		methodBuilder.addParameter(ParameterSpec.builder(Uri.class, "uri").build());
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "projection").build());

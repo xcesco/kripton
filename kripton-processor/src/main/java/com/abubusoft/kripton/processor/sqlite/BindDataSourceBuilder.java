@@ -301,9 +301,9 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 			for (SQLiteDaoDefinition dao : schema.getCollection()) {
 				// subject
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, dao.getEntitySimplyClassName() + "Subject"))
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get"+dao.getEntitySimplyClassName() + "Subject")
 						.addModifiers(Modifier.PUBLIC);
-				methodBuilder.addStatement("return $L.subject()", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, convert.convert(dao.getName())))
+				methodBuilder.addStatement("return $L.getSubject()", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, convert.convert(dao.getName())))
 						.returns(ParameterizedTypeName.get(PublishSubject.class, SQLiteEvent.class));
 				classBuilder.addMethod(methodBuilder.build());
 			}
@@ -553,7 +553,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 */
 	private void generateInstanceOrBuild(SQLiteDatabaseSchema schema, String schemaName, boolean instance) {
 		// instance
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(instance ? "instance" : "build").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(instance ? "getInstance" : "build").addModifiers(Modifier.PUBLIC, Modifier.STATIC).returns(className(schemaName));
 
 		if (!instance) {
 			methodBuilder.addParameter(DataSourceOptions.class, "options");
@@ -669,7 +669,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("Retrieve data source instance and open it.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
 
-		methodBuilder.addStatement("$L instance=instance()", schemaName);
+		methodBuilder.addStatement("$L instance=getInstance()", schemaName);
 
 		methodBuilder.addStatement("instance.openWritableDatabase()");
 		methodBuilder.addCode("return instance;\n");
@@ -690,7 +690,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("Retrieve data source instance and open it in read only mode.\n");
 		methodBuilder.addJavadoc("@return opened dataSource instance.\n");
 
-		methodBuilder.addStatement("$L instance=instance()", schemaName);
+		methodBuilder.addStatement("$L instance=getInstance()", schemaName);
 
 		methodBuilder.addStatement("instance.openReadOnlyDatabase()");
 		methodBuilder.addCode("return instance;\n");

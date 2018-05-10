@@ -41,7 +41,7 @@ public class Test58Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite1() {
-		BindLongDataSource dataSource = BindLongDataSource.instance();
+		BindLongDataSource dataSource = BindLongDataSource.getInstance();
 
 		dataSource.execute(new Transaction() {
 

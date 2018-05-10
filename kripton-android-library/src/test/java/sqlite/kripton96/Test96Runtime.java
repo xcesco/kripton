@@ -52,7 +52,7 @@ public class Test96Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		BindBean96DataSource dataSource = BindBean96DataSource.instance();
+		BindBean96DataSource dataSource = BindBean96DataSource.getInstance();
 		// dataSource.openWritableDatabase();
 
 		final Bean96 bean = new Bean96();

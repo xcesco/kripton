@@ -381,8 +381,8 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
     return executeBatch(batch, false);
   }
 
-  public PublishSubject<SQLiteEvent> personSubject() {
-    return daoPerson0.subject();
+  public PublishSubject<SQLiteEvent> getPersonSubject() {
+    return daoPerson0.getSubject();
   }
 
   /**
@@ -472,7 +472,7 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindApp0DataSource instance() {
+  public static BindApp0DataSource getInstance() {
     BindApp0DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -501,7 +501,7 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
    * @return opened dataSource instance.
    */
   public static BindApp0DataSource open() {
-    BindApp0DataSource instance=instance();
+    BindApp0DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -511,7 +511,7 @@ public class BindApp0DataSource extends AbstractDataSource implements BindApp0Da
    * @return opened dataSource instance.
    */
   public static BindApp0DataSource openReadOnly() {
-    BindApp0DataSource instance=instance();
+    BindApp0DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

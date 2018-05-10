@@ -72,7 +72,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new PostTable(), new CommentTable(), new TodoTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new CommentTable(), new TodoTable(), new PostTable()};
 
   /**
    * <p>dao instance</p>
@@ -210,7 +210,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindQuickStartDataSource instance() {
+  public static BindQuickStartDataSource getInstance() {
     BindQuickStartDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -239,7 +239,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @return opened dataSource instance.
    */
   public static BindQuickStartDataSource open() {
-    BindQuickStartDataSource instance=instance();
+    BindQuickStartDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -249,7 +249,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
    * @return opened dataSource instance.
    */
   public static BindQuickStartDataSource openReadOnly() {
-    BindQuickStartDataSource instance=instance();
+    BindQuickStartDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

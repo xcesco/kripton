@@ -188,7 +188,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindPersonCirtyDataSource instance() {
+  public static BindPersonCirtyDataSource getInstance() {
     BindPersonCirtyDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -217,7 +217,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    * @return opened dataSource instance.
    */
   public static BindPersonCirtyDataSource open() {
-    BindPersonCirtyDataSource instance=instance();
+    BindPersonCirtyDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -227,7 +227,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
    * @return opened dataSource instance.
    */
   public static BindPersonCirtyDataSource openReadOnly() {
-    BindPersonCirtyDataSource instance=instance();
+    BindPersonCirtyDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

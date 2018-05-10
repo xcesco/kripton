@@ -153,7 +153,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindPersonUpdateDataSource instance() {
+  public static BindPersonUpdateDataSource getInstance() {
     BindPersonUpdateDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * @return opened dataSource instance.
    */
   public static BindPersonUpdateDataSource open() {
-    BindPersonUpdateDataSource instance=instance();
+    BindPersonUpdateDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindPersonUpdateDataSource extends AbstractDataSource implements Bi
    * @return opened dataSource instance.
    */
   public static BindPersonUpdateDataSource openReadOnly() {
-    BindPersonUpdateDataSource instance=instance();
+    BindPersonUpdateDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

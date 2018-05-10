@@ -152,7 +152,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindDoubleDataSource instance() {
+  public static BindDoubleDataSource getInstance() {
     BindDoubleDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    * @return opened dataSource instance.
    */
   public static BindDoubleDataSource open() {
-    BindDoubleDataSource instance=instance();
+    BindDoubleDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindDoubleDataSource extends AbstractDataSource implements BindDoub
    * @return opened dataSource instance.
    */
   public static BindDoubleDataSource openReadOnly() {
-    BindDoubleDataSource instance=instance();
+    BindDoubleDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

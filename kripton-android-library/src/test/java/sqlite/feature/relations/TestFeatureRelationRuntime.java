@@ -50,7 +50,7 @@ public class TestFeatureRelationRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testSelect() {
-		BindAppDataSource ds = BindAppDataSource.instance();
+		BindAppDataSource ds = BindAppDataSource.getInstance();
 
 		ds.execute(new BindAppDataSource.Transaction() {
 

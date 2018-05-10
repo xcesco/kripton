@@ -172,7 +172,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindRssDataSource instance() {
+  public static BindRssDataSource getInstance() {
     BindRssDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -201,7 +201,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
    * @return opened dataSource instance.
    */
   public static BindRssDataSource open() {
-    BindRssDataSource instance=instance();
+    BindRssDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -211,7 +211,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
    * @return opened dataSource instance.
    */
   public static BindRssDataSource openReadOnly() {
-    BindRssDataSource instance=instance();
+    BindRssDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

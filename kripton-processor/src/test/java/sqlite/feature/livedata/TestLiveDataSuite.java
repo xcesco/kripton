@@ -29,6 +29,7 @@ import base.BaseProcessorTest;
 		{ 
 		TestLiveDataCompile.class,
 		TestLiveDataCompile2.class,
+		TestLiveDataCompile3.class,
 		 })
 //@formatter:on
 public class TestLiveDataSuite extends BaseProcessorTest {

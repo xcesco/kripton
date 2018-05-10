@@ -17,28 +17,28 @@ import com.abubusoft.kripton.android.Logger;
  * <h2>Supported query operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPersonImpl#selectAll1}</td></tr>
- * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}</pre></td><td>{@link DaoPersonImpl#select0}</td></tr>
+ * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPersonImpl#selectAll1ForContentProvider}</td></tr>
+ * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}</pre></td><td>{@link DaoPersonImpl#select0ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported insert operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPersonImpl#insert2}</td></tr>
+ * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPersonImpl#insert2ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPersonImpl#update3}</td></tr>
- * <tr><td><pre>content://com.abubsoft.kripton/persons/${id}/name</pre></td><td>{@link DaoPersonImpl#updateOnlyName4}</td></tr>
+ * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPersonImpl#update3ForContentProvider}</td></tr>
+ * <tr><td><pre>content://com.abubsoft.kripton/persons/${id}/name</pre></td><td>{@link DaoPersonImpl#updateOnlyName4ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported delete operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPersonImpl#delete5}</td></tr>
- * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}/name</pre></td><td>{@link DaoPersonImpl#deleteByName6}</td></tr>
+ * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPersonImpl#delete5ForContentProvider}</td></tr>
+ * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}/name</pre></td><td>{@link DaoPersonImpl#deleteByName6ForContentProvider}</td></tr>
  * </table>
  *
  */
@@ -120,7 +120,7 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubsoft.kripton/persons</pre>
    *
-   * <p>Method associated to this URI is {@link DaoPersonImpl#insert2}</p>
+   * <p>Method associated to this URI is {@link DaoPersonImpl#insert2ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_INSERT = URI_PATH_PERSON_1;
 
@@ -130,7 +130,7 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubsoft.kripton/persons</pre>
    *
-   * <p>Method associated to this URI is {@link DaoPersonImpl#selectAll1}</p>
+   * <p>Method associated to this URI is {@link DaoPersonImpl#selectAll1ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ALL = URI_PATH_PERSON_1;
 
@@ -140,7 +140,7 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubsoft.kripton/persons/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link DaoPersonImpl#delete5}</p>
+   * <p>Method associated to this URI is {@link DaoPersonImpl#delete5ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_DELETE = URI_PATH_PERSON_2;
 
@@ -150,7 +150,7 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubsoft.kripton/persons/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link DaoPersonImpl#update3}</p>
+   * <p>Method associated to this URI is {@link DaoPersonImpl#update3ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE = URI_PATH_PERSON_2;
 
@@ -160,7 +160,7 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubsoft.kripton/persons/${id}/name</pre>
    *
-   * <p>Method associated to this URI is {@link DaoPersonImpl#updateOnlyName4}</p>
+   * <p>Method associated to this URI is {@link DaoPersonImpl#updateOnlyName4ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_ONLY_NAME = URI_PATH_PERSON_3;
 
@@ -170,7 +170,7 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubsoft.kripton/persons/${name}</pre>
    *
-   * <p>Method associated to this URI is {@link DaoPersonImpl#select0}</p>
+   * <p>Method associated to this URI is {@link DaoPersonImpl#select0ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT = URI_PATH_PERSON_4;
 
@@ -180,7 +180,7 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubsoft.kripton/persons/${name}/name</pre>
    *
-   * <p>Method associated to this URI is {@link DaoPersonImpl#deleteByName6}</p>
+   * <p>Method associated to this URI is {@link DaoPersonImpl#deleteByName6ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_DELETE_BY_NAME = URI_PATH_PERSON_5;
 
@@ -202,7 +202,7 @@ public class BindAppContentProvider extends ContentProvider {
     if (KriptonLibrary.context()==null) {
       KriptonLibrary.init(getContext());
     }
-    dataSource = BindAppDataSource.instance();
+    dataSource = BindAppDataSource.getInstance();
     dataSource.openWritableDatabase();
     return true;
   }
@@ -223,8 +223,8 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>Supported query operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPersonImpl#selectAll1}</td></tr>
-   * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}</pre></td><td>{@link DaoPersonImpl#select0}</td></tr>
+   * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPersonImpl#selectAll1ForContentProvider}</td></tr>
+   * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}</pre></td><td>{@link DaoPersonImpl#select0ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -235,12 +235,12 @@ public class BindAppContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
         // URI: content://com.abubsoft.kripton/persons
-        returnCursor=dataSource.getDaoPerson().selectAll1(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getDaoPerson().selectAll1ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_4_INDEX: {
         // URI: content://com.abubsoft.kripton/persons/${name}
-        returnCursor=dataSource.getDaoPerson().select0(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getDaoPerson().select0ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       default: {
@@ -255,7 +255,7 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>Supported insert operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPersonImpl#insert2}</td></tr>
+   * <tr><td><pre>content://com.abubsoft.kripton/persons</pre></td><td>{@link DaoPersonImpl#insert2ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -265,7 +265,7 @@ public class BindAppContentProvider extends ContentProvider {
     Uri _returnURL=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        _id=dataSource.getDaoPerson().insert2(uri, contentValues);
+        _id=dataSource.getDaoPerson().insert2ForContentProvider(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
@@ -288,8 +288,8 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>Supported update operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPersonImpl#update3}</td></tr>
-   * <tr><td><pre>content://com.abubsoft.kripton/persons/${id}/name</pre></td><td>{@link DaoPersonImpl#updateOnlyName4}</td></tr>
+   * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPersonImpl#update3ForContentProvider}</td></tr>
+   * <tr><td><pre>content://com.abubsoft.kripton/persons/${id}/name</pre></td><td>{@link DaoPersonImpl#updateOnlyName4ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -300,12 +300,12 @@ public class BindAppContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_2_INDEX: {
         // URI: content://com.abubsoft.kripton/persons/${bean.id}
-        returnRowUpdated=dataSource.getDaoPerson().update3(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getDaoPerson().update3ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_3_INDEX: {
         // URI: content://com.abubsoft.kripton/persons/${id}/name
-        returnRowUpdated=dataSource.getDaoPerson().updateOnlyName4(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getDaoPerson().updateOnlyName4ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       default: {
@@ -326,8 +326,8 @@ public class BindAppContentProvider extends ContentProvider {
    * <h2>Supported delete operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPersonImpl#delete5}</td></tr>
-   * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}/name</pre></td><td>{@link DaoPersonImpl#deleteByName6}</td></tr>
+   * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPersonImpl#delete5ForContentProvider}</td></tr>
+   * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}/name</pre></td><td>{@link DaoPersonImpl#deleteByName6ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -337,12 +337,12 @@ public class BindAppContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_2_INDEX: {
         // URI: content://com.abubsoft.kripton/persons/${bean.id}
-        returnRowDeleted=dataSource.getDaoPerson().delete5(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getDaoPerson().delete5ForContentProvider(uri, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_5_INDEX: {
         // URI: content://com.abubsoft.kripton/persons/${name}/name
-        returnRowDeleted=dataSource.getDaoPerson().deleteByName6(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getDaoPerson().deleteByName6ForContentProvider(uri, selection, selectionArgs);
         break;
       }
       default: {

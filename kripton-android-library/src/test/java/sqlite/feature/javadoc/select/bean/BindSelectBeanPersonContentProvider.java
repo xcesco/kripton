@@ -16,15 +16,15 @@ import com.abubusoft.kripton.android.KriptonLibrary;
  * <h2>Supported query operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeans0}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBean2}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${love.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeansCount1}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQL7}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeans0ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBean2ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${love.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeansCount1ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQL7ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported insert operations</h2>
@@ -151,7 +151,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectAllBeans0}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectAllBeans0ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ALL_BEANS = URI_PATH_PERSON_1;
 
@@ -161,7 +161,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBean2}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBean2ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ONE_BEAN = URI_PATH_PERSON_2;
 
@@ -171,7 +171,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/a/${love.id}</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectAllBeansCount1}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectAllBeansCount1ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ALL_BEANS_COUNT = URI_PATH_PERSON_3;
 
@@ -181,7 +181,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ONE_BEAN_WITH_DYNAMIC = URI_PATH_PERSON_4;
 
@@ -191,7 +191,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ONE_BEAN_WITH_DYNAMIC_ORDER = URI_PATH_PERSON_5;
 
@@ -201,7 +201,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ONE_BEAN_WITH_DYNAMIC_ORDER_AND_LISTENER = URI_PATH_PERSON_6;
 
@@ -211,7 +211,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ONE_BEAN_WITH_DYNAMIC_AND_ARGS = URI_PATH_PERSON_7;
 
@@ -221,7 +221,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectWithJQL7}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectWithJQL7ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_WITH_J_Q_L = URI_PATH_PERSON_8;
 
@@ -231,7 +231,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8}</p>
+   * <p>Method associated to this URI is {@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_WITH_J_Q_L_AND_INNER_S_Q_L = URI_PATH_PERSON_9;
 
@@ -257,7 +257,7 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
     if (KriptonLibrary.context()==null) {
       KriptonLibrary.init(getContext());
     }
-    dataSource = BindSelectBeanPersonDataSource.instance();
+    dataSource = BindSelectBeanPersonDataSource.getInstance();
     dataSource.openWritableDatabase();
     return true;
   }
@@ -278,15 +278,15 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
    * <h2>Supported query operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeans0}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBean2}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${love.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeansCount1}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQL7}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeans0ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBean2ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/a/${love.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectAllBeansCount1ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamic3ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrder5ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicOrderAndListener6ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectOneBeanWithDynamicAndArgs4ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQL7ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}</pre></td><td>{@link SelectBeanPersonDaoImpl#selectWithJQLAndInnerSQL8ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -297,47 +297,47 @@ public class BindSelectBeanPersonContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons
-        returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeans0(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeans0ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_2_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBean2(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBean2ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_3_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/a/${love.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeansCount1(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectAllBeansCount1ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_4_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamic3(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamic3ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_5_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamicOrder/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrder5(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrder5ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_6_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrderAndListener6(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicOrderAndListener6ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_7_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicAndArgs4(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectOneBeanWithDynamicAndArgs4ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_8_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/jql/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectWithJQL7(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectWithJQL7ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_9_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/jqlAndInnserSQL/${bean.id}
-        returnCursor=dataSource.getSelectBeanPersonDao().selectWithJQLAndInnerSQL8(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getSelectBeanPersonDao().selectWithJQLAndInnerSQL8ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       default: {

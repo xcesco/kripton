@@ -43,7 +43,7 @@ public class Test209Model2Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite1() {
-		BindApp2DataSource ds=BindApp2DataSource.instance();
+		BindApp2DataSource ds=BindApp2DataSource.getInstance();
 		
 		ds.execute(new Transaction() {
 			

@@ -79,7 +79,7 @@ public class TestRx extends BaseAndroidTest {
 	public void testDatabase() {
 		final BindXenoDataSource ds = prepareDataSource();
 
-		Disposable s1 = ds.getCountryDao().subject().subscribe(new Consumer<SQLiteEvent>() {
+		Disposable s1 = ds.getCountryDao().getSubject().subscribe(new Consumer<SQLiteEvent>() {
 
 			@Override
 			public void accept(SQLiteEvent t) throws Exception {
@@ -128,7 +128,7 @@ public class TestRx extends BaseAndroidTest {
 			}
 		});
 
-		Disposable s2 = ds.countrySubject().observeOn(Schedulers.io()).map(new Function<SQLiteEvent, List<Country>>() {
+		Disposable s2 = ds.getCountrySubject().observeOn(Schedulers.io()).map(new Function<SQLiteEvent, List<Country>>() {
 
 			@Override
 			public List<Country> apply(SQLiteEvent t) throws Exception {
@@ -190,7 +190,7 @@ public class TestRx extends BaseAndroidTest {
 	 * @return the bind xeno data source
 	 */
 	public BindXenoDataSource prepareDataSource() {
-		BindXenoDataSource dataSource = BindXenoDataSource.instance();
+		BindXenoDataSource dataSource = BindXenoDataSource.getInstance();
 
 		dataSource.executeBatch(new BindXenoDataSource.Batch<Void>() {
 
@@ -280,7 +280,7 @@ public class TestRx extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSyncWithListener() {
-		BindXenoDataSource dataSource = BindXenoDataSource.instance();
+		BindXenoDataSource dataSource = BindXenoDataSource.getInstance();
 
 		dataSource.execute(new BindXenoDataSource.Transaction() {
 			@Override
@@ -328,7 +328,7 @@ public class TestRx extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSync() {
-		BindXenoDataSource dataSource = BindXenoDataSource.instance();
+		BindXenoDataSource dataSource = BindXenoDataSource.getInstance();
 
 		dataSource.execute(new BindXenoDataSource.Transaction() {
 			@Override

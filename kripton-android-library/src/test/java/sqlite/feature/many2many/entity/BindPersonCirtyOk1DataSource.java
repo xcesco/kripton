@@ -62,7 +62,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonCityOk1Table(), new CityTable(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new CityTable(), new PersonCityOk1Table(), new PersonTable()};
 
   /**
    * <p>dao instance</p>
@@ -190,7 +190,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindPersonCirtyOk1DataSource instance() {
+  public static BindPersonCirtyOk1DataSource getInstance() {
     BindPersonCirtyOk1DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -219,7 +219,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
    * @return opened dataSource instance.
    */
   public static BindPersonCirtyOk1DataSource open() {
-    BindPersonCirtyOk1DataSource instance=instance();
+    BindPersonCirtyOk1DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -229,7 +229,7 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
    * @return opened dataSource instance.
    */
   public static BindPersonCirtyOk1DataSource openReadOnly() {
-    BindPersonCirtyOk1DataSource instance=instance();
+    BindPersonCirtyOk1DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -251,16 +251,16 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(CityTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);
@@ -307,16 +307,16 @@ public class BindPersonCirtyOk1DataSource extends AbstractDataSource implements 
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(CityTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonCityOk1Table.CREATE_TABLE_SQL);

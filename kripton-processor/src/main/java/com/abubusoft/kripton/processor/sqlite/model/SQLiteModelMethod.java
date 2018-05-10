@@ -346,7 +346,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			this.contentProviderEntryPathEnabled = true;
 			this.contentProviderEntryPath = methodPath;
-			this.contentProviderMethodName = getElement().getSimpleName().toString() + parent.contentProviderCounter;
+			this.contentProviderMethodName = getElement().getSimpleName().toString() + parent.contentProviderCounter+"ForContentProvider";
 
 			parent.contentProviderCounter++;
 

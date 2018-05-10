@@ -41,7 +41,7 @@ public class TestGlobalTypeAdapterRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void run() {
-		BindPerson1DataSource ds=BindPerson1DataSource.instance();
+		BindPerson1DataSource ds=BindPerson1DataSource.getInstance();
 		
 		ds.execute(new Transaction() {			
 			@Override

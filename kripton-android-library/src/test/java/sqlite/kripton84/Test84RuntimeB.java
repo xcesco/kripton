@@ -52,7 +52,7 @@ public class Test84RuntimeB extends BaseAndroidTest {
 		Assert.assertNotNull(Bean84BTable.class.getName() != null);
 		Assert.assertNotNull(Bean84BDaoImpl.class.getName() != null);
 		
-		BindBean84BDataSource dataSource = BindBean84BDataSource.instance();
+		BindBean84BDataSource dataSource = BindBean84BDataSource.getInstance();
 
 		dataSource.execute(new Transaction() {
 

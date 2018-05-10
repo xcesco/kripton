@@ -152,7 +152,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindBean8DataSource instance() {
+  public static BindBean8DataSource getInstance() {
     BindBean8DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * @return opened dataSource instance.
    */
   public static BindBean8DataSource open() {
-    BindBean8DataSource instance=instance();
+    BindBean8DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindBean8DataSource extends AbstractDataSource implements BindBean8
    * @return opened dataSource instance.
    */
   public static BindBean8DataSource openReadOnly() {
-    BindBean8DataSource instance=instance();
+    BindBean8DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

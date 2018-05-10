@@ -17,26 +17,26 @@ import com.abubusoft.kripton.android.Logger;
  * <h2>Supported query operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#selectAll1}</td></tr>
- * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#selectById2}</td></tr>
+ * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#selectAll1ForContentProvider}</td></tr>
+ * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#selectById2ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported insert operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#insert0}</td></tr>
+ * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#insert0ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}</pre></td><td>{@link CheeseDaoImpl#update4}</td></tr>
+ * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}</pre></td><td>{@link CheeseDaoImpl#update4ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported delete operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#deleteById3}</td></tr>
+ * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#deleteById3ForContentProvider}</td></tr>
  * </table>
  *
  */
@@ -88,7 +88,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre>
    *
-   * <p>Method associated to this URI is {@link CheeseDaoImpl#insert0}</p>
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#insert0ForContentProvider}</p>
    */
   public static final Uri URI_CHEESE_INSERT = URI_PATH_CHEESE_1;
 
@@ -98,7 +98,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre>
    *
-   * <p>Method associated to this URI is {@link CheeseDaoImpl#selectAll1}</p>
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#selectAll1ForContentProvider}</p>
    */
   public static final Uri URI_CHEESE_SELECT_ALL = URI_PATH_CHEESE_1;
 
@@ -108,7 +108,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre>
    *
-   * <p>Method associated to this URI is {@link CheeseDaoImpl#deleteById3}</p>
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#deleteById3ForContentProvider}</p>
    */
   public static final Uri URI_CHEESE_DELETE_BY_ID = URI_PATH_CHEESE_2;
 
@@ -118,7 +118,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre>
    *
-   * <p>Method associated to this URI is {@link CheeseDaoImpl#selectById2}</p>
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#selectById2ForContentProvider}</p>
    */
   public static final Uri URI_CHEESE_SELECT_BY_ID = URI_PATH_CHEESE_2;
 
@@ -128,7 +128,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}</pre>
    *
-   * <p>Method associated to this URI is {@link CheeseDaoImpl#update4}</p>
+   * <p>Method associated to this URI is {@link CheeseDaoImpl#update4ForContentProvider}</p>
    */
   public static final Uri URI_CHEESE_UPDATE = URI_PATH_CHEESE_2;
 
@@ -147,7 +147,7 @@ public class BindSampleContentProvider extends ContentProvider {
     if (KriptonLibrary.context()==null) {
       KriptonLibrary.init(getContext());
     }
-    dataSource = BindSampleDataSource.instance();
+    dataSource = BindSampleDataSource.getInstance();
     dataSource.openWritableDatabase();
     return true;
   }
@@ -168,8 +168,8 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>Supported query operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#selectAll1}</td></tr>
-   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#selectById2}</td></tr>
+   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#selectAll1ForContentProvider}</td></tr>
+   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#selectById2ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -180,12 +180,12 @@ public class BindSampleContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_CHEESE_1_INDEX: {
         // URI: content://com.abubusoft.contentprovidersample.provider/cheese
-        returnCursor=dataSource.getCheeseDao().selectAll1(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getCheeseDao().selectAll1ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_CHEESE_2_INDEX: {
         // URI: content://com.abubusoft.contentprovidersample.provider/cheese/${id}
-        returnCursor=dataSource.getCheeseDao().selectById2(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getCheeseDao().selectById2ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       default: {
@@ -200,7 +200,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>Supported insert operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#insert0}</td></tr>
+   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#insert0ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -210,7 +210,7 @@ public class BindSampleContentProvider extends ContentProvider {
     Uri _returnURL=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_CHEESE_1_INDEX: {
-        _id=dataSource.getCheeseDao().insert0(uri, contentValues);
+        _id=dataSource.getCheeseDao().insert0ForContentProvider(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
@@ -233,7 +233,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>Supported update operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}</pre></td><td>{@link CheeseDaoImpl#update4}</td></tr>
+   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}</pre></td><td>{@link CheeseDaoImpl#update4ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -244,7 +244,7 @@ public class BindSampleContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_CHEESE_2_INDEX: {
         // URI: content://com.abubusoft.contentprovidersample.provider/cheese/${cheese.id}
-        returnRowUpdated=dataSource.getCheeseDao().update4(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getCheeseDao().update4ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       default: {
@@ -265,7 +265,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>Supported delete operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#deleteById3}</td></tr>
+   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#deleteById3ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -275,7 +275,7 @@ public class BindSampleContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_CHEESE_2_INDEX: {
         // URI: content://com.abubusoft.contentprovidersample.provider/cheese/${id}
-        returnRowDeleted=dataSource.getCheeseDao().deleteById3(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getCheeseDao().deleteById3ForContentProvider(uri, selection, selectionArgs);
         break;
       }
       default: {

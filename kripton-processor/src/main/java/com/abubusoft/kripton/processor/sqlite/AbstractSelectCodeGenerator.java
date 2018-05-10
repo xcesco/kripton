@@ -253,7 +253,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), method.getReturnClass()))
 				.addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class).addModifiers(Modifier.PROTECTED).returns(method.getReturnClass())
-						.addStatement("return $T.instance().executeBatch($L)", dataSourceClazz, batchBuilder).build())
+						.addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build())
 				.build();
 
 		methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), method.getReturnClass()), liveDataBuilder);

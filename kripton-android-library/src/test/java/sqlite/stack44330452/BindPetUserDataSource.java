@@ -170,7 +170,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindPetUserDataSource instance() {
+  public static BindPetUserDataSource getInstance() {
     BindPetUserDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -199,7 +199,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * @return opened dataSource instance.
    */
   public static BindPetUserDataSource open() {
-    BindPetUserDataSource instance=instance();
+    BindPetUserDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -209,7 +209,7 @@ public class BindPetUserDataSource extends AbstractDataSource implements BindPet
    * @return opened dataSource instance.
    */
   public static BindPetUserDataSource openReadOnly() {
-    BindPetUserDataSource instance=instance();
+    BindPetUserDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

@@ -152,7 +152,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindBean96DataSource instance() {
+  public static BindBean96DataSource getInstance() {
     BindBean96DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean96DataSource open() {
-    BindBean96DataSource instance=instance();
+    BindBean96DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindBean96DataSource extends AbstractDataSource implements BindBean
    * @return opened dataSource instance.
    */
   public static BindBean96DataSource openReadOnly() {
-    BindBean96DataSource instance=instance();
+    BindBean96DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

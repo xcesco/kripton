@@ -60,7 +60,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new TrackTable(), new AlbumTable(), new ArtistTable()};
+  static final SQLiteTable[] TABLES = {new TrackTable(), new ArtistTable(), new AlbumTable()};
 
   /**
    * <p>dao instance</p>
@@ -188,7 +188,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindArtistDataSource instance() {
+  public static BindArtistDataSource getInstance() {
     BindArtistDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -217,7 +217,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
    * @return opened dataSource instance.
    */
   public static BindArtistDataSource open() {
-    BindArtistDataSource instance=instance();
+    BindArtistDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -227,7 +227,7 @@ public class BindArtistDataSource extends AbstractDataSource implements BindArti
    * @return opened dataSource instance.
    */
   public static BindArtistDataSource openReadOnly() {
-    BindArtistDataSource instance=instance();
+    BindArtistDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

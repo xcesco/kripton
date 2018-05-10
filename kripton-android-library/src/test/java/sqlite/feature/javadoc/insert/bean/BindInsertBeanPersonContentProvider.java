@@ -17,9 +17,9 @@ import com.abubusoft.kripton.android.Logger;
  * <h2>Supported insert operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBean0}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/name</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBean0ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/name</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2ForContentProvider}</td></tr>
  * </table>
  *
  */
@@ -81,7 +81,7 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
-   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBean0}</p>
+   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBean0ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_INSERT_ONE_BEAN = URI_PATH_PERSON_1;
 
@@ -91,7 +91,7 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/name</pre>
    *
-   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1}</p>
+   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_INSERT_ONE_BEAN_FIELD_NAME = URI_PATH_PERSON_2;
 
@@ -101,7 +101,7 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/surname</pre>
    *
-   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2}</p>
+   * <p>Method associated to this URI is {@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_INSERT_ONE_BEAN_FIELD_SURNAME = URI_PATH_PERSON_3;
 
@@ -121,7 +121,7 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
     if (KriptonLibrary.context()==null) {
       KriptonLibrary.init(getContext());
     }
-    dataSource = BindInsertBeanPersonDataSource.instance();
+    dataSource = BindInsertBeanPersonDataSource.getInstance();
     dataSource.openWritableDatabase();
     return true;
   }
@@ -148,9 +148,9 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
    * <h2>Supported insert operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBean0}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/name</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBean0ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/name</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldName1ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></td><td>{@link InsertBeanPersonDaoImpl#insertOneBeanFieldSurname2ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -160,17 +160,17 @@ public class BindInsertBeanPersonContentProvider extends ContentProvider {
     Uri _returnURL=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
-        _id=dataSource.getInsertBeanPersonDao().insertOneBean0(uri, contentValues);
+        _id=dataSource.getInsertBeanPersonDao().insertOneBean0ForContentProvider(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
       case PATH_PERSON_2_INDEX: {
-        _id=dataSource.getInsertBeanPersonDao().insertOneBeanFieldName1(uri, contentValues);
+        _id=dataSource.getInsertBeanPersonDao().insertOneBeanFieldName1ForContentProvider(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
       case PATH_PERSON_3_INDEX: {
-        _id=dataSource.getInsertBeanPersonDao().insertOneBeanFieldSurname2(uri, contentValues);
+        _id=dataSource.getInsertBeanPersonDao().insertOneBeanFieldSurname2ForContentProvider(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }

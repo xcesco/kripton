@@ -153,7 +153,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindKripton180RawDataSource instance() {
+  public static BindKripton180RawDataSource getInstance() {
     BindKripton180RawDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
    * @return opened dataSource instance.
    */
   public static BindKripton180RawDataSource open() {
-    BindKripton180RawDataSource instance=instance();
+    BindKripton180RawDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindKripton180RawDataSource extends AbstractDataSource implements B
    * @return opened dataSource instance.
    */
   public static BindKripton180RawDataSource openReadOnly() {
-    BindKripton180RawDataSource instance=instance();
+    BindKripton180RawDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

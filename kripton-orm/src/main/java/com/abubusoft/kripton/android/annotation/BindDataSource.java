@@ -155,7 +155,7 @@ import java.lang.annotation.Target;
  * 		return null;
  * 	}
  * 
- * 	public static synchronized BindSampleDataSource instance() {
+ * 	public static synchronized BindSampleDataSource getInstance() {
  * 		if (instance == null) {
  * 			instance = new BindSampleDataSource(null);
  * 		}
@@ -163,13 +163,13 @@ import java.lang.annotation.Target;
  * 	}
  * 
  * 	public static BindSampleDataSource open() {
- * 		BindSampleDataSource instance = instance();
+ * 		BindSampleDataSource instance = getInstance();
  * 		instance.openWritableDatabase();
  * 		return instance;
  * 	}
  * 
  * 	public static BindSampleDataSource openReadOnly() {
- * 		BindSampleDataSource instance = instance();
+ * 		BindSampleDataSource instance = getInstance();
  * 		instance.openReadOnlyDatabase();
  * 		return instance;
  * 	}
@@ -326,7 +326,7 @@ import java.lang.annotation.Target;
  * </p>
  * 
  * <pre>
- * BindSampleDataSource dataSource = BindSampleDataSource.instance();
+ * BindSampleDataSource dataSource = BindSampleDataSource.getInstance();
  * </pre>
  * <p>
  * To execute a transaction, just invoke the following code

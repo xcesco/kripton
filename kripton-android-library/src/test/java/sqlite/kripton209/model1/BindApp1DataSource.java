@@ -60,7 +60,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new DeviceTable(), new UserDeviceTable()};
+  static final SQLiteTable[] TABLES = {new DeviceTable(), new UserTable(), new UserDeviceTable()};
 
   /**
    * <p>dao instance</p>
@@ -188,7 +188,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindApp1DataSource instance() {
+  public static BindApp1DataSource getInstance() {
     BindApp1DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -217,7 +217,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
    * @return opened dataSource instance.
    */
   public static BindApp1DataSource open() {
-    BindApp1DataSource instance=instance();
+    BindApp1DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -227,7 +227,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
    * @return opened dataSource instance.
    */
   public static BindApp1DataSource openReadOnly() {
-    BindApp1DataSource instance=instance();
+    BindApp1DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -249,16 +249,16 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(DeviceTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);
@@ -305,16 +305,16 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(UserTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",DeviceTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(DeviceTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(UserTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",UserDeviceTable.CREATE_TABLE_SQL);

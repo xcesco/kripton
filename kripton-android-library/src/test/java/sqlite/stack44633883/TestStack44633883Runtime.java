@@ -46,7 +46,7 @@ public class TestStack44633883Runtime extends BaseAndroidTest {
         schoolLunch.setFresh(true);
         schoolLunch.setFruits(fruitSet);
         
-        BindSchoolLunchDataSource dataSource=BindSchoolLunchDataSource.instance();
+        BindSchoolLunchDataSource dataSource=BindSchoolLunchDataSource.getInstance();
         
         dataSource.openWritableDatabase();
 

@@ -152,7 +152,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindSchoolLunchDataSource instance() {
+  public static BindSchoolLunchDataSource getInstance() {
     BindSchoolLunchDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
    * @return opened dataSource instance.
    */
   public static BindSchoolLunchDataSource open() {
-    BindSchoolLunchDataSource instance=instance();
+    BindSchoolLunchDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
    * @return opened dataSource instance.
    */
   public static BindSchoolLunchDataSource openReadOnly() {
-    BindSchoolLunchDataSource instance=instance();
+    BindSchoolLunchDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

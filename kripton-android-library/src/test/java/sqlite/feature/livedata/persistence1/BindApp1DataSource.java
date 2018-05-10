@@ -154,7 +154,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindApp1DataSource instance() {
+  public static BindApp1DataSource getInstance() {
     BindApp1DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -183,7 +183,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
    * @return opened dataSource instance.
    */
   public static BindApp1DataSource open() {
-    BindApp1DataSource instance=instance();
+    BindApp1DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -193,7 +193,7 @@ public class BindApp1DataSource extends AbstractDataSource implements BindApp1Da
    * @return opened dataSource instance.
    */
   public static BindApp1DataSource openReadOnly() {
-    BindApp1DataSource instance=instance();
+    BindApp1DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

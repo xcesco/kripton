@@ -49,7 +49,7 @@ public class TestRuntimeMany2Many7 extends BaseAndroidTest {
 	@Test
 	public void testMany2Many() throws InterruptedException {
 
-		BindAppDataSource ds = BindAppDataSource.instance();
+		BindAppDataSource ds = BindAppDataSource.getInstance();
 		ds.execute(new Transaction() {
 
 			@Override

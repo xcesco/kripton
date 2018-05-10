@@ -44,7 +44,7 @@ public class TestLiveDataRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRun() throws InterruptedException {
-		BindApp0DataSource ds=BindApp0DataSource.instance();// .build(DataSourceOptions.builder().inMemory(false).build());
+		BindApp0DataSource ds=BindApp0DataSource.getInstance();// .build(DataSourceOptions.builder().inMemory(false).build());
 		
 		System.out.println("aa"+KriptonTaskExecutor.getInstance().isMainThread());
 		

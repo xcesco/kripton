@@ -16,7 +16,6 @@
 
 package android.arch.lifecycle;
 
-// TODO: Auto-generated Javadoc
 /**
  * LiveData which publicly exposes #setValue(T) and #postValue(T) method.
  *

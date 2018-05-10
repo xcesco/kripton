@@ -95,7 +95,7 @@ public class TestFeatureLiveDataRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunJQL1() throws InterruptedException {
-		liveData = BindApp1DataSource.instance().getDaoPerson1().selectAll();
+		liveData = BindApp1DataSource.getInstance().getDaoPerson1().selectAll();
 		
 		liveData.observeForever(new Observer<List<Person>>() {
 			

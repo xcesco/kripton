@@ -152,7 +152,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindCharDataSource instance() {
+  public static BindCharDataSource getInstance() {
     BindCharDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    * @return opened dataSource instance.
    */
   public static BindCharDataSource open() {
-    BindCharDataSource instance=instance();
+    BindCharDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindCharDataSource extends AbstractDataSource implements BindCharDa
    * @return opened dataSource instance.
    */
   public static BindCharDataSource openReadOnly() {
-    BindCharDataSource instance=instance();
+    BindCharDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

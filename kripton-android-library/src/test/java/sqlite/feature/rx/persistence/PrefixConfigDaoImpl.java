@@ -424,7 +424,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     return result;
   }
 
-  public PublishSubject<SQLiteEvent> subject() {
+  public PublishSubject<SQLiteEvent> getSubject() {
     return subject;
   }
 

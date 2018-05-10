@@ -152,7 +152,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindExampleDataSource instance() {
+  public static BindExampleDataSource getInstance() {
     BindExampleDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
    * @return opened dataSource instance.
    */
   public static BindExampleDataSource open() {
-    BindExampleDataSource instance=instance();
+    BindExampleDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindExampleDataSource extends AbstractDataSource implements BindExa
    * @return opened dataSource instance.
    */
   public static BindExampleDataSource openReadOnly() {
-    BindExampleDataSource instance=instance();
+    BindExampleDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
