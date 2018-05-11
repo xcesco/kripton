@@ -155,7 +155,8 @@ public class SQLiteTestDatabase {
 		 * Add populator for the database
 		 * 
 		 * @param populator
-		 * @return
+		 *            populator executed after database creation
+		 * @return builder
 		 */
 		public Builder addPopulator(SQLitePopulator populator) {
 			this.populator = populator;
@@ -177,8 +178,8 @@ public class SQLiteTestDatabase {
 				}
 			});
 
-			SQLiteTestDatabase helper = new SQLiteTestDatabase(KriptonLibrary.getContext(), null, version,
-					null, initialSchemaInputStream, initialSchemaResourceRawId, populator, updateTasks);
+			SQLiteTestDatabase helper = new SQLiteTestDatabase(KriptonLibrary.getContext(), null, version, null,
+					initialSchemaInputStream, initialSchemaResourceRawId, populator, updateTasks);
 
 			return helper.create();
 		}
@@ -274,7 +275,7 @@ public class SQLiteTestDatabase {
 
 		try {
 			SQLiteDatabase currentDatabase = sqlite.getWritableDatabase();
-			if (this.populator!=null) {
+			if (this.populator != null) {
 				this.populator.execute(currentDatabase);
 			}
 		} finally {
@@ -319,7 +320,7 @@ public class SQLiteTestDatabase {
 
 		return this;
 	}
-	
+
 	/**
 	 * Delete database file.
 	 *

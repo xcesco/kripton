@@ -308,14 +308,29 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						for (Triple<String, String, SQLiteModelMethod> childrenSelect : method.childrenSelects) {
 							final Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> relation = entity
 									.findRelationByParentProperty(childrenSelect.value0);
+							
+							AssertKripton.assertTrueOrInvalidMethodSignException(relation != null, method,
+									" property '%s#%s' does not exits (referred by annotation @%s(%s='%s', %s='%s'))",
+									entity.getSimpleName(),
+									childrenSelect.value0,
+									BindSqlChildSelect.class.getSimpleName(),
+									AnnotationAttributeType.FIELD.getValue(),									
+									childrenSelect.value0,
+									AnnotationAttributeType.METHOD.getValue(),
+									childrenSelect.value1);
 
 							final SQLiteDaoDefinition childDaoDefinition = schema
 									.findDaoDefinitionForEntity(relation.value2);
+							AssertKripton.assertTrueOrInvalidMethodSignException(childDaoDefinition != null, method,
+									" dao for entity '%s', referred by @%s annotation, does not exists",
+									relation.value2,
+									BindSqlChildSelect.class.getSimpleName());
+							
 							final SQLiteModelMethod subMethod = childDaoDefinition.get(childrenSelect.value1);
 
 							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod != null, method,
 									" method '%s#%s', referred by @%s annotation, does not exists",
-									childDaoDefinition.getTypeName(), childrenSelect.value1,
+									childDaoDefinition.getElement().getSimpleName().toString(), childrenSelect.value1,
 									BindSqlChildSelect.class.getSimpleName());
 
 							// set sub method to invoke

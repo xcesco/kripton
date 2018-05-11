@@ -22,22 +22,22 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.childselect.error5.Article;
-import sqlite.feature.childselect.error5.Channel;
-import sqlite.feature.childselect.error5.DaoArticle;
-import sqlite.feature.childselect.error5.DaoBase;
-import sqlite.feature.childselect.error5.DaoChannel;
-import sqlite.feature.childselect.error5.DateAdapter;
-import sqlite.feature.childselect.error5.Entity;
-import sqlite.feature.childselect.error5.Image;
-import sqlite.feature.childselect.error5.RSSFeed;
-import sqlite.feature.childselect.error5.RssDataSource;
+import sqlite.feature.childselect.error7.Article;
+import sqlite.feature.childselect.error7.Channel;
+import sqlite.feature.childselect.error7.DaoArticle;
+import sqlite.feature.childselect.error7.DaoBase;
+import sqlite.feature.childselect.error7.DaoChannel;
+import sqlite.feature.childselect.error7.DateAdapter;
+import sqlite.feature.childselect.error7.Entity;
+import sqlite.feature.childselect.error7.Image;
+import sqlite.feature.childselect.error7.RSSFeed;
+import sqlite.feature.childselect.error7.RssDataSource;
 
 /**
  * The Class TestCompileRX.
  */
 @RunWith(JUnit4.class)
-public class TestChildSelectError5 extends AbstractBindSQLiteProcessorTest {
+public class TestChildSelectError7 extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * Test compile.
@@ -47,7 +47,7 @@ public class TestChildSelectError5 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class, "In class 'DaoChannel', method 'selectAll' has an invalid signature:  method 'DaoArticle#selectAll', referred by @BindSqlChildSelect annotation, does not exists");
+		this.expectedException(InvalidMethodSignException.class, "In class 'DaoChannel', method 'selectAll' has an invalid signature:  property 'Channel#a' does not exits (referred by annotation @BindSqlChildSelect(field='a', method='a'))");
 		buildDataSourceProcessorTest(Article.class, Channel.class, DateAdapter.class, Entity.class, Image.class,
 				RSSFeed.class, DaoArticle.class, DaoBase.class, DaoChannel.class, RssDataSource.class);
 	}

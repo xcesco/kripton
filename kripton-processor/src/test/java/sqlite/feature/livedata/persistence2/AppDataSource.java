@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindDataSource;
  * The Interface App1DataSource.
  */
 @BindContentProvider(authority="com.abubsoft.kripton")
-@BindDataSource(fileName="app.db", version=2, daoSet={DaoPerson.class})
+@BindDataSource(fileName="app.db", version=2, daoSet={DaoPerson.class, DaoCity.class})
 public interface AppDataSource {
  
 } 
