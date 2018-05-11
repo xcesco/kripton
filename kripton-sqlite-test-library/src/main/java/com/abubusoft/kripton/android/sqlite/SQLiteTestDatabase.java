@@ -177,7 +177,7 @@ public class SQLiteTestDatabase {
 				}
 			});
 
-			SQLiteTestDatabase helper = new SQLiteTestDatabase(KriptonLibrary.context(), null, version,
+			SQLiteTestDatabase helper = new SQLiteTestDatabase(KriptonLibrary.getContext(), null, version,
 					null, initialSchemaInputStream, initialSchemaResourceRawId, populator, updateTasks);
 
 			return helper.create();

@@ -46,7 +46,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   private BindApp47SharedPreferences() {
     // using typeName attribute of annotation @BindSharedPreferences as typeName
-    prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    prefs=KriptonLibrary.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     defaultBean=new App47();
   }
 
@@ -62,7 +62,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public BindApp47SharedPreferences refresh() {
     // using typeName attribute of annotation @BindSharedPreferences as typeName
-    prefs=KriptonLibrary.context().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    prefs=KriptonLibrary.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     return this;
   }
 

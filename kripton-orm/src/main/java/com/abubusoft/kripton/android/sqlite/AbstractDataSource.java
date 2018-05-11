@@ -427,17 +427,17 @@ public abstract class AbstractDataSource implements AutoCloseable {
 	 *            the options
 	 */
 	protected void createHelper(DataSourceOptions options) {
-		if (KriptonLibrary.context() == null)
+		if (KriptonLibrary.getContext() == null)
 			throw new KriptonRuntimeException("Kripton library is not properly initialized. Please use KriptonLibrary.init(context) somewhere at application startup");
 		
 		if (options.inMemory) {
 			Logger.info("In-memory database");
 		} else {
-			File dbFile=KriptonLibrary.context().getDatabasePath(name);
+			File dbFile=KriptonLibrary.getContext().getDatabasePath(name);
 			Logger.info("Database file %s", dbFile.getAbsolutePath());
 		}				
 
-		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.context(), name, options.factory, version, options.errorHandler) {
+		sqliteHelper = new SQLiteOpenHelper(KriptonLibrary.getContext(), name, options.factory, version, options.errorHandler) {
 
 			@Override
 			public void onConfigure(SQLiteDatabase database) {

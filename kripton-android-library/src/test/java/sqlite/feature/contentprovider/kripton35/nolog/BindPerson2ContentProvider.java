@@ -323,7 +323,7 @@ public class BindPerson2ContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
-    if (KriptonLibrary.context()==null) {
+    if (KriptonLibrary.getContext()==null) {
       KriptonLibrary.init(getContext());
     }
     dataSource = BindPerson2DataSource.getInstance();

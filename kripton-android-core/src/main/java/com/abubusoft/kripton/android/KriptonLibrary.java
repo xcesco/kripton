@@ -20,7 +20,6 @@ import java.util.concurrent.Executors;
 
 import android.content.Context;
 
-// TODO: Auto-generated Javadoc
 /**
  * Used to initialize library
  * 
@@ -34,7 +33,7 @@ public class KriptonLibrary {
 	 *
 	 * @return the context
 	 */
-	public static Context context() {
+	public static Context getContext() {
 		return context;
 	};
 
@@ -43,7 +42,7 @@ public class KriptonLibrary {
 	 *
 	 * @return the executor service
 	 */
-	public static ExecutorService executorService() {
+	public static ExecutorService getExecutorService() {
 		return executerService;
 	};
 

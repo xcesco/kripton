@@ -42,7 +42,7 @@ public class BindApp4Preferences extends AbstractSharedPreference {
    */
   private BindApp4Preferences() {
     // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
     defaultBean=new App4Preferences();
   }
 
@@ -62,7 +62,7 @@ public class BindApp4Preferences extends AbstractSharedPreference {
    */
   public BindApp4Preferences refresh() {
     // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
     return this;
   }
 

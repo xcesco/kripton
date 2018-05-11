@@ -179,7 +179,7 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
-    if (KriptonLibrary.context()==null) {
+    if (KriptonLibrary.getContext()==null) {
       KriptonLibrary.init(getContext());
     }
     dataSource = BindDeleteRawPersonDataSource.getInstance();

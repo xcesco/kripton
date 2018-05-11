@@ -51,7 +51,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
    */
   private BindDataSharedPreferences() {
     // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
     defaultBean=new DataSharedPreferences();
   }
 
@@ -71,7 +71,7 @@ public class BindDataSharedPreferences extends AbstractSharedPreference {
    */
   public BindDataSharedPreferences refresh() {
     // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
     return this;
   }
 

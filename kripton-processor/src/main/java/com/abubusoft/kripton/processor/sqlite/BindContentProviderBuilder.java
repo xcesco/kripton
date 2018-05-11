@@ -699,7 +699,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		methodBuilder.addJavadoc("\n");
 		methodBuilder.addJavadoc("@see android.content.ContentProvider#onCreate()\n");
 
-		methodBuilder.beginControlFlow("if ($T.context()==null)", KriptonLibrary.class);
+		methodBuilder.beginControlFlow("if ($T.getContext()==null)", KriptonLibrary.class);
 		methodBuilder.addStatement("KriptonLibrary.init(getContext())");
 		methodBuilder.endControlFlow();
 		methodBuilder.addStatement("dataSource = $L.getInstance()", dataSourceNameClazz);
