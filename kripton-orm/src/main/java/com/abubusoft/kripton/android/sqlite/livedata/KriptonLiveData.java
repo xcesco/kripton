@@ -3,7 +3,7 @@
  */
 package com.abubusoft.kripton.android.sqlite.livedata;
 
-import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 /**
  * The Class KriptonLiveData.
@@ -11,7 +11,7 @@ import android.arch.lifecycle.LiveData;
  * @author Francesco Benincasa (info@abubusoft.com)
  * @param <T> the generic type
  */
-public class KriptonLiveData<T> extends LiveData<T> {
+public class KriptonLiveData<T> extends MutableLiveData<T> {
 
 	/**
 	 * Update value.

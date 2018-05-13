@@ -683,7 +683,11 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
   }
 
-  protected void invalidateLiveData() {
+  /**
+   * <p>Invalidate livedata.</p>
+   *
+   */
+  public void invalidateLiveData() {
     for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();

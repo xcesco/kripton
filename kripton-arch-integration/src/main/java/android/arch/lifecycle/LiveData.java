@@ -19,14 +19,14 @@ package android.arch.lifecycle;
 import static android.arch.lifecycle.Lifecycle.State.DESTROYED;
 import static android.arch.lifecycle.Lifecycle.State.STARTED;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import android.arch.core.executor.ArchTaskExecutor;
 import android.arch.core.internal.SafeIterableMap;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import java.util.Iterator;
-import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**

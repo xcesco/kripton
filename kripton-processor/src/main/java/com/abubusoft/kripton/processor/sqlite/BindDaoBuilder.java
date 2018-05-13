@@ -258,7 +258,9 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 				// check datasource and dao package must be the same, otherwise invalidate must be public				
 												
 				
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_INVALIDATE_LIVE_DATA).addModifiers(value.hasSamePackageOfSchema()?Modifier.PROTECTED: Modifier.PUBLIC);
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_INVALIDATE_LIVE_DATA)
+						.addJavadoc("<p>Invalidate livedata.</p>\n\n")
+						.addModifiers(Modifier.PUBLIC);
 				methodBuilder.beginControlFlow("for ($T item: liveDatas)", ParameterizedTypeName.get(ClassName.get(WeakReference.class),
 						ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class))));
 				methodBuilder.beginControlFlow("if (item.get()!=null)");
