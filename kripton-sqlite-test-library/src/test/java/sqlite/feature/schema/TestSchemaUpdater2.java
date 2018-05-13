@@ -76,7 +76,7 @@ public class TestSchemaUpdater2 extends BaseAndroidTest {
 				})
 				.build());
 		
-		SQLiteTestUtils.forceDataSourceSchemaUpdate(BindSchoolDataSource.instance(), 4);		
+		SQLiteTestUtils.forceDataSourceSchemaUpdate(BindSchoolDataSource.getInstance(), 4);		
 		
 		Logger.info("finish");
 	}

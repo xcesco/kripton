@@ -206,7 +206,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindSchoolDataSource instance() {
+  public static BindSchoolDataSource getInstance() {
     BindSchoolDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -235,7 +235,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @return opened dataSource instance.
    */
   public static BindSchoolDataSource open() {
-    BindSchoolDataSource instance=instance();
+    BindSchoolDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -245,7 +245,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * @return opened dataSource instance.
    */
   public static BindSchoolDataSource openReadOnly() {
-    BindSchoolDataSource instance=instance();
+    BindSchoolDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }

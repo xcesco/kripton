@@ -46,8 +46,8 @@ public class TestSchemaUpdater3 extends BaseAndroidTest {
 		SQLiteTestUtils.resetDataSourceInstance(BindSchoolDataSource.class);
 		BindSchoolDataSource.build(DataSourceOptions.builder().addUpdateTask(3, new FileInputStream("schemas/school_update_2_3.sql")).build());
 
-		SQLiteTestUtils.forceDataSourceSchemaUpdate(BindSchoolDataSource.instance(), 3);
-		SQLiteTestUtils.verifySchema(BindSchoolDataSource.instance(), new FileInputStream("schemas/school_schema_2.sql"));
+		SQLiteTestUtils.forceDataSourceSchemaUpdate(BindSchoolDataSource.getInstance(), 3);
+		SQLiteTestUtils.verifySchema(BindSchoolDataSource.getInstance(), new FileInputStream("schemas/school_schema_2.sql"));
 
 		Logger.info("finish");
 	}
