@@ -23,6 +23,7 @@ import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -113,6 +114,18 @@ public abstract class JavadocUtility {
 					methodBuilder.addJavadoc("<dd>no bean's property is associated</dd>");
 				}
 				methodBuilder.addJavadoc("\n");
+			}
+			methodBuilder.addJavadoc("</dl>");
+			methodBuilder.addJavadoc("\n\n");
+		}
+		
+		// subqueries
+		if (method.hasChildrenSelects()) {
+			methodBuilder.addJavadoc("<h2>Fields filled by subqueries:</h2>\n");
+			methodBuilder.addJavadoc("<dl>\n");
+			for (Triple<String, String, SQLiteModelMethod> item: method.childrenSelects) {
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", item.value0);
+				methodBuilder.addJavadoc("<dd>filled by query {@link $L#$L}</dd>\n", item.value2.getParent().getName(), item.value2.getName());
 			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");

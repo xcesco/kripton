@@ -15,10 +15,12 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-// TODO: Auto-generated Javadoc
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * This simple interface is needed to implements populators executed after
- * database creation.
+ * database creation. Database used as parameter is already opened and it will
+ * automatically closed by Kripton, after populator ends.
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  *
@@ -26,7 +28,9 @@ package com.abubusoft.kripton.android.sqlite;
 public interface SQLitePopulator {
 
 	/**
-	 * Execute.
+	 * Execute
+	 * 
+	 * @param database
 	 */
-	void execute();
+	void execute(SQLiteDatabase database);
 }

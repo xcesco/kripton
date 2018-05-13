@@ -27,19 +27,19 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
   private static SQLiteStatement updateAllBeansJQLPreparedStatement1;
 
-  private static final Set<String> updateAllBeansJQL0ColumnSet = CollectionUtils.asSet(String.class, "student", "person_name");
+  private static final Set<String> updateAllBeansJQL0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "student", "person_name");
 
   private static SQLiteStatement updateFromSelectJQLPreparedStatement2;
 
-  private static final Set<String> updateFromSelectJQL1ColumnSet = CollectionUtils.asSet(String.class, "person_name");
+  private static final Set<String> updateFromSelectJQL1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
   private static SQLiteStatement updateBeanPreparedStatement3;
 
-  private static final Set<String> updateBean2ColumnSet = CollectionUtils.asSet(String.class, "person_name");
+  private static final Set<String> updateBean2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static final Set<String> updateBeanDynamic3ColumnSet = CollectionUtils.asSet(String.class, "person_name");
+  private static final Set<String> updateBeanDynamic3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static final Set<String> updateBeanDynamicWithArgs4ColumnSet = CollectionUtils.asSet(String.class, "person_name");
+  private static final Set<String> updateBeanDynamicWithArgs4ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
   public UpdateRawPersonDaoImpl(BindUpdateRawPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -197,7 +197,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int updateAllBeansJQL0(Uri uri, ContentValues contentValues, String selection,
+  int updateAllBeansJQL0ForContentProvider(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
@@ -215,7 +215,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     // Add parameter personSurname at path segment 2
     _contentValues.addWhereArgs(uri.getPathSegments().get(2));
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateAllBeansJQL0ColumnSet.contains(columnName)) {
+      if (!updateAllBeansJQL0ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql/*', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -397,7 +397,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int updateFromSelectJQL1(Uri uri, ContentValues contentValues, String selection,
+  int updateFromSelectJQL1ForContentProvider(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
@@ -413,7 +413,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
     // manage WHERE arguments -- END
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateFromSelectJQL1ColumnSet.contains(columnName)) {
+      if (!updateFromSelectJQL1ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql/all/*', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -539,7 +539,8 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int updateBean2(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  int updateBean2ForContentProvider(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -556,7 +557,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     // Add parameter id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateBean2ColumnSet.contains(columnName)) {
+      if (!updateBean2ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -699,7 +700,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int updateBeanDynamic3(Uri uri, ContentValues contentValues, String selection,
+  int updateBeanDynamic3ForContentProvider(Uri uri, ContentValues contentValues, String selection,
       String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
@@ -719,7 +720,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
     // Add parameter id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateBeanDynamic3ColumnSet.contains(columnName)) {
+      if (!updateBeanDynamic3ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#/more', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -871,8 +872,8 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int updateBeanDynamicWithArgs4(Uri uri, ContentValues contentValues, String selection,
-      String[] selectionArgs) {
+  int updateBeanDynamicWithArgs4ForContentProvider(Uri uri, ContentValues contentValues,
+      String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -903,7 +904,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
       }
     }
     for (String columnName:_contentValues.values().keySet()) {
-      if (!updateBeanDynamicWithArgs4ColumnSet.contains(columnName)) {
+      if (!updateBeanDynamicWithArgs4ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#/moreAndMore', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }

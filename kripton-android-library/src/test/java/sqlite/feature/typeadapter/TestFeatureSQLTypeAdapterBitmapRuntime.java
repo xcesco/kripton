@@ -56,7 +56,7 @@ public class TestFeatureSQLTypeAdapterBitmapRuntime extends BaseAndroidTest {
 		
 		final Bitmap bitmap = BitmapFactory.decodeFile("/src/test/resources/imgs/img.png", options);
 
-		BindAppDataSource ds = BindAppDataSource.instance();
+		BindAppDataSource ds = BindAppDataSource.getInstance();
 
 		ds.execute(new Transaction() {
 

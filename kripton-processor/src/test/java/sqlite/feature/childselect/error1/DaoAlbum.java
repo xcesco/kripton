@@ -10,7 +10,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 public interface DaoAlbum extends DaoBase<Album> {
 
 	@BindSqlSelect(childrenSelects={
-			@BindSqlChildSelect(relation="songs", method="selectByAlbumId")
+			@BindSqlChildSelect(field="songs", method="selectByAlbumId")
 	})
 	List<Album> selectAlbums();
 }

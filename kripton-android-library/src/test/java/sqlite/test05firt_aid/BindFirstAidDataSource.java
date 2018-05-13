@@ -152,7 +152,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindFirstAidDataSource instance() {
+  public static BindFirstAidDataSource getInstance() {
     BindFirstAidDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    * @return opened dataSource instance.
    */
   public static BindFirstAidDataSource open() {
-    BindFirstAidDataSource instance=instance();
+    BindFirstAidDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
    * @return opened dataSource instance.
    */
   public static BindFirstAidDataSource openReadOnly() {
-    BindFirstAidDataSource instance=instance();
+    BindFirstAidDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -299,8 +299,13 @@ public class BindFirstAidDataSource extends AbstractDataSource implements BindFi
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

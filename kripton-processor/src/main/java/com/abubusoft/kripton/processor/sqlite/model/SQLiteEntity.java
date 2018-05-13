@@ -22,7 +22,7 @@ import java.util.Set;
 
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
@@ -137,7 +137,7 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 		tableName = getSimpleName();
 		tableName = schema.classNameConverter.convert(tableName);
 
-		String temp = AnnotationUtility.extractAsString(getElement(), BindTable.class, AnnotationAttributeType.NAME);
+		String temp = AnnotationUtility.extractAsString(getElement(), BindSqlType.class, AnnotationAttributeType.NAME);
 		if (StringUtils.hasText(temp)) {
 			tableName = temp;
 		}
@@ -153,7 +153,8 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	 * @param parentFieldName
 	 * @return
 	 */
-	public Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> findRelationByParentProperty(String parentFieldName) {
+	public Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> findRelationByParentProperty(
+			String parentFieldName) {
 		for (Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> item : relations) {
 			if (item.value0.getName().equals(parentFieldName)) {
 				return item;
@@ -164,22 +165,31 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 	}
 
 	/**
-	 * retrieve property defined as foreign key to entity parameter or null
+	 * <p>Given an entity, find all field that are foreign key to entity.</p>
+	 * 
 	 * 
 	 * @param entity
 	 *            referred entity
 	 * @param fieldName
-	 * @return property used as foreign key
+	 * @return list of foreign key o empty list
 	 */
-	public SQLProperty getForeignKeysToEntity(SQLiteEntity entity, String fieldName) {
-
-		for (SQLProperty item : this.collection) {
-			if (item.isForeignKey() && entity.getName().equals(item.foreignParentClassName) && item.getName().equals(fieldName)) {
-				return item;
+	public List<SQLProperty> getForeignKeysToEntity(SQLiteEntity entity, String fieldName) {
+		List<SQLProperty> result = new ArrayList<>();
+		if (StringUtils.hasText(fieldName)) {
+			for (SQLProperty item : this.collection) {
+				if (item.isForeignKey() && entity.getName().equals(item.foreignParentClassName)
+						&& item.getName().equals(fieldName)) {
+					result.add(item);
+				}
+			}
+		} else {
+			for (SQLProperty item : this.collection) {
+				if (item.isForeignKey() && entity.getName().equals(item.foreignParentClassName)) {
+					result.add(item);
+				}
 			}
 		}
-
-		return null;
+		return result;
 	}
 
 }

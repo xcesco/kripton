@@ -26,15 +26,15 @@ import sqlite.feature.javadoc.Person;
 public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao {
   private static SQLiteStatement insertOneBeanPreparedStatement0;
 
-  private static final Set<String> insertOneBean0ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
+  private static final Set<String> insertOneBean0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname", "student");
 
   private static SQLiteStatement insertOneBeanFieldNamePreparedStatement1;
 
-  private static final Set<String> insertOneBeanFieldName1ColumnSet = CollectionUtils.asSet(String.class, "person_name");
+  private static final Set<String> insertOneBeanFieldName1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
   private static SQLiteStatement insertOneBeanFieldSurnamePreparedStatement2;
 
-  private static final Set<String> insertOneBeanFieldSurname2ColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
+  private static final Set<String> insertOneBeanFieldSurname2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_surname", "student");
 
   public InsertBeanPersonDaoImpl(BindInsertBeanPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -130,11 +130,11 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    * @param contentValues content values
    * @return new row's id
    */
-  long insertOneBean0(Uri uri, ContentValues contentValues) {
+  long insertOneBean0ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertOneBean0ColumnSet.contains(columnName)) {
+      if (!insertOneBean0ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
@@ -242,11 +242,11 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    * @param contentValues content values
    * @return new row's id
    */
-  long insertOneBeanFieldName1(Uri uri, ContentValues contentValues) {
+  long insertOneBeanFieldName1ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertOneBeanFieldName1ColumnSet.contains(columnName)) {
+      if (!insertOneBeanFieldName1ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/name', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
@@ -357,11 +357,11 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    * @param contentValues content values
    * @return new row's id
    */
-  long insertOneBeanFieldSurname2(Uri uri, ContentValues contentValues) {
+  long insertOneBeanFieldSurname2ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertOneBeanFieldSurname2ColumnSet.contains(columnName)) {
+      if (!insertOneBeanFieldSurname2ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/surname', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }

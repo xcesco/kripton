@@ -18,8 +18,8 @@ package sqlite.feature.generichierarchy;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -27,7 +27,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Person.
  */
 @BindType
-@BindTable()
+@BindSqlType()
 public class Person {
   
   /** The id. */
@@ -35,7 +35,7 @@ public class Person {
   
   
   /** The name. */
-  @BindColumn(columnType=ColumnType.INDEXED)
+  @BindSqlColumn(columnType=ColumnType.INDEXED)
   public String name;
   
   /** The surname. */

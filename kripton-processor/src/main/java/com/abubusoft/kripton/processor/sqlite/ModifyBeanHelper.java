@@ -149,31 +149,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			// generate SQL
 			SqlModifyBuilder.generateSQL(method, methodBuilder);
 
-		} //else {
-			//psName = method.buildPreparedStatementName();
-			// generate SQL for insert
-			//classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
-//
-//			methodBuilder.beginControlFlow("if ($L==null)", psName);
-//
-//			// query builder
-//			if (method.jql.isWhereConditions()) {
-//				methodBuilder.addStatement("$T _sqlBuilder=sqlBuilder()", StringBuilder.class);
-//			}
-//
-//			// generate where condition
-//			SqlBuilderHelper.generateWhereCondition(methodBuilder, method, true);
-//
-//			// generate SQL
-//			SqlModifyBuilder.generateSQL(method, methodBuilder);
-//
-//			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
-//			methodBuilder.endControlFlow();
-
-	//	}
-		
-		// log for where parames
-		//SqlBuilderHelper.generateLog(method, methodBuilder);
+		} 
 
 		if (method.isLogEnabled()) {
 			// generate log section

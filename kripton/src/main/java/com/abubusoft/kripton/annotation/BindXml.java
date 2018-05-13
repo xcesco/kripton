@@ -25,19 +25,48 @@ import com.abubusoft.kripton.xml.XmlType;
 
 /**
  * 
- * <p>Specifies information to bind with xml format</p>
+ * <p>
+ * Specifies information to bind with xml format
+ * </p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface BindXml {	
-	
+public @interface BindXml {
+
 	/**
-	 * Used with collections and maps. It's the name of elements contained in the
-	 * collection or array, except byte array. Thus, name specified in
+	 * <p>
+	 * Allows to specify the namespace of the element
+	 * </p>
+	 * 
+	 * @return namespace of the tag or the attribute that rapresents the
+	 *         element.
+	 */
+	String namespace() default "";
+
+	/**
+	 * <p>
+	 * Used with collections and maps. It's the name of elements contained in
+	 * the collection or array, except byte array. Thus, name specified in
 	 * attribute value will be used for container.
+	 * </p>
+	 * 
+	 * <p>
+	 * <strong>To specify tag name, use {@link Bind} annotation.</strong>
+	 * </p>
+	 * 
+	 * <p>For examples, using <code>BindXml(elementTag="item")</code> and <code>Bind("list")</code> for an element:
+	 * <pre>
+	...
+	&lt;list&gt;
+	&lt;item&gt;..&lt;/item&gt;
+	&lt;item&gt;..&lt;/item&gt;
+	&lt;item&gt;..&lt;/item&gt;
+	&lt;/list&gt;
+	...
+	 * </pre>
 	 * 
 	 * @return name of elements of collection. default is ""
 	 */

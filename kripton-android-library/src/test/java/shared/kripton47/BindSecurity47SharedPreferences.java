@@ -45,7 +45,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   private BindSecurity47SharedPreferences() {
     // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
     defaultBean=new Security47();
   }
 
@@ -61,7 +61,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public BindSecurity47SharedPreferences refresh() {
     // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
     return this;
   }
 

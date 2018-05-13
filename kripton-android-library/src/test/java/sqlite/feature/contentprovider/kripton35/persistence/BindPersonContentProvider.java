@@ -17,36 +17,36 @@ import com.abubusoft.kripton.android.Logger;
  * <h2>Supported query operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities/person/${personId}</pre></td><td>{@link CityDAOImpl#selectCityFromPerson1}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#selectAll10}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${nameTemp}/test0</pre></td><td>{@link PersonDAOImpl#selectOne9}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${data.name}/test1</pre></td><td>{@link PersonDAOImpl#selectOne11}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3</pre></td><td>{@link PersonDAOImpl#selectBean12}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities/person/${personId}</pre></td><td>{@link CityDAOImpl#selectCityFromPerson1ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#selectAll10ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${nameTemp}/test0</pre></td><td>{@link PersonDAOImpl#selectOne9ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${data.name}/test1</pre></td><td>{@link PersonDAOImpl#selectOne11ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3</pre></td><td>{@link PersonDAOImpl#selectBean12ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported insert operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities</pre></td><td>{@link CityDAOImpl#insertBean0}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#insertBean0}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${name}</pre></td><td>{@link PersonDAOImpl#insertName1}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities</pre></td><td>{@link CityDAOImpl#insertBean0ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#insertBean0ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${name}</pre></td><td>{@link PersonDAOImpl#insertName1ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw5}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw6}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test2/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw7}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3/${person.id}</pre></td><td>{@link PersonDAOImpl#updateBean8}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw5ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw6ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test2/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw7ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3/${person.id}</pre></td><td>{@link PersonDAOImpl#updateBean8ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported delete operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw2}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test0/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw3}</td></tr>
- * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</pre></td><td>{@link PersonDAOImpl#deleteBean4}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw2ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test0/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw3ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</pre></td><td>{@link PersonDAOImpl#deleteBean4ForContentProvider}</td></tr>
  * </table>
  *
  */
@@ -198,7 +198,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/cities</pre>
    *
-   * <p>Method associated to this URI is {@link CityDAOImpl#insertBean0}</p>
+   * <p>Method associated to this URI is {@link CityDAOImpl#insertBean0ForContentProvider}</p>
    */
   public static final Uri URI_CITY_INSERT_BEAN = URI_PATH_CITY_1;
 
@@ -208,7 +208,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/cities/person/${personId}</pre>
    *
-   * <p>Method associated to this URI is {@link CityDAOImpl#selectCityFromPerson1}</p>
+   * <p>Method associated to this URI is {@link CityDAOImpl#selectCityFromPerson1ForContentProvider}</p>
    */
   public static final Uri URI_CITY_SELECT_CITY_FROM_PERSON = URI_PATH_CITY_2;
 
@@ -218,7 +218,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#insertBean0}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#insertBean0ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_INSERT_BEAN = URI_PATH_PERSON_3;
 
@@ -228,7 +228,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#selectAll10}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#selectAll10ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ALL = URI_PATH_PERSON_3;
 
@@ -238,7 +238,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#deleteRaw2}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#deleteRaw2ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_DELETE_RAW = URI_PATH_PERSON_4;
 
@@ -248,7 +248,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#updateRaw5}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#updateRaw5ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_RAW = URI_PATH_PERSON_4;
 
@@ -258,7 +258,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/${name}</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#insertName1}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#insertName1ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_INSERT_NAME = URI_PATH_PERSON_5;
 
@@ -268,7 +268,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/${nameTemp}/test0</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#selectOne9}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#selectOne9ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_ONE = URI_PATH_PERSON_6;
 
@@ -278,7 +278,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#deleteBean4}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#deleteBean4ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_DELETE_BEAN = URI_PATH_PERSON_9;
 
@@ -288,7 +288,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test3</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#selectBean12}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#selectBean12ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_SELECT_BEAN = URI_PATH_PERSON_11;
 
@@ -298,7 +298,7 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test3/${person.id}</pre>
    *
-   * <p>Method associated to this URI is {@link PersonDAOImpl#updateBean8}</p>
+   * <p>Method associated to this URI is {@link PersonDAOImpl#updateBean8ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_BEAN = URI_PATH_PERSON_12;
 
@@ -324,10 +324,10 @@ public class BindPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
-    if (KriptonLibrary.context()==null) {
+    if (KriptonLibrary.getContext()==null) {
       KriptonLibrary.init(getContext());
     }
-    dataSource = BindPersonDataSource.instance();
+    dataSource = BindPersonDataSource.getInstance();
     dataSource.openWritableDatabase();
     return true;
   }
@@ -348,11 +348,11 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>Supported query operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities/person/${personId}</pre></td><td>{@link CityDAOImpl#selectCityFromPerson1}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#selectAll10}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${nameTemp}/test0</pre></td><td>{@link PersonDAOImpl#selectOne9}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${data.name}/test1</pre></td><td>{@link PersonDAOImpl#selectOne11}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3</pre></td><td>{@link PersonDAOImpl#selectBean12}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities/person/${personId}</pre></td><td>{@link CityDAOImpl#selectCityFromPerson1ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#selectAll10ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${nameTemp}/test0</pre></td><td>{@link PersonDAOImpl#selectOne9ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${data.name}/test1</pre></td><td>{@link PersonDAOImpl#selectOne11ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3</pre></td><td>{@link PersonDAOImpl#selectBean12ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -363,27 +363,27 @@ public class BindPersonContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_CITY_2_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/cities/person/${personId}
-        returnCursor=dataSource.getCityDAO().selectCityFromPerson1(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getCityDAO().selectCityFromPerson1ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_3_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons
-        returnCursor=dataSource.getPersonDAO().selectAll10(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getPersonDAO().selectAll10ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_6_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/${nameTemp}/test0
-        returnCursor=dataSource.getPersonDAO().selectOne9(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getPersonDAO().selectOne9ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_7_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/${data.name}/test1
-        returnCursor=dataSource.getPersonDAO().selectOne11(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getPersonDAO().selectOne11ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       case PATH_PERSON_11_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/test3
-        returnCursor=dataSource.getPersonDAO().selectBean12(uri, projection, selection, selectionArgs, sortOrder);
+        returnCursor=dataSource.getPersonDAO().selectBean12ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }
       default: {
@@ -398,9 +398,9 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>Supported insert operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities</pre></td><td>{@link CityDAOImpl#insertBean0}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#insertBean0}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${name}</pre></td><td>{@link PersonDAOImpl#insertName1}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/cities</pre></td><td>{@link CityDAOImpl#insertBean0ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons</pre></td><td>{@link PersonDAOImpl#insertBean0ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${name}</pre></td><td>{@link PersonDAOImpl#insertName1ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -410,17 +410,17 @@ public class BindPersonContentProvider extends ContentProvider {
     Uri _returnURL=null;
     switch (sURIMatcher.match(uri)) {
       case PATH_CITY_1_INDEX: {
-        _id=dataSource.getCityDAO().insertBean0(uri, contentValues);
+        _id=dataSource.getCityDAO().insertBean0ForContentProvider(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
       case PATH_PERSON_3_INDEX: {
-        _id=dataSource.getPersonDAO().insertBean0(uri, contentValues);
+        _id=dataSource.getPersonDAO().insertBean0ForContentProvider(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
       case PATH_PERSON_5_INDEX: {
-        _id=dataSource.getPersonDAO().insertName1(uri, contentValues);
+        _id=dataSource.getPersonDAO().insertName1ForContentProvider(uri, contentValues);
         _returnURL=Uri.withAppendedPath(uri, String.valueOf(_id));
         break;
       }
@@ -443,10 +443,10 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>Supported update operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw5}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw6}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test2/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw7}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3/${person.id}</pre></td><td>{@link PersonDAOImpl#updateBean8}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw5ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw6ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test2/${id}</pre></td><td>{@link PersonDAOImpl#updateRaw7ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test3/${person.id}</pre></td><td>{@link PersonDAOImpl#updateBean8ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -457,22 +457,22 @@ public class BindPersonContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_4_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/${id}
-        returnRowUpdated=dataSource.getPersonDAO().updateRaw5(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getPersonDAO().updateRaw5ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_9_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/test1/${id}
-        returnRowUpdated=dataSource.getPersonDAO().updateRaw6(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getPersonDAO().updateRaw6ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_10_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/test2/${id}
-        returnRowUpdated=dataSource.getPersonDAO().updateRaw7(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getPersonDAO().updateRaw7ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_12_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/test3/${person.id}
-        returnRowUpdated=dataSource.getPersonDAO().updateBean8(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getPersonDAO().updateBean8ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       default: {
@@ -493,9 +493,9 @@ public class BindPersonContentProvider extends ContentProvider {
    * <h2>Supported delete operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw2}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test0/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw3}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</pre></td><td>{@link PersonDAOImpl#deleteBean4}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw2ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test0/${id}</pre></td><td>{@link PersonDAOImpl#deleteRaw3ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</pre></td><td>{@link PersonDAOImpl#deleteBean4ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -505,17 +505,17 @@ public class BindPersonContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_4_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/${id}
-        returnRowDeleted=dataSource.getPersonDAO().deleteRaw2(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getPersonDAO().deleteRaw2ForContentProvider(uri, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_8_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/test0/${id}
-        returnRowDeleted=dataSource.getPersonDAO().deleteRaw3(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getPersonDAO().deleteRaw3ForContentProvider(uri, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_9_INDEX: {
         // URI: content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}
-        returnRowDeleted=dataSource.getPersonDAO().deleteBean4(uri, selection, selectionArgs);
+        returnRowDeleted=dataSource.getPersonDAO().deleteBean4ForContentProvider(uri, selection, selectionArgs);
         break;
       }
       default: {

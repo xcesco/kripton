@@ -476,7 +476,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     return (int)result;
   }
 
-  public PublishSubject<SQLiteEvent> subject() {
+  public PublishSubject<SQLiteEvent> getSubject() {
     return subject;
   }
 

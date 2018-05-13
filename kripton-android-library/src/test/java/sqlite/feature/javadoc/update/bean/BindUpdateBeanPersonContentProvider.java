@@ -22,14 +22,14 @@ import com.abubusoft.kripton.android.Logger;
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeans0}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBean1}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamic6}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4}</td></tr>
- * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeans0ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBean1ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamic6ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4ForContentProvider}</td></tr>
+ * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5ForContentProvider}</td></tr>
  * </table>
  *
  */
@@ -141,7 +141,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
-   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateAllBeans0}</p>
+   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateAllBeans0ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_ALL_BEANS = URI_PATH_PERSON_1;
 
@@ -151,7 +151,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateOneBean1}</p>
+   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateOneBean1ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_ONE_BEAN = URI_PATH_PERSON_2;
 
@@ -161,7 +161,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</pre>
    *
-   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateBeanDynamic6}</p>
+   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateBeanDynamic6ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_BEAN_DYNAMIC = URI_PATH_PERSON_3;
 
@@ -171,7 +171,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre>
    *
-   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7}</p>
+   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_BEAN_DYNAMIC_WITH_ARGS = URI_PATH_PERSON_4;
 
@@ -181,7 +181,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2}</p>
+   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_ONE_BEAN_WITH_DYNAMIC = URI_PATH_PERSON_5;
 
@@ -191,7 +191,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3}</p>
+   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_ONE_BEAN_WITH_DYNAMIC_AND_ARGS = URI_PATH_PERSON_6;
 
@@ -201,7 +201,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql</pre>
    *
-   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4}</p>
+   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_ALL_BEANS_J_Q_L = URI_PATH_PERSON_7;
 
@@ -211,7 +211,7 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>URI with parameters</h2>
    * <pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre>
    *
-   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5}</p>
+   * <p>Method associated to this URI is {@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5ForContentProvider}</p>
    */
   public static final Uri URI_PERSON_UPDATE_FROM_SELECT_J_Q_L = URI_PATH_PERSON_8;
 
@@ -233,10 +233,10 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    */
   @Override
   public boolean onCreate() {
-    if (KriptonLibrary.context()==null) {
+    if (KriptonLibrary.getContext()==null) {
       KriptonLibrary.init(getContext());
     }
-    dataSource = BindUpdateBeanPersonDataSource.instance();
+    dataSource = BindUpdateBeanPersonDataSource.getInstance();
     dataSource.openWritableDatabase();
     return true;
   }
@@ -282,14 +282,14 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
    * <h2>Supported update operations</h2>
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeans0}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBean1}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamic6}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4}</td></tr>
-   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeans0ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBean1ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/more</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamic6ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateBeanDynamicWithArgs7ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamic2ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateOneBeanWithDynamicAndArgs3ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateAllBeansJQL4ForContentProvider}</td></tr>
+   * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -300,42 +300,42 @@ public class BindUpdateBeanPersonContentProvider extends ContentProvider {
     switch (sURIMatcher.match(uri)) {
       case PATH_PERSON_1_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateAllBeans0(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateAllBeans0ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_2_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBean1(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBean1ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_3_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}/more
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateBeanDynamic6(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateBeanDynamic6ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_4_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/${bean.id}/moreAndMore
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateBeanDynamicWithArgs7(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateBeanDynamicWithArgs7ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_5_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamic/${bean.id}
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBeanWithDynamic2(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBeanWithDynamic2ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_6_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/dynamicArgs/${bean.id}
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBeanWithDynamicAndArgs3(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateOneBeanWithDynamicAndArgs3ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_7_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/jql
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateAllBeansJQL4(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateAllBeansJQL4ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       case PATH_PERSON_8_INDEX: {
         // URI: content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}
-        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateFromSelectJQL5(uri, contentValues, selection, selectionArgs);
+        returnRowUpdated=dataSource.getUpdateBeanPersonDao().updateFromSelectJQL5ForContentProvider(uri, contentValues, selection, selectionArgs);
         break;
       }
       default: {

@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.jql.kripton163;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -23,7 +23,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class CollegeStudent.
  */
 @BindType
-@BindTable(name="students")
+@BindSqlType(name="students")
 public class CollegeStudent {
     
     /** The first name. */

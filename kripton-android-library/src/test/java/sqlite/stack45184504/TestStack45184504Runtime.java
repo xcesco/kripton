@@ -36,7 +36,7 @@ public class TestStack45184504Runtime extends BaseAndroidTest {
 		byte[] content="this a simple content!".getBytes();
 		
 		// part 1 - open database
-		BindExampleDataSource dataSource=BindExampleDataSource.instance();		
+		BindExampleDataSource dataSource=BindExampleDataSource.getInstance();		
 		dataSource.openWritableDatabase();
 		
 		FileBeanDaoImpl dao = dataSource.getFileBeanDao();

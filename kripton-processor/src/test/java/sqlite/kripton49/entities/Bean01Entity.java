@@ -15,7 +15,7 @@
  *******************************************************************************/
 package sqlite.kripton49.entities;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -23,7 +23,7 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Bean01Entity.
  */
 @BindType
-@BindTable(name="bean01")
+@BindSqlType(name="bean01")
 public class Bean01Entity {
 
 	/** The id. */

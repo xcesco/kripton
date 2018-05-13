@@ -1,13 +1,13 @@
 package sqlite.feature.relations.case2;
 
-import com.abubusoft.kripton.android.annotation.BindRelation;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlRelation;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-@BindTable
+@BindSqlType
 public class Album {
 	public long id;
 	public String name;
 	
-	@BindRelation(foreignKey="albumId")
+	@BindSqlRelation(foreignKey="albumId")
 	public Song songs;
 }

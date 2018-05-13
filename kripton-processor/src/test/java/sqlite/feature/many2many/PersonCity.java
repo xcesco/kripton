@@ -16,8 +16,8 @@
 package sqlite.feature.many2many;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -28,26 +28,26 @@ import com.abubusoft.kripton.annotation.BindType;
  * </p>.
  */
 @BindType
-@BindTable(
+@BindSqlType(
     name = "person_city"
 )
 public class PersonCity {
   
   /** Primary key. */
-  @BindColumn(
+  @BindSqlColumn(
       columnType = ColumnType.PRIMARY_KEY
   )
   public long id;
 
   /** Foreign key to Person model class. */
-  @BindColumn(
+  @BindSqlColumn(
       parentEntity = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
   public long personId;
 
   /** Foreign key to City model class. */
-  @BindColumn(
+  @BindSqlColumn(
       parentEntity = City.class,
       onDelete = ForeignKeyAction.CASCADE
   )

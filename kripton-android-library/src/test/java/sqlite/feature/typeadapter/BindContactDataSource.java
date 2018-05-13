@@ -152,7 +152,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindContactDataSource instance() {
+  public static BindContactDataSource getInstance() {
     BindContactDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
    * @return opened dataSource instance.
    */
   public static BindContactDataSource open() {
-    BindContactDataSource instance=instance();
+    BindContactDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
    * @return opened dataSource instance.
    */
   public static BindContactDataSource openReadOnly() {
-    BindContactDataSource instance=instance();
+    BindContactDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -299,8 +299,13 @@ public class BindContactDataSource extends AbstractDataSource implements BindCon
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

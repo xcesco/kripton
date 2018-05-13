@@ -27,11 +27,11 @@ import sqlite.feature.contentprovider.kripton35.entities.City;
 public class CityDAOImpl extends Dao implements CityDAO {
   private static SQLiteStatement insertBeanPreparedStatement0;
 
-  private static final Set<String> insertBean0ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> insertBean0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final String SELECT_CITY_FROM_PERSON_SQL2 = "select * from city where id = (select id from person where id=? )";
 
-  private static final Set<String> selectCityFromPerson1ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
+  private static final Set<String> selectCityFromPerson1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
   public CityDAOImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -120,11 +120,11 @@ public class CityDAOImpl extends Dao implements CityDAO {
    * @param contentValues content values
    * @return new row's id
    */
-  long insertBean0(Uri uri, ContentValues contentValues) {
+  long insertBean0ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertBean0ColumnSet.contains(columnName)) {
+      if (!insertBean0ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/cities', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "city" ));
       }
     }
@@ -235,7 +235,7 @@ public class CityDAOImpl extends Dao implements CityDAO {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectCityFromPerson1(Uri uri, String[] projection, String selection,
+  Cursor selectCityFromPerson1ForContentProvider(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
@@ -257,14 +257,14 @@ public class CityDAOImpl extends Dao implements CityDAO {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectCityFromPerson1ColumnSet.contains(columnName)) {
+        if (!selectCityFromPerson1ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.contentprovider.kripton35/cities/person/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "city" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectCityFromPerson1ColumnSet) {
+      for (String column: selectCityFromPerson1ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }

@@ -26,27 +26,27 @@ import sqlite.feature.javadoc.Person;
 public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   private static final String SELECT_ALL_BEANS_SQL1 = "SELECT id, person_name, person_surname, student FROM person";
 
-  private static final Set<String> selectAllBeans0ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
+  private static final Set<String> selectAllBeans0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   private static final String SELECT_ALL_BEANS_COUNT_SQL2 = "SELECT count(*) FROM person";
 
-  private static final Set<String> selectAllBeansCount1ColumnSet = CollectionUtils.asSet(String.class, "count(*)");
+  private static final Set<String> selectAllBeansCount1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "count(*)");
 
   private static final String SELECT_ONE_BEAN_SQL3 = "SELECT id, person_name, person_surname, student FROM person WHERE id=?";
 
-  private static final Set<String> selectOneBean2ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
+  private static final Set<String> selectOneBean2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  private static final Set<String> selectOneBeanWithDynamic3ColumnSet = CollectionUtils.asSet(String.class, "person_name");
+  private static final Set<String> selectOneBeanWithDynamic3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
-  private static final Set<String> selectOneBeanWithDynamicAndArgs4ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
+  private static final Set<String> selectOneBeanWithDynamicAndArgs4ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  private static final Set<String> selectOneBeanWithDynamicOrder5ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
+  private static final Set<String> selectOneBeanWithDynamicOrder5ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  private static final Set<String> selectOneBeanWithDynamicOrderAndListener6ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
+  private static final Set<String> selectOneBeanWithDynamicOrderAndListener6ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   private static final String SELECT_WITH_J_Q_L_SQL4 = "select * from person where id=?";
 
-  private static final Set<String> selectWithJQL7ColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
+  private static final Set<String> selectWithJQL7ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
   public SelectRawPersonDaoImpl(BindSelectRawPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -140,8 +140,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectAllBeans0(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectAllBeans0ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -155,14 +155,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectAllBeans0ColumnSet.contains(columnName)) {
+        if (!selectAllBeans0ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectAllBeans0ColumnSet) {
+      for (String column: selectAllBeans0ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -252,7 +252,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectAllBeansCount1(Uri uri, String[] projection, String selection,
+  Cursor selectAllBeansCount1ForContentProvider(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
@@ -267,14 +267,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectAllBeansCount1ColumnSet.contains(columnName)) {
+        if (!selectAllBeansCount1ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/a', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectAllBeansCount1ColumnSet) {
+      for (String column: selectAllBeansCount1ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -391,8 +391,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectOneBean2(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectOneBean2ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -413,14 +413,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectOneBean2ColumnSet.contains(columnName)) {
+        if (!selectOneBean2ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectOneBean2ColumnSet) {
+      for (String column: selectOneBean2ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -548,7 +548,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  Cursor selectOneBeanWithDynamic3(Uri uri, String[] projection, String selection,
+  Cursor selectOneBeanWithDynamic3ForContentProvider(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
@@ -572,14 +572,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectOneBeanWithDynamic3ColumnSet.contains(columnName)) {
+        if (!selectOneBeanWithDynamic3ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/dynamic/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectOneBeanWithDynamic3ColumnSet) {
+      for (String column: selectOneBeanWithDynamic3ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -730,8 +730,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  Cursor selectOneBeanWithDynamicAndArgs4(Uri uri, String[] projection, String selection,
-      String[] selectionArgs, String sortOrder) {
+  Cursor selectOneBeanWithDynamicAndArgs4ForContentProvider(Uri uri, String[] projection,
+      String selection, String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -761,14 +761,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectOneBeanWithDynamicAndArgs4ColumnSet.contains(columnName)) {
+        if (!selectOneBeanWithDynamicAndArgs4ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/dynamicandArgs/#/*', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectOneBeanWithDynamicAndArgs4ColumnSet) {
+      for (String column: selectOneBeanWithDynamicAndArgs4ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -913,8 +913,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectOneBeanWithDynamicOrder5(Uri uri, String[] projection, String selection,
-      String[] selectionArgs, String sortOrder) {
+  Cursor selectOneBeanWithDynamicOrder5ForContentProvider(Uri uri, String[] projection,
+      String selection, String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -941,14 +941,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectOneBeanWithDynamicOrder5ColumnSet.contains(columnName)) {
+        if (!selectOneBeanWithDynamicOrder5ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/dynamicOrder/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectOneBeanWithDynamicOrder5ColumnSet) {
+      for (String column: selectOneBeanWithDynamicOrder5ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -1100,8 +1100,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectOneBeanWithDynamicOrderAndListener6(Uri uri, String[] projection, String selection,
-      String[] selectionArgs, String sortOrder) {
+  Cursor selectOneBeanWithDynamicOrderAndListener6ForContentProvider(Uri uri, String[] projection,
+      String selection, String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -1128,14 +1128,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectOneBeanWithDynamicOrderAndListener6ColumnSet.contains(columnName)) {
+        if (!selectOneBeanWithDynamicOrderAndListener6ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/dynamicOrderAndLis/*', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectOneBeanWithDynamicOrderAndListener6ColumnSet) {
+      for (String column: selectOneBeanWithDynamicOrderAndListener6ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -1254,8 +1254,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectWithJQL7(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectWithJQL7ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -1276,14 +1276,14 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectWithJQL7ColumnSet.contains(columnName)) {
+        if (!selectWithJQL7ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/jql/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectWithJQL7ColumnSet) {
+      for (String column: selectWithJQL7ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }

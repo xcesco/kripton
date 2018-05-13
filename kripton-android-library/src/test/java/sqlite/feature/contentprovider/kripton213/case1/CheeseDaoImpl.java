@@ -30,21 +30,21 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final Set<String> insert0ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> insert0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
   private static final String SELECT_ALL_SQL2 = "SELECT id, name FROM cheeses";
 
-  private static final Set<String> selectAll1ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
+  private static final Set<String> selectAll1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
   private static final String SELECT_BY_ID_SQL3 = "SELECT id, name FROM cheeses WHERE id=?";
 
-  private static final Set<String> selectById2ColumnSet = CollectionUtils.asSet(String.class, "id", "name");
+  private static final Set<String> selectById2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name");
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
   private static SQLiteStatement updatePreparedStatement2;
 
-  private static final Set<String> update4ColumnSet = CollectionUtils.asSet(String.class, "name");
+  private static final Set<String> update4ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name");
 
   public CheeseDaoImpl(BindSampleDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -185,11 +185,11 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * @param contentValues content values
    * @return new row's id
    */
-  long insert0(Uri uri, ContentValues contentValues) {
+  long insert0ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insert0ColumnSet.contains(columnName)) {
+      if (!insert0ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.contentprovidersample.provider/cheese', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "cheeses" ));
       }
     }
@@ -293,8 +293,8 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectAll1(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectAll1ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -308,14 +308,14 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectAll1ColumnSet.contains(columnName)) {
+        if (!selectAll1ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.contentprovidersample.provider/cheese', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "cheeses" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectAll1ColumnSet) {
+      for (String column: selectAll1ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -426,8 +426,8 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectById2(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectById2ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -448,14 +448,14 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectById2ColumnSet.contains(columnName)) {
+        if (!selectById2ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.contentprovidersample.provider/cheese/#', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "cheeses" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectById2ColumnSet) {
+      for (String column: selectById2ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -548,7 +548,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int deleteById3(Uri uri, String selection, String[] selectionArgs) {
+  int deleteById3ForContentProvider(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -672,7 +672,8 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int update4(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  int update4ForContentProvider(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -689,7 +690,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // Add parameter cheese.id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     for (String columnName:_contentValues.values().keySet()) {
-      if (!update4ColumnSet.contains(columnName)) {
+      if (!update4ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://com.abubusoft.contentprovidersample.provider/cheese/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "cheeses" ));
       }
     }

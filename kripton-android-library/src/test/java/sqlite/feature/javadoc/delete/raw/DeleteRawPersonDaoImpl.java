@@ -101,7 +101,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int deleteOneBean0(Uri uri, String selection, String[] selectionArgs) {
+  int deleteOneBean0ForContentProvider(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -206,7 +206,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int deleteOneBean1(Uri uri, String selection, String[] selectionArgs) {
+  int deleteOneBean1ForContentProvider(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -360,7 +360,8 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int deleteFromSelectAllBeansJQL2(Uri uri, String selection, String[] selectionArgs) {
+  int deleteFromSelectAllBeansJQL2ForContentProvider(Uri uri, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -463,7 +464,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int deleteRaw3(Uri uri, String selection, String[] selectionArgs) {
+  int deleteRaw3ForContentProvider(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -585,7 +586,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int deleteRawDynamic4(Uri uri, String selection, String[] selectionArgs) {
+  int deleteRawDynamic4ForContentProvider(Uri uri, String selection, String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -718,7 +719,8 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement 
    * @return number of effected rows
    */
-  int deleteBeanDynamicWithArgs5(Uri uri, String selection, String[] selectionArgs) {
+  int deleteBeanDynamicWithArgs5ForContentProvider(Uri uri, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValues();
     Logger.info("Execute DELETE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();

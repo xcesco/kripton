@@ -35,7 +35,7 @@ public class KriptonDefaultTaskExecutor extends TaskExecutor {
 	 * Instantiates a new kripton default task executor.
 	 */
 	public KriptonDefaultTaskExecutor() {
-		mDiskIO = KriptonLibrary.executorService();		
+		mDiskIO = KriptonLibrary.getExecutorService();		
 	}
 			
     /** The m lock. */

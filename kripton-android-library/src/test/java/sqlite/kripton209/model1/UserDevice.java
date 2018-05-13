@@ -1,8 +1,8 @@
 package sqlite.kripton209.model1;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 
 /**
@@ -10,14 +10,14 @@ import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
  * Generated entity implementation for <code>UserDevice</code>
  * </p>
  */
-@BindTable(
+@BindSqlType(
     name = "user_device"
 )
 public class UserDevice {
   /**
    * Primary key
    */
-  @BindColumn(
+  @BindSqlColumn(
       columnType = ColumnType.PRIMARY_KEY
   )
   public long id;
@@ -25,7 +25,7 @@ public class UserDevice {
   /**
    * Foreign key to User model class
    */
-  @BindColumn(
+  @BindSqlColumn(
       parentEntity = User.class,
       onDelete = ForeignKeyAction.CASCADE
   )
@@ -34,7 +34,7 @@ public class UserDevice {
   /**
    * Foreign key to Device model class
    */
-  @BindColumn(
+  @BindSqlColumn(
       parentEntity = Device.class,
       onDelete = ForeignKeyAction.CASCADE
   )

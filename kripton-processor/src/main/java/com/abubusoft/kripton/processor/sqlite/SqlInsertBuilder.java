@@ -242,6 +242,8 @@ public abstract class SqlInsertBuilder {
 		final Set<String> columns = new LinkedHashSet<>();
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
+		if (!method.getParent().hasSamePackageOfSchema()) {methodBuilder.addModifiers(Modifier.PUBLIC); }
+		
 		ParameterSpec parameterSpec;
 		parameterSpec = ParameterSpec.builder(Uri.class, "uri").build();
 		methodBuilder.addParameter(parameterSpec);

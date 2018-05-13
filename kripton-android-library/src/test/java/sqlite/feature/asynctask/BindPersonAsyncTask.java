@@ -120,7 +120,7 @@ public abstract class BindPersonAsyncTask<I, U, R> {
 
       @Override
       public R doInBackground(@SuppressWarnings("unchecked") I... params) {
-        BindPersonDataSource dataSource=BindPersonDataSource.instance();
+        BindPersonDataSource dataSource=BindPersonDataSource.getInstance();
         R result=null;
         boolean needToOpened=false;
         if (mode==BindAsyncTaskType.READ) { needToOpened=true; dataSource.openReadOnlyDatabase(); } else if (mode==BindAsyncTaskType.READ_WRITE) { needToOpened=true; dataSource.openWritableDatabase();}

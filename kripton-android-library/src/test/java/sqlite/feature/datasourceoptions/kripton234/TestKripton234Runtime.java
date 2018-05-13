@@ -44,7 +44,7 @@ public class TestKripton234Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite1() throws IOException, InstantiationException, IllegalAccessException {
-		BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.instance();
+		BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.getInstance();
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class TestKripton234Runtime extends BaseAndroidTest {
 	@Test
 	public void testRunSqliteError() throws InstantiationException, IllegalAccessException {
 		this.expectedException(KriptonRuntimeException.class);
-		BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.instance();
+		BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.getInstance();
 		
 		BindAppWithConfigDataSource.build(DataSourceOptions.builder().build());
 	}

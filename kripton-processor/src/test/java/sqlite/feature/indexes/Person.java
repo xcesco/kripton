@@ -18,16 +18,16 @@ package sqlite.feature.indexes;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindIndex;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 /**
  * The Class Person.
  */
 @BindType
-@BindTable(
+@BindSqlType(
 		indexes= {
 				@BindIndex({"birthCity", "birthDay"}),
 				@BindIndex({"surname"}),
@@ -50,7 +50,7 @@ public class Person {
   
   
   /** The name. */
-  @BindColumn(columnType=ColumnType.INDEXED)
+  @BindSqlColumn(columnType=ColumnType.INDEXED)
   public String name;
   
   /** The surname. */

@@ -166,7 +166,7 @@ public class BindAsyncTaskBuilder {
 				.addParameter(ParameterSpec.builder(ArrayTypeName.of(TypeUtility.className("I")), "params")
 						.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value","$S", "unchecked").build())
 						.build()).varargs(true)
-				.addStatement("$L dataSource=$L.instance()", dataSourceName, dataSourceName)
+				.addStatement("$L dataSource=$L.getInstance()", dataSourceName, dataSourceName)
 				.addStatement("R result=null")
 				.addStatement("boolean needToOpened=false")
 				.addCode("if (mode==$T.READ) { needToOpened=true; dataSource.openReadOnlyDatabase(); } else if (mode==$T.READ_WRITE) { needToOpened=true; dataSource.openWritableDatabase();}\n", BindAsyncTaskType.class,BindAsyncTaskType.class)

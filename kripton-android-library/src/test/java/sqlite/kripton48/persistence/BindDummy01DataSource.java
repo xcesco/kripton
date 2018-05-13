@@ -153,7 +153,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindDummy01DataSource instance() {
+  public static BindDummy01DataSource getInstance() {
     BindDummy01DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy01DataSource open() {
-    BindDummy01DataSource instance=instance();
+    BindDummy01DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
    * @return opened dataSource instance.
    */
   public static BindDummy01DataSource openReadOnly() {
-    BindDummy01DataSource instance=instance();
+    BindDummy01DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -300,8 +300,13 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

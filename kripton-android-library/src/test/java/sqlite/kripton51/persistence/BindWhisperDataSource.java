@@ -153,7 +153,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindWhisperDataSource instance() {
+  public static BindWhisperDataSource getInstance() {
     BindWhisperDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @return opened dataSource instance.
    */
   public static BindWhisperDataSource open() {
-    BindWhisperDataSource instance=instance();
+    BindWhisperDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
    * @return opened dataSource instance.
    */
   public static BindWhisperDataSource openReadOnly() {
-    BindWhisperDataSource instance=instance();
+    BindWhisperDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -300,8 +300,13 @@ public class BindWhisperDataSource extends AbstractDataSource implements BindWhi
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

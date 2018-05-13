@@ -57,7 +57,7 @@ public class TestKripton180BeanInsertSelectRuntime extends BaseAndroidTest {
 		bean.fieldString = "a";
 		bean.hireDate = new java.sql.Date((new java.util.Date()).getTime());
 
-		BindKripton180BeanInsertSelectDataSource dataSource = BindKripton180BeanInsertSelectDataSource.instance();
+		BindKripton180BeanInsertSelectDataSource dataSource = BindKripton180BeanInsertSelectDataSource.getInstance();
 
 		dataSource.execute(new BindKripton180BeanInsertSelectDataSource.Transaction() {
 

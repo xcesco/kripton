@@ -17,9 +17,9 @@ package sqlite.feature.schema.version2;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindIndex;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -27,13 +27,13 @@ import com.abubusoft.kripton.annotation.BindType;
  * The Class Professor.
  */
 @BindType
-@BindTable(indexes=@BindIndex({"surname"}))
+@BindSqlType(indexes=@BindIndex({"surname"}))
 public class Professor extends Entity {
 	
 	/** The birth date. */
 	public Date birthDate;
 	
 	/** The surname. */
-	@BindColumn(nullable=false)
+	@BindSqlColumn(nullable=false)
 	public String surname;
 }

@@ -153,7 +153,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindDeleteRawPersonDataSource instance() {
+  public static BindDeleteRawPersonDataSource getInstance() {
     BindDeleteRawPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
    * @return opened dataSource instance.
    */
   public static BindDeleteRawPersonDataSource open() {
-    BindDeleteRawPersonDataSource instance=instance();
+    BindDeleteRawPersonDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
    * @return opened dataSource instance.
    */
   public static BindDeleteRawPersonDataSource openReadOnly() {
-    BindDeleteRawPersonDataSource instance=instance();
+    BindDeleteRawPersonDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -300,8 +300,13 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

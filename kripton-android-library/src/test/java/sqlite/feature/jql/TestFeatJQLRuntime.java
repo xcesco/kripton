@@ -42,7 +42,7 @@ public class TestFeatJQLRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testJQL1() {
-		BindFamilyDataSource dataSource = BindFamilyDataSource.instance();
+		BindFamilyDataSource dataSource = BindFamilyDataSource.getInstance();
 
 		// transaction to insert elements
 		dataSource.execute(new BindFamilyDataSource.Transaction() {

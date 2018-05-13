@@ -15,13 +15,13 @@
  ******************************************************************************/
 package sqlite.kripton209.model2;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class User.
  */
-@BindTable
+@BindSqlType
 public class User {
   
   /** The id. */

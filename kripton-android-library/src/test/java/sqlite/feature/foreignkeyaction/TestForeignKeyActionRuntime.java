@@ -36,7 +36,7 @@ public class TestForeignKeyActionRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRun()  {
-		BindArtistDataSource dataSource=BindArtistDataSource.instance();
+		BindArtistDataSource dataSource=BindArtistDataSource.getInstance();
 		
 		dataSource.execute(new Transaction() {
 			

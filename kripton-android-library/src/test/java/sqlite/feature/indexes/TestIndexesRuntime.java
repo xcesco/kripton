@@ -25,7 +25,6 @@ import org.junit.Test;
 
 import base.BaseAndroidTest;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestIndexesRuntime.
  *
@@ -45,7 +44,7 @@ public class TestIndexesRuntime extends BaseAndroidTest {
 		Assert.assertTrue(DROP_TABLE_SQL.equals(PersonTable.DROP_TABLE_SQL));
 		
 		
-		BindPersonDataSource dataSource=BindPersonDataSource.instance();
+		BindPersonDataSource dataSource=BindPersonDataSource.getInstance();
 		
 		dataSource.open();
 		

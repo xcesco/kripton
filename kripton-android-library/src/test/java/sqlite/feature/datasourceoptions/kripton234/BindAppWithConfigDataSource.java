@@ -152,7 +152,7 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindAppWithConfigDataSource instance() {
+  public static BindAppWithConfigDataSource getInstance() {
     BindAppWithConfigDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -174,8 +174,13 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
@@ -192,7 +197,7 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
    * @return opened dataSource instance.
    */
   public static BindAppWithConfigDataSource open() {
-    BindAppWithConfigDataSource instance=instance();
+    BindAppWithConfigDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -202,7 +207,7 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
    * @return opened dataSource instance.
    */
   public static BindAppWithConfigDataSource openReadOnly() {
-    BindAppWithConfigDataSource instance=instance();
+    BindAppWithConfigDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -310,8 +315,13 @@ public class BindAppWithConfigDataSource extends AbstractDataSource implements B
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

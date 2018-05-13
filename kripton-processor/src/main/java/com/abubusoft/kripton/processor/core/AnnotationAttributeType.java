@@ -110,6 +110,14 @@ public enum AnnotationAttributeType {
 
 	/** The name. */
 	NAME("name"),
+			
+	/** xml namespace */
+	NAMESPACE("namespace"),
+	
+	/**
+	 * namespace prefix
+	 */
+	PREFIX("prefix"),
 
 	/** The type parameters. */
 	TYPE_PARAMETERS("typeParameters"),
@@ -147,8 +155,8 @@ public enum AnnotationAttributeType {
 	/** The id name. */
 	ID_NAME("idName"),
 
-	/** The relationship. */
-	RELATION("relation"),
+	/** Field. */
+	FIELD("field"),
 
 	/** The in memory. */
 	IN_MEMORY("inMemory"),
@@ -202,7 +210,17 @@ public enum AnnotationAttributeType {
 	/**
 	 * list of child select used to fill field marked as relations
 	 */
-	CHILDREN_SELECT("childrenSelects");
+	CHILDREN_SELECT("childrenSelects"), 
+	
+	/**
+	 * set of namespace
+	 */
+	NAMESPACES("namespaces"), 
+	
+	/**
+	 * uri of namespace 
+	 */
+	URI("uri");
 
 	/** The value. */
 	private String value;

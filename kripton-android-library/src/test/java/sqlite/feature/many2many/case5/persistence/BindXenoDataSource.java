@@ -80,7 +80,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable(), new PhoneNumberTable(), new CountryTable(), new PrefixConfigTable(), new PersonPhoneNumberTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable(), new PrefixConfigTable(), new PhoneNumberTable(), new CountryTable(), new PersonPhoneNumberTable()};
 
   /**
    * <p>dao instance</p>
@@ -228,7 +228,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindXenoDataSource instance() {
+  public static BindXenoDataSource getInstance() {
     BindXenoDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -257,7 +257,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @return opened dataSource instance.
    */
   public static BindXenoDataSource open() {
-    BindXenoDataSource instance=instance();
+    BindXenoDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -267,7 +267,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
    * @return opened dataSource instance.
    */
   public static BindXenoDataSource openReadOnly() {
-    BindXenoDataSource instance=instance();
+    BindXenoDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -295,6 +295,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section END
@@ -305,12 +311,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     }
     // log section END
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
@@ -363,6 +363,12 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
+        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
         Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
@@ -373,12 +379,6 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       }
       // log section END
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
@@ -428,8 +428,13 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

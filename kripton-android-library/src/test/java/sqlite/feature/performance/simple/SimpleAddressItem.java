@@ -15,13 +15,13 @@
  ******************************************************************************/
 package sqlite.feature.performance.simple;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 // TODO: Auto-generated Javadoc
 /**
  * Description:.
  */
-@BindTable
+@BindSqlType
 public class SimpleAddressItem {
 
     /**

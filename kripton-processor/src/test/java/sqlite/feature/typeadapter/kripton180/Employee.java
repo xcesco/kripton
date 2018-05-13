@@ -6,7 +6,7 @@ package sqlite.feature.typeadapter.kripton180;
 import java.sql.Date;
 
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterAddress;
 import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterBoolean;
@@ -26,7 +26,7 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
-@BindTable(name = "employees")
+@BindSqlType(name = "employees")
 public class Employee {
 	
 	/** The id. */

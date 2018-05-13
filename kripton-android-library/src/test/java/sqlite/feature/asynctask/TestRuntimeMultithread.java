@@ -185,7 +185,7 @@ public class TestRuntimeMultithread extends BaseAndroidTest {
 					public void run() {
 						int id = threadId;
 						Logger.info("Start thread-" + id + " T3");
-						BindPersonDataSource dataSource = BindPersonDataSource.instance();
+						BindPersonDataSource dataSource = BindPersonDataSource.getInstance();
 						dataSource.execute(new BindPersonDataSource.Transaction() {
 
 							@Override

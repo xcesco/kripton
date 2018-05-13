@@ -1,13 +1,13 @@
 package sqlite.feature.childselect.case3;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-@BindTable
+@BindSqlType
 public class Song {
 	public long id;
 	public String name;
 	
-	@BindColumn(parentEntity=Album.class)
+	@BindSqlColumn(parentEntity=Album.class)
 	public long albumId;
 }

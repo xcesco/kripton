@@ -15,22 +15,22 @@
  ******************************************************************************/
 package sqlite.feature.jql.err1;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class BeanErr1.
  */
-@BindTable
+@BindSqlType
 public class BeanErr1 {
 
 	/** The id. */
-	@BindColumn(value="_id")
+	@BindSqlColumn(value="_id")
 	public long id;
 
 	/** The name. */
-	@BindColumn(nullable = false)
+	@BindSqlColumn(nullable = false)
 	public String name;
 
 }

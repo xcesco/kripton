@@ -153,7 +153,7 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindKripton180BeanDataSource instance() {
+  public static BindKripton180BeanDataSource getInstance() {
     BindKripton180BeanDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -182,7 +182,7 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
    * @return opened dataSource instance.
    */
   public static BindKripton180BeanDataSource open() {
-    BindKripton180BeanDataSource instance=instance();
+    BindKripton180BeanDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -192,7 +192,7 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
    * @return opened dataSource instance.
    */
   public static BindKripton180BeanDataSource openReadOnly() {
-    BindKripton180BeanDataSource instance=instance();
+    BindKripton180BeanDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -300,8 +300,13 @@ public class BindKripton180BeanDataSource extends AbstractDataSource implements 
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

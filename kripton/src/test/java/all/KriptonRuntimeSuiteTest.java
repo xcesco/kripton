@@ -21,6 +21,7 @@ import org.junit.runners.Suite;
 import bind.bindenum.TestRuntimeEnumSuite;
 import bind.directmap.TestRuntimeDirectMapSuite;
 import bind.feature.generichierarchy.TestRuntimeHierarchySuite;
+import bind.feature.namespace.TestRuntimeNamespaceSuite;
 import bind.feature.typeadapter.kripton87.TestRuntime87Suite;
 import bind.kripton42faster.TestRuntime42Suite;
 import bind.kripton70.TestRuntime70Suite;
@@ -55,7 +56,9 @@ import bind.kripton81morecoveragetests.TestRuntime81Suite;
 		TestRuntime87Suite.class,
 		TestRuntimeEnumSuite.class,
 		TestRuntimeHierarchySuite.class,
-		TestRuntimeDirectMapSuite.class
+		TestRuntimeDirectMapSuite.class,
+		
+		TestRuntimeNamespaceSuite.class
 		 })
 //@formatter:on
 public class KriptonRuntimeSuiteTest {

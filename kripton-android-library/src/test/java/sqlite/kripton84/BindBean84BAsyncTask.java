@@ -120,7 +120,7 @@ public abstract class BindBean84BAsyncTask<I, U, R> {
 
       @Override
       public R doInBackground(@SuppressWarnings("unchecked") I... params) {
-        BindBean84BDataSource dataSource=BindBean84BDataSource.instance();
+        BindBean84BDataSource dataSource=BindBean84BDataSource.getInstance();
         R result=null;
         boolean needToOpened=false;
         if (mode==BindAsyncTaskType.READ) { needToOpened=true; dataSource.openReadOnlyDatabase(); } else if (mode==BindAsyncTaskType.READ_WRITE) { needToOpened=true; dataSource.openWritableDatabase();}

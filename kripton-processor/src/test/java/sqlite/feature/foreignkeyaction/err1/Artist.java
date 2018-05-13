@@ -15,13 +15,13 @@
  ******************************************************************************/
 package sqlite.feature.foreignkeyaction.err1;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Artist.
  */
-@BindTable
+@BindSqlType
 public class Artist {
 
 	/** The id. */

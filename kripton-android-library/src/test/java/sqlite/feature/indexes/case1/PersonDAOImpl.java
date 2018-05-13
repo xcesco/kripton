@@ -188,7 +188,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, alias_name, date, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || '%' and birth_day < ${date} AND #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, alias_name, date, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || '%' and birth_day < ${date} #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -237,7 +237,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE name like ? || '%' and birth_day < ?"+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
+    String _sqlWhereStatement=" WHERE name like ? || '%' and birth_day < ? "+StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND ");
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END

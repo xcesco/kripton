@@ -17,7 +17,7 @@ package sqlite.adapter.example01;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -92,7 +92,7 @@ public class Person {
 	private String surname;
 
 	/** The birth date. */
-	@BindColumn("birth")
+	@BindSqlColumn("birth")
 	@BindAdapter(adapter = DateAdapter.class)
 	private Date birthDate;
 

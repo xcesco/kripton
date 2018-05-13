@@ -32,7 +32,7 @@ public class TestStack44330452Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void test() {
-		BindPetUserDataSource dataSource=BindPetUserDataSource.instance();
+		BindPetUserDataSource dataSource=BindPetUserDataSource.getInstance();
 		
 		dataSource.openReadOnlyDatabase();
 		dataSource.getUserDao().loadUser();

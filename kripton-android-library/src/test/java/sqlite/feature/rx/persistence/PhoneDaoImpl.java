@@ -447,7 +447,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
     }
   }
 
-  public PublishSubject<SQLiteEvent> subject() {
+  public PublishSubject<SQLiteEvent> getSubject() {
     return subject;
   }
 

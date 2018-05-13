@@ -20,7 +20,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nam
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The listener interface for receiving JQLReplacer events.
  * The class that is interested in processing a JQLReplacer

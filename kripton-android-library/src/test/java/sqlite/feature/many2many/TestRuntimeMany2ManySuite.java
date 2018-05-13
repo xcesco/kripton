@@ -27,7 +27,8 @@ import base.BaseAndroidTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestRuntimeMany2Many.class
+		TestRuntimeMany2Many.class,
+		TestRuntimeMany2Many7.class
 		 })
 //@formatter:on
 public class TestRuntimeMany2ManySuite extends BaseAndroidTest {

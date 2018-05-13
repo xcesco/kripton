@@ -54,7 +54,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new ChildTable(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable(), new ChildTable()};
 
   /**
    * <p>dao instance</p>
@@ -172,7 +172,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindFamilyDataSource instance() {
+  public static BindFamilyDataSource getInstance() {
     BindFamilyDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -201,7 +201,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * @return opened dataSource instance.
    */
   public static BindFamilyDataSource open() {
-    BindFamilyDataSource instance=instance();
+    BindFamilyDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -211,7 +211,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
    * @return opened dataSource instance.
    */
   public static BindFamilyDataSource openReadOnly() {
-    BindFamilyDataSource instance=instance();
+    BindFamilyDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -333,8 +333,13 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

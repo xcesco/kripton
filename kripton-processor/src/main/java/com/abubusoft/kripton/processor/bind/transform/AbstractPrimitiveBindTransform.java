@@ -276,11 +276,11 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 			
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+"))", serializerName, BindProperty.xmlName(property), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				break;
 			case TAG:
 				// value don't need to be converted into string
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 				methodBuilder.addStatement("$L.write$L("+PRE_TYPE_ADAPTER_TO_DATA+"$L"+POST_TYPE_ADAPTER+")", serializerName, XML_TYPE, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 				break;
@@ -298,11 +298,11 @@ abstract class AbstractPrimitiveBindTransform extends AbstractBindTransform {
 		
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L($L))", serializerName, property.label, PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.write$L($L))", serializerName, BindProperty.xmlName(property), PrimitiveUtils.class, PRIMITIVE_UTILITY_TYPE, getter(beanName, beanClass, property));
 				break;
 			case TAG:
 				// value don't need to be converted into string
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 				methodBuilder.addStatement("$L.write$L($L)", serializerName, XML_TYPE, getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 				break;

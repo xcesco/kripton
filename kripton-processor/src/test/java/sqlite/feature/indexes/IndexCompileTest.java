@@ -48,7 +48,7 @@ public class IndexCompileTest extends AbstractBindSQLiteProcessorTest {
 	 * Error 1.
 	 *
 	 * @throws Throwable the throwable
-	 * @BindTable indexes element use an undefined field typeName
+	 * @BindSqlType indexes element use an undefined field typeName
 	 */
 	@Test
 	public void error1() throws Throwable {
@@ -60,7 +60,7 @@ public class IndexCompileTest extends AbstractBindSQLiteProcessorTest {
 	 * Error 2.
 	 *
 	 * @throws Throwable the throwable
-	 * @BindTable indexes element forgot a comma between two valid field typeName
+	 * @BindSqlType indexes element forgot a comma between two valid field typeName
 	 */
 	@Test
 	public void error2() throws Throwable {

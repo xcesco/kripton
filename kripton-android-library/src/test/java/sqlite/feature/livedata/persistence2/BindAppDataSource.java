@@ -26,6 +26,9 @@ import sqlite.feature.livedata.data.PersonTable;
  * @see DaoPerson
  * @see DaoPersonImpl
  * @see Person
+ * @see DaoCity
+ * @see DaoCityImpl
+ * @see City
  */
 public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
   /**
@@ -44,14 +47,24 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   public static final int DAO_PERSON_UID = 0;
 
   /**
+   * Unique identifier for Dao DaoCity
+   */
+  public static final int DAO_CITY_UID = 1;
+
+  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable(), new CityTable()};
 
   /**
    * <p>dao instance</p>
    */
   protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
+
+  /**
+   * <p>dao instance</p>
+   */
+  protected DaoCityImpl daoCity = new DaoCityImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -65,6 +78,11 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   @Override
   public DaoPersonImpl getDaoPerson() {
     return daoPerson;
+  }
+
+  @Override
+  public DaoCityImpl getDaoCity() {
+    return daoCity;
   }
 
   /**
@@ -154,7 +172,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindAppDataSource instance() {
+  public static BindAppDataSource getInstance() {
     BindAppDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -183,7 +201,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    * @return opened dataSource instance.
    */
   public static BindAppDataSource open() {
-    BindAppDataSource instance=instance();
+    BindAppDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -193,7 +211,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    * @return opened dataSource instance.
    */
   public static BindAppDataSource openReadOnly() {
-    BindAppDataSource instance=instance();
+    BindAppDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -219,6 +237,12 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(CityTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -263,6 +287,12 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(CityTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -282,6 +312,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
 
   public void clearCompiledStatements() {
     DaoPersonImpl.clearCompiledStatements();
+    DaoCityImpl.clearCompiledStatements();
   }
 
   /**
@@ -301,8 +332,13 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());
@@ -359,6 +395,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
 
     protected DaoPersonImpl _daoPerson;
 
+    protected DaoCityImpl _daoCity;
+
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindAppDataSource.this);
     }
@@ -372,6 +410,17 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
         _daoPerson=new DaoPersonImpl(this);
       }
       return _daoPerson;
+    }
+
+    /**
+     *
+     * retrieve dao DaoCity
+     */
+    public DaoCityImpl getDaoCity() {
+      if (_daoCity==null) {
+        _daoCity=new DaoCityImpl(this);
+      }
+      return _daoCity;
     }
 
     @Override
@@ -395,6 +444,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       if (_daoPerson!=null && daosWithEvents.contains(DAO_PERSON_UID)) {
         _daoPerson.invalidateLiveData();
       }
+      // "_daoCity" has no live data
     }
 
     public DataSourceSingleThread bindToThread() {

@@ -92,7 +92,7 @@ BindAppWithConfigDataSource ds=BindAppWithConfigDataSource.build(optionsBuilder.
  * 
  * <pre>
  * // create data source
- * BindAppWithConfigDataSource ds = BindAppWithConfigDataSource.instance();
+ * BindAppWithConfigDataSource ds = BindAppWithConfigDataSource.getInstance();
  * </pre>
  * 
  * <h2>Attributes</h2>

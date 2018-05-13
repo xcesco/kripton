@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.feature.jql.entities;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -24,11 +24,11 @@ import com.abubusoft.kripton.android.annotation.BindColumn;
 public class Bean {
 
 	/** The id. */
-	@BindColumn(value="_id")
+	@BindSqlColumn(value="_id")
 	public long id;
 
 	/** The name. */
-	@BindColumn(nullable = false)
+	@BindSqlColumn(nullable = false)
 	public String name;
 
 }

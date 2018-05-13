@@ -45,7 +45,7 @@ public class Test64Runtime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite() throws IOException, InstantiationException, IllegalAccessException {
-		BindBean64DataSource dataSource = BindBean64DataSource.instance();
+		BindBean64DataSource dataSource = BindBean64DataSource.getInstance();
 
 		dataSource.execute(new Transaction() {
 

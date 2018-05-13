@@ -17,7 +17,7 @@ package sqlite.feature.contentprovider.kripton35.entities;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -32,11 +32,11 @@ public class Person {
 	public long id;
 
 	/** The parent id. */
-	@BindColumn(value = "alias_parent_id", parentEntity = Person.class, nullable = true)
+	@BindSqlColumn(value = "alias_parent_id", parentEntity = Person.class, nullable = true)
 	public long parentId;
 
 	/** The city. */
-	@BindColumn(parentEntity = City.class)
+	@BindSqlColumn(parentEntity = City.class)
 	public long city;
 
 	/** The birth city. */

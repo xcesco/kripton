@@ -113,6 +113,12 @@ public abstract class BaseProcessor extends AbstractProcessor {
 		
 	}
 
+	@Override
+	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	/**
 	 * Gets the supported annotation classes.
 	 *

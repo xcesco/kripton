@@ -52,7 +52,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new BeanA_3Table(), new BeanA_4Table()};
+  static final SQLiteTable[] TABLES = {new BeanA_4Table(), new BeanA_3Table()};
 
   /**
    * <p>dao instance</p>
@@ -170,7 +170,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindDummy2DataSource instance() {
+  public static BindDummy2DataSource getInstance() {
     BindDummy2DataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -199,7 +199,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    * @return opened dataSource instance.
    */
   public static BindDummy2DataSource open() {
-    BindDummy2DataSource instance=instance();
+    BindDummy2DataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -209,7 +209,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
    * @return opened dataSource instance.
    */
   public static BindDummy2DataSource openReadOnly() {
-    BindDummy2DataSource instance=instance();
+    BindDummy2DataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -331,8 +331,13 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

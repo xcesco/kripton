@@ -24,7 +24,6 @@ import android.support.annotation.Nullable;
 
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
  * {@link LiveData} subclass which may observe other {@code LiveData} objects and react on
  * {@code OnChanged} events from them.

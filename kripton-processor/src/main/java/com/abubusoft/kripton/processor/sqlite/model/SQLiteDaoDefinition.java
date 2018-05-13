@@ -23,15 +23,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLiteDaoDefinition.
  */
@@ -354,6 +355,17 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 		}
 
 		return false;
+	}
+	
+	/**
+	 * Returns true if dao and schema stay in same package
+	 * @return
+	 */
+	public boolean hasSamePackageOfSchema() {		
+		String packageName=getPackageName();
+		String schemaPackageName=getParent().getPackageName();
+		
+		return packageName.equals(schemaPackageName);
 	}
 
 	public boolean hasRelations() {

@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindPreference;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.annotation.BindType;
@@ -45,7 +45,7 @@ public class Bean2 {
 	private long id;
 	
 	/** The value bean. */
-	@BindColumn(enabled=false)
+	@BindSqlColumn(enabled=false)
 	private Bean2 valueBean;
 
 	/** The value bean array. */

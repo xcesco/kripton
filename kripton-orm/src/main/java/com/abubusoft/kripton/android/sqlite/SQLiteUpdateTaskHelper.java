@@ -32,9 +32,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class SQLiteUpdateTaskHelper.
+ * SQLiteUpdateTask Helper.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
@@ -44,32 +43,33 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * The Enum QueryType.
 	 */
 	public enum QueryType {
-		
+
 		/** The table. */
-		TABLE, 
- /** The index. */
- INDEX
+		TABLE,
+		/** The index. */
+		INDEX
 	};
 
 	/**
-	 * The listener interface for receiving onResult events.
-	 * The class that is interested in processing a onResult
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addOnResultListener</code> method. When
-	 * the onResult event occurs, that object's appropriate
-	 * method is invoked.
+	 * The listener interface for receiving onResult events. The class that is
+	 * interested in processing a onResult event implements this interface, and
+	 * the object created with that class is registered with a component using
+	 * the component's <code>addOnResultListener</code> method. When the
+	 * onResult event occurs, that object's appropriate method is invoked.
 	 *
 	 * 
 	 */
 	public interface OnResultListener {
-		
+
 		/**
 		 * On row.
 		 *
-		 * @param db the db
-		 * @param name the name
-		 * @param sql the sql
+		 * @param db
+		 *            the db
+		 * @param name
+		 *            the name
+		 * @param sql
+		 *            the sql
 		 */
 		void onRow(SQLiteDatabase db, String name, String sql);
 	}
@@ -77,10 +77,14 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Query.
 	 *
-	 * @param db the db
-	 * @param conditions the conditions
-	 * @param type the type
-	 * @param listener the listener
+	 * @param db
+	 *            the db
+	 * @param conditions
+	 *            the conditions
+	 * @param type
+	 *            the type
+	 * @param listener
+	 *            the listener
 	 */
 	static void query(SQLiteDatabase db, String conditions, QueryType type, OnResultListener listener) {
 		String query = String.format(
@@ -101,9 +105,12 @@ public abstract class SQLiteUpdateTaskHelper {
 	 * Drop all entity of particular type (table or index). If prefix is
 	 * specified, the drop operation is applied only to entity with prefix.
 	 *
-	 * @param db the db
-	 * @param type the type
-	 * @param prefix the prefix
+	 * @param db
+	 *            the db
+	 * @param type
+	 *            the type
+	 * @param prefix
+	 *            the prefix
 	 */
 	private static void drop(SQLiteDatabase db, final QueryType type, String prefix) {
 		String dropSQL = StringUtils.hasText(prefix) ? "name like '" + prefix + "' || '%'" : null;
@@ -112,7 +119,7 @@ public abstract class SQLiteUpdateTaskHelper {
 
 			@Override
 			public void onRow(SQLiteDatabase db, String name, String sql) {
-				String drop = "drop " + type.toString().toLowerCase() + " " + name;
+				String drop = "DROP " + type.toString().toUpperCase() + " " + name;
 				Logger.info(drop);
 				db.execSQL(drop);
 
@@ -123,7 +130,8 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Retrieve all table as a Map of (name, sql).
 	 *
-	 * @param db the db
+	 * @param db
+	 *            the db
 	 * @return the all tables
 	 */
 	public static Map<String, String> getAllTables(SQLiteDatabase db) {
@@ -135,7 +143,7 @@ public abstract class SQLiteUpdateTaskHelper {
 			public void onRow(SQLiteDatabase db, String name, String sql) {
 				if (StringUtils.hasText(sql)) {
 					result.put(name, StringUtils.nvl(sql).trim());
-				}				
+				}
 			}
 		});
 
@@ -145,8 +153,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Add to all table a specifix prefix.
 	 *
-	 * @param db the db
-	 * @param prefix the prefix
+	 * @param db
+	 *            the db
+	 * @param prefix
+	 *            the prefix
 	 */
 	public static void renameTablesWithPrefix(SQLiteDatabase db, final String prefix) {
 		Logger.info("MASSIVE TABLE RENAME OPERATION: ADD PREFIX " + prefix);
@@ -165,8 +175,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Drop all table with specific prefix.
 	 *
-	 * @param db the db
-	 * @param prefix the prefix
+	 * @param db
+	 *            the db
+	 * @param prefix
+	 *            the prefix
 	 */
 	public static void dropTablesWithPrefix(SQLiteDatabase db, String prefix) {
 		Logger.info("MASSIVE TABLE DROP OPERATION%s", StringUtils.ifNotEmptyAppend(prefix, " WITH PREFIX "));
@@ -176,7 +188,8 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Drop tables and indices.
 	 *
-	 * @param db the db
+	 * @param db
+	 *            the db
 	 */
 	public static void dropTablesAndIndices(SQLiteDatabase db) {
 		drop(db, QueryType.INDEX, null);
@@ -186,7 +199,8 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Retrieve all indexes as a Map of (name, sql).
 	 *
-	 * @param db the db
+	 * @param db
+	 *            the db
 	 * @return the all indexes
 	 */
 	public static Map<String, String> getAllIndexes(SQLiteDatabase db) {
@@ -208,20 +222,24 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Execute SQL.
 	 *
-	 * @param database the database
-	 * @param context the context
-	 * @param rawResourceId the raw resource id
+	 * @param database
+	 *            the database
+	 * @param context
+	 *            the context
+	 * @param rawResourceId
+	 *            the raw resource id
 	 */
-	public static void executeSQL(final SQLiteDatabase database, Context context,  int rawResourceId) {
+	public static void executeSQL(final SQLiteDatabase database, Context context, int rawResourceId) {
 		String[] c = IOUtils.readTextFile(context, rawResourceId).split(";");
 		List<String> commands = Arrays.asList(c);
 		executeSQL(database, commands);
 	}
-	
+
 	/**
 	 * Read SQL from file.
 	 *
-	 * @param fileName the file name
+	 * @param fileName
+	 *            the file name
 	 * @return the list
 	 */
 	public static List<String> readSQLFromFile(String fileName) {
@@ -236,7 +254,8 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Read SQL from file.
 	 *
-	 * @param fileInputStream the file input stream
+	 * @param fileInputStream
+	 *            the file input stream
 	 * @return the list
 	 */
 	public static List<String> readSQLFromFile(InputStream fileInputStream) {
@@ -262,8 +281,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Execute SQL.
 	 *
-	 * @param database the database
-	 * @param fileInputStream the file input stream
+	 * @param database
+	 *            the database
+	 * @param fileInputStream
+	 *            the file input stream
 	 */
 	public static void executeSQL(final SQLiteDatabase database, InputStream fileInputStream) {
 		List<String> commands = readSQLFromFile(fileInputStream);
@@ -273,8 +294,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Execute SQL.
 	 *
-	 * @param database the database
-	 * @param commands the commands
+	 * @param database
+	 *            the database
+	 * @param commands
+	 *            the commands
 	 */
 	public static void executeSQL(final SQLiteDatabase database, List<String> commands) {
 		for (String command : commands) {
@@ -288,8 +311,10 @@ public abstract class SQLiteUpdateTaskHelper {
 	/**
 	 * Execute SQL.
 	 *
-	 * @param database the database
-	 * @param command the command
+	 * @param database
+	 *            the database
+	 * @param command
+	 *            the command
 	 */
 	public static void executeSQL(final SQLiteDatabase database, String command) {
 		// remove comments

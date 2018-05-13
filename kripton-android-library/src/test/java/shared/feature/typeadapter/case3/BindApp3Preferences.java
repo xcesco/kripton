@@ -28,7 +28,7 @@ public class BindApp3Preferences extends AbstractSharedPreference {
    */
   private BindApp3Preferences() {
     // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
     defaultBean=new App3Preferences();
   }
 
@@ -44,7 +44,7 @@ public class BindApp3Preferences extends AbstractSharedPreference {
    */
   public BindApp3Preferences refresh() {
     // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.context());
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
     return this;
   }
 

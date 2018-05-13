@@ -146,7 +146,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
       @Override
       protected List<Person> compute() {
-        return BindApp0DataSource.instance().executeBatch(new BindApp0DataSource.Batch<List<Person>>() {
+        return BindApp0DataSource.getInstance().executeBatch(new BindApp0DataSource.Batch<List<Person>>() {
           @Override
           public List<Person> onExecute(BindApp0DaoFactory daoFactory) {
             return daoFactory.getDaoPerson0().selectForLiveData(name);
@@ -312,7 +312,11 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
   }
 
-  protected void invalidateLiveData() {
+  /**
+   * <p>Invalidate livedata.</p>
+   *
+   */
+  public void invalidateLiveData() {
     for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
@@ -320,7 +324,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     }
   }
 
-  public PublishSubject<SQLiteEvent> subject() {
+  public PublishSubject<SQLiteEvent> getSubject() {
     return subject;
   }
 

@@ -2,10 +2,10 @@ package sqlite.feature.childselect.error1;
 
 import java.util.Set;
 
-import com.abubusoft.kripton.android.annotation.BindRelation;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlRelation;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-@BindTable
+@BindSqlType
 public class Album {
 	private long id;
 
@@ -19,7 +19,7 @@ public class Album {
 
 	public String name;
 
-	@BindRelation(foreignKey = "albumId")
+	@BindSqlRelation(foreignKey = "albumId")
 	protected Set<Song> songs;
 
 	public Set<Song> getSongs() {

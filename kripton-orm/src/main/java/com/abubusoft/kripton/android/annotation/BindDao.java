@@ -41,7 +41,7 @@ import java.lang.annotation.Target;
  * </ul>
  * 
  * <p>
- * Referred {@link #value()} bean must be annotated with {@link BindTable}
+ * Referred {@link #value()} bean must be annotated with {@link BindSqlType}
  * annotation.
  * </p>
  * 
@@ -174,7 +174,7 @@ public @interface BindDao {
 	 * </p>
 	 * 
 	 * <p>
-	 * Referred {@link #value()} bean must be annotated with {@link BindTable}
+	 * Referred {@link #value()} bean must be annotated with {@link BindSqlType}
 	 * annotation.
 	 * </p>
 	 * 

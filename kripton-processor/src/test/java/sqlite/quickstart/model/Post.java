@@ -15,7 +15,7 @@
  *******************************************************************************/
 package sqlite.quickstart.model;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -26,7 +26,7 @@ import com.abubusoft.kripton.annotation.BindType;
 public class Post {
 
     /** The user id. */
-    @BindColumn(parentEntity = User.class )
+    @BindSqlColumn(parentEntity = User.class )
     public long userId;
 
     /** The id. */

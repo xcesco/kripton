@@ -352,7 +352,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			methodBuilder.endControlFlow();
 
 			methodBuilder.beginControlFlow("while ($L.nextTag() != $T.END_TAG && $L.getName().toString().equals($S))",
-					parserName, XmlPullParser.class, parserName, property.label);
+					parserName, XmlPullParser.class, parserName, BindProperty.xmlName(property));
 		}
 
 		// for all
@@ -572,12 +572,12 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 		if (property.xmlInfo.isWrappedCollection()) {
 			methodBuilder.addCode("// write wrapper tag\n");
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 		}
 
 		BindTransform transform = BindTransformer.lookup(elementTypeName);
 		BindProperty elementProperty = BindProperty.builder(elementTypeName, property).inCollection(true)
-				.elementName(property.xmlInfo.labelItem).build();
+				.elementName(BindProperty.xmlNameForItem(property)).build();
 
 		switch (collectionType) {
 		case SET:
@@ -595,7 +595,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 
 		if (!TypeUtility.isTypePrimitive(elementTypeName)) {
 			methodBuilder.beginControlFlow("if (item==null)");
-			methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, property.xmlInfo.labelItem);
+			methodBuilder.addStatement("$L.writeEmptyElement($S)", serializerName, BindProperty.xmlNameForItem(property));
 			methodBuilder.nextControlFlow("else");
 			transform.generateSerializeOnXml(context, methodBuilder, serializerName, null, "item", elementProperty);
 			methodBuilder.endControlFlow();
@@ -616,7 +616,7 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 			methodBuilder.addCode(
 					"// to distinguish between first empty element and empty collection, we write an attribute emptyCollection\n");
 			methodBuilder.beginControlFlow("if (n==0)");
-			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.xmlInfo.labelItem);
+			methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlNameForItem(property));
 			methodBuilder.addStatement("$L.writeAttribute($S, $S)", serializerName, EMPTY_COLLECTION_ATTRIBUTE_NAME,
 					"true");
 			methodBuilder.addStatement("$L.writeEndElement()", serializerName);

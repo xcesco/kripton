@@ -161,6 +161,11 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	public final Map<String, String> globalSqlTypeAdapter = new HashMap<String, String>();
 
 	/**
+	 * directory used for generate schema
+	 */
+	public String schemaLocationDirectory;
+
+	/**
 	 * Gets the dao name set.
 	 *
 	 * @return the dao name set
@@ -202,12 +207,13 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	 *            the config log enabled
 	 * @param configPopulatorClass
 	 *            the config populator class
+	 * @param schemaLocationDirectory 
 	 */
 	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log,
 			boolean asyncTask, boolean generateCursor, boolean generateRx, List<String> daoIntoDataSource,
 			String configCursorFactoryClass, String configDatabaseErrorHandlerClass,
 			String configDatabaseLifecycleHandlerClass, boolean configInMemory, boolean configLogEnabled,
-			String configPopulatorClass) {
+			String configPopulatorClass, String schemaLocationDirectory) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -222,6 +228,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		this.contentProvider = null;
 		this.generatedEntities = new LinkedHashSet<GeneratedTypeElement>();
 		this.daoNameSet = daoIntoDataSource;
+		this.schemaLocationDirectory=schemaLocationDirectory;
 
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
 		FindSqlTypeAdapterVisitor typeAdapterVisitors = new FindSqlTypeAdapterVisitor();

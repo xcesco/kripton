@@ -18,7 +18,7 @@ package commons.benchmark.model;
 import java.util.List;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindType;
 
@@ -31,12 +31,12 @@ public class User {
 
 	/** The id. */
 	@Bind(enabled=false)
-	@BindColumn(columnType=ColumnType.PRIMARY_KEY)
+	@BindSqlColumn(columnType=ColumnType.PRIMARY_KEY)
 	public long id;
 	
     /** The uid. */
     @Bind("_id")
-    @BindColumn("uid")
+    @BindSqlColumn("uid")
     public String uid;
 
     /** The index. */
@@ -53,7 +53,7 @@ public class User {
 
     /** The picture url. */
     @Bind("picture")
-    @BindColumn("picture")
+    @BindSqlColumn("picture")
     public String pictureUrl;
 
     /** The age. */

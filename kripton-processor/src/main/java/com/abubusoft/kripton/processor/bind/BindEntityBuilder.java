@@ -15,18 +15,26 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.bind;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.annotation.Bind;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.annotation.BindXml;
+import com.abubusoft.kripton.annotation.BindXmlType;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
@@ -83,7 +91,7 @@ public abstract class BindEntityBuilder {
 	}
 
 	/** The class annotation filter. */
-	private static AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindTable.class).build();
+	private static AnnotationFilter classAnnotationFilter = AnnotationFilter.builder().add(BindType.class).add(BindSqlType.class).build();
 
 	/** The property annotation filter. */
 	private static AnnotationFilter propertyAnnotationFilter = AnnotationFilter.builder().add(Bind.class).add(BindXml.class).add(BindDisabled.class).add(BindAdapter.class).build();
@@ -111,7 +119,29 @@ public abstract class BindEntityBuilder {
 		} else {
 			currentEntity.xmlInfo.label = typeNameConverter.convert(beanElement.getSimpleName().toString());
 		}
+		
+		// esamine namespaces
+		if (element.getAnnotation(BindXmlType.class) != null) {
+			FindXmlNamespaceVisitor visitor = new FindXmlNamespaceVisitor();
 
+			for (AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
+				Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
+
+				if (BindXmlType.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
+					for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
+						String key = entry.getKey().getSimpleName().toString();
+
+						entry.getValue().accept(visitor, key);
+					}
+					List<Pair<String, String>> namespaces = visitor.getNamespace();
+					currentEntity.xmlInfo.namespaces = namespaces;
+
+					break;
+				}
+			}
+		}
+		
+		
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
 
 		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<BindEntity, BindProperty>() {
@@ -159,7 +189,7 @@ public abstract class BindEntityBuilder {
 				property.xmlInfo.wrappedCollection = false;
 				property.xmlInfo.xmlType = XmlType.valueOf(XmlType.TAG.toString());
 				property.xmlInfo.mapEntryType = MapEntryType.valueOf(MapEntryType.TAG.toString());
-				
+												
 				// check if there is an adapter
 				if ((property.getAnnotation(BindAdapter.class)!= null)) {
 					BindTransform transform = BindTransformer.lookup(TypeUtility.typeName(property.typeAdapter.dataType));
@@ -213,9 +243,19 @@ public abstract class BindEntityBuilder {
 					}
 
 					String xmlType = AnnotationUtility.extractAsEnumerationValue(property.getElement(), BindXml.class, AnnotationAttributeType.XML_TYPE);
-					if (StringUtils.hasText(xmlType))
+					if (StringUtils.hasText(xmlType)) {
 						property.xmlInfo.xmlType = XmlType.valueOf(xmlType);
-
+					}
+					
+					// add namespace to name  
+					String namespace= annotationBindXml.getAttribute(AnnotationAttributeType.NAMESPACE);					
+					if (StringUtils.hasText(namespace)) {
+						if (property.xmlInfo.xmlType == XmlType.VALUE || property.xmlInfo.xmlType == XmlType.VALUE_CDATA) {
+							String msg = String.format("In class '%s', property '%s', defined as xml value, can not be used with a namespace", beanElement.asType().toString(), property.getName());
+							throw (new IncompatibleAttributesInAnnotationException(msg));
+						}
+						property.xmlInfo.namespace=namespace;											
+					}										
 				}
 
 				if (property.xmlInfo.xmlType == XmlType.ATTRIBUTE) {
@@ -246,7 +286,7 @@ public abstract class BindEntityBuilder {
 				}
 
 				if (property.xmlInfo.xmlType == XmlType.VALUE || property.xmlInfo.xmlType == XmlType.VALUE_CDATA) {
-					counterPropertyInValue.inc();
+					counterPropertyInValue.inc();									
 
 					BindTransform transform = BindTransformer.lookup(property.getPropertyType().getTypeName());
 

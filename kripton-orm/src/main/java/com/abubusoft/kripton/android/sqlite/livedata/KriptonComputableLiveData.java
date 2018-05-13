@@ -20,13 +20,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.abubusoft.kripton.android.sqlite.executors.KriptonTaskExecutor;
 
-import android.arch.lifecycle.LiveData;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
 
-// TODO: Auto-generated Javadoc
 /**
  * A LiveData class that can be invalidated and computed on demand.
  * <p>
@@ -68,7 +66,7 @@ public abstract class KriptonComputableLiveData<T> {
      * @return A LiveData that is controlled by ComputableLiveData.
      */
     @NonNull
-    public LiveData<T> getLiveData() {
+    public KriptonLiveData<T> getLiveData() {
         return mLiveData;
     }
 

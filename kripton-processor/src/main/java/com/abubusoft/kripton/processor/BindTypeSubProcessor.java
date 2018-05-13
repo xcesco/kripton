@@ -36,7 +36,6 @@ import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindModel;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 
-// TODO: Auto-generated Javadoc
 /**
  * Annotation processor for json/xml/etc
  * 

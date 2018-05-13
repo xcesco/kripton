@@ -29,10 +29,13 @@ import base.BaseProcessorTest;
 	TestCompileRelation1.class,
 	TestCompileRelation2.class,
 	TestCompileRelation3.class,
+	TestCompileRelation4.class,
 	TestCompileRelationError1.class,
 	TestCompileRelationError2.class,
 	TestCompileRelationError3.class,
-	TestCompileRelationError4.class})
+	TestCompileRelationError4.class,
+	TestCompileRelationError5.class,
+	TestCompileRelationError6.class,	})
 // @formatter:on
 public class TestRelationSuite extends BaseProcessorTest {
 

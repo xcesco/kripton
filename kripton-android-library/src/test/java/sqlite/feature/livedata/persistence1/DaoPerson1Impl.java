@@ -35,19 +35,19 @@ import sqlite.feature.livedata.data.Person;
 public class DaoPerson1Impl extends Dao implements DaoPerson1 {
   private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
 
-  private static final Set<String> select0ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
+  private static final Set<String> select0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
 
   private static final String SELECT_ALL_SQL2 = "SELECT id, name, surname FROM person";
 
-  private static final Set<String> selectAll1ColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
+  private static final Set<String> selectAll1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
 
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final Set<String> insert2ColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
+  private static final Set<String> insert2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
   private static SQLiteStatement updatePreparedStatement1;
 
-  private static final Set<String> update3ColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
+  private static final Set<String> update3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
   static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<KriptonComputableLiveData<?>>>());
 
@@ -157,7 +157,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
       @Override
       protected List<Person> compute() {
-        return BindApp1DataSource.instance().executeBatch(new BindApp1DataSource.Batch<List<Person>>() {
+        return BindApp1DataSource.getInstance().executeBatch(new BindApp1DataSource.Batch<List<Person>>() {
           @Override
           public List<Person> onExecute(BindApp1DaoFactory daoFactory) {
             return daoFactory.getDaoPerson1().selectForLiveData(name);
@@ -193,8 +193,8 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor select0(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor select0ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -215,14 +215,14 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!select0ColumnSet.contains(columnName)) {
+        if (!select0ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://com.abubsoft.kripton/persons/*', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: select0ColumnSet) {
+      for (String column: select0ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -333,7 +333,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
       @Override
       protected List<Person> compute() {
-        return BindApp1DataSource.instance().executeBatch(new BindApp1DataSource.Batch<List<Person>>() {
+        return BindApp1DataSource.getInstance().executeBatch(new BindApp1DataSource.Batch<List<Person>>() {
           @Override
           public List<Person> onExecute(BindApp1DaoFactory daoFactory) {
             return daoFactory.getDaoPerson1().selectAllForLiveData();
@@ -364,8 +364,8 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  Cursor selectAll1(Uri uri, String[] projection, String selection, String[] selectionArgs,
-      String sortOrder) {
+  Cursor selectAll1ForContentProvider(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
     Logger.info("Execute SELECT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -379,14 +379,14 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     String _columnSeparator="";
     if (projection!=null && projection.length>0) {
       for (String columnName:projection) {
-        if (!selectAll1ColumnSet.contains(columnName)) {
+        if (!selectAll1ForContentProviderColumnSet.contains(columnName)) {
           throw new KriptonRuntimeException(String.format("For URI 'content://com.abubsoft.kripton/persons', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "person" ));
         }
         _projectionBuffer.append(_columnSeparator + columnName);
         _columnSeparator=", ";
       }
     } else {
-      for (String column: selectAll1ColumnSet) {
+      for (String column: selectAll1ForContentProviderColumnSet) {
         _projectionBuffer.append(_columnSeparator + column);
         _columnSeparator=", ";
       }
@@ -495,11 +495,11 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
    * @param contentValues content values
    * @return new row's id
    */
-  long insert2(Uri uri, ContentValues contentValues) {
+  long insert2ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insert2ColumnSet.contains(columnName)) {
+      if (!insert2ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://com.abubsoft.kripton/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
@@ -612,7 +612,8 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
    * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
    * @return number of effected rows
    */
-  int update3(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+  int update3ForContentProvider(Uri uri, ContentValues contentValues, String selection,
+      String[] selectionArgs) {
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     Logger.info("Execute UPDATE for URI %s", uri.toString());
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -629,7 +630,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     // Add parameter bean.id at path segment 1
     _contentValues.addWhereArgs(uri.getPathSegments().get(1));
     for (String columnName:_contentValues.values().keySet()) {
-      if (!update3ColumnSet.contains(columnName)) {
+      if (!update3ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://com.abubsoft.kripton/persons/#', column '%s' does not exists in table '%s' or can not be defined in this UPDATE operation", columnName, "person" ));
       }
     }
@@ -682,7 +683,11 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
   }
 
-  protected void invalidateLiveData() {
+  /**
+   * <p>Invalidate livedata.</p>
+   *
+   */
+  public void invalidateLiveData() {
     for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();

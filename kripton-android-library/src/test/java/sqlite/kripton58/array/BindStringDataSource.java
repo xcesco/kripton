@@ -152,7 +152,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindStringDataSource instance() {
+  public static BindStringDataSource getInstance() {
     BindStringDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * @return opened dataSource instance.
    */
   public static BindStringDataSource open() {
-    BindStringDataSource instance=instance();
+    BindStringDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
    * @return opened dataSource instance.
    */
   public static BindStringDataSource openReadOnly() {
-    BindStringDataSource instance=instance();
+    BindStringDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -299,8 +299,13 @@ public class BindStringDataSource extends AbstractDataSource implements BindStri
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

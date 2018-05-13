@@ -19,8 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.PackageElement;
 
-// TODO: Auto-generated Javadoc
+import com.abubusoft.kripton.processor.BaseProcessor;
+
 /**
  * The Class ModelBucket.
  *
@@ -28,6 +30,14 @@ import javax.lang.model.element.Element;
  * @param <E> the element type
  */
 public class ModelBucket<T extends ModelEntity<?>, E extends Element> extends ModelEntity<E> {
+	
+	public String getPackageName() {
+		PackageElement pkg = BaseProcessor.elementUtils.getPackageOf(getElement());
+		String pkgName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
+		
+		return pkgName;
+	}
+	
 
 	/**
 	 * Find for contained element, using its name.

@@ -108,6 +108,11 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
+   * <h2>Fields filled by subqueries:</h2>
+   * <dl>
+   * 	<dt>songs</dt><dd>filled by query {@link DaoSong#selectByAlbumId}</dd>
+   * </dl>
+   *
    * @return collection of bean or empty collection.
    */
   @Override

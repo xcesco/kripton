@@ -210,12 +210,12 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 		if (property.hasTypeAdapter()) {
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.writeAttribute($S, $T.encode(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, property.label, Base64Utils.class,
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.encode(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + "))", serializerName, BindProperty.xmlName(property), Base64Utils.class,
 						TypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz),getter(beanName, beanClass, property));
 				break;
 			case TAG:
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 				methodBuilder.addStatement("$L.writeBinary(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, TypeAdapterUtils.class,
 						TypeUtility.typeName(property.typeAdapter.adapterClazz),getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
@@ -229,10 +229,10 @@ public class ByteArrayBindTransform extends AbstractBindTransform {
 		} else {
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.writeAttribute($S, $T.encode($L))", serializerName, property.label, Base64Utils.class, getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.writeAttribute($S, $T.encode($L))", serializerName, BindProperty.xmlName(property), Base64Utils.class, getter(beanName, beanClass, property));
 				break;
 			case TAG:
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 				methodBuilder.addStatement("$L.writeBinary($L)", serializerName, getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 				break;

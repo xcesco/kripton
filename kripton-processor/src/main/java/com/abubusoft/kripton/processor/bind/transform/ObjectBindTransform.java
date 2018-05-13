@@ -80,7 +80,7 @@ public class ObjectBindTransform extends AbstractBindTransform {
 			methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
 		}
 				
-		methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+		methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 		methodBuilder.addStatement("$L.serializeOnXml($L, xmlSerializer, $L)", bindName, getter(beanName, beanClass, property), XmlPullParser.START_TAG);
 		methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 

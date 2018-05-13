@@ -30,7 +30,6 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractNumberBindTransform.
  */
@@ -199,11 +198,11 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 		if (property.hasTypeAdapter()) {
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.write$LAttribute(null, null,$S, " + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, ATTRIBUTE_METHOD, property.label,
+				methodBuilder.addStatement("$L.write$LAttribute(null, null,$S, " + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")", serializerName, ATTRIBUTE_METHOD, BindProperty.xmlName(property),
 						TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				break;
 			case TAG:
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write(" + PRE_TYPE_ADAPTER_TO_DATA + "$L" + POST_TYPE_ADAPTER + ")))", serializerName, StringEscapeUtils.class,
 						NUMBER_UTIL_CLAZZ, TypeAdapterUtils.class, TypeUtility.typeName(property.typeAdapter.adapterClazz), getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
@@ -220,10 +219,10 @@ abstract class AbstractNumberBindTransform extends AbstractBindTransform {
 		} else {
 			switch (xmlType) {
 			case ATTRIBUTE:
-				methodBuilder.addStatement("$L.write$LAttribute(null, null,$S, $L)", serializerName, ATTRIBUTE_METHOD, property.label, getter(beanName, beanClass, property));
+				methodBuilder.addStatement("$L.write$LAttribute(null, null,$S, $L)", serializerName, ATTRIBUTE_METHOD, BindProperty.xmlName(property), getter(beanName, beanClass, property));
 				break;
 			case TAG:
-				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, property.label);
+				methodBuilder.addStatement("$L.writeStartElement($S)", serializerName, BindProperty.xmlName(property));
 				methodBuilder.addStatement("$L.writeCharacters($T.escapeXml10($T.write($L)))", serializerName, StringEscapeUtils.class, NUMBER_UTIL_CLAZZ, getter(beanName, beanClass, property));
 				methodBuilder.addStatement("$L.writeEndElement()", serializerName);
 				break;

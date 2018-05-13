@@ -25,15 +25,15 @@ import java.util.Set;
 public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
   private static SQLiteStatement insertOneRawPreparedStatement0;
 
-  private static final Set<String> insertOneRaw0ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
+  private static final Set<String> insertOneRaw0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
 
   private static SQLiteStatement insertOneRawFieldNamePreparedStatement1;
 
-  private static final Set<String> insertOneRawFieldName1ColumnSet = CollectionUtils.asSet(String.class, "person_name");
+  private static final Set<String> insertOneRawFieldName1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name");
 
   private static SQLiteStatement insertOne2RawFieldNamePreparedStatement2;
 
-  private static final Set<String> insertOne2RawFieldName2ColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
+  private static final Set<String> insertOne2RawFieldName2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "person_name", "person_surname");
 
   public InsertRawPersonDaoImpl(BindInsertRawPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -126,11 +126,11 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    * @param contentValues content values
    * @return new row's id
    */
-  long insertOneRaw0(Uri uri, ContentValues contentValues) {
+  long insertOneRaw0ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertOneRaw0ColumnSet.contains(columnName)) {
+      if (!insertOneRaw0ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
@@ -235,11 +235,11 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    * @param contentValues content values
    * @return new row's id
    */
-  long insertOneRawFieldName1(Uri uri, ContentValues contentValues) {
+  long insertOneRawFieldName1ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertOneRawFieldName1ColumnSet.contains(columnName)) {
+      if (!insertOneRawFieldName1ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/name', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }
@@ -349,11 +349,11 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    * @param contentValues content values
    * @return new row's id
    */
-  long insertOne2RawFieldName2(Uri uri, ContentValues contentValues) {
+  long insertOne2RawFieldName2ForContentProvider(Uri uri, ContentValues contentValues) {
     Logger.info("Execute INSERT for URI %s", uri.toString());
     KriptonContentValues _contentValues=contentValuesForContentProvider(contentValues);
     for (String columnName:_contentValues.values().keySet()) {
-      if (!insertOne2RawFieldName2ColumnSet.contains(columnName)) {
+      if (!insertOne2RawFieldName2ForContentProviderColumnSet.contains(columnName)) {
         throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.javadoc.bean/persons/surname', column '%s' does not exists in table '%s' or can not be defined in this INSERT operation", columnName, "person" ));
       }
     }

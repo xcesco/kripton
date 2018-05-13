@@ -380,8 +380,8 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
     return executeBatch(batch, false);
   }
 
-  public PublishSubject<SQLiteEvent> employeeSubject() {
-    return employeeRawInsertSelectDao.subject();
+  public PublishSubject<SQLiteEvent> getEmployeeSubject() {
+    return employeeRawInsertSelectDao.getSubject();
   }
 
   /**
@@ -471,7 +471,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindKripton180RawInsertSelectDataSource instance() {
+  public static BindKripton180RawInsertSelectDataSource getInstance() {
     BindKripton180RawInsertSelectDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -500,7 +500,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
    * @return opened dataSource instance.
    */
   public static BindKripton180RawInsertSelectDataSource open() {
-    BindKripton180RawInsertSelectDataSource instance=instance();
+    BindKripton180RawInsertSelectDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -510,7 +510,7 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
    * @return opened dataSource instance.
    */
   public static BindKripton180RawInsertSelectDataSource openReadOnly() {
-    BindKripton180RawInsertSelectDataSource instance=instance();
+    BindKripton180RawInsertSelectDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -618,8 +618,13 @@ public class BindKripton180RawInsertSelectDataSource extends AbstractDataSource 
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

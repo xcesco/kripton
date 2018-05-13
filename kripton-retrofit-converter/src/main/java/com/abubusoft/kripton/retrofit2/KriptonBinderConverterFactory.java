@@ -28,7 +28,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating KriptonBinderConverter objects.
  */

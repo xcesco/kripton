@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <?xml-stylesheet title="XSL_formatting" type="text/xsl" href="/shared/bsp/xsl/rss/nolsol.xsl"?>
+        <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+            <channel>
+                <title>
+                    <![CDATA[BBC News - Home]]>
+                </title>
+                <description>
+                    <![CDATA[BBC News - Home]]>
+                </description>
+                <link>http://www.bbc.co.uk/news/</link>
+                <image>
+                    <url>http://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
+                    <title>BBC News - Home</title>
+                    <link>http://www.bbc.co.uk/news/</link>
+                </image>
+                <generator>RSS for Node</generator>
+                <lastBuildDate>Wed, 09 May 2018 09:58:10 GMT</lastBuildDate>
+                <copyright>
+                    <![CDATA[Copyright: (C) British Broadcasting Corporation, see http://news.bbc.co.uk/2/hi/help/rss/4498287.stm for terms and conditions of reuse.]]>
+                </copyright>
+                <language>
+                    <![CDATA[en-gb]]>
+                </language>
+                <ttl>15</ttl>
+                <item>
+                    <title>
+                        <![CDATA[Iran nuclear deal not dead despite US exit, France says]]>
+                    </title>
+                    <description>
+                        <![CDATA[Efforts begin to try to salvage the Iranian nuclear deal after the US announced its withdrawal.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-us-canada-44049532</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-us-canada-44049532</guid>
+                    <pubDate>Wed, 09 May 2018 09:57:52 GMT</pubDate>
+                    <media:thumbnail width="2048" height="1152" url="http://c.files.bbci.co.uk/136E8/production/_101229597_compo.png" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Iran nuclear deal: What's next after US pulls out]]>
+                    </title>
+                    <description>
+                        <![CDATA[With the US out, and Europe scrambling to keep Iran in, what's next for the nuclear pact?]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-middle-east-44049179</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-middle-east-44049179</guid>
+                    <pubDate>Wed, 09 May 2018 04:24:07 GMT</pubDate>
+                    <media:thumbnail width="768" height="432" url="http://c.files.bbci.co.uk/7DCB/production/_101230223_iran.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Syria blames Israel for air strike near Damascus]]>
+                    </title>
+                    <description>
+                        <![CDATA[Syria's state news agency says air defences shot down two Israeli missiles south of Damascus.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-europe-44046049</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-europe-44046049</guid>
+                    <pubDate>Wed, 09 May 2018 08:25:49 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/20DD/production/_101231480_de32-1.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[London ranked top city for students]]>
+                    </title>
+                    <description>
+                        <![CDATA[London has overtaken Paris and Montreal for the title of best student city, despite being so expensive.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/business-44039666</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/business-44039666</guid>
+                    <pubDate>Tue, 08 May 2018 23:03:47 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/11469/production/_101216707_londonstudent2.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[First 10 Eurovision finalists chosen]]>
+                    </title>
+                    <description>
+                        <![CDATA[Ireland make it to the final for the first time since 2013, with Israel's Netta also qualifying.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/entertainment-arts-44044248</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/entertainment-arts-44044248</guid>
+                    <pubDate>Wed, 09 May 2018 07:39:58 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/E68F/production/_101232095_mediaitem101217332.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Trump lawyer Michael Cohen 'paid by firm linked to Russian']]>
+                    </title>
+                    <description>
+                        <![CDATA[Michael Cohen is reported to have received $500,000 from a firm with ties to a Russian oligarch.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-us-canada-44049534</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-us-canada-44049534</guid>
+                    <pubDate>Wed, 09 May 2018 09:40:37 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/638A/production/_101228452_a96801bf-86c1-4a9b-855e-abebcb870b37.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Rock star Serj Tankian on Armenia's 'unique revolution']]>
+                    </title>
+                    <description>
+                        <![CDATA[The Armenian-American musician has supported opposition politician Nikol Pashinyan.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/entertainment-arts-44049177</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/entertainment-arts-44049177</guid>
+                    <pubDate>Tue, 08 May 2018 23:52:05 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/2C76/production/_101228311_p066lz45.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Potential new cure found for baldness]]>
+                    </title>
+                    <description>
+                        <![CDATA[The lead researcher says the discovery could "make a real difference to people".]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/health-44038756</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/health-44038756</guid>
+                    <pubDate>Wed, 09 May 2018 08:14:33 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/9801/production/_101231983_bald_man_getty.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Malaysia heads to polls on election day]]>
+                    </title>
+                    <description>
+                        <![CDATA[The vote sees a 92-year-old ex-prime minister challenge his former protÃ©gÃ© in a surprise return.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-asia-44036178</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-asia-44036178</guid>
+                    <pubDate>Wed, 09 May 2018 09:11:49 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/17A99/production/_101212969_gettyimages-954795194.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Pompeo in North Korea ahead of Trump-Kim talks]]>
+                    </title>
+                    <description>
+                        <![CDATA[There is growing speculation the US secretary of state could bring home three jailed Americans.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-us-canada-44048340</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-us-canada-44048340</guid>
+                    <pubDate>Wed, 09 May 2018 08:25:26 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/171D0/production/_101227649_hi046624305.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Google AI to make phone calls for you]]>
+                    </title>
+                    <description>
+                        <![CDATA[Google has shown off a future feature of its voice assistant - the ability to make an appointment by phone for you.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/technology-44049181</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/technology-44049181</guid>
+                    <pubDate>Wed, 09 May 2018 04:30:35 GMT</pubDate>
+                    <media:thumbnail width="866" height="487" url="http://c.files.bbci.co.uk/13121/production/_101231187_mediaitem101231185.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Why do Rome's buses keep catching fire?]]>
+                    </title>
+                    <description>
+                        <![CDATA[It is the ninth bus to burst into flames this year and angry Romans blame the transport company.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-europe-44041597</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-europe-44041597</guid>
+                    <pubDate>Tue, 08 May 2018 16:16:25 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/3158/production/_101223621_mediaitem101223500.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Five Australian politicians ousted over dual citizenship]]>
+                    </title>
+                    <description>
+                        <![CDATA[They join 10 MPs removed last year for being dual nationals, which is not allowed under Australian law.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-australia-44049929</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-australia-44049929</guid>
+                    <pubDate>Wed, 09 May 2018 07:25:45 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/CCED/production/_99916425_susan.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Argentina seeks IMF financial aid 'to avoid crisis']]>
+                    </title>
+                    <description>
+                        <![CDATA[Talks are due to start on Wednesday, 17 years after the country defaulted on its debts.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/business-44047113</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/business-44047113</guid>
+                    <pubDate>Tue, 08 May 2018 23:08:09 GMT</pubDate>
+                    <media:thumbnail width="768" height="432" url="http://c.files.bbci.co.uk/E941/production/_101231795_mediaitem101227390.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Why fashion industry loves Meghan Markle ]]>
+                    </title>
+                    <description>
+                        <![CDATA[From jewellery to bags, coats and dresses, the fashion industry is following Meghan Markle's every move]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/business-43965982</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/business-43965982</guid>
+                    <pubDate>Tue, 08 May 2018 23:04:30 GMT</pubDate>
+                    <media:thumbnail width="768" height="432" url="http://c.files.bbci.co.uk/10B1E/production/_101228386_marklefashion.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[How to explain Yankees-Red Sox rivalry to foreigners]]>
+                    </title>
+                    <description>
+                        <![CDATA[The most intense rivalry in Major League Baseball will come to London in 2019. Here's what you need to know.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-us-canada-44047565</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-us-canada-44047565</guid>
+                    <pubDate>Tue, 08 May 2018 17:50:24 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/3DB9/production/_101210851_p066lkks.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Grenfell fire: Italian couple transformed into fairy tale heroes]]>
+                    </title>
+                    <description>
+                        <![CDATA[An Italian couple who died in the Grenfell Tower fire become heroes in a new story book.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/uk-44046358</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/uk-44046358</guid>
+                    <pubDate>Tue, 08 May 2018 23:49:30 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/843C/production/_101225833_p066l76b.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Age is 'just a number' for 100-year-old gym-lover]]>
+                    </title>
+                    <description>
+                        <![CDATA[Dunkirk veteran John Hamilton started going to the gym when he was 88.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/uk-england-bristol-44051439</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/uk-england-bristol-44051439</guid>
+                    <pubDate>Wed, 09 May 2018 06:42:02 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/C0FB/production/_101230494_p066m8pq.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Indonesian ecobricks: A new approach in its plastics 'war']]>
+                    </title>
+                    <description>
+                        <![CDATA[The boss of an Indonesian food factory is encouraging his community to creatively reuse plastic waste.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/science-environment-44046352</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/science-environment-44046352</guid>
+                    <pubDate>Tue, 08 May 2018 23:40:20 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/112EE/production/_101228307_p066lr2p.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[The last king of Bulgaria]]>
+                    </title>
+                    <description>
+                        <![CDATA[In 2001 Bulgariaâ€™s former King Simeon II made a comeback by winning the country's parliamentary election.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/stories-44041917</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/stories-44041917</guid>
+                    <pubDate>Wed, 09 May 2018 00:37:43 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/12931/production/_101218067_p066jr1k.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Childish Gambino's new music video has sparked debate]]>
+                    </title>
+                    <description>
+                        <![CDATA[This is America takes on guns, racism and identity... "You might laugh... you might want to be sick."]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/entertainment-arts-44047709</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/entertainment-arts-44047709</guid>
+                    <pubDate>Tue, 08 May 2018 19:24:13 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/64E8/production/_101223852_p066lkmq.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Boy wakes up just before his life support was to end]]>
+                    </title>
+                    <description>
+                        <![CDATA[A 13-year-old boy regains consciousness just after his parents signed paperwork to donate his organs.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-us-canada-44048189</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-us-canada-44048189</guid>
+                    <pubDate>Tue, 08 May 2018 20:32:26 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/10128/production/_101223856_p066llys.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Iran nuclear deal: What now after Trump's decision to pull out?]]>
+                    </title>
+                    <description>
+                        <![CDATA[The US president has put America's diplomacy on a collision course with some of its closest allies.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-us-canada-44047528</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-us-canada-44047528</guid>
+                    <pubDate>Tue, 08 May 2018 21:08:45 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/14A02/production/_101228448_bb48a27b-3655-4f23-9da3-e4e4caf79714.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Why Italy is still searching for a leader two months after elections]]>
+                    </title>
+                    <description>
+                        <![CDATA[Italy's political system is stuck and the president has failed to persuade party leaders to agree a coalition.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-europe-44037730</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-europe-44037730</guid>
+                    <pubDate>Tue, 08 May 2018 23:49:33 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/03DF/production/_101219900_045711991-1.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Conchita Wurst: 'I want to be clear this is not a joke']]>
+                    </title>
+                    <description>
+                        <![CDATA[Eurovision winner Conchita Wurst says she still feels the need to prove she's more than a drag act.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/entertainment-arts-44038316</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/entertainment-arts-44038316</guid>
+                    <pubDate>Wed, 09 May 2018 00:44:30 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/1668F/production/_101219719_cb2efcf4-1544-4531-a563-77e18a3f7c16.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Nigeria's cattle war fuels religious tension]]>
+                    </title>
+                    <description>
+                        <![CDATA[What started as a cattle war between farmers and herdsmen in Nigeria's middle belt has taken a religious dimension, writes the BBC's Mayeni Jones.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-africa-44039546</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-africa-44039546</guid>
+                    <pubDate>Wed, 09 May 2018 01:12:24 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/F3B7/production/_101219326_2ce184a3-2952-4086-8c0f-485d301308dd.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[NBA play-offs: LeBron breaks Toronto fans' hearts - again]]>
+                    </title>
+                    <description>
+                        <![CDATA[The Cleveland Cavaliers star eliminated the Toronto Raptors for the third year in a row.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/newsbeat-44039926</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/newsbeat-44039926</guid>
+                    <pubDate>Tue, 08 May 2018 12:38:55 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/B6DC/production/_101221864_ps_reuters_lebron2.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[The battle of the gas-sucking giants]]>
+                    </title>
+                    <description>
+                        <![CDATA[As demand for natural gas continues to surge, huge extraction vessels are about to go into action.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/business-44003521</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/business-44003521</guid>
+                    <pubDate>Mon, 07 May 2018 23:23:36 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/1079E/production/_101168476_prelude-flng-towed-to-australia-1.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Southampton boss Mark Hughes says 'dark arts' motivated side at Swansea]]>
+                    </title>
+                    <description>
+                        <![CDATA[Southampton boss Mark Hughes says the "dark arts" that disrupted preparations for Tuesday's game at Swansea motivated his side to secure victory.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/sport/football/44046850</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/sport/football/44046850</guid>
+                    <pubDate>Tue, 08 May 2018 22:41:38 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/3A5E/production/_101224941_markhughes.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Andy Murray injury comeback likely to be delayed]]>
+                    </title>
+                    <description>
+                        <![CDATA[Andy Murray's recovery from hip surgery has run into difficulty and it seems unlikely he will be able to make his comeback this month, says Russell Fuller.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/sport/tennis/44046794</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/sport/tennis/44046794</guid>
+                    <pubDate>Tue, 08 May 2018 21:30:07 GMT</pubDate>
+                    <media:thumbnail width="2048" height="1152" url="http://c.files.bbci.co.uk/E813/production/_99511495_murray_getty.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[The part Yaya Toure played in Man City's rise and what made him so special - Frank Lampard]]>
+                    </title>
+                    <description>
+                        <![CDATA[The part Yaya Toure played in Man City's rise and what made him so special, by his former Manchester City team-mate Frank Lampard.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/sport/football/44042332</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/sport/football/44042332</guid>
+                    <pubDate>Tue, 08 May 2018 21:44:23 GMT</pubDate>
+                    <media:thumbnail width="2048" height="1152" url="http://c.files.bbci.co.uk/91AB/production/_101219273_yayatoure2.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Ladies European Tour: Melissa Reid says players need part-time jobs to make living]]>
+                    </title>
+                    <description>
+                        <![CDATA[Ladies European Tour players are having to take part-time jobs because "it's pretty much impossible" to otherwise make a living, says Melissa Reid.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/sport/golf/44046293</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/sport/golf/44046293</guid>
+                    <pubDate>Tue, 08 May 2018 20:18:16 GMT</pubDate>
+                    <media:thumbnail width="2048" height="1152" url="http://c.files.bbci.co.uk/142F0/production/_101227628_reid_index.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[50 great World Cup moments: Ronaldo's redemption at 2002 final]]>
+                    </title>
+                    <description>
+                        <![CDATA[BBC Sport looks back on the 2002 World Cup final, where Ronaldo banished his demons from the 1998 final and scored two goals as Brazil beat Germany.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/sport/football/43968269</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/sport/football/43968269</guid>
+                    <pubDate>Wed, 09 May 2018 05:17:30 GMT</pubDate>
+                    <media:thumbnail width="1024" height="576" url="http://c.files.bbci.co.uk/1051A/production/_101124866_p065xrcg.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Mauricio Pochettino: Tottenham will 'die trying' to reach Champions League]]>
+                    </title>
+                    <description>
+                        <![CDATA[Tottenham will "die trying" to qualify for the Champions League, says manager Mauricio Pochettino.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/sport/football/44050648</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/sport/football/44050648</guid>
+                    <pubDate>Wed, 09 May 2018 06:39:00 GMT</pubDate>
+                    <media:thumbnail width="1258" height="708" url="http://c.files.bbci.co.uk/908B/production/_101230073_mauricio_pochettino_reuters.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[West Brom relegated from Premier League after Southampton beat Swanea]]>
+                    </title>
+                    <description>
+                        <![CDATA[West Bromwich Albion are relegated from the Premier League after Southampton won 1-0 at Swansea City on Tuesday night.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/sport/football/44046183</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/sport/football/44046183</guid>
+                    <pubDate>Tue, 08 May 2018 21:30:25 GMT</pubDate>
+                    <media:thumbnail width="2048" height="1152" url="http://c.files.bbci.co.uk/1692E/production/_101226429_gettyimages-955016630.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Asylum decision-maker: 'It's a lottery']]>
+                    </title>
+                    <description>
+                        <![CDATA[The Home Office denies taking "arbitrary" decisions on asylum cases to meet deportation targets, but one caseworker says staff are forced to rush their work.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/stories-43555766</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/stories-43555766</guid>
+                    <pubDate>Tue, 08 May 2018 02:56:13 GMT</pubDate>
+                    <media:thumbnail width="2048" height="1152" url="http://c.files.bbci.co.uk/12C33/production/_101215867_pic3_notexture.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[The woman who watched 300 executions in Texas]]>
+                    </title>
+                    <description>
+                        <![CDATA[A former employee of the state of Texas describes the profound effect the executions had on her.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/world-us-canada-43995866</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/world-us-canada-43995866</guid>
+                    <pubDate>Sun, 06 May 2018 23:30:21 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/D737/production/_101159055_lyons_976getty.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[The 'Belsen boys' who moved to Ascot]]>
+                    </title>
+                    <description>
+                        <![CDATA[After WW2 a group of Holocaust survivors came to recuperate in the UK - and became an unexpected sight in a town known for races attended by the rich and famous.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/stories-44008751</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/stories-44008751</guid>
+                    <pubDate>Sat, 05 May 2018 23:32:22 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/F580/production/_101184826_perl_docspromo3.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[I was convinced my baby deserved a better mum]]>
+                    </title>
+                    <description>
+                        <![CDATA[At the end of maternal mental health week, one mother details her experience of post-natal depression and the help she describes as a godsend.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/stories-43979225</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/stories-43979225</guid>
+                    <pubDate>Fri, 04 May 2018 14:47:20 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/13B92/production/_101168708_promomum..jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[The Scottish island that buried America's dead]]>
+                    </title>
+                    <description>
+                        <![CDATA[Hundreds of US troops were buried on Islay after two huge naval disasters at the end of World War One.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/uk-scotland-43948079</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/uk-scotland-43948079</guid>
+                    <pubDate>Mon, 30 Apr 2018 23:22:32 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/48C3/production/_101072681_islaygraves.jpg" />
+                </item>
+                <item>
+                    <title>
+                        <![CDATA[Ostracised and fetishised: The perils of travelling as a young black woman]]>
+                    </title>
+                    <description>
+                        <![CDATA[Ashley Butterfield has been around the world - but a visit to India brought home the challenges of being a lone black female tourist.]]>
+                    </description>
+                    <link>http://www.bbc.co.uk/news/stories-43877568</link>
+                    <guid isPermaLink="true">http://www.bbc.co.uk/news/stories-43877568</guid>
+                    <pubDate>Mon, 30 Apr 2018 00:12:56 GMT</pubDate>
+                    <media:thumbnail width="976" height="549" url="http://c.files.bbci.co.uk/AD95/production/_101073444_promo.jpg" />
+                </item>
+            </channel>
+        </rss>

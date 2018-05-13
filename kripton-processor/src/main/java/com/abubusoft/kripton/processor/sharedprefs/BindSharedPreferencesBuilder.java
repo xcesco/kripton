@@ -238,10 +238,10 @@ public abstract class BindSharedPreferencesBuilder {
 		MethodSpec.Builder method = MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).addJavadoc("constructor\n");
 		if (StringUtils.hasText(sharedPreferenceName)) {
 			method.addCode("// using typeName attribute of annotation @BindSharedPreferences as typeName\n");
-			method.addStatement("prefs=$T.context().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
+			method.addStatement("prefs=$T.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
 		} else {
 			method.addCode("// no typeName specified, using default shared preferences\n");
-			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.context())", PreferenceManager.class, KriptonLibrary.class);
+			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.getContext())", PreferenceManager.class, KriptonLibrary.class);
 		}
 
 		// method.addStatement("converterMap=new $T<$T, $T>()", HashMap.class, String.class, Converter.class);
@@ -259,10 +259,10 @@ public abstract class BindSharedPreferencesBuilder {
 		MethodSpec.Builder method = MethodSpec.methodBuilder("refresh").addModifiers(Modifier.PUBLIC).addJavadoc("force to refresh values\n").returns(className(className));
 		if (StringUtils.hasText(sharedPreferenceName)) {
 			method.addCode("// using typeName attribute of annotation @BindSharedPreferences as typeName\n");
-			method.addStatement("prefs=$T.context().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
+			method.addStatement("prefs=$T.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
 		} else {
 			method.addCode("// no typeName specified, using default shared preferences\n");
-			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.context())", PreferenceManager.class, KriptonLibrary.class);
+			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.getContext())", PreferenceManager.class, KriptonLibrary.class);
 		}
 		method.addStatement("return this");
 		builder.addMethod(method.build());

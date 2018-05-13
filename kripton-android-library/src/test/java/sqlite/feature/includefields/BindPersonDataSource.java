@@ -152,7 +152,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindPersonDataSource instance() {
+  public static BindPersonDataSource getInstance() {
     BindPersonDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * @return opened dataSource instance.
    */
   public static BindPersonDataSource open() {
-    BindPersonDataSource instance=instance();
+    BindPersonDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * @return opened dataSource instance.
    */
   public static BindPersonDataSource openReadOnly() {
-    BindPersonDataSource instance=instance();
+    BindPersonDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -299,8 +299,13 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

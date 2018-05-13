@@ -152,7 +152,7 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindBeanDataSource instance() {
+  public static BindBeanDataSource getInstance() {
     BindBeanDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
@@ -181,7 +181,7 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
    * @return opened dataSource instance.
    */
   public static BindBeanDataSource open() {
-    BindBeanDataSource instance=instance();
+    BindBeanDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -191,7 +191,7 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
    * @return opened dataSource instance.
    */
   public static BindBeanDataSource openReadOnly() {
-    BindBeanDataSource instance=instance();
+    BindBeanDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -299,8 +299,13 @@ public class BindBeanDataSource extends AbstractDataSource implements BindBeanDa
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              // run populator
-              options.populator.execute();
+              try {
+                SQLiteDatabase currentDb=instance.openWritableDatabase();
+                // run populator
+                options.populator.execute(currentDb);
+              } finally {
+                instance.close();
+              }
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

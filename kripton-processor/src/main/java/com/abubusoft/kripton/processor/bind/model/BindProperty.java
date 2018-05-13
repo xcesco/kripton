@@ -21,6 +21,7 @@ import javax.lang.model.element.Element;
 
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.annotation.BindAdapter;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -187,19 +188,21 @@ public class BindProperty extends ModelProperty {
 		/** The map entry type. */
 		public MapEntryType mapEntryType = MapEntryType.TAG;
 
-		/** tag typeName used for item or collection (if element is a collection). */
-		// public String itemTag;
-
 		/**
 		 * tag typeName for collection's item
 		 */
 		public String labelItem;
-
+		
 		/** The wrapped collection. */
 		public boolean wrappedCollection;
 
 		/** The xml type. */
 		public XmlType xmlType = XmlType.TAG;
+
+		/**
+		 * Namespace used for element
+		 */
+		public String namespace;
 
 		/**
 		 * If true, this element is a collection with a tag for collection and a
@@ -310,6 +313,16 @@ public class BindProperty extends ModelProperty {
 	public boolean isNullable() {
 		return nullable;
 	}
+	
+	public static String xmlName(BindProperty property) {
+		String namespace=property.xmlInfo.namespace;
+		String label=property.label;
+		if (StringUtils.hasText(namespace)) {
+			return namespace+":"+label;
+		}
+		
+		return label;
+	}
 
 	/**
 	 * Checks if is binded object.
@@ -345,6 +358,16 @@ public class BindProperty extends ModelProperty {
 	 */
 	public boolean isBindedMap() {
 		return propertyType.isMap();
+	}
+
+	public static String xmlNameForItem(BindProperty property) {		
+		String namespace=property.xmlInfo.namespace;
+		String label=property.xmlInfo.labelItem;
+		if (StringUtils.hasText(namespace)) {
+			return namespace+":"+label;
+		}
+		
+		return label;
 	}
 
 }

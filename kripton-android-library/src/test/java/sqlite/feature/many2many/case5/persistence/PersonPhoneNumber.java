@@ -1,8 +1,8 @@
 package sqlite.feature.many2many.case5.persistence;
 
 import com.abubusoft.kripton.android.ColumnType;
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 import sqlite.feature.many2many.case5.model.Person;
 import sqlite.feature.many2many.case5.model.PhoneNumber;
@@ -12,14 +12,14 @@ import sqlite.feature.many2many.case5.model.PhoneNumber;
  * Generated entity implementation for <code>PersonPhoneNumber</code>
  * </p>
  */
-@BindTable(
+@BindSqlType(
     name = "person_phone_number"
 )
 public class PersonPhoneNumber {
   /**
    * Primary key
    */
-  @BindColumn(
+  @BindSqlColumn(
       columnType = ColumnType.PRIMARY_KEY
   )
   public long id;
@@ -27,7 +27,7 @@ public class PersonPhoneNumber {
   /**
    * Foreign key to Person model class
    */
-  @BindColumn(
+  @BindSqlColumn(
       parentEntity = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
@@ -36,7 +36,7 @@ public class PersonPhoneNumber {
   /**
    * Foreign key to PhoneNumber model class
    */
-  @BindColumn(
+  @BindSqlColumn(
       parentEntity = PhoneNumber.class,
       onDelete = ForeignKeyAction.CASCADE
   )

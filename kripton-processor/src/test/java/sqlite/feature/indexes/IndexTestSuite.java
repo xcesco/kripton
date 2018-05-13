@@ -27,7 +27,8 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		IndexCompileTest.class		
+		IndexCompileTest.class,
+		IndexCompileTest1.class,
 		 })
 //@formatter:on
 public class IndexTestSuite extends BaseProcessorTest {

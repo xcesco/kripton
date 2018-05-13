@@ -23,6 +23,8 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.livedata.data.Person;
 import sqlite.feature.livedata.persistence2.AppDataSource;
 import sqlite.feature.livedata.persistence2.DaoPerson;
+import sqlite.feature.livedata.persistence2.DaoCity;
+import sqlite.feature.livedata.persistence2.City;
 
 /**
  * The Class TestLiveDataCompile.
@@ -39,7 +41,7 @@ public class TestLiveDataCompile2 extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testCompile() throws Throwable {				
 		//formatter:off
-		buildDataSourceProcessorTest(Person.class, DaoPerson.class, AppDataSource.class);
+		buildDataSourceProcessorTest(Person.class, DaoPerson.class, DaoCity.class, City.class,AppDataSource.class);
 		//formatter:on
 	}
 

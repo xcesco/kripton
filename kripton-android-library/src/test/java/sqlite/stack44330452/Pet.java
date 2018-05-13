@@ -15,7 +15,7 @@
  ******************************************************************************/
 package sqlite.stack44330452;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
@@ -29,7 +29,7 @@ public class Pet {
 	public long id;
 
 	/** The user id. */
-	@BindColumn(parentEntity = User.class)
+	@BindSqlColumn(parentEntity = User.class)
 	public long userId;
 	
 	/** The name. */

@@ -15,22 +15,22 @@
  ******************************************************************************/
 package sqlite.feature.foreignkeyaction.err2;
 
-import com.abubusoft.kripton.android.annotation.BindColumn;
-import com.abubusoft.kripton.android.annotation.BindTable;
+import com.abubusoft.kripton.android.annotation.BindSqlColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 import com.abubusoft.kripton.android.sqlite.ForeignKeyAction;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Album.
  */
-@BindTable
+@BindSqlType
 public class Album {
 	
 	/** The id. */
 	public long id;
 
 	/** The artist id. */
-	@BindColumn(onDelete=ForeignKeyAction.CASCADE)
+	@BindSqlColumn(onDelete=ForeignKeyAction.CASCADE)
 	public long artistId;
 	
 	/** The name. */
