@@ -12,7 +12,7 @@
 	<artifactId>kripton-project</artifactId>
 
 	<packaging>pom</packaging>
-	<name>Kripton (Parent)</name>
+	<name>Kripton Project</name>
 	<description>Kripton persistence library - project</description>
 	<url>https://github.com/xcesco/kripton</url>
 
