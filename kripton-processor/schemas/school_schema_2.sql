@@ -2,7 +2,11 @@
 --
 -- Filename: school_schema_2.sql
 --
+<<<<<<< HEAD
 -- Date: Thu May 24 13:12:09 CEST 2018
+=======
+-- Date: Wed May 16 22:59:39 CEST 2018
+>>>>>>> branch 'v4.x' of https://github.com/xcesco/kripton
 --
 ------------------------------------------------------------------------------------
 

@@ -2,7 +2,11 @@
 --
 -- Filename: artist_schema_1.sql
 --
+<<<<<<< HEAD
 -- Date: Thu May 24 13:12:42 CEST 2018
+=======
+-- Date: Wed May 16 22:59:51 CEST 2018
+>>>>>>> branch 'v4.x' of https://github.com/xcesco/kripton
 --
 ------------------------------------------------------------------------------------
 
