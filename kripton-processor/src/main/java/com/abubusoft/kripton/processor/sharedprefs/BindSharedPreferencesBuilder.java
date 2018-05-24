@@ -33,7 +33,9 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
+import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.common.CaseFormat;
+import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
@@ -42,13 +44,19 @@ import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsEntity;
 import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 import com.abubusoft.kripton.processor.sharedprefs.transform.SetPrefsTransformation;
+import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
+import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -57,6 +65,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
 // TODO: Auto-generated Javadoc
@@ -106,6 +115,7 @@ public abstract class BindSharedPreferencesBuilder {
 		String className = PREFIX + beanClassName + suffix;
 		ModelAnnotation annotation = entity.getAnnotation(BindSharedPreferences.class);
 		String sharedPreferenceName = annotation.getAttribute(AnnotationAttributeType.VALUE);
+		boolean generateRx=annotation.getAttributeAsBoolean(AnnotationAttributeType.GENERATE_RX);
 
 		PackageElement pkg = elementUtils.getPackageOf(entity.getElement());
 		String packageName = pkg.isUnnamed() ? "" : pkg.getQualifiedName().toString();
@@ -137,10 +147,14 @@ public abstract class BindSharedPreferencesBuilder {
 		}
 
 		generateEditor(entity);
+		
+		generateCreate(sharedPreferenceName, beanClassName, generateRx);
 
 		generateConstructor(sharedPreferenceName, beanClassName);
-		
+						
 		generateRefresh(sharedPreferenceName, className);
+		
+		generateRxSupport(sharedPreferenceName, beanClassName, generateRx);
 
 		generateResetMethod(entity);
 
@@ -175,6 +189,63 @@ public abstract class BindSharedPreferencesBuilder {
 	}
 
 	
+
+	private static void generateCreate(String sharedPreferenceName, String beanClassName, boolean generateRx) {
+		MethodSpec.Builder method = MethodSpec.methodBuilder("createPrefs").addModifiers(Modifier.PRIVATE).addJavadoc("create prefs\n");
+		if (StringUtils.hasText(sharedPreferenceName)) {
+			method.addCode("// using typeName attribute of annotation @BindSharedPreferences as typeName\n");
+			method.addStatement("prefs=$T.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
+		} else {
+			method.addCode("// no typeName specified, using default shared preferences\n");
+			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.getContext())", PreferenceManager.class, KriptonLibrary.class);
+		}
+
+		if (generateRx) {
+			method.addStatement("prefs.registerOnSharedPreferenceChangeListener(prefsListener)");
+		}
+		builder.addMethod(method.build());
+	}
+	
+	private static void generateRxSupport(String sharedPreferenceName, String beanClassName, boolean generateRx) {
+		if (!generateRx) return;
+		
+		com.squareup.javapoet.CodeBlock.Builder c = CodeBlock.builder();
+		c. ("{", OnSharedPreferenceChangeListener.class);
+		
+		c.add(TypeSpec.anonymousClassBuilder("")
+			.addSuperinterface(OnSharedPreferenceChangeListener.class)
+			.addMethod(MethodSpec.methodBuilder("onSharedPreferenceChanged").addAnnotation(Override.class)
+					.addParameter(SharedPreferences.class, "sharedPreferences")
+					.addParameter(String.class, "key").build()).build());
+        
+		
+		
+		/*for (SQLiteEntity entity : schema.getEntities()) {
+			String tableName = BindTableGenerator.getTableClassName(entity.getName());
+
+			c.add(s + "new $T()", TypeUtility.className(tableName));
+			s = ", ";
+		}
+
+		for (GeneratedTypeElement entity : schema.generatedEntities) {
+			String tableName = BindTableGenerator.getTableClassName(entity.getQualifiedName());
+
+			c.add(s + "new $T()", TypeUtility.className(tableName));
+			s = ", ";
+		}*/
+
+		c.add("}");
+		FieldSpec.Builder f = FieldSpec
+				.builder(ClassName.get(OnSharedPreferenceChangeListener.class), "prefsListener",  Modifier.PRIVATE)				
+				.addJavadoc("List of tables compose datasource\n");
+		
+		builder.addField(FieldSpec.builder(TypeUtility.className(OnSharedPreferenceChangeListener.class), "prefsListener")
+				.addJavadoc("listener for all changes")
+				.initializer(c.build())
+				.build());
+	}
+
+
 
 	/**
 	 * create editor.
@@ -236,15 +307,8 @@ public abstract class BindSharedPreferencesBuilder {
 	 */
 	private static void generateConstructor(String sharedPreferenceName, String beanClassName) {
 		MethodSpec.Builder method = MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).addJavadoc("constructor\n");
-		if (StringUtils.hasText(sharedPreferenceName)) {
-			method.addCode("// using typeName attribute of annotation @BindSharedPreferences as typeName\n");
-			method.addStatement("prefs=$T.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
-		} else {
-			method.addCode("// no typeName specified, using default shared preferences\n");
-			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.getContext())", PreferenceManager.class, KriptonLibrary.class);
-		}
 
-		// method.addStatement("converterMap=new $T<$T, $T>()", HashMap.class, String.class, Converter.class);
+		method.addStatement("createPrefs()");
 		method.addStatement("defaultBean=new $T()", className(beanClassName));
 		builder.addMethod(method.build());
 	}
@@ -257,13 +321,8 @@ public abstract class BindSharedPreferencesBuilder {
 	 */
 	private static void generateRefresh(String sharedPreferenceName, String className) {
 		MethodSpec.Builder method = MethodSpec.methodBuilder("refresh").addModifiers(Modifier.PUBLIC).addJavadoc("force to refresh values\n").returns(className(className));
-		if (StringUtils.hasText(sharedPreferenceName)) {
-			method.addCode("// using typeName attribute of annotation @BindSharedPreferences as typeName\n");
-			method.addStatement("prefs=$T.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, $T.MODE_PRIVATE)", KriptonLibrary.class, Context.class);
-		} else {
-			method.addCode("// no typeName specified, using default shared preferences\n");
-			method.addStatement("prefs=$T.getDefaultSharedPreferences($T.getContext())", PreferenceManager.class, KriptonLibrary.class);
-		}
+		
+		method.addStatement("createPrefs()");
 		method.addStatement("return this");
 		builder.addMethod(method.build());
 	}
@@ -344,9 +403,10 @@ public abstract class BindSharedPreferencesBuilder {
 	private static void generateSingleReadMethod(PrefsEntity entity) {
 		// read method
 		PrefsTransform transform;
+		Converter<String, String> converter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
 		for (PrefsProperty item : entity.getCollection()) {
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(item.getName()).addModifiers(Modifier.PUBLIC).addJavadoc("read property $L\n\n", item.getName()).addJavadoc("@return property $L value\n", item.getName())
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get"+converter.convert(item.getName())).addModifiers(Modifier.PUBLIC).addJavadoc("read property $L\n\n", item.getName()).addJavadoc("@return property $L value\n", item.getName())
 					.returns(item.getPropertyType().getTypeName());
 
 			if (item.hasTypeAdapter()) {

@@ -138,7 +138,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property name value
    */
-  public String name() {
+  public String getName() {
     return prefs.getString("name", defaultBean.name);
   }
 
@@ -147,7 +147,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property description value
    */
-  public String description() {
+  public String getDescription() {
     return prefs.getString("description", defaultBean.getDescription());
   }
 
@@ -156,7 +156,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property valueFloat value
    */
-  public float valueFloat() {
+  public float getValueFloat() {
     return prefs.getFloat("value_float", defaultBean.valueFloat);
   }
 
@@ -165,7 +165,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property valueBoolean value
    */
-  public boolean valueBoolean() {
+  public boolean getValueBoolean() {
     return (boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
   }
 
@@ -174,7 +174,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property stringArray value
    */
-  public String[] stringArray() {
+  public String[] getStringArray() {
     String temp=prefs.getString("string_array", null);
     return StringUtils.hasText(temp) ? parseStringArray(temp): null;
 
@@ -185,7 +185,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property stringList value
    */
-  public List<String> stringList() {
+  public List<String> getStringList() {
     String temp=prefs.getString("string_list", null);
     return StringUtils.hasText(temp) ? parseStringList(temp): null;
 
@@ -196,7 +196,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property valueInt value
    */
-  public int valueInt() {
+  public int getValueInt() {
     return (int)prefs.getInt("value_int", (int)defaultBean.valueInt);
   }
 
@@ -205,7 +205,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property valueLong value
    */
-  public Long valueLong() {
+  public Long getValueLong() {
     return prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
   }
 

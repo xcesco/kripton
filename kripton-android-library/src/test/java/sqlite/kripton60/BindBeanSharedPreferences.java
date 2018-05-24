@@ -465,7 +465,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueBoolType value
    */
-  public boolean valueBoolType() {
+  public boolean getValueBoolType() {
     return (boolean)prefs.getBoolean("value_bool_type", (boolean)defaultBean.valueBoolType);
   }
 
@@ -474,7 +474,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueBool value
    */
-  public Boolean valueBool() {
+  public Boolean getValueBool() {
     return (boolean)prefs.getBoolean("value_bool", (boolean)(defaultBean.valueBool==null?false:defaultBean.valueBool));
   }
 
@@ -483,7 +483,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueByteType value
    */
-  public byte valueByteType() {
+  public byte getValueByteType() {
     return (byte)prefs.getInt("value_byte_type", (byte)defaultBean.valueByteType);
   }
 
@@ -492,7 +492,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueByte value
    */
-  public Byte valueByte() {
+  public Byte getValueByte() {
     return (byte)prefs.getInt("value_byte", (byte)(defaultBean.valueByte==null?(byte)0:defaultBean.valueByte));
   }
 
@@ -501,7 +501,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueShortType value
    */
-  public short valueShortType() {
+  public short getValueShortType() {
     return (short)prefs.getInt("value_short_type", (short)defaultBean.valueShortType);
   }
 
@@ -510,7 +510,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueShort value
    */
-  public Short valueShort() {
+  public Short getValueShort() {
     return (short)prefs.getInt("value_short", (short)(defaultBean.valueShort==null?(short)0:defaultBean.valueShort));
   }
 
@@ -519,7 +519,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueIntType value
    */
-  public int valueIntType() {
+  public int getValueIntType() {
     return (int)prefs.getInt("value_int_type", (int)defaultBean.valueIntType);
   }
 
@@ -528,7 +528,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueInt value
    */
-  public Integer valueInt() {
+  public Integer getValueInt() {
     return (int)prefs.getInt("value_int", (int)(defaultBean.valueInt==null?0:defaultBean.valueInt));
   }
 
@@ -537,7 +537,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueString value
    */
-  public String valueString() {
+  public String getValueString() {
     return prefs.getString("value_string", defaultBean.valueString);
   }
 
@@ -546,7 +546,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueCharType value
    */
-  public char valueCharType() {
+  public char getValueCharType() {
     return (char)prefs.getInt("value_char_type", (char)defaultBean.valueCharType);
   }
 
@@ -555,7 +555,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueChar value
    */
-  public Character valueChar() {
+  public Character getValueChar() {
     return (char)prefs.getInt("value_char", (char)(defaultBean.valueChar==null?(char)0:defaultBean.valueChar));
   }
 
@@ -564,7 +564,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueFloatType value
    */
-  public float valueFloatType() {
+  public float getValueFloatType() {
     return prefs.getFloat("value_float_type", defaultBean.valueFloatType);
   }
 
@@ -573,7 +573,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueFloat value
    */
-  public Float valueFloat() {
+  public Float getValueFloat() {
     return prefs.getFloat("value_float", (defaultBean.valueFloat==null?0F:defaultBean.valueFloat));
   }
 
@@ -582,7 +582,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueBigInteger value
    */
-  public BigInteger valueBigInteger() {
+  public BigInteger getValueBigInteger() {
     String temp=prefs.getString("value_big_integer", "0");
     return (StringUtils.hasText(temp)) ? new BigInteger(temp): null;
 
@@ -593,7 +593,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueBigDecimal value
    */
-  public BigDecimal valueBigDecimal() {
+  public BigDecimal getValueBigDecimal() {
     String temp=prefs.getString("value_big_decimal", "0");
     return (StringUtils.hasText(temp)) ? new BigDecimal(temp): null;
 
@@ -604,7 +604,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueEnumType value
    */
-  public EnumType valueEnumType() {
+  public EnumType getValueEnumType() {
     String temp=prefs.getString("value_enum_type", null);
     return (StringUtils.hasText(temp)) ? EnumType.valueOf(temp): null;
 
@@ -615,7 +615,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueLongType value
    */
-  public long valueLongType() {
+  public long getValueLongType() {
     return prefs.getLong("value_long_type", defaultBean.valueLongType);
   }
 
@@ -624,7 +624,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueLong value
    */
-  public Long valueLong() {
+  public Long getValueLong() {
     return prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
   }
 
@@ -633,7 +633,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueDoubleType value
    */
-  public double valueDoubleType() {
+  public double getValueDoubleType() {
     String temp=prefs.getString("value_double_type", null);
     return (StringUtils.hasText(temp)) ? Double.valueOf(temp): 0.0;
 
@@ -644,7 +644,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueDouble value
    */
-  public Double valueDouble() {
+  public Double getValueDouble() {
     String temp=prefs.getString("value_double", null);
     return (StringUtils.hasText(temp)) ? Double.valueOf(temp): null;
 
@@ -655,7 +655,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueLocale value
    */
-  public Locale valueLocale() {
+  public Locale getValueLocale() {
     String temp=prefs.getString("value_locale", null);
     return (StringUtils.hasText(temp)) ? LocaleUtils.read(temp): null;
   }
@@ -665,7 +665,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueCalendar value
    */
-  public Calendar valueCalendar() {
+  public Calendar getValueCalendar() {
     String temp=prefs.getString("value_calendar", null);
     return (StringUtils.hasText(temp)) ? CalendarUtils.read(temp): null;
   }
@@ -675,7 +675,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueDate value
    */
-  public Date valueDate() {
+  public Date getValueDate() {
     String temp=prefs.getString("value_date", null);
     return (StringUtils.hasText(temp)) ? DateUtils.read(temp): null;
   }
@@ -685,7 +685,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueUrl value
    */
-  public URL valueUrl() {
+  public URL getValueUrl() {
     String temp=prefs.getString("value_url", null);
     return (StringUtils.hasText(temp)) ? UrlUtils.read(temp): null;
   }
@@ -695,7 +695,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueTime value
    */
-  public Time valueTime() {
+  public Time getValueTime() {
     String temp=prefs.getString("value_time", null);
     return (StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null;
   }
@@ -705,7 +705,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueCurrency value
    */
-  public Currency valueCurrency() {
+  public Currency getValueCurrency() {
     String temp=prefs.getString("value_currency", null);
     return (StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): null;
   }
@@ -715,7 +715,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueTimeZone value
    */
-  public TimeZone valueTimeZone() {
+  public TimeZone getValueTimeZone() {
     String temp=prefs.getString("value_time_zone", null);
     return (StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): null;
   }
@@ -725,7 +725,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueTimeList value
    */
-  public List<Time> valueTimeList() {
+  public List<Time> getValueTimeList() {
     String temp=prefs.getString("value_time_list", null);
     return StringUtils.hasText(temp) ? parseValueTimeList(temp): null;
 
@@ -736,7 +736,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueStrinList value
    */
-  public LinkedList<String> valueStrinList() {
+  public LinkedList<String> getValueStrinList() {
     String temp=prefs.getString("value_strin_list", null);
     return StringUtils.hasText(temp) ? parseValueStrinList(temp): null;
 
@@ -747,7 +747,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueLongList value
    */
-  public LinkedList<Long> valueLongList() {
+  public LinkedList<Long> getValueLongList() {
     String temp=prefs.getString("value_long_list", null);
     return StringUtils.hasText(temp) ? parseValueLongList(temp): null;
 
@@ -758,7 +758,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueByteArray value
    */
-  public byte[] valueByteArray() {
+  public byte[] getValueByteArray() {
     String temp=prefs.getString("value_byte_array", null);
     return StringUtils.hasText(temp) ? parseValueByteArray(temp): null;
 
@@ -769,7 +769,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueBean value
    */
-  public Bean valueBean() {
+  public Bean getValueBean() {
     String temp=prefs.getString("value_bean", null);
     return StringUtils.hasText(temp) ? parseValueBean(temp): null;
 
@@ -780,7 +780,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueLongTypeArray value
    */
-  public long[] valueLongTypeArray() {
+  public long[] getValueLongTypeArray() {
     String temp=prefs.getString("value_long_type_array", null);
     return StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): null;
 
@@ -791,7 +791,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueLongArray value
    */
-  public Long[] valueLongArray() {
+  public Long[] getValueLongArray() {
     String temp=prefs.getString("value_long_array", null);
     return StringUtils.hasText(temp) ? parseValueLongArray(temp): null;
 
@@ -802,7 +802,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueBeanArray value
    */
-  public Bean[] valueBeanArray() {
+  public Bean[] getValueBeanArray() {
     String temp=prefs.getString("value_bean_array", null);
     return StringUtils.hasText(temp) ? parseValueBeanArray(temp): null;
 
@@ -813,7 +813,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueStringArray value
    */
-  public String[] valueStringArray() {
+  public String[] getValueStringArray() {
     String temp=prefs.getString("value_string_array", null);
     return StringUtils.hasText(temp) ? parseValueStringArray(temp): null;
 
@@ -824,7 +824,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueCharList value
    */
-  public LinkedList<Character> valueCharList() {
+  public LinkedList<Character> getValueCharList() {
     String temp=prefs.getString("value_char_list", null);
     return StringUtils.hasText(temp) ? parseValueCharList(temp): null;
 
@@ -835,7 +835,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueCharTypeArray value
    */
-  public char[] valueCharTypeArray() {
+  public char[] getValueCharTypeArray() {
     String temp=prefs.getString("value_char_type_array", null);
     return StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): null;
 
@@ -846,7 +846,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueCharArray value
    */
-  public Character[] valueCharArray() {
+  public Character[] getValueCharArray() {
     String temp=prefs.getString("value_char_array", null);
     return StringUtils.hasText(temp) ? parseValueCharArray(temp): null;
 
@@ -857,7 +857,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueMapStringBean value
    */
-  public Map<String, Bean> valueMapStringBean() {
+  public Map<String, Bean> getValueMapStringBean() {
     String temp=prefs.getString("value_map_string_bean", null);
     return StringUtils.hasText(temp) ? parseValueMapStringBean(temp): null;
 
@@ -868,7 +868,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueLinkedMapStringBean value
    */
-  public LinkedHashMap<String, Bean> valueLinkedMapStringBean() {
+  public LinkedHashMap<String, Bean> getValueLinkedMapStringBean() {
     String temp=prefs.getString("value_linked_map_string_bean", null);
     return StringUtils.hasText(temp) ? parseValueLinkedMapStringBean(temp): null;
 
@@ -879,7 +879,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueSetString value
    */
-  public Set<String> valueSetString() {
+  public Set<String> getValueSetString() {
     Set<String> temp=prefs.getStringSet("value_set_string", defaultBean.valueSetString);
     return temp;
 

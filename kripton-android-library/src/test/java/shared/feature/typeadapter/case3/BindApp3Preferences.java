@@ -101,7 +101,7 @@ public class BindApp3Preferences extends AbstractSharedPreference {
    *
    * @return property fieldStringPublic value
    */
-  public String fieldStringPublic() {
+  public String getFieldStringPublic() {
     // Use PrefsTypeAdapterUtils to convert objects
     Set<String> temp=prefs.getStringSet("field_string_public", PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toData(defaultBean.fieldStringPublic));
     return PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toJava(temp);
@@ -113,7 +113,7 @@ public class BindApp3Preferences extends AbstractSharedPreference {
    *
    * @return property fieldStringPrivate value
    */
-  public String fieldStringPrivate() {
+  public String getFieldStringPrivate() {
     // Use PrefsTypeAdapterUtils to convert objects
     Set<String> temp=prefs.getStringSet("field_string_private", PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toData(defaultBean.getFieldStringPrivate()));
     return PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toJava(temp);

@@ -375,6 +375,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			Builder f = FieldSpec
 					.builder(ArrayTypeName.of(SQLiteTable.class), "TABLES", Modifier.FINAL, Modifier.STATIC)
 					.addJavadoc("List of tables compose datasource\n");
+			
 			com.squareup.javapoet.CodeBlock.Builder c = CodeBlock.builder();
 			String s = "";
 

@@ -222,7 +222,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property id value
    */
-  public long id() {
+  public long getId() {
     return prefs.getLong("id", defaultBean.id);
   }
 
@@ -231,7 +231,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property value value
    */
-  public String value() {
+  public String getValue() {
     return prefs.getString("value", defaultBean.value);
   }
 
@@ -240,7 +240,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueByteSet value
    */
-  public Set<Byte> valueByteSet() {
+  public Set<Byte> getValueByteSet() {
     String temp=prefs.getString("value_byte_set", null);
     return StringUtils.hasText(temp) ? parseValueByteSet(temp): null;
 
@@ -251,7 +251,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueShortSet value
    */
-  public HashSet<Short> valueShortSet() {
+  public HashSet<Short> getValueShortSet() {
     String temp=prefs.getString("value_short_set", null);
     return StringUtils.hasText(temp) ? parseValueShortSet(temp): null;
 
@@ -262,7 +262,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueIntegerSet value
    */
-  public LinkedHashSet<Integer> valueIntegerSet() {
+  public LinkedHashSet<Integer> getValueIntegerSet() {
     String temp=prefs.getString("value_integer_set", null);
     return StringUtils.hasText(temp) ? parseValueIntegerSet(temp): null;
 
@@ -273,7 +273,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueStringSet value
    */
-  public HashSet<String> valueStringSet() {
+  public HashSet<String> getValueStringSet() {
     Set<String> temp=prefs.getStringSet("value_string_set", defaultBean.valueStringSet);
     return new HashSet<String>(temp);
 
@@ -284,7 +284,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueCharacterSet value
    */
-  public Set<Character> valueCharacterSet() {
+  public Set<Character> getValueCharacterSet() {
     String temp=prefs.getString("value_character_set", null);
     return StringUtils.hasText(temp) ? parseValueCharacterSet(temp): null;
 
@@ -295,7 +295,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueFloatSet value
    */
-  public HashSet<Float> valueFloatSet() {
+  public HashSet<Float> getValueFloatSet() {
     String temp=prefs.getString("value_float_set", null);
     return StringUtils.hasText(temp) ? parseValueFloatSet(temp): null;
 
@@ -306,7 +306,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueDoubleSet value
    */
-  public HashSet<Double> valueDoubleSet() {
+  public HashSet<Double> getValueDoubleSet() {
     String temp=prefs.getString("value_double_set", null);
     return StringUtils.hasText(temp) ? parseValueDoubleSet(temp): null;
 
@@ -317,7 +317,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueBigDecimalSet value
    */
-  public HashSet<BigDecimal> valueBigDecimalSet() {
+  public HashSet<BigDecimal> getValueBigDecimalSet() {
     String temp=prefs.getString("value_big_decimal_set", null);
     return StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): null;
 
@@ -328,7 +328,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueBeanSet value
    */
-  public LinkedHashSet<Bean> valueBeanSet() {
+  public LinkedHashSet<Bean> getValueBeanSet() {
     String temp=prefs.getString("value_bean_set", null);
     return StringUtils.hasText(temp) ? parseValueBeanSet(temp): null;
 
@@ -339,7 +339,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueEnumTypeSet value
    */
-  public HashSet<EnumType> valueEnumTypeSet() {
+  public HashSet<EnumType> getValueEnumTypeSet() {
     String temp=prefs.getString("value_enum_type_set", null);
     return StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): null;
 

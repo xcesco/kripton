@@ -85,7 +85,7 @@ public class BindApp2Preferences extends AbstractSharedPreference {
    *
    * @return property field2 value
    */
-  public Integer field2() {
+  public Integer getField2() {
     return PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("field2", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(defaultBean.field2)));
   }
 

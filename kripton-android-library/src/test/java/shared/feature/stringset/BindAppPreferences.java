@@ -90,7 +90,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    *
    * @return property valueSet value
    */
-  public HashSet<String> valueSet() {
+  public HashSet<String> getValueSet() {
     Set<String> temp=prefs.getStringSet("value_set", defaultBean.valueSet);
     return new HashSet<String>(temp);
 

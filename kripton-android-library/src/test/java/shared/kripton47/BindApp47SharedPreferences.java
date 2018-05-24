@@ -116,7 +116,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    *
    * @return property name value
    */
-  public String name() {
+  public String getName() {
     return prefs.getString("name", defaultBean.name);
   }
 
@@ -125,7 +125,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    *
    * @return property userAccessToken value
    */
-  public UserAccessToken userAccessToken() {
+  public UserAccessToken getUserAccessToken() {
     String temp=prefs.getString("user_access_token", null);
     return StringUtils.hasText(temp) ? parseUserAccessToken(temp): null;
 

@@ -95,7 +95,7 @@ public class BindApp1Preferences extends AbstractSharedPreference {
    *
    * @return property valueSet value
    */
-  public HashSet<String> valueSet() {
+  public HashSet<String> getValueSet() {
     Set<String> temp=prefs.getStringSet("value_set", defaultBean.valueSet);
     return new HashSet<String>(temp);
 
@@ -106,7 +106,7 @@ public class BindApp1Preferences extends AbstractSharedPreference {
    *
    * @return property right value
    */
-  public int right() {
+  public int getRight() {
     return PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("right", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(defaultBean.right)));
   }
 

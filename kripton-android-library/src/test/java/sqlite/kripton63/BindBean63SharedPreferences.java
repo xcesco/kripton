@@ -123,7 +123,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    *
    * @return property id value
    */
-  public long id() {
+  public long getId() {
     return prefs.getLong("id", defaultBean.id);
   }
 
@@ -132,7 +132,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    *
    * @return property value value
    */
-  public String value() {
+  public String getValue() {
     return prefs.getString("value", defaultBean.value);
   }
 
@@ -141,7 +141,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueMapStringByte value
    */
-  public Map<String, Byte> valueMapStringByte() {
+  public Map<String, Byte> getValueMapStringByte() {
     String temp=prefs.getString("value_map_string_byte", null);
     return StringUtils.hasText(temp) ? parseValueMapStringByte(temp): null;
 
@@ -152,7 +152,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    *
    * @return property valueMapEnumByte value
    */
-  public HashMap<EnumType, Byte> valueMapEnumByte() {
+  public HashMap<EnumType, Byte> getValueMapEnumByte() {
     String temp=prefs.getString("value_map_enum_byte", null);
     return StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): null;
 

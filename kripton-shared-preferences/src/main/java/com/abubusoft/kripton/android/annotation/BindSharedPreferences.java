@@ -20,7 +20,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Bind bean to shared preferences. An annotated class name must finish with
@@ -42,4 +41,11 @@ public @interface BindSharedPreferences {
 	 * @return filename for shared preference.
 	 */
 	String value() default "";
+	
+	/**
+	 * <p>If true, generate rx support.</p>
+	 *
+	 * @return true if you want to generate rx support
+	 */
+	boolean rx() default false;
 }
