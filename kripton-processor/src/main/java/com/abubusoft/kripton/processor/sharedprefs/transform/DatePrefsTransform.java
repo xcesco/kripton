@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.DateUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.util.Date object
  * 

@@ -55,7 +55,7 @@ public class WrappedPrefsTransform extends AbstractPrefsTransform {
 	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
 	 */
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll, ReadType readType) {
 		if (readAll) {
 			methodBuilder.beginControlFlow("");
 		}
@@ -64,8 +64,17 @@ public class WrappedPrefsTransform extends AbstractPrefsTransform {
 
 		if (readAll) {
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
-		} else {
+		} 
+		
+		switch (readType) {
+		case NONE:
+			break;
+		case RETURN:
 			methodBuilder.addCode("return ");
+			break;
+		case VALUE:
+			methodBuilder.addCode("$T _value=",property.getPropertyType().getTypeName());
+			break;
 		}
 
 		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);

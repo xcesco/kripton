@@ -27,8 +27,7 @@ public class BindApp3Preferences extends AbstractSharedPreference {
    * constructor
    */
   private BindApp3Preferences() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     defaultBean=new App3Preferences();
   }
 
@@ -40,11 +39,18 @@ public class BindApp3Preferences extends AbstractSharedPreference {
   }
 
   /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+  }
+
+  /**
    * force to refresh values
    */
   public BindApp3Preferences refresh() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     return this;
   }
 
@@ -105,7 +111,6 @@ public class BindApp3Preferences extends AbstractSharedPreference {
     // Use PrefsTypeAdapterUtils to convert objects
     Set<String> temp=prefs.getStringSet("field_string_public", PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toData(defaultBean.fieldStringPublic));
     return PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toJava(temp);
-
   }
 
   /**
@@ -117,7 +122,6 @@ public class BindApp3Preferences extends AbstractSharedPreference {
     // Use PrefsTypeAdapterUtils to convert objects
     Set<String> temp=prefs.getStringSet("field_string_private", PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toData(defaultBean.getFieldStringPrivate()));
     return PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toJava(temp);
-
   }
 
   /**

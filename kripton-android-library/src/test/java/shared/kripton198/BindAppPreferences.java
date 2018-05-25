@@ -1,12 +1,7 @@
 package shared.kripton198;
 
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
-import io.reactivex.Observable;
-import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.Subject;
-
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 
@@ -16,128 +11,132 @@ import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
  * @see AppPreferences
  */
 public class BindAppPreferences extends AbstractSharedPreference {
-	/**
-	 * instance of shared preferences
-	 */
-	private static BindAppPreferences instance;
+  /**
+   * instance of shared preferences
+   */
+  private static BindAppPreferences instance;
 
-	/**
-	 * working instance of bean
-	 */
-	private final AppPreferences defaultBean;
+  /**
+   * working instance of bean
+   */
+  private final AppPreferences defaultBean;
 
-	/**
-	 * constructor
-	 */
-	private BindAppPreferences() {
-		createPrefs();
-		defaultBean = new AppPreferences();
-	}
+  /**
+   * constructor
+   */
+  private BindAppPreferences() {
+    createPrefs();
+    defaultBean=new AppPreferences();
+  }
 
-	/**
-	 * force to refresh values
-	 */
-	public BindAppPreferences refresh() {
-		createPrefs();
-		return this;
-	}	
+  /**
+   * create an editor to modify shared preferences
+   */
+  public BindEditor edit() {
+    return new BindEditor();
+  }
+
+  /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+  }
+
+  /**
+   * force to refresh values
+   */
+  public BindAppPreferences refresh() {
+    createPrefs();
+    return this;
+  }
+
+  /**
+   * reset shared preferences
+   */
+  public void reset() {
+    AppPreferences bean=new AppPreferences();
+    write(bean);
+  }
+
+  /**
+   * read bean entirely
+   *
+   * @return read bean
+   */
+  public AppPreferences read() {
+    AppPreferences bean=new AppPreferences();
+    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
+    bean.valueBoolean=(boolean)prefs.getBoolean("value", (boolean)bean.valueBoolean);
+
+    return bean;
+  }
+
+  /**
+   * write bean entirely
+   *
+   * @param bean bean to entirely write
+   */
+  public void write(AppPreferences bean) {
+    SharedPreferences.Editor editor=prefs.edit();
+    editor.putFloat("value_float",bean.valueFloat);
+
+    editor.putBoolean("value",(boolean)bean.valueBoolean);
 
 
-	/**
-	 * create an editor to modify shared preferences
-	 */
-	public BindEditor edit() {
-		return new BindEditor();
-	}
+    editor.commit();
+  }
 
+  /**
+   * read property valueFloat
+   *
+   * @return property valueFloat value
+   */
+  public float getValueFloat() {
+    return prefs.getFloat("value_float", defaultBean.valueFloat);}
 
-	/**
-	 * reset shared preferences
-	 */
-	public void reset() {
-		AppPreferences bean = new AppPreferences();
-		write(bean);
-	}
+  /**
+   * read property valueBoolean
+   *
+   * @return property valueBoolean value
+   */
+  public boolean getValueBoolean() {
+    return (boolean)prefs.getBoolean("value", (boolean)defaultBean.valueBoolean);}
 
-	/**
-	 * read bean entirely
-	 *
-	 * @return read bean
-	 */
-	public AppPreferences read() {
-		AppPreferences bean = new AppPreferences();
-		bean.valueFloat = prefs.getFloat("value_float", bean.valueFloat);
-		bean.valueBoolean = (boolean) prefs.getBoolean("value", (boolean) bean.valueBoolean);
+  /**
+   * get instance of shared preferences
+   */
+  public static synchronized BindAppPreferences instance() {
+    if (instance==null) {
+      instance=new BindAppPreferences();
+    }
+    return instance;
+  }
 
-		return bean;
-	}
+  /**
+   * editor class for shared preferences
+   */
+  public class BindEditor extends AbstractEditor {
+    private BindEditor() {
+    }
 
-	/**
-	 * write bean entirely
-	 *
-	 * @param bean
-	 *            bean to entirely write
-	 */
-	public void write(AppPreferences bean) {
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putFloat("value_float", bean.valueFloat);
+    /**
+     * modifier for property valueFloat
+     */
+    public BindEditor putValueFloat(float value) {
+      editor.putFloat("value_float",value);
 
-		editor.putBoolean("value", (boolean) bean.valueBoolean);
+      return this;
+    }
 
-		editor.commit();
-	}
+    /**
+     * modifier for property valueBoolean
+     */
+    public BindEditor putValueBoolean(boolean value) {
+      editor.putBoolean("value",(boolean)value);
 
-	/**
-	 * read property valueFloat
-	 *
-	 * @return property valueFloat value
-	 */
-	public float getValueFloat() {
-		return prefs.getFloat("value_float", defaultBean.valueFloat);
-	}
-
-	/**
-	 * read property valueBoolean
-	 *
-	 * @return property valueBoolean value
-	 */
-	public boolean getValueBoolean() {
-		return (boolean) prefs.getBoolean("value", (boolean) defaultBean.valueBoolean);
-	}
-
-	/**
-	 * get instance of shared preferences
-	 */
-	public static synchronized BindAppPreferences instance() {
-		if (instance == null) {
-			instance = new BindAppPreferences();
-		}
-		return instance;
-	}
-
-	/**
-	 * editor class for shared preferences
-	 */
-	public class BindEditor extends AbstractEditor {
-		private BindEditor() {
-		}
-
-		/**
-		 * modifier for property valueFloat
-		 */
-		public BindEditor putValueFloat(float value) {
-			editor.putFloat("value_float", value);
-
-			return this;
-		}
-
-		/**
-		 * modifier for property valueBoolean
-		 */
-		public BindEditor putValueBoolean(boolean value) {
-			editor.putBoolean("value", (boolean) value);
-
-			return this;
-		}
-	}
+      return this;
+    }
+  }
 }

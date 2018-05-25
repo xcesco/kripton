@@ -39,12 +39,12 @@ public class TestTypeAdapterCase3Runtime extends BaseAndroidTest {
 		BindApp3Preferences sp=BindApp3Preferences.instance();		
 		sp.edit().putFieldStringPrivate(null).commit();		
 		sp.refresh();		
-		assertTrue(sp.fieldStringPrivate().equals("1|2"));
+		assertTrue(sp.getFieldStringPrivate().equals("1|2"));
 		
 		App3Preferences value=new App3Preferences();
 		value.setFieldStringPrivate(null);		
 		sp.write(value);		
-		assertTrue(sp.fieldStringPrivate().equals("1|2"));
+		assertTrue(sp.getFieldStringPrivate().equals("1|2"));
 	}
 	
 	

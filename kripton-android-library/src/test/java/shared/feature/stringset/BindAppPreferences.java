@@ -27,8 +27,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * constructor
    */
   private BindAppPreferences() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     defaultBean=new AppPreferences();
   }
 
@@ -40,11 +39,18 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+  }
+
+  /**
    * force to refresh values
    */
   public BindAppPreferences refresh() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     return this;
   }
 
@@ -93,7 +99,6 @@ public class BindAppPreferences extends AbstractSharedPreference {
   public HashSet<String> getValueSet() {
     Set<String> temp=prefs.getStringSet("value_set", defaultBean.valueSet);
     return new HashSet<String>(temp);
-
   }
 
   /**

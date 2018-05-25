@@ -23,6 +23,8 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -53,6 +55,459 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   private final Bean2 defaultBean;
 
   /**
+   * subject for field id - shared pref id
+   */
+  private Subject<Long> idSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueBean - shared pref value_bean
+   */
+  private Subject<Bean2> valueBeanSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueBeanArray - shared pref value_bean_array
+   */
+  private Subject<Bean2[]> valueBeanArraySubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueBigDecimal - shared pref value_big_decimal
+   */
+  private Subject<BigDecimal> valueBigDecimalSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueBigInteger - shared pref value_big_integer
+   */
+  private Subject<BigInteger> valueBigIntegerSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueBool - shared pref value_bool
+   */
+  private Subject<Boolean> valueBoolSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueBoolType - shared pref value_bool_type
+   */
+  private Subject<Boolean> valueBoolTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueByte - shared pref value_byte
+   */
+  private Subject<Byte> valueByteSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueByteArray - shared pref value_byte_array
+   */
+  private Subject<byte[]> valueByteArraySubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueByteType - shared pref value_byte_type
+   */
+  private Subject<Byte> valueByteTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueCalendar - shared pref value_calendar
+   */
+  private Subject<Calendar> valueCalendarSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueChar - shared pref value_char
+   */
+  private Subject<Character> valueCharSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueCharArray - shared pref value_char_array
+   */
+  private Subject<Character[]> valueCharArraySubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueCharList - shared pref value_char_list
+   */
+  private Subject<LinkedList<Character>> valueCharListSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueCharType - shared pref value_char_type
+   */
+  private Subject<Character> valueCharTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueCharTypeArray - shared pref value_char_type_array
+   */
+  private Subject<char[]> valueCharTypeArraySubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueCurrency - shared pref value_currency
+   */
+  private Subject<Currency> valueCurrencySubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueDate - shared pref value_date
+   */
+  private Subject<Date> valueDateSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueDouble - shared pref value_double
+   */
+  private Subject<Double> valueDoubleSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueDoubleType - shared pref value_double_type
+   */
+  private Subject<Double> valueDoubleTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueEnumType - shared pref value_enum_type
+   */
+  private Subject<EnumType> valueEnumTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueFloat - shared pref value_float
+   */
+  private Subject<Float> valueFloatSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueFloatType - shared pref value_float_type
+   */
+  private Subject<Float> valueFloatTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueInt - shared pref value_int
+   */
+  private Subject<Integer> valueIntSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueIntType - shared pref value_int_type
+   */
+  private Subject<Integer> valueIntTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueLocale - shared pref value_locale
+   */
+  private Subject<Locale> valueLocaleSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueLong - shared pref value_long
+   */
+  private Subject<Long> valueLongSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueLongArray - shared pref value_long_array
+   */
+  private Subject<Long[]> valueLongArraySubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueLongList - shared pref value_long_list
+   */
+  private Subject<LinkedList<Long>> valueLongListSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueLongType - shared pref value_long_type
+   */
+  private Subject<Long> valueLongTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueLongTypeArray - shared pref value_long_type_array
+   */
+  private Subject<long[]> valueLongTypeArraySubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueShort - shared pref value_short
+   */
+  private Subject<Short> valueShortSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueShortType - shared pref value_short_type
+   */
+  private Subject<Short> valueShortTypeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueString - shared pref value_string
+   */
+  private Subject<String> valueStringSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueStringArray - shared pref value_string_array
+   */
+  private Subject<String[]> valueStringArraySubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueStrinList - shared pref value_strin_list
+   */
+  private Subject<LinkedList<String>> valueStrinListSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueTime - shared pref value_time
+   */
+  private Subject<Time> valueTimeSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueTimeList - shared pref value_time_list
+   */
+  private Subject<List<Time>> valueTimeListSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueTimeZone - shared pref value_time_zone
+   */
+  private Subject<TimeZone> valueTimeZoneSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueUrl - shared pref value_url
+   */
+  private Subject<URL> valueUrlSubject = BehaviorSubject.create();
+
+  /**
+   * List of tables compose datasource
+   */
+  private SharedPreferences.OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+      switch (key) {
+        // id - id
+        case "id": {
+        long _value=sharedPreferences.getLong("id", defaultBean.getId());
+        idSubject.onNext(_value); return;
+        }
+        // value_bean - valueBean
+        case "value_bean": {
+        String temp=sharedPreferences.getString("value_bean", null);
+        Bean2 _value=StringUtils.hasText(temp) ? parseValueBean(temp): defaultBean.getValueBean();
+
+        valueBeanSubject.onNext(_value); return;
+        }
+        // value_bean_array - valueBeanArray
+        case "value_bean_array": {
+        String temp=sharedPreferences.getString("value_bean_array", null);
+        Bean2[] _value=StringUtils.hasText(temp) ? parseValueBeanArray(temp): defaultBean.getValueBeanArray();
+
+        valueBeanArraySubject.onNext(_value); return;
+        }
+        // value_big_decimal - valueBigDecimal
+        case "value_big_decimal": {
+        String temp=sharedPreferences.getString("value_big_decimal", "0");
+        BigDecimal _value=(StringUtils.hasText(temp)) ? new BigDecimal(temp): null;
+
+        valueBigDecimalSubject.onNext(_value); return;
+        }
+        // value_big_integer - valueBigInteger
+        case "value_big_integer": {
+        String temp=sharedPreferences.getString("value_big_integer", "0");
+        BigInteger _value=(StringUtils.hasText(temp)) ? new BigInteger(temp): null;
+
+        valueBigIntegerSubject.onNext(_value); return;
+        }
+        // value_bool - valueBool
+        case "value_bool": {
+        Boolean _value=(boolean)sharedPreferences.getBoolean("value_bool", (boolean)(defaultBean.getValueBool()==null?false:defaultBean.getValueBool()));
+        valueBoolSubject.onNext(_value); return;
+        }
+        // value_bool_type - valueBoolType
+        case "value_bool_type": {
+        boolean _value=(boolean)sharedPreferences.getBoolean("value_bool_type", (boolean)defaultBean.isValueBoolType());
+        valueBoolTypeSubject.onNext(_value); return;
+        }
+        // value_byte - valueByte
+        case "value_byte": {
+        Byte _value=(byte)sharedPreferences.getInt("value_byte", (byte)(defaultBean.getValueByte()==null?(byte)0:defaultBean.getValueByte()));
+        valueByteSubject.onNext(_value); return;
+        }
+        // value_byte_array - valueByteArray
+        case "value_byte_array": {
+        String temp=sharedPreferences.getString("value_byte_array", null);
+        byte[] _value=StringUtils.hasText(temp) ? parseValueByteArray(temp): defaultBean.getValueByteArray();
+
+        valueByteArraySubject.onNext(_value); return;
+        }
+        // value_byte_type - valueByteType
+        case "value_byte_type": {
+        byte _value=(byte)sharedPreferences.getInt("value_byte_type", (byte)defaultBean.getValueByteType());
+        valueByteTypeSubject.onNext(_value); return;
+        }
+        // value_calendar - valueCalendar
+        case "value_calendar": {
+        String temp=sharedPreferences.getString("value_calendar", null);
+        Calendar _value=(StringUtils.hasText(temp)) ? CalendarUtils.read(temp): null;
+        valueCalendarSubject.onNext(_value); return;
+        }
+        // value_char - valueChar
+        case "value_char": {
+        Character _value=(char)sharedPreferences.getInt("value_char", (char)(defaultBean.getValueChar()==null?(char)0:defaultBean.getValueChar()));
+        valueCharSubject.onNext(_value); return;
+        }
+        // value_char_array - valueCharArray
+        case "value_char_array": {
+        String temp=sharedPreferences.getString("value_char_array", null);
+        Character[] _value=StringUtils.hasText(temp) ? parseValueCharArray(temp): defaultBean.getValueCharArray();
+
+        valueCharArraySubject.onNext(_value); return;
+        }
+        // value_char_list - valueCharList
+        case "value_char_list": {
+        String temp=sharedPreferences.getString("value_char_list", null);
+        LinkedList<Character> _value=StringUtils.hasText(temp) ? parseValueCharList(temp): defaultBean.getValueCharList();
+
+        valueCharListSubject.onNext(_value); return;
+        }
+        // value_char_type - valueCharType
+        case "value_char_type": {
+        char _value=(char)sharedPreferences.getInt("value_char_type", (char)defaultBean.getValueCharType());
+        valueCharTypeSubject.onNext(_value); return;
+        }
+        // value_char_type_array - valueCharTypeArray
+        case "value_char_type_array": {
+        String temp=sharedPreferences.getString("value_char_type_array", null);
+        char[] _value=StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): defaultBean.getValueCharTypeArray();
+
+        valueCharTypeArraySubject.onNext(_value); return;
+        }
+        // value_currency - valueCurrency
+        case "value_currency": {
+        String temp=sharedPreferences.getString("value_currency", null);
+        Currency _value=(StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): null;
+        valueCurrencySubject.onNext(_value); return;
+        }
+        // value_date - valueDate
+        case "value_date": {
+        String temp=sharedPreferences.getString("value_date", null);
+        Date _value=(StringUtils.hasText(temp)) ? DateUtils.read(temp): null;
+        valueDateSubject.onNext(_value); return;
+        }
+        // value_double - valueDouble
+        case "value_double": {
+        String temp=sharedPreferences.getString("value_double", null);
+        Double _value=(StringUtils.hasText(temp)) ? Double.valueOf(temp): null;
+
+        valueDoubleSubject.onNext(_value); return;
+        }
+        // value_double_type - valueDoubleType
+        case "value_double_type": {
+        String temp=sharedPreferences.getString("value_double_type", null);
+        double _value=(StringUtils.hasText(temp)) ? Double.valueOf(temp): 0.0;
+
+        valueDoubleTypeSubject.onNext(_value); return;
+        }
+        // value_enum_type - valueEnumType
+        case "value_enum_type": {
+        String temp=sharedPreferences.getString("value_enum_type", null);
+        EnumType _value=(StringUtils.hasText(temp)) ? EnumType.valueOf(temp): null;
+
+        valueEnumTypeSubject.onNext(_value); return;
+        }
+        // value_float - valueFloat
+        case "value_float": {
+        Float _value=sharedPreferences.getFloat("value_float", (defaultBean.getValueFloat()==null?0F:defaultBean.getValueFloat()));
+        valueFloatSubject.onNext(_value); return;
+        }
+        // value_float_type - valueFloatType
+        case "value_float_type": {
+        float _value=sharedPreferences.getFloat("value_float_type", defaultBean.getValueFloatType());
+        valueFloatTypeSubject.onNext(_value); return;
+        }
+        // value_int - valueInt
+        case "value_int": {
+        Integer _value=(int)sharedPreferences.getInt("value_int", (int)(defaultBean.getValueInt()==null?0:defaultBean.getValueInt()));
+        valueIntSubject.onNext(_value); return;
+        }
+        // value_int_type - valueIntType
+        case "value_int_type": {
+        int _value=(int)sharedPreferences.getInt("value_int_type", (int)defaultBean.getValueIntType());
+        valueIntTypeSubject.onNext(_value); return;
+        }
+        // value_locale - valueLocale
+        case "value_locale": {
+        String temp=sharedPreferences.getString("value_locale", null);
+        Locale _value=(StringUtils.hasText(temp)) ? LocaleUtils.read(temp): null;
+        valueLocaleSubject.onNext(_value); return;
+        }
+        // value_long - valueLong
+        case "value_long": {
+        Long _value=sharedPreferences.getLong("value_long", (defaultBean.getValueLong()==null?0L:defaultBean.getValueLong()));
+        valueLongSubject.onNext(_value); return;
+        }
+        // value_long_array - valueLongArray
+        case "value_long_array": {
+        String temp=sharedPreferences.getString("value_long_array", null);
+        Long[] _value=StringUtils.hasText(temp) ? parseValueLongArray(temp): defaultBean.getValueLongArray();
+
+        valueLongArraySubject.onNext(_value); return;
+        }
+        // value_long_list - valueLongList
+        case "value_long_list": {
+        String temp=sharedPreferences.getString("value_long_list", null);
+        LinkedList<Long> _value=StringUtils.hasText(temp) ? parseValueLongList(temp): defaultBean.getValueLongList();
+
+        valueLongListSubject.onNext(_value); return;
+        }
+        // value_long_type - valueLongType
+        case "value_long_type": {
+        long _value=sharedPreferences.getLong("value_long_type", defaultBean.getValueLongType());
+        valueLongTypeSubject.onNext(_value); return;
+        }
+        // value_long_type_array - valueLongTypeArray
+        case "value_long_type_array": {
+        String temp=sharedPreferences.getString("value_long_type_array", null);
+        long[] _value=StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): defaultBean.getValueLongTypeArray();
+
+        valueLongTypeArraySubject.onNext(_value); return;
+        }
+        // value_short - valueShort
+        case "value_short": {
+        Short _value=(short)sharedPreferences.getInt("value_short", (short)(defaultBean.getValueShort()==null?(short)0:defaultBean.getValueShort()));
+        valueShortSubject.onNext(_value); return;
+        }
+        // value_short_type - valueShortType
+        case "value_short_type": {
+        short _value=(short)sharedPreferences.getInt("value_short_type", (short)defaultBean.getValueShortType());
+        valueShortTypeSubject.onNext(_value); return;
+        }
+        // value_string - valueString
+        case "value_string": {
+        String _value=sharedPreferences.getString("value_string", defaultBean.getValueString());
+        valueStringSubject.onNext(_value); return;
+        }
+        // value_string_array - valueStringArray
+        case "value_string_array": {
+        String temp=sharedPreferences.getString("value_string_array", null);
+        String[] _value=StringUtils.hasText(temp) ? parseValueStringArray(temp): defaultBean.getValueStringArray();
+
+        valueStringArraySubject.onNext(_value); return;
+        }
+        // value_strin_list - valueStrinList
+        case "value_strin_list": {
+        String temp=sharedPreferences.getString("value_strin_list", null);
+        LinkedList<String> _value=StringUtils.hasText(temp) ? parseValueStrinList(temp): defaultBean.getValueStrinList();
+
+        valueStrinListSubject.onNext(_value); return;
+        }
+        // value_time - valueTime
+        case "value_time": {
+        String temp=sharedPreferences.getString("value_time", null);
+        Time _value=(StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null;
+        valueTimeSubject.onNext(_value); return;
+        }
+        // value_time_list - valueTimeList
+        case "value_time_list": {
+        String temp=sharedPreferences.getString("value_time_list", null);
+        List<Time> _value=StringUtils.hasText(temp) ? parseValueTimeList(temp): defaultBean.getValueTimeList();
+
+        valueTimeListSubject.onNext(_value); return;
+        }
+        // value_time_zone - valueTimeZone
+        case "value_time_zone": {
+        String temp=sharedPreferences.getString("value_time_zone", null);
+        TimeZone _value=(StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): null;
+        valueTimeZoneSubject.onNext(_value); return;
+        }
+        // value_url - valueUrl
+        case "value_url": {
+        String temp=sharedPreferences.getString("value_url", null);
+        URL _value=(StringUtils.hasText(temp)) ? UrlUtils.read(temp): null;
+        valueUrlSubject.onNext(_value); return;
+        }
+        default: return;
+      }
+    }
+  };
+
+  /**
    * Bean2BindMap */
   private Bean2BindMap bean2BindMap = BinderUtils.mapperFor(Bean2.class);
 
@@ -60,8 +515,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * constructor
    */
   private BindBean2SharedPreferences() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     defaultBean=new Bean2();
   }
 
@@ -73,12 +527,420 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    prefs.registerOnSharedPreferenceChangeListener(prefsListener);
+  }
+
+  /**
    * force to refresh values
    */
   public BindBean2SharedPreferences refresh() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     return this;
+  }
+
+  /**
+   * Obtains an observable to <code>id</code> property
+   *
+   * @return
+   * an observable to <code>id</code> property
+   */
+  public Subject<Long> getIdAsObservable() {
+    return idSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueBean</code> property
+   *
+   * @return
+   * an observable to <code>valueBean</code> property
+   */
+  public Subject<Bean2> getValueBeanAsObservable() {
+    return valueBeanSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueBeanArray</code> property
+   *
+   * @return
+   * an observable to <code>valueBeanArray</code> property
+   */
+  public Subject<Bean2[]> getValueBeanArrayAsObservable() {
+    return valueBeanArraySubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueBigDecimal</code> property
+   *
+   * @return
+   * an observable to <code>valueBigDecimal</code> property
+   */
+  public Subject<BigDecimal> getValueBigDecimalAsObservable() {
+    return valueBigDecimalSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueBigInteger</code> property
+   *
+   * @return
+   * an observable to <code>valueBigInteger</code> property
+   */
+  public Subject<BigInteger> getValueBigIntegerAsObservable() {
+    return valueBigIntegerSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueBool</code> property
+   *
+   * @return
+   * an observable to <code>valueBool</code> property
+   */
+  public Subject<Boolean> getValueBoolAsObservable() {
+    return valueBoolSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueBoolType</code> property
+   *
+   * @return
+   * an observable to <code>valueBoolType</code> property
+   */
+  public Subject<Boolean> getValueBoolTypeAsObservable() {
+    return valueBoolTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueByte</code> property
+   *
+   * @return
+   * an observable to <code>valueByte</code> property
+   */
+  public Subject<Byte> getValueByteAsObservable() {
+    return valueByteSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueByteArray</code> property
+   *
+   * @return
+   * an observable to <code>valueByteArray</code> property
+   */
+  public Subject<byte[]> getValueByteArrayAsObservable() {
+    return valueByteArraySubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueByteType</code> property
+   *
+   * @return
+   * an observable to <code>valueByteType</code> property
+   */
+  public Subject<Byte> getValueByteTypeAsObservable() {
+    return valueByteTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueCalendar</code> property
+   *
+   * @return
+   * an observable to <code>valueCalendar</code> property
+   */
+  public Subject<Calendar> getValueCalendarAsObservable() {
+    return valueCalendarSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueChar</code> property
+   *
+   * @return
+   * an observable to <code>valueChar</code> property
+   */
+  public Subject<Character> getValueCharAsObservable() {
+    return valueCharSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueCharArray</code> property
+   *
+   * @return
+   * an observable to <code>valueCharArray</code> property
+   */
+  public Subject<Character[]> getValueCharArrayAsObservable() {
+    return valueCharArraySubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueCharList</code> property
+   *
+   * @return
+   * an observable to <code>valueCharList</code> property
+   */
+  public Subject<LinkedList<Character>> getValueCharListAsObservable() {
+    return valueCharListSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueCharType</code> property
+   *
+   * @return
+   * an observable to <code>valueCharType</code> property
+   */
+  public Subject<Character> getValueCharTypeAsObservable() {
+    return valueCharTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueCharTypeArray</code> property
+   *
+   * @return
+   * an observable to <code>valueCharTypeArray</code> property
+   */
+  public Subject<char[]> getValueCharTypeArrayAsObservable() {
+    return valueCharTypeArraySubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueCurrency</code> property
+   *
+   * @return
+   * an observable to <code>valueCurrency</code> property
+   */
+  public Subject<Currency> getValueCurrencyAsObservable() {
+    return valueCurrencySubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueDate</code> property
+   *
+   * @return
+   * an observable to <code>valueDate</code> property
+   */
+  public Subject<Date> getValueDateAsObservable() {
+    return valueDateSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueDouble</code> property
+   *
+   * @return
+   * an observable to <code>valueDouble</code> property
+   */
+  public Subject<Double> getValueDoubleAsObservable() {
+    return valueDoubleSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueDoubleType</code> property
+   *
+   * @return
+   * an observable to <code>valueDoubleType</code> property
+   */
+  public Subject<Double> getValueDoubleTypeAsObservable() {
+    return valueDoubleTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueEnumType</code> property
+   *
+   * @return
+   * an observable to <code>valueEnumType</code> property
+   */
+  public Subject<EnumType> getValueEnumTypeAsObservable() {
+    return valueEnumTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueFloat</code> property
+   *
+   * @return
+   * an observable to <code>valueFloat</code> property
+   */
+  public Subject<Float> getValueFloatAsObservable() {
+    return valueFloatSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueFloatType</code> property
+   *
+   * @return
+   * an observable to <code>valueFloatType</code> property
+   */
+  public Subject<Float> getValueFloatTypeAsObservable() {
+    return valueFloatTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueInt</code> property
+   *
+   * @return
+   * an observable to <code>valueInt</code> property
+   */
+  public Subject<Integer> getValueIntAsObservable() {
+    return valueIntSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueIntType</code> property
+   *
+   * @return
+   * an observable to <code>valueIntType</code> property
+   */
+  public Subject<Integer> getValueIntTypeAsObservable() {
+    return valueIntTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueLocale</code> property
+   *
+   * @return
+   * an observable to <code>valueLocale</code> property
+   */
+  public Subject<Locale> getValueLocaleAsObservable() {
+    return valueLocaleSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueLong</code> property
+   *
+   * @return
+   * an observable to <code>valueLong</code> property
+   */
+  public Subject<Long> getValueLongAsObservable() {
+    return valueLongSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueLongArray</code> property
+   *
+   * @return
+   * an observable to <code>valueLongArray</code> property
+   */
+  public Subject<Long[]> getValueLongArrayAsObservable() {
+    return valueLongArraySubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueLongList</code> property
+   *
+   * @return
+   * an observable to <code>valueLongList</code> property
+   */
+  public Subject<LinkedList<Long>> getValueLongListAsObservable() {
+    return valueLongListSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueLongType</code> property
+   *
+   * @return
+   * an observable to <code>valueLongType</code> property
+   */
+  public Subject<Long> getValueLongTypeAsObservable() {
+    return valueLongTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueLongTypeArray</code> property
+   *
+   * @return
+   * an observable to <code>valueLongTypeArray</code> property
+   */
+  public Subject<long[]> getValueLongTypeArrayAsObservable() {
+    return valueLongTypeArraySubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueShort</code> property
+   *
+   * @return
+   * an observable to <code>valueShort</code> property
+   */
+  public Subject<Short> getValueShortAsObservable() {
+    return valueShortSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueShortType</code> property
+   *
+   * @return
+   * an observable to <code>valueShortType</code> property
+   */
+  public Subject<Short> getValueShortTypeAsObservable() {
+    return valueShortTypeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueString</code> property
+   *
+   * @return
+   * an observable to <code>valueString</code> property
+   */
+  public Subject<String> getValueStringAsObservable() {
+    return valueStringSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueStringArray</code> property
+   *
+   * @return
+   * an observable to <code>valueStringArray</code> property
+   */
+  public Subject<String[]> getValueStringArrayAsObservable() {
+    return valueStringArraySubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueStrinList</code> property
+   *
+   * @return
+   * an observable to <code>valueStrinList</code> property
+   */
+  public Subject<LinkedList<String>> getValueStrinListAsObservable() {
+    return valueStrinListSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueTime</code> property
+   *
+   * @return
+   * an observable to <code>valueTime</code> property
+   */
+  public Subject<Time> getValueTimeAsObservable() {
+    return valueTimeSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueTimeList</code> property
+   *
+   * @return
+   * an observable to <code>valueTimeList</code> property
+   */
+  public Subject<List<Time>> getValueTimeListAsObservable() {
+    return valueTimeListSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueTimeZone</code> property
+   *
+   * @return
+   * an observable to <code>valueTimeZone</code> property
+   */
+  public Subject<TimeZone> getValueTimeZoneAsObservable() {
+    return valueTimeZoneSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueUrl</code> property
+   *
+   * @return
+   * an observable to <code>valueUrl</code> property
+   */
+  public Subject<URL> getValueUrlAsObservable() {
+    return valueUrlSubject;
   }
 
   /**
@@ -99,12 +961,12 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setId(prefs.getLong("id", bean.getId()));
      {
       String temp=prefs.getString("value_bean", null);
-      bean.setValueBean(StringUtils.hasText(temp) ? parseValueBean(temp): null);
+      bean.setValueBean(StringUtils.hasText(temp) ? parseValueBean(temp): defaultBean.getValueBean());
     }
 
      {
       String temp=prefs.getString("value_bean_array", null);
-      bean.setValueBeanArray(StringUtils.hasText(temp) ? parseValueBeanArray(temp): null);
+      bean.setValueBeanArray(StringUtils.hasText(temp) ? parseValueBeanArray(temp): defaultBean.getValueBeanArray());
     }
 
      {
@@ -122,7 +984,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setValueByte((byte)prefs.getInt("value_byte", (byte)(bean.getValueByte()==null?(byte)0:bean.getValueByte())));
      {
       String temp=prefs.getString("value_byte_array", null);
-      bean.setValueByteArray(StringUtils.hasText(temp) ? parseValueByteArray(temp): null);
+      bean.setValueByteArray(StringUtils.hasText(temp) ? parseValueByteArray(temp): defaultBean.getValueByteArray());
     }
 
     bean.setValueByteType((byte)prefs.getInt("value_byte_type", (byte)bean.getValueByteType()));
@@ -133,18 +995,18 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setValueChar((char)prefs.getInt("value_char", (char)(bean.getValueChar()==null?(char)0:bean.getValueChar())));
      {
       String temp=prefs.getString("value_char_array", null);
-      bean.setValueCharArray(StringUtils.hasText(temp) ? parseValueCharArray(temp): null);
+      bean.setValueCharArray(StringUtils.hasText(temp) ? parseValueCharArray(temp): defaultBean.getValueCharArray());
     }
 
      {
       String temp=prefs.getString("value_char_list", null);
-      bean.setValueCharList(StringUtils.hasText(temp) ? parseValueCharList(temp): null);
+      bean.setValueCharList(StringUtils.hasText(temp) ? parseValueCharList(temp): defaultBean.getValueCharList());
     }
 
     bean.setValueCharType((char)prefs.getInt("value_char_type", (char)bean.getValueCharType()));
      {
       String temp=prefs.getString("value_char_type_array", null);
-      bean.setValueCharTypeArray(StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): null);
+      bean.setValueCharTypeArray(StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): defaultBean.getValueCharTypeArray());
     }
 
      {
@@ -181,18 +1043,18 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setValueLong(prefs.getLong("value_long", (bean.getValueLong()==null?0L:bean.getValueLong())));
      {
       String temp=prefs.getString("value_long_array", null);
-      bean.setValueLongArray(StringUtils.hasText(temp) ? parseValueLongArray(temp): null);
+      bean.setValueLongArray(StringUtils.hasText(temp) ? parseValueLongArray(temp): defaultBean.getValueLongArray());
     }
 
      {
       String temp=prefs.getString("value_long_list", null);
-      bean.setValueLongList(StringUtils.hasText(temp) ? parseValueLongList(temp): null);
+      bean.setValueLongList(StringUtils.hasText(temp) ? parseValueLongList(temp): defaultBean.getValueLongList());
     }
 
     bean.setValueLongType(prefs.getLong("value_long_type", bean.getValueLongType()));
      {
       String temp=prefs.getString("value_long_type_array", null);
-      bean.setValueLongTypeArray(StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): null);
+      bean.setValueLongTypeArray(StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): defaultBean.getValueLongTypeArray());
     }
 
     bean.setValueShort((short)prefs.getInt("value_short", (short)(bean.getValueShort()==null?(short)0:bean.getValueShort())));
@@ -200,12 +1062,12 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     bean.setValueString(prefs.getString("value_string", bean.getValueString()));
      {
       String temp=prefs.getString("value_string_array", null);
-      bean.setValueStringArray(StringUtils.hasText(temp) ? parseValueStringArray(temp): null);
+      bean.setValueStringArray(StringUtils.hasText(temp) ? parseValueStringArray(temp): defaultBean.getValueStringArray());
     }
 
      {
       String temp=prefs.getString("value_strin_list", null);
-      bean.setValueStrinList(StringUtils.hasText(temp) ? parseValueStrinList(temp): null);
+      bean.setValueStrinList(StringUtils.hasText(temp) ? parseValueStrinList(temp): defaultBean.getValueStrinList());
     }
 
      {
@@ -214,7 +1076,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
 
      {
       String temp=prefs.getString("value_time_list", null);
-      bean.setValueTimeList(StringUtils.hasText(temp) ? parseValueTimeList(temp): null);
+      bean.setValueTimeList(StringUtils.hasText(temp) ? parseValueTimeList(temp): defaultBean.getValueTimeList());
     }
 
      {
@@ -434,8 +1296,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long getId() {
-    return prefs.getLong("id", defaultBean.getId());
-  }
+    return prefs.getLong("id", defaultBean.getId());}
 
   /**
    * read property valueBean
@@ -444,8 +1305,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Bean2 getValueBean() {
     String temp=prefs.getString("value_bean", null);
-    return StringUtils.hasText(temp) ? parseValueBean(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueBean(temp): defaultBean.getValueBean();
   }
 
   /**
@@ -455,8 +1315,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Bean2[] getValueBeanArray() {
     String temp=prefs.getString("value_bean_array", null);
-    return StringUtils.hasText(temp) ? parseValueBeanArray(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueBeanArray(temp): defaultBean.getValueBeanArray();
   }
 
   /**
@@ -467,7 +1326,6 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   public BigDecimal getValueBigDecimal() {
     String temp=prefs.getString("value_big_decimal", "0");
     return (StringUtils.hasText(temp)) ? new BigDecimal(temp): null;
-
   }
 
   /**
@@ -478,7 +1336,6 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   public BigInteger getValueBigInteger() {
     String temp=prefs.getString("value_big_integer", "0");
     return (StringUtils.hasText(temp)) ? new BigInteger(temp): null;
-
   }
 
   /**
@@ -487,8 +1344,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueBool value
    */
   public Boolean getValueBool() {
-    return (boolean)prefs.getBoolean("value_bool", (boolean)(defaultBean.getValueBool()==null?false:defaultBean.getValueBool()));
-  }
+    return (boolean)prefs.getBoolean("value_bool", (boolean)(defaultBean.getValueBool()==null?false:defaultBean.getValueBool()));}
 
   /**
    * read property valueBoolType
@@ -496,8 +1352,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueBoolType value
    */
   public boolean getValueBoolType() {
-    return (boolean)prefs.getBoolean("value_bool_type", (boolean)defaultBean.isValueBoolType());
-  }
+    return (boolean)prefs.getBoolean("value_bool_type", (boolean)defaultBean.isValueBoolType());}
 
   /**
    * read property valueByte
@@ -505,8 +1360,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueByte value
    */
   public Byte getValueByte() {
-    return (byte)prefs.getInt("value_byte", (byte)(defaultBean.getValueByte()==null?(byte)0:defaultBean.getValueByte()));
-  }
+    return (byte)prefs.getInt("value_byte", (byte)(defaultBean.getValueByte()==null?(byte)0:defaultBean.getValueByte()));}
 
   /**
    * read property valueByteArray
@@ -515,8 +1369,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public byte[] getValueByteArray() {
     String temp=prefs.getString("value_byte_array", null);
-    return StringUtils.hasText(temp) ? parseValueByteArray(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueByteArray(temp): defaultBean.getValueByteArray();
   }
 
   /**
@@ -525,8 +1378,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueByteType value
    */
   public byte getValueByteType() {
-    return (byte)prefs.getInt("value_byte_type", (byte)defaultBean.getValueByteType());
-  }
+    return (byte)prefs.getInt("value_byte_type", (byte)defaultBean.getValueByteType());}
 
   /**
    * read property valueCalendar
@@ -535,8 +1387,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Calendar getValueCalendar() {
     String temp=prefs.getString("value_calendar", null);
-    return (StringUtils.hasText(temp)) ? CalendarUtils.read(temp): null;
-  }
+    return (StringUtils.hasText(temp)) ? CalendarUtils.read(temp): null;}
 
   /**
    * read property valueChar
@@ -544,8 +1395,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueChar value
    */
   public Character getValueChar() {
-    return (char)prefs.getInt("value_char", (char)(defaultBean.getValueChar()==null?(char)0:defaultBean.getValueChar()));
-  }
+    return (char)prefs.getInt("value_char", (char)(defaultBean.getValueChar()==null?(char)0:defaultBean.getValueChar()));}
 
   /**
    * read property valueCharArray
@@ -554,8 +1404,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Character[] getValueCharArray() {
     String temp=prefs.getString("value_char_array", null);
-    return StringUtils.hasText(temp) ? parseValueCharArray(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueCharArray(temp): defaultBean.getValueCharArray();
   }
 
   /**
@@ -565,8 +1414,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<Character> getValueCharList() {
     String temp=prefs.getString("value_char_list", null);
-    return StringUtils.hasText(temp) ? parseValueCharList(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueCharList(temp): defaultBean.getValueCharList();
   }
 
   /**
@@ -575,8 +1423,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueCharType value
    */
   public char getValueCharType() {
-    return (char)prefs.getInt("value_char_type", (char)defaultBean.getValueCharType());
-  }
+    return (char)prefs.getInt("value_char_type", (char)defaultBean.getValueCharType());}
 
   /**
    * read property valueCharTypeArray
@@ -585,8 +1432,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public char[] getValueCharTypeArray() {
     String temp=prefs.getString("value_char_type_array", null);
-    return StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): defaultBean.getValueCharTypeArray();
   }
 
   /**
@@ -596,8 +1442,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Currency getValueCurrency() {
     String temp=prefs.getString("value_currency", null);
-    return (StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): null;
-  }
+    return (StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): null;}
 
   /**
    * read property valueDate
@@ -606,8 +1451,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Date getValueDate() {
     String temp=prefs.getString("value_date", null);
-    return (StringUtils.hasText(temp)) ? DateUtils.read(temp): null;
-  }
+    return (StringUtils.hasText(temp)) ? DateUtils.read(temp): null;}
 
   /**
    * read property valueDouble
@@ -617,7 +1461,6 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   public Double getValueDouble() {
     String temp=prefs.getString("value_double", null);
     return (StringUtils.hasText(temp)) ? Double.valueOf(temp): null;
-
   }
 
   /**
@@ -628,7 +1471,6 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   public double getValueDoubleType() {
     String temp=prefs.getString("value_double_type", null);
     return (StringUtils.hasText(temp)) ? Double.valueOf(temp): 0.0;
-
   }
 
   /**
@@ -639,7 +1481,6 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   public EnumType getValueEnumType() {
     String temp=prefs.getString("value_enum_type", null);
     return (StringUtils.hasText(temp)) ? EnumType.valueOf(temp): null;
-
   }
 
   /**
@@ -648,8 +1489,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueFloat value
    */
   public Float getValueFloat() {
-    return prefs.getFloat("value_float", (defaultBean.getValueFloat()==null?0F:defaultBean.getValueFloat()));
-  }
+    return prefs.getFloat("value_float", (defaultBean.getValueFloat()==null?0F:defaultBean.getValueFloat()));}
 
   /**
    * read property valueFloatType
@@ -657,8 +1497,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueFloatType value
    */
   public float getValueFloatType() {
-    return prefs.getFloat("value_float_type", defaultBean.getValueFloatType());
-  }
+    return prefs.getFloat("value_float_type", defaultBean.getValueFloatType());}
 
   /**
    * read property valueInt
@@ -666,8 +1505,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueInt value
    */
   public Integer getValueInt() {
-    return (int)prefs.getInt("value_int", (int)(defaultBean.getValueInt()==null?0:defaultBean.getValueInt()));
-  }
+    return (int)prefs.getInt("value_int", (int)(defaultBean.getValueInt()==null?0:defaultBean.getValueInt()));}
 
   /**
    * read property valueIntType
@@ -675,8 +1513,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueIntType value
    */
   public int getValueIntType() {
-    return (int)prefs.getInt("value_int_type", (int)defaultBean.getValueIntType());
-  }
+    return (int)prefs.getInt("value_int_type", (int)defaultBean.getValueIntType());}
 
   /**
    * read property valueLocale
@@ -685,8 +1522,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Locale getValueLocale() {
     String temp=prefs.getString("value_locale", null);
-    return (StringUtils.hasText(temp)) ? LocaleUtils.read(temp): null;
-  }
+    return (StringUtils.hasText(temp)) ? LocaleUtils.read(temp): null;}
 
   /**
    * read property valueLong
@@ -694,8 +1530,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueLong value
    */
   public Long getValueLong() {
-    return prefs.getLong("value_long", (defaultBean.getValueLong()==null?0L:defaultBean.getValueLong()));
-  }
+    return prefs.getLong("value_long", (defaultBean.getValueLong()==null?0L:defaultBean.getValueLong()));}
 
   /**
    * read property valueLongArray
@@ -704,8 +1539,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Long[] getValueLongArray() {
     String temp=prefs.getString("value_long_array", null);
-    return StringUtils.hasText(temp) ? parseValueLongArray(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueLongArray(temp): defaultBean.getValueLongArray();
   }
 
   /**
@@ -715,8 +1549,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<Long> getValueLongList() {
     String temp=prefs.getString("value_long_list", null);
-    return StringUtils.hasText(temp) ? parseValueLongList(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueLongList(temp): defaultBean.getValueLongList();
   }
 
   /**
@@ -725,8 +1558,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueLongType value
    */
   public long getValueLongType() {
-    return prefs.getLong("value_long_type", defaultBean.getValueLongType());
-  }
+    return prefs.getLong("value_long_type", defaultBean.getValueLongType());}
 
   /**
    * read property valueLongTypeArray
@@ -735,8 +1567,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public long[] getValueLongTypeArray() {
     String temp=prefs.getString("value_long_type_array", null);
-    return StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): defaultBean.getValueLongTypeArray();
   }
 
   /**
@@ -745,8 +1576,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueShort value
    */
   public Short getValueShort() {
-    return (short)prefs.getInt("value_short", (short)(defaultBean.getValueShort()==null?(short)0:defaultBean.getValueShort()));
-  }
+    return (short)prefs.getInt("value_short", (short)(defaultBean.getValueShort()==null?(short)0:defaultBean.getValueShort()));}
 
   /**
    * read property valueShortType
@@ -754,8 +1584,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueShortType value
    */
   public short getValueShortType() {
-    return (short)prefs.getInt("value_short_type", (short)defaultBean.getValueShortType());
-  }
+    return (short)prefs.getInt("value_short_type", (short)defaultBean.getValueShortType());}
 
   /**
    * read property valueString
@@ -763,8 +1592,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    * @return property valueString value
    */
   public String getValueString() {
-    return prefs.getString("value_string", defaultBean.getValueString());
-  }
+    return prefs.getString("value_string", defaultBean.getValueString());}
 
   /**
    * read property valueStringArray
@@ -773,8 +1601,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public String[] getValueStringArray() {
     String temp=prefs.getString("value_string_array", null);
-    return StringUtils.hasText(temp) ? parseValueStringArray(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueStringArray(temp): defaultBean.getValueStringArray();
   }
 
   /**
@@ -784,8 +1611,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public LinkedList<String> getValueStrinList() {
     String temp=prefs.getString("value_strin_list", null);
-    return StringUtils.hasText(temp) ? parseValueStrinList(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueStrinList(temp): defaultBean.getValueStrinList();
   }
 
   /**
@@ -795,8 +1621,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public Time getValueTime() {
     String temp=prefs.getString("value_time", null);
-    return (StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null;
-  }
+    return (StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null;}
 
   /**
    * read property valueTimeList
@@ -805,8 +1630,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public List<Time> getValueTimeList() {
     String temp=prefs.getString("value_time_list", null);
-    return StringUtils.hasText(temp) ? parseValueTimeList(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueTimeList(temp): defaultBean.getValueTimeList();
   }
 
   /**
@@ -816,8 +1640,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public TimeZone getValueTimeZone() {
     String temp=prefs.getString("value_time_zone", null);
-    return (StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): null;
-  }
+    return (StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): null;}
 
   /**
    * read property valueUrl
@@ -826,8 +1649,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public URL getValueUrl() {
     String temp=prefs.getString("value_url", null);
-    return (StringUtils.hasText(temp)) ? UrlUtils.read(temp): null;
-  }
+    return (StringUtils.hasText(temp)) ? UrlUtils.read(temp): null;}
 
   /**
    * for attribute valueBean serialization

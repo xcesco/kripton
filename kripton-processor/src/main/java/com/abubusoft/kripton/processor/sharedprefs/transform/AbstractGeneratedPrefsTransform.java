@@ -25,12 +25,11 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractGeneratedPrefsTransform.
  */
 public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTransform {
-	
+
 	/**
 	 * Instantiates a new abstract generated prefs transform.
 	 */
@@ -41,7 +40,8 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 	/**
 	 * Instantiates a new abstract generated prefs transform.
 	 *
-	 * @param targetTypeSupported the target type supported
+	 * @param targetTypeSupported
+	 *            the target type supported
 	 */
 	public AbstractGeneratedPrefsTransform(boolean targetTypeSupported) {
 		super(targetTypeSupported);
@@ -50,25 +50,42 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 	/** The formatter. */
 	protected static Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#
+	 * generateReadProperty(com.squareup.javapoet.MethodSpec.Builder,
+	 * java.lang.String, com.squareup.javapoet.TypeName, java.lang.String,
+	 * com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
 	 */
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName,
+			PrefsProperty property, boolean readAll, ReadType readType) {
 		if (readAll) {
 			methodBuilder.beginControlFlow("");
 		}
 		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getPreferenceKey());
 
 		if (readAll) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
-		} else {
+			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "",
+					beanName);
+		}
+
+		switch (readType) {
+		case NONE:
+			break;
+		case RETURN:
 			methodBuilder.addCode("return ");
+			break;
+		case VALUE:
+			methodBuilder.addCode("$T _value=", property.getPropertyType().getTypeName());
+			break;
 		}
 
 		methodBuilder.addCode("$T.hasText(temp) ? ", StringUtils.class);
 		methodBuilder.addCode("parse$L(temp)", formatter.convert(property.getName()));
-		methodBuilder.addCode(": null");
+		methodBuilder.addCode(": $L", getter("defaultBean", beanClass, property));
 
 		if (readAll) {
 			methodBuilder.addCode((!property.isPublicField() ? ")" : ""));
@@ -81,15 +98,23 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#
+	 * generateWriteProperty(com.squareup.javapoet.MethodSpec.Builder,
+	 * java.lang.String, com.squareup.javapoet.TypeName, java.lang.String,
+	 * com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty)
 	 */
 	@Override
-	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName, PrefsProperty property) {
+	public void generateWriteProperty(Builder methodBuilder, String editorName, TypeName beanClass, String beanName,
+			PrefsProperty property) {
 		Converter<String, String> formatter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
-		
+
 		methodBuilder.beginControlFlow("if ($L!=null) ", getter(beanName, beanClass, property));
-		methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getName()), getter(beanName, beanClass, property));
+		methodBuilder.addStatement("String temp=serialize$L($L)", formatter.convert(property.getName()),
+				getter(beanName, beanClass, property));
 		methodBuilder.addStatement("$L.putString($S,temp)", editorName, property.getPreferenceKey());
 		methodBuilder.nextControlFlow(" else ");
 		methodBuilder.addStatement("$L.remove($S)", editorName, property.getPreferenceKey());

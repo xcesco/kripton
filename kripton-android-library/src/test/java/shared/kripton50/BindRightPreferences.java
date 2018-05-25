@@ -38,8 +38,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * constructor
    */
   private BindRightPreferences() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     defaultBean=new RightPreferences();
   }
 
@@ -51,11 +50,18 @@ public class BindRightPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+  }
+
+  /**
    * force to refresh values
    */
   public BindRightPreferences refresh() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     return this;
   }
 
@@ -80,12 +86,12 @@ public class BindRightPreferences extends AbstractSharedPreference {
     bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)bean.valueBoolean);
      {
       String temp=prefs.getString("string_array", null);
-      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): null);
+      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray());
     }
 
      {
       String temp=prefs.getString("string_list", null);
-      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): null;
+      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
     }
 
     bean.valueInt=(int)prefs.getInt("value_int", (int)bean.valueInt);
@@ -139,8 +145,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property name value
    */
   public String getName() {
-    return prefs.getString("name", defaultBean.name);
-  }
+    return prefs.getString("name", defaultBean.name);}
 
   /**
    * read property description
@@ -148,8 +153,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property description value
    */
   public String getDescription() {
-    return prefs.getString("description", defaultBean.getDescription());
-  }
+    return prefs.getString("description", defaultBean.getDescription());}
 
   /**
    * read property valueFloat
@@ -157,8 +161,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property valueFloat value
    */
   public float getValueFloat() {
-    return prefs.getFloat("value_float", defaultBean.valueFloat);
-  }
+    return prefs.getFloat("value_float", defaultBean.valueFloat);}
 
   /**
    * read property valueBoolean
@@ -166,8 +169,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property valueBoolean value
    */
   public boolean getValueBoolean() {
-    return (boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
-  }
+    return (boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);}
 
   /**
    * read property stringArray
@@ -176,8 +178,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    */
   public String[] getStringArray() {
     String temp=prefs.getString("string_array", null);
-    return StringUtils.hasText(temp) ? parseStringArray(temp): null;
-
+    return StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray();
   }
 
   /**
@@ -187,8 +188,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    */
   public List<String> getStringList() {
     String temp=prefs.getString("string_list", null);
-    return StringUtils.hasText(temp) ? parseStringList(temp): null;
-
+    return StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
   }
 
   /**
@@ -197,8 +197,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property valueInt value
    */
   public int getValueInt() {
-    return (int)prefs.getInt("value_int", (int)defaultBean.valueInt);
-  }
+    return (int)prefs.getInt("value_int", (int)defaultBean.valueInt);}
 
   /**
    * read property valueLong
@@ -206,8 +205,7 @@ public class BindRightPreferences extends AbstractSharedPreference {
    * @return property valueLong value
    */
   public Long getValueLong() {
-    return prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
-  }
+    return prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));}
 
   /**
    * for attribute stringArray serialization

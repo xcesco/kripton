@@ -36,7 +36,7 @@ public class Test47Runtime extends BaseAndroidTest {
 	{
 		BindApp47SharedPreferences shared=BindApp47SharedPreferences.instance();
 		shared.edit().putName("hello").commit();		
-		assertTrue(shared.name().equals("hello"));
+		assertTrue(shared.getName().equals("hello"));
 	//	log("shared.name() %s", shared.name());		
 	}
 	
@@ -62,6 +62,6 @@ public class Test47Runtime extends BaseAndroidTest {
           .putDeviceUid("aa")
           .commit();
 		
-		assertTrue(value.equals(config.userIdentity().getName()));
+		assertTrue(value.equals(config.getUserIdentity().getName()));
 	}
 }

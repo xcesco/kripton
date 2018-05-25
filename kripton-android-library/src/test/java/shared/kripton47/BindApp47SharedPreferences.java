@@ -45,8 +45,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * constructor
    */
   private BindApp47SharedPreferences() {
-    // using typeName attribute of annotation @BindSharedPreferences as typeName
-    prefs=KriptonLibrary.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    createPrefs();
     defaultBean=new App47();
   }
 
@@ -58,11 +57,18 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // using typeName attribute of annotation @BindSharedPreferences as typeName
+    prefs=KriptonLibrary.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+  }
+
+  /**
    * force to refresh values
    */
   public BindApp47SharedPreferences refresh() {
-    // using typeName attribute of annotation @BindSharedPreferences as typeName
-    prefs=KriptonLibrary.getContext().getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    createPrefs();
     return this;
   }
 
@@ -84,7 +90,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
     bean.name=prefs.getString("name", bean.name);
      {
       String temp=prefs.getString("user_access_token", null);
-      bean.userAccessToken=StringUtils.hasText(temp) ? parseUserAccessToken(temp): null;
+      bean.userAccessToken=StringUtils.hasText(temp) ? parseUserAccessToken(temp): defaultBean.userAccessToken;
     }
 
 
@@ -117,8 +123,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    * @return property name value
    */
   public String getName() {
-    return prefs.getString("name", defaultBean.name);
-  }
+    return prefs.getString("name", defaultBean.name);}
 
   /**
    * read property userAccessToken
@@ -127,8 +132,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public UserAccessToken getUserAccessToken() {
     String temp=prefs.getString("user_access_token", null);
-    return StringUtils.hasText(temp) ? parseUserAccessToken(temp): null;
-
+    return StringUtils.hasText(temp) ? parseUserAccessToken(temp): defaultBean.userAccessToken;
   }
 
   /**

@@ -26,8 +26,7 @@ public class BindApp2Preferences extends AbstractSharedPreference {
    * constructor
    */
   private BindApp2Preferences() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     defaultBean=new App2Preferences();
   }
 
@@ -39,11 +38,18 @@ public class BindApp2Preferences extends AbstractSharedPreference {
   }
 
   /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+  }
+
+  /**
    * force to refresh values
    */
   public BindApp2Preferences refresh() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     return this;
   }
 
@@ -86,8 +92,7 @@ public class BindApp2Preferences extends AbstractSharedPreference {
    * @return property field2 value
    */
   public Integer getField2() {
-    return PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("field2", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(defaultBean.field2)));
-  }
+    return PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("field2", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(defaultBean.field2)));}
 
   /**
    * get instance of shared preferences

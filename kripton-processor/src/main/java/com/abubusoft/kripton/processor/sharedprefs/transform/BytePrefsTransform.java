@@ -15,8 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a Java Byte object.
  *

@@ -14,6 +14,8 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +36,66 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   private final Bean63 defaultBean;
 
   /**
+   * subject for field id - shared pref id
+   */
+  private Subject<Long> idSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field value - shared pref value
+   */
+  private Subject<String> valueSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueMapStringByte - shared pref value_map_string_byte
+   */
+  private Subject<Map<String, Byte>> valueMapStringByteSubject = BehaviorSubject.create();
+
+  /**
+   * subject for field valueMapEnumByte - shared pref value_map_enum_byte
+   */
+  private Subject<HashMap<EnumType, Byte>> valueMapEnumByteSubject = BehaviorSubject.create();
+
+  /**
+   * List of tables compose datasource
+   */
+  private SharedPreferences.OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+      switch (key) {
+        // id - id
+        case "id": {
+        long _value=sharedPreferences.getLong("id", defaultBean.id);
+        idSubject.onNext(_value); return;
+        }
+        // value - value
+        case "value": {
+        String _value=sharedPreferences.getString("value", defaultBean.value);
+        valueSubject.onNext(_value); return;
+        }
+        // value_map_string_byte - valueMapStringByte
+        case "value_map_string_byte": {
+        String temp=sharedPreferences.getString("value_map_string_byte", null);
+        Map<String, Byte> _value=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): defaultBean.valueMapStringByte;
+
+        valueMapStringByteSubject.onNext(_value); return;
+        }
+        // value_map_enum_byte - valueMapEnumByte
+        case "value_map_enum_byte": {
+        String temp=sharedPreferences.getString("value_map_enum_byte", null);
+        HashMap<EnumType, Byte> _value=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): defaultBean.valueMapEnumByte;
+
+        valueMapEnumByteSubject.onNext(_value); return;
+        }
+        default: return;
+      }
+    }
+  };
+
+  /**
    * constructor
    */
   private BindBean63SharedPreferences() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     defaultBean=new Bean63();
   }
 
@@ -50,12 +107,60 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    prefs.registerOnSharedPreferenceChangeListener(prefsListener);
+  }
+
+  /**
    * force to refresh values
    */
   public BindBean63SharedPreferences refresh() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     return this;
+  }
+
+  /**
+   * Obtains an observable to <code>id</code> property
+   *
+   * @return
+   * an observable to <code>id</code> property
+   */
+  public Subject<Long> getIdAsObservable() {
+    return idSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>value</code> property
+   *
+   * @return
+   * an observable to <code>value</code> property
+   */
+  public Subject<String> getValueAsObservable() {
+    return valueSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueMapStringByte</code> property
+   *
+   * @return
+   * an observable to <code>valueMapStringByte</code> property
+   */
+  public Subject<Map<String, Byte>> getValueMapStringByteAsObservable() {
+    return valueMapStringByteSubject;
+  }
+
+  /**
+   * Obtains an observable to <code>valueMapEnumByte</code> property
+   *
+   * @return
+   * an observable to <code>valueMapEnumByte</code> property
+   */
+  public Subject<HashMap<EnumType, Byte>> getValueMapEnumByteAsObservable() {
+    return valueMapEnumByteSubject;
   }
 
   /**
@@ -77,12 +182,12 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     bean.value=prefs.getString("value", bean.value);
      {
       String temp=prefs.getString("value_map_string_byte", null);
-      bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): null;
+      bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): defaultBean.valueMapStringByte;
     }
 
      {
       String temp=prefs.getString("value_map_enum_byte", null);
-      bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): null;
+      bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): defaultBean.valueMapEnumByte;
     }
 
 
@@ -124,8 +229,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property id value
    */
   public long getId() {
-    return prefs.getLong("id", defaultBean.id);
-  }
+    return prefs.getLong("id", defaultBean.id);}
 
   /**
    * read property value
@@ -133,8 +237,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * @return property value value
    */
   public String getValue() {
-    return prefs.getString("value", defaultBean.value);
-  }
+    return prefs.getString("value", defaultBean.value);}
 
   /**
    * read property valueMapStringByte
@@ -143,8 +246,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public Map<String, Byte> getValueMapStringByte() {
     String temp=prefs.getString("value_map_string_byte", null);
-    return StringUtils.hasText(temp) ? parseValueMapStringByte(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueMapStringByte(temp): defaultBean.valueMapStringByte;
   }
 
   /**
@@ -154,8 +256,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public HashMap<EnumType, Byte> getValueMapEnumByte() {
     String temp=prefs.getString("value_map_enum_byte", null);
-    return StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): null;
-
+    return StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): defaultBean.valueMapEnumByte;
   }
 
   /**

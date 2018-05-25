@@ -39,12 +39,12 @@ public class TestTypeAdapterCase2Runtime extends BaseAndroidTest {
 		BindApp2Preferences sp=BindApp2Preferences.instance();		
 		sp.edit().putField2(1).commit();		
 		sp.refresh();		
-		assertTrue(sp.field2()==1);
+		assertTrue(sp.getField2()==1);
 		
 		App2Preferences value=new App2Preferences();
 		value.field2=26;		
 		sp.write(value);		
-		assertTrue(sp.field2()==1);
+		assertTrue(sp.getField2()==1);
 	}
 	
 	

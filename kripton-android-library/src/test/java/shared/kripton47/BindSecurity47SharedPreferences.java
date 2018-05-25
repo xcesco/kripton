@@ -44,8 +44,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * constructor
    */
   private BindSecurity47SharedPreferences() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     defaultBean=new Security47();
   }
 
@@ -57,11 +56,18 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * create prefs
+   */
+  private void createPrefs() {
+    // no typeName specified, using default shared preferences
+    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+  }
+
+  /**
    * force to refresh values
    */
   public BindSecurity47SharedPreferences refresh() {
-    // no typeName specified, using default shared preferences
-    prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    createPrefs();
     return this;
   }
 
@@ -83,13 +89,13 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     bean.fcmId=prefs.getString("fcm_id", bean.fcmId);
      {
       String temp=prefs.getString("authorization_token", null);
-      bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): null;
+      bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): defaultBean.authorizationToken;
     }
 
     bean.deviceUid=prefs.getString("device_uid", bean.deviceUid);
      {
       String temp=prefs.getString("user_identity", null);
-      bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): null;
+      bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): defaultBean.userIdentity;
     }
 
 
@@ -131,8 +137,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * @return property fcmId value
    */
   public String getFcmId() {
-    return prefs.getString("fcm_id", defaultBean.fcmId);
-  }
+    return prefs.getString("fcm_id", defaultBean.fcmId);}
 
   /**
    * read property authorizationToken
@@ -141,8 +146,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public DeviceAccessToken getAuthorizationToken() {
     String temp=prefs.getString("authorization_token", null);
-    return StringUtils.hasText(temp) ? parseAuthorizationToken(temp): null;
-
+    return StringUtils.hasText(temp) ? parseAuthorizationToken(temp): defaultBean.authorizationToken;
   }
 
   /**
@@ -151,8 +155,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    * @return property deviceUid value
    */
   public String getDeviceUid() {
-    return prefs.getString("device_uid", defaultBean.deviceUid);
-  }
+    return prefs.getString("device_uid", defaultBean.deviceUid);}
 
   /**
    * read property userIdentity
@@ -161,8 +164,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public UserIdentity getUserIdentity() {
     String temp=prefs.getString("user_identity", null);
-    return StringUtils.hasText(temp) ? parseUserIdentity(temp): null;
-
+    return StringUtils.hasText(temp) ? parseUserIdentity(temp): defaultBean.userIdentity;
   }
 
   /**

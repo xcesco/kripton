@@ -25,7 +25,6 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.math.BigInteger object
  * 
@@ -58,7 +57,7 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 	 * @see com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform#generateReadProperty(com.squareup.javapoet.MethodSpec.Builder, java.lang.String, com.squareup.javapoet.TypeName, java.lang.String, com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty, boolean)
 	 */
 	@Override
-	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll) {
+	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll, ReadType readType) {
 		if (readAll) {
 			methodBuilder.beginControlFlow("");
 		}
@@ -66,8 +65,16 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 		methodBuilder.addStatement("String temp=$L.getString($S, $S)", preferenceName, property.getPreferenceKey(), defaultValue);
 		if (readAll) {					
 			methodBuilder.addCode("$L.$L" + (!property.isPublicField()?"(":"=")+"", beanName, setter(beanClass, property));
-		} else {
+		} 
+		switch (readType) {
+		case NONE:
+			break;
+		case RETURN:
 			methodBuilder.addCode("return ");
+			break;
+		case VALUE:
+			methodBuilder.addCode("$T _value=", property.getPropertyType().getTypeName());
+			break;
 		}
 		
 		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
