@@ -16,12 +16,9 @@
 package shared.feature.rx;
 
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.common.One;
 
 import base.BaseAndroidTest;
 import io.reactivex.functions.Consumer;
@@ -31,7 +28,7 @@ import shared.feature.rx.case1.BindAppPreferences;
 /**
  * The Class TestTypeAdapterCase2Runtime.
  */
-public class TesRxCase1Runtime extends BaseAndroidTest {
+public class TesLiveDataCase1Runtime extends BaseAndroidTest {
 	
 	/**
 	 * Test app run.
@@ -39,27 +36,17 @@ public class TesRxCase1Runtime extends BaseAndroidTest {
 	@Test
 	public void testAppRun()
 	{
-		final One<Integer> counter=new One<>(0);
-		final BindAppPreferences sp=BindAppPreferences.instance();
-		sp.edit().putDescription("start").commit();
-		
+		BindAppPreferences sp=BindAppPreferences.instance();
 		sp.readAsObservable().subscribe(new Consumer<AppPreferences>() {
 			@Override
 			public void accept(AppPreferences result) throws Exception {
-				Logger.info("modify "+result.getDescription());
-				
-				if (counter.value0==0)
-					assertTrue(sp.getDescription().equals("start"));
-				if (counter.value0>=1)
-					assertTrue(sp.getDescription().equals("end"));
-				
-				counter.value0=counter.value0+1;
+				Logger.info("modify "+result);
 			}
 		});
 				
-		sp.edit().putDescription("end").putName("name").commit();
+		sp.edit().putDescription("ciao").commit();
 				
-		//
+		//assertTrue(sp.getField2()==1);
 	}
 	
 	
