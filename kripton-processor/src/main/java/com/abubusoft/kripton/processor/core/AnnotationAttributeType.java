@@ -220,7 +220,9 @@ public enum AnnotationAttributeType {
 	/**
 	 * uri of namespace 
 	 */
-	URI("uri");
+	URI("uri"),
+	
+	GENERATE_LIVE_DATA("liveData");
 
 	/** The value. */
 	private String value;

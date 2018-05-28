@@ -19,10 +19,13 @@ import java.util.List;
 
 import javax.lang.model.element.TypeElement;
 
+import com.abubusoft.kripton.android.annotation.BindPreference;
+import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
+import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PrefsEntity.
  */
@@ -38,6 +41,32 @@ public class PrefsEntity extends ModelClass<PrefsProperty> {
 	public PrefsEntity(String name, TypeElement beanElement, List<ModelAnnotation> annotationList) {
 		super(name, beanElement, annotationList);
 		
+		generateGlobalRx = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.GENERATE_RX);
+		generateGlobalLiveData = AnnotationUtility.extractAsBoolean(element, BindSharedPreferences.class, AnnotationAttributeType.GENERATE_LIVE_DATA);		
+	}
+	
+	boolean generateGlobalRx;
+	
+	boolean generateGlobalLiveData;
+	
+	public boolean hasRxProperties() {
+		if (generateGlobalRx==true) return true;
+		
+		for (PrefsProperty p: this.collection) {
+			if (p.generateRx) return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean hasLiveDataProperties() {
+		if (generateGlobalLiveData==true) return true;
+		
+		for (PrefsProperty p: this.collection) {
+			if (p.generateLiveData) return true;
+		}
+		
+		return false;
 	}
 
 

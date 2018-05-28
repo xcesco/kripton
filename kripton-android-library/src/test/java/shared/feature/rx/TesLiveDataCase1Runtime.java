@@ -37,14 +37,14 @@ public class TesLiveDataCase1Runtime extends BaseAndroidTest {
 	public void testAppRun()
 	{
 		BindAppPreferences sp=BindAppPreferences.instance();
-		sp.readAsObservable().subscribe(new Consumer<AppPreferences>() {
+		/*sp.readAsObservable().subscribe(new Consumer<AppPreferences>() {
 			@Override
 			public void accept(AppPreferences result) throws Exception {
 				Logger.info("modify "+result);
 			}
 		});
 				
-		sp.edit().putDescription("ciao").commit();
+		sp.edit().putDescription("ciao").commit();*/
 				
 		//assertTrue(sp.getField2()==1);
 	}

@@ -20,7 +20,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface BindPreference.
  */
@@ -41,5 +40,20 @@ public @interface BindPreference {
 	 * @return 		Preference name. Default name is attribute name.
 	 */
 	String value() default "";
+	
+	/**
+	 * enable rx generation for marked property 
+	 * @return
+	 */
+	boolean rx() default false;
+	
+	/**
+	 * enable live data for marked property
+	 * 
+	 * @return
+	 */
+	boolean liveData() default false;
+	
+	
 
 }

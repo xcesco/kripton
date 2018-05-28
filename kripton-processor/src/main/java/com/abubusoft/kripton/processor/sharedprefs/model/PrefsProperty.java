@@ -33,11 +33,9 @@ import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransform;
 import com.abubusoft.kripton.processor.sharedprefs.transform.PrefsTransformer;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PrefsProperty.
  */
@@ -53,15 +51,23 @@ public class PrefsProperty extends ManagedModelProperty {
 	 * @param element the element
 	 * @param modelAnnotations the model annotations
 	 */
-	public PrefsProperty(@SuppressWarnings("rawtypes") ModelEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
+	public PrefsProperty(PrefsEntity entity, Element element, List<ModelAnnotation> modelAnnotations) {
 		super(entity, element, modelAnnotations);
 
 		String name = AnnotationUtility.extractAsString(element, BindPreference.class, AnnotationAttributeType.VALUE);
 		if (!StringUtils.hasText(name)) {
 			name = converter.convert(element.getSimpleName().toString());
 		}
-
+		
 		preferenceKey = name;
+		
+		generateRx=entity.generateGlobalRx;
+		generateLiveData=entity.generateGlobalLiveData;
+		
+		if (element.getAnnotation(BindPreference.class)!=null) {
+			generateRx = AnnotationUtility.extractAsBoolean(element, BindPreference.class, AnnotationAttributeType.GENERATE_RX);
+			generateLiveData = AnnotationUtility.extractAsBoolean(element, BindPreference.class, AnnotationAttributeType.GENERATE_LIVE_DATA);	
+		}		
 
 		// @BindPreferenceAdapter
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindPreferenceAdapter.class);
@@ -80,7 +86,19 @@ public class PrefsProperty extends ManagedModelProperty {
 
 	/** The preference key. */
 	protected String preferenceKey;
+	
+	protected boolean generateRx;
+	
+	public boolean isGenerateRx() {
+		return generateRx;
+	}
 
+	public boolean isGenerateLiveData() {
+		return generateLiveData;
+	}
+
+	protected boolean generateLiveData;
+		
 	/**
 	 * Gets the preference key.
 	 *

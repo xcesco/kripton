@@ -41,11 +41,23 @@ public @interface BindSharedPreferences {
 	 * @return filename for shared preference.
 	 */
 	String value() default "";
-	
+
 	/**
-	 * <p>If true, generate rx support.</p>
-	 *
-	 * @return true if you want to generate rx support
+	 * <p>
+	 * Enable rx generation for marked property. Set to <code>true</code> this
+	 * attribute will generate rx support for each properties.
+	 * </p>
+	 * 
+	 * @return
 	 */
 	boolean rx() default false;
+
+	/**
+	 * <p>Enable live data for marked property. Set to <code>true</code> this
+	 * attribute will generate livedata support for each properties.</p>
+	 * 
+	 * @return
+	 */
+	boolean liveData() default false;
+
 }

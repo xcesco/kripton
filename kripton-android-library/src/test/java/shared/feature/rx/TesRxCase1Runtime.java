@@ -43,15 +43,15 @@ public class TesRxCase1Runtime extends BaseAndroidTest {
 		final BindAppPreferences sp=BindAppPreferences.instance();
 		sp.edit().putDescription("start").commit();
 		
-		sp.readAsObservable().subscribe(new Consumer<AppPreferences>() {
+		sp.getDescriptionAsObservable().subscribe(new Consumer<String>() {
 			@Override
-			public void accept(AppPreferences result) throws Exception {
-				Logger.info("modify "+result.getDescription());
+			public void accept(String result) throws Exception {
+				Logger.info("modify "+result);
 				
 				if (counter.value0==0)
-					assertTrue(sp.getDescription().equals("start"));
+					assertTrue(result.equals("start"));
 				if (counter.value0>=1)
-					assertTrue(sp.getDescription().equals("end"));
+					assertTrue(result.equals("end"));
 				
 				counter.value0=counter.value0+1;
 			}

@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 /**
  * The Class AppPreferences.
  */
-@BindSharedPreferences(rx=true)
+@BindSharedPreferences(rx=true, liveData=true)
 public class AppPreferences {
 
 	/** The name. */
