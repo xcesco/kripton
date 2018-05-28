@@ -73,11 +73,14 @@ public class KriptonLibrary {
 	 * @param executorService
 	 *            the executor service
 	 */
-	public static void init(Context contextValue, ExecutorService executorService) {
+	public static void init(Context contextValue, ExecutorService service) {
 		context = contextValue;
 
-		// Schedulers.from(Executors.newFixedThreadPool(3));
-		executerService = Executors.newFixedThreadPool(THREAD_POOL_SIZE_DEFAULT);
+		if (service==null) {
+			executerService = Executors.newFixedThreadPool(THREAD_POOL_SIZE_DEFAULT);
+		} else {
+			executerService=service;
+		}
 	}
 
 }
