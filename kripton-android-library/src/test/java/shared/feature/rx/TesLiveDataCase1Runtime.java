@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import com.abubusoft.kripton.android.Logger;
 
+import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
 import io.reactivex.functions.Consumer;
 import shared.feature.rx.case1.AppPreferences;
@@ -37,14 +38,22 @@ public class TesLiveDataCase1Runtime extends BaseAndroidTest {
 	public void testAppRun()
 	{
 		BindAppPreferences sp=BindAppPreferences.instance();
-		/*sp.readAsObservable().subscribe(new Consumer<AppPreferences>() {
+		sp.getDescriptionAsLiveData().observeForever(new Observer<String>() {
+			
 			@Override
-			public void accept(AppPreferences result) throws Exception {
-				Logger.info("modify "+result);
+			public void onChanged(String t) {
+				Logger.info("getDescriptionAsLiveData  "+t);
+				
+			}
+		});
+		sp.getDescriptionAsObservable().subscribe(new Consumer<String>() {
+			@Override
+			public void accept(String result) throws Exception {
+				Logger.info("getDescriptionAsObservable "+result);
 			}
 		});
 				
-		sp.edit().putDescription("ciao").commit();*/
+		sp.edit().putDescription("ciao").commit();
 				
 		//assertTrue(sp.getField2()==1);
 	}
