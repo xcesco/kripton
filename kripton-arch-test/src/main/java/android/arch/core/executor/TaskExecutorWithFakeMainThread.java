@@ -16,9 +16,6 @@
 
 package android.arch.core.executor;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +30,6 @@ import java.util.concurrent.TimeUnit;
  *
  * @hide
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class TaskExecutorWithFakeMainThread extends TaskExecutor {
     private List<Throwable> mCaughtExceptions = Collections.synchronizedList(new ArrayList
             <Throwable>());
@@ -46,7 +42,7 @@ public class TaskExecutorWithFakeMainThread extends TaskExecutor {
     private ExecutorService mMainThreadService =
             Executors.newSingleThreadExecutor(new ThreadFactory() {
                 @Override
-                public Thread newThread(@NonNull final Runnable r) {
+                public Thread newThread(final Runnable r) {
                     mMainThread = new LoggingThread(r);
                     return mMainThread;
                 }
@@ -56,7 +52,7 @@ public class TaskExecutorWithFakeMainThread extends TaskExecutor {
         mIOThreadCount = ioThreadCount;
         mIOService = Executors.newFixedThreadPool(ioThreadCount, new ThreadFactory() {
             @Override
-            public Thread newThread(@NonNull Runnable r) {
+            public Thread newThread(Runnable r) {
                 return new LoggingThread(r);
             }
         });

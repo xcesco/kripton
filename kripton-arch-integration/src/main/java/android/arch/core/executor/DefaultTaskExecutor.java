@@ -18,19 +18,15 @@ package android.arch.core.executor;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DefaultTaskExecutor.
  *
  * 
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class DefaultTaskExecutor extends TaskExecutor {
     
     /** The m lock. */
@@ -40,7 +36,6 @@ public class DefaultTaskExecutor extends TaskExecutor {
     private ExecutorService mDiskIO = Executors.newFixedThreadPool(2);
 
     /** The m main handler. */
-    @Nullable
     private volatile Handler mMainHandler;
 
     /* (non-Javadoc)

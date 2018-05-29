@@ -25,9 +25,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -36,6 +34,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
+import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -240,8 +239,8 @@ public abstract class BindSharedPreferencesBuilder {
 						ParameterizedTypeName.get(ClassName.get(Pair.class),
 								ClassName.get(String.class),
 								ParameterizedTypeName.get(ClassName.get(WeakReference.class),
-											ClassName.get(MutableLiveData.class)))),
-								"liveDatas", Modifier.PRIVATE).initializer(CodeBlock.of("$T.synchronizedList(new $T<$T<String, WeakReference<MutableLiveData>>>())", Collections.class, ArrayList.class, Pair.class))
+											ClassName.get(KriptonComputableLiveData.class)))),
+								"liveDatas", Modifier.PRIVATE).initializer(CodeBlock.of("$T.synchronizedList(new $T<$T<String, WeakReference<KriptonComputableLiveData>>>())", Collections.class, ArrayList.class, Pair.class))
 				.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"rawtypes\"").build())
 				.build();
 		builder.addField(fs);
@@ -249,10 +248,10 @@ public abstract class BindSharedPreferencesBuilder {
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("registryLiveData")
 					.addModifiers(Modifier.PROTECTED)
 					.addParameter(String.class, "key")
-					.addParameter(ParameterizedTypeName.get(ClassName.get(MutableLiveData.class), 
+					.addParameter(ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), 
 							WildcardTypeName.subtypeOf(Object.class)), "value")
 					.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"rawtypes\"").build())
-					.addStatement("liveDatas.add(new Pair<String , WeakReference<MutableLiveData>>(key, new WeakReference<MutableLiveData>(value)))");
+					.addStatement("liveDatas.add(new Pair<String , WeakReference<KriptonComputableLiveData>>(key, new WeakReference<KriptonComputableLiveData>(value)))");
 			builder.addMethod(methodBuilder.build());
 		}
 		
@@ -263,9 +262,9 @@ public abstract class BindSharedPreferencesBuilder {
 					.addParameter(String.class, "key")
 					.addParameter(Object.class, "value")
 			
-			.beginControlFlow("for (Pair<String, WeakReference<MutableLiveData>> item : liveDatas)")
+			.beginControlFlow("for (Pair<String, WeakReference<KriptonComputableLiveData>> item : liveDatas)")
 			.beginControlFlow("if (item.value0.equals(key) && item.value1.get() != null)")
-			.addStatement("item.value1.get().postValue(value)")
+			.addStatement("item.value1.get().invalidate()")
 			.endControlFlow()
 			.endControlFlow();
 			
@@ -305,7 +304,7 @@ public abstract class BindSharedPreferencesBuilder {
 					.returns(ParameterizedTypeName.get(ClassName.get(MutableLiveData.class), typeName))
 					.addJavadoc("Obtains an LiveData to <code>$L</code> property\n\n", item.getName())
 					.addJavadoc("@return\nan LiveData to <code>$L</code> property\n", item.getName())
-					.addStatement("$T<$T> liveData=new $T<$T>()", MutableLiveData.class, typeName, MutableLiveData.class, typeName)
+					.addStatement("$T<$T> liveData=new $T<$T>()", KriptonComputableLiveData.class, typeName, KriptonComputableLiveData.class, typeName)
 					.addStatement("registryLiveData($S, liveData)", item.getPreferenceKey())
 					.addStatement("return liveData")
 					.build();

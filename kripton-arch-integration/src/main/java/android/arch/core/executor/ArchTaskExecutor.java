@@ -18,10 +18,6 @@ package android.arch.core.executor;
 
 import java.util.concurrent.Executor;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-// TODO: Auto-generated Javadoc
 /**
  * A static class that serves as a central point to execute common tasks.
  *
@@ -32,15 +28,12 @@ public class ArchTaskExecutor extends TaskExecutor {
     private static volatile ArchTaskExecutor sInstance;
 
     /** The m delegate. */
-    @NonNull
     private TaskExecutor mDelegate;
 
     /** The m default task executor. */
-    @NonNull
     private TaskExecutor mDefaultTaskExecutor;
 
     /** The Constant sMainThreadExecutor. */
-    @NonNull
     private static final Executor sMainThreadExecutor = new Executor() {
         @Override
         public void execute(Runnable command) {
@@ -49,7 +42,6 @@ public class ArchTaskExecutor extends TaskExecutor {
     };
 
     /** The Constant sIOThreadExecutor. */
-    @NonNull
     private static final Executor sIOThreadExecutor = new Executor() {
         @Override
         public void execute(Runnable command) {
@@ -70,7 +62,6 @@ public class ArchTaskExecutor extends TaskExecutor {
      *
      * @return The singleton ArchTaskExecutor.
      */
-    @NonNull
     public static ArchTaskExecutor getInstance() {
         if (sInstance != null) {
             return sInstance;
@@ -93,7 +84,7 @@ public class ArchTaskExecutor extends TaskExecutor {
      *
      * @param taskExecutor The task executor to handle task requests.
      */
-    public void setDelegate(@Nullable TaskExecutor taskExecutor) {
+    public void setDelegate(TaskExecutor taskExecutor) {
         mDelegate = taskExecutor == null ? mDefaultTaskExecutor : taskExecutor;
     }
 
@@ -118,7 +109,6 @@ public class ArchTaskExecutor extends TaskExecutor {
      *
      * @return the main thread executor
      */
-    @NonNull
     public static Executor getMainThreadExecutor() {
         return sMainThreadExecutor;
     }
@@ -128,7 +118,6 @@ public class ArchTaskExecutor extends TaskExecutor {
      *
      * @return the IO thread executor
      */
-    @NonNull
     public static Executor getIOThreadExecutor() {
         return sIOThreadExecutor;
     }

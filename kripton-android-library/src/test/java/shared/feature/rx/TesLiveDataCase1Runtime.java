@@ -25,7 +25,6 @@ import com.abubusoft.kripton.android.Logger;
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
-import io.reactivex.functions.Consumer;
 import shared.feature.rx.case1.BindAppPreferences;
 
 /**
@@ -50,13 +49,7 @@ public class TesLiveDataCase1Runtime extends BaseAndroidTest {
 				Logger.info("getDescriptionAsLiveData  "+t);
 				
 			}
-		});
-		sp.getDescriptionAsObservable().subscribe(new Consumer<String>() {
-			@Override
-			public void accept(String result) throws Exception {
-				Logger.info("getDescriptionAsObservable "+result);
-			}
-		});
+		});		
 				
 		sp.edit().putDescription("ciao").commit();
 				

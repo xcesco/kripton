@@ -20,12 +20,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.arch.core.executor.ArchTaskExecutor;
 import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
 import android.support.annotation.WorkerThread;
 
-// TODO: Auto-generated Javadoc
 /**
  * A LiveData class that can be invalidated and computed on demand.
  * <p>
@@ -33,7 +29,6 @@ import android.support.annotation.WorkerThread;
  *
  * @param <T> The type of the live data
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class ComputableLiveData<T> {
 
     /** The m live data. */
@@ -67,13 +62,11 @@ public abstract class ComputableLiveData<T> {
      * @return A LiveData that is controlled by ComputableLiveData.
      */
     @SuppressWarnings("WeakerAccess")
-    @NonNull
     public LiveData<T> getLiveData() {
         return mLiveData;
     }
 
     /** The m refresh runnable. */
-    @VisibleForTesting
     final Runnable mRefreshRunnable = new Runnable() {
         @WorkerThread
         @Override
@@ -111,7 +104,6 @@ public abstract class ComputableLiveData<T> {
 
     /** The m invalidation runnable. */
     // invalidation check always happens on the main thread
-    @VisibleForTesting
     final Runnable mInvalidationRunnable = new Runnable() {
         @MainThread
         @Override

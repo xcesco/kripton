@@ -16,10 +16,6 @@
 
 package android.arch.core.executor;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
-
-// TODO: Auto-generated Javadoc
 /**
  * A task executor that can divide tasks into logical groups.
  * <p>
@@ -28,21 +24,20 @@ import android.support.annotation.RestrictTo;
  * TODO: Don't use this from outside, we don't know what the API will look like yet.
  * 
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class TaskExecutor {
     /**
      * Executes the given task in the disk IO thread pool.
      *
      * @param runnable The runnable to run in the disk IO thread pool.
      */
-    public abstract void executeOnDiskIO(@NonNull Runnable runnable);
+    public abstract void executeOnDiskIO(Runnable runnable);
 
     /**
      * Posts the given task to the main thread.
      *
      * @param runnable The runnable to run on the main thread.
      */
-    public abstract void postToMainThread(@NonNull Runnable runnable);
+    public abstract void postToMainThread(Runnable runnable);
 
     /**
      * Executes the given task on the main thread.
@@ -51,7 +46,7 @@ public abstract class TaskExecutor {
      *
      * @param runnable The runnable to run on the main thread.
      */
-    public void executeOnMainThread(@NonNull Runnable runnable) {
+    public void executeOnMainThread(Runnable runnable) {
         if (isMainThread()) {
             runnable.run();
         } else {

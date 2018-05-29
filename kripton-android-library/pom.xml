@@ -87,7 +87,14 @@
 			<version>${kripton.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-arch-test</artifactId>
+			<version>${kripton.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>robolectric</artifactId>
