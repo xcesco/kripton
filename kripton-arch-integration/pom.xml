@@ -12,7 +12,6 @@
 	<artifactId>kripton-arch-integration</artifactId>
 	
 	<!-- version of archtype 1.1.0 -->
-
 	<name>Kripton Arch Integration</name>
 	<description>Kripton Arch Integration Library</description>
 	

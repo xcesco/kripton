@@ -9,19 +9,13 @@
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>kripton-shared-preferences</artifactId>
+	<artifactId>kripton-arch-test</artifactId>
 
-	<name>Kripton Shared Preferences</name>
-	<description>Kripton Shared Preferences</description>
-	<packaging>jar</packaging>
+	<!-- version of archtype 1.1.0 -->
+	<name>Kripton Arch Test</name>
+	<description>Kripton Arch Test Support Library</description>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-core</artifactId>
-			<version>${kripton.version}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>com.abubusoft</groupId>
 			<artifactId>kripton-arch-integration</artifactId>
@@ -29,32 +23,11 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.robolectric</groupId>
-			<artifactId>robolectric</artifactId>
-			<version>${robolectric.version}</version>
-			<scope>provided</scope>
-		</dependency>
 
 		<dependency>
-			<groupId>org.robolectric</groupId>
-			<artifactId>android-all</artifactId>
-			<version>5.0.0_r2-robolectric-0</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android</artifactId>
-			<version>4.1.1.4</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>r7</version>
-			<scope>provided</scope>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-android-core</artifactId>
+			<version>${kripton.version}</version>
 		</dependency>
 
 		<!-- TEST DEPENDENCIES -->
@@ -78,7 +51,35 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.robolectric</groupId>
+			<artifactId>robolectric</artifactId>
+			<version>${robolectric.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.robolectric</groupId>
+			<artifactId>android-all</artifactId>
+			<version>5.0.0_r2-robolectric-0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>4.1.1.4</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>support-v4</artifactId>
+			<version>r7</version>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
+
 
 </project>

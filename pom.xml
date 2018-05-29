@@ -25,6 +25,7 @@
 		<module>kripton-dataformat-yaml</module>
 		<module>kripton-dataformat-smile</module>
 		<module>kripton-arch-integration</module>
+		<module>kripton-arch-test</module>
 		<module>kripton-android-core</module>
 		<module>kripton-orm</module>
 		<module>kripton-shared-preferences</module>

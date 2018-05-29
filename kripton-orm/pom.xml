@@ -21,6 +21,7 @@
 			<artifactId>kripton-android-core</artifactId>
 			<version>${kripton.version}</version>
 		</dependency>
+	
 
 
 		<!-- RX dependencies - BEGIN -->
@@ -32,12 +33,6 @@
 		</dependency>
 		<!-- RX dependencies - END -->
 
-		<dependency>
-			<groupId>com.abubusoft</groupId>
-			<artifactId>kripton-arch-integration</artifactId>
-			<version>${kripton.version}</version>
-			<scope>provided</scope>
-		</dependency>
 
 
 		<dependency>
