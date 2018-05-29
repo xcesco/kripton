@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.abubusoft.kripton.android.sqlite.livedata;
+package com.abubusoft.kripton.android.livedata;
 
 import android.arch.lifecycle.MutableLiveData;
 

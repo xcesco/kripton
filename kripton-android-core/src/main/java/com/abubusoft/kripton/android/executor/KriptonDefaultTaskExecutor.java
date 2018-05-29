@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.abubusoft.kripton.android.sqlite.executors;
+package com.abubusoft.kripton.android.executor;
 
 import java.util.concurrent.ExecutorService;
 
@@ -24,7 +24,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class KriptonDefaultTaskExecutor.
  *

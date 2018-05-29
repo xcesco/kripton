@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.abubusoft.kripton.android.sqlite.executors;
+package com.abubusoft.kripton.android.executor;
 
 import java.util.concurrent.Executor;
 
-// TODO: Auto-generated Javadoc
 /**
  * A static class that serves as a central point to execute common tasks.
  */

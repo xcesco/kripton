@@ -17,11 +17,15 @@ package sqlite.feature.livedata;
 
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 
+import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
+import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
-import com.abubusoft.kripton.android.sqlite.executors.KriptonTaskExecutor;
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
@@ -29,13 +33,15 @@ import sqlite.feature.livedata.data.Person;
 import sqlite.feature.livedata.persistence0.BindApp0DaoFactory;
 import sqlite.feature.livedata.persistence0.BindApp0DataSource;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestLiveDataRuntime.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class TestLiveDataRuntime extends BaseAndroidTest {
+	
+	@Rule
+	public TestRule rule = new KriptonInstantTaskExecutorRule();
 
 	/**
 	 * Test run.

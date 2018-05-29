@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.abubusoft.kripton.android.sqlite.livedata;
+package com.abubusoft.kripton.android.livedata;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.abubusoft.kripton.android.sqlite.executors.KriptonTaskExecutor;
+import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
 
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -130,8 +131,7 @@ public abstract class KriptonComputableLiveData<T> {
      * <p>
      * When there are active observers, this will trigger a call to {@link #compute()}.
      */
-    public void invalidate() {
-    	//KriptonLibrary.executorService().(mInvalidationRunnable);
+    public void invalidate() {    	
     	KriptonTaskExecutor.getInstance().executeOnMainThread(mInvalidationRunnable);
     }
 

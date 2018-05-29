@@ -167,8 +167,6 @@ public class BindAppPreferences extends AbstractSharedPreference {
       KriptonLibrary.getExecutorService().execute(new Runnable() {
         @Override
         public void run() {
-        	try {
-        	System.out.println("foiund "+key);
           switch (key) {
             // name - name
             case "name": {
@@ -223,11 +221,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
             return;
             }
             default: return;
-          
           }
-        	} catch(Throwable e ) {
-          	  e.printStackTrace();
-            }
         }
       });
     }

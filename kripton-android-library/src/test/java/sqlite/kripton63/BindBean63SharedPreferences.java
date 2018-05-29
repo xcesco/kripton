@@ -14,8 +14,6 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.Subject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,62 +32,6 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final Bean63 defaultBean;
-
-  /**
-   * subject for field id - shared pref id
-   */
-  private Subject<Long> idSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field value - shared pref value
-   */
-  private Subject<String> valueSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field valueMapStringByte - shared pref value_map_string_byte
-   */
-  private Subject<Map<String, Byte>> valueMapStringByteSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field valueMapEnumByte - shared pref value_map_enum_byte
-   */
-  private Subject<HashMap<EnumType, Byte>> valueMapEnumByteSubject = BehaviorSubject.create();
-
-  /**
-   * List of tables compose datasource
-   */
-  private SharedPreferences.OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-      switch (key) {
-        // id - id
-        case "id": {
-        long _value=sharedPreferences.getLong("id", defaultBean.id);
-        idSubject.onNext(_value); return;
-        }
-        // value - value
-        case "value": {
-        String _value=sharedPreferences.getString("value", defaultBean.value);
-        valueSubject.onNext(_value); return;
-        }
-        // value_map_string_byte - valueMapStringByte
-        case "value_map_string_byte": {
-        String temp=sharedPreferences.getString("value_map_string_byte", null);
-        Map<String, Byte> _value=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): defaultBean.valueMapStringByte;
-
-        valueMapStringByteSubject.onNext(_value); return;
-        }
-        // value_map_enum_byte - valueMapEnumByte
-        case "value_map_enum_byte": {
-        String temp=sharedPreferences.getString("value_map_enum_byte", null);
-        HashMap<EnumType, Byte> _value=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): defaultBean.valueMapEnumByte;
-
-        valueMapEnumByteSubject.onNext(_value); return;
-        }
-        default: return;
-      }
-    }
-  };
 
   /**
    * constructor
@@ -112,7 +54,6 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   private void createPrefs() {
     // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
-    prefs.registerOnSharedPreferenceChangeListener(prefsListener);
   }
 
   /**
@@ -121,46 +62,6 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   public BindBean63SharedPreferences refresh() {
     createPrefs();
     return this;
-  }
-
-  /**
-   * Obtains an observable to <code>id</code> property
-   *
-   * @return
-   * an observable to <code>id</code> property
-   */
-  public Subject<Long> getIdAsObservable() {
-    return idSubject;
-  }
-
-  /**
-   * Obtains an observable to <code>value</code> property
-   *
-   * @return
-   * an observable to <code>value</code> property
-   */
-  public Subject<String> getValueAsObservable() {
-    return valueSubject;
-  }
-
-  /**
-   * Obtains an observable to <code>valueMapStringByte</code> property
-   *
-   * @return
-   * an observable to <code>valueMapStringByte</code> property
-   */
-  public Subject<Map<String, Byte>> getValueMapStringByteAsObservable() {
-    return valueMapStringByteSubject;
-  }
-
-  /**
-   * Obtains an observable to <code>valueMapEnumByte</code> property
-   *
-   * @return
-   * an observable to <code>valueMapEnumByte</code> property
-   */
-  public Subject<HashMap<EnumType, Byte>> getValueMapEnumByteAsObservable() {
-    return valueMapEnumByteSubject;
   }
 
   /**

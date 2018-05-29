@@ -16,48 +16,51 @@
 package shared.feature.rx;
 
 
+import org.junit.Rule;
 import org.junit.Test;
-import org.robolectric.shadows.ShadowLooper;
+import org.junit.rules.TestRule;
 
 import com.abubusoft.kripton.android.Logger;
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
+import io.reactivex.functions.Consumer;
 import shared.feature.rx.case1.BindAppPreferences;
 
 /**
  * The Class TestTypeAdapterCase2Runtime.
  */
 public class TesLiveDataCase1Runtime extends BaseAndroidTest {
+	@Rule
+	public TestRule rule = new InstantTaskExecutorRule();
+	
 	
 	/**
 	 * Test app run.
-	 * @throws InterruptedException 
 	 */
 	@Test
-	public void testAppRun() throws InterruptedException
-	{		
+	public void testAppRun()
+	{
 		BindAppPreferences sp=BindAppPreferences.instance();
 		sp.getDescriptionAsLiveData().observeForever(new Observer<String>() {
-			
 			
 			@Override
 			public void onChanged(String t) {
 				Logger.info("getDescriptionAsLiveData  "+t);
 				
 			}
-		});		
+		});
+		sp.getDescriptionAsObservable().subscribe(new Consumer<String>() {
+			@Override
+			public void accept(String result) throws Exception {
+				Logger.info("getDescriptionAsObservable "+result);
+			}
+		});
 				
 		sp.edit().putDescription("ciao").commit();
-		System.out.println(ShadowLooper.getMainLooper());
-		  ShadowLooper.runUiThreadTasks();
-		  ShadowLooper.runUiThreadTasks();
-		//ShadowLooper.runUiThreadTasks();
-	   
-	   //((ShadowLooper) ShadowExtractor.extract(thread.getLooper())).idle();
 				
 		//assertTrue(sp.getField2()==1);
-		//Thread.currentThread().sleep(60000);
 	}
 	
 	

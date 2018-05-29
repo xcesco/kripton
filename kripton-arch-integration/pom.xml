@@ -18,6 +18,12 @@
 	
 	<dependencies>					
 	
+		<dependency>
+			<groupId>com.abubusoft</groupId>
+			<artifactId>kripton-android-core</artifactId>
+			<version>${kripton.version}</version>
+		</dependency>
+	
 		<!-- TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>junit</groupId>

@@ -87,9 +87,7 @@
 			<version>${kripton.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
-
-
+		
 		<dependency>
 			<groupId>org.robolectric</groupId>
 			<artifactId>robolectric</artifactId>
