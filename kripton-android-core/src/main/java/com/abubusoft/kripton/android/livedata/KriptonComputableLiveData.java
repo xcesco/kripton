@@ -18,7 +18,6 @@ package com.abubusoft.kripton.android.livedata;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
 
 import android.support.annotation.MainThread;

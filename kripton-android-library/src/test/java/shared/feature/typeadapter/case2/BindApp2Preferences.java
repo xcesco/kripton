@@ -87,7 +87,7 @@ public class BindApp2Preferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property field2
+   * reads property <code>field2</code> from shared pref with key <code>field2</code>
    *
    * @return property field2 value
    */

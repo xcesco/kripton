@@ -23,11 +23,10 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 
 import shared.feature.typeadapter.case2.IntTypeAdapter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class App1Preferences.
  */
-@BindSharedPreferences
+@BindSharedPreferences(liveData=true)
 public class App1Preferences {
 
 	/** The value set. */

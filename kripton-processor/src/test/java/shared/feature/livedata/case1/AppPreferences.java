@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared.feature.rx.case1;
+package shared.feature.livedata.case1;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
 /**
  * The Class AppPreferences.
  */
-@BindSharedPreferences(rx=true)
+@BindSharedPreferences(liveData=true)
 public class AppPreferences {
 
 	/** The name. */

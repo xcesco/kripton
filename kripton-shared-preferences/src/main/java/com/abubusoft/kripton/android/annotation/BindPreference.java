@@ -45,14 +45,14 @@ public @interface BindPreference {
 	 * enable rx generation for marked property 
 	 * @return
 	 */
-	boolean rx() default false;
+	boolean rx() default true;
 	
 	/**
 	 * enable live data for marked property
 	 * 
 	 * @return
 	 */
-	boolean liveData() default false;
+	boolean liveData() default true;
 	
 	
 

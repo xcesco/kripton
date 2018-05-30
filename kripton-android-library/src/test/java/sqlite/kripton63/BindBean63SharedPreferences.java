@@ -125,7 +125,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property id
+   * reads property <code>id</code> from shared pref with key <code>id</code>
    *
    * @return property id value
    */
@@ -133,7 +133,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     return prefs.getLong("id", defaultBean.id);}
 
   /**
-   * read property value
+   * reads property <code>value</code> from shared pref with key <code>value</code>
    *
    * @return property value value
    */
@@ -141,7 +141,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     return prefs.getString("value", defaultBean.value);}
 
   /**
-   * read property valueMapStringByte
+   * reads property <code>valueMapStringByte</code> from shared pref with key <code>value_map_string_byte</code>
    *
    * @return property valueMapStringByte value
    */
@@ -151,7 +151,7 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueMapEnumByte
+   * reads property <code>valueMapEnumByte</code> from shared pref with key <code>value_map_enum_byte</code>
    *
    * @return property valueMapEnumByte value
    */

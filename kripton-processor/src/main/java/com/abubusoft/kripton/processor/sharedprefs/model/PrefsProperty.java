@@ -65,8 +65,8 @@ public class PrefsProperty extends ManagedModelProperty {
 		generateLiveData=entity.generateGlobalLiveData;
 		
 		if (element.getAnnotation(BindPreference.class)!=null) {
-			generateRx = AnnotationUtility.extractAsBoolean(element, BindPreference.class, AnnotationAttributeType.GENERATE_RX);
-			generateLiveData = AnnotationUtility.extractAsBoolean(element, BindPreference.class, AnnotationAttributeType.GENERATE_LIVE_DATA);	
+			generateRx = entity.generateGlobalRx && AnnotationUtility.extractAsBoolean(element, BindPreference.class, AnnotationAttributeType.GENERATE_RX);
+			generateLiveData = entity.generateGlobalLiveData && AnnotationUtility.extractAsBoolean(element, BindPreference.class, AnnotationAttributeType.GENERATE_LIVE_DATA);	
 		}		
 
 		// @BindPreferenceAdapter

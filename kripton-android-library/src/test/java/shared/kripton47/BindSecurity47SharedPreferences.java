@@ -132,7 +132,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property fcmId
+   * reads property <code>fcmId</code> from shared pref with key <code>fcm_id</code>
    *
    * @return property fcmId value
    */
@@ -140,7 +140,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     return prefs.getString("fcm_id", defaultBean.fcmId);}
 
   /**
-   * read property authorizationToken
+   * reads property <code>authorizationToken</code> from shared pref with key <code>authorization_token</code>
    *
    * @return property authorizationToken value
    */
@@ -150,7 +150,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property deviceUid
+   * reads property <code>deviceUid</code> from shared pref with key <code>device_uid</code>
    *
    * @return property deviceUid value
    */
@@ -158,7 +158,7 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     return prefs.getString("device_uid", defaultBean.deviceUid);}
 
   /**
-   * read property userIdentity
+   * reads property <code>userIdentity</code> from shared pref with key <code>user_identity</code>
    *
    * @return property userIdentity value
    */

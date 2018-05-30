@@ -30,7 +30,6 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SetPrefsTransformation.
  */
@@ -74,7 +73,7 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 		}
 
 		if (isStringSet) {
-			methodBuilder.addStatement("$T<String> temp=$L.getStringSet($S, "+tempPreDefaultValue+"defaultBean."+getter(beanClass, property)+tempPostDefaultValue+")", Set.class, preferenceName,
+			methodBuilder.addStatement("$T<String> temp=$L.getStringSet($S, "+tempPreDefaultValue+"defaultBean."+getter(property)+tempPostDefaultValue+")", Set.class, preferenceName,
 					property.getPreferenceKey());
 			if (readAll) {
 				methodBuilder.addCode(

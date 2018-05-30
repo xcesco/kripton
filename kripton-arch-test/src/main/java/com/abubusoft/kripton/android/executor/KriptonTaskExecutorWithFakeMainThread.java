@@ -85,7 +85,6 @@ public class KriptonTaskExecutorWithFakeMainThread extends TaskExecutor {
         return mCaughtExceptions;
     }
 
-    @SuppressWarnings("SameParameterValue")
     void shutdown(int timeoutInSeconds) throws InterruptedException {
         mMainThreadService.shutdown();
         mIOService.shutdown();
@@ -136,7 +135,6 @@ public class KriptonTaskExecutorWithFakeMainThread extends TaskExecutor {
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     class LoggingThread extends Thread {
         LoggingThread(final Runnable target) {
             super(new Runnable() {

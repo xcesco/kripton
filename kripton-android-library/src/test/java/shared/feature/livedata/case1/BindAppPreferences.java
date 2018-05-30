@@ -1,13 +1,16 @@
-package shared.kripton46;
+package shared.feature.livedata.case1;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -15,8 +18,10 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * This class is the shared preference binder defined for AppPreferences
@@ -33,6 +38,79 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * working instance of bean
    */
   private final AppPreferences defaultBean;
+
+  @SuppressWarnings("rawtypes")
+  private List<Pair<String, WeakReference<KriptonComputableLiveData>>> liveDatas = new CopyOnWriteArrayList<Pair<String, WeakReference<KriptonComputableLiveData>>>();
+
+  /**
+   * Listener used to propagate shared prefs changes through RX
+   */
+  private SharedPreferences.OnSharedPreferenceChangeListener liveDataListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+    @Override
+    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences,
+        final String key) {
+      KriptonLibrary.getExecutorService().execute(new Runnable() {
+        @Override
+        public void run() {
+          switch (key) {
+            // name - name
+            case "name": {
+            String _value=sharedPreferences.getString("name", defaultBean.name);
+            updateLiveData("name", _value);
+            return;
+            }
+            // description - description
+            case "description": {
+            String _value=sharedPreferences.getString("description", defaultBean.getDescription());
+            updateLiveData("description", _value);
+            return;
+            }
+            // value_float - valueFloat
+            case "value_float": {
+            float _value=sharedPreferences.getFloat("value_float", defaultBean.valueFloat);
+            updateLiveData("value_float", _value);
+            return;
+            }
+            // value_boolean - valueBoolean
+            case "value_boolean": {
+            boolean _value=(boolean)sharedPreferences.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
+            updateLiveData("value_boolean", _value);
+            return;
+            }
+            // string_array - stringArray
+            case "string_array": {
+            String temp=sharedPreferences.getString("string_array", null);
+            String[] _value=StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray();
+
+            updateLiveData("string_array", _value);
+            return;
+            }
+            // string_list - stringList
+            case "string_list": {
+            String temp=sharedPreferences.getString("string_list", null);
+            List<String> _value=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
+
+            updateLiveData("string_list", _value);
+            return;
+            }
+            // value_int - valueInt
+            case "value_int": {
+            int _value=(int)sharedPreferences.getInt("value_int", (int)defaultBean.valueInt);
+            updateLiveData("value_int", _value);
+            return;
+            }
+            // value_long - valueLong
+            case "value_long": {
+            Long _value=sharedPreferences.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
+            updateLiveData("value_long", _value);
+            return;
+            }
+            default: return;
+          }
+        }
+      });
+    }
+  };
 
   /**
    * constructor
@@ -55,6 +133,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   private void createPrefs() {
     // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
+    prefs.registerOnSharedPreferenceChangeListener(liveDataListener);
   }
 
   /**
@@ -63,6 +142,164 @@ public class BindAppPreferences extends AbstractSharedPreference {
   public BindAppPreferences refresh() {
     createPrefs();
     return this;
+  }
+
+  @SuppressWarnings("rawtypes")
+  protected void registryLiveData(String key, KriptonComputableLiveData<?> value) {
+    liveDatas.add(new Pair<String , WeakReference<KriptonComputableLiveData>>(key, new WeakReference<KriptonComputableLiveData>(value)));
+  }
+
+  @SuppressWarnings("rawtypes")
+  protected void updateLiveData(String key, Object value) {
+    for (Pair<String, WeakReference<KriptonComputableLiveData>> item : liveDatas) {
+      if (item.value0.equals(key) && item.value1.get() != null) {
+        item.value1.get().invalidate();
+      }
+    }
+  }
+
+  /**
+   * Obtains an LiveData to <code>name</code> property
+   *
+   * @return
+   * an LiveData to <code>name</code> property
+   */
+  public MutableLiveData<String> getNameAsLiveData() {
+    KriptonComputableLiveData<String> liveData=new KriptonComputableLiveData<String>() {
+      @Override
+      protected String compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getName();
+      }
+    };
+    registryLiveData("name", liveData);
+    return liveData.getLiveData();
+  }
+
+  /**
+   * Obtains an LiveData to <code>description</code> property
+   *
+   * @return
+   * an LiveData to <code>description</code> property
+   */
+  public MutableLiveData<String> getDescriptionAsLiveData() {
+    KriptonComputableLiveData<String> liveData=new KriptonComputableLiveData<String>() {
+      @Override
+      protected String compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getDescription();
+      }
+    };
+    registryLiveData("description", liveData);
+    return liveData.getLiveData();
+  }
+
+  /**
+   * Obtains an LiveData to <code>valueFloat</code> property
+   *
+   * @return
+   * an LiveData to <code>valueFloat</code> property
+   */
+  public MutableLiveData<Float> getValueFloatAsLiveData() {
+    KriptonComputableLiveData<Float> liveData=new KriptonComputableLiveData<Float>() {
+      @Override
+      protected Float compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getValueFloat();
+      }
+    };
+    registryLiveData("value_float", liveData);
+    return liveData.getLiveData();
+  }
+
+  /**
+   * Obtains an LiveData to <code>valueBoolean</code> property
+   *
+   * @return
+   * an LiveData to <code>valueBoolean</code> property
+   */
+  public MutableLiveData<Boolean> getValueBooleanAsLiveData() {
+    KriptonComputableLiveData<Boolean> liveData=new KriptonComputableLiveData<Boolean>() {
+      @Override
+      protected Boolean compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getValueBoolean();
+      }
+    };
+    registryLiveData("value_boolean", liveData);
+    return liveData.getLiveData();
+  }
+
+  /**
+   * Obtains an LiveData to <code>stringArray</code> property
+   *
+   * @return
+   * an LiveData to <code>stringArray</code> property
+   */
+  public MutableLiveData<String[]> getStringArrayAsLiveData() {
+    KriptonComputableLiveData<String[]> liveData=new KriptonComputableLiveData<String[]>() {
+      @Override
+      protected String[] compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getStringArray();
+      }
+    };
+    registryLiveData("string_array", liveData);
+    return liveData.getLiveData();
+  }
+
+  /**
+   * Obtains an LiveData to <code>stringList</code> property
+   *
+   * @return
+   * an LiveData to <code>stringList</code> property
+   */
+  public MutableLiveData<List<String>> getStringListAsLiveData() {
+    KriptonComputableLiveData<List<String>> liveData=new KriptonComputableLiveData<List<String>>() {
+      @Override
+      protected List<String> compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getStringList();
+      }
+    };
+    registryLiveData("string_list", liveData);
+    return liveData.getLiveData();
+  }
+
+  /**
+   * Obtains an LiveData to <code>valueInt</code> property
+   *
+   * @return
+   * an LiveData to <code>valueInt</code> property
+   */
+  public MutableLiveData<Integer> getValueIntAsLiveData() {
+    KriptonComputableLiveData<Integer> liveData=new KriptonComputableLiveData<Integer>() {
+      @Override
+      protected Integer compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getValueInt();
+      }
+    };
+    registryLiveData("value_int", liveData);
+    return liveData.getLiveData();
+  }
+
+  /**
+   * Obtains an LiveData to <code>valueLong</code> property
+   *
+   * @return
+   * an LiveData to <code>valueLong</code> property
+   */
+  public MutableLiveData<Long> getValueLongAsLiveData() {
+    KriptonComputableLiveData<Long> liveData=new KriptonComputableLiveData<Long>() {
+      @Override
+      protected Long compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getValueLong();
+      }
+    };
+    registryLiveData("value_long", liveData);
+    return liveData.getLiveData();
   }
 
   /**

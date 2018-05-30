@@ -89,7 +89,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueFloat
+   * reads property <code>valueFloat</code> from shared pref with key <code>value_float</code>
    *
    * @return property valueFloat value
    */
@@ -97,7 +97,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
     return prefs.getFloat("value_float", defaultBean.valueFloat);}
 
   /**
-   * read property valueBoolean
+   * reads property <code>valueBoolean</code> from shared pref with key <code>value</code>
    *
    * @return property valueBoolean value
    */

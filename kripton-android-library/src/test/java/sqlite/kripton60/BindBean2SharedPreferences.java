@@ -435,7 +435,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property id
+   * reads property <code>id</code> from shared pref with key <code>id</code>
    *
    * @return property id value
    */
@@ -443,7 +443,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return prefs.getLong("id", defaultBean.getId());}
 
   /**
-   * read property valueBean
+   * reads property <code>valueBean</code> from shared pref with key <code>value_bean</code>
    *
    * @return property valueBean value
    */
@@ -453,7 +453,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBeanArray
+   * reads property <code>valueBeanArray</code> from shared pref with key <code>value_bean_array</code>
    *
    * @return property valueBeanArray value
    */
@@ -463,7 +463,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBigDecimal
+   * reads property <code>valueBigDecimal</code> from shared pref with key <code>value_big_decimal</code>
    *
    * @return property valueBigDecimal value
    */
@@ -473,7 +473,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBigInteger
+   * reads property <code>valueBigInteger</code> from shared pref with key <code>value_big_integer</code>
    *
    * @return property valueBigInteger value
    */
@@ -483,7 +483,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBool
+   * reads property <code>valueBool</code> from shared pref with key <code>value_bool</code>
    *
    * @return property valueBool value
    */
@@ -491,7 +491,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (boolean)prefs.getBoolean("value_bool", (boolean)(defaultBean.getValueBool()==null?false:defaultBean.getValueBool()));}
 
   /**
-   * read property valueBoolType
+   * reads property <code>valueBoolType</code> from shared pref with key <code>value_bool_type</code>
    *
    * @return property valueBoolType value
    */
@@ -499,7 +499,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (boolean)prefs.getBoolean("value_bool_type", (boolean)defaultBean.isValueBoolType());}
 
   /**
-   * read property valueByte
+   * reads property <code>valueByte</code> from shared pref with key <code>value_byte</code>
    *
    * @return property valueByte value
    */
@@ -507,7 +507,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (byte)prefs.getInt("value_byte", (byte)(defaultBean.getValueByte()==null?(byte)0:defaultBean.getValueByte()));}
 
   /**
-   * read property valueByteArray
+   * reads property <code>valueByteArray</code> from shared pref with key <code>value_byte_array</code>
    *
    * @return property valueByteArray value
    */
@@ -517,7 +517,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueByteType
+   * reads property <code>valueByteType</code> from shared pref with key <code>value_byte_type</code>
    *
    * @return property valueByteType value
    */
@@ -525,7 +525,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (byte)prefs.getInt("value_byte_type", (byte)defaultBean.getValueByteType());}
 
   /**
-   * read property valueCalendar
+   * reads property <code>valueCalendar</code> from shared pref with key <code>value_calendar</code>
    *
    * @return property valueCalendar value
    */
@@ -534,7 +534,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (StringUtils.hasText(temp)) ? CalendarUtils.read(temp): null;}
 
   /**
-   * read property valueChar
+   * reads property <code>valueChar</code> from shared pref with key <code>value_char</code>
    *
    * @return property valueChar value
    */
@@ -542,7 +542,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (char)prefs.getInt("value_char", (char)(defaultBean.getValueChar()==null?(char)0:defaultBean.getValueChar()));}
 
   /**
-   * read property valueCharArray
+   * reads property <code>valueCharArray</code> from shared pref with key <code>value_char_array</code>
    *
    * @return property valueCharArray value
    */
@@ -552,7 +552,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCharList
+   * reads property <code>valueCharList</code> from shared pref with key <code>value_char_list</code>
    *
    * @return property valueCharList value
    */
@@ -562,7 +562,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCharType
+   * reads property <code>valueCharType</code> from shared pref with key <code>value_char_type</code>
    *
    * @return property valueCharType value
    */
@@ -570,7 +570,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (char)prefs.getInt("value_char_type", (char)defaultBean.getValueCharType());}
 
   /**
-   * read property valueCharTypeArray
+   * reads property <code>valueCharTypeArray</code> from shared pref with key <code>value_char_type_array</code>
    *
    * @return property valueCharTypeArray value
    */
@@ -580,7 +580,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCurrency
+   * reads property <code>valueCurrency</code> from shared pref with key <code>value_currency</code>
    *
    * @return property valueCurrency value
    */
@@ -589,7 +589,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): null;}
 
   /**
-   * read property valueDate
+   * reads property <code>valueDate</code> from shared pref with key <code>value_date</code>
    *
    * @return property valueDate value
    */
@@ -598,7 +598,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (StringUtils.hasText(temp)) ? DateUtils.read(temp): null;}
 
   /**
-   * read property valueDouble
+   * reads property <code>valueDouble</code> from shared pref with key <code>value_double</code>
    *
    * @return property valueDouble value
    */
@@ -608,7 +608,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueDoubleType
+   * reads property <code>valueDoubleType</code> from shared pref with key <code>value_double_type</code>
    *
    * @return property valueDoubleType value
    */
@@ -618,7 +618,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueEnumType
+   * reads property <code>valueEnumType</code> from shared pref with key <code>value_enum_type</code>
    *
    * @return property valueEnumType value
    */
@@ -628,7 +628,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueFloat
+   * reads property <code>valueFloat</code> from shared pref with key <code>value_float</code>
    *
    * @return property valueFloat value
    */
@@ -636,7 +636,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return prefs.getFloat("value_float", (defaultBean.getValueFloat()==null?0F:defaultBean.getValueFloat()));}
 
   /**
-   * read property valueFloatType
+   * reads property <code>valueFloatType</code> from shared pref with key <code>value_float_type</code>
    *
    * @return property valueFloatType value
    */
@@ -644,7 +644,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return prefs.getFloat("value_float_type", defaultBean.getValueFloatType());}
 
   /**
-   * read property valueInt
+   * reads property <code>valueInt</code> from shared pref with key <code>value_int</code>
    *
    * @return property valueInt value
    */
@@ -652,7 +652,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (int)prefs.getInt("value_int", (int)(defaultBean.getValueInt()==null?0:defaultBean.getValueInt()));}
 
   /**
-   * read property valueIntType
+   * reads property <code>valueIntType</code> from shared pref with key <code>value_int_type</code>
    *
    * @return property valueIntType value
    */
@@ -660,7 +660,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (int)prefs.getInt("value_int_type", (int)defaultBean.getValueIntType());}
 
   /**
-   * read property valueLocale
+   * reads property <code>valueLocale</code> from shared pref with key <code>value_locale</code>
    *
    * @return property valueLocale value
    */
@@ -669,7 +669,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (StringUtils.hasText(temp)) ? LocaleUtils.read(temp): null;}
 
   /**
-   * read property valueLong
+   * reads property <code>valueLong</code> from shared pref with key <code>value_long</code>
    *
    * @return property valueLong value
    */
@@ -677,7 +677,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return prefs.getLong("value_long", (defaultBean.getValueLong()==null?0L:defaultBean.getValueLong()));}
 
   /**
-   * read property valueLongArray
+   * reads property <code>valueLongArray</code> from shared pref with key <code>value_long_array</code>
    *
    * @return property valueLongArray value
    */
@@ -687,7 +687,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLongList
+   * reads property <code>valueLongList</code> from shared pref with key <code>value_long_list</code>
    *
    * @return property valueLongList value
    */
@@ -697,7 +697,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueLongType
+   * reads property <code>valueLongType</code> from shared pref with key <code>value_long_type</code>
    *
    * @return property valueLongType value
    */
@@ -705,7 +705,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return prefs.getLong("value_long_type", defaultBean.getValueLongType());}
 
   /**
-   * read property valueLongTypeArray
+   * reads property <code>valueLongTypeArray</code> from shared pref with key <code>value_long_type_array</code>
    *
    * @return property valueLongTypeArray value
    */
@@ -715,7 +715,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueShort
+   * reads property <code>valueShort</code> from shared pref with key <code>value_short</code>
    *
    * @return property valueShort value
    */
@@ -723,7 +723,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (short)prefs.getInt("value_short", (short)(defaultBean.getValueShort()==null?(short)0:defaultBean.getValueShort()));}
 
   /**
-   * read property valueShortType
+   * reads property <code>valueShortType</code> from shared pref with key <code>value_short_type</code>
    *
    * @return property valueShortType value
    */
@@ -731,7 +731,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (short)prefs.getInt("value_short_type", (short)defaultBean.getValueShortType());}
 
   /**
-   * read property valueString
+   * reads property <code>valueString</code> from shared pref with key <code>value_string</code>
    *
    * @return property valueString value
    */
@@ -739,7 +739,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return prefs.getString("value_string", defaultBean.getValueString());}
 
   /**
-   * read property valueStringArray
+   * reads property <code>valueStringArray</code> from shared pref with key <code>value_string_array</code>
    *
    * @return property valueStringArray value
    */
@@ -749,7 +749,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueStrinList
+   * reads property <code>valueStrinList</code> from shared pref with key <code>value_strin_list</code>
    *
    * @return property valueStrinList value
    */
@@ -759,7 +759,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueTime
+   * reads property <code>valueTime</code> from shared pref with key <code>value_time</code>
    *
    * @return property valueTime value
    */
@@ -768,7 +768,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): null;}
 
   /**
-   * read property valueTimeList
+   * reads property <code>valueTimeList</code> from shared pref with key <code>value_time_list</code>
    *
    * @return property valueTimeList value
    */
@@ -778,7 +778,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueTimeZone
+   * reads property <code>valueTimeZone</code> from shared pref with key <code>value_time_zone</code>
    *
    * @return property valueTimeZone value
    */
@@ -787,7 +787,7 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return (StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): null;}
 
   /**
-   * read property valueUrl
+   * reads property <code>valueUrl</code> from shared pref with key <code>value_url</code>
    *
    * @return property valueUrl value
    */

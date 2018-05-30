@@ -224,7 +224,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property id
+   * reads property <code>id</code> from shared pref with key <code>id</code>
    *
    * @return property id value
    */
@@ -232,7 +232,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     return prefs.getLong("id", defaultBean.id);}
 
   /**
-   * read property value
+   * reads property <code>value</code> from shared pref with key <code>value</code>
    *
    * @return property value value
    */
@@ -240,7 +240,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     return prefs.getString("value", defaultBean.value);}
 
   /**
-   * read property valueByteSet
+   * reads property <code>valueByteSet</code> from shared pref with key <code>value_byte_set</code>
    *
    * @return property valueByteSet value
    */
@@ -250,7 +250,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueShortSet
+   * reads property <code>valueShortSet</code> from shared pref with key <code>value_short_set</code>
    *
    * @return property valueShortSet value
    */
@@ -260,7 +260,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueIntegerSet
+   * reads property <code>valueIntegerSet</code> from shared pref with key <code>value_integer_set</code>
    *
    * @return property valueIntegerSet value
    */
@@ -270,7 +270,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueStringSet
+   * reads property <code>valueStringSet</code> from shared pref with key <code>value_string_set</code>
    *
    * @return property valueStringSet value
    */
@@ -280,7 +280,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueCharacterSet
+   * reads property <code>valueCharacterSet</code> from shared pref with key <code>value_character_set</code>
    *
    * @return property valueCharacterSet value
    */
@@ -290,7 +290,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueFloatSet
+   * reads property <code>valueFloatSet</code> from shared pref with key <code>value_float_set</code>
    *
    * @return property valueFloatSet value
    */
@@ -300,7 +300,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueDoubleSet
+   * reads property <code>valueDoubleSet</code> from shared pref with key <code>value_double_set</code>
    *
    * @return property valueDoubleSet value
    */
@@ -310,7 +310,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBigDecimalSet
+   * reads property <code>valueBigDecimalSet</code> from shared pref with key <code>value_big_decimal_set</code>
    *
    * @return property valueBigDecimalSet value
    */
@@ -320,7 +320,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueBeanSet
+   * reads property <code>valueBeanSet</code> from shared pref with key <code>value_bean_set</code>
    *
    * @return property valueBeanSet value
    */
@@ -330,7 +330,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueEnumTypeSet
+   * reads property <code>valueEnumTypeSet</code> from shared pref with key <code>value_enum_type_set</code>
    *
    * @return property valueEnumTypeSet value
    */

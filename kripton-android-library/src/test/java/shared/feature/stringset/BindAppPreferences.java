@@ -92,7 +92,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property valueSet
+   * reads property <code>valueSet</code> from shared pref with key <code>value_set</code>
    *
    * @return property valueSet value
    */

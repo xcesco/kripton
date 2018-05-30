@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package shared.feature.rx;
+package shared.feature.livedata;
 
 
 import org.junit.Rule;
@@ -21,25 +21,26 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
-import shared.feature.rx.case1.BindAppPreferences;
+import shared.feature.livedata.case1.BindAppPreferences;
 
 /**
  * The Class TestTypeAdapterCase2Runtime.
  */
 public class TesLiveDataCase1Runtime extends BaseAndroidTest {
 	@Rule
-	public TestRule rule = new InstantTaskExecutorRule();
+	public TestRule rule = new KriptonInstantTaskExecutorRule();
 	
 	
 	/**
 	 * Test app run.
+	 * @throws InterruptedException 
 	 */
 	@Test
-	public void testAppRun()
+	public void testAppRun() throws InterruptedException
 	{
 		BindAppPreferences sp=BindAppPreferences.instance();
 		sp.getDescriptionAsLiveData().observeForever(new Observer<String>() {
@@ -52,8 +53,21 @@ public class TesLiveDataCase1Runtime extends BaseAndroidTest {
 		});		
 				
 		sp.edit().putDescription("ciao").commit();
+						
+		sp.edit().putName("name").commit();
+						
+		sp.edit().putDescription("hello").commit();
 				
 		//assertTrue(sp.getField2()==1);
+		
+		sp.getNameAsLiveData().observeForever(new Observer<String>() {
+			
+			@Override
+			public void onChanged(String t) {
+				Logger.info("getNameAsLiveData  "+t);
+				
+			}
+		});		
 	}
 	
 	

@@ -13,34 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared.feature.typeadapter.case1;
+package shared.feature.livedata;
 
-import java.util.HashSet;
+import java.io.IOException;
 
-import com.abubusoft.kripton.android.annotation.BindPreference;
-import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
-import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import shared.feature.typeadapter.case2.IntTypeAdapter;
+import shared.AbstractBindSharedPreferenceProcessorTest;
+import shared.feature.livedata.case1.AppPreferences;
 
 /**
- * The Class App1Preferences.
+ * The Class Test45Compile.
  */
-@BindSharedPreferences(liveData=true)
-public class App1Preferences {
+@RunWith(JUnit4.class)
+public class TestSharedLiveDataCompile extends AbstractBindSharedPreferenceProcessorTest {
 
-	/** The value set. */
-	@BindPreference
-	public HashSet<String> valueSet;
-	
-	/*
-	@BindPreferenceAdapter(adapter=SampleTypeAdapter.class)
-	@BindPreference
-	public String password;*/
-	
-	/** The right. */
-	@BindPreferenceAdapter(adapter=IntTypeAdapter.class)
-	@BindPreference
-	public int right;
-		
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(AppPreferences.class);
+	}
+
 }

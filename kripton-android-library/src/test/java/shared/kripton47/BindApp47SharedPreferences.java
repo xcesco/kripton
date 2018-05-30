@@ -118,7 +118,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property name
+   * reads property <code>name</code> from shared pref with key <code>name</code>
    *
    * @return property name value
    */
@@ -126,7 +126,7 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
     return prefs.getString("name", defaultBean.name);}
 
   /**
-   * read property userAccessToken
+   * reads property <code>userAccessToken</code> from shared pref with key <code>user_access_token</code>
    *
    * @return property userAccessToken value
    */

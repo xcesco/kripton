@@ -103,7 +103,7 @@ public class BindApp3Preferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property fieldStringPublic
+   * reads property <code>fieldStringPublic</code> from shared pref with key <code>field_string_public</code>
    *
    * @return property fieldStringPublic value
    */
@@ -114,7 +114,7 @@ public class BindApp3Preferences extends AbstractSharedPreference {
   }
 
   /**
-   * read property fieldStringPrivate
+   * reads property <code>fieldStringPrivate</code> from shared pref with key <code>field_string_private</code>
    *
    * @return property fieldStringPrivate value
    */

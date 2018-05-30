@@ -13,34 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared.feature.typeadapter.case1;
+package shared.feature.livedata;
 
-import java.util.HashSet;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import com.abubusoft.kripton.android.annotation.BindPreference;
-import com.abubusoft.kripton.android.annotation.BindPreferenceAdapter;
-import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
-
-import shared.feature.typeadapter.case2.IntTypeAdapter;
+import base.BaseProcessorTest;
 
 /**
- * The Class App1Preferences.
+ * The Class Test45Suite.
  */
-@BindSharedPreferences(liveData=true)
-public class App1Preferences {
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestSharedLiveDataCompile.class
+		 })
+//@formatter:on
+public class TestSharedLiveDataCompileSuite extends BaseProcessorTest {
 
-	/** The value set. */
-	@BindPreference
-	public HashSet<String> valueSet;
-	
-	/*
-	@BindPreferenceAdapter(adapter=SampleTypeAdapter.class)
-	@BindPreference
-	public String password;*/
-	
-	/** The right. */
-	@BindPreferenceAdapter(adapter=IntTypeAdapter.class)
-	@BindPreference
-	public int right;
-		
 }

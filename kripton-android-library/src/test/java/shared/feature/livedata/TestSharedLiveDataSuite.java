@@ -13,31 +13,18 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package shared;
+package shared.feature.livedata;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import shared.feature.livedata.TestSharedLiveDataSuite;
-import shared.feature.rx.TestSharedRxSuite;
-import shared.feature.typeadapter.TestTypeAdapterCase2Runtime;
-import shared.kripton45.Test45Suite;
-import shared.kripton47.Test47Suite;
-
 /**
- * The Class SharedRuntimeTestSuite.
+ * The Class TestTypeAdapterSuite.
  */
 @RunWith(Suite.class)
 // @formatter:off
-@Suite.SuiteClasses({ 
-	Test45Suite.class,
-	Test47Suite.class,
-	
-	TestTypeAdapterCase2Runtime.class,
-	TestSharedRxSuite.class,
-	TestSharedLiveDataSuite.class
-	 })
+@Suite.SuiteClasses({ TesLiveDataCase1Runtime.class })
 // @formatter:on
-public class SharedRuntimeTestSuite {
+public class TestSharedLiveDataSuite {
 
 }

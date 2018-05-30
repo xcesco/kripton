@@ -25,7 +25,6 @@ import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
@@ -39,44 +38,56 @@ import sqlite.feature.livedata.persistence0.BindApp0DataSource;
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class TestLiveDataRuntime extends BaseAndroidTest {
-	
+
 	@Rule
 	public TestRule rule = new KriptonInstantTaskExecutorRule();
 
 	/**
 	 * Test run.
 	 *
-	 * @throws InterruptedException the interrupted exception
+	 * @throws InterruptedException
+	 *             the interrupted exception
 	 */
 	@Test
 	public void testRun() throws InterruptedException {
-		BindApp0DataSource ds=BindApp0DataSource.getInstance();// .build(DataSourceOptions.builder().inMemory(false).build());
-		
-		System.out.println("aa"+KriptonTaskExecutor.getInstance().isMainThread());
-		
-		
+		BindApp0DataSource ds = BindApp0DataSource.getInstance();// .build(DataSourceOptions.builder().inMemory(false).build());
+
+		System.out.println("aa" + KriptonTaskExecutor.getInstance().isMainThread());
+
 		LiveData<List<Person>> liveData = ds.getDaoPerson0().select("Manero");
 		liveData.observeForever(new Observer<List<Person>>() {
-			
+
 			@Override
 			public void onChanged(List<Person> t) {
-				System.out.println("*********** "+t.size());				
+				System.out.println("*********** " + t.size());
 			}
 		});
-		
+
 		ds.execute(new BindApp0DataSource.Transaction() {
-			
+
 			@Override
 			public TransactionResult onExecute(BindApp0DaoFactory daoFactory) {
-				Person person=new Person();
-				person.name="Manero";
-				person.surname="Tonj";
+				Person person = new Person();
+				person.name = "Manero";
+				person.surname = "Tonj";
 				daoFactory.getDaoPerson0().insert(person);
 				return TransactionResult.COMMIT;
 			}
 		});
-		
+
+		ds.execute(new BindApp0DataSource.Transaction() {
+
+			@Override
+			public TransactionResult onExecute(BindApp0DaoFactory daoFactory) {
+				Person person = new Person();
+				person.name = "Manero";
+				person.surname = "Tonj";
+				daoFactory.getDaoPerson0().insert(person);
+				return TransactionResult.COMMIT;
+			}
+		});
+
 		Thread.sleep(1000);
 	}
-	
+
 }
