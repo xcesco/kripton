@@ -85,7 +85,7 @@ public abstract class AbstractGeneratedPrefsTransform extends AbstractPrefsTrans
 
 		methodBuilder.addCode("$T.hasText(temp) ? ", StringUtils.class);
 		methodBuilder.addCode("parse$L(temp)", formatter.convert(property.getName()));
-		methodBuilder.addCode(": $L", getter("defaultBean", beanClass, property));
+		methodBuilder.addCode(": $L", getter(beanName, beanClass, property));
 
 		if (readAll) {
 			methodBuilder.addCode((!property.isPublicField() ? ")" : ""));

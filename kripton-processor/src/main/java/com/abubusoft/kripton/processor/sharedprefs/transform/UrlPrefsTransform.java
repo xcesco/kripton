@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.sharedprefs.transform;
 
 import com.abubusoft.kripton.common.UrlUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a java.net.URL object
  * 

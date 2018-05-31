@@ -133,7 +133,7 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 
 			methodBuilder.addCode("$T.hasText(temp) ? ", StringUtils.class);
 			methodBuilder.addCode("parse$L(temp)", formatter.convert(property.getName()));
-			methodBuilder.addCode(": null");
+			methodBuilder.addCode(": $L",getter(beanName, beanClass, property));
 
 			if (readAll) {
 				methodBuilder.addCode((!property.isPublicField() ? ")" : ""));

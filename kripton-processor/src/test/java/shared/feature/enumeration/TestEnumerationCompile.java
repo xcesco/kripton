@@ -13,30 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package bind.kripton81morecoveragetests;
+package shared.feature.enumeration;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.io.IOException;
 
-import com.abubusoft.kripton.annotation.BindType;
-import com.abubusoft.kripton.annotation.BindXml;
-import com.abubusoft.kripton.xml.XmlType;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import shared.AbstractBindSharedPreferenceProcessorTest;
 
 /**
- * The Class Bean81L.
+ * The Class Test45Compile.
  */
-@BindType
-public class Bean81L {
-	
-	/** The id. */
-	public long id;
-	
-	/** The value big decimal. */
-	@BindXml(xmlType=XmlType.ATTRIBUTE)
-	public BigDecimal valueBigDecimal;
-	
-	/** The value big integer. */
-	@BindXml(xmlType=XmlType.VALUE_CDATA)
-	public BigInteger valueBigInteger;
-		
+@RunWith(JUnit4.class)
+public class TestEnumerationCompile extends AbstractBindSharedPreferenceProcessorTest {
+
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		buildSharedPreferencesProcessorTest(App4Preferences.class, ValueType.class);
+	}
+
 }

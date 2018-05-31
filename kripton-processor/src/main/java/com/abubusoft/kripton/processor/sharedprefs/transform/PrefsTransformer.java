@@ -39,7 +39,6 @@ import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * Transformer for java primitive types and frequently used java types.
  *

@@ -79,7 +79,7 @@ public class WrappedPrefsTransform extends AbstractPrefsTransform {
 
 		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
 		methodBuilder.addCode("$T.read(temp)", utilClazz);
-		methodBuilder.addCode(": null");
+		methodBuilder.addCode(": $L", getter(beanName, beanClass, property));
 
 		if (readAll) {
 			methodBuilder.addCode((!property.isPublicField() ? ")" : ""));

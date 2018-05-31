@@ -15,7 +15,6 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sharedprefs.transform;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class LongPrefsTransform.
  */

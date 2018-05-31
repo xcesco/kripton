@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.sharedprefs.transform;
+package shared.feature.enumeration;
 
-import com.abubusoft.kripton.common.TimeZoneUtils;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+import base.BaseProcessorTest;
 
 /**
- * Transformer between a string and a java.util.TimeZone object
- * 
- * @author xcesco
- *
+ * The Class Test45Suite.
  */
-public class TimeZonePrefsTransform extends WrappedPrefsTransform {
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestEnumerationCompile.class
+		 })
+//@formatter:on
+public class TestEnumerationCompileSuite extends BaseProcessorTest {
 
-	/**
-	 * Instantiates a new time zone prefs transform.
-	 */
-	public TimeZonePrefsTransform() {
-		super(TimeZoneUtils.class);
-	}
 }
-

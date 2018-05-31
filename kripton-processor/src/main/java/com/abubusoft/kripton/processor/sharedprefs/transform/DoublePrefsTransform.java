@@ -23,7 +23,6 @@ import com.abubusoft.kripton.processor.sharedprefs.model.PrefsProperty;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * Transformer between a string and a Java Double object.
  *
@@ -81,7 +80,7 @@ public class DoublePrefsTransform extends AbstractPrefsTransform {
 
 		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
 		methodBuilder.addCode("$T.valueOf(temp)", Double.class);
-		methodBuilder.addCode(": $L", defaultValue);
+		methodBuilder.addCode(": $L", getter(beanName, beanClass, property));
 
 		if (readAll) {
 			methodBuilder.addCode((!property.isPublicField() ? ")" : ""));

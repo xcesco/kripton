@@ -22,6 +22,7 @@ import java.lang.reflect.Type;
 import com.abubusoft.kripton.BinderContext;
 import com.abubusoft.kripton.BinderType;
 import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.annotation.BindType;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -41,11 +42,12 @@ public final class KriptonBinderConverterFactory extends Converter.Factory {
 	public static KriptonBinderConverterFactory create() {
 		return new KriptonBinderConverterFactory();
 	}
-	
+
 	/**
 	 * Creates the.
 	 *
-	 * @param binderType the binder type
+	 * @param binderType
+	 *            the binder type
 	 * @return the kripton binder converter factory
 	 */
 	public static KriptonBinderConverterFactory create(BinderType binderType) {
@@ -59,43 +61,79 @@ public final class KriptonBinderConverterFactory extends Converter.Factory {
 	 * Instantiates a new kripton binder converter factory.
 	 */
 	private KriptonBinderConverterFactory() {
-		binderContext=KriptonBinder.bind(BinderType.JSON);
+		binderContext = KriptonBinder.bind(BinderType.JSON);
 	}
-	
+
 	/**
 	 * Instantiates a new kripton binder converter factory.
 	 *
-	 * @param binderType the binder type
+	 * @param binderType
+	 *            the binder type
 	 */
 	private KriptonBinderConverterFactory(BinderType binderType) {
-		binderContext=KriptonBinder.bind(binderType);
+		binderContext = KriptonBinder.bind(binderType);
 	}
 
-	/* (non-Javadoc)
-	 * @see retrofit2.Converter.Factory#responseBodyConverter(java.lang.reflect.Type, java.lang.annotation.Annotation[], retrofit2.Retrofit)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * retrofit2.Converter.Factory#responseBodyConverter(java.lang.reflect.Type,
+	 * java.lang.annotation.Annotation[], retrofit2.Retrofit)
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
 		if (type instanceof Class) {
-			return new KriptonResponseBodyConverter<>(binderContext, (Class<?>) type);
+			Class<?> ct = ((Class) type);
+			Annotation annotation = ct.getAnnotation(BindType.class);
+
+			if (annotation != null) {
+				return new KriptonResponseBodyConverter<>(binderContext, ct);
+			} else {
+				return null;
+			}
 		} else if (type instanceof ParameterizedType) {
-			return new KriptonResponseBodyCollectionConverter(binderContext, (ParameterizedType) type);
+			ParameterizedType pt = ((ParameterizedType) type);
+			if (pt.getActualTypeArguments().length == 1) {
+				return new KriptonResponseBodyCollectionConverter(binderContext, pt);
+			} else {
+				return null;
+			}
 		}
 
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see retrofit2.Converter.Factory#requestBodyConverter(java.lang.reflect.Type, java.lang.annotation.Annotation[], java.lang.annotation.Annotation[], retrofit2.Retrofit)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * retrofit2.Converter.Factory#requestBodyConverter(java.lang.reflect.Type,
+	 * java.lang.annotation.Annotation[], java.lang.annotation.Annotation[],
+	 * retrofit2.Retrofit)
 	 */
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations,
 			Annotation[] methodAnnotations, Retrofit retrofit) {
 		if (type instanceof Class) {
-			return new KriptonRequestBodyConverter<>(binderContext, (Class<?>) type);
+			Class<?> ct = ((Class) type);
+			Annotation annotation = ct.getAnnotation(BindType.class);
+
+			if (annotation != null) {
+				return new KriptonRequestBodyConverter<>(binderContext, (Class<?>) type);
+			} else {
+				return null;
+			}
+
 		} else if (type instanceof ParameterizedType) {
-			return new KriptonRequestBodyCollectionConverter<>(binderContext, (ParameterizedType) type);
+			ParameterizedType pt = ((ParameterizedType) type);
+			if (pt.getActualTypeArguments().length == 1) {
+				return new KriptonRequestBodyCollectionConverter<>(binderContext, (ParameterizedType) type);
+			} else {
+				return null;
+			}
 		}
 
 		return null;
