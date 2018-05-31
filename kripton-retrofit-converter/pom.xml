@@ -25,6 +25,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>logging-interceptor</artifactId>
+			<version>3.8.0</version>
+			<scope>test</scope>
+		</dependency>
 	
 		<dependency>
 			<groupId>com.abubusoft</groupId>
