@@ -89,13 +89,13 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     bean.fcmId=prefs.getString("fcm_id", bean.fcmId);
      {
       String temp=prefs.getString("authorization_token", null);
-      bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): defaultBean.authorizationToken;
+      bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): bean.authorizationToken;
     }
 
     bean.deviceUid=prefs.getString("device_uid", bean.deviceUid);
      {
       String temp=prefs.getString("user_identity", null);
-      bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): defaultBean.userIdentity;
+      bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): bean.userIdentity;
     }
 
 
@@ -258,9 +258,11 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   /**
    * get instance of shared preferences
    */
-  public static synchronized BindSecurity47SharedPreferences instance() {
+  public static synchronized BindSecurity47SharedPreferences getInstance() {
     if (instance==null) {
       instance=new BindSecurity47SharedPreferences();
+      // read and write instance to sync with default values
+      instance.write(instance.read());
     }
     return instance;
   }

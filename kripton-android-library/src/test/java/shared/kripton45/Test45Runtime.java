@@ -56,7 +56,7 @@ public class Test45Runtime extends BaseAndroidTest {
 	public void testAppRun()
 	{
 		AppPreferences bean=createBean();		
-		BindAppPreferences prefs = BindAppPreferences.instance();		
+		BindAppPreferences prefs = BindAppPreferences.getInstance();		
 		prefs.write(bean);
 		
 		AppPreferences bean2=prefs.read();				
@@ -70,7 +70,7 @@ public class Test45Runtime extends BaseAndroidTest {
 	public void testAppRunFail()
 	{
 		AppPreferences bean=createBean();		
-		BindAppPreferences prefs = BindAppPreferences.instance();		
+		BindAppPreferences prefs = BindAppPreferences.getInstance();		
 		prefs.write(bean);
 		
 		bean.description="fail";

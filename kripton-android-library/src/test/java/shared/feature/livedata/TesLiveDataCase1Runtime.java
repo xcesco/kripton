@@ -42,7 +42,7 @@ public class TesLiveDataCase1Runtime extends BaseAndroidTest {
 	@Test
 	public void testAppRun() throws InterruptedException
 	{
-		BindAppPreferences sp=BindAppPreferences.instance();
+		BindAppPreferences sp=BindAppPreferences.getInstance();
 		sp.getDescriptionAsLiveData().observeForever(new Observer<String>() {
 			
 			@Override

@@ -86,12 +86,12 @@ public class BindRightPreferences extends AbstractSharedPreference {
     bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)bean.valueBoolean);
      {
       String temp=prefs.getString("string_array", null);
-      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray());
+      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): bean.getStringArray());
     }
 
      {
       String temp=prefs.getString("string_list", null);
-      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
+      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): bean.stringList;
     }
 
     bean.valueInt=(int)prefs.getInt("value_int", (int)bean.valueInt);
@@ -352,9 +352,11 @@ public class BindRightPreferences extends AbstractSharedPreference {
   /**
    * get instance of shared preferences
    */
-  public static synchronized BindRightPreferences instance() {
+  public static synchronized BindRightPreferences getInstance() {
     if (instance==null) {
       instance=new BindRightPreferences();
+      // read and write instance to sync with default values
+      instance.write(instance.read());
     }
     return instance;
   }

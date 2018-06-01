@@ -511,12 +511,14 @@ public abstract class BindSharedPreferencesBuilder {
 		builder.addField(FieldSpec.builder(className(className), "instance", Modifier.PRIVATE, Modifier.STATIC)
 				.addJavadoc("instance of shared preferences\n").build());
 		// instance
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("instance")
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("getInstance")
 				.addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.SYNCHRONIZED)
 				.addJavadoc("get instance of shared preferences\n").returns(className(className));
 
 		methodBuilder.beginControlFlow("if (instance==null)");
-		methodBuilder.addCode("instance=new $L();\n", className(className));
+		methodBuilder.addStatement("instance=new $L()", className(className));
+		methodBuilder.addComment("read and write instance to sync with default values");
+		methodBuilder.addStatement("instance.write(instance.read())");   
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("return instance;\n");
 

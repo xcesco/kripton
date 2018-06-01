@@ -127,9 +127,11 @@ public class BindApp3Preferences extends AbstractSharedPreference {
   /**
    * get instance of shared preferences
    */
-  public static synchronized BindApp3Preferences instance() {
+  public static synchronized BindApp3Preferences getInstance() {
     if (instance==null) {
       instance=new BindApp3Preferences();
+      // read and write instance to sync with default values
+      instance.write(instance.read());
     }
     return instance;
   }

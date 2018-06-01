@@ -34,7 +34,7 @@ public class Test47Runtime extends BaseAndroidTest {
 	@Test
 	public void testAppRun()
 	{
-		BindApp47SharedPreferences shared=BindApp47SharedPreferences.instance();
+		BindApp47SharedPreferences shared=BindApp47SharedPreferences.getInstance();
 		shared.edit().putName("hello").commit();		
 		assertTrue(shared.getName().equals("hello"));
 	//	log("shared.name() %s", shared.name());		
@@ -47,7 +47,7 @@ public class Test47Runtime extends BaseAndroidTest {
 	public void testSecurityRun()
 	{
 		String value="testGenerated";
-		BindSecurity47SharedPreferences config=BindSecurity47SharedPreferences.instance();
+		BindSecurity47SharedPreferences config=BindSecurity47SharedPreferences.getInstance();
 		
 		UserIdentity userIdentity=new UserIdentity();
 		userIdentity.setName(value);

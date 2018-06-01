@@ -523,9 +523,11 @@ public class BindApp4Preferences extends AbstractSharedPreference {
   /**
    * get instance of shared preferences
    */
-  public static synchronized BindApp4Preferences instance() {
+  public static synchronized BindApp4Preferences getInstance() {
     if (instance==null) {
       instance=new BindApp4Preferences();
+      // read and write instance to sync with default values
+      instance.write(instance.read());
     }
     return instance;
   }

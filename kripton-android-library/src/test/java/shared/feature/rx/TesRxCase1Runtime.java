@@ -40,7 +40,7 @@ public class TesRxCase1Runtime extends BaseAndroidTest {
 	public void testAppRun()
 	{
 		final One<Integer> counter=new One<>(0);
-		final BindAppPreferences sp=BindAppPreferences.instance();
+		final BindAppPreferences sp=BindAppPreferences.getInstance();
 		sp.edit().putDescription("start").commit();
 		
 		sp.getDescriptionAsObservable().subscribe(new Consumer<String>() {

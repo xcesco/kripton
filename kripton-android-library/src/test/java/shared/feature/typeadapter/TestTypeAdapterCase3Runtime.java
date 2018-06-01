@@ -36,7 +36,7 @@ public class TestTypeAdapterCase3Runtime extends BaseAndroidTest {
 	@Test
 	public void testAppRun()
 	{
-		BindApp3Preferences sp=BindApp3Preferences.instance();		
+		BindApp3Preferences sp=BindApp3Preferences.getInstance();		
 		sp.edit().putFieldStringPrivate(null).commit();		
 		sp.refresh();		
 		assertTrue(sp.getFieldStringPrivate().equals("1|2"));
