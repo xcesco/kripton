@@ -20,6 +20,7 @@ import org.junit.runners.Suite;
 
 import shared.feature.enumeration.TestEnumerationCompileSuite;
 import shared.feature.livedata.TestSharedLiveDataCompileSuite;
+import shared.feature.livedatax.TestSharedLiveDataXCompileSuite;
 import shared.feature.rx.TestSharedRxCompileSuite;
 import shared.feature.stringset.TestStringSetSuite;
 import shared.feature.typeadapter.TestPreferenceTypeAdapterSuite;
@@ -44,6 +45,7 @@ import shared.kripton50.TestKripton50;
 	TestPreferenceTypeAdapterSuite.class,
 	TestSharedRxCompileSuite.class,
 	TestSharedLiveDataCompileSuite.class,
+	TestSharedLiveDataXCompileSuite.class,
 	TestEnumerationCompileSuite.class
 	 })
 // @formatter:on

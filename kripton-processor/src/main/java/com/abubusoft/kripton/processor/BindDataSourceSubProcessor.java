@@ -119,11 +119,14 @@ import com.squareup.javapoet.TypeName;
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	public String SCHEMA_LOCATION_OPTIONS = "kripton.schemaLocation";
+	
+	public String ANDROID_X_OPTIONS = "kripton.androidx";
 
 	public Set<String> getSupportedOptions() {
 		HashSet<String> result = new HashSet<>();
 
 		result.add(SCHEMA_LOCATION_OPTIONS);
+		result.add(ANDROID_X_OPTIONS);		
 
 		return result;
 	}
@@ -178,6 +181,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		super.init(processingEnv);
 
 		schemaLocationDirectory = processingEnv.getOptions().get(SCHEMA_LOCATION_OPTIONS);
+		KriptonLiveDataManager.init(processingEnv.getOptions().get(ANDROID_X_OPTIONS));
 	}
 
 	public String getSchemaLocationDirectory() {

@@ -38,6 +38,7 @@ import sqlite.feature.javadoc.TestJavadocFeatureSuite;
 import sqlite.feature.join.TestJoinFeatureSuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
 import sqlite.feature.livedata.TestLiveDataSuite;
+import sqlite.feature.livedatax.TestLiveDataXSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.paginatedresult.TestPaginatedResultSuite;
 import sqlite.feature.performance.TestPerformanceSuite;
@@ -107,6 +108,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestRXSuite.class,
 			TestCompileSpeed.class,
 			TestLiveDataSuite.class,
+			TestLiveDataXSuite.class,
 			TestJoinFeatureSuite.class,
 			TestRelationSuite.class,
 			TestColumnAffinityTestSuite.class,
@@ -151,6 +153,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestStack45184504Suite.class,	
 			Test205Suite.class,
 			FeatureDataSourceOptionsTest.class,
+			TestLiveDataXSuite.class,
 			
 			TestSamplesSuite.class,
 						

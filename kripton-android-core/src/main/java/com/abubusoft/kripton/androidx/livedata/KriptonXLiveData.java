@@ -1,0 +1,7 @@
+package com.abubusoft.kripton.androidx.livedata;
+
+import androidx.lifecycle.MutableLiveData;
+
+public class KriptonXLiveData<T> extends MutableLiveData<T> {
+	
+}

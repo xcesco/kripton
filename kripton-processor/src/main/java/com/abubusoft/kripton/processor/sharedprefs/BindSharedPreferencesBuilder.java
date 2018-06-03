@@ -34,12 +34,12 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.annotation.BindSharedPreferences;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
@@ -248,11 +248,11 @@ public abstract class BindSharedPreferencesBuilder {
 						ParameterizedTypeName.get(ClassName.get(List.class),
 								ParameterizedTypeName.get(ClassName.get(Pair.class), ClassName.get(String.class),
 										ParameterizedTypeName.get(ClassName.get(WeakReference.class),
-												ClassName.get(KriptonComputableLiveData.class)))),
+												ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz())))),
 						"liveDatas", Modifier.PRIVATE)
 				.initializer(CodeBlock.of(
-						"new $T<$T<String, WeakReference<KriptonComputableLiveData>>>()",
-						CopyOnWriteArrayList.class, Pair.class))
+						"new $T<$T<String, WeakReference<$T>>>()",
+						CopyOnWriteArrayList.class, Pair.class, KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()))
 				.addAnnotation(
 						AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"rawtypes\"").build())
 				.build();
@@ -260,12 +260,12 @@ public abstract class BindSharedPreferencesBuilder {
 		{ // registryLiveData
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("registryLiveData")
 					.addModifiers(Modifier.PROTECTED).addParameter(String.class, "key")
-					.addParameter(ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class),
+					.addParameter(ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()),
 							WildcardTypeName.subtypeOf(Object.class)), "value")
 					.addAnnotation(
 							AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"rawtypes\"").build())
 					.addStatement(
-							"liveDatas.add(new Pair<String , WeakReference<KriptonComputableLiveData>>(key, new WeakReference<KriptonComputableLiveData>(value)))");
+							"liveDatas.add(new Pair<String , WeakReference<$T>>(key, new WeakReference<$T>(value)))", KriptonLiveDataManager.getInstance().getComputableLiveDataClazz(), KriptonLiveDataManager.getInstance().getComputableLiveDataClazz());
 			builder.addMethod(methodBuilder.build());
 		}
 
@@ -276,7 +276,7 @@ public abstract class BindSharedPreferencesBuilder {
 					.addModifiers(Modifier.PROTECTED).addParameter(String.class, "key")
 					.addParameter(Object.class, "value")
 
-					.beginControlFlow("for (Pair<String, WeakReference<KriptonComputableLiveData>> item : liveDatas)")
+					.beginControlFlow("for (Pair<String, WeakReference<$T>> item : liveDatas)", KriptonLiveDataManager.getInstance().getComputableLiveDataClazz())
 					.beginControlFlow("if (item.value0.equals(key) && item.value1.get() != null)")
 					.addStatement("item.value1.get().invalidate()").endControlFlow().endControlFlow();
 
@@ -353,10 +353,9 @@ public abstract class BindSharedPreferencesBuilder {
 	}
 
 	private static void generateMethodAsLiveData(Converter<String, String> converter, TypeName typeName,
-			PrefsProperty property) {
-				
+			PrefsProperty property) {				
 
-		ParameterizedTypeName liveDataType=ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), typeName);
+		ParameterizedTypeName liveDataType=ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), typeName);
 		String className = getBuildPreferenceName(property.getParent());
 
 		// generate compute
@@ -373,7 +372,7 @@ public abstract class BindSharedPreferencesBuilder {
 
 		MethodSpec ms = MethodSpec.methodBuilder("get" + converter.convert(property.getName()) + "AsLiveData")
 				.addModifiers(Modifier.PUBLIC)
-				.returns(ParameterizedTypeName.get(ClassName.get(MutableLiveData.class), typeName))
+				.returns(ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getMutableLiveDataClazz()), typeName))
 				.addJavadoc("Obtains an LiveData to <code>$L</code> property\n\n", property.getName())
 				.addJavadoc("@return\nan LiveData to <code>$L</code> property\n", property.getName())
 				.addStatement("$T liveData=$L", liveDataType, liveDataBuilder)

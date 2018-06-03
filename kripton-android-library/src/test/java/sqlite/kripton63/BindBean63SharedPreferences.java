@@ -83,12 +83,12 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     bean.value=prefs.getString("value", bean.value);
      {
       String temp=prefs.getString("value_map_string_byte", null);
-      bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): defaultBean.valueMapStringByte;
+      bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): bean.valueMapStringByte;
     }
 
      {
       String temp=prefs.getString("value_map_enum_byte", null);
-      bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): defaultBean.valueMapEnumByte;
+      bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): bean.valueMapEnumByte;
     }
 
 
@@ -326,9 +326,11 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   /**
    * get instance of shared preferences
    */
-  public static synchronized BindBean63SharedPreferences instance() {
+  public static synchronized BindBean63SharedPreferences getInstance() {
     if (instance==null) {
       instance=new BindBean63SharedPreferences();
+      // read and write instance to sync with default values
+      instance.write(instance.read());
     }
     return instance;
   }

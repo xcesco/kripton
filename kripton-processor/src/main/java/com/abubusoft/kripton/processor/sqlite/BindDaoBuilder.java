@@ -35,10 +35,10 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
+import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -234,12 +234,12 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 				FieldSpec.Builder liveDataBuilder = FieldSpec
 						.builder(ParameterizedTypeName.get(ClassName.get(Collection.class),
 								ParameterizedTypeName.get(ClassName.get(WeakReference.class),
-										ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class)))),
+										ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class)))),
 								"liveDatas")
 						.addModifiers(Modifier.STATIC)
 						.initializer(CodeBlock.builder()
 								.add("$T.synchronizedCollection(new $T())", Collections.class, ParameterizedTypeName.get(ClassName.get(HashSet.class), ParameterizedTypeName
-										.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class)))))
+										.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class)))))
 								.build());
 				builder.addField(liveDataBuilder.build());
 			}
@@ -247,9 +247,9 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			// registryLiveData
 			{
 				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_REGISTRY_LIVE_DATA).addModifiers(Modifier.PROTECTED)
-						.addParameter(ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class)), "value");
+						.addParameter(ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class)), "value");
 				methodBuilder.addStatement("liveDatas.add(new $T(value))", ParameterizedTypeName.get(ClassName.get(WeakReference.class),
-						ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class))));
+						ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class))));
 				builder.addMethod(methodBuilder.build());
 			}
 
@@ -262,7 +262,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 						.addJavadoc("<p>Invalidate livedata.</p>\n\n")
 						.addModifiers(Modifier.PUBLIC);
 				methodBuilder.beginControlFlow("for ($T item: liveDatas)", ParameterizedTypeName.get(ClassName.get(WeakReference.class),
-						ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), WildcardTypeName.subtypeOf(Object.class))));
+						ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class))));
 				methodBuilder.beginControlFlow("if (item.get()!=null)");
 				methodBuilder.addStatement("item.get().invalidate()");
 				methodBuilder.endControlFlow();

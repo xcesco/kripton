@@ -24,7 +24,6 @@ import javax.lang.model.element.Modifier;
 
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
@@ -33,6 +32,7 @@ import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
@@ -251,12 +251,12 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 						.returns(method.getReturnClass()).addStatement("return daoFactory.get$L().$L($L)", daoDefinition.getName(), method.getName() + LIVE_DATA_PREFIX, buffer.toString()).build())
 				.build();
 
-		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), method.getReturnClass()))
+		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), method.getReturnClass()))
 				.addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class).addModifiers(Modifier.PROTECTED).returns(method.getReturnClass())
 						.addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build())
 				.build();
 
-		methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(KriptonComputableLiveData.class), method.getReturnClass()), liveDataBuilder);
+		methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), method.getReturnClass()), liveDataBuilder);
 		methodBuilder.addStatement("registryLiveData(builder)");
 		methodBuilder.addStatement("return builder.getLiveData()");
 

@@ -45,6 +45,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -486,9 +487,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			}
 
 			String wrapperName = wrapperClazz.getName();
-			if ("com.abubusoft.kripton.android.sqlite.livedata.KriptonLiveData".equals(wrapperName)
-					|| "android.arch.lifecycle.MutableLiveData".equals(wrapperName)
-					|| "android.arch.lifecycle.LiveData".equals(wrapperName)) {
+			if (KriptonLiveDataManager.getInstance().isLiveData(wrapperName)) {
 				result = true;
 			}
 		}
