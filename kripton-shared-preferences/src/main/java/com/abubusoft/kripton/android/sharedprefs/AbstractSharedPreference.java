@@ -83,6 +83,15 @@ public class AbstractSharedPreference {
 		{
 			editor.commit();
 		}
+		
+		/**
+		 * apply
+		 */
+		public void apply() {
+			editor.apply();
+		}
+		
+		
 	}
 
 }

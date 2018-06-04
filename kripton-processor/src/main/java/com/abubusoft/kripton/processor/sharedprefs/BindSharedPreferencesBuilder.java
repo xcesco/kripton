@@ -67,7 +67,6 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeSpec.Builder;
 import com.squareup.javapoet.WildcardTypeName;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -245,14 +244,14 @@ public abstract class BindSharedPreferencesBuilder {
 		// generate livedata collections
 		FieldSpec fs = FieldSpec
 				.builder(
-						ParameterizedTypeName.get(ClassName.get(List.class),
-								ParameterizedTypeName.get(ClassName.get(Pair.class), ClassName.get(String.class),
-										ParameterizedTypeName.get(ClassName.get(WeakReference.class),
-												ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz())))),
+						ParameterizedTypeName.get(ClassName.get(List.class), ParameterizedTypeName.get(
+								ClassName.get(Pair.class), ClassName.get(String.class),
+								ParameterizedTypeName.get(ClassName.get(WeakReference.class),
+										ClassName.get(
+												KriptonLiveDataManager.getInstance().getComputableLiveDataClazz())))),
 						"liveDatas", Modifier.PRIVATE)
-				.initializer(CodeBlock.of(
-						"new $T<$T<String, WeakReference<$T>>>()",
-						CopyOnWriteArrayList.class, Pair.class, KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()))
+				.initializer(CodeBlock.of("new $T<$T<String, WeakReference<$T>>>()", CopyOnWriteArrayList.class,
+						Pair.class, KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()))
 				.addAnnotation(
 						AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"rawtypes\"").build())
 				.build();
@@ -260,23 +259,27 @@ public abstract class BindSharedPreferencesBuilder {
 		{ // registryLiveData
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("registryLiveData")
 					.addModifiers(Modifier.PROTECTED).addParameter(String.class, "key")
-					.addParameter(ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()),
+					.addParameter(ParameterizedTypeName.get(
+							ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()),
 							WildcardTypeName.subtypeOf(Object.class)), "value")
 					.addAnnotation(
 							AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"rawtypes\"").build())
 					.addStatement(
-							"liveDatas.add(new Pair<String , WeakReference<$T>>(key, new WeakReference<$T>(value)))", KriptonLiveDataManager.getInstance().getComputableLiveDataClazz(), KriptonLiveDataManager.getInstance().getComputableLiveDataClazz());
+							"liveDatas.add(new Pair<String , WeakReference<$T>>(key, new WeakReference<$T>(value)))",
+							KriptonLiveDataManager.getInstance().getComputableLiveDataClazz(),
+							KriptonLiveDataManager.getInstance().getComputableLiveDataClazz());
 			builder.addMethod(methodBuilder.build());
 		}
 
 		{ // update LiveData
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("updateLiveData")
-					.addAnnotation(AnnotationSpec.builder(SuppressWarnings.class)
-							.addMember("value", "\"rawtypes\"").build())
+					.addAnnotation(
+							AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"rawtypes\"").build())
 					.addModifiers(Modifier.PROTECTED).addParameter(String.class, "key")
 					.addParameter(Object.class, "value")
 
-					.beginControlFlow("for (Pair<String, WeakReference<$T>> item : liveDatas)", KriptonLiveDataManager.getInstance().getComputableLiveDataClazz())
+					.beginControlFlow("for (Pair<String, WeakReference<$T>> item : liveDatas)",
+							KriptonLiveDataManager.getInstance().getComputableLiveDataClazz())
 					.beginControlFlow("if (item.value0.equals(key) && item.value1.get() != null)")
 					.addStatement("item.value1.get().invalidate()").endControlFlow().endControlFlow();
 
@@ -353,26 +356,26 @@ public abstract class BindSharedPreferencesBuilder {
 	}
 
 	private static void generateMethodAsLiveData(Converter<String, String> converter, TypeName typeName,
-			PrefsProperty property) {				
+			PrefsProperty property) {
 
-		ParameterizedTypeName liveDataType=ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), typeName);
+		ParameterizedTypeName liveDataType = ParameterizedTypeName
+				.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), typeName);
 		String className = getBuildPreferenceName(property.getParent());
 
 		// generate compute
 		MethodSpec.Builder computeBuilder = MethodSpec.methodBuilder("compute").addModifiers(Modifier.PROTECTED)
-				.returns(typeName)
-				.addAnnotation(Override.class);
+				.returns(typeName).addAnnotation(Override.class);
 		computeBuilder.addStatement("$L.this.refresh()", className);
 		computeBuilder.addStatement("return $L.this.get$L()", className, converter.convert(property.getName()));
 
 		// generate builder
-		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("")
-				.addSuperinterface(liveDataType)
+		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(liveDataType)
 				.addMethod(computeBuilder.build()).build();
 
 		MethodSpec ms = MethodSpec.methodBuilder("get" + converter.convert(property.getName()) + "AsLiveData")
 				.addModifiers(Modifier.PUBLIC)
-				.returns(ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getMutableLiveDataClazz()), typeName))
+				.returns(ParameterizedTypeName
+						.get(ClassName.get(KriptonLiveDataManager.getInstance().getMutableLiveDataClazz()), typeName))
 				.addJavadoc("Obtains an LiveData to <code>$L</code> property\n\n", property.getName())
 				.addJavadoc("@return\nan LiveData to <code>$L</code> property\n", property.getName())
 				.addStatement("$T liveData=$L", liveDataType, liveDataBuilder)
@@ -478,21 +481,44 @@ public abstract class BindSharedPreferencesBuilder {
 		PrefsTransform transform;
 		// write method
 		for (PrefsProperty item : entity.getCollection()) {
-			MethodSpec.Builder builder = MethodSpec.methodBuilder("put" + converter.convert(item.getName()))
-					.addModifiers(Modifier.PUBLIC).addParameter(typeName(item.getElement()), "value")
-					.addJavadoc("modifier for property $L\n", item.getName()).returns(typeName("BindEditor"));
+			{ // put
+				MethodSpec.Builder builder = MethodSpec.methodBuilder("put" + converter.convert(item.getName()))
+						.addModifiers(Modifier.PUBLIC).addParameter(typeName(item.getElement()), "value")
+						.addJavadoc("modifier for property $L\n", item.getName()).returns(typeName("BindEditor"));
 
-			TypeName type;
-			if (item.hasTypeAdapter()) {
-				type = typeName(item.typeAdapter.dataType);
-			} else {
-				type = TypeUtility.typeName(item.getElement());
+				TypeName type;
+				if (item.hasTypeAdapter()) {
+					type = typeName(item.typeAdapter.dataType);
+				} else {
+					type = TypeUtility.typeName(item.getElement());
+				}
+
+				transform = PrefsTransformer.lookup(type);
+				transform.generateWriteProperty(builder, "editor", null, "value", item);
+				builder.addCode("\n");
+
+				builder.addStatement("return this");
+				innerClassBuilder.addMethod(builder.build());
 			}
 
-			transform = PrefsTransformer.lookup(type);
-			transform.generateWriteProperty(builder, "editor", null, "value", item);
-			builder.addCode("\n");
+			{ // remove
+				MethodSpec.Builder builder = MethodSpec.methodBuilder("remove" + converter.convert(item.getName()))
+						.addModifiers(Modifier.PUBLIC)
+						.addJavadoc("remove property $L\n", item.getName()).returns(typeName("BindEditor"));
 
+				builder.addStatement("editor.remove($S)", item.getPreferenceKey());
+
+				builder.addStatement("return this");
+				innerClassBuilder.addMethod(builder.build());
+			}
+		}
+
+		{ // clear
+			MethodSpec.Builder builder = MethodSpec.methodBuilder("clear")
+					.addModifiers(Modifier.PUBLIC)
+					.addJavadoc("clear all properties\n").returns(typeName("BindEditor"));
+
+			builder.addStatement("editor.clear()");
 			builder.addStatement("return this");
 			innerClassBuilder.addMethod(builder.build());
 		}
@@ -517,7 +543,7 @@ public abstract class BindSharedPreferencesBuilder {
 		methodBuilder.beginControlFlow("if (instance==null)");
 		methodBuilder.addStatement("instance=new $L()", className(className));
 		methodBuilder.addComment("read and write instance to sync with default values");
-		methodBuilder.addStatement("instance.write(instance.read())");   
+		methodBuilder.addStatement("instance.write(instance.read())");
 		methodBuilder.endControlFlow();
 		methodBuilder.addCode("return instance;\n");
 
@@ -647,7 +673,9 @@ public abstract class BindSharedPreferencesBuilder {
 
 		for (PrefsProperty item : entity.getCollection()) {
 			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("get" + converter.convert(item.getName()))
-					.addModifiers(Modifier.PUBLIC).addJavadoc("reads property <code>$L</code> from shared pref with key <code>$L</code>\n\n", item.getName(), item.getPreferenceKey())
+					.addModifiers(Modifier.PUBLIC)
+					.addJavadoc("reads property <code>$L</code> from shared pref with key <code>$L</code>\n\n",
+							item.getName(), item.getPreferenceKey())
 					.addJavadoc("@return property $L value\n", item.getName())
 					.returns(item.getPropertyType().getTypeName());
 

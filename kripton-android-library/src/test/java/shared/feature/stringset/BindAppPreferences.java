@@ -128,5 +128,21 @@ public class BindAppPreferences extends AbstractSharedPreference {
 
       return this;
     }
+
+    /**
+     * remove property valueSet
+     */
+    public BindEditor removeValueSet() {
+      editor.remove("value_set");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
+      return this;
+    }
   }
 }

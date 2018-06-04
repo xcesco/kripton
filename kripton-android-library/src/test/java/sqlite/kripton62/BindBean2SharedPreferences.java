@@ -983,11 +983,27 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property id
+     */
+    public BindEditor removeId() {
+      editor.remove("id");
+      return this;
+    }
+
+    /**
      * modifier for property value
      */
     public BindEditor putValue(String value) {
       editor.putString("value",value);
 
+      return this;
+    }
+
+    /**
+     * remove property value
+     */
+    public BindEditor removeValue() {
+      editor.remove("value");
       return this;
     }
 
@@ -1006,6 +1022,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueByteSet
+     */
+    public BindEditor removeValueByteSet() {
+      editor.remove("value_byte_set");
+      return this;
+    }
+
+    /**
      * modifier for property valueShortSet
      */
     public BindEditor putValueShortSet(HashSet<Short> value) {
@@ -1016,6 +1040,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_short_set");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueShortSet
+     */
+    public BindEditor removeValueShortSet() {
+      editor.remove("value_short_set");
       return this;
     }
 
@@ -1034,11 +1066,27 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueIntegerSet
+     */
+    public BindEditor removeValueIntegerSet() {
+      editor.remove("value_integer_set");
+      return this;
+    }
+
+    /**
      * modifier for property valueStringSet
      */
     public BindEditor putValueStringSet(HashSet<String> value) {
       editor.putStringSet("value_string_set",value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueStringSet
+     */
+    public BindEditor removeValueStringSet() {
+      editor.remove("value_string_set");
       return this;
     }
 
@@ -1057,6 +1105,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueCharacterSet
+     */
+    public BindEditor removeValueCharacterSet() {
+      editor.remove("value_character_set");
+      return this;
+    }
+
+    /**
      * modifier for property valueFloatSet
      */
     public BindEditor putValueFloatSet(HashSet<Float> value) {
@@ -1067,6 +1123,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_float_set");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueFloatSet
+     */
+    public BindEditor removeValueFloatSet() {
+      editor.remove("value_float_set");
       return this;
     }
 
@@ -1085,6 +1149,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueDoubleSet
+     */
+    public BindEditor removeValueDoubleSet() {
+      editor.remove("value_double_set");
+      return this;
+    }
+
+    /**
      * modifier for property valueBigDecimalSet
      */
     public BindEditor putValueBigDecimalSet(HashSet<BigDecimal> value) {
@@ -1095,6 +1167,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_big_decimal_set");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueBigDecimalSet
+     */
+    public BindEditor removeValueBigDecimalSet() {
+      editor.remove("value_big_decimal_set");
       return this;
     }
 
@@ -1113,6 +1193,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueBeanSet
+     */
+    public BindEditor removeValueBeanSet() {
+      editor.remove("value_bean_set");
+      return this;
+    }
+
+    /**
      * modifier for property valueEnumTypeSet
      */
     public BindEditor putValueEnumTypeSet(HashSet<EnumType> value) {
@@ -1123,6 +1211,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_enum_type_set");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueEnumTypeSet
+     */
+    public BindEditor removeValueEnumTypeSet() {
+      editor.remove("value_enum_type_set");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

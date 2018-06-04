@@ -235,11 +235,35 @@ public class BindApp1Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueSet
+     */
+    public BindEditor removeValueSet() {
+      editor.remove("value_set");
+      return this;
+    }
+
+    /**
      * modifier for property right
      */
     public BindEditor putRight(int value) {
       editor.putString("right",PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(value));
 
+      return this;
+    }
+
+    /**
+     * remove property right
+     */
+    public BindEditor removeRight() {
+      editor.remove("right");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

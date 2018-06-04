@@ -121,5 +121,21 @@ public class BindApp2Preferences extends AbstractSharedPreference {
 
       return this;
     }
+
+    /**
+     * remove property field2
+     */
+    public BindEditor removeField2() {
+      editor.remove("field2");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
+      return this;
+    }
   }
 }

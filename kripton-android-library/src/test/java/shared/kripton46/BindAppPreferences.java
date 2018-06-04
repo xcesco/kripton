@@ -378,11 +378,27 @@ public class BindAppPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property name
+     */
+    public BindEditor removeName() {
+      editor.remove("name");
+      return this;
+    }
+
+    /**
      * modifier for property description
      */
     public BindEditor putDescription(String value) {
       editor.putString("description",value);
 
+      return this;
+    }
+
+    /**
+     * remove property description
+     */
+    public BindEditor removeDescription() {
+      editor.remove("description");
       return this;
     }
 
@@ -396,11 +412,27 @@ public class BindAppPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueFloat
+     */
+    public BindEditor removeValueFloat() {
+      editor.remove("value_float");
+      return this;
+    }
+
+    /**
      * modifier for property valueBoolean
      */
     public BindEditor putValueBoolean(boolean value) {
       editor.putBoolean("value_boolean",(boolean)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueBoolean
+     */
+    public BindEditor removeValueBoolean() {
+      editor.remove("value_boolean");
       return this;
     }
 
@@ -419,6 +451,14 @@ public class BindAppPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property stringArray
+     */
+    public BindEditor removeStringArray() {
+      editor.remove("string_array");
+      return this;
+    }
+
+    /**
      * modifier for property stringList
      */
     public BindEditor putStringList(List<String> value) {
@@ -433,11 +473,27 @@ public class BindAppPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property stringList
+     */
+    public BindEditor removeStringList() {
+      editor.remove("string_list");
+      return this;
+    }
+
+    /**
      * modifier for property valueInt
      */
     public BindEditor putValueInt(int value) {
       editor.putInt("value_int",(int)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueInt
+     */
+    public BindEditor removeValueInt() {
+      editor.remove("value_int");
       return this;
     }
 
@@ -449,6 +505,22 @@ public class BindAppPreferences extends AbstractSharedPreference {
         editor.putLong("value_long",value);
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueLong
+     */
+    public BindEditor removeValueLong() {
+      editor.remove("value_long");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

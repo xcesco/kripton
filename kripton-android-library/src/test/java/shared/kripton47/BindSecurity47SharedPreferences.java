@@ -284,6 +284,14 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property fcmId
+     */
+    public BindEditor removeFcmId() {
+      editor.remove("fcm_id");
+      return this;
+    }
+
+    /**
      * modifier for property authorizationToken
      */
     public BindEditor putAuthorizationToken(DeviceAccessToken value) {
@@ -298,11 +306,27 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property authorizationToken
+     */
+    public BindEditor removeAuthorizationToken() {
+      editor.remove("authorization_token");
+      return this;
+    }
+
+    /**
      * modifier for property deviceUid
      */
     public BindEditor putDeviceUid(String value) {
       editor.putString("device_uid",value);
 
+      return this;
+    }
+
+    /**
+     * remove property deviceUid
+     */
+    public BindEditor removeDeviceUid() {
+      editor.remove("device_uid");
       return this;
     }
 
@@ -317,6 +341,22 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
         editor.remove("user_identity");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property userIdentity
+     */
+    public BindEditor removeUserIdentity() {
+      editor.remove("user_identity");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

@@ -553,6 +553,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property value1
+     */
+    public BindEditor removeValue1() {
+      editor.remove("value1");
+      return this;
+    }
+
+    /**
      * modifier for property value2
      */
     public BindEditor putValue2(ValueType value) {
@@ -566,11 +574,27 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property value2
+     */
+    public BindEditor removeValue2() {
+      editor.remove("value2");
+      return this;
+    }
+
+    /**
      * modifier for property valueBoolean
      */
     public BindEditor putValueBoolean(boolean value) {
       editor.putBoolean("value_boolean",(boolean)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueBoolean
+     */
+    public BindEditor removeValueBoolean() {
+      editor.remove("value_boolean");
       return this;
     }
 
@@ -584,11 +608,27 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueShort
+     */
+    public BindEditor removeValueShort() {
+      editor.remove("value_short");
+      return this;
+    }
+
+    /**
      * modifier for property valueChar
      */
     public BindEditor putValueChar(char value) {
       editor.putInt("value_char",(char)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueChar
+     */
+    public BindEditor removeValueChar() {
+      editor.remove("value_char");
       return this;
     }
 
@@ -602,11 +642,27 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueInt
+     */
+    public BindEditor removeValueInt() {
+      editor.remove("value_int");
+      return this;
+    }
+
+    /**
      * modifier for property valueLong
      */
     public BindEditor putValueLong(long value) {
       editor.putLong("value_long",value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueLong
+     */
+    public BindEditor removeValueLong() {
+      editor.remove("value_long");
       return this;
     }
 
@@ -620,6 +676,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueFloat
+     */
+    public BindEditor removeValueFloat() {
+      editor.remove("value_float");
+      return this;
+    }
+
+    /**
      * modifier for property valueDouble
      */
     public BindEditor putValueDouble(double value) {
@@ -629,11 +693,27 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueDouble
+     */
+    public BindEditor removeValueDouble() {
+      editor.remove("value_double");
+      return this;
+    }
+
+    /**
      * modifier for property valueString
      */
     public BindEditor putValueString(String value) {
       editor.putString("value_string",value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueString
+     */
+    public BindEditor removeValueString() {
+      editor.remove("value_string");
       return this;
     }
 
@@ -649,6 +729,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueBoolean2
+     */
+    public BindEditor removeValueBoolean2() {
+      editor.remove("value_boolean2");
+      return this;
+    }
+
+    /**
      * modifier for property valueShort2
      */
     public BindEditor putValueShort2(Short value) {
@@ -656,6 +744,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
         editor.putInt("value_short2",(int)value);
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueShort2
+     */
+    public BindEditor removeValueShort2() {
+      editor.remove("value_short2");
       return this;
     }
 
@@ -671,6 +767,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueChar2
+     */
+    public BindEditor removeValueChar2() {
+      editor.remove("value_char2");
+      return this;
+    }
+
+    /**
      * modifier for property valueInt2
      */
     public BindEditor putValueInt2(Integer value) {
@@ -678,6 +782,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
         editor.putInt("value_int2",(int)value);
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueInt2
+     */
+    public BindEditor removeValueInt2() {
+      editor.remove("value_int2");
       return this;
     }
 
@@ -693,6 +805,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueLong2
+     */
+    public BindEditor removeValueLong2() {
+      editor.remove("value_long2");
+      return this;
+    }
+
+    /**
      * modifier for property valueFloat2
      */
     public BindEditor putValueFloat2(Float value) {
@@ -700,6 +820,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
         editor.putFloat("value_float2",value);
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueFloat2
+     */
+    public BindEditor removeValueFloat2() {
+      editor.remove("value_float2");
       return this;
     }
 
@@ -717,6 +845,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueDouble2
+     */
+    public BindEditor removeValueDouble2() {
+      editor.remove("value_double2");
+      return this;
+    }
+
+    /**
      * modifier for property valueUrl
      */
     public BindEditor putValueUrl(URL value) {
@@ -730,10 +866,26 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueUrl
+     */
+    public BindEditor removeValueUrl() {
+      editor.remove("value_url");
+      return this;
+    }
+
+    /**
      * modifier for property valueBigDecimal
      */
     public BindEditor putValueBigDecimal(BigDecimal value) {
       if (value!=null) editor.putString("value_big_decimal",value.toPlainString()); else editor.remove("value_big_decimal");
+      return this;
+    }
+
+    /**
+     * remove property valueBigDecimal
+     */
+    public BindEditor removeValueBigDecimal() {
+      editor.remove("value_big_decimal");
       return this;
     }
 
@@ -752,11 +904,27 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property listString
+     */
+    public BindEditor removeListString() {
+      editor.remove("list_string");
+      return this;
+    }
+
+    /**
      * modifier for property setString
      */
     public BindEditor putSetString(Set<String> value) {
       editor.putStringSet("set_string",value);
 
+      return this;
+    }
+
+    /**
+     * remove property setString
+     */
+    public BindEditor removeSetString() {
+      editor.remove("set_string");
       return this;
     }
 
@@ -774,6 +942,14 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueDate
+     */
+    public BindEditor removeValueDate() {
+      editor.remove("value_date");
+      return this;
+    }
+
+    /**
      * modifier for property valueLocale
      */
     public BindEditor putValueLocale(Locale value) {
@@ -783,6 +959,22 @@ public class BindApp4Preferences extends AbstractSharedPreference {
         editor.remove("valueLocale");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueLocale
+     */
+    public BindEditor removeValueLocale() {
+      editor.remove("value_locale");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

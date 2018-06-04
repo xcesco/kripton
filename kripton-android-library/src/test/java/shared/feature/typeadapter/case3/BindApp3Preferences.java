@@ -154,12 +154,36 @@ public class BindApp3Preferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property fieldStringPublic
+     */
+    public BindEditor removeFieldStringPublic() {
+      editor.remove("field_string_public");
+      return this;
+    }
+
+    /**
      * modifier for property fieldStringPrivate
      */
     public BindEditor putFieldStringPrivate(String value) {
       // Use PrefsTypeAdapterUtils to convert objects
       editor.putStringSet("field_string_private",PrefsTypeAdapterUtils.getAdapter(StringSetTypeAdapter.class).toData(value));
 
+      return this;
+    }
+
+    /**
+     * remove property fieldStringPrivate
+     */
+    public BindEditor removeFieldStringPrivate() {
+      editor.remove("field_string_private");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

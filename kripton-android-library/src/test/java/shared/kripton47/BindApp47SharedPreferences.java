@@ -208,6 +208,14 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property name
+     */
+    public BindEditor removeName() {
+      editor.remove("name");
+      return this;
+    }
+
+    /**
      * modifier for property userAccessToken
      */
     public BindEditor putUserAccessToken(UserAccessToken value) {
@@ -218,6 +226,22 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
         editor.remove("user_access_token");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property userAccessToken
+     */
+    public BindEditor removeUserAccessToken() {
+      editor.remove("user_access_token");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

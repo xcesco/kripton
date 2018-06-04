@@ -352,11 +352,27 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property id
+     */
+    public BindEditor removeId() {
+      editor.remove("id");
+      return this;
+    }
+
+    /**
      * modifier for property value
      */
     public BindEditor putValue(String value) {
       editor.putString("value",value);
 
+      return this;
+    }
+
+    /**
+     * remove property value
+     */
+    public BindEditor removeValue() {
+      editor.remove("value");
       return this;
     }
 
@@ -375,6 +391,14 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueMapStringByte
+     */
+    public BindEditor removeValueMapStringByte() {
+      editor.remove("value_map_string_byte");
+      return this;
+    }
+
+    /**
      * modifier for property valueMapEnumByte
      */
     public BindEditor putValueMapEnumByte(HashMap<EnumType, Byte> value) {
@@ -385,6 +409,22 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_map_enum_byte");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueMapEnumByte
+     */
+    public BindEditor removeValueMapEnumByte() {
+      editor.remove("value_map_enum_byte");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

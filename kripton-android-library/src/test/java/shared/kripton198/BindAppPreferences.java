@@ -133,11 +133,35 @@ public class BindAppPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueFloat
+     */
+    public BindEditor removeValueFloat() {
+      editor.remove("value_float");
+      return this;
+    }
+
+    /**
      * modifier for property valueBoolean
      */
     public BindEditor putValueBoolean(boolean value) {
       editor.putBoolean("value",(boolean)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueBoolean
+     */
+    public BindEditor removeValueBoolean() {
+      editor.remove("value");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }

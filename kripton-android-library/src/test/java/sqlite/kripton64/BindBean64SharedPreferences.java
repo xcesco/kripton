@@ -1834,6 +1834,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueBoolType
+     */
+    public BindEditor removeValueBoolType() {
+      editor.remove("value_bool_type");
+      return this;
+    }
+
+    /**
      * modifier for property valueBool
      */
     public BindEditor putValueBool(Boolean value) {
@@ -1845,11 +1853,27 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueBool
+     */
+    public BindEditor removeValueBool() {
+      editor.remove("value_bool");
+      return this;
+    }
+
+    /**
      * modifier for property valueByteType
      */
     public BindEditor putValueByteType(byte value) {
       editor.putInt("value_byte_type",(int)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueByteType
+     */
+    public BindEditor removeValueByteType() {
+      editor.remove("value_byte_type");
       return this;
     }
 
@@ -1865,11 +1889,27 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueByte
+     */
+    public BindEditor removeValueByte() {
+      editor.remove("value_byte");
+      return this;
+    }
+
+    /**
      * modifier for property valueShortType
      */
     public BindEditor putValueShortType(short value) {
       editor.putInt("value_short_type",(int)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueShortType
+     */
+    public BindEditor removeValueShortType() {
+      editor.remove("value_short_type");
       return this;
     }
 
@@ -1885,11 +1925,27 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueShort
+     */
+    public BindEditor removeValueShort() {
+      editor.remove("value_short");
+      return this;
+    }
+
+    /**
      * modifier for property valueIntType
      */
     public BindEditor putValueIntType(int value) {
       editor.putInt("value_int_type",(int)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueIntType
+     */
+    public BindEditor removeValueIntType() {
+      editor.remove("value_int_type");
       return this;
     }
 
@@ -1905,6 +1961,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueInt
+     */
+    public BindEditor removeValueInt() {
+      editor.remove("value_int");
+      return this;
+    }
+
+    /**
      * modifier for property valueString
      */
     public BindEditor putValueString(String value) {
@@ -1914,11 +1978,27 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueString
+     */
+    public BindEditor removeValueString() {
+      editor.remove("value_string");
+      return this;
+    }
+
+    /**
      * modifier for property valueCharType
      */
     public BindEditor putValueCharType(char value) {
       editor.putInt("value_char_type",(char)value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueCharType
+     */
+    public BindEditor removeValueCharType() {
+      editor.remove("value_char_type");
       return this;
     }
 
@@ -1934,11 +2014,27 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueChar
+     */
+    public BindEditor removeValueChar() {
+      editor.remove("value_char");
+      return this;
+    }
+
+    /**
      * modifier for property valueFloatType
      */
     public BindEditor putValueFloatType(float value) {
       editor.putFloat("value_float_type",value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueFloatType
+     */
+    public BindEditor removeValueFloatType() {
+      editor.remove("value_float_type");
       return this;
     }
 
@@ -1954,6 +2050,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueFloat
+     */
+    public BindEditor removeValueFloat() {
+      editor.remove("value_float");
+      return this;
+    }
+
+    /**
      * modifier for property valueBigInteger
      */
     public BindEditor putValueBigInteger(BigInteger value) {
@@ -1962,10 +2066,26 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueBigInteger
+     */
+    public BindEditor removeValueBigInteger() {
+      editor.remove("value_big_integer");
+      return this;
+    }
+
+    /**
      * modifier for property valueBigDecimal
      */
     public BindEditor putValueBigDecimal(BigDecimal value) {
       if (value!=null) editor.putString("value_big_decimal",value.toPlainString()); else editor.remove("value_big_decimal");
+      return this;
+    }
+
+    /**
+     * remove property valueBigDecimal
+     */
+    public BindEditor removeValueBigDecimal() {
+      editor.remove("value_big_decimal");
       return this;
     }
 
@@ -1983,11 +2103,27 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueEnumType
+     */
+    public BindEditor removeValueEnumType() {
+      editor.remove("value_enum_type");
+      return this;
+    }
+
+    /**
      * modifier for property valueLongType
      */
     public BindEditor putValueLongType(long value) {
       editor.putLong("value_long_type",value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueLongType
+     */
+    public BindEditor removeValueLongType() {
+      editor.remove("value_long_type");
       return this;
     }
 
@@ -2003,11 +2139,27 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueLong
+     */
+    public BindEditor removeValueLong() {
+      editor.remove("value_long");
+      return this;
+    }
+
+    /**
      * modifier for property valueDoubleType
      */
     public BindEditor putValueDoubleType(double value) {
       editor.putString("value_double_type",String.valueOf(value));
 
+      return this;
+    }
+
+    /**
+     * remove property valueDoubleType
+     */
+    public BindEditor removeValueDoubleType() {
+      editor.remove("value_double_type");
       return this;
     }
 
@@ -2025,6 +2177,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueDouble
+     */
+    public BindEditor removeValueDouble() {
+      editor.remove("value_double");
+      return this;
+    }
+
+    /**
      * modifier for property valueLocale
      */
     public BindEditor putValueLocale(Locale value) {
@@ -2034,6 +2194,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("valueLocale");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueLocale
+     */
+    public BindEditor removeValueLocale() {
+      editor.remove("value_locale");
       return this;
     }
 
@@ -2051,6 +2219,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueCalendar
+     */
+    public BindEditor removeValueCalendar() {
+      editor.remove("value_calendar");
+      return this;
+    }
+
+    /**
      * modifier for property valueDate
      */
     public BindEditor putValueDate(Date value) {
@@ -2060,6 +2236,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("valueDate");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueDate
+     */
+    public BindEditor removeValueDate() {
+      editor.remove("value_date");
       return this;
     }
 
@@ -2077,6 +2261,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueUrl
+     */
+    public BindEditor removeValueUrl() {
+      editor.remove("value_url");
+      return this;
+    }
+
+    /**
      * modifier for property valueTime
      */
     public BindEditor putValueTime(Time value) {
@@ -2086,6 +2278,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("valueTime");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueTime
+     */
+    public BindEditor removeValueTime() {
+      editor.remove("value_time");
       return this;
     }
 
@@ -2103,6 +2303,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueCurrency
+     */
+    public BindEditor removeValueCurrency() {
+      editor.remove("value_currency");
+      return this;
+    }
+
+    /**
      * modifier for property valueTimeZone
      */
     public BindEditor putValueTimeZone(TimeZone value) {
@@ -2112,6 +2320,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("valueTimeZone");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueTimeZone
+     */
+    public BindEditor removeValueTimeZone() {
+      editor.remove("value_time_zone");
       return this;
     }
 
@@ -2130,6 +2346,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueTimeList
+     */
+    public BindEditor removeValueTimeList() {
+      editor.remove("value_time_list");
+      return this;
+    }
+
+    /**
      * modifier for property valueStrinList
      */
     public BindEditor putValueStrinList(LinkedList<String> value) {
@@ -2140,6 +2364,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_strin_list");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueStrinList
+     */
+    public BindEditor removeValueStrinList() {
+      editor.remove("value_strin_list");
       return this;
     }
 
@@ -2158,6 +2390,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueLongList
+     */
+    public BindEditor removeValueLongList() {
+      editor.remove("value_long_list");
+      return this;
+    }
+
+    /**
      * modifier for property valueByteArray
      */
     public BindEditor putValueByteArray(byte[] value) {
@@ -2168,6 +2408,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_byte_array");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueByteArray
+     */
+    public BindEditor removeValueByteArray() {
+      editor.remove("value_byte_array");
       return this;
     }
 
@@ -2186,6 +2434,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueBean
+     */
+    public BindEditor removeValueBean() {
+      editor.remove("value_bean");
+      return this;
+    }
+
+    /**
      * modifier for property valueLongTypeArray
      */
     public BindEditor putValueLongTypeArray(long[] value) {
@@ -2196,6 +2452,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_long_type_array");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueLongTypeArray
+     */
+    public BindEditor removeValueLongTypeArray() {
+      editor.remove("value_long_type_array");
       return this;
     }
 
@@ -2214,6 +2478,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueLongArray
+     */
+    public BindEditor removeValueLongArray() {
+      editor.remove("value_long_array");
+      return this;
+    }
+
+    /**
      * modifier for property valueBeanArray
      */
     public BindEditor putValueBeanArray(Bean64[] value) {
@@ -2224,6 +2496,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_bean_array");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueBeanArray
+     */
+    public BindEditor removeValueBeanArray() {
+      editor.remove("value_bean_array");
       return this;
     }
 
@@ -2242,6 +2522,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueStringArray
+     */
+    public BindEditor removeValueStringArray() {
+      editor.remove("value_string_array");
+      return this;
+    }
+
+    /**
      * modifier for property valueCharList
      */
     public BindEditor putValueCharList(LinkedList<Character> value) {
@@ -2252,6 +2540,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_char_list");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueCharList
+     */
+    public BindEditor removeValueCharList() {
+      editor.remove("value_char_list");
       return this;
     }
 
@@ -2270,6 +2566,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueCharTypeArray
+     */
+    public BindEditor removeValueCharTypeArray() {
+      editor.remove("value_char_type_array");
+      return this;
+    }
+
+    /**
      * modifier for property valueCharArray
      */
     public BindEditor putValueCharArray(Character[] value) {
@@ -2280,6 +2584,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
         editor.remove("value_char_array");
       }
 
+      return this;
+    }
+
+    /**
+     * remove property valueCharArray
+     */
+    public BindEditor removeValueCharArray() {
+      editor.remove("value_char_array");
       return this;
     }
 
@@ -2298,6 +2610,14 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueMapStringBean
+     */
+    public BindEditor removeValueMapStringBean() {
+      editor.remove("value_map_string_bean");
+      return this;
+    }
+
+    /**
      * modifier for property valueLinkedMapStringBean
      */
     public BindEditor putValueLinkedMapStringBean(LinkedHashMap<String, Bean64> value) {
@@ -2312,11 +2632,35 @@ public class BindBean64SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * remove property valueLinkedMapStringBean
+     */
+    public BindEditor removeValueLinkedMapStringBean() {
+      editor.remove("value_linked_map_string_bean");
+      return this;
+    }
+
+    /**
      * modifier for property valueSetString
      */
     public BindEditor putValueSetString(Set<String> value) {
       editor.putStringSet("value_set_string",value);
 
+      return this;
+    }
+
+    /**
+     * remove property valueSetString
+     */
+    public BindEditor removeValueSetString() {
+      editor.remove("value_set_string");
+      return this;
+    }
+
+    /**
+     * clear all properties
+     */
+    public BindEditor clear() {
+      editor.clear();
       return this;
     }
   }
