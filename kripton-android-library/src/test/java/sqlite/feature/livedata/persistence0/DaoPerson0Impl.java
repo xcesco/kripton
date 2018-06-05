@@ -15,9 +15,8 @@ import io.reactivex.subjects.PublishSubject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArraySet;
 import sqlite.feature.livedata.data.Person;
 
 /**
@@ -36,7 +35,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
 
   private static SQLiteStatement updatePreparedStatement1;
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<KriptonComputableLiveData<?>>>());
+  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 

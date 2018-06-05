@@ -17,10 +17,9 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import sqlite.feature.livedata.data.Person;
 
 /**
@@ -49,7 +48,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
 
   private static final Set<String> update3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
-  static Collection<WeakReference<KriptonXComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<KriptonXComputableLiveData<?>>>());
+  static Collection<WeakReference<KriptonXComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonXComputableLiveData<?>>>();
 
   public DaoPerson1Impl(BindApp1DaoFactory daoFactory) {
     super(daoFactory.context());

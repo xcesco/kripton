@@ -17,10 +17,9 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import sqlite.feature.livedata.data.Person;
 import sqlite.feature.livedata.persistence3.repository.BindAppDaoFactory;
 import sqlite.feature.livedata.persistence3.repository.BindAppDataSource;
@@ -60,7 +59,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   private static SQLiteStatement deleteByNamePreparedStatement4;
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = Collections.synchronizedCollection(new HashSet<WeakReference<KriptonComputableLiveData<?>>>());
+  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
 
   public DaoPersonImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());

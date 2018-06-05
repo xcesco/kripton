@@ -20,8 +20,8 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
@@ -238,7 +238,7 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 								"liveDatas")
 						.addModifiers(Modifier.STATIC)
 						.initializer(CodeBlock.builder()
-								.add("$T.synchronizedCollection(new $T())", Collections.class, ParameterizedTypeName.get(ClassName.get(HashSet.class), ParameterizedTypeName
+								.add("new $T()", ParameterizedTypeName.get(ClassName.get(CopyOnWriteArraySet.class), ParameterizedTypeName
 										.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class)))))
 								.build());
 				builder.addField(liveDataBuilder.build());
