@@ -7,7 +7,7 @@
 [![Project Stats](https://www.openhub.net/p/kripton-persistence-library/widgets/project_thin_badge.gif)](https://www.openhub.net/p/kripton-persistence-library)
 
 # Kripton Persistence Library
-Kripton is a java library, for Android and Java platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface. Supported persistence format are:
+Kripton is a java library, for Android and Java platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface.
 
 <img src="https://github.com/xcesco/wikis/blob/master/kripton/overview4.0.png">
 
@@ -18,6 +18,84 @@ See [wiki](https://github.com/xcesco/kripton/wiki) for more informations.
 See [benchmarks](https://github.com/xcesco/kripton/wiki/Performance) for more informations about SQLite and JSON persistence perfomance.
 
 If you are interested in Kripton Persistence Library, visit [abubusoft.com](http://www.abubusoft.com/wp/)
+
+# Quickstart - data format and REST clients
+Suppose that your application data model is composed by `User` entity so defined (getter and setter are omitted for simplicity):
+
+```java
+@BindType
+public class User {
+    public long id;
+    public String name;
+    public String username; 
+}
+```
+To store or read an instance of `User` on a file, you can simply write:
+
+```java
+// HOW TO WRITE/READ ON A FILE IN JSON FORMAT
+// define an object
+User user=new User();
+...
+				
+// WRITE ON A FILE				
+BinderContext binder=KriptonBinder.jsonBind();
+binder.parse(new File(...), user);
+...
+
+// DEFINE A PERSISTENCE BINDER
+BinderContext binder=KriptonBinder.jsonBind();
+
+// WRITE INTO A FILE				
+binder.serialize(user, new File(..));
+
+// READ FROM A FILE				
+User newUser=binder.parse(new File(..), User.class);
+```
+
+To make same operation with different data format like XML, YAML, and so on just replace
+```java
+BinderContext binder=KriptonBinder.jsonBind();
+```
+with
+```java
+// XML binder
+BinderContext binder=KriptonBinder.xmlBind();
+
+// YAML binder
+BinderContext binder=KriptonBinder.bind(BinderType.YAML);
+
+// CBOR binder
+BinderContext binder=KriptonBinder.bind(BinderType.CBOR);
+
+// PROPERTY binder
+BinderContext binder=KriptonBinder.bind(BinderType.PROPERTIES);
+
+// SMILE binder
+BinderContext binder=KriptonBinder.bind(BinderType.SMILE);
+```
+
+To integrate Kripton Persistence Library with Retrofit:
+```java
+// Client definition
+public interface QuickStartService {
+  @GET("users")
+  Call<List<User>> listUsers();	
+}
+
+// Retrofit initialization (with Kripton converter factory)
+Retrofit retrofit = new Retrofit.Builder().baseUrl(...)
+  .addConverterFactory(KriptonBinderConverterFactory.create())
+  .build();
+```
+
+// Retrofit usage
+.. as usual.
+
+To see how fast is Kripton to convert from/to JSON read this [wiki page](https://github.com/xcesco/kripton/wiki/PerformanceJSON).
+
+# Quickstart - Persistence on a SQLite database
+
 
 # Setup
 You can use Kritpon Annotation Processor and Kripton Persistence Library via gradle
