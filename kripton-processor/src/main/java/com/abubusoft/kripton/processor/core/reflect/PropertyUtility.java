@@ -109,7 +109,7 @@ public abstract class PropertyUtility {
 			}
 		}
 
-		// Analizziamo i metodi
+		// Method Analysis
 		//
 		String methodName;
 		String propertyName = "";

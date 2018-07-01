@@ -48,6 +48,7 @@ import sqlite.feature.schema.TestSchemaSuite;
 import sqlite.feature.speed.TestCompileSpeed;
 import sqlite.feature.typeadapter.TestTypeAdapterSuite;
 import sqlite.feature.typeadapter.kripton180.Test180Suite;
+import sqlite.kotlin.hierarchy.TestKotlinHierarchy;
 import sqlite.kripton111.TestCompile111;
 import sqlite.kripton186.Test186Suite;
 import sqlite.kripton205.Test205Suite;
@@ -163,7 +164,10 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestJQLFeatureSuite.class,
 			Test62Compile.class,
 			Test63Compile.class,
-			Test209Suite.class			
+			Test209Suite.class,
+			
+			// kotlin
+			TestKotlinHierarchy.class
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

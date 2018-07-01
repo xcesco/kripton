@@ -19,6 +19,7 @@ import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
 /**
@@ -32,8 +33,11 @@ public interface DaoPerson {
 	 *
 	 * @return the list
 	 */
-	@BindSqlSelect(jql="select * from person where birthCityId in (${inCity})")
-	List<Person> selectAll(List<Long> inCity);
+	//@BindSqlSelect(jql="select * from person where birthCityId in (${inCity})")
+	//List<Person> selectAll(@BindSqlParam(collection=true) List<Long> inCity);
+	
+	@BindSqlSelect(jql="select * from person where birthCityId=${birthCityId}")
+	List<Person> select1All(@BindSqlParam long birthCityId);
 	
 	/**
 	 * Insert.

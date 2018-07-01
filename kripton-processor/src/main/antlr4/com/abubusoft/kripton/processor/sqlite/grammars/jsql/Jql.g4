@@ -361,8 +361,9 @@ column_fully_qualified_name
  
 bind_parameter
  : '?' DIGIT*
- | ':' IDENTIFIER 
- | '$' SPACES* '{' SPACES* bind_parameter_name SPACES* '}'
+ | ':' bind_parameter_name
+ | ':' SPACES* '{' SPACES* bind_parameter_name SPACES* '}' 
+ | '$' SPACES* '{' SPACES* bind_parameter_name SPACES* '}' 
  ;
  
 bind_parameter_name

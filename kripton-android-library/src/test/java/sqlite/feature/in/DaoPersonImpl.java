@@ -2,23 +2,13 @@ package sqlite.feature.in;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
-import com.abubusoft.kripton.KriptonBinder;
-import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.DateUtils;
-import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.persistence.JacksonWrapperParser;
-import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +22,7 @@ import java.util.List;
  *  @see PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static final String SELECT_ALL_SQL2 = "select * from person where birth_city_id in (?)";
+  private static final String SELECT1_ALL_SQL2 = "select * from person where birth_city_id=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -43,7 +33,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where birth_city_id in (${inCity})</pre>
+   * <pre>select * from person where birth_city_id=${birthCityId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -56,20 +46,20 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${inCity}</dt><dd>is binded to method's parameter <strong>inCity</strong></dd>
+   * 	<dt>${birthCityId}</dt><dd>is binded to method's parameter <strong>birthCityId</strong></dd>
    * </dl>
    *
-   * @param inCity
-   * 	is binded to <code>${inCity}</code>
+   * @param birthCityId
+   * 	is binded to <code>${birthCityId}</code>
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectAll(List<Long> inCity) {
+  public List<Person> select1All(long birthCityId) {
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT1_ALL_SQL2;
     // add where arguments
-    _contentValues.addWhereArgs((inCity==null?"":new String(serializer1(inCity),StandardCharsets.UTF_8)));
+    _contentValues.addWhereArgs(String.valueOf(birthCityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -189,76 +179,6 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     bean.id=result;
-  }
-
-  /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(List<Long> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.size();
-        Long item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value.get(i);
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeNumber(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private List<Long> parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      List<Long> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Long> collection=new ArrayList<>();
-        Long item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getLongValue();
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   public static void clearCompiledStatements() {

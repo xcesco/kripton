@@ -13,27 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.abubusoft.kripton.processor.core.reflect;
+package sqlite.kotlin.hierarchy;
 
-import javax.lang.model.element.Element;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.processor.core.ModelClass;
-import com.abubusoft.kripton.processor.core.ModelProperty;
+
+
+import sqlite.AbstractBindSQLiteProcessorTest;
+
 
 /**
- * A factory for creating Property objects.
- *
- * @param <E> the element type
- * @param <T> the generic type
+ * The Class TestKripton180Raw.
  */
-public interface PropertyFactory<E extends ModelClass<?>, T extends ModelProperty> {
+@RunWith(JUnit4.class)
+public class TestKotlinHierarchy extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * Creates a new Property object.
+	 * Test compile.
 	 *
-	 * @param entity the entity
-	 * @param propertyElement the property element
-	 * @return the t
+	 * @throws Throwable the throwable
 	 */
-	T createProperty(E entity, Element propertyElement);
+	@Test
+	public void testCompile() throws Throwable {
+		buildDataSourceProcessorTest(DaoPerson.class, Entity.class, Person.class, PersonDataSource.class);
+	}
+
 }

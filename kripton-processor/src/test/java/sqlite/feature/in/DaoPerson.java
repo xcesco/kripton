@@ -36,6 +36,9 @@ public interface DaoPerson {
 	//@BindSqlSelect(jql="select * from person where birthCityId in (${inCity})")
 	//List<Person> selectAll(@BindSqlParam(collection=true) List<Long> inCity);
 	
+	@BindSqlSelect(jql="select * from person where birthCityId=:{birthCityId}")
+	List<Person> select1All(@BindSqlParam long birthCityId);
+	
 	/**
 	 * Insert.
 	 *
