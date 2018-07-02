@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.core;
 
 import javax.lang.model.element.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ModelEntity.
  *

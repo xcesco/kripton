@@ -34,7 +34,6 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PropertyUtility.
  */
@@ -89,13 +88,14 @@ public abstract class PropertyUtility {
 	 * @param elementUtils the element utils
 	 * @param entity the entity
 	 * @param factoryProperty the factory property
-	 * @param propertyAnnotationFilter            if null, no filter is applied to annotations
+	 * @param propertyAnnotationFilter            
+	 * 			if null, no filter is applied to annotations
 	 * @param listener the listener
 	 */
 	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<T, P> factoryProperty,
 			AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<T, P> listener) {
 		List<? extends Element> list = elementUtils.getAllMembers(entity.getElement());
-
+				
 		if (propertyAnnotationFilter != null) {
 			AnnotationUtility.forEachAnnotations(entity.getElement(), propertyAnnotationFilter, null);
 		}
@@ -103,8 +103,7 @@ public abstract class PropertyUtility {
 		P field;
 		for (Element item : list) {
 			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
-				field = factoryProperty.createProperty(entity, item);
-				//AnnotationUtility.buildAnnotations(elementUtils, field, propertyAnnotationFilter);
+				field = factoryProperty.createProperty(entity, item);				
 				entity.add(field);
 			}
 		}
