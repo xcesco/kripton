@@ -167,7 +167,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, album_id, name FROM song WHERE album_id=${albumId}</pre>
+   * <pre>SELECT id, album_id, name FROM song WHERE album_id=:albumId</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
