@@ -115,6 +115,8 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 /**
  * The Class BindDataSourceSubProcessor.
  */
@@ -887,12 +889,12 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		if (property == null)
 			throw (new SQLPrimaryKeyNotFoundException(currentEntity));
 
-		if (!property.isType(Long.TYPE, Long.class))
+		if (!property.isType(Long.TYPE, Long.class, String.class))
 			throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
 		
 		// order entities field by : first is PK, others are in natural order
 		List<SQLProperty> properties = currentEntity.getCollection();
-		properties.sort(new Comparator<SQLProperty>() {
+		Collections.sort(properties, new Comparator<SQLProperty>() {
 
 			@Override
 			public int compare(SQLProperty o1, SQLProperty o2) {

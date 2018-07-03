@@ -42,6 +42,7 @@ import sqlite.feature.livedatax.TestLiveDataXSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.paginatedresult.TestPaginatedResultSuite;
 import sqlite.feature.performance.TestPerformanceSuite;
+import sqlite.feature.pkstring.TestPkStringSuite;
 import sqlite.feature.relations.TestRelationSuite;
 import sqlite.feature.rx.TestRXSuite;
 import sqlite.feature.schema.TestSchemaSuite;
@@ -167,7 +168,9 @@ import sqlite.test05firt_aid.TestFirstAid;
 			Test209Suite.class,
 			
 			// kotlin
-			TestKotlinHierarchy.class
+			TestKotlinHierarchy.class,
+			
+			TestPkStringSuite.class
 			})
 //@formatter:on
 public class SQLiteCompileTestSuite {

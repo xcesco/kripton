@@ -348,6 +348,8 @@ public abstract class JQLBuilder {
 			} else {
 				fields = extractFieldsFromMethodParameters(method, annotation);
 			}
+			
+			AssertKripton.assertTrueOrInvalidMethodSignException(fields.size()>0,method, "no field is included in this query" ); 
 
 			result.conflictAlgorithmType = ConflictAlgorithmType
 					.valueOf(AnnotationUtility.extractAsEnumerationValue(method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));

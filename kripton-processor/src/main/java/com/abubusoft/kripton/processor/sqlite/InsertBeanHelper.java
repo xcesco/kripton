@@ -84,7 +84,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class, methodBuilder, null);
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
-
+		
 		// generate javadoc and query
 		generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);		
 
@@ -106,11 +106,19 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		}
 
 		if (primaryKey != null) {
-			if (primaryKey.isPublicField()) {
-				methodBuilder.addCode("$L.$L=result;\n", method.getParameters().get(0).value0, primaryKey.getName());
+			if (primaryKey.isType(String.class)) {
+				if (primaryKey.isPublicField()) {
+					methodBuilder.addCode("$L.$L=String.valueOf(result);\n", method.getParameters().get(0).value0, primaryKey.getName());
+				} else {
+					methodBuilder.addCode("$L.$L(String.valueOf(result));\n", method.getParameters().get(0).value0, PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
+				}
 			} else {
-				methodBuilder.addCode("$L.$L(result);\n", method.getParameters().get(0).value0, PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
-			}
+				if (primaryKey.isPublicField()) {
+					methodBuilder.addCode("$L.$L=result;\n", method.getParameters().get(0).value0, primaryKey.getName());
+				} else {
+					methodBuilder.addCode("$L.$L(result);\n", method.getParameters().get(0).value0, PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
+				}	
+			}			
 		}
 		
 		// support for livedata

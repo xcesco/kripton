@@ -144,11 +144,13 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			// define return value
 			if (returnType == TypeName.VOID) {
 			} else if (TypeUtility.isTypeIncludedIn(returnType, Boolean.TYPE, Boolean.class)) {
-				methodBuilder.addCode("return result!=-1;\n");
+				methodBuilder.addStatement("return result!=-1");
 			} else if (TypeUtility.isTypeIncludedIn(returnType, Long.TYPE, Long.class)) {
-				methodBuilder.addCode("return result;\n");
+				methodBuilder.addStatement("return result");
 			} else if (TypeUtility.isTypeIncludedIn(returnType, Integer.TYPE, Integer.class)) {
-				methodBuilder.addCode("return (int)result;\n");
+				methodBuilder.addStatement("return (int)result");
+			} else if (TypeUtility.isTypeIncludedIn(returnType, String.class)) {
+				methodBuilder.addStatement("return String.valueOf(result)");			
 			} else {
 				// more than one listener found
 				throw (new InvalidMethodSignException(method, "invalid return type"));
