@@ -48,11 +48,11 @@ public class TrackDaoImpl extends Dao implements TrackDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -169,16 +169,16 @@ public class TrackDaoImpl extends Dao implements TrackDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>album_id</dt><dd>is mapped to <strong>${bean.albumId}</strong></dd>
+   * 	<dt>album_id</dt><dd>is mapped to <strong>:bean.albumId</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -228,13 +228,13 @@ public class TrackDaoImpl extends Dao implements TrackDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO track (album_id) VALUES (${albumId})</pre>
+   * <pre>INSERT INTO track (album_id) VALUES (:albumId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>album_id</dt><dd>is mapped to <strong>${bean.albumId}</strong></dd>
+   * 	<dt>album_id</dt><dd>is mapped to <strong>:bean.albumId</strong></dd>
    * </dl>
    *
    * @param bean
@@ -296,16 +296,16 @@ public class TrackDaoImpl extends Dao implements TrackDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM track WHERE id=${id}</pre>
+   * <pre>DELETE FROM track WHERE id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */

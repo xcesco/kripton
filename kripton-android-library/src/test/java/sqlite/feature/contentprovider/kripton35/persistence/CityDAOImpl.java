@@ -39,13 +39,13 @@ public class CityDAOImpl extends Dao implements CityDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO city (name) VALUES (${bean.name})</pre>
+   * <pre>INSERT INTO city (name) VALUES (:bean.name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
    * @param bean
@@ -107,10 +107,10 @@ public class CityDAOImpl extends Dao implements CityDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/cities</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO City (name) VALUES (${bean.name})</pre>
+   * <pre>INSERT INTO City (name) VALUES (:bean.name)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO city (name) VALUES (${bean.name})</pre>
+   * <pre>INSERT INTO city (name) VALUES (:bean.name)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -159,11 +159,11 @@ public class CityDAOImpl extends Dao implements CityDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${personId}</dt><dd>is binded to method's parameter <strong>personId</strong></dd>
+   * 	<dt>:personId</dt><dd>is binded to method's parameter <strong>personId</strong></dd>
    * </dl>
    *
    * @param personId
-   * 	is binded to <code>${personId}</code>
+   * 	is binded to <code>:personId</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -223,7 +223,7 @@ public class CityDAOImpl extends Dao implements CityDAO {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${personId}</strong> at path segment 2</li>
+   * <li><strong>:personId</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>

@@ -88,11 +88,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${dummyTest}</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
+   * 	<dt>:dummyTest</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
    * </dl>
    *
    * @param dummy
-   * 	is binded to <code>${dummyTest}</code>
+   * 	is binded to <code>:dummyTest</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -177,11 +177,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
+   * 	<dt>:dummy</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
    * </dl>
    *
    * @param dummy
-   * 	is binded to <code>${dummy}</code>
+   * 	is binded to <code>:dummy</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -254,12 +254,12 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.type}</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.type</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void deleteCompactBean(Contact bean) {
@@ -293,19 +293,19 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM contact WHERE password=${password} and type=${type}</pre>
+   * <pre>DELETE FROM contact WHERE password=:password and type=:type</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${password}</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
-   * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
+   * 	<dt>:password</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
+   * 	<dt>:type</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
    * </dl>
    *
    * @param password
-   * 	is used as where parameter <strong>${password}</strong>
+   * 	is used as where parameter <strong>:password</strong>
    * @param type
-   * 	is used as where parameter <strong>${type}</strong>
+   * 	is used as where parameter <strong>:type</strong>
    */
   @Override
   public void deleteCompactRaw(String password, ContactType type) {
@@ -343,12 +343,12 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.type}</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.type</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void deleteJQLBean(Contact bean) {
@@ -382,19 +382,19 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM contact WHERE id=${id} and type=${type}</pre>
+   * <pre>DELETE FROM contact WHERE id=:id and type=:type</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:type</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param type
-   * 	is used as where parameter <strong>${type}</strong>
+   * 	is used as where parameter <strong>:type</strong>
    *
    * @return number of deleted records
    */
@@ -447,12 +447,12 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.type}</dt><dd>is binded to method's parameter <strong>bean.type</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.type</dt><dd>is binded to method's parameter <strong>bean.type</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -538,13 +538,13 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.password}</dt><dd>is binded to method's parameter <strong>bean.password</strong></dd>
-   * 	<dt>${bean.type}</dt><dd>is binded to method's parameter <strong>bean.type</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.password</dt><dd>is binded to method's parameter <strong>bean.password</strong></dd>
+   * 	<dt>:bean.type</dt><dd>is binded to method's parameter <strong>bean.type</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param listener
    * 	is the Contact listener
    */
@@ -632,13 +632,13 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.password}</dt><dd>is binded to method's parameter <strong>bean.password</strong></dd>
-   * 	<dt>${bean.type}</dt><dd>is binded to method's parameter <strong>bean.type</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.password</dt><dd>is binded to method's parameter <strong>bean.password</strong></dd>
+   * 	<dt>:bean.type</dt><dd>is binded to method's parameter <strong>bean.type</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -717,14 +717,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${password}</dt><dd>is binded to method's parameter <strong>password</strong></dd>
-   * 	<dt>${type}</dt><dd>is binded to method's parameter <strong>type</strong></dd>
+   * 	<dt>:password</dt><dd>is binded to method's parameter <strong>password</strong></dd>
+   * 	<dt>:type</dt><dd>is binded to method's parameter <strong>type</strong></dd>
    * </dl>
    *
    * @param password
-   * 	is binded to <code>${password}</code>
+   * 	is binded to <code>:password</code>
    * @param type
-   * 	is binded to <code>${type}</code>
+   * 	is binded to <code>:type</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -810,14 +810,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${password}</dt><dd>is binded to method's parameter <strong>password</strong></dd>
-   * 	<dt>${type}</dt><dd>is binded to method's parameter <strong>type</strong></dd>
+   * 	<dt>:password</dt><dd>is binded to method's parameter <strong>password</strong></dd>
+   * 	<dt>:type</dt><dd>is binded to method's parameter <strong>type</strong></dd>
    * </dl>
    *
    * @param password
-   * 	is binded to <code>${password}</code>
+   * 	is binded to <code>:password</code>
    * @param type
-   * 	is binded to <code>${type}</code>
+   * 	is binded to <code>:type</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -891,19 +891,19 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>type</dt><dd>is mapped to <strong>:bean.type</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.password}</dt><dd>is mapped to method's parameter <strong>bean.password</strong></dd>
-   * 	<dt>${bean.type}</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.password</dt><dd>is mapped to method's parameter <strong>bean.password</strong></dd>
+   * 	<dt>:bean.type</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -956,7 +956,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE contact SET password=:password, type=:type WHERE id=${id}</pre>
+   * <pre>UPDATE contact SET password=:password, type=:type WHERE id=:id</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -966,7 +966,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param password
@@ -974,7 +974,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * @param type
    * 	is used as updated field <strong>type</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of updated records
    */
@@ -1025,7 +1025,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=${password} and type=${type}</pre>
+   * <pre>UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=:password and type=:type</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -1035,16 +1035,16 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${password}</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
-   * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
+   * 	<dt>:password</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
+   * 	<dt>:type</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
    * </dl>
    *
    * @param birthDay
    * 	is used as updated field <strong>birthDay</strong>
    * @param password
-   * 	is used as where parameter <strong>${password}</strong>
+   * 	is used as where parameter <strong>:password</strong>
    * @param type
-   * 	is used as where parameter <strong>${type}</strong>
+   * 	is used as where parameter <strong>:type</strong>
    * @param id
    * 	is used as updated field <strong>id</strong>
    *
@@ -1102,19 +1102,19 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>password</dt><dd>is mapped to <strong>${bean.password}</strong></dd>
-   * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
+   * 	<dt>password</dt><dd>is mapped to <strong>:bean.password</strong></dd>
+   * 	<dt>type</dt><dd>is mapped to <strong>:bean.type</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.type}</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
-   * 	<dt>${bean.password}</dt><dd>is mapped to method's parameter <strong>bean.password</strong></dd>
+   * 	<dt>:bean.type</dt><dd>is mapped to method's parameter <strong>bean.type</strong></dd>
+   * 	<dt>:bean.password</dt><dd>is mapped to method's parameter <strong>bean.password</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -1167,7 +1167,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=${password} and type=${type}</pre>
+   * <pre>UPDATE contact SET birth_day=:birthDay, id=:id WHERE password=:password and type=:type</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -1177,16 +1177,16 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${password}</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
-   * 	<dt>${type}</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
+   * 	<dt>:password</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
+   * 	<dt>:type</dt><dd>is mapped to method's parameter <strong>type</strong></dd>
    * </dl>
    *
    * @param password
-   * 	is used as where parameter <strong>${password}</strong>
+   * 	is used as where parameter <strong>:password</strong>
    * @param birthDay
    * 	is used as updated field <strong>birthDay</strong>
    * @param type
-   * 	is used as where parameter <strong>${type}</strong>
+   * 	is used as where parameter <strong>:type</strong>
    * @param id
    * 	is used as updated field <strong>id</strong>
    *
@@ -1240,13 +1240,13 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO contact (password, type, id) VALUES (${password}, ${type}, ${id})</pre>
+   * <pre>INSERT INTO contact (password, type, id) VALUES (:password, :type, :id)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>password</dt><dd>is binded to query's parameter <strong>${password}</strong> and method's parameter <strong>password</strong></dd>
-   * 	<dt>type</dt><dd>is binded to query's parameter <strong>${type}</strong> and method's parameter <strong>type</strong></dd>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>password</dt><dd>is binded to query's parameter <strong>:password</strong> and method's parameter <strong>password</strong></dd>
+   * 	<dt>type</dt><dd>is binded to query's parameter <strong>:type</strong> and method's parameter <strong>type</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>:id</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param password
@@ -1313,14 +1313,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO contact (id, type) VALUES (${bean.id}, ${bean.type})</pre>
+   * <pre>INSERT INTO contact (id, type) VALUES (:bean.id, :bean.type)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>type</dt><dd>is mapped to <strong>:bean.type</strong></dd>
    * </dl>
    *
    * @param bean
@@ -1383,15 +1383,15 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO contact (password, type, id) VALUES (${bean.password}, ${bean.type}, ${bean.id})</pre>
+   * <pre>INSERT INTO contact (password, type, id) VALUES (:bean.password, :bean.type, :bean.id)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>password</dt><dd>is mapped to <strong>${bean.password}</strong></dd>
-   * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>password</dt><dd>is mapped to <strong>:bean.password</strong></dd>
+   * 	<dt>type</dt><dd>is mapped to <strong>:bean.type</strong></dd>
    * </dl>
    *
    * @param bean
@@ -1455,13 +1455,13 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO contact (password, type, id) VALUES (${password}, ${type}, ${id})</pre>
+   * <pre>INSERT INTO contact (password, type, id) VALUES (:password, :type, :id)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>password</dt><dd>is binded to query's parameter <strong>${password}</strong> and method's parameter <strong>password</strong></dd>
-   * 	<dt>type</dt><dd>is binded to query's parameter <strong>${type}</strong> and method's parameter <strong>type</strong></dd>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>password</dt><dd>is binded to query's parameter <strong>:password</strong> and method's parameter <strong>password</strong></dd>
+   * 	<dt>type</dt><dd>is binded to query's parameter <strong>:type</strong> and method's parameter <strong>type</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>:id</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param password

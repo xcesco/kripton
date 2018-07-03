@@ -39,11 +39,11 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -93,16 +93,16 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM bean03 WHERE id=${id}</pre>
+   * <pre>DELETE FROM bean03 WHERE id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */

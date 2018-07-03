@@ -36,17 +36,17 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean01 (bean_list, lista, message_date, message_text, value) VALUES (${bean.beanList}, ${bean.lista}, ${bean.messageDate}, ${bean.messageText}, ${bean.value})</pre>
+   * <pre>INSERT INTO bean01 (bean_list, lista, message_date, message_text, value) VALUES (:bean.beanList, :bean.lista, :bean.messageDate, :bean.messageText, :bean.value)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>bean_list</dt><dd>is mapped to <strong>${bean.beanList}</strong></dd>
-   * 	<dt>lista</dt><dd>is mapped to <strong>${bean.lista}</strong></dd>
-   * 	<dt>message_date</dt><dd>is mapped to <strong>${bean.messageDate}</strong></dd>
-   * 	<dt>message_text</dt><dd>is mapped to <strong>${bean.messageText}</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
+   * 	<dt>bean_list</dt><dd>is mapped to <strong>:bean.beanList</strong></dd>
+   * 	<dt>lista</dt><dd>is mapped to <strong>:bean.lista</strong></dd>
+   * 	<dt>message_date</dt><dd>is mapped to <strong>:bean.messageDate</strong></dd>
+   * 	<dt>message_text</dt><dd>is mapped to <strong>:bean.messageText</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:bean.value</strong></dd>
    * </dl>
    *
    * @param bean
@@ -112,12 +112,12 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean01 (value, message_date) VALUES (${value}, ${messageDate})</pre>
+   * <pre>INSERT INTO bean01 (value, message_date) VALUES (:value, :messageDate)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
-   * 	<dt>messageDate</dt><dd>is binded to query's parameter <strong>${messageDate}</strong> and method's parameter <strong>messageDate</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>:value</strong> and method's parameter <strong>value</strong></dd>
+   * 	<dt>messageDate</dt><dd>is binded to query's parameter <strong>:messageDate</strong> and method's parameter <strong>messageDate</strong></dd>
    * </dl>
    *
    * @param value
@@ -181,16 +181,16 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM bean01 WHERE id=${id}</pre>
+   * <pre>DELETE FROM bean01 WHERE id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -230,11 +230,11 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */
@@ -270,7 +270,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean01 SET value=:value WHERE id>${id}</pre>
+   * <pre>UPDATE bean01 SET value=:value WHERE id>:id</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -279,13 +279,13 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param value
    * 	is used as updated field <strong>value</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of updated records
    */
@@ -339,20 +339,20 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>bean_list</dt><dd>is mapped to <strong>${bean.beanList}</strong></dd>
-   * 	<dt>lista</dt><dd>is mapped to <strong>${bean.lista}</strong></dd>
-   * 	<dt>message_date</dt><dd>is mapped to <strong>${bean.messageDate}</strong></dd>
-   * 	<dt>message_text</dt><dd>is mapped to <strong>${bean.messageText}</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
+   * 	<dt>bean_list</dt><dd>is mapped to <strong>:bean.beanList</strong></dd>
+   * 	<dt>lista</dt><dd>is mapped to <strong>:bean.lista</strong></dd>
+   * 	<dt>message_date</dt><dd>is mapped to <strong>:bean.messageDate</strong></dd>
+   * 	<dt>message_text</dt><dd>is mapped to <strong>:bean.messageText</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:bean.value</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.value}</dt><dd>is mapped to method's parameter <strong>bean.value</strong></dd>
+   * 	<dt>:bean.value</dt><dd>is mapped to method's parameter <strong>bean.value</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */

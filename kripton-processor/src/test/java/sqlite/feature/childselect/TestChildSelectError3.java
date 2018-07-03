@@ -43,7 +43,7 @@ public class TestChildSelectError3 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testError() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class, "In class 'DaoAlbum', method 'selectAlbums' has an invalid signature:  method 'sqlite.feature.childselect.error3.DaoSong#selectByAlbumId' referred by @BindSqlChildSelect annotation must have a where condition like 'albumId=${dummy}' or '${dummy}=albumId'");
+		this.expectedException(InvalidMethodSignException.class, "In class 'DaoAlbum', method 'selectAlbums' has an invalid signature:  method 'sqlite.feature.childselect.error3.DaoSong#selectByAlbumId' referred by @BindSqlChildSelect annotation must have a where condition like 'albumId=:dummy' or ':dummy=albumId'");
 		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, DaoBase.class, AppDataSource.class, Song.class);
 	}
 

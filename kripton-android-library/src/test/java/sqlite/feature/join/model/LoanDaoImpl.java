@@ -27,16 +27,16 @@ public class LoanDaoImpl extends Dao implements LoanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO loan (book_id, end_time, start_time, user_id) VALUES (${bookId}, ${endTime}, ${startTime}, ${userId})</pre>
+   * <pre>INSERT INTO loan (book_id, end_time, start_time, user_id) VALUES (:bookId, :endTime, :startTime, :userId)</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>book_id</dt><dd>is mapped to <strong>${entity.bookId}</strong></dd>
-   * 	<dt>end_time</dt><dd>is mapped to <strong>${entity.endTime}</strong></dd>
-   * 	<dt>start_time</dt><dd>is mapped to <strong>${entity.startTime}</strong></dd>
-   * 	<dt>user_id</dt><dd>is mapped to <strong>${entity.userId}</strong></dd>
+   * 	<dt>book_id</dt><dd>is mapped to <strong>:entity.bookId</strong></dd>
+   * 	<dt>end_time</dt><dd>is mapped to <strong>:entity.endTime</strong></dd>
+   * 	<dt>start_time</dt><dd>is mapped to <strong>:entity.startTime</strong></dd>
+   * 	<dt>user_id</dt><dd>is mapped to <strong>:entity.userId</strong></dd>
    * </dl>
    *
    * @param entity

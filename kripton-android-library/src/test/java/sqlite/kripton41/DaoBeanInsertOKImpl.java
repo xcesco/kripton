@@ -26,12 +26,12 @@ public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean01 (id, value) VALUES (${id}, ${value})</pre>
+   * <pre>INSERT INTO bean01 (id, value) VALUES (:id, :value)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>:id</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>:value</strong> and method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param id

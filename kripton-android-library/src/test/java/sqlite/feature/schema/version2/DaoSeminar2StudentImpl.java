@@ -26,14 +26,14 @@ public class DaoSeminar2StudentImpl extends Dao implements DaoSeminar2Student {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO seminar_2_student (seminar_id, student_id) VALUES (${seminarId}, ${studentId})</pre>
+   * <pre>INSERT INTO seminar_2_student (seminar_id, student_id) VALUES (:seminarId, :studentId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>seminar_id</dt><dd>is mapped to <strong>${bean.seminarId}</strong></dd>
-   * 	<dt>student_id</dt><dd>is mapped to <strong>${bean.studentId}</strong></dd>
+   * 	<dt>seminar_id</dt><dd>is mapped to <strong>:bean.seminarId</strong></dd>
+   * 	<dt>student_id</dt><dd>is mapped to <strong>:bean.studentId</strong></dd>
    * </dl>
    *
    * @param bean

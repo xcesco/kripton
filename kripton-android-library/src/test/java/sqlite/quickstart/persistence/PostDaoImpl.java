@@ -34,16 +34,16 @@ public class PostDaoImpl extends Dao implements PostDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO post (id, body, title, user_id) VALUES (${bean.id}, ${bean.body}, ${bean.title}, ${bean.userId})</pre>
+   * <pre>INSERT INTO post (id, body, title, user_id) VALUES (:bean.id, :bean.body, :bean.title, :bean.userId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>body</dt><dd>is mapped to <strong>${bean.body}</strong></dd>
-   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
-   * 	<dt>user_id</dt><dd>is mapped to <strong>${bean.userId}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>body</dt><dd>is mapped to <strong>:bean.body</strong></dd>
+   * 	<dt>title</dt><dd>is mapped to <strong>:bean.title</strong></dd>
+   * 	<dt>user_id</dt><dd>is mapped to <strong>:bean.userId</strong></dd>
    * </dl>
    *
    * @param bean
@@ -118,11 +118,11 @@ public class PostDaoImpl extends Dao implements PostDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>
    *
    * @param userId
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -195,11 +195,11 @@ public class PostDaoImpl extends Dao implements PostDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>
    *
    * @param userId
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @return selected bean or <code>null</code>.
    */
   @Override

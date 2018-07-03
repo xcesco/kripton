@@ -414,7 +414,7 @@ public abstract class SqlSelectBuilder {
 				if (replaceWithQuestion) {
 					return "?";
 				}
-				return "${" + bindParameterName + "}";
+				return SqlAnalyzer.PARAM_PREFIX + bindParameterName + SqlAnalyzer.PARAM_SUFFIX;
 			}
 
 			@Override

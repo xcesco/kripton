@@ -21,7 +21,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 import sqlite.kripton56.entities.MessageEntity;
 import sqlite.kripton56.entities.OwnerType;
 
-// TODO: Auto-generated Javadoc
 /**
  * Created by xcesco on 27/09/2016.
  */
@@ -36,6 +35,6 @@ public interface DaoMessage {
 	 * @param ownerType the owner type
 	 * @return true, if successful
 	 */
-	@BindSqlUpdate(where=" id = ${id}")
+	@BindSqlUpdate(where=" id = :id")
 	boolean updateById(long id, OwnerType ownerType);
 }

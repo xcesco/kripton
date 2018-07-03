@@ -97,6 +97,7 @@ import com.abubusoft.kripton.processor.sqlite.BindDataSourceBuilder;
 import com.abubusoft.kripton.processor.sqlite.BindTableGenerator;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
+import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
@@ -346,25 +347,47 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									childDaoDefinition.getTypeName(), subMethod.getName(),
 									BindSqlChildSelect.class.getSimpleName());
 
-							final String conditionToTest1 = relation.value1 + "=${"
-									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + "}";
-							final String conditionToTest2 = "${"
-									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + "}="
+							final String defaultConditionToTest1 = relation.value1 + "="+SqlAnalyzer.PARAM_PREFIX
+									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) +SqlAnalyzer.PARAM_SUFFIX;
+							final String defaultConditionToTest2 = SqlAnalyzer.PARAM_PREFIX
+									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + SqlAnalyzer.PARAM_SUFFIX+"="
 									+ relation.value1;
-
+							
+							final Set<String> conditionToTest=new HashSet<String>();
+							String[] prefix={"${",":{",""};
+							String[] suffix={"}","}",""};
+							
+							for (int i=0;i<prefix.length;i++) {
+								final String conditionToTest1 = relation.value1 + "="+prefix[i]
+										+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + suffix[i];
+								final String conditionToTest2 = prefix[i]
+										+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + suffix[i]+"="
+										+ relation.value1;
+								
+								conditionToTest.add(conditionToTest1);
+								conditionToTest.add(conditionToTest2);
+							}								
+							
+							
 							JQLChecker.getInstance().analyze(subMethod, subMethod.jql, new JqlBaseListener() {
 
 								@Override
 								public void enterWhere_stmt_clauses(Where_stmt_clausesContext ctx) {
-
+									boolean found=false;
+									
+									for (String item:conditionToTest) {
+										if (ctx.getText().contains(item)) {
+											found=true;
+										}
+									}
+									
 									AssertKripton.assertTrueOrInvalidMethodSignException(
-											ctx.getText().contains(conditionToTest2)
-													|| ctx.getText().contains(conditionToTest1),
+											found,
 											method,
 											" method '%s#%s' referred by @%s annotation must have a where condition like '%s' or '%s'",
 											childDaoDefinition.getTypeName(), subMethod.getName(),
-											BindSqlChildSelect.class.getSimpleName(), conditionToTest1,
-											conditionToTest2);
+											BindSqlChildSelect.class.getSimpleName(), defaultConditionToTest1,
+											defaultConditionToTest2);
 								}
 
 							});

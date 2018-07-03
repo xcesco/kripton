@@ -38,14 +38,14 @@ public class PersonDaoImpl extends Dao implements PersonDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO person (age, name) VALUES (${age}, ${name})</pre>
+   * <pre>INSERT OR REPLACE INTO person (age, name) VALUES (:age, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>age</dt><dd>is mapped to <strong>${bean.age}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>age</dt><dd>is mapped to <strong>:bean.age</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
    * @param bean
@@ -123,11 +123,11 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -179,16 +179,16 @@ public class PersonDaoImpl extends Dao implements PersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id = ${id}</pre>
+   * <pre>DELETE FROM person WHERE id = :id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -231,11 +231,11 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */

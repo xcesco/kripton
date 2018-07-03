@@ -31,13 +31,13 @@ public class BookDaoImpl extends Dao implements BookDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO book (title) VALUES (${title})</pre>
+   * <pre>INSERT INTO book (title) VALUES (:title)</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>title</dt><dd>is mapped to <strong>${entity.title}</strong></dd>
+   * 	<dt>title</dt><dd>is mapped to <strong>:entity.title</strong></dd>
    * </dl>
    *
    * @param entity
@@ -107,11 +107,11 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${userId}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
+   * 	<dt>:userId</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>
    *
    * @param userId
-   * 	is binded to <code>${userId}</code>
+   * 	is binded to <code>:userId</code>
    * @return collection of bean or empty collection.
    */
   @Override

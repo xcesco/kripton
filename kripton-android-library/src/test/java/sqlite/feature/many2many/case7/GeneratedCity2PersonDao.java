@@ -19,32 +19,32 @@ import java.util.List;
 )
 public interface GeneratedCity2PersonDao extends City2PersonDao {
   @BindSqlSelect(
-      where = "id=${id}"
+      where = "id=:id"
   )
   CityPerson selectById(@BindSqlParam("id") long id);
 
   @BindSqlSelect(
-      where = "cityId=${cityId}"
+      where = "cityId=:cityId"
   )
   List<CityPerson> selectByCityId(@BindSqlParam("cityId") long cityId);
 
   @BindSqlSelect(
-      where = "personId=${personId}"
+      where = "personId=:personId"
   )
   List<CityPerson> selectByPersonId(@BindSqlParam("personId") long personId);
 
   @BindSqlDelete(
-      where = "id=${id}"
+      where = "id=:id"
   )
   int deleteById(@BindSqlParam("id") long id);
 
   @BindSqlDelete(
-      where = "cityId=${cityId}"
+      where = "cityId=:cityId"
   )
   int deleteByCityId(@BindSqlParam("cityId") long cityId);
 
   @BindSqlDelete(
-      where = "personId=${personId}"
+      where = "personId=:personId"
   )
   int deleteByPersonId(@BindSqlParam("personId") long personId);
 

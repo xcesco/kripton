@@ -46,7 +46,6 @@ import com.squareup.javapoet.TypeSpec;
 
 import android.database.sqlite.SQLiteStatement;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InsertRawHelper.
  */
@@ -206,7 +205,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					methodParamsUsedAsParameter.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
 				}
 
-				return "${" + resolvedParamName + "}";
+				return SqlAnalyzer.PARAM_PREFIX + resolvedParamName + SqlAnalyzer.PARAM_SUFFIX;
 			}					
 
 		});
@@ -228,7 +227,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 					throw (new PropertyNotFoundException(method, property.value0, property.value1));*/
 				
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", property.value0);
-				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", "${" + property.value0 + "}", resolvedName);
+				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$L</strong> and method's parameter <strong>$L</strong></dd>\n", SqlAnalyzer.PARAM_PREFIX + property.value0 + SqlAnalyzer.PARAM_SUFFIX, resolvedName);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 		}
@@ -240,7 +239,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			for (Pair<String, TypeName> property : methodParamsUsedAsParameter) {
 				String resolvedName = method.findParameterNameByAlias(property.value0);
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", resolvedName);
-				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>$${$L}</strong></dd>\n", property.value0);
+				methodBuilder.addJavadoc("<dd>is binded to query's parameter <strong>"+SqlAnalyzer.PARAM_PREFIX+"$L"+SqlAnalyzer.PARAM_SUFFIX+"</strong></dd>\n", property.value0);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 		}

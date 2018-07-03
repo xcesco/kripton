@@ -58,11 +58,11 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${channelId}</dt><dd>is binded to method's parameter <strong>channelId</strong></dd>
+   * 	<dt>:channelId</dt><dd>is binded to method's parameter <strong>channelId</strong></dd>
    * </dl>
    *
    * @param channelId
-   * 	is binded to <code>${channelId}</code>
+   * 	is binded to <code>:channelId</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -138,24 +138,24 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>channel_id</dt><dd>is mapped to <strong>${bean.channelId}</strong></dd>
-   * 	<dt>channel_uid</dt><dd>is mapped to <strong>${bean.channelUid}</strong></dd>
-   * 	<dt>face_uid</dt><dd>is mapped to <strong>${bean.faceUid}</strong></dd>
-   * 	<dt>owner_type</dt><dd>is mapped to <strong>${bean.ownerType}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
-   * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
+   * 	<dt>channel_id</dt><dd>is mapped to <strong>:bean.channelId</strong></dd>
+   * 	<dt>channel_uid</dt><dd>is mapped to <strong>:bean.channelUid</strong></dd>
+   * 	<dt>face_uid</dt><dd>is mapped to <strong>:bean.faceUid</strong></dd>
+   * 	<dt>owner_type</dt><dd>is mapped to <strong>:bean.ownerType</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>:bean.text</strong></dd>
+   * 	<dt>type</dt><dd>is mapped to <strong>:bean.type</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>:bean.uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>:bean.updateTime</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
@@ -213,21 +213,21 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (${bean.channelId}, ${bean.channelUid}, ${bean.faceUid}, ${bean.ownerType}, ${bean.ownerUid}, ${bean.text}, ${bean.type}, ${bean.uid}, ${bean.updateTime})</pre>
+   * <pre>INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (:bean.channelId, :bean.channelUid, :bean.faceUid, :bean.ownerType, :bean.ownerUid, :bean.text, :bean.type, :bean.uid, :bean.updateTime)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>channel_id</dt><dd>is mapped to <strong>${bean.channelId}</strong></dd>
-   * 	<dt>channel_uid</dt><dd>is mapped to <strong>${bean.channelUid}</strong></dd>
-   * 	<dt>face_uid</dt><dd>is mapped to <strong>${bean.faceUid}</strong></dd>
-   * 	<dt>owner_type</dt><dd>is mapped to <strong>${bean.ownerType}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
-   * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
+   * 	<dt>channel_id</dt><dd>is mapped to <strong>:bean.channelId</strong></dd>
+   * 	<dt>channel_uid</dt><dd>is mapped to <strong>:bean.channelUid</strong></dd>
+   * 	<dt>face_uid</dt><dd>is mapped to <strong>:bean.faceUid</strong></dd>
+   * 	<dt>owner_type</dt><dd>is mapped to <strong>:bean.ownerType</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>:bean.text</strong></dd>
+   * 	<dt>type</dt><dd>is mapped to <strong>:bean.type</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>:bean.uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>:bean.updateTime</strong></dd>
    * </dl>
    *
    * @param bean
@@ -313,11 +313,11 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${uid}</dt><dd>is binded to method's parameter <strong>uid</strong></dd>
+   * 	<dt>:uid</dt><dd>is binded to method's parameter <strong>uid</strong></dd>
    * </dl>
    *
    * @param uid
-   * 	is binded to <code>${uid}</code>
+   * 	is binded to <code>:uid</code>
    * @return selected bean or <code>null</code>.
    */
   @Override

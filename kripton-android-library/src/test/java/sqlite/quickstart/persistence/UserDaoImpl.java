@@ -35,20 +35,20 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO user (id, address, company, email, name, phone, username, website) VALUES (${bean.id}, ${bean.address}, ${bean.company}, ${bean.email}, ${bean.name}, ${bean.phone}, ${bean.username}, ${bean.website})</pre>
+   * <pre>INSERT INTO user (id, address, company, email, name, phone, username, website) VALUES (:bean.id, :bean.address, :bean.company, :bean.email, :bean.name, :bean.phone, :bean.username, :bean.website)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>company</dt><dd>is mapped to <strong>${bean.company}</strong></dd>
-   * 	<dt>email</dt><dd>is mapped to <strong>${bean.email}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>phone</dt><dd>is mapped to <strong>${bean.phone}</strong></dd>
-   * 	<dt>username</dt><dd>is mapped to <strong>${bean.username}</strong></dd>
-   * 	<dt>website</dt><dd>is mapped to <strong>${bean.website}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
+   * 	<dt>company</dt><dd>is mapped to <strong>:bean.company</strong></dd>
+   * 	<dt>email</dt><dd>is mapped to <strong>:bean.email</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>phone</dt><dd>is mapped to <strong>:bean.phone</strong></dd>
+   * 	<dt>username</dt><dd>is mapped to <strong>:bean.username</strong></dd>
+   * 	<dt>website</dt><dd>is mapped to <strong>:bean.website</strong></dd>
    * </dl>
    *
    * @param bean
@@ -212,11 +212,11 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @return selected bean or <code>null</code>.
    */
   @Override

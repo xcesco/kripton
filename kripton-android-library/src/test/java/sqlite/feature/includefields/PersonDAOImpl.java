@@ -55,11 +55,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.name}</dt><dd>is binded to method's parameter <strong>bean.name</strong></dd>
+   * 	<dt>:bean.name</dt><dd>is binded to method's parameter <strong>bean.name</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -184,14 +184,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, id) VALUES (${bean.name}, ${bean.id})</pre>
+   * <pre>INSERT INTO person (name, id) VALUES (:bean.name, :bean.id)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
    * @param bean
@@ -251,16 +251,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (birth_city, birth_day, surname, type_name) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.surname}, ${bean.typeName})</pre>
+   * <pre>INSERT INTO person (birth_city, birth_day, surname, type_name) VALUES (:bean.birthCity, :bean.birthDay, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
+   * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>:bean.typeName</strong></dd>
    * </dl>
    *
    * @param bean
@@ -326,12 +326,12 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void updateIncludeOne(Person bean) {
@@ -382,14 +382,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
+   * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>:bean.typeName</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void updateExcludeOne(Person bean) {
@@ -441,7 +441,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <pre>DELETE FROM person</pre>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void deleteIncludeOne(Person bean) {
@@ -476,7 +476,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <pre>DELETE FROM person</pre>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void deleteExcludeOne(Person bean) {

@@ -27,7 +27,7 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>select * from person where id=:id #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -45,11 +45,11 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.

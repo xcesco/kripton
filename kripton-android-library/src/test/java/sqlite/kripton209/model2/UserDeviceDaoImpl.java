@@ -42,7 +42,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, device_id, user_id FROM user_2_device WHERE id=${id}</pre>
+   * <pre>SELECT id, device_id, user_id FROM user_2_device WHERE id=:id</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -53,11 +53,11 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -110,7 +110,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, device_id, user_id FROM user_2_device WHERE user_id=${userId}</pre>
+   * <pre>SELECT id, device_id, user_id FROM user_2_device WHERE user_id=:userId</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -121,11 +121,11 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${userId}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
+   * 	<dt>:userId</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>
    *
    * @param userId
-   * 	is binded to <code>${userId}</code>
+   * 	is binded to <code>:userId</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -184,7 +184,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, device_id, user_id FROM user_2_device WHERE device_id=${deviceId}</pre>
+   * <pre>SELECT id, device_id, user_id FROM user_2_device WHERE device_id=:deviceId</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -195,11 +195,11 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${deviceId}</dt><dd>is binded to method's parameter <strong>deviceId</strong></dd>
+   * 	<dt>:deviceId</dt><dd>is binded to method's parameter <strong>deviceId</strong></dd>
    * </dl>
    *
    * @param deviceId
-   * 	is binded to <code>${deviceId}</code>
+   * 	is binded to <code>:deviceId</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -257,16 +257,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM user_2_device WHERE id=${id}</pre>
+   * <pre>DELETE FROM user_2_device WHERE id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -302,16 +302,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM user_2_device WHERE user_id=${userId}</pre>
+   * <pre>DELETE FROM user_2_device WHERE user_id=:userId</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${userId}</dt><dd>is mapped to method's parameter <strong>userId</strong></dd>
+   * 	<dt>:userId</dt><dd>is mapped to method's parameter <strong>userId</strong></dd>
    * </dl>
    *
    * @param userId
-   * 	is used as where parameter <strong>${userId}</strong>
+   * 	is used as where parameter <strong>:userId</strong>
    *
    * @return number of deleted records
    */
@@ -347,16 +347,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM user_2_device WHERE device_id=${deviceId}</pre>
+   * <pre>DELETE FROM user_2_device WHERE device_id=:deviceId</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${deviceId}</dt><dd>is mapped to method's parameter <strong>deviceId</strong></dd>
+   * 	<dt>:deviceId</dt><dd>is mapped to method's parameter <strong>deviceId</strong></dd>
    * </dl>
    *
    * @param deviceId
-   * 	is used as where parameter <strong>${deviceId}</strong>
+   * 	is used as where parameter <strong>:deviceId</strong>
    *
    * @return number of deleted records
    */
@@ -392,14 +392,14 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO user_2_device (device_id, user_id) VALUES (${bean.deviceId}, ${bean.userId})</pre>
+   * <pre>INSERT INTO user_2_device (device_id, user_id) VALUES (:bean.deviceId, :bean.userId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>device_id</dt><dd>is mapped to <strong>${bean.deviceId}</strong></dd>
-   * 	<dt>user_id</dt><dd>is mapped to <strong>${bean.userId}</strong></dd>
+   * 	<dt>device_id</dt><dd>is mapped to <strong>:bean.deviceId</strong></dd>
+   * 	<dt>user_id</dt><dd>is mapped to <strong>:bean.userId</strong></dd>
    * </dl>
    *
    * @param bean

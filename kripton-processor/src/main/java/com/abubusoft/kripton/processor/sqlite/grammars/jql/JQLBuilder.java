@@ -57,6 +57,7 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
+import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertType;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder;
@@ -199,7 +200,7 @@ public abstract class JQLBuilder {
 
 	/**
 	 * <pre>
-	 * DELETE person WHERE id = ${bean.id} AND #{where}
+	 * DELETE person WHERE id = :bean.id AND #{where}
 	 * </pre>
 	 *
 	 * @param method the method
@@ -264,7 +265,7 @@ public abstract class JQLBuilder {
 	/**
 	 * <pre>
 	 *  
-	 * INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})
+	 * INSERT INTO person (name, surname, birth_city, birth_day) VALUES (:name, :surname, :birthCity, :birthDay)
 	 * </pre>.
 	 *
 	 * @param method the method
@@ -380,7 +381,7 @@ public abstract class JQLBuilder {
 
 				@Override
 				public String onField(String item) {
-					return "${" + prefix.value0 + item + "}";
+					return SqlAnalyzer.PARAM_PREFIX + prefix.value0 + item + SqlAnalyzer.PARAM_SUFFIX;
 				}
 			}));
 			builder.append(")");
@@ -591,7 +592,7 @@ public abstract class JQLBuilder {
 
 	/**
 	 * <pre>
-	 * UPDATE bean01 SET text=${text} WHERE id=${id}
+	 * UPDATE bean01 SET text=:text WHERE id=:id
 	 * </pre>.
 	 *
 	 * @param method the method
@@ -724,7 +725,7 @@ public abstract class JQLBuilder {
 
 				@Override
 				public String onField(String item) {
-					return item + "=${" + prefix.value0 + item + "}";
+					return item + "="+SqlAnalyzer.PARAM_PREFIX + prefix.value0 + item + SqlAnalyzer.PARAM_SUFFIX;
 				}
 			}));
 

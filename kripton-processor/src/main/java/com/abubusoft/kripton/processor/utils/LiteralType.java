@@ -27,7 +27,6 @@ import java.util.regex.Pattern;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeVisitor;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class LiteralType.
  *

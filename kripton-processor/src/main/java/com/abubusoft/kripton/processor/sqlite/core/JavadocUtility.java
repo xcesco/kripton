@@ -32,6 +32,7 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPart;
 import com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator.JavadocPartType;
 import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
+import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
@@ -157,7 +158,7 @@ public abstract class JavadocUtility {
 			methodBuilder.addJavadoc("<h2>Query's parameters:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (String param : sqlParams) {
-				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is binded to method's parameter <strong>$L</strong></dd>\n", "${" + param + "}", method.findParameterNameByAlias(param));
+				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is binded to method's parameter <strong>$L</strong></dd>\n", SqlAnalyzer.PARAM_PREFIX + param + SqlAnalyzer.PARAM_SUFFIX, method.findParameterNameByAlias(param));
 			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");
@@ -170,7 +171,7 @@ public abstract class JavadocUtility {
 
 			methodBuilder.addJavadoc("@param $L\n", parameterSpec.name);
 			if (beanTypeName.equals(item.value1)) {
-				methodBuilder.addJavadoc("\tis used as $L\n", "${" + method.findParameterAliasByName(item.value0) + "}");
+				methodBuilder.addJavadoc("\tis used as <code>$L</code>\n", SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(item.value0) + SqlAnalyzer.PARAM_SUFFIX);
 			} else if (TypeUtility.isTypeEquals(item.value1, ParameterizedTypeName.get(TypeUtility.className(OnReadBeanListener.class), beanTypeName))) {
 				methodBuilder.addJavadoc("\tis the $T listener\n", beanTypeName);
 			} else if (TypeUtility.isTypeEquals(item.value1, TypeUtility.className(OnReadCursorListener.class))) {
@@ -182,7 +183,7 @@ public abstract class JavadocUtility {
 			} else if (item.value0.equals(method.dynamicPageSizeName)) {
 				methodBuilder.addJavadoc("\tis used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link $T#format})\n", StringUtils.class);
 			} else {
-				methodBuilder.addJavadoc("\tis binded to <code>$L</code>\n", "${" + method.findParameterAliasByName(item.value0) + "}");
+				methodBuilder.addJavadoc("\tis binded to <code>$L</code>\n", SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(item.value0) + SqlAnalyzer.PARAM_SUFFIX);
 			}
 		}
 		for (JavadocPart item : javadocParts) {

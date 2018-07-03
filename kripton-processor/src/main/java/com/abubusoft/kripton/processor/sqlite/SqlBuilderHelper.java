@@ -188,7 +188,7 @@ public abstract class SqlBuilderHelper {
 		if (method.contentProviderUriVariables.size() > 0) {
 			methodBuilder.addJavadoc("<h3>Path variables defined:</h3>\n<ul>\n");
 			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-				methodBuilder.addJavadoc("<li><strong>$${$L}</strong> at path segment $L</li>\n", variable.value, variable.pathSegmentIndex);
+				methodBuilder.addJavadoc("<li><strong>"+SqlAnalyzer.PARAM_PREFIX+"$L"+SqlAnalyzer.PARAM_SUFFIX+"</strong> at path segment $L</li>\n", variable.value, variable.pathSegmentIndex);
 			}
 			methodBuilder.addJavadoc("</ul>\n\n");
 		}

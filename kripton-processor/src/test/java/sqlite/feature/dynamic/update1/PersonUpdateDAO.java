@@ -42,7 +42,7 @@ public interface PersonUpdateDAO {
 	 * @param nameValue the name value
 	 * @return the list
 	 */
-	@BindSqlSelect(where="name like ${nameTemp} || '%' ")
+	@BindSqlSelect(where="name like :nameTemp || '%' ")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue);
 	
 	/**
@@ -51,7 +51,7 @@ public interface PersonUpdateDAO {
 	 * @param nameValue the name value
 	 * @param where the where
 	 */
-	@BindSqlDelete(where="id = ${nameValue}")
+	@BindSqlDelete(where="id = :nameValue")
 	void deleteRaw(String nameValue, @BindSqlDynamicWhere String where);
 	
 	/**
@@ -60,7 +60,7 @@ public interface PersonUpdateDAO {
 	 * @param bean the bean
 	 * @param where the where
 	 */
-	@BindSqlDelete(where="id = ${bean.id}")
+	@BindSqlDelete(where="id = :bean.id")
 	void deleteBean(Person bean, @BindSqlDynamicWhere String where);	
 	
 	/**

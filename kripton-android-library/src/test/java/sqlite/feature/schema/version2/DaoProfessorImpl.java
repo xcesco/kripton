@@ -27,15 +27,15 @@ public class DaoProfessorImpl extends Dao implements DaoProfessor {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO professor (birth_date, name, surname) VALUES (${birthDate}, ${name}, ${surname})</pre>
+   * <pre>INSERT INTO professor (birth_date, name, surname) VALUES (:birthDate, :name, :surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
    * </dl>
    *
    * @param bean

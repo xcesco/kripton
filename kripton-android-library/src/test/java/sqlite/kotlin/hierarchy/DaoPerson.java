@@ -8,6 +8,6 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 @BindDao(Person.class)
 public interface DaoPerson {
 
-	@BindSqlSelect
-	List<Person> selectAll();
+	@BindSqlSelect(where="name=:name")
+	List<Person> selectAll(String name);
 }

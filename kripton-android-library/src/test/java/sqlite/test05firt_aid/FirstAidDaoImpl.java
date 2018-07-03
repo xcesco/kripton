@@ -197,33 +197,33 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO first_aid (address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients) VALUES (${bean.address}, ${bean.address2}, ${bean.city}, ${bean.description}, ${bean.greenAverageWaitingTime}, ${bean.greenVisitingPatients}, ${bean.greenWaitingPatients}, ${bean.info}, ${bean.latitude}, ${bean.longitude}, ${bean.phone}, ${bean.redAverageWaitingTime}, ${bean.redWaitingPatients}, ${bean.totalPatientCount}, ${bean.uid}, ${bean.whiteAverageWaitingTime}, ${bean.whiteVisitingPatients}, ${bean.whiteWaitingPatients}, ${bean.yellowAverageWaitingTime}, ${bean.yellowVisitingPatients}, ${bean.yellowWaitingPatients})</pre>
+   * <pre>INSERT INTO first_aid (address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients) VALUES (:bean.address, :bean.address2, :bean.city, :bean.description, :bean.greenAverageWaitingTime, :bean.greenVisitingPatients, :bean.greenWaitingPatients, :bean.info, :bean.latitude, :bean.longitude, :bean.phone, :bean.redAverageWaitingTime, :bean.redWaitingPatients, :bean.totalPatientCount, :bean.uid, :bean.whiteAverageWaitingTime, :bean.whiteVisitingPatients, :bean.whiteWaitingPatients, :bean.yellowAverageWaitingTime, :bean.yellowVisitingPatients, :bean.yellowWaitingPatients)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>address2</dt><dd>is mapped to <strong>${bean.address2}</strong></dd>
-   * 	<dt>city</dt><dd>is mapped to <strong>${bean.city}</strong></dd>
-   * 	<dt>description</dt><dd>is mapped to <strong>${bean.description}</strong></dd>
-   * 	<dt>green_average_waiting_time</dt><dd>is mapped to <strong>${bean.greenAverageWaitingTime}</strong></dd>
-   * 	<dt>green_visiting_patients</dt><dd>is mapped to <strong>${bean.greenVisitingPatients}</strong></dd>
-   * 	<dt>green_waiting_patients</dt><dd>is mapped to <strong>${bean.greenWaitingPatients}</strong></dd>
-   * 	<dt>info</dt><dd>is mapped to <strong>${bean.info}</strong></dd>
-   * 	<dt>latitude</dt><dd>is mapped to <strong>${bean.latitude}</strong></dd>
-   * 	<dt>longitude</dt><dd>is mapped to <strong>${bean.longitude}</strong></dd>
-   * 	<dt>phone</dt><dd>is mapped to <strong>${bean.phone}</strong></dd>
-   * 	<dt>red_average_waiting_time</dt><dd>is mapped to <strong>${bean.redAverageWaitingTime}</strong></dd>
-   * 	<dt>red_waiting_patients</dt><dd>is mapped to <strong>${bean.redWaitingPatients}</strong></dd>
-   * 	<dt>total_patient_count</dt><dd>is mapped to <strong>${bean.totalPatientCount}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>white_average_waiting_time</dt><dd>is mapped to <strong>${bean.whiteAverageWaitingTime}</strong></dd>
-   * 	<dt>white_visiting_patients</dt><dd>is mapped to <strong>${bean.whiteVisitingPatients}</strong></dd>
-   * 	<dt>white_waiting_patients</dt><dd>is mapped to <strong>${bean.whiteWaitingPatients}</strong></dd>
-   * 	<dt>yellow_average_waiting_time</dt><dd>is mapped to <strong>${bean.yellowAverageWaitingTime}</strong></dd>
-   * 	<dt>yellow_visiting_patients</dt><dd>is mapped to <strong>${bean.yellowVisitingPatients}</strong></dd>
-   * 	<dt>yellow_waiting_patients</dt><dd>is mapped to <strong>${bean.yellowWaitingPatients}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
+   * 	<dt>address2</dt><dd>is mapped to <strong>:bean.address2</strong></dd>
+   * 	<dt>city</dt><dd>is mapped to <strong>:bean.city</strong></dd>
+   * 	<dt>description</dt><dd>is mapped to <strong>:bean.description</strong></dd>
+   * 	<dt>green_average_waiting_time</dt><dd>is mapped to <strong>:bean.greenAverageWaitingTime</strong></dd>
+   * 	<dt>green_visiting_patients</dt><dd>is mapped to <strong>:bean.greenVisitingPatients</strong></dd>
+   * 	<dt>green_waiting_patients</dt><dd>is mapped to <strong>:bean.greenWaitingPatients</strong></dd>
+   * 	<dt>info</dt><dd>is mapped to <strong>:bean.info</strong></dd>
+   * 	<dt>latitude</dt><dd>is mapped to <strong>:bean.latitude</strong></dd>
+   * 	<dt>longitude</dt><dd>is mapped to <strong>:bean.longitude</strong></dd>
+   * 	<dt>phone</dt><dd>is mapped to <strong>:bean.phone</strong></dd>
+   * 	<dt>red_average_waiting_time</dt><dd>is mapped to <strong>:bean.redAverageWaitingTime</strong></dd>
+   * 	<dt>red_waiting_patients</dt><dd>is mapped to <strong>:bean.redWaitingPatients</strong></dd>
+   * 	<dt>total_patient_count</dt><dd>is mapped to <strong>:bean.totalPatientCount</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>:bean.uid</strong></dd>
+   * 	<dt>white_average_waiting_time</dt><dd>is mapped to <strong>:bean.whiteAverageWaitingTime</strong></dd>
+   * 	<dt>white_visiting_patients</dt><dd>is mapped to <strong>:bean.whiteVisitingPatients</strong></dd>
+   * 	<dt>white_waiting_patients</dt><dd>is mapped to <strong>:bean.whiteWaitingPatients</strong></dd>
+   * 	<dt>yellow_average_waiting_time</dt><dd>is mapped to <strong>:bean.yellowAverageWaitingTime</strong></dd>
+   * 	<dt>yellow_visiting_patients</dt><dd>is mapped to <strong>:bean.yellowVisitingPatients</strong></dd>
+   * 	<dt>yellow_waiting_patients</dt><dd>is mapped to <strong>:bean.yellowWaitingPatients</strong></dd>
    * </dl>
    *
    * @param bean

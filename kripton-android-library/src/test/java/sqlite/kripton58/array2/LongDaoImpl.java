@@ -130,14 +130,14 @@ public class LongDaoImpl extends Dao implements LongDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value2</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @param value2
-   * 	is binded to <code>${value2}</code>
+   * 	is binded to <code>:value2</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -202,14 +202,14 @@ public class LongDaoImpl extends Dao implements LongDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value2</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @param value2
-   * 	is binded to <code>${value2}</code>
+   * 	is binded to <code>:value2</code>
    * @param listener
    * 	is the LongBean listener
    */
@@ -281,14 +281,14 @@ public class LongDaoImpl extends Dao implements LongDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value2</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @param value2
-   * 	is binded to <code>${value2}</code>
+   * 	is binded to <code>:value2</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -345,14 +345,14 @@ public class LongDaoImpl extends Dao implements LongDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
-   * 	<dt>${value2}</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value2</dt><dd>is binded to method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @param value2
-   * 	is binded to <code>${value2}</code>
+   * 	is binded to <code>:value2</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -411,7 +411,7 @@ public class LongDaoImpl extends Dao implements LongDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE long_bean SET id=:id WHERE value=${value} and value2=${value2}</pre>
+   * <pre>UPDATE long_bean SET id=:id WHERE value=:value and value2=:value2</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -420,16 +420,16 @@ public class LongDaoImpl extends Dao implements LongDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
-   * 	<dt>${value2}</dt><dd>is mapped to method's parameter <strong>value2</strong></dd>
+   * 	<dt>:value</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value2</dt><dd>is mapped to method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param id
    * 	is used as updated field <strong>id</strong>
    * @param value
-   * 	is used as where parameter <strong>${value}</strong>
+   * 	is used as where parameter <strong>:value</strong>
    * @param value2
-   * 	is used as where parameter <strong>${value2}</strong>
+   * 	is used as where parameter <strong>:value2</strong>
    *
    * @return number of updated records
    */
@@ -480,13 +480,13 @@ public class LongDaoImpl extends Dao implements LongDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO long_bean (id, value, value2) VALUES (${id}, ${value}, ${value2})</pre>
+   * <pre>INSERT INTO long_bean (id, value, value2) VALUES (:id, :value, :value2)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
-   * 	<dt>value2</dt><dd>is binded to query's parameter <strong>${value2}</strong> and method's parameter <strong>value2</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>:id</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>:value</strong> and method's parameter <strong>value</strong></dd>
+   * 	<dt>value2</dt><dd>is binded to query's parameter <strong>:value2</strong> and method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param id
@@ -553,14 +553,14 @@ public class LongDaoImpl extends Dao implements LongDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO long_bean (value, value2) VALUES (${bean.value}, ${bean.value2})</pre>
+   * <pre>INSERT INTO long_bean (value, value2) VALUES (:bean.value, :bean.value2)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
-   * 	<dt>value2</dt><dd>is mapped to <strong>${bean.value2}</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:bean.value</strong></dd>
+   * 	<dt>value2</dt><dd>is mapped to <strong>:bean.value2</strong></dd>
    * </dl>
    *
    * @param bean
@@ -623,19 +623,19 @@ public class LongDaoImpl extends Dao implements LongDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM long_bean WHERE value=${value} and value2=${value2}</pre>
+   * <pre>DELETE FROM long_bean WHERE value=:value and value2=:value2</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
-   * 	<dt>${value2}</dt><dd>is mapped to method's parameter <strong>value2</strong></dd>
+   * 	<dt>:value</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value2</dt><dd>is mapped to method's parameter <strong>value2</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as where parameter <strong>${value}</strong>
+   * 	is used as where parameter <strong>:value</strong>
    * @param value2
-   * 	is used as where parameter <strong>${value2}</strong>
+   * 	is used as where parameter <strong>:value2</strong>
    *
    * @return number of deleted records
    */

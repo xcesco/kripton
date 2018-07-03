@@ -40,17 +40,17 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO country (area, calling_code, code, name, region) VALUES (${area}, ${callingCode}, ${code}, ${name}, ${region})</pre>
+   * <pre>INSERT OR REPLACE INTO country (area, calling_code, code, name, region) VALUES (:area, :callingCode, :code, :name, :region)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>area</dt><dd>is mapped to <strong>${bean.area}</strong></dd>
-   * 	<dt>calling_code</dt><dd>is mapped to <strong>${bean.callingCode}</strong></dd>
-   * 	<dt>code</dt><dd>is mapped to <strong>${bean.code}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>region</dt><dd>is mapped to <strong>${bean.region}</strong></dd>
+   * 	<dt>area</dt><dd>is mapped to <strong>:bean.area</strong></dd>
+   * 	<dt>calling_code</dt><dd>is mapped to <strong>:bean.callingCode</strong></dd>
+   * 	<dt>code</dt><dd>is mapped to <strong>:bean.code</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>region</dt><dd>is mapped to <strong>:bean.region</strong></dd>
    * </dl>
    *
    * @param bean
@@ -131,11 +131,11 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -193,16 +193,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM country WHERE id = ${id}</pre>
+   * <pre>DELETE FROM country WHERE id = :id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -328,11 +328,11 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${callingCode}</dt><dd>is binded to method's parameter <strong>callingCode</strong></dd>
+   * 	<dt>:callingCode</dt><dd>is binded to method's parameter <strong>callingCode</strong></dd>
    * </dl>
    *
    * @param callingCode
-   * 	is binded to <code>${callingCode}</code>
+   * 	is binded to <code>:callingCode</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -405,11 +405,11 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${code}</dt><dd>is binded to method's parameter <strong>code</strong></dd>
+   * 	<dt>:code</dt><dd>is binded to method's parameter <strong>code</strong></dd>
    * </dl>
    *
    * @param code
-   * 	is binded to <code>${code}</code>
+   * 	is binded to <code>:code</code>
    * @return selected bean or <code>null</code>.
    */
   @Override

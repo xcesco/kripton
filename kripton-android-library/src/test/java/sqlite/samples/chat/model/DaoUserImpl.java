@@ -26,13 +26,13 @@ public class DaoUserImpl extends Dao implements DaoUser {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO user (username) VALUES (${username})</pre>
+   * <pre>INSERT INTO user (username) VALUES (:username)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>username</dt><dd>is mapped to <strong>${bean.username}</strong></dd>
+   * 	<dt>username</dt><dd>is mapped to <strong>:bean.username</strong></dd>
    * </dl>
    *
    * @param bean

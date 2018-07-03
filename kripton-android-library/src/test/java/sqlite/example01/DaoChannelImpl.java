@@ -100,15 +100,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM channel WHERE owner_uid=${value.id}</pre>
+   * <pre>DELETE FROM channel WHERE owner_uid=:value.id</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>channel.id</strong></dd>
+   * 	<dt>:value.id</dt><dd>is mapped to method's parameter <strong>channel.id</strong></dd>
    * </dl>
    *
    * @param channel
-   * 	is used as ${value}
+   * 	is used as <code>:value</code>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -144,15 +144,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM channel WHERE owner_uid=${value.id}</pre>
+   * <pre>DELETE FROM channel WHERE owner_uid=:{value.id}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
+   * 	<dt>:value.id</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${value}
+   * 	is used as <code>:value</code>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -188,19 +188,19 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM channel WHERE owner_uid=${ownerUid} and id=${id}</pre>
+   * <pre>DELETE FROM channel WHERE owner_uid=:ownerUid and id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${ownerUid}</dt><dd>is mapped to method's parameter <strong>b</strong></dd>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>dummy</strong></dd>
+   * 	<dt>:ownerUid</dt><dd>is mapped to method's parameter <strong>b</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>dummy</strong></dd>
    * </dl>
    *
    * @param b
-   * 	is used as where parameter <strong>${ownerUid}</strong>
+   * 	is used as where parameter <strong>:ownerUid</strong>
    * @param dummy
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -237,19 +237,19 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM channel WHERE owner_uid=${ownerUid} and id=${id}</pre>
+   * <pre>DELETE FROM channel WHERE owner_uid=:ownerUid and id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${ownerUid}</dt><dd>is mapped to method's parameter <strong>ownerUid</strong></dd>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:ownerUid</dt><dd>is mapped to method's parameter <strong>ownerUid</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param ownerUid
-   * 	is used as where parameter <strong>${ownerUid}</strong>
+   * 	is used as where parameter <strong>:ownerUid</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -286,12 +286,12 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO channel (owner_uid, id) VALUES (${b}, ${azz})</pre>
+   * <pre>INSERT INTO channel (owner_uid, id) VALUES (:b, :azz)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>b</dt><dd>is binded to query's parameter <strong>${b}</strong> and method's parameter <strong>b</strong></dd>
-   * 	<dt>azz</dt><dd>is binded to query's parameter <strong>${azz}</strong> and method's parameter <strong>azz</strong></dd>
+   * 	<dt>b</dt><dd>is binded to query's parameter <strong>:b</strong> and method's parameter <strong>b</strong></dd>
+   * 	<dt>azz</dt><dd>is binded to query's parameter <strong>:azz</strong> and method's parameter <strong>azz</strong></dd>
    * </dl>
    *
    * @param b
@@ -355,12 +355,12 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO channel (owner_uid, id) VALUES (${b}, ${id})</pre>
+   * <pre>INSERT INTO channel (owner_uid, id) VALUES (:b, :id)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>b</dt><dd>is binded to query's parameter <strong>${b}</strong> and method's parameter <strong>b</strong></dd>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>b</dt><dd>is binded to query's parameter <strong>:b</strong> and method's parameter <strong>b</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>:id</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param b
@@ -424,12 +424,12 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO channel (owner_uid, id) VALUES (${ownerUid}, ${id})</pre>
+   * <pre>INSERT INTO channel (owner_uid, id) VALUES (:ownerUid, :id)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>ownerUid</dt><dd>is binded to query's parameter <strong>${ownerUid}</strong> and method's parameter <strong>ownerUid</strong></dd>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>ownerUid</dt><dd>is binded to query's parameter <strong>:ownerUid</strong> and method's parameter <strong>ownerUid</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>:id</strong> and method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param ownerUid
@@ -493,16 +493,16 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (${bean.name}, ${bean.ownerUid}, ${bean.uid}, ${bean.updateTime})</pre>
+   * <pre>INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (:bean.name, :bean.ownerUid, :bean.uid, :bean.updateTime)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>:bean.uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>:bean.updateTime</strong></dd>
    * </dl>
    *
    * @param bean
@@ -567,16 +567,16 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (${bean.name}, ${bean.ownerUid}, ${bean.uid}, ${bean.updateTime})</pre>
+   * <pre>INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (:bean.name, :bean.ownerUid, :bean.uid, :bean.updateTime)</pre>
    *
    * <p><code>arg.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${arg.name}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${arg.ownerUid}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${arg.uid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${arg.updateTime}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:arg.name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>:arg.ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>:arg.uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>:arg.updateTime</strong></dd>
    * </dl>
    *
    * @param bean
@@ -641,7 +641,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET id=:id WHERE id=${dummy}</pre>
+   * <pre>UPDATE channel SET id=:id WHERE id=:dummy</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -650,13 +650,13 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${dummy}</dt><dd>is mapped to method's parameter <strong>aid</strong></dd>
+   * 	<dt>:dummy</dt><dd>is mapped to method's parameter <strong>aid</strong></dd>
    * </dl>
    *
    * @param glu
    * 	is used as updated field <strong>id</strong>
    * @param aid
-   * 	is used as where parameter <strong>${dummy}</strong>
+   * 	is used as where parameter <strong>:dummy</strong>
    *
    * @return number of updated records
    */
@@ -706,7 +706,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET id=:id WHERE id=${dummy}</pre>
+   * <pre>UPDATE channel SET id=:id WHERE id=:dummy</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -715,13 +715,13 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${dummy}</dt><dd>is mapped to method's parameter <strong>dummy</strong></dd>
+   * 	<dt>:dummy</dt><dd>is mapped to method's parameter <strong>dummy</strong></dd>
    * </dl>
    *
    * @param id
    * 	is used as updated field <strong>id</strong>
    * @param dummy
-   * 	is used as where parameter <strong>${dummy}</strong>
+   * 	is used as where parameter <strong>:dummy</strong>
    *
    * @return number of updated records
    */
@@ -771,7 +771,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET owner_uid=:ownerUid WHERE id=${test}</pre>
+   * <pre>UPDATE channel SET owner_uid=:ownerUid WHERE id=:test</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -780,13 +780,13 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${test}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:test</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param app
    * 	is used as updated field <strong>ownerUid</strong>
    * @param id
-   * 	is used as where parameter <strong>${test}</strong>
+   * 	is used as where parameter <strong>:test</strong>
    *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
@@ -836,7 +836,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE channel SET owner_uid=:ownerUid WHERE id=${id}</pre>
+   * <pre>UPDATE channel SET owner_uid=:ownerUid WHERE id=:id</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -845,13 +845,13 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param ownerUid
    * 	is used as updated field <strong>ownerUid</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of updated records
    */
@@ -905,19 +905,19 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>:bean.uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>:bean.updateTime</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -974,19 +974,19 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>:bean.uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>:bean.updateTime</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -1043,19 +1043,19 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>:bean.uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>:bean.updateTime</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
@@ -1194,11 +1194,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
+   * 	<dt>:a</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to <code>${a}</code>
+   * 	is binded to <code>:a</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -1274,11 +1274,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
+   * 	<dt>:a</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to <code>${a}</code>
+   * 	is binded to <code>:a</code>
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
   @Override
@@ -1327,11 +1327,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
+   * 	<dt>:a</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to <code>${a}</code>
+   * 	is binded to <code>:a</code>
    * @param listener
    * 	is the Channel listener
    */
@@ -1410,11 +1410,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
+   * 	<dt>:a</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to <code>${a}</code>
+   * 	is binded to <code>:a</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -1472,11 +1472,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${a}</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
+   * 	<dt>:a</dt><dd>is binded to method's parameter <strong>updateTimeA</strong></dd>
    * </dl>
    *
    * @param updateTimeA
-   * 	is binded to <code>${a}</code>
+   * 	is binded to <code>:a</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -1548,11 +1548,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * 	<dt>:bean.updateTime</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return single value extracted by query.
    */
   @Override
@@ -1605,11 +1605,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * 	<dt>:bean.updateTime</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param listener
    * 	is the Channel listener
    */
@@ -1676,11 +1676,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * 	<dt>:bean.updateTime</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -1734,11 +1734,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * 	<dt>:bean.updateTime</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
   @Override
@@ -1783,11 +1783,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * 	<dt>:bean.updateTime</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -1845,11 +1845,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * 	<dt>:bean.updateTime</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -1913,11 +1913,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * 	<dt>:bean.updateTime</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -1981,11 +1981,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.updateTime}</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
+   * 	<dt>:bean.updateTime</dt><dd>is binded to method's parameter <strong>value.updateTime</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return collection of single value extracted by query.
    */
   @Override

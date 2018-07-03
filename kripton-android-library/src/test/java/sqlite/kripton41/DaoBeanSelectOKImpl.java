@@ -34,14 +34,14 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @return single value extracted by query.
    */
   @Override

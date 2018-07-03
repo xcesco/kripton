@@ -101,13 +101,13 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO cheeses (name) VALUES (${cheese.name})</pre>
+   * <pre>INSERT INTO cheeses (name) VALUES (:cheese.name)</pre>
    *
    * <p><code>cheese.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${cheese.name}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:cheese.name</strong></dd>
    * </dl>
    *
    * @param cheese
@@ -172,10 +172,10 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO Cheese (name) VALUES (${cheese.name})</pre>
+   * <pre>INSERT INTO Cheese (name) VALUES (:cheese.name)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO cheeses (name) VALUES (${cheese.name})</pre>
+   * <pre>INSERT INTO cheeses (name) VALUES (:cheese.name)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -350,11 +350,11 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -414,7 +414,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -481,16 +481,16 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM cheeses WHERE id=${id}</pre>
+   * <pre>DELETE FROM cheeses WHERE id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -536,7 +536,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -590,16 +590,16 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${cheese.name}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:cheese.name</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${cheese.id}</dt><dd>is mapped to method's parameter <strong>cheese.id</strong></dd>
+   * 	<dt>:cheese.id</dt><dd>is mapped to method's parameter <strong>cheese.id</strong></dd>
    * </dl>
    *
    * @param cheese
-   * 	is used as ${cheese}
+   * 	is used as <code>:cheese</code>
    *
    * @return number of updated records
    */
@@ -652,14 +652,14 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Cheese SET name=${cheese.name} WHERE id=${cheese.id}</pre>
+   * <pre>UPDATE Cheese SET name=:cheese.name WHERE id=${cheese.id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE cheeses SET name=${cheese.name} WHERE id=${cheese.id}</pre>
+   * <pre>UPDATE cheeses SET name=:cheese.name WHERE id=${cheese.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${cheese.id}</strong> at path segment 1</li>
+   * <li><strong>:cheese.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>

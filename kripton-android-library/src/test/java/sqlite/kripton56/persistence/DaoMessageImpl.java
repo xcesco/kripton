@@ -28,7 +28,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE message SET owner_type=:ownerType WHERE id = ${id}</pre>
+   * <pre>UPDATE message SET owner_type=:ownerType WHERE id = :id</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -37,11 +37,11 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param ownerType
    * 	is used as updated field <strong>ownerType</strong>
    *

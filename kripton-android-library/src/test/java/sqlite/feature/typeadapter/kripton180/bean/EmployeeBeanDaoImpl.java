@@ -90,11 +90,11 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -208,11 +208,11 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -326,21 +326,21 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.fieldByte}</dt><dd>is binded to method's parameter <strong>bean.fieldByte</strong></dd>
-   * 	<dt>${bean.fieldByte}</dt><dd>is binded to method's parameter <strong>bean.fieldByte</strong></dd>
-   * 	<dt>${bean.fieldCharacter}</dt><dd>is binded to method's parameter <strong>bean.fieldCharacter</strong></dd>
-   * 	<dt>${bean.fieldShort}</dt><dd>is binded to method's parameter <strong>bean.fieldShort</strong></dd>
-   * 	<dt>${bean.fieldInteger}</dt><dd>is binded to method's parameter <strong>bean.fieldInteger</strong></dd>
-   * 	<dt>${bean.fieldLong}</dt><dd>is binded to method's parameter <strong>bean.fieldLong</strong></dd>
-   * 	<dt>${bean.fieldFloat}</dt><dd>is binded to method's parameter <strong>bean.fieldFloat</strong></dd>
-   * 	<dt>${bean.fieldDouble}</dt><dd>is binded to method's parameter <strong>bean.fieldDouble</strong></dd>
-   * 	<dt>${bean.fieldString}</dt><dd>is binded to method's parameter <strong>bean.fieldString</strong></dd>
-   * 	<dt>${bean.fieldByteArray}</dt><dd>is binded to method's parameter <strong>bean.fieldByteArray</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.fieldByte</dt><dd>is binded to method's parameter <strong>bean.fieldByte</strong></dd>
+   * 	<dt>:bean.fieldByte</dt><dd>is binded to method's parameter <strong>bean.fieldByte</strong></dd>
+   * 	<dt>:bean.fieldCharacter</dt><dd>is binded to method's parameter <strong>bean.fieldCharacter</strong></dd>
+   * 	<dt>:bean.fieldShort</dt><dd>is binded to method's parameter <strong>bean.fieldShort</strong></dd>
+   * 	<dt>:bean.fieldInteger</dt><dd>is binded to method's parameter <strong>bean.fieldInteger</strong></dd>
+   * 	<dt>:bean.fieldLong</dt><dd>is binded to method's parameter <strong>bean.fieldLong</strong></dd>
+   * 	<dt>:bean.fieldFloat</dt><dd>is binded to method's parameter <strong>bean.fieldFloat</strong></dd>
+   * 	<dt>:bean.fieldDouble</dt><dd>is binded to method's parameter <strong>bean.fieldDouble</strong></dd>
+   * 	<dt>:bean.fieldString</dt><dd>is binded to method's parameter <strong>bean.fieldString</strong></dd>
+   * 	<dt>:bean.fieldByteArray</dt><dd>is binded to method's parameter <strong>bean.fieldByteArray</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -464,21 +464,21 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.fieldByte}</dt><dd>is binded to method's parameter <strong>bean.fieldByte</strong></dd>
-   * 	<dt>${bean.fieldByte}</dt><dd>is binded to method's parameter <strong>bean.fieldByte</strong></dd>
-   * 	<dt>${bean.fieldCharacter}</dt><dd>is binded to method's parameter <strong>bean.fieldCharacter</strong></dd>
-   * 	<dt>${bean.fieldShort}</dt><dd>is binded to method's parameter <strong>bean.fieldShort</strong></dd>
-   * 	<dt>${bean.fieldInteger}</dt><dd>is binded to method's parameter <strong>bean.fieldInteger</strong></dd>
-   * 	<dt>${bean.fieldLong}</dt><dd>is binded to method's parameter <strong>bean.fieldLong</strong></dd>
-   * 	<dt>${bean.fieldFloat}</dt><dd>is binded to method's parameter <strong>bean.fieldFloat</strong></dd>
-   * 	<dt>${bean.fieldDouble}</dt><dd>is binded to method's parameter <strong>bean.fieldDouble</strong></dd>
-   * 	<dt>${bean.fieldString}</dt><dd>is binded to method's parameter <strong>bean.fieldString</strong></dd>
-   * 	<dt>${bean.fieldByteArray}</dt><dd>is binded to method's parameter <strong>bean.fieldByteArray</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.fieldByte</dt><dd>is binded to method's parameter <strong>bean.fieldByte</strong></dd>
+   * 	<dt>:bean.fieldByte</dt><dd>is binded to method's parameter <strong>bean.fieldByte</strong></dd>
+   * 	<dt>:bean.fieldCharacter</dt><dd>is binded to method's parameter <strong>bean.fieldCharacter</strong></dd>
+   * 	<dt>:bean.fieldShort</dt><dd>is binded to method's parameter <strong>bean.fieldShort</strong></dd>
+   * 	<dt>:bean.fieldInteger</dt><dd>is binded to method's parameter <strong>bean.fieldInteger</strong></dd>
+   * 	<dt>:bean.fieldLong</dt><dd>is binded to method's parameter <strong>bean.fieldLong</strong></dd>
+   * 	<dt>:bean.fieldFloat</dt><dd>is binded to method's parameter <strong>bean.fieldFloat</strong></dd>
+   * 	<dt>:bean.fieldDouble</dt><dd>is binded to method's parameter <strong>bean.fieldDouble</strong></dd>
+   * 	<dt>:bean.fieldString</dt><dd>is binded to method's parameter <strong>bean.fieldString</strong></dd>
+   * 	<dt>:bean.fieldByteArray</dt><dd>is binded to method's parameter <strong>bean.fieldByteArray</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -577,27 +577,27 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (${bean.address}, ${bean.birthDate}, ${bean.fieldBoolean}, ${bean.fieldByte}, ${bean.fieldByteArray}, ${bean.fieldCharacter}, ${bean.fieldDouble}, ${bean.fieldFloat}, ${bean.fieldInteger}, ${bean.fieldLong}, ${bean.fieldShort}, ${bean.fieldString}, ${bean.firstName}, ${bean.hireDate}, ${bean.lastName})</pre>
+   * <pre>INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (:bean.address, :bean.birthDate, :bean.fieldBoolean, :bean.fieldByte, :bean.fieldByteArray, :bean.fieldCharacter, :bean.fieldDouble, :bean.fieldFloat, :bean.fieldInteger, :bean.fieldLong, :bean.fieldShort, :bean.fieldString, :bean.firstName, :bean.hireDate, :bean.lastName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>field_boolean</dt><dd>is mapped to <strong>${bean.fieldBoolean}</strong></dd>
-   * 	<dt>field_byte</dt><dd>is mapped to <strong>${bean.fieldByte}</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
-   * 	<dt>field_character</dt><dd>is mapped to <strong>${bean.fieldCharacter}</strong></dd>
-   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
-   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
-   * 	<dt>field_integer</dt><dd>is mapped to <strong>${bean.fieldInteger}</strong></dd>
-   * 	<dt>field_long</dt><dd>is mapped to <strong>${bean.fieldLong}</strong></dd>
-   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
-   * 	<dt>field_string</dt><dd>is mapped to <strong>${bean.fieldString}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
+   * 	<dt>field_boolean</dt><dd>is mapped to <strong>:bean.fieldBoolean</strong></dd>
+   * 	<dt>field_byte</dt><dd>is mapped to <strong>:bean.fieldByte</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>:bean.fieldByteArray</strong></dd>
+   * 	<dt>field_character</dt><dd>is mapped to <strong>:bean.fieldCharacter</strong></dd>
+   * 	<dt>field_double</dt><dd>is mapped to <strong>:bean.fieldDouble</strong></dd>
+   * 	<dt>field_float</dt><dd>is mapped to <strong>:bean.fieldFloat</strong></dd>
+   * 	<dt>field_integer</dt><dd>is mapped to <strong>:bean.fieldInteger</strong></dd>
+   * 	<dt>field_long</dt><dd>is mapped to <strong>:bean.fieldLong</strong></dd>
+   * 	<dt>field_short</dt><dd>is mapped to <strong>:bean.fieldShort</strong></dd>
+   * 	<dt>field_string</dt><dd>is mapped to <strong>:bean.fieldString</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>:bean.firstName</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>:bean.hireDate</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>:bean.lastName</strong></dd>
    * </dl>
    *
    * @param bean
@@ -673,22 +673,22 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (${bean.fieldBoolean}, ${bean.fieldByte}, ${bean.fieldCharacter}, ${bean.fieldShort}, ${bean.fieldInteger}, ${bean.fieldLong}, ${bean.fieldFloat}, ${bean.fieldDouble}, ${bean.fieldString}, ${bean.fieldByteArray})</pre>
+   * <pre>INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (:bean.fieldBoolean, :bean.fieldByte, :bean.fieldCharacter, :bean.fieldShort, :bean.fieldInteger, :bean.fieldLong, :bean.fieldFloat, :bean.fieldDouble, :bean.fieldString, :bean.fieldByteArray)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>field_boolean</dt><dd>is mapped to <strong>${bean.fieldBoolean}</strong></dd>
-   * 	<dt>field_byte</dt><dd>is mapped to <strong>${bean.fieldByte}</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
-   * 	<dt>field_character</dt><dd>is mapped to <strong>${bean.fieldCharacter}</strong></dd>
-   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
-   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
-   * 	<dt>field_integer</dt><dd>is mapped to <strong>${bean.fieldInteger}</strong></dd>
-   * 	<dt>field_long</dt><dd>is mapped to <strong>${bean.fieldLong}</strong></dd>
-   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
-   * 	<dt>field_string</dt><dd>is mapped to <strong>${bean.fieldString}</strong></dd>
+   * 	<dt>field_boolean</dt><dd>is mapped to <strong>:bean.fieldBoolean</strong></dd>
+   * 	<dt>field_byte</dt><dd>is mapped to <strong>:bean.fieldByte</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>:bean.fieldByteArray</strong></dd>
+   * 	<dt>field_character</dt><dd>is mapped to <strong>:bean.fieldCharacter</strong></dd>
+   * 	<dt>field_double</dt><dd>is mapped to <strong>:bean.fieldDouble</strong></dd>
+   * 	<dt>field_float</dt><dd>is mapped to <strong>:bean.fieldFloat</strong></dd>
+   * 	<dt>field_integer</dt><dd>is mapped to <strong>:bean.fieldInteger</strong></dd>
+   * 	<dt>field_long</dt><dd>is mapped to <strong>:bean.fieldLong</strong></dd>
+   * 	<dt>field_short</dt><dd>is mapped to <strong>:bean.fieldShort</strong></dd>
+   * 	<dt>field_string</dt><dd>is mapped to <strong>:bean.fieldString</strong></dd>
    * </dl>
    *
    * @param bean
@@ -763,39 +763,39 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>field_boolean</dt><dd>is mapped to <strong>${bean.fieldBoolean}</strong></dd>
-   * 	<dt>field_byte</dt><dd>is mapped to <strong>${bean.fieldByte}</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
-   * 	<dt>field_character</dt><dd>is mapped to <strong>${bean.fieldCharacter}</strong></dd>
-   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
-   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
-   * 	<dt>field_integer</dt><dd>is mapped to <strong>${bean.fieldInteger}</strong></dd>
-   * 	<dt>field_long</dt><dd>is mapped to <strong>${bean.fieldLong}</strong></dd>
-   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
-   * 	<dt>field_string</dt><dd>is mapped to <strong>${bean.fieldString}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
+   * 	<dt>field_boolean</dt><dd>is mapped to <strong>:bean.fieldBoolean</strong></dd>
+   * 	<dt>field_byte</dt><dd>is mapped to <strong>:bean.fieldByte</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>:bean.fieldByteArray</strong></dd>
+   * 	<dt>field_character</dt><dd>is mapped to <strong>:bean.fieldCharacter</strong></dd>
+   * 	<dt>field_double</dt><dd>is mapped to <strong>:bean.fieldDouble</strong></dd>
+   * 	<dt>field_float</dt><dd>is mapped to <strong>:bean.fieldFloat</strong></dd>
+   * 	<dt>field_integer</dt><dd>is mapped to <strong>:bean.fieldInteger</strong></dd>
+   * 	<dt>field_long</dt><dd>is mapped to <strong>:bean.fieldLong</strong></dd>
+   * 	<dt>field_short</dt><dd>is mapped to <strong>:bean.fieldShort</strong></dd>
+   * 	<dt>field_string</dt><dd>is mapped to <strong>:bean.fieldString</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>:bean.firstName</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>:bean.hireDate</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>:bean.lastName</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.fieldByte}</dt><dd>is mapped to method's parameter <strong>bean.fieldByte</strong></dd>
-   * 	<dt>${bean.fieldCharacter}</dt><dd>is mapped to method's parameter <strong>bean.fieldCharacter</strong></dd>
-   * 	<dt>${bean.fieldShort}</dt><dd>is mapped to method's parameter <strong>bean.fieldShort</strong></dd>
-   * 	<dt>${bean.fieldInteger}</dt><dd>is mapped to method's parameter <strong>bean.fieldInteger</strong></dd>
-   * 	<dt>${bean.fieldLong}</dt><dd>is mapped to method's parameter <strong>bean.fieldLong</strong></dd>
-   * 	<dt>${bean.fieldFloat}</dt><dd>is mapped to method's parameter <strong>bean.fieldFloat</strong></dd>
-   * 	<dt>${bean.fieldDouble}</dt><dd>is mapped to method's parameter <strong>bean.fieldDouble</strong></dd>
-   * 	<dt>${bean.fieldString}</dt><dd>is mapped to method's parameter <strong>bean.fieldString</strong></dd>
-   * 	<dt>${bean.fieldByteArray}</dt><dd>is mapped to method's parameter <strong>bean.fieldByteArray</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.fieldByte</dt><dd>is mapped to method's parameter <strong>bean.fieldByte</strong></dd>
+   * 	<dt>:bean.fieldCharacter</dt><dd>is mapped to method's parameter <strong>bean.fieldCharacter</strong></dd>
+   * 	<dt>:bean.fieldShort</dt><dd>is mapped to method's parameter <strong>bean.fieldShort</strong></dd>
+   * 	<dt>:bean.fieldInteger</dt><dd>is mapped to method's parameter <strong>bean.fieldInteger</strong></dd>
+   * 	<dt>:bean.fieldLong</dt><dd>is mapped to method's parameter <strong>bean.fieldLong</strong></dd>
+   * 	<dt>:bean.fieldFloat</dt><dd>is mapped to method's parameter <strong>bean.fieldFloat</strong></dd>
+   * 	<dt>:bean.fieldDouble</dt><dd>is mapped to method's parameter <strong>bean.fieldDouble</strong></dd>
+   * 	<dt>:bean.fieldString</dt><dd>is mapped to method's parameter <strong>bean.fieldString</strong></dd>
+   * 	<dt>:bean.fieldByteArray</dt><dd>is mapped to method's parameter <strong>bean.fieldByteArray</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -872,30 +872,30 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>field_boolean</dt><dd>is mapped to <strong>${bean.fieldBoolean}</strong></dd>
-   * 	<dt>field_byte</dt><dd>is mapped to <strong>${bean.fieldByte}</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
-   * 	<dt>field_character</dt><dd>is mapped to <strong>${bean.fieldCharacter}</strong></dd>
-   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
-   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
-   * 	<dt>field_integer</dt><dd>is mapped to <strong>${bean.fieldInteger}</strong></dd>
-   * 	<dt>field_long</dt><dd>is mapped to <strong>${bean.fieldLong}</strong></dd>
-   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
-   * 	<dt>field_string</dt><dd>is mapped to <strong>${bean.fieldString}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
+   * 	<dt>field_boolean</dt><dd>is mapped to <strong>:bean.fieldBoolean</strong></dd>
+   * 	<dt>field_byte</dt><dd>is mapped to <strong>:bean.fieldByte</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>:bean.fieldByteArray</strong></dd>
+   * 	<dt>field_character</dt><dd>is mapped to <strong>:bean.fieldCharacter</strong></dd>
+   * 	<dt>field_double</dt><dd>is mapped to <strong>:bean.fieldDouble</strong></dd>
+   * 	<dt>field_float</dt><dd>is mapped to <strong>:bean.fieldFloat</strong></dd>
+   * 	<dt>field_integer</dt><dd>is mapped to <strong>:bean.fieldInteger</strong></dd>
+   * 	<dt>field_long</dt><dd>is mapped to <strong>:bean.fieldLong</strong></dd>
+   * 	<dt>field_short</dt><dd>is mapped to <strong>:bean.fieldShort</strong></dd>
+   * 	<dt>field_string</dt><dd>is mapped to <strong>:bean.fieldString</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>:bean.firstName</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>:bean.hireDate</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>:bean.lastName</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -963,29 +963,29 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>:bean.firstName</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>:bean.hireDate</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>:bean.lastName</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.fieldByte}</dt><dd>is mapped to method's parameter <strong>bean.fieldByte</strong></dd>
-   * 	<dt>${bean.fieldCharacter}</dt><dd>is mapped to method's parameter <strong>bean.fieldCharacter</strong></dd>
-   * 	<dt>${bean.fieldShort}</dt><dd>is mapped to method's parameter <strong>bean.fieldShort</strong></dd>
-   * 	<dt>${bean.fieldInteger}</dt><dd>is mapped to method's parameter <strong>bean.fieldInteger</strong></dd>
-   * 	<dt>${bean.fieldLong}</dt><dd>is mapped to method's parameter <strong>bean.fieldLong</strong></dd>
-   * 	<dt>${bean.fieldFloat}</dt><dd>is mapped to method's parameter <strong>bean.fieldFloat</strong></dd>
-   * 	<dt>${bean.fieldDouble}</dt><dd>is mapped to method's parameter <strong>bean.fieldDouble</strong></dd>
-   * 	<dt>${bean.fieldString}</dt><dd>is mapped to method's parameter <strong>bean.fieldString</strong></dd>
-   * 	<dt>${bean.fieldByteArray}</dt><dd>is mapped to method's parameter <strong>bean.fieldByteArray</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.fieldByte</dt><dd>is mapped to method's parameter <strong>bean.fieldByte</strong></dd>
+   * 	<dt>:bean.fieldCharacter</dt><dd>is mapped to method's parameter <strong>bean.fieldCharacter</strong></dd>
+   * 	<dt>:bean.fieldShort</dt><dd>is mapped to method's parameter <strong>bean.fieldShort</strong></dd>
+   * 	<dt>:bean.fieldInteger</dt><dd>is mapped to method's parameter <strong>bean.fieldInteger</strong></dd>
+   * 	<dt>:bean.fieldLong</dt><dd>is mapped to method's parameter <strong>bean.fieldLong</strong></dd>
+   * 	<dt>:bean.fieldFloat</dt><dd>is mapped to method's parameter <strong>bean.fieldFloat</strong></dd>
+   * 	<dt>:bean.fieldDouble</dt><dd>is mapped to method's parameter <strong>bean.fieldDouble</strong></dd>
+   * 	<dt>:bean.fieldString</dt><dd>is mapped to method's parameter <strong>bean.fieldString</strong></dd>
+   * 	<dt>:bean.fieldByteArray</dt><dd>is mapped to method's parameter <strong>bean.fieldByteArray</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -1052,20 +1052,20 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>:bean.firstName</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>:bean.hireDate</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>:bean.lastName</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -1123,20 +1123,20 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.fieldByte}</dt><dd>is mapped to method's parameter <strong>bean.fieldByte</strong></dd>
-   * 	<dt>${bean.fieldCharacter}</dt><dd>is mapped to method's parameter <strong>bean.fieldCharacter</strong></dd>
-   * 	<dt>${bean.fieldShort}</dt><dd>is mapped to method's parameter <strong>bean.fieldShort</strong></dd>
-   * 	<dt>${bean.fieldInteger}</dt><dd>is mapped to method's parameter <strong>bean.fieldInteger</strong></dd>
-   * 	<dt>${bean.fieldLong}</dt><dd>is mapped to method's parameter <strong>bean.fieldLong</strong></dd>
-   * 	<dt>${bean.fieldFloat}</dt><dd>is mapped to method's parameter <strong>bean.fieldFloat</strong></dd>
-   * 	<dt>${bean.fieldDouble}</dt><dd>is mapped to method's parameter <strong>bean.fieldDouble</strong></dd>
-   * 	<dt>${bean.fieldString}</dt><dd>is mapped to method's parameter <strong>bean.fieldString</strong></dd>
-   * 	<dt>${bean.fieldByteArray}</dt><dd>is mapped to method's parameter <strong>bean.fieldByteArray</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.fieldByte</dt><dd>is mapped to method's parameter <strong>bean.fieldByte</strong></dd>
+   * 	<dt>:bean.fieldCharacter</dt><dd>is mapped to method's parameter <strong>bean.fieldCharacter</strong></dd>
+   * 	<dt>:bean.fieldShort</dt><dd>is mapped to method's parameter <strong>bean.fieldShort</strong></dd>
+   * 	<dt>:bean.fieldInteger</dt><dd>is mapped to method's parameter <strong>bean.fieldInteger</strong></dd>
+   * 	<dt>:bean.fieldLong</dt><dd>is mapped to method's parameter <strong>bean.fieldLong</strong></dd>
+   * 	<dt>:bean.fieldFloat</dt><dd>is mapped to method's parameter <strong>bean.fieldFloat</strong></dd>
+   * 	<dt>:bean.fieldDouble</dt><dd>is mapped to method's parameter <strong>bean.fieldDouble</strong></dd>
+   * 	<dt>:bean.fieldString</dt><dd>is mapped to method's parameter <strong>bean.fieldString</strong></dd>
+   * 	<dt>:bean.fieldByteArray</dt><dd>is mapped to method's parameter <strong>bean.fieldByteArray</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */
@@ -1185,20 +1185,20 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
-   * 	<dt>${bean.fieldByte}</dt><dd>is mapped to method's parameter <strong>bean.fieldByte</strong></dd>
-   * 	<dt>${bean.fieldCharacter}</dt><dd>is mapped to method's parameter <strong>bean.fieldCharacter</strong></dd>
-   * 	<dt>${bean.fieldShort}</dt><dd>is mapped to method's parameter <strong>bean.fieldShort</strong></dd>
-   * 	<dt>${bean.fieldInteger}</dt><dd>is mapped to method's parameter <strong>bean.fieldInteger</strong></dd>
-   * 	<dt>${bean.fieldLong}</dt><dd>is mapped to method's parameter <strong>bean.fieldLong</strong></dd>
-   * 	<dt>${bean.fieldFloat}</dt><dd>is mapped to method's parameter <strong>bean.fieldFloat</strong></dd>
-   * 	<dt>${bean.fieldDouble}</dt><dd>is mapped to method's parameter <strong>bean.fieldDouble</strong></dd>
-   * 	<dt>${bean.fieldString}</dt><dd>is mapped to method's parameter <strong>bean.fieldString</strong></dd>
-   * 	<dt>${bean.fieldByteArray}</dt><dd>is mapped to method's parameter <strong>bean.fieldByteArray</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.fieldByte</dt><dd>is mapped to method's parameter <strong>bean.fieldByte</strong></dd>
+   * 	<dt>:bean.fieldCharacter</dt><dd>is mapped to method's parameter <strong>bean.fieldCharacter</strong></dd>
+   * 	<dt>:bean.fieldShort</dt><dd>is mapped to method's parameter <strong>bean.fieldShort</strong></dd>
+   * 	<dt>:bean.fieldInteger</dt><dd>is mapped to method's parameter <strong>bean.fieldInteger</strong></dd>
+   * 	<dt>:bean.fieldLong</dt><dd>is mapped to method's parameter <strong>bean.fieldLong</strong></dd>
+   * 	<dt>:bean.fieldFloat</dt><dd>is mapped to method's parameter <strong>bean.fieldFloat</strong></dd>
+   * 	<dt>:bean.fieldDouble</dt><dd>is mapped to method's parameter <strong>bean.fieldDouble</strong></dd>
+   * 	<dt>:bean.fieldString</dt><dd>is mapped to method's parameter <strong>bean.fieldString</strong></dd>
+   * 	<dt>:bean.fieldByteArray</dt><dd>is mapped to method's parameter <strong>bean.fieldByteArray</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */
@@ -1247,11 +1247,11 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */

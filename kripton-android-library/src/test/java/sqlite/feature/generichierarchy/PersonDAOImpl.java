@@ -54,11 +54,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${work.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:work.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${work}
+   * 	is used as <code>:work</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -120,16 +120,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (${birthCity}, ${birthDay}, ${name}, ${surname})</pre>
+   * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (:birthCity, :birthDay, :name, :surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
    * </dl>
    *
    * @param bean
@@ -195,19 +195,19 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${work.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${work.birthDay}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${work.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${work.surname}</strong></dd>
+   * 	<dt>birth_city</dt><dd>is mapped to <strong>:work.birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:work.birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:work.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:work.surname</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${work.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:work.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${work}
+   * 	is used as <code>:work</code>
    *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
@@ -264,11 +264,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${work.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:work.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${work}
+   * 	is used as <code>:work</code>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */

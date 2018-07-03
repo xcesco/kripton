@@ -44,7 +44,6 @@ import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelWithAnnotation;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AnnotationUtility.
  */

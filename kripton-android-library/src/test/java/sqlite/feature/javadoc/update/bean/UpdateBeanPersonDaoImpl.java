@@ -58,13 +58,13 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -118,10 +118,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student}</pre>
+   * <pre>UPDATE Person SET personName=:bean.personName, personSurname=:bean.personSurname, student=:bean.student</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student}</pre>
+   * <pre>UPDATE person SET person_name=:bean.personName, person_surname=:bean.personSurname, student=:bean.student</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -184,18 +184,18 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -250,14 +250,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE Person SET personName=:bean.personName, personSurname=:bean.personSurname, student=:bean.student WHERE id=${bean.id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE person SET person_name=:bean.personName, person_surname=:bean.personSurname, student=:bean.student WHERE id=${bean.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * <li><strong>:bean.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -330,14 +330,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -346,7 +346,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    *
@@ -412,14 +412,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamic/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=:bean.personName, personSurname=:bean.personSurname, student=:bean.student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:bean.personName, person_surname=:bean.personSurname, student=:bean.student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -492,14 +492,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -508,11 +508,11 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    * @param args
-   * 	is used as ${args}
+   * 	is used as <code>:args</code>
    *
    * @return number of updated records
    */
@@ -583,14 +583,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/dynamicArgs/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=:bean.personName, personSurname=:bean.personSurname, student=:bean.student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:bean.personName, person_surname=:bean.personSurname, student=:bean.student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -675,12 +675,12 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void updateAllBeansJQL(Person bean) {
@@ -796,11 +796,11 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void updateFromSelectAllBeansJQL(Person bean) {
@@ -858,16 +858,16 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -927,7 +927,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 4</li>
+   * <li><strong>:bean.id</strong> at path segment 4</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -1000,14 +1000,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -1016,7 +1016,7 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    *
@@ -1082,14 +1082,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/more</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=:bean.personName, personSurname=:bean.personSurname, student=:bean.student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:bean.personName, person_surname=:bean.personSurname, student=:bean.student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * <li><strong>:bean.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -1162,14 +1162,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -1178,11 +1178,11 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    * @param args
-   * 	is used as ${args}
+   * 	is used as <code>:args</code>
    *
    * @return number of updated records
    */
@@ -1253,14 +1253,14 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${bean.personName}, personSurname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=:bean.personName, personSurname=:bean.personSurname, student=:bean.student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${bean.personName}, person_surname=${bean.personSurname}, student=${bean.student} WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:bean.personName, person_surname=:bean.personSurname, student=:bean.student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * <li><strong>:bean.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>

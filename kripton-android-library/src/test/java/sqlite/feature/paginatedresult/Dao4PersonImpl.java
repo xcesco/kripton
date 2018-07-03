@@ -57,11 +57,11 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @param pageSize
    * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return paginated result.
@@ -93,11 +93,11 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @param pageSize
    * 	is used as <strong>dynamic LIMIT statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param paginatedResult
@@ -189,14 +189,14 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
+   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (:name, :surname, :birthCity, :birthDay)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
-   * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
-   * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>:surname</strong> and method's parameter <strong>surname</strong></dd>
+   * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>:birthCity</strong> and method's parameter <strong>birthCity</strong></dd>
+   * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>:birthDay</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
    * @param name

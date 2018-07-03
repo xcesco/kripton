@@ -107,11 +107,11 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -161,13 +161,13 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO user (user_name) VALUES (${user.userName})</pre>
+   * <pre>INSERT INTO user (user_name) VALUES (:user.userName)</pre>
    *
    * <p><code>user.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>user_name</dt><dd>is mapped to <strong>${user.userName}</strong></dd>
+   * 	<dt>user_name</dt><dd>is mapped to <strong>:user.userName</strong></dd>
    * </dl>
    *
    * @param user

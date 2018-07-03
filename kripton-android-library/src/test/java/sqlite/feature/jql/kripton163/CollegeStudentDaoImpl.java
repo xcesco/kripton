@@ -40,11 +40,11 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${firstName}</dt><dd>is binded to method's parameter <strong>firstName</strong></dd>
+   * 	<dt>:firstName</dt><dd>is binded to method's parameter <strong>firstName</strong></dd>
    * </dl>
    *
    * @param firstName
-   * 	is binded to <code>${firstName}</code>
+   * 	is binded to <code>:firstName</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -114,11 +114,11 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${firstName}</dt><dd>is binded to method's parameter <strong>firstName</strong></dd>
+   * 	<dt>:firstName</dt><dd>is binded to method's parameter <strong>firstName</strong></dd>
    * </dl>
    *
    * @param firstName
-   * 	is binded to <code>${firstName}</code>
+   * 	is binded to <code>:firstName</code>
    * @return collection of bean or empty collection.
    */
   @Override

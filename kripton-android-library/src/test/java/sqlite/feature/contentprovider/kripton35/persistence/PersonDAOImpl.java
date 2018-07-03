@@ -69,18 +69,18 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, city, name, surname, value) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.city}, ${bean.name}, ${bean.surname}, ${bean.value})</pre>
+   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, city, name, surname, value) VALUES (:bean.birthCity, :bean.birthDay, :bean.city, :bean.name, :bean.surname, :bean.value)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>city</dt><dd>is mapped to <strong>${bean.city}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
+   * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
+   * 	<dt>city</dt><dd>is mapped to <strong>:bean.city</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:bean.value</strong></dd>
    * </dl>
    *
    * @param bean
@@ -147,10 +147,10 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR FAIL INTO Person (birthCity, birthDay, city, name, surname, value) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.city}, ${bean.name}, ${bean.surname}, ${bean.value})</pre>
+   * <pre>INSERT OR FAIL INTO Person (birthCity, birthDay, city, name, surname, value) VALUES (:bean.birthCity, :bean.birthDay, :bean.city, :bean.name, :bean.surname, :bean.value)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, city, name, surname, value) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.city}, ${bean.name}, ${bean.surname}, ${bean.value})</pre>
+   * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, city, name, surname, value) VALUES (:bean.birthCity, :bean.birthDay, :bean.city, :bean.name, :bean.surname, :bean.value)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -189,11 +189,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (name) VALUES (${tempName})</pre>
+   * <pre>INSERT INTO person (name) VALUES (:tempName)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>tempName</dt><dd>is binded to query's parameter <strong>${tempName}</strong> and method's parameter <strong>tempName</strong></dd>
+   * 	<dt>tempName</dt><dd>is binded to query's parameter <strong>:tempName</strong> and method's parameter <strong>tempName</strong></dd>
    * </dl>
    *
    * @param tempName
@@ -255,14 +255,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/[*]</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO Person (name) VALUES (${name})</pre>
+   * <pre>INSERT INTO Person (name) VALUES (:name)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO person (name) VALUES (${name})</pre>
+   * <pre>INSERT INTO person (name) VALUES (:name)</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${name}</strong> at path segment 1</li>
+   * <li><strong>:name</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -303,16 +303,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id = ${id}</pre>
+   * <pre>DELETE FROM person WHERE id = :id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -358,7 +358,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -408,12 +408,12 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id = ${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = :id #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <dl>
@@ -425,7 +425,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param where
    * 	is used as dynamic where conditions
    * @param args
@@ -491,7 +491,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>:id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -557,11 +557,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */
@@ -607,7 +607,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -657,7 +657,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=:id</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -666,13 +666,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param name
    * 	is used as updated field <strong>name</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of updated records
    */
@@ -725,14 +725,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE Person SET name=:name WHERE id=${id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -801,7 +801,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=:id #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -810,7 +810,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <dl>
@@ -824,7 +824,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * @param name
    * 	is used as updated field <strong>name</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param where
    * 	is used as dynamic where conditions
    *
@@ -888,14 +888,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET name=:name WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>:id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -964,7 +964,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=:id #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -973,7 +973,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <dl>
@@ -987,7 +987,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * @param name
    * 	is used as updated field <strong>name</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param where
    * 	is used as dynamic where conditions
    * @param args
@@ -1060,14 +1060,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test2/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET name=:name WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>:id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -1152,22 +1152,22 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>alias_parent_id</dt><dd>is mapped to <strong>${person.parentId}</strong></dd>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${person.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${person.birthDay}</strong></dd>
-   * 	<dt>city</dt><dd>is mapped to <strong>${person.city}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${person.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${person.surname}</strong></dd>
-   * 	<dt>value</dt><dd>is mapped to <strong>${person.value}</strong></dd>
+   * 	<dt>alias_parent_id</dt><dd>is mapped to <strong>:person.parentId</strong></dd>
+   * 	<dt>birth_city</dt><dd>is mapped to <strong>:person.birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:person.birthDay</strong></dd>
+   * 	<dt>city</dt><dd>is mapped to <strong>:person.city</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:person.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:person.surname</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:person.value</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${person.id}</dt><dd>is mapped to method's parameter <strong>person.id</strong></dd>
+   * 	<dt>:person.id</dt><dd>is mapped to method's parameter <strong>person.id</strong></dd>
    * </dl>
    *
    * @param person
-   * 	is used as ${person}
+   * 	is used as <code>:person</code>
    *
    * @return number of updated records
    */
@@ -1226,14 +1226,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <pre>content://sqlite.feature.contentprovider.kripton35/persons/test3/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET parentId=${person.parentId}, birthCity=${person.birthCity}, birthDay=${person.birthDay}, city=${person.city}, name=${person.name}, surname=${person.surname}, value=${person.value} WHERE id=${person.id}</pre>
+   * <pre>UPDATE Person SET parentId=:person.parentId, birthCity=:person.birthCity, birthDay=:person.birthDay, city=:person.city, name=:person.name, surname=:person.surname, value=:person.value WHERE id=${person.id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET alias_parent_id=${person.parentId}, birth_city=${person.birthCity}, birth_day=${person.birthDay}, city=${person.city}, name=${person.name}, surname=${person.surname}, value=${person.value} WHERE id=${person.id}</pre>
+   * <pre>UPDATE person SET alias_parent_id=:person.parentId, birth_city=:person.birthCity, birth_day=:person.birthDay, city=:person.city, name=:person.name, surname=:person.surname, value=:person.value WHERE id=${person.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${person.id}</strong> at path segment 2</li>
+   * <li><strong>:person.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -1324,11 +1324,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${nameTemp}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
+   * 	<dt>:nameTemp</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
    * </dl>
    *
    * @param nameValue
-   * 	is binded to <code>${nameTemp}</code>
+   * 	is binded to <code>:nameTemp</code>
    * @param orderBy
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
@@ -1433,7 +1433,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${nameTemp}</strong> at path segment 1</li>
+   * <li><strong>:nameTemp</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -1538,7 +1538,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param args
-   * 	is binded to <code>${args}</code>
+   * 	is binded to <code>:args</code>
    * @param order
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
@@ -1738,11 +1738,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${data.name}</dt><dd>is binded to method's parameter <strong>bean.name</strong></dd>
+   * 	<dt>:data.name</dt><dd>is binded to method's parameter <strong>bean.name</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${data}
+   * 	is used as <code>:data</code>
    * @param orderBy
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
@@ -1839,7 +1839,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${data.name}</strong> at path segment 1</li>
+   * <li><strong>:data.name</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>

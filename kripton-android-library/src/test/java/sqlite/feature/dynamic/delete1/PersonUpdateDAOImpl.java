@@ -23,12 +23,12 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id = ${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = :id #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <dl>
@@ -40,7 +40,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param where
    * 	is used as dynamic where conditions
    */
@@ -88,7 +88,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -97,7 +97,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    */

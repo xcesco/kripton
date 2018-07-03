@@ -155,11 +155,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param listener
    * 	is the Bean63 listener
    */
@@ -234,11 +234,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -295,11 +295,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -363,18 +363,18 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to <strong>${value.value}</strong></dd>
-   * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>${value.valueMapEnumByte}</strong></dd>
-   * 	<dt>value_map_string_byte</dt><dd>is mapped to <strong>${value.valueMapStringByte}</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:value.value</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>:value.valueMapEnumByte</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is mapped to <strong>:value.valueMapStringByte</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
+   * 	<dt>:value.id</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${value}
+   * 	is used as <code>:value</code>
    *
    * @return number of updated records
    */
@@ -426,15 +426,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean63 (value, value_map_enum_byte, value_map_string_byte) VALUES (${bean.value}, ${bean.valueMapEnumByte}, ${bean.valueMapStringByte})</pre>
+   * <pre>INSERT INTO bean63 (value, value_map_enum_byte, value_map_string_byte) VALUES (:bean.value, :bean.valueMapEnumByte, :bean.valueMapStringByte)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
-   * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>${bean.valueMapEnumByte}</strong></dd>
-   * 	<dt>value_map_string_byte</dt><dd>is mapped to <strong>${bean.valueMapStringByte}</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:bean.value</strong></dd>
+   * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>:bean.valueMapEnumByte</strong></dd>
+   * 	<dt>value_map_string_byte</dt><dd>is mapped to <strong>:bean.valueMapStringByte</strong></dd>
    * </dl>
    *
    * @param bean
@@ -498,11 +498,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean63 (value_map_string_byte) VALUES (${valueMapStringByte})</pre>
+   * <pre>INSERT INTO bean63 (value_map_string_byte) VALUES (:valueMapStringByte)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>valueMapStringByte</dt><dd>is binded to query's parameter <strong>${valueMapStringByte}</strong> and method's parameter <strong>valueMapStringByte</strong></dd>
+   * 	<dt>valueMapStringByte</dt><dd>is binded to query's parameter <strong>:valueMapStringByte</strong> and method's parameter <strong>valueMapStringByte</strong></dd>
    * </dl>
    *
    * @param valueMapStringByte
@@ -576,11 +576,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapStringByte}</dt><dd>is binded to method's parameter <strong>valueMapStringByte</strong></dd>
+   * 	<dt>:valueMapStringByte</dt><dd>is binded to method's parameter <strong>valueMapStringByte</strong></dd>
    * </dl>
    *
    * @param valueMapStringByte
-   * 	is binded to <code>${valueMapStringByte}</code>
+   * 	is binded to <code>:valueMapStringByte</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -634,16 +634,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM bean63 WHERE value=${valueMapStringByte}</pre>
+   * <pre>DELETE FROM bean63 WHERE value=:valueMapStringByte</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapStringByte}</dt><dd>is mapped to method's parameter <strong>valueMapStringByte</strong></dd>
+   * 	<dt>:valueMapStringByte</dt><dd>is mapped to method's parameter <strong>valueMapStringByte</strong></dd>
    * </dl>
    *
    * @param valueMapStringByte
-   * 	is used as where parameter <strong>${valueMapStringByte}</strong>
+   * 	is used as where parameter <strong>:valueMapStringByte</strong>
    *
    * @return number of deleted records
    */
@@ -679,7 +679,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean63 SET id=:id WHERE value=${valueMapStringByte}</pre>
+   * <pre>UPDATE bean63 SET id=:id WHERE value=:valueMapStringByte</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -688,13 +688,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapStringByte}</dt><dd>is mapped to method's parameter <strong>valueMapStringByte</strong></dd>
+   * 	<dt>:valueMapStringByte</dt><dd>is mapped to method's parameter <strong>valueMapStringByte</strong></dd>
    * </dl>
    *
    * @param id
    * 	is used as updated field <strong>id</strong>
    * @param valueMapStringByte
-   * 	is used as where parameter <strong>${valueMapStringByte}</strong>
+   * 	is used as where parameter <strong>:valueMapStringByte</strong>
    *
    * @return number of updated records
    */
@@ -744,11 +744,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean63 (value_map_enum_byte) VALUES (${valueMapEnumByte})</pre>
+   * <pre>INSERT INTO bean63 (value_map_enum_byte) VALUES (:valueMapEnumByte)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>valueMapEnumByte</dt><dd>is binded to query's parameter <strong>${valueMapEnumByte}</strong> and method's parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>valueMapEnumByte</dt><dd>is binded to query's parameter <strong>:valueMapEnumByte</strong> and method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
@@ -822,11 +822,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>:valueMapEnumByte</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
-   * 	is binded to <code>${valueMapEnumByte}</code>
+   * 	is binded to <code>:valueMapEnumByte</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -893,11 +893,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>:valueMapEnumByte</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
-   * 	is binded to <code>${valueMapEnumByte}</code>
+   * 	is binded to <code>:valueMapEnumByte</code>
    * @return cursor. Closing the cursor is delegated to the calling code.
    */
   @Override
@@ -945,11 +945,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>:valueMapEnumByte</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
-   * 	is binded to <code>${valueMapEnumByte}</code>
+   * 	is binded to <code>:valueMapEnumByte</code>
    * @param listener
    * 	is the Bean63 listener
    */
@@ -1025,11 +1025,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapEnumByte}</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>:valueMapEnumByte</dt><dd>is binded to method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
-   * 	is binded to <code>${valueMapEnumByte}</code>
+   * 	is binded to <code>:valueMapEnumByte</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -1074,16 +1074,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   * <pre>DELETE FROM bean63 WHERE value=:valueMapEnumByte</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapEnumByte}</dt><dd>is mapped to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>:valueMapEnumByte</dt><dd>is mapped to method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param valueMapEnumByte
-   * 	is used as where parameter <strong>${valueMapEnumByte}</strong>
+   * 	is used as where parameter <strong>:valueMapEnumByte</strong>
    *
    * @return number of deleted records
    */
@@ -1119,7 +1119,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean63 SET id=:id WHERE value=${valueMapEnumByte}</pre>
+   * <pre>UPDATE bean63 SET id=:id WHERE value=:valueMapEnumByte</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -1128,13 +1128,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${valueMapEnumByte}</dt><dd>is mapped to method's parameter <strong>valueMapEnumByte</strong></dd>
+   * 	<dt>:valueMapEnumByte</dt><dd>is mapped to method's parameter <strong>valueMapEnumByte</strong></dd>
    * </dl>
    *
    * @param id
    * 	is used as updated field <strong>id</strong>
    * @param valueMapEnumByte
-   * 	is used as where parameter <strong>${valueMapEnumByte}</strong>
+   * 	is used as where parameter <strong>:valueMapEnumByte</strong>
    *
    * @return number of updated records
    */

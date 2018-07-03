@@ -56,11 +56,11 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * 	<dt>:name</dt><dd>is binded to method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is binded to <code>${name}</code>
+   * 	is binded to <code>:name</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -183,15 +183,15 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean93 (name, surname, type_name) VALUES (${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
+   * <pre>INSERT INTO bean93 (name, surname, type_name) VALUES (:bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>:bean.typeName</strong></dd>
    * </dl>
    *
    * @param bean
@@ -255,16 +255,16 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR ABORT INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
+   * <pre>INSERT OR ABORT INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>:bean.typeName</strong></dd>
    * </dl>
    *
    * @param bean
@@ -329,16 +329,16 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR FAIL INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
+   * <pre>INSERT OR FAIL INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>:bean.typeName</strong></dd>
    * </dl>
    *
    * @param bean
@@ -403,16 +403,16 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR IGNORE INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
+   * <pre>INSERT OR IGNORE INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>:bean.typeName</strong></dd>
    * </dl>
    *
    * @param bean
@@ -477,16 +477,16 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
+   * <pre>INSERT OR REPLACE INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>:bean.typeName</strong></dd>
    * </dl>
    *
    * @param bean
@@ -551,16 +551,16 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR ROLLBACK INTO bean93 (id, name, surname, type_name) VALUES (${bean.id}, ${bean.name}, ${bean.surname}, ${bean.typeName})</pre>
+   * <pre>INSERT OR ROLLBACK INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>type_name</dt><dd>is mapped to <strong>${bean.typeName}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * 	<dt>type_name</dt><dd>is mapped to <strong>:bean.typeName</strong></dd>
    * </dl>
    *
    * @param bean

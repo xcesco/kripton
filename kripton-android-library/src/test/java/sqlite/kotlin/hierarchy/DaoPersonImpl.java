@@ -18,7 +18,7 @@ import java.util.List;
  *  @see PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static final String SELECT_ALL_SQL1 = "SELECT id, name FROM person";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, name FROM person WHERE name=?";
 
   public DaoPersonImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -27,7 +27,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name FROM person</pre>
+   * <pre>SELECT id, name FROM person WHERE name=:name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -35,14 +35,22 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>:name</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * </dl>
+   *
+   * @param name
+   * 	is binded to <code>:name</code>
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<Person> selectAll() {
+  public List<Person> selectAll(String name) {
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
+    _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {

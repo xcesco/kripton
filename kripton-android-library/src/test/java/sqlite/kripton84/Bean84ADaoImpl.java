@@ -168,11 +168,11 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>uid</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>uid</strong></dd>
    * </dl>
    *
    * @param uid
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -269,20 +269,20 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${param1}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
-   * 	<dt>${param2}</dt><dd>is binded to method's parameter <strong>param2</strong></dd>
-   * 	<dt>${param3}</dt><dd>is binded to method's parameter <strong>param3</strong></dd>
-   * 	<dt>${param4}</dt><dd>is binded to method's parameter <strong>param4</strong></dd>
+   * 	<dt>:param1</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
+   * 	<dt>:param2</dt><dd>is binded to method's parameter <strong>param2</strong></dd>
+   * 	<dt>:param3</dt><dd>is binded to method's parameter <strong>param3</strong></dd>
+   * 	<dt>:param4</dt><dd>is binded to method's parameter <strong>param4</strong></dd>
    * </dl>
    *
    * @param param1
-   * 	is binded to <code>${param1}</code>
+   * 	is binded to <code>:param1</code>
    * @param param2
-   * 	is binded to <code>${param2}</code>
+   * 	is binded to <code>:param2</code>
    * @param param3
-   * 	is binded to <code>${param3}</code>
+   * 	is binded to <code>:param3</code>
    * @param param4
-   * 	is binded to <code>${param4}</code>
+   * 	is binded to <code>:param4</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -362,23 +362,23 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean84_a (column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string) VALUES (${bean.columnArrayByteType}, ${bean.columnArrayChar}, ${bean.columnArrayCharType}, ${bean.columnBean}, ${bean.columnListString}, ${bean.columnMapIntegerString}, ${bean.param1}, ${bean.param2}, ${bean.param3}, ${bean.param4}, ${bean.valueString})</pre>
+   * <pre>INSERT INTO bean84_a (column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string) VALUES (:bean.columnArrayByteType, :bean.columnArrayChar, :bean.columnArrayCharType, :bean.columnBean, :bean.columnListString, :bean.columnMapIntegerString, :bean.param1, :bean.param2, :bean.param3, :bean.param4, :bean.valueString)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>column_array_byte_type</dt><dd>is mapped to <strong>${bean.columnArrayByteType}</strong></dd>
-   * 	<dt>column_array_char</dt><dd>is mapped to <strong>${bean.columnArrayChar}</strong></dd>
-   * 	<dt>column_array_char_type</dt><dd>is mapped to <strong>${bean.columnArrayCharType}</strong></dd>
-   * 	<dt>column_bean</dt><dd>is mapped to <strong>${bean.columnBean}</strong></dd>
-   * 	<dt>column_list_string</dt><dd>is mapped to <strong>${bean.columnListString}</strong></dd>
-   * 	<dt>column_map_integer_string</dt><dd>is mapped to <strong>${bean.columnMapIntegerString}</strong></dd>
-   * 	<dt>param1</dt><dd>is mapped to <strong>${bean.param1}</strong></dd>
-   * 	<dt>param2</dt><dd>is mapped to <strong>${bean.param2}</strong></dd>
-   * 	<dt>param3</dt><dd>is mapped to <strong>${bean.param3}</strong></dd>
-   * 	<dt>param4</dt><dd>is mapped to <strong>${bean.param4}</strong></dd>
-   * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
+   * 	<dt>column_array_byte_type</dt><dd>is mapped to <strong>:bean.columnArrayByteType</strong></dd>
+   * 	<dt>column_array_char</dt><dd>is mapped to <strong>:bean.columnArrayChar</strong></dd>
+   * 	<dt>column_array_char_type</dt><dd>is mapped to <strong>:bean.columnArrayCharType</strong></dd>
+   * 	<dt>column_bean</dt><dd>is mapped to <strong>:bean.columnBean</strong></dd>
+   * 	<dt>column_list_string</dt><dd>is mapped to <strong>:bean.columnListString</strong></dd>
+   * 	<dt>column_map_integer_string</dt><dd>is mapped to <strong>:bean.columnMapIntegerString</strong></dd>
+   * 	<dt>param1</dt><dd>is mapped to <strong>:bean.param1</strong></dd>
+   * 	<dt>param2</dt><dd>is mapped to <strong>:bean.param2</strong></dd>
+   * 	<dt>param3</dt><dd>is mapped to <strong>:bean.param3</strong></dd>
+   * 	<dt>param4</dt><dd>is mapped to <strong>:bean.param4</strong></dd>
+   * 	<dt>value_string</dt><dd>is mapped to <strong>:bean.valueString</strong></dd>
    * </dl>
    *
    * @param bean
@@ -450,11 +450,11 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean84_a (column_list_string) VALUES (${param1})</pre>
+   * <pre>INSERT INTO bean84_a (column_list_string) VALUES (:param1)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>param1</dt><dd>is binded to query's parameter <strong>${param1}</strong> and method's parameter <strong>param1</strong></dd>
+   * 	<dt>param1</dt><dd>is binded to query's parameter <strong>:param1</strong> and method's parameter <strong>param1</strong></dd>
    * </dl>
    *
    * @param param1
@@ -519,21 +519,21 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>column_array_byte_type</dt><dd>is mapped to <strong>${bean.columnArrayByteType}</strong></dd>
-   * 	<dt>column_array_char</dt><dd>is mapped to <strong>${bean.columnArrayChar}</strong></dd>
-   * 	<dt>column_array_char_type</dt><dd>is mapped to <strong>${bean.columnArrayCharType}</strong></dd>
-   * 	<dt>column_bean</dt><dd>is mapped to <strong>${bean.columnBean}</strong></dd>
-   * 	<dt>column_list_string</dt><dd>is mapped to <strong>${bean.columnListString}</strong></dd>
-   * 	<dt>column_map_integer_string</dt><dd>is mapped to <strong>${bean.columnMapIntegerString}</strong></dd>
-   * 	<dt>param1</dt><dd>is mapped to <strong>${bean.param1}</strong></dd>
-   * 	<dt>param2</dt><dd>is mapped to <strong>${bean.param2}</strong></dd>
-   * 	<dt>param3</dt><dd>is mapped to <strong>${bean.param3}</strong></dd>
-   * 	<dt>param4</dt><dd>is mapped to <strong>${bean.param4}</strong></dd>
-   * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
+   * 	<dt>column_array_byte_type</dt><dd>is mapped to <strong>:bean.columnArrayByteType</strong></dd>
+   * 	<dt>column_array_char</dt><dd>is mapped to <strong>:bean.columnArrayChar</strong></dd>
+   * 	<dt>column_array_char_type</dt><dd>is mapped to <strong>:bean.columnArrayCharType</strong></dd>
+   * 	<dt>column_bean</dt><dd>is mapped to <strong>:bean.columnBean</strong></dd>
+   * 	<dt>column_list_string</dt><dd>is mapped to <strong>:bean.columnListString</strong></dd>
+   * 	<dt>column_map_integer_string</dt><dd>is mapped to <strong>:bean.columnMapIntegerString</strong></dd>
+   * 	<dt>param1</dt><dd>is mapped to <strong>:bean.param1</strong></dd>
+   * 	<dt>param2</dt><dd>is mapped to <strong>:bean.param2</strong></dd>
+   * 	<dt>param3</dt><dd>is mapped to <strong>:bean.param3</strong></dd>
+   * 	<dt>param4</dt><dd>is mapped to <strong>:bean.param4</strong></dd>
+   * 	<dt>value_string</dt><dd>is mapped to <strong>:bean.valueString</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
@@ -595,7 +595,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    * <pre>DELETE FROM bean84_a</pre>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */

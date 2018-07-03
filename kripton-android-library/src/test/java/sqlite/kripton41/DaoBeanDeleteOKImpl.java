@@ -25,16 +25,16 @@ public class DaoBeanDeleteOKImpl extends Dao implements DaoBeanDeleteOK {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM bean01 WHERE id=${value}</pre>
+   * <pre>DELETE FROM bean01 WHERE id=:value</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value</dt><dd>is mapped to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as where parameter <strong>${value}</strong>
+   * 	is used as where parameter <strong>:value</strong>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */

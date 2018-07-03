@@ -57,11 +57,11 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * 	<dt>:name</dt><dd>is binded to method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is binded to <code>${name}</code>
+   * 	is binded to <code>:name</code>
    * @return collection of bean or empty collection.
    */
   protected List<Person> selectForLiveData(String name) {
@@ -133,11 +133,11 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * 	<dt>:name</dt><dd>is binded to method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is binded to <code>${name}</code>
+   * 	is binded to <code>:name</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -159,14 +159,14 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname) VALUES (${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT INTO person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
    * </dl>
    *
    * @param bean
@@ -235,17 +235,17 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void update(Person bean) {

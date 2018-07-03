@@ -111,11 +111,11 @@ public class DaoBeanA_3Impl extends Dao implements DaoBeanA_3 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -181,11 +181,11 @@ public class DaoBeanA_3Impl extends Dao implements DaoBeanA_3 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:dummy</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${dummy}</code>
+   * 	is binded to <code>:dummy</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -239,13 +239,13 @@ public class DaoBeanA_3Impl extends Dao implements DaoBeanA_3 {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean_a_3 (value_string2) VALUES (${bean.valueString2})</pre>
+   * <pre>INSERT INTO bean_a_3 (value_string2) VALUES (:bean.valueString2)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value_string2</dt><dd>is mapped to <strong>${bean.valueString2}</strong></dd>
+   * 	<dt>value_string2</dt><dd>is mapped to <strong>:bean.valueString2</strong></dd>
    * </dl>
    *
    * @param bean
@@ -311,16 +311,16 @@ public class DaoBeanA_3Impl extends Dao implements DaoBeanA_3 {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>value_string2</dt><dd>is mapped to <strong>${bean.valueString2}</strong></dd>
+   * 	<dt>value_string2</dt><dd>is mapped to <strong>:bean.valueString2</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.valueString2}</dt><dd>is mapped to method's parameter <strong>bean.valueString2</strong></dd>
+   * 	<dt>:bean.valueString2</dt><dd>is mapped to method's parameter <strong>bean.valueString2</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */

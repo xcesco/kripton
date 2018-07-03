@@ -26,15 +26,15 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO message (content, receiver_id, sender_id) VALUES (${content}, ${receiverId}, ${senderId})</pre>
+   * <pre>INSERT INTO message (content, receiver_id, sender_id) VALUES (:content, :receiverId, :senderId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
-   * 	<dt>receiver_id</dt><dd>is mapped to <strong>${bean.receiverId}</strong></dd>
-   * 	<dt>sender_id</dt><dd>is mapped to <strong>${bean.senderId}</strong></dd>
+   * 	<dt>content</dt><dd>is mapped to <strong>:bean.content</strong></dd>
+   * 	<dt>receiver_id</dt><dd>is mapped to <strong>:bean.receiverId</strong></dd>
+   * 	<dt>sender_id</dt><dd>is mapped to <strong>:bean.senderId</strong></dd>
    * </dl>
    *
    * @param bean

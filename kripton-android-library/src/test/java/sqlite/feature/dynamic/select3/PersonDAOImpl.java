@@ -33,7 +33,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE}</pre>
+   * <pre>select * from person where name like :dummy || '%' #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -51,11 +51,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
+   * 	<dt>:dummy</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
    * </dl>
    *
    * @param dummy
-   * 	is binded to <code>${dummy}</code>
+   * 	is binded to <code>:dummy</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
@@ -133,7 +133,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where name like ${dummy} || '%' #{DYNAMIC_WHERE} #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>select * from person where name like :dummy || '%' #{DYNAMIC_WHERE} #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -152,15 +152,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
+   * 	<dt>:dummy</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
    * </dl>
    *
    * @param dummy
-   * 	is binded to <code>${dummy}</code>
+   * 	is binded to <code>:dummy</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param dynParam
-   * 	is binded to <code>${dynParam}</code>
+   * 	is binded to <code>:dynParam</code>
    * @param order
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return collection of bean or empty collection.
@@ -250,14 +250,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
+   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (:name, :surname, :birthCity, :birthDay)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
-   * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
-   * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>:surname</strong> and method's parameter <strong>surname</strong></dd>
+   * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>:birthCity</strong> and method's parameter <strong>birthCity</strong></dd>
+   * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>:birthDay</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
    * @param name

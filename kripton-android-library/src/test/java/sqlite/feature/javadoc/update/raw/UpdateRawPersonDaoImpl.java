@@ -108,7 +108,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET student = :student, person_name=:personName  where person_surname=${personSurname}</pre>
+   * <pre>UPDATE person SET student = :student, person_name=:personName  where person_surname=:personSurname</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -118,13 +118,13 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${personSurname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * 	<dt>:personSurname</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param name
    * 	is used as updated field <strong>personName</strong>
    * @param surname
-   * 	is used as where parameter <strong>${personSurname}</strong>
+   * 	is used as where parameter <strong>:personSurname</strong>
    * @param student
    * 	is used as updated field <strong>student</strong>
    */
@@ -184,7 +184,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${personSurname}</strong> at path segment 2</li>
+   * <li><strong>:personSurname</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -253,7 +253,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET person_name=${personName}, student = (select student from person where person_surname=${surname})</pre>
+   * <pre>UPDATE person SET person_name=:personName, student = (select student from person where person_surname=:surname)</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -263,8 +263,8 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    *
    * <h2>Parameters:</h2>
    * <dl>
-   * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
-   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * 	<dt>:name</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
+   * 	<dt>:surname</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param surname
@@ -312,7 +312,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET person_name=:personName where student= (select student from person where person_surname=${surname})</pre>
+   * <pre>UPDATE person SET person_name=:personName where student= (select student from person where person_surname=:surname)</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -321,13 +321,13 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * 	<dt>:surname</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param personName
    * 	is used as updated field <strong>personName</strong>
    * @param surname
-   * 	is used as where parameter <strong>${surname}</strong>
+   * 	is used as where parameter <strong>:surname</strong>
    */
   @Override
   public void updateFromSelectJQL(String personName, String surname) {
@@ -384,7 +384,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${surname}</strong> at path segment 3</li>
+   * <li><strong>:surname</strong> at path segment 3</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -451,7 +451,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET person_name=:personName WHERE id=${id}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=:id</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -460,11 +460,11 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param personName
    * 	is used as updated field <strong>personName</strong>
    *
@@ -519,14 +519,14 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${personName} WHERE id=${id}</pre>
+   * <pre>UPDATE Person SET personName=:personName WHERE id=${id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${personName} WHERE id=${id}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=${id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -595,7 +595,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET person_name=:personName WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=:id #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -604,7 +604,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <dl>
@@ -620,7 +620,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * @param personName
    * 	is used as updated field <strong>personName</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of updated records
    */
@@ -682,14 +682,14 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/more</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${personName} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=:personName WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${personName} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -758,7 +758,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET person_name=:personName WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=:id #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -767,7 +767,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <dl>
@@ -781,7 +781,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * @param personName
    * 	is used as updated field <strong>personName</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param where
    * 	is used as dynamic where conditions
    * @param args
@@ -854,14 +854,14 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons/#/moreAndMore</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET personName=${personName} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE Person SET personName=:personName WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET person_name=${personName} WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET person_name=:personName WHERE id=${id} #{DYNAMIC_WHERE}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>

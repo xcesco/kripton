@@ -40,17 +40,17 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO phone_number (action_type, contact_id, contact_name, country_code, number) VALUES (${actionType}, ${contactId}, ${contactName}, ${countryCode}, ${number})</pre>
+   * <pre>INSERT OR REPLACE INTO phone_number (action_type, contact_id, contact_name, country_code, number) VALUES (:actionType, :contactId, :contactName, :countryCode, :number)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>action_type</dt><dd>is mapped to <strong>${bean.actionType}</strong></dd>
-   * 	<dt>contact_id</dt><dd>is mapped to <strong>${bean.contactId}</strong></dd>
-   * 	<dt>contact_name</dt><dd>is mapped to <strong>${bean.contactName}</strong></dd>
-   * 	<dt>country_code</dt><dd>is mapped to <strong>${bean.countryCode}</strong></dd>
-   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
+   * 	<dt>action_type</dt><dd>is mapped to <strong>:bean.actionType</strong></dd>
+   * 	<dt>contact_id</dt><dd>is mapped to <strong>:bean.contactId</strong></dd>
+   * 	<dt>contact_name</dt><dd>is mapped to <strong>:bean.contactName</strong></dd>
+   * 	<dt>country_code</dt><dd>is mapped to <strong>:bean.countryCode</strong></dd>
+   * 	<dt>number</dt><dd>is mapped to <strong>:bean.number</strong></dd>
    * </dl>
    *
    * @param bean
@@ -131,11 +131,11 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -193,16 +193,16 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM phone_number WHERE id = ${id}</pre>
+   * <pre>DELETE FROM phone_number WHERE id = :id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -253,11 +253,11 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${number}</dt><dd>is binded to method's parameter <strong>number</strong></dd>
+   * 	<dt>:number</dt><dd>is binded to method's parameter <strong>number</strong></dd>
    * </dl>
    *
    * @param number
-   * 	is binded to <code>${number}</code>
+   * 	is binded to <code>:number</code>
    * @return selected bean or <code>null</code>.
    */
   @Override

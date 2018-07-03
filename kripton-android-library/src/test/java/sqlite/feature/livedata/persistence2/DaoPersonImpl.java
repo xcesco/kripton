@@ -76,11 +76,11 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * 	<dt>:name</dt><dd>is binded to method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is binded to <code>${name}</code>
+   * 	is binded to <code>:name</code>
    * @return collection of bean or empty collection.
    */
   protected List<Person> selectForLiveData(String name) {
@@ -152,11 +152,11 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * 	<dt>:name</dt><dd>is binded to method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is binded to <code>${name}</code>
+   * 	is binded to <code>:name</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -188,7 +188,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${name}</strong> at path segment 1</li>
+   * <li><strong>:name</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -417,14 +417,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname) VALUES (${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT INTO person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
    * </dl>
    *
    * @param bean
@@ -489,10 +489,10 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * <pre>content://com.abubsoft.kripton/persons</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO Person (name, surname) VALUES (${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT INTO Person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO person (name, surname) VALUES (${bean.name}, ${bean.surname})</pre>
+   * <pre>INSERT INTO person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -536,17 +536,17 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void update(Person bean) {
@@ -599,14 +599,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * <pre>content://com.abubsoft.kripton/persons/#</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${bean.name}, surname=${bean.surname} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE Person SET name=:bean.name, surname=:bean.surname WHERE id=${bean.id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${bean.name}, surname=${bean.surname} WHERE id=${bean.id}</pre>
+   * <pre>UPDATE person SET name=:bean.name, surname=:bean.surname WHERE id=${bean.id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * <li><strong>:bean.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -677,7 +677,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id=${id}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=:id</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -686,13 +686,13 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param name
    * 	is used as updated field <strong>name</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    */
   @Override
   public void updateOnlyName(String name, String id) {
@@ -744,14 +744,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * <pre>content://com.abubsoft.kripton/persons/#/name</pre>
    *
    * <h2>JQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE Person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE Person SET name=:name WHERE id=${id}</pre>
    *
    * <h2>SQL UPDATE for Content Provider</h2>
-   * <pre>UPDATE person SET name=${name} WHERE id=${id}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id=${id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -826,11 +826,11 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void delete(Person bean) {
@@ -875,7 +875,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * <li><strong>:bean.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -927,16 +927,16 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE name=${name}</pre>
+   * <pre>DELETE FROM person WHERE name=:name</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
+   * 	<dt>:name</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is used as where parameter <strong>${name}</strong>
+   * 	is used as where parameter <strong>:name</strong>
    */
   @Override
   public void deleteByName(String name) {
@@ -981,7 +981,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${name}</strong> at path segment 1</li>
+   * <li><strong>:name</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>

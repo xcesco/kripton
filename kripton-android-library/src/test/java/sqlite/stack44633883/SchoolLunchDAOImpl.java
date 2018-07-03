@@ -173,15 +173,15 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (${schoolLunches.containsMeat}, ${schoolLunches.fresh}, ${schoolLunches.fruits})</pre>
+   * <pre>INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (:schoolLunches.containsMeat, :schoolLunches.fresh, :schoolLunches.fruits)</pre>
    *
    * <p><code>schoolLunches.lunchId</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>contains_meat</dt><dd>is mapped to <strong>${schoolLunches.containsMeat}</strong></dd>
-   * 	<dt>fresh</dt><dd>is mapped to <strong>${schoolLunches.fresh}</strong></dd>
-   * 	<dt>fruits</dt><dd>is mapped to <strong>${schoolLunches.fruits}</strong></dd>
+   * 	<dt>contains_meat</dt><dd>is mapped to <strong>:schoolLunches.containsMeat</strong></dd>
+   * 	<dt>fresh</dt><dd>is mapped to <strong>:schoolLunches.fresh</strong></dd>
+   * 	<dt>fruits</dt><dd>is mapped to <strong>:schoolLunches.fruits</strong></dd>
    * </dl>
    *
    * @param schoolLunches

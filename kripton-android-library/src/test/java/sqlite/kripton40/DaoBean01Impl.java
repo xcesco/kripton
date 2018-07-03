@@ -40,11 +40,11 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -94,7 +94,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean01 SET text=:text WHERE id=${id}</pre>
+   * <pre>UPDATE bean01 SET text=:text WHERE id=:id</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -103,13 +103,13 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param text
    * 	is used as updated field <strong>text</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of updated records
    */

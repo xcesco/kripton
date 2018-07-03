@@ -41,12 +41,12 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (person_name, person_surname) VALUES (${name}, ${personSurname})</pre>
+   * <pre>INSERT INTO person (person_name, person_surname) VALUES (:name, :personSurname)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * 	<dt>personSurname</dt><dd>is binded to query's parameter <strong>${personSurname}</strong> and method's parameter <strong>personSurname</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>personSurname</dt><dd>is binded to query's parameter <strong>:personSurname</strong> and method's parameter <strong>personSurname</strong></dd>
    * </dl>
    *
    * @param name
@@ -113,10 +113,10 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO Person (personName, personSurname) VALUES (${personName}, ${personSurname})</pre>
+   * <pre>INSERT INTO Person (personName, personSurname) VALUES (:personName, :personSurname)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO person (person_name, person_surname) VALUES (${personName}, ${personSurname})</pre>
+   * <pre>INSERT INTO person (person_name, person_surname) VALUES (:personName, :personSurname)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -154,11 +154,11 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (${name})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (:name)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param name
@@ -222,10 +222,10 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    * <pre>content://sqlite.feature.javadoc.bean/persons/name</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO Person (personName) VALUES (${personName})</pre>
+   * <pre>INSERT OR REPLACE INTO Person (personName) VALUES (:personName)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (${personName})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (:personName)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -264,12 +264,12 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT OR REPLACE INTO person (person_name, person_surname) VALUES (${name}, ${surnname})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name, person_surname) VALUES (:name, :surnname)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * 	<dt>surnname</dt><dd>is binded to query's parameter <strong>${surnname}</strong> and method's parameter <strong>surnname</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>surnname</dt><dd>is binded to query's parameter <strong>:surnname</strong> and method's parameter <strong>surnname</strong></dd>
    * </dl>
    *
    * @param surnname
@@ -377,11 +377,11 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=${name}</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=:name</pre>
    *
    * <h2>Method parameters used as sql parameters</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong></dd>
    * </dl>
    *
    * @param name

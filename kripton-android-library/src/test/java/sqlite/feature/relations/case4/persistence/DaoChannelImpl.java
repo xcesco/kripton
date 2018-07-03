@@ -37,20 +37,20 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO channel (copyright, description, image, language, last_build_date, link, pub_date, title) VALUES (${copyright}, ${description}, ${image}, ${language}, ${lastBuildDate}, ${link}, ${pubDate}, ${title})</pre>
+   * <pre>INSERT OR REPLACE INTO channel (copyright, description, image, language, last_build_date, link, pub_date, title) VALUES (:copyright, :description, :image, :language, :lastBuildDate, :link, :pubDate, :title)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>copyright</dt><dd>is mapped to <strong>${bean.copyright}</strong></dd>
-   * 	<dt>description</dt><dd>is mapped to <strong>${bean.description}</strong></dd>
-   * 	<dt>image</dt><dd>is mapped to <strong>${bean.image}</strong></dd>
-   * 	<dt>language</dt><dd>is mapped to <strong>${bean.language}</strong></dd>
-   * 	<dt>last_build_date</dt><dd>is mapped to <strong>${bean.lastBuildDate}</strong></dd>
-   * 	<dt>link</dt><dd>is mapped to <strong>${bean.link}</strong></dd>
-   * 	<dt>pub_date</dt><dd>is mapped to <strong>${bean.pubDate}</strong></dd>
-   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
+   * 	<dt>copyright</dt><dd>is mapped to <strong>:bean.copyright</strong></dd>
+   * 	<dt>description</dt><dd>is mapped to <strong>:bean.description</strong></dd>
+   * 	<dt>image</dt><dd>is mapped to <strong>:bean.image</strong></dd>
+   * 	<dt>language</dt><dd>is mapped to <strong>:bean.language</strong></dd>
+   * 	<dt>last_build_date</dt><dd>is mapped to <strong>:bean.lastBuildDate</strong></dd>
+   * 	<dt>link</dt><dd>is mapped to <strong>:bean.link</strong></dd>
+   * 	<dt>pub_date</dt><dd>is mapped to <strong>:bean.pubDate</strong></dd>
+   * 	<dt>title</dt><dd>is mapped to <strong>:bean.title</strong></dd>
    * </dl>
    *
    * @param bean

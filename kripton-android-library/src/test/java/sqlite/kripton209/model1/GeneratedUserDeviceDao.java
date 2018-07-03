@@ -19,32 +19,32 @@ import java.util.List;
 )
 public interface GeneratedUserDeviceDao extends UserDeviceDao {
   @BindSqlSelect(
-      where = "id=${id}"
+      where = "id=:id"
   )
   UserDevice selectById(@BindSqlParam("id") long id);
 
   @BindSqlSelect(
-      where = "userId=${userId}"
+      where = "userId=:userId"
   )
   List<UserDevice> selectByUserId(@BindSqlParam("userId") long userId);
 
   @BindSqlSelect(
-      where = "deviceId=${deviceId}"
+      where = "deviceId=:deviceId"
   )
   List<UserDevice> selectByDeviceId(@BindSqlParam("deviceId") long deviceId);
 
   @BindSqlDelete(
-      where = "id=${id}"
+      where = "id=:id"
   )
   int deleteById(@BindSqlParam("id") long id);
 
   @BindSqlDelete(
-      where = "userId=${userId}"
+      where = "userId=:userId"
   )
   int deleteByUserId(@BindSqlParam("userId") long userId);
 
   @BindSqlDelete(
-      where = "deviceId=${deviceId}"
+      where = "deviceId=:deviceId"
   )
   int deleteByDeviceId(@BindSqlParam("deviceId") long deviceId);
 

@@ -42,7 +42,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=${id}</pre>
+   * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=:id</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -53,11 +53,11 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -110,7 +110,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=${personId}</pre>
+   * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=:personId</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -121,11 +121,11 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${personId}</dt><dd>is binded to method's parameter <strong>personId</strong></dd>
+   * 	<dt>:personId</dt><dd>is binded to method's parameter <strong>personId</strong></dd>
    * </dl>
    *
    * @param personId
-   * 	is binded to <code>${personId}</code>
+   * 	is binded to <code>:personId</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -184,7 +184,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE phone_number_id=${phoneNumberId}</pre>
+   * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE phone_number_id=:phoneNumberId</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -195,11 +195,11 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${phoneNumberId}</dt><dd>is binded to method's parameter <strong>phoneNumberId</strong></dd>
+   * 	<dt>:phoneNumberId</dt><dd>is binded to method's parameter <strong>phoneNumberId</strong></dd>
    * </dl>
    *
    * @param phoneNumberId
-   * 	is binded to <code>${phoneNumberId}</code>
+   * 	is binded to <code>:phoneNumberId</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -257,16 +257,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person_phone_number WHERE id=${id}</pre>
+   * <pre>DELETE FROM person_phone_number WHERE id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -302,16 +302,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person_phone_number WHERE person_id=${personId}</pre>
+   * <pre>DELETE FROM person_phone_number WHERE person_id=:personId</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${personId}</dt><dd>is mapped to method's parameter <strong>personId</strong></dd>
+   * 	<dt>:personId</dt><dd>is mapped to method's parameter <strong>personId</strong></dd>
    * </dl>
    *
    * @param personId
-   * 	is used as where parameter <strong>${personId}</strong>
+   * 	is used as where parameter <strong>:personId</strong>
    *
    * @return number of deleted records
    */
@@ -347,16 +347,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person_phone_number WHERE phone_number_id=${phoneNumberId}</pre>
+   * <pre>DELETE FROM person_phone_number WHERE phone_number_id=:phoneNumberId</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${phoneNumberId}</dt><dd>is mapped to method's parameter <strong>phoneNumberId</strong></dd>
+   * 	<dt>:phoneNumberId</dt><dd>is mapped to method's parameter <strong>phoneNumberId</strong></dd>
    * </dl>
    *
    * @param phoneNumberId
-   * 	is used as where parameter <strong>${phoneNumberId}</strong>
+   * 	is used as where parameter <strong>:phoneNumberId</strong>
    *
    * @return number of deleted records
    */
@@ -392,14 +392,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person_phone_number (person_id, phone_number_id) VALUES (${bean.personId}, ${bean.phoneNumberId})</pre>
+   * <pre>INSERT INTO person_phone_number (person_id, phone_number_id) VALUES (:bean.personId, :bean.phoneNumberId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>person_id</dt><dd>is mapped to <strong>${bean.personId}</strong></dd>
-   * 	<dt>phone_number_id</dt><dd>is mapped to <strong>${bean.phoneNumberId}</strong></dd>
+   * 	<dt>person_id</dt><dd>is mapped to <strong>:bean.personId</strong></dd>
+   * 	<dt>phone_number_id</dt><dd>is mapped to <strong>:bean.phoneNumberId</strong></dd>
    * </dl>
    *
    * @param bean

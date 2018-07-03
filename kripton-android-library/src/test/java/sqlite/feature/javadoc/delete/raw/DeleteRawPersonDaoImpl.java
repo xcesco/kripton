@@ -34,16 +34,16 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id=${id}</pre>
+   * <pre>DELETE FROM person WHERE id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -89,7 +89,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -139,16 +139,16 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE person_surname=${surname}</pre>
+   * <pre>DELETE FROM person WHERE person_surname=:surname</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * 	<dt>:surname</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param surname
-   * 	is used as where parameter <strong>${surname}</strong>
+   * 	is used as where parameter <strong>:surname</strong>
    *
    * @return number of deleted records
    */
@@ -194,7 +194,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${surname}</strong> at path segment 1</li>
+   * <li><strong>:surname</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -242,19 +242,19 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE person_name=${name} and person_surname=${surname} AND student = 0</pre>
+   * <pre>DELETE FROM person WHERE person_name=:name and person_surname=:surname AND student = 0</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
-   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * 	<dt>:name</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
+   * 	<dt>:surname</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is used as where parameter <strong>${name}</strong>
+   * 	is used as where parameter <strong>:name</strong>
    * @param surname
-   * 	is used as where parameter <strong>${surname}</strong>
+   * 	is used as where parameter <strong>:surname</strong>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -291,19 +291,19 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE person_surname=${surname} and student = (select student from person where person_name=${name})</pre>
+   * <pre>DELETE FROM person WHERE person_surname=:surname and student = (select student from person where person_name=:name)</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${surname}</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
-   * 	<dt>${name}</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
+   * 	<dt>:surname</dt><dd>is mapped to method's parameter <strong>surname</strong></dd>
+   * 	<dt>:name</dt><dd>is mapped to method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param name
-   * 	is used as where parameter <strong>${name}</strong>
+   * 	is used as where parameter <strong>:name</strong>
    * @param surname
-   * 	is used as where parameter <strong>${surname}</strong>
+   * 	is used as where parameter <strong>:surname</strong>
    */
   @Override
   public void deleteFromSelectAllBeansJQL(String name, String surname) {
@@ -347,8 +347,8 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${surname}</strong> at path segment 2</li>
-   * <li><strong>${name}</strong> at path segment 3</li>
+   * <li><strong>:surname</strong> at path segment 2</li>
+   * <li><strong>:name</strong> at path segment 3</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -397,16 +397,16 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id=${id}</pre>
+   * <pre>DELETE FROM person WHERE id=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -452,7 +452,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>:id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -502,12 +502,12 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=:id #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <dl>
@@ -519,7 +519,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param where
    * 	is used as dynamic where conditions
    *
@@ -576,7 +576,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>:id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -626,12 +626,12 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id=${id} #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id=:id #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * <dl>
@@ -643,7 +643,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param where
    * 	is used as dynamic where conditions
    * @param args
@@ -709,7 +709,7 @@ public class DeleteRawPersonDaoImpl extends Dao implements DeleteRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>

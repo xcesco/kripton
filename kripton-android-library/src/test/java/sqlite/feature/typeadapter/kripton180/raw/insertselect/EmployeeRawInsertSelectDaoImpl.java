@@ -26,20 +26,20 @@ public class EmployeeRawInsertSelectDaoImpl extends Dao implements EmployeeRawIn
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   * <pre>INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) select field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array  from employees where field_boolean=:fieldBoolean and field_byte=:fieldByte and field_character=:fieldCharacter and field_short=:fieldShort and field_integer=:fieldInteger and field_long=:fieldLong and field_float=:fieldFloat and field_double=:fieldDouble and field_string=:fieldString and field_byte_array=:fieldByteArray</pre>
    *
    * <h2>Method parameters used as sql parameters</h2>
    * <dl>
-   * 	<dt>fieldBoolean</dt><dd>is binded to query's parameter <strong>${fieldBoolean}</strong></dd>
-   * 	<dt>fieldByte</dt><dd>is binded to query's parameter <strong>${fieldByte}</strong></dd>
-   * 	<dt>fieldCharacter</dt><dd>is binded to query's parameter <strong>${fieldCharacter}</strong></dd>
-   * 	<dt>fieldShort</dt><dd>is binded to query's parameter <strong>${fieldShort}</strong></dd>
-   * 	<dt>fieldInteger</dt><dd>is binded to query's parameter <strong>${fieldInteger}</strong></dd>
-   * 	<dt>fieldLong</dt><dd>is binded to query's parameter <strong>${fieldLong}</strong></dd>
-   * 	<dt>fieldFloat</dt><dd>is binded to query's parameter <strong>${fieldFloat}</strong></dd>
-   * 	<dt>fieldDouble</dt><dd>is binded to query's parameter <strong>${fieldDouble}</strong></dd>
-   * 	<dt>fieldString</dt><dd>is binded to query's parameter <strong>${fieldString}</strong></dd>
-   * 	<dt>fieldByteArray</dt><dd>is binded to query's parameter <strong>${fieldByteArray}</strong></dd>
+   * 	<dt>fieldBoolean</dt><dd>is binded to query's parameter <strong>:fieldBoolean</strong></dd>
+   * 	<dt>fieldByte</dt><dd>is binded to query's parameter <strong>:fieldByte</strong></dd>
+   * 	<dt>fieldCharacter</dt><dd>is binded to query's parameter <strong>:fieldCharacter</strong></dd>
+   * 	<dt>fieldShort</dt><dd>is binded to query's parameter <strong>:fieldShort</strong></dd>
+   * 	<dt>fieldInteger</dt><dd>is binded to query's parameter <strong>:fieldInteger</strong></dd>
+   * 	<dt>fieldLong</dt><dd>is binded to query's parameter <strong>:fieldLong</strong></dd>
+   * 	<dt>fieldFloat</dt><dd>is binded to query's parameter <strong>:fieldFloat</strong></dd>
+   * 	<dt>fieldDouble</dt><dd>is binded to query's parameter <strong>:fieldDouble</strong></dd>
+   * 	<dt>fieldString</dt><dd>is binded to query's parameter <strong>:fieldString</strong></dd>
+   * 	<dt>fieldByteArray</dt><dd>is binded to query's parameter <strong>:fieldByteArray</strong></dd>
    * </dl>
    *
    * @param fieldBoolean

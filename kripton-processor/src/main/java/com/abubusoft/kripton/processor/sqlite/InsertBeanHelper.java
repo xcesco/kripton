@@ -171,7 +171,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			public String onBindParameter(String bindParameterName) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 				
-				return "${" + resolvedParamName + "}";
+				return SqlAnalyzer.PARAM_PREFIX + resolvedParamName + SqlAnalyzer.PARAM_SUFFIX;
 			}						
 
 		});
@@ -191,7 +191,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			for (SQLProperty property : listUsedProperty) {
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", property.columnName);
 				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n",
-						"${" + method.findParameterAliasByName(method.getParameters().get(0).value0) + "." + method.findParameterNameByAlias(property.getName()) + "}");
+						SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(method.getParameters().get(0).value0) + "." + method.findParameterNameByAlias(property.getName()) + SqlAnalyzer.PARAM_SUFFIX);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 

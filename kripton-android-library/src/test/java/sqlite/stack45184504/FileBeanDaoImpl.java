@@ -33,15 +33,15 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO files (content, content_type, name) VALUES (${bean.content}, ${bean.contentType}, ${bean.name})</pre>
+   * <pre>INSERT INTO files (content, content_type, name) VALUES (:bean.content, :bean.contentType, :bean.name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
-   * 	<dt>content_type</dt><dd>is mapped to <strong>${bean.contentType}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>content</dt><dd>is mapped to <strong>:bean.content</strong></dd>
+   * 	<dt>content_type</dt><dd>is mapped to <strong>:bean.contentType</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
    * @param bean
@@ -105,13 +105,13 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO files (name, content_type, content) VALUES (${name}, ${contentType}, ${content})</pre>
+   * <pre>INSERT INTO files (name, content_type, content) VALUES (:name, :contentType, :content)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * 	<dt>contentType</dt><dd>is binded to query's parameter <strong>${contentType}</strong> and method's parameter <strong>contentType</strong></dd>
-   * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>contentType</dt><dd>is binded to query's parameter <strong>:contentType</strong> and method's parameter <strong>contentType</strong></dd>
+   * 	<dt>content</dt><dd>is binded to query's parameter <strong>:content</strong> and method's parameter <strong>content</strong></dd>
    * </dl>
    *
    * @param name
@@ -191,11 +191,11 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return collection of bean or empty collection.
    */
   @Override

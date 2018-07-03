@@ -295,15 +295,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 		StringBuilder bufferQuestion = new StringBuilder();
 
 		String separator = "";
-		for (SQLProperty property : listUsedProperty) {
-			// this line generate ${bean.attribute}
-			// buffer.append(String.format("%s%s=${%s.%s}", separator,
-			// property.columnName,
-			// method.findParameterAliasByName(beanNameParameter),
-			// property.getName()));
-
-			// this line genearate only ${attribute}
-			buffer.append(String.format("%s%s=${%s}", separator, property.columnName, property.getName()));
+		for (SQLProperty property : listUsedProperty) {		
+			// this line genearate only :{attribute}
+			buffer.append(String.format("%s%s="+SqlAnalyzer.PARAM_PREFIX+"%s"+SqlAnalyzer.PARAM_SUFFIX, separator, property.columnName, property.getName()));
 
 			bufferQuestion.append(separator);
 			bufferQuestion.append(property.columnName + "=");
@@ -330,7 +324,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
 				String resolvedName = method.findParameterAliasByName(beanParameter.value0);
-				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n", property.columnName, "${" + resolvedName + "." + property.getName() + "}");
+				methodBuilder.addJavadoc("\t<dt>$L</dt><dd>is mapped to <strong>$L</strong></dd>\n", property.columnName, SqlAnalyzer.PARAM_PREFIX + resolvedName + "." + property.getName() + SqlAnalyzer.PARAM_SUFFIX);
 			}
 			methodBuilder.addJavadoc("</dl>");
 			methodBuilder.addJavadoc("\n\n");
@@ -354,7 +348,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>Parameters used in where conditions:</h2>\n");
 			methodBuilder.addJavadoc("<dl>\n");
 			for (String attribute : attributesUsedInWhereConditions) {
-				methodBuilder.addJavadoc("\t<dt>$L</dt>", "${" + method.findParameterAliasByName(beanParameter.value0) + "." + method.findParameterAliasByName(attribute) + "}");
+				methodBuilder.addJavadoc("\t<dt>$L</dt>", SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(beanParameter.value0) + "." + method.findParameterAliasByName(attribute) + SqlAnalyzer.PARAM_SUFFIX);
 				methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L.$L</strong></dd>\n", beanParameter.value0, attribute);
 			}
 			methodBuilder.addJavadoc("</dl>");
@@ -383,7 +377,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			if (method.isThisDynamicWhereConditionsName(param.value0)) {
 				methodBuilder.addJavadoc("\n\tis used as dynamic where conditions\n");
 			} else {
-				methodBuilder.addJavadoc("\n\tis used as $L\n", "${" + method.findParameterAliasByName(param.value0) + "}");
+				methodBuilder.addJavadoc("\n\tis used as <code>$L</code>\n", SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(param.value0) + SqlAnalyzer.PARAM_SUFFIX);
 			}
 		}
 

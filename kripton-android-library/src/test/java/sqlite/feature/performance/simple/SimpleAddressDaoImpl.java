@@ -46,11 +46,11 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -171,17 +171,17 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO simple_address_item (address, city, name, phone, state) VALUES (${bean.address}, ${bean.city}, ${bean.name}, ${bean.phone}, ${bean.state})</pre>
+   * <pre>INSERT INTO simple_address_item (address, city, name, phone, state) VALUES (:bean.address, :bean.city, :bean.name, :bean.phone, :bean.state)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>city</dt><dd>is mapped to <strong>${bean.city}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>phone</dt><dd>is mapped to <strong>${bean.phone}</strong></dd>
-   * 	<dt>state</dt><dd>is mapped to <strong>${bean.state}</strong></dd>
+   * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
+   * 	<dt>city</dt><dd>is mapped to <strong>:bean.city</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>phone</dt><dd>is mapped to <strong>:bean.phone</strong></dd>
+   * 	<dt>state</dt><dd>is mapped to <strong>:bean.state</strong></dd>
    * </dl>
    *
    * @param bean

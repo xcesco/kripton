@@ -21,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
@@ -34,13 +35,13 @@ import com.squareup.javapoet.TypeName;
 public class SqlUtility {
 	
 	/** The Constant PARAMETER. */
-	private static final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w\\.]*)\\s*\\}");
+	private static final Pattern PARAMETER = Pattern.compile(SqlAnalyzer.PARAM_PATTERN);
 
 	/** The Constant WORD. */
 	private static final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
 
 	/**
-	 * Extract from value string every placeholder ${}, replace it with ? and
+	 * Extract from value string every placeholder :{}, replace it with ? and
 	 * then convert every field typeName with column typeName. The result is a
 	 * pair: the first value is the elaborated string. The second is the list of
 	 * parameters associated to ?. This second parameter is the list of
@@ -56,16 +57,17 @@ public class SqlUtility {
 		Pair<String, List<Pair<String, TypeName>>> result = new Pair<String, List<Pair<String, TypeName>>>();
 		result.value1 = new ArrayList<Pair<String, TypeName>>();
 
-		// replace placeholder ${ } with ?
+		// replace placeholder :{ } with ?
 		{
 			Matcher matcher = PARAMETER.matcher(whereStatement);
 
 			String paramName;
 			StringBuffer buffer = new StringBuffer();
-			TypeName paramType;
+			TypeName paramType;			
 			while (matcher.find()) {
 				matcher.appendReplacement(buffer, "?");
-				paramName = matcher.group(1);
+												
+				paramName = SqlAnalyzer.extractParamName(matcher);
 				paramType = method.findParameterTypeByAliasOrName(paramName);
 
 				if (paramType == null) {
@@ -98,5 +100,7 @@ public class SqlUtility {
 
 		return result;
 	}
+
+	
 
 }

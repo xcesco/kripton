@@ -22,32 +22,32 @@ import sqlite.feature.many2many.case6.model.PhoneNumber;
 )
 public interface GeneratedPerson2PhoneDao extends Person2PhoneDao {
   @BindSqlSelect(
-      where = "id=${id}"
+      where = "id=:id"
   )
   PersonPhone selectById(@BindSqlParam("id") long id);
 
   @BindSqlSelect(
-      where = "personId=${personId}"
+      where = "personId=:personId"
   )
   List<PersonPhone> selectByPersonId(@BindSqlParam("personId") long personId);
 
   @BindSqlSelect(
-      where = "phoneNumberId=${phoneNumberId}"
+      where = "phoneNumberId=:phoneNumberId"
   )
   List<PersonPhone> selectByPhoneNumberId(@BindSqlParam("phoneNumberId") long phoneNumberId);
 
   @BindSqlDelete(
-      where = "id=${id}"
+      where = "id=:id"
   )
   int deleteById(@BindSqlParam("id") long id);
 
   @BindSqlDelete(
-      where = "personId=${personId}"
+      where = "personId=:personId"
   )
   int deleteByPersonId(@BindSqlParam("personId") long personId);
 
   @BindSqlDelete(
-      where = "phoneNumberId=${phoneNumberId}"
+      where = "phoneNumberId=:phoneNumberId"
   )
   int deleteByPhoneNumberId(@BindSqlParam("phoneNumberId") long phoneNumberId);
 

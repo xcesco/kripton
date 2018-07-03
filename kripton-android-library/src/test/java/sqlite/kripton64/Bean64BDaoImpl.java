@@ -115,11 +115,11 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -179,15 +179,15 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean64_b (value_map_string_bean, value_set_string, value_string) VALUES (${bean.valueMapStringBean}, ${bean.valueSetString}, ${bean.valueString})</pre>
+   * <pre>INSERT INTO bean64_b (value_map_string_bean, value_set_string, value_string) VALUES (:bean.valueMapStringBean, :bean.valueSetString, :bean.valueString)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value_map_string_bean</dt><dd>is mapped to <strong>${bean.valueMapStringBean}</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is mapped to <strong>${bean.valueSetString}</strong></dd>
-   * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is mapped to <strong>:bean.valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is mapped to <strong>:bean.valueSetString</strong></dd>
+   * 	<dt>value_string</dt><dd>is mapped to <strong>:bean.valueString</strong></dd>
    * </dl>
    *
    * @param bean

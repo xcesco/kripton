@@ -26,7 +26,7 @@ public class DaoBeanUpdateOKImpl extends Dao implements DaoBeanUpdateOK {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean01 SET id=:id, value=:value WHERE id=${test}</pre>
+   * <pre>UPDATE bean01 SET id=:id, value=:value WHERE id=:test</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -36,7 +36,7 @@ public class DaoBeanUpdateOKImpl extends Dao implements DaoBeanUpdateOK {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${test}</dt><dd>is mapped to method's parameter <strong>test</strong></dd>
+   * 	<dt>:test</dt><dd>is mapped to method's parameter <strong>test</strong></dd>
    * </dl>
    *
    * @param id
@@ -44,7 +44,7 @@ public class DaoBeanUpdateOKImpl extends Dao implements DaoBeanUpdateOK {
    * @param value
    * 	is used as updated field <strong>value</strong>
    * @param test
-   * 	is used as where parameter <strong>${test}</strong>
+   * 	is used as where parameter <strong>:test</strong>
    *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */

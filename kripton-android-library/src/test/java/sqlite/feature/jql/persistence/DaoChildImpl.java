@@ -110,14 +110,14 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO child (name, parent_id) VALUES (${name}, ${parentId})</pre>
+   * <pre>INSERT INTO child (name, parent_id) VALUES (:name, :parentId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>parent_id</dt><dd>is mapped to <strong>:bean.parentId</strong></dd>
    * </dl>
    *
    * @param bean
@@ -191,11 +191,11 @@ public class DaoChildImpl extends Dao implements DaoChild {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${parentId}</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>:parentId</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
    * </dl>
    *
    * @param parentId
-   * 	is binded to <code>${parentId}</code>
+   * 	is binded to <code>:parentId</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -263,11 +263,11 @@ public class DaoChildImpl extends Dao implements DaoChild {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${parentId}</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>:parentId</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
    * </dl>
    *
    * @param parentId
-   * 	is binded to <code>${parentId}</code>
+   * 	is binded to <code>:parentId</code>
    * @return single value extracted by query.
    */
   @Override
@@ -322,11 +322,11 @@ public class DaoChildImpl extends Dao implements DaoChild {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${parentId}</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>:parentId</dt><dd>is binded to method's parameter <strong>parentId</strong></dd>
    * </dl>
    *
    * @param parentId
-   * 	is binded to <code>${parentId}</code>
+   * 	is binded to <code>:parentId</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -384,13 +384,13 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>insert into child (name, parent_id) select name, parent_id from child where _id=${parentId} or _id=${parent} or _id=${aliasParentId}</pre>
+   * <pre>insert into child (name, parent_id) select name, parent_id from child where _id=:parentId or _id=:parent or _id=:aliasParentId</pre>
    *
    * <h2>Method parameters used as sql parameters</h2>
    * <dl>
-   * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>${parentId}</strong></dd>
-   * 	<dt>parent</dt><dd>is binded to query's parameter <strong>${parent}</strong></dd>
-   * 	<dt>aliasParentId</dt><dd>is binded to query's parameter <strong>${aliasParentId}</strong></dd>
+   * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>:parentId</strong></dd>
+   * 	<dt>parent</dt><dd>is binded to query's parameter <strong>:parent</strong></dd>
+   * 	<dt>aliasParentId</dt><dd>is binded to query's parameter <strong>:aliasParentId</strong></dd>
    * </dl>
    *
    * @param parentId
@@ -442,14 +442,14 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>insert into child (name, parent_id) values (${bean.name}, ${bean.parentId})</pre>
+   * <pre>insert into child (name, parent_id) values (:bean.name, :bean.parentId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>parent_id</dt><dd>is mapped to <strong>${bean.parentId}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>parent_id</dt><dd>is mapped to <strong>:bean.parentId</strong></dd>
    * </dl>
    *
    * @param bean
@@ -509,12 +509,12 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO child (parent_id, name) VALUES (${parentId}, ${name})</pre>
+   * <pre>INSERT INTO child (parent_id, name) VALUES (:parentId, :name)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>${parentId}</strong> and method's parameter <strong>parentId</strong></dd>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>parentId</dt><dd>is binded to query's parameter <strong>:parentId</strong> and method's parameter <strong>parentId</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param parentId
@@ -578,7 +578,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>update or replace child set name=:name where parent_id=${a}</pre>
+   * <pre>update or replace child set name=:name where parent_id=:a</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -587,11 +587,11 @@ public class DaoChildImpl extends Dao implements DaoChild {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${a}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>:a</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
    * </dl>
    *
    * @param parentId
-   * 	is used as where parameter <strong>${a}</strong>
+   * 	is used as where parameter <strong>:a</strong>
    * @param name
    * 	is used as updated field <strong>name</strong>
    */
@@ -640,7 +640,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>update or replace child set parent_id=${parentId}, name=(select _id from person where _id=${parentId} )  where parent_id=${parentId}</pre>
+   * <pre>update or replace child set parent_id=:parentId, name=(select _id from person where _id=:parentId )  where parent_id=:parentId</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -650,9 +650,9 @@ public class DaoChildImpl extends Dao implements DaoChild {
    *
    * <h2>Parameters:</h2>
    * <dl>
-   * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
-   * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
-   * 	<dt>${parentId}</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>:parentId</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>:parentId</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
+   * 	<dt>:parentId</dt><dd>is mapped to method's parameter <strong>parentId</strong></dd>
    * </dl>
    *
    * @param parentId

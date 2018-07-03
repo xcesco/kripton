@@ -42,15 +42,15 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (person_name, person_surname, student) VALUES (${bean.personName}, ${bean.personSurname}, ${bean.student})</pre>
+   * <pre>INSERT INTO person (person_name, person_surname, student) VALUES (:bean.personName, :bean.personSurname, :bean.student)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * @param bean
@@ -117,10 +117,10 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO Person (personName, personSurname, student) VALUES (${bean.personName}, ${bean.personSurname}, ${bean.student})</pre>
+   * <pre>INSERT INTO Person (personName, personSurname, student) VALUES (:bean.personName, :bean.personSurname, :bean.student)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT INTO person (person_name, person_surname, student) VALUES (${bean.personName}, ${bean.personSurname}, ${bean.student})</pre>
+   * <pre>INSERT INTO person (person_name, person_surname, student) VALUES (:bean.personName, :bean.personSurname, :bean.student)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -158,13 +158,13 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (${bean.personName})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (:bean.personName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * </dl>
    *
    * @param bean
@@ -229,10 +229,10 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/name</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO Person (personName) VALUES (${bean.personName})</pre>
+   * <pre>INSERT OR REPLACE INTO Person (personName) VALUES (:bean.personName)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (${bean.personName})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (:bean.personName)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -271,14 +271,14 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO person (person_surname, student) VALUES (${bean.personSurname}, ${bean.student})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_surname, student) VALUES (:bean.personSurname, :bean.student)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>person_surname</dt><dd>is mapped to <strong>${bean.personSurname}</strong></dd>
-   * 	<dt>student</dt><dd>is mapped to <strong>${bean.student}</strong></dd>
+   * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
+   * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
    *
    * @param bean
@@ -344,10 +344,10 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    * <pre>content://sqlite.feature.javadoc.bean/persons/surname</pre>
    *
    * <h2>JQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO Person (personSurname, student) VALUES (${bean.personSurname}, ${bean.student})</pre>
+   * <pre>INSERT OR REPLACE INTO Person (personSurname, student) VALUES (:bean.personSurname, :bean.student)</pre>
    *
    * <h2>SQL INSERT for Content Provider</h2>
-   * <pre>INSERT OR REPLACE INTO person (person_surname, student) VALUES (${bean.personSurname}, ${bean.student})</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_surname, student) VALUES (:bean.personSurname, :bean.student)</pre>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
    *
@@ -386,13 +386,13 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=${bean.personName}</pre>
+   * <pre>INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=:bean.personName</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>person_name</dt><dd>is mapped to <strong>${bean.personName}</strong></dd>
+   * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * </dl>
    *
    * @param bean

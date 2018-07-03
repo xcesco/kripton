@@ -73,7 +73,7 @@ import com.squareup.javapoet.TypeSpec;
 
 /**
  * <p>
- * Generate class ${entity}Table which represents table for entity.
+ * Generate class :{entity}Table which represents table for entity.
  * </p>
  * 
  * @author Francesco Benincasa (info@abubusoft.com)

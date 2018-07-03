@@ -44,7 +44,7 @@ public interface DaoChannel {
 	 * @return true, if successful
 	 */
 	// delete
-	@BindSqlDelete(where = "ownerUid=${value.id}")
+	@BindSqlDelete(where = "ownerUid=:value.id")
 	boolean deleteContactBean1(@BindSqlParam("value") Channel channel);
 
 	/**
@@ -53,7 +53,7 @@ public interface DaoChannel {
 	 * @param value the value
 	 * @return true, if successful
 	 */
-	@BindSqlDelete(where = "ownerUid=${value.id}")
+	@BindSqlDelete(where = "ownerUid=:{value.id}")
 	boolean deleteContactBean2(Channel value);
 
 	/**
@@ -63,7 +63,7 @@ public interface DaoChannel {
 	 * @param dummy the dummy
 	 * @return the long
 	 */
-	@BindSqlDelete(where = "ownerUid=${ownerUid} and id=${id}")
+	@BindSqlDelete(where = "ownerUid=${ownerUid} and id=:id")
 	long deleteContactRaw1(@BindSqlParam("ownerUid") String b, @BindSqlParam("id") long dummy);
 
 	/**

@@ -200,11 +200,11 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${love.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:love.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${love}
+   * 	is used as <code>:love</code>
    * @return single value extracted by query.
    */
   @Override
@@ -257,7 +257,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${love.id}</strong> at path segment 2</li>
+   * <li><strong>:love.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -337,11 +337,11 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>benza.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>benza.id</strong></dd>
    * </dl>
    *
    * @param benza
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -405,7 +405,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * <li><strong>:bean.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -487,11 +487,11 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return selected bean or <code>null</code>.
@@ -564,7 +564,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -649,15 +649,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param args
-   * 	is binded to <code>${args}</code>
+   * 	is binded to <code>:args</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -741,7 +741,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -833,11 +833,11 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param order
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return selected bean or <code>null</code>.
@@ -920,7 +920,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -1011,11 +1011,11 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param order
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param listener
@@ -1107,7 +1107,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -1193,11 +1193,11 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -1261,7 +1261,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -1341,11 +1341,11 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is binded to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -1409,7 +1409,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>

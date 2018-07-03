@@ -37,11 +37,11 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */
@@ -87,7 +87,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * <li><strong>:bean.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -141,12 +141,12 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.personName}</dt><dd>is mapped to method's parameter <strong>bean.personName</strong></dd>
-   * 	<dt>${bean.personSurname}</dt><dd>is mapped to method's parameter <strong>bean.personSurname</strong></dd>
+   * 	<dt>:bean.personName</dt><dd>is mapped to method's parameter <strong>bean.personName</strong></dd>
+   * 	<dt>:bean.personSurname</dt><dd>is mapped to method's parameter <strong>bean.personSurname</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    */
   @Override
   public void deleteAllBeansJQL(Person bean) {
@@ -184,12 +184,12 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.personSurname}</dt><dd>is mapped to method's parameter <strong>bean.personSurname</strong></dd>
-   * 	<dt>${bean.personName}</dt><dd>is mapped to method's parameter <strong>bean.personName</strong></dd>
+   * 	<dt>:bean.personSurname</dt><dd>is mapped to method's parameter <strong>bean.personSurname</strong></dd>
+   * 	<dt>:bean.personName</dt><dd>is mapped to method's parameter <strong>bean.personName</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */
@@ -236,8 +236,8 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.personSurname}</strong> at path segment 2</li>
-   * <li><strong>${bean.personName}</strong> at path segment 3</li>
+   * <li><strong>:bean.personSurname</strong> at path segment 2</li>
+   * <li><strong>:bean.personName</strong> at path segment 3</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -294,11 +294,11 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */
@@ -344,7 +344,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -398,7 +398,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -407,7 +407,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    *
@@ -464,7 +464,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 2</li>
+   * <li><strong>:bean.id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -518,7 +518,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -527,11 +527,11 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    * @param args
-   * 	is used as ${args}
+   * 	is used as <code>:args</code>
    *
    * @return number of deleted records
    */
@@ -593,7 +593,7 @@ public class DeleteBeanPersonDaoImpl extends Dao implements DeleteBeanPersonDao 
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${bean.id}</strong> at path segment 1</li>
+   * <li><strong>:bean.id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>

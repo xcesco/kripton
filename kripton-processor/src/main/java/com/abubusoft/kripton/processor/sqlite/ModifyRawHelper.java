@@ -262,7 +262,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 
 				methodParamsUsedAsParameter.add(new Pair<>(resolvedParamName, method.findParameterType(resolvedParamName)));
 
-				return "${" + bindParameterName + "}";
+				return SqlAnalyzer.PARAM_PREFIX + bindParameterName + SqlAnalyzer.PARAM_SUFFIX;
 			}
 
 		});
@@ -292,7 +292,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		methodBuilder.addJavadoc("<dl>\n");
 		for (Pair<String, TypeName> property : methodParamsUsedAsParameter) {
 			String rawName = method.findParameterNameByAlias(property.value0);
-			methodBuilder.addJavadoc("\t<dt>$L</dt>", "${" + property.value0 + "}");
+			methodBuilder.addJavadoc("\t<dt>$L</dt>", SqlAnalyzer.PARAM_PREFIX + property.value0 + SqlAnalyzer.PARAM_SUFFIX);
 			methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L</strong></dd>\n", rawName);
 		}
 		methodBuilder.addJavadoc("</dl>");
@@ -445,9 +445,9 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
 
 				if (onWhereStatement.value0) {
-					return "${" + bindParameterName + "}";
+					return SqlAnalyzer.PARAM_PREFIX + bindParameterName + SqlAnalyzer.PARAM_SUFFIX;
 				} else {
-					return ":" + bindParameterName;
+					return SqlAnalyzer.PARAM_PREFIX + bindParameterName+SqlAnalyzer.PARAM_SUFFIX;
 				}
 
 			}
@@ -463,11 +463,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			methodBuilder.addJavadoc("<h2>Updated columns:</h2>\n");
 			methodBuilder.addJavadoc("<ul>\n");
 			for (SQLProperty property : updatedProperties) {
-				methodBuilder.addJavadoc("\t<li>$L</li>\n", property.columnName);
-				// methodBuilder.addJavadoc("<dd>is binded to query's parameter
-				// <strong>$L</strong> and method's parameter
-				// <strong>$L</strong></dd>\n", "${" + resolvedName + "}",
-				// property.value0);
+				methodBuilder.addJavadoc("\t<li>$L</li>\n", property.columnName);				
 			}
 			methodBuilder.addJavadoc("</ul>");
 			methodBuilder.addJavadoc("\n\n");
@@ -483,7 +479,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 		methodBuilder.addJavadoc("<dl>\n");
 		for (Pair<String, TypeName> property : where.value1) {
 			String rawName = method.findParameterNameByAlias(property.value0);
-			methodBuilder.addJavadoc("\t<dt>$L</dt>", "${" + property.value0 + "}");
+			methodBuilder.addJavadoc("\t<dt>$L</dt>", SqlAnalyzer.PARAM_PREFIX + property.value0 + SqlAnalyzer.PARAM_SUFFIX);
 			methodBuilder.addJavadoc("<dd>is mapped to method's parameter <strong>$L</strong></dd>\n", rawName);
 		}
 		methodBuilder.addJavadoc("</dl>");
@@ -519,7 +515,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 				if (method.isThisDynamicWhereConditionsName(param.value0)) {
 					methodBuilder.addJavadoc("\n\tis used as dynamic where conditions\n");
 				} else if (where.value1.contains(new Pair<>(resolvedName, param.value1))) {
-					methodBuilder.addJavadoc("\n\tis used as where parameter <strong>$L</strong>\n", "${" + resolvedName + "}");
+					methodBuilder.addJavadoc("\n\tis used as where parameter <strong>$L</strong>\n", SqlAnalyzer.PARAM_PREFIX + resolvedName + SqlAnalyzer.PARAM_SUFFIX);
 				} else {
 					methodBuilder.addJavadoc("\n\tis used as updated field <strong>$L</strong>\n", resolvedName);
 				}

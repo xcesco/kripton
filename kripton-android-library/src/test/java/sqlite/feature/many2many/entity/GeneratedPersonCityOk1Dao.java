@@ -21,32 +21,32 @@ import sqlite.feature.many2many.Person;
 )
 public interface GeneratedPersonCityOk1Dao extends PersonCityOk1Dao {
   @BindSqlSelect(
-      where = "id=${id}"
+      where = "id=:id"
   )
   PersonCityOk1 selectById(@BindSqlParam("id") long id);
 
   @BindSqlSelect(
-      where = "personId=${personId}"
+      where = "personId=:personId"
   )
   List<PersonCityOk1> selectByPersonId(@BindSqlParam("personId") long personId);
 
   @BindSqlSelect(
-      where = "cityId=${cityId}"
+      where = "cityId=:cityId"
   )
   List<PersonCityOk1> selectByCityId(@BindSqlParam("cityId") long cityId);
 
   @BindSqlDelete(
-      where = "id=${id}"
+      where = "id=:id"
   )
   int deleteById(@BindSqlParam("id") long id);
 
   @BindSqlDelete(
-      where = "personId=${personId}"
+      where = "personId=:personId"
   )
   int deleteByPersonId(@BindSqlParam("personId") long personId);
 
   @BindSqlDelete(
-      where = "cityId=${cityId}"
+      where = "cityId=:cityId"
   )
   int deleteByCityId(@BindSqlParam("cityId") long cityId);
 

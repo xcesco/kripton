@@ -32,13 +32,13 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (image) VALUES (${bean.image})</pre>
+   * <pre>INSERT INTO person (image) VALUES (:bean.image)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>image</dt><dd>is mapped to <strong>${bean.image}</strong></dd>
+   * 	<dt>image</dt><dd>is mapped to <strong>:bean.image</strong></dd>
    * </dl>
    *
    * @param bean

@@ -98,14 +98,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (image, name) VALUES (${image}, ${name})</pre>
+   * <pre>INSERT INTO person (image, name) VALUES (:image, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>image</dt><dd>is mapped to <strong>${bean.image}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>image</dt><dd>is mapped to <strong>:bean.image</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
    * @param bean

@@ -35,14 +35,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
+   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (:name, :surname, :birthCity, :birthDay)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
-   * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
-   * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>:surname</strong> and method's parameter <strong>surname</strong></dd>
+   * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>:birthCity</strong> and method's parameter <strong>birthCity</strong></dd>
+   * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>:birthDay</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
    * @param name
@@ -183,7 +183,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like ${nameTemp} || '%' #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like :nameTemp || '%' #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -202,11 +202,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${nameTemp}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
+   * 	<dt>:nameTemp</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
    * </dl>
    *
    * @param nameValue
-   * 	is binded to <code>${nameTemp}</code>
+   * 	is binded to <code>:nameTemp</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param orderBy

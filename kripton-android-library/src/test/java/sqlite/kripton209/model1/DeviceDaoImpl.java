@@ -33,13 +33,13 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO device (name) VALUES (${device.name})</pre>
+   * <pre>INSERT INTO device (name) VALUES (:device.name)</pre>
    *
    * <p><code>device.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${device.name}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:device.name</strong></dd>
    * </dl>
    *
    * @param device
@@ -172,11 +172,11 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${userId}</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
+   * 	<dt>:userId</dt><dd>is binded to method's parameter <strong>userId</strong></dd>
    * </dl>
    *
    * @param userId
-   * 	is binded to <code>${userId}</code>
+   * 	is binded to <code>:userId</code>
    * @return collection of bean or empty collection.
    */
   @Override

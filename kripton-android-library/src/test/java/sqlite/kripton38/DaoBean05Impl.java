@@ -92,11 +92,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -169,12 +169,12 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${bean.pk}</dt><dd>is binded to method's parameter <strong>bean.pk</strong></dd>
-   * 	<dt>${bean.text}</dt><dd>is binded to method's parameter <strong>bean.text</strong></dd>
+   * 	<dt>:bean.pk</dt><dd>is binded to method's parameter <strong>bean.pk</strong></dd>
+   * 	<dt>:bean.text</dt><dd>is binded to method's parameter <strong>bean.text</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -248,11 +248,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -326,11 +326,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${text}</dt><dd>is binded to method's parameter <strong>text</strong></dd>
+   * 	<dt>:text</dt><dd>is binded to method's parameter <strong>text</strong></dd>
    * </dl>
    *
    * @param text
-   * 	is binded to <code>${text}</code>
+   * 	is binded to <code>:text</code>
    * @return collection of single value extracted by query.
    */
   @Override
@@ -391,11 +391,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${text}</dt><dd>is binded to method's parameter <strong>text</strong></dd>
+   * 	<dt>:text</dt><dd>is binded to method's parameter <strong>text</strong></dd>
    * </dl>
    *
    * @param text
-   * 	is binded to <code>${text}</code>
+   * 	is binded to <code>:text</code>
    * @return single value extracted by query.
    */
   @Override
@@ -453,11 +453,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -516,11 +516,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param listener
    * 	is the Bean05 listener
    */
@@ -603,11 +603,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -666,11 +666,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param listener
    * 	is the Bean05 listener
    */
@@ -738,13 +738,13 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO ws_bean (text, content, creation_time) VALUES (${text}, ${content}, ${creationTime})</pre>
+   * <pre>INSERT INTO ws_bean (text, content, creation_time) VALUES (:text, :content, :creationTime)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>text</dt><dd>is binded to query's parameter <strong>${text}</strong> and method's parameter <strong>text</strong></dd>
-   * 	<dt>content</dt><dd>is binded to query's parameter <strong>${content}</strong> and method's parameter <strong>content</strong></dd>
-   * 	<dt>creationTime</dt><dd>is binded to query's parameter <strong>${creationTime}</strong> and method's parameter <strong>creationTime</strong></dd>
+   * 	<dt>text</dt><dd>is binded to query's parameter <strong>:text</strong> and method's parameter <strong>text</strong></dd>
+   * 	<dt>content</dt><dd>is binded to query's parameter <strong>:content</strong> and method's parameter <strong>content</strong></dd>
+   * 	<dt>creationTime</dt><dd>is binded to query's parameter <strong>:creationTime</strong> and method's parameter <strong>creationTime</strong></dd>
    * </dl>
    *
    * @param text
@@ -811,17 +811,17 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO ws_bean (bean_type, content, creation_time, number, text) VALUES (${bean.beanType}, ${bean.content}, ${bean.creationTime}, ${bean.number}, ${bean.text})</pre>
+   * <pre>INSERT INTO ws_bean (bean_type, content, creation_time, number, text) VALUES (:bean.beanType, :bean.content, :bean.creationTime, :bean.number, :bean.text)</pre>
    *
    * <p><code>bean.pk</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>bean_type</dt><dd>is mapped to <strong>${bean.beanType}</strong></dd>
-   * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
-   * 	<dt>creation_time</dt><dd>is mapped to <strong>${bean.creationTime}</strong></dd>
-   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
+   * 	<dt>bean_type</dt><dd>is mapped to <strong>:bean.beanType</strong></dd>
+   * 	<dt>content</dt><dd>is mapped to <strong>:bean.content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is mapped to <strong>:bean.creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is mapped to <strong>:bean.number</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>:bean.text</strong></dd>
    * </dl>
    *
    * @param bean
@@ -888,22 +888,22 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>bean_type</dt><dd>is mapped to <strong>${bean.beanType}</strong></dd>
-   * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
-   * 	<dt>creation_time</dt><dd>is mapped to <strong>${bean.creationTime}</strong></dd>
-   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
+   * 	<dt>bean_type</dt><dd>is mapped to <strong>:bean.beanType</strong></dd>
+   * 	<dt>content</dt><dd>is mapped to <strong>:bean.content</strong></dd>
+   * 	<dt>creation_time</dt><dd>is mapped to <strong>:bean.creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is mapped to <strong>:bean.number</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>:bean.text</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.pk}</dt><dd>is mapped to method's parameter <strong>bean.pk</strong></dd>
-   * 	<dt>${bean.text}</dt><dd>is mapped to method's parameter <strong>bean.text</strong></dd>
-   * 	<dt>${bean.creationTime}</dt><dd>is mapped to method's parameter <strong>bean.creationTime</strong></dd>
+   * 	<dt>:bean.pk</dt><dd>is mapped to method's parameter <strong>bean.pk</strong></dd>
+   * 	<dt>:bean.text</dt><dd>is mapped to method's parameter <strong>bean.text</strong></dd>
+   * 	<dt>:bean.creationTime</dt><dd>is mapped to method's parameter <strong>bean.creationTime</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
@@ -959,7 +959,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE ws_bean SET content=:content, text=:text WHERE pk=${uid} and creation_time=${valido} and creation_time=${validoIn}</pre>
+   * <pre>UPDATE ws_bean SET content=:content, text=:text WHERE pk=:uid and creation_time=:valido and creation_time=:validoIn</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -969,9 +969,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${uid}</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
-   * 	<dt>${valido}</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
-   * 	<dt>${validoIn}</dt><dd>is mapped to method's parameter <strong>validoIn</strong></dd>
+   * 	<dt>:uid</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
+   * 	<dt>:valido</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
+   * 	<dt>:validoIn</dt><dd>is mapped to method's parameter <strong>validoIn</strong></dd>
    * </dl>
    *
    * @param content
@@ -979,11 +979,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * @param text
    * 	is used as updated field <strong>text</strong>
    * @param uid
-   * 	is used as where parameter <strong>${uid}</strong>
+   * 	is used as where parameter <strong>:uid</strong>
    * @param validoIn
-   * 	is used as where parameter <strong>${validoIn}</strong>
+   * 	is used as where parameter <strong>:validoIn</strong>
    * @param valido
-   * 	is used as where parameter <strong>${valido}</strong>
+   * 	is used as where parameter <strong>:valido</strong>
    *
    * @return number of updated records
    */
@@ -1040,13 +1040,13 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.pk}</dt><dd>is mapped to method's parameter <strong>bean.pk</strong></dd>
-   * 	<dt>${bean.text}</dt><dd>is mapped to method's parameter <strong>bean.text</strong></dd>
-   * 	<dt>${bean.creationTime}</dt><dd>is mapped to method's parameter <strong>bean.creationTime</strong></dd>
+   * 	<dt>:bean.pk</dt><dd>is mapped to method's parameter <strong>bean.pk</strong></dd>
+   * 	<dt>:bean.text</dt><dd>is mapped to method's parameter <strong>bean.text</strong></dd>
+   * 	<dt>:bean.creationTime</dt><dd>is mapped to method's parameter <strong>bean.creationTime</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of deleted records
    */
@@ -1084,22 +1084,22 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM ws_bean WHERE pk=${uid} and creation_time=${valido} and creation_time=${validoIn}</pre>
+   * <pre>DELETE FROM ws_bean WHERE pk=:uid and creation_time=:valido and creation_time=:validoIn</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${uid}</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
-   * 	<dt>${valido}</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
-   * 	<dt>${validoIn}</dt><dd>is mapped to method's parameter <strong>validoIn</strong></dd>
+   * 	<dt>:uid</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
+   * 	<dt>:valido</dt><dd>is mapped to method's parameter <strong>valido</strong></dd>
+   * 	<dt>:validoIn</dt><dd>is mapped to method's parameter <strong>validoIn</strong></dd>
    * </dl>
    *
    * @param uid
-   * 	is used as where parameter <strong>${uid}</strong>
+   * 	is used as where parameter <strong>:uid</strong>
    * @param validoIn
-   * 	is used as where parameter <strong>${validoIn}</strong>
+   * 	is used as where parameter <strong>:validoIn</strong>
    * @param valido
-   * 	is used as where parameter <strong>${valido}</strong>
+   * 	is used as where parameter <strong>:valido</strong>
    *
    * @return number of deleted records
    */
@@ -1137,16 +1137,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM ws_bean WHERE pk=${id}</pre>
+   * <pre>DELETE FROM ws_bean WHERE pk=:id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return number of deleted records
    */
@@ -1186,11 +1186,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${va.pk}</dt><dd>is mapped to method's parameter <strong>va.pk</strong></dd>
+   * 	<dt>:va.pk</dt><dd>is mapped to method's parameter <strong>va.pk</strong></dd>
    * </dl>
    *
    * @param va
-   * 	is used as ${va}
+   * 	is used as <code>:va</code>
    *
    * @return number of deleted records
    */
@@ -1236,11 +1236,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return single value extracted by query.
    */
   @Override

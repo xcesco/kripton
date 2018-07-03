@@ -140,11 +140,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -208,11 +208,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @param listener
    * 	is the BeanBean listener
    */
@@ -283,11 +283,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -343,11 +343,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -405,7 +405,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean_bean SET value=:value WHERE id=${id} and value=${paramValue}</pre>
+   * <pre>UPDATE bean_bean SET value=:value WHERE id=:id and value=:paramValue</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -414,16 +414,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
-   * 	<dt>${paramValue}</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:paramValue</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
    * </dl>
    *
    * @param value
    * 	is used as updated field <strong>value</strong>
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    * @param paramValue
-   * 	is used as where parameter <strong>${paramValue}</strong>
+   * 	is used as where parameter <strong>:paramValue</strong>
    *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
@@ -474,12 +474,12 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean_bean (id, value) VALUES (${id}, ${value})</pre>
+   * <pre>INSERT INTO bean_bean (id, value) VALUES (:id, :value)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>id</dt><dd>is binded to query's parameter <strong>${id}</strong> and method's parameter <strong>id</strong></dd>
-   * 	<dt>value</dt><dd>is binded to query's parameter <strong>${value}</strong> and method's parameter <strong>value</strong></dd>
+   * 	<dt>id</dt><dd>is binded to query's parameter <strong>:id</strong> and method's parameter <strong>id</strong></dd>
+   * 	<dt>value</dt><dd>is binded to query's parameter <strong>:value</strong> and method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param id
@@ -543,14 +543,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean_bean (value, value2) VALUES (${bean.value}, ${bean.value2})</pre>
+   * <pre>INSERT INTO bean_bean (value, value2) VALUES (:bean.value, :bean.value2)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
-   * 	<dt>value2</dt><dd>is mapped to <strong>${bean.value2}</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:bean.value</strong></dd>
+   * 	<dt>value2</dt><dd>is mapped to <strong>:bean.value2</strong></dd>
    * </dl>
    *
    * @param bean
@@ -613,16 +613,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM bean_bean WHERE value=${paramValue}</pre>
+   * <pre>DELETE FROM bean_bean WHERE value=:paramValue</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${paramValue}</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
+   * 	<dt>:paramValue</dt><dd>is mapped to method's parameter <strong>paramValue</strong></dd>
    * </dl>
    *
    * @param paramValue
-   * 	is used as where parameter <strong>${paramValue}</strong>
+   * 	is used as where parameter <strong>:paramValue</strong>
    *
    * @return number of deleted records
    */

@@ -311,11 +311,11 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -379,7 +379,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 1</li>
+   * <li><strong>:id</strong> at path segment 1</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -461,11 +461,11 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return selected bean or <code>null</code>.
@@ -538,7 +538,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>:id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -623,18 +623,18 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
-   * 	<dt>${name}</dt><dd>is binded to method's parameter <strong>name</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:name</dt><dd>is binded to method's parameter <strong>name</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param name
-   * 	is binded to <code>${name}</code>
+   * 	is binded to <code>:name</code>
    * @param where
    * 	is used as <strong>dynamic WHERE statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param args
-   * 	is binded to <code>${args}</code>
+   * 	is binded to <code>:args</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -719,8 +719,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
-   * <li><strong>${name}</strong> at path segment 3</li>
+   * <li><strong>:id</strong> at path segment 2</li>
+   * <li><strong>:name</strong> at path segment 3</li>
    * </ul>
    *
    * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
@@ -814,11 +814,11 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param order
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @return selected bean or <code>null</code>.
@@ -901,7 +901,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>:id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -992,11 +992,11 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${surname}</dt><dd>is binded to method's parameter <strong>surname</strong></dd>
+   * 	<dt>:surname</dt><dd>is binded to method's parameter <strong>surname</strong></dd>
    * </dl>
    *
    * @param surname
-   * 	is binded to <code>${surname}</code>
+   * 	is binded to <code>:surname</code>
    * @param order
    * 	is used as <strong>dynamic ORDER BY statement</strong> and it is formatted by ({@link StringUtils#format})
    * @param listener
@@ -1088,7 +1088,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${surname}</strong> at path segment 2</li>
+   * <li><strong>:surname</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
@@ -1174,11 +1174,11 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -1242,7 +1242,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    *
    * <h3>Path variables defined:</h3>
    * <ul>
-   * <li><strong>${id}</strong> at path segment 2</li>
+   * <li><strong>:id</strong> at path segment 2</li>
    * </ul>
    *
    * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>

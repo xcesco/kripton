@@ -34,14 +34,14 @@ public class DaoSongImpl extends Dao implements DaoSong {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO song (album_id, name) VALUES (${albumId}, ${name})</pre>
+   * <pre>INSERT INTO song (album_id, name) VALUES (:albumId, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>album_id</dt><dd>is mapped to <strong>${bean.albumId}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>album_id</dt><dd>is mapped to <strong>:bean.albumId</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
    * @param bean
@@ -179,11 +179,11 @@ public class DaoSongImpl extends Dao implements DaoSong {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${albumId}</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
+   * 	<dt>:albumId</dt><dd>is binded to method's parameter <strong>dummy</strong></dd>
    * </dl>
    *
    * @param dummy
-   * 	is binded to <code>${albumId}</code>
+   * 	is binded to <code>:albumId</code>
    * @return collection of bean or empty collection.
    */
   @Override

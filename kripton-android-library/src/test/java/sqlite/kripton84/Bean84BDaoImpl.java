@@ -61,11 +61,11 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
    * </dl>
    *
    * @param param1
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -126,11 +126,11 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${param1}</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
+   * 	<dt>:param1</dt><dd>is binded to method's parameter <strong>param1</strong></dd>
    * </dl>
    *
    * @param param1
-   * 	is binded to <code>${param1}</code>
+   * 	is binded to <code>:param1</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -180,13 +180,13 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean84_b (column_bean) VALUES (${bean.columnBean})</pre>
+   * <pre>INSERT INTO bean84_b (column_bean) VALUES (:bean.columnBean)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>column_bean</dt><dd>is mapped to <strong>${bean.columnBean}</strong></dd>
+   * 	<dt>column_bean</dt><dd>is mapped to <strong>:bean.columnBean</strong></dd>
    * </dl>
    *
    * @param bean
@@ -252,11 +252,11 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>column_bean</dt><dd>is mapped to <strong>${bean.columnBean}</strong></dd>
+   * 	<dt>column_bean</dt><dd>is mapped to <strong>:bean.columnBean</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return <code>true</code> if record is updated, <code>false</code> otherwise
    */
@@ -308,7 +308,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    * <pre>DELETE FROM bean84_b</pre>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */

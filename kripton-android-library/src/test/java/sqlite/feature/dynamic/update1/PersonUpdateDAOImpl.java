@@ -37,7 +37,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like ${nameTemp} || '%' </pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like :nameTemp || '%' </pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -50,11 +50,11 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${nameTemp}</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
+   * 	<dt>:nameTemp</dt><dd>is binded to method's parameter <strong>nameValue</strong></dd>
    * </dl>
    *
    * @param nameValue
-   * 	is binded to <code>${nameTemp}</code>
+   * 	is binded to <code>:nameTemp</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -116,12 +116,12 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM person WHERE id = ${nameValue} #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = :nameValue #{DYNAMIC_WHERE}</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${nameValue}</dt><dd>is mapped to method's parameter <strong>nameValue</strong></dd>
+   * 	<dt>:nameValue</dt><dd>is mapped to method's parameter <strong>nameValue</strong></dd>
    * </dl>
    *
    * <dl>
@@ -133,7 +133,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    * <dt>where</dt><dd>is part of where conditions resolved at runtime. In above SQL it is displayed as #{DYNAMIC_WHERE}</dd></dl>
    *
    * @param nameValue
-   * 	is used as where parameter <strong>${nameValue}</strong>
+   * 	is used as where parameter <strong>:nameValue</strong>
    * @param where
    * 	is used as dynamic where conditions
    */
@@ -177,11 +177,11 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL delete:</h2>
-   * <pre>DELETE FROM person WHERE id = ${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>DELETE FROM person WHERE id = :bean.id #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -190,7 +190,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    */
@@ -234,7 +234,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE person SET name=:name WHERE id = ${nameValue} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET name=:name WHERE id = :nameValue #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -243,7 +243,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${nameValue}</dt><dd>is mapped to method's parameter <strong>nameValue</strong></dd>
+   * 	<dt>:nameValue</dt><dd>is mapped to method's parameter <strong>nameValue</strong></dd>
    * </dl>
    *
    * <dl>
@@ -257,7 +257,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    * @param name
    * 	is used as updated field <strong>name</strong>
    * @param nameValue
-   * 	is used as where parameter <strong>${nameValue}</strong>
+   * 	is used as where parameter <strong>:nameValue</strong>
    * @param where
    * 	is used as dynamic where conditions
    */
@@ -319,15 +319,15 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
+   * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -336,7 +336,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    * @param where
    * 	is used as dynamic where conditions
    */
@@ -469,14 +469,14 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT OR IGNORE INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
+   * <pre>INSERT OR IGNORE INTO person (name, surname, birth_city, birth_day) VALUES (:name, :surname, :birthCity, :birthDay)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>name</dt><dd>is binded to query's parameter <strong>${name}</strong> and method's parameter <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>${surname}</strong> and method's parameter <strong>surname</strong></dd>
-   * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>${birthCity}</strong> and method's parameter <strong>birthCity</strong></dd>
-   * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>${birthDay}</strong> and method's parameter <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is binded to query's parameter <strong>:surname</strong> and method's parameter <strong>surname</strong></dd>
+   * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>:birthCity</strong> and method's parameter <strong>birthCity</strong></dd>
+   * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>:birthDay</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
    * @param name

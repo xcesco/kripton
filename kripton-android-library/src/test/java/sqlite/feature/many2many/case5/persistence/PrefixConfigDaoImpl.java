@@ -38,16 +38,16 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (${defaultCountry}, ${dialogTimeout}, ${dualBillingPrefix}, ${enabled})</pre>
+   * <pre>INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (:defaultCountry, :dialogTimeout, :dualBillingPrefix, :enabled)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>default_country</dt><dd>is mapped to <strong>${bean.defaultCountry}</strong></dd>
-   * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>${bean.dialogTimeout}</strong></dd>
-   * 	<dt>dual_billing_prefix</dt><dd>is mapped to <strong>${bean.dualBillingPrefix}</strong></dd>
-   * 	<dt>enabled</dt><dd>is mapped to <strong>${bean.enabled}</strong></dd>
+   * 	<dt>default_country</dt><dd>is mapped to <strong>:bean.defaultCountry</strong></dd>
+   * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>:bean.dialogTimeout</strong></dd>
+   * 	<dt>dual_billing_prefix</dt><dd>is mapped to <strong>:bean.dualBillingPrefix</strong></dd>
+   * 	<dt>enabled</dt><dd>is mapped to <strong>:bean.enabled</strong></dd>
    * </dl>
    *
    * @param bean
@@ -126,11 +126,11 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -186,16 +186,16 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM prefix_config WHERE id = ${id}</pre>
+   * <pre>DELETE FROM prefix_config WHERE id = :id</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is used as where parameter <strong>${id}</strong>
+   * 	is used as where parameter <strong>:id</strong>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -235,11 +235,11 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return <code>true</code> if record is deleted, <code>false</code> otherwise
    */
@@ -345,19 +345,19 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>default_country</dt><dd>is mapped to <strong>${bean.defaultCountry}</strong></dd>
-   * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>${bean.dialogTimeout}</strong></dd>
-   * 	<dt>dual_billing_prefix</dt><dd>is mapped to <strong>${bean.dualBillingPrefix}</strong></dd>
-   * 	<dt>enabled</dt><dd>is mapped to <strong>${bean.enabled}</strong></dd>
+   * 	<dt>default_country</dt><dd>is mapped to <strong>:bean.defaultCountry</strong></dd>
+   * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>:bean.dialogTimeout</strong></dd>
+   * 	<dt>dual_billing_prefix</dt><dd>is mapped to <strong>:bean.dualBillingPrefix</strong></dd>
+   * 	<dt>enabled</dt><dd>is mapped to <strong>:bean.enabled</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.id}</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
+   * 	<dt>:bean.id</dt><dd>is mapped to method's parameter <strong>bean.id</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */

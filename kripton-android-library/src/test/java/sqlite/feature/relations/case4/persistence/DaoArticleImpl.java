@@ -35,19 +35,19 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO article (author, channel_id, comments, description, guid, link, title) VALUES (${author}, ${channelId}, ${comments}, ${description}, ${guid}, ${link}, ${title})</pre>
+   * <pre>INSERT OR REPLACE INTO article (author, channel_id, comments, description, guid, link, title) VALUES (:author, :channelId, :comments, :description, :guid, :link, :title)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>author</dt><dd>is mapped to <strong>${bean.author}</strong></dd>
-   * 	<dt>channel_id</dt><dd>is mapped to <strong>${bean.channelId}</strong></dd>
-   * 	<dt>comments</dt><dd>is mapped to <strong>${bean.comments}</strong></dd>
-   * 	<dt>description</dt><dd>is mapped to <strong>${bean.description}</strong></dd>
-   * 	<dt>guid</dt><dd>is mapped to <strong>${bean.guid}</strong></dd>
-   * 	<dt>link</dt><dd>is mapped to <strong>${bean.link}</strong></dd>
-   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
+   * 	<dt>author</dt><dd>is mapped to <strong>:bean.author</strong></dd>
+   * 	<dt>channel_id</dt><dd>is mapped to <strong>:bean.channelId</strong></dd>
+   * 	<dt>comments</dt><dd>is mapped to <strong>:bean.comments</strong></dd>
+   * 	<dt>description</dt><dd>is mapped to <strong>:bean.description</strong></dd>
+   * 	<dt>guid</dt><dd>is mapped to <strong>:bean.guid</strong></dd>
+   * 	<dt>link</dt><dd>is mapped to <strong>:bean.link</strong></dd>
+   * 	<dt>title</dt><dd>is mapped to <strong>:bean.title</strong></dd>
    * </dl>
    *
    * @param bean
@@ -132,11 +132,11 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${channelId}</dt><dd>is binded to method's parameter <strong>channelId</strong></dd>
+   * 	<dt>:channelId</dt><dd>is binded to method's parameter <strong>channelId</strong></dd>
    * </dl>
    *
    * @param channelId
-   * 	is binded to <code>${channelId}</code>
+   * 	is binded to <code>:channelId</code>
    * @return collection of bean or empty collection.
    */
   @Override

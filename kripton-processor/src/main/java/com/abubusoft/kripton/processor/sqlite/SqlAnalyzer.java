@@ -26,6 +26,7 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
@@ -37,16 +38,37 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Analyze an SQL statement, extract parameter and replace with ?.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class SqlAnalyzer {
+	
+	public static String PARAM_PREFIX=":";
+	public static String PARAM_SUFFIX="";
+	
+	public static String PARAM_PATTERN="(\\$\\{\\s*([\\w._]*)\\s*\\})|(\\:\\{\\s*([\\w._]*)\\s*\\})|(\\:\\s*([\\w._]*))";
+	
+	/**
+	 * @param matcher
+	 * @return
+	 */
+	public static String extractParamName(Matcher matcher) {
+		int index;
+		if (StringUtils.hasText(matcher.group(2))) {
+			index=2;
+		} else if (StringUtils.hasText(matcher.group(4))) {
+			index=4;
+		} else {
+			index=6;
+		}
+		return matcher.group(index);
+	}
 
 	/** The parameter. */
-	private final Pattern PARAMETER = Pattern.compile("\\$\\{\\s*([\\w._]*)\\s*\\}");
+	private final Pattern PARAMETER = Pattern.compile(PARAM_PATTERN);
 
 	/** The word. */
 	private final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
@@ -113,7 +135,7 @@ public class SqlAnalyzer {
 	}
 
 	/**
-	 * Extract from value string every placeholder ${}, replace it with ? and then convert every field typeName with column typeName. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
+	 * Extract from value string every placeholder :{}, replace it with ? and then convert every field typeName with column typeName. The result is a pair: the first value is the elaborated string. The second is the list of parameters associated to
 	 * ?. This second parameter is the list of parameters and replaced with ?.
 	 *
 	 * @param elementUtils the element utils
@@ -131,14 +153,16 @@ public class SqlAnalyzer {
 		usedBeanPropertyNames=new ArrayList<String>();
 		paramTypeNames=new ArrayList<TypeName>();
 
-		// replace placeholder ${ } with ?
+		// replace placeholder :{ } with ?
 		{
 			Matcher matcher = PARAMETER.matcher(sqlStatement);
 
 			StringBuffer buffer = new StringBuffer();
 			while (matcher.find()) {
 				matcher.appendReplacement(buffer, "?");
-				paramNames.add(matcher.group(1));
+								
+				
+				paramNames.add(extractParamName(matcher));
 			}
 			matcher.appendTail(buffer);
 

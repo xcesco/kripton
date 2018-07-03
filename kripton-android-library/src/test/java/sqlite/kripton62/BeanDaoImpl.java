@@ -170,11 +170,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param listener
    * 	is the Bean listener
    */
@@ -281,11 +281,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @param listener
    * 	is the cursor listener
    */
@@ -350,11 +350,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -434,26 +434,26 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to <strong>${value.value}</strong></dd>
-   * 	<dt>value_bean_set</dt><dd>is mapped to <strong>${value.valueBeanSet}</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>${value.valueBigDecimalSet}</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${value.valueByteSet}</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is mapped to <strong>${value.valueCharacterSet}</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is mapped to <strong>${value.valueDoubleSet}</strong></dd>
-   * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>${value.valueEnumTypeSet}</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is mapped to <strong>${value.valueFloatSet}</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${value.valueIntegerSet}</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is mapped to <strong>${value.valueShortSet}</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is mapped to <strong>${value.valueStringSet}</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:value.value</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is mapped to <strong>:value.valueBeanSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>:value.valueBigDecimalSet</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>:value.valueByteSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is mapped to <strong>:value.valueCharacterSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is mapped to <strong>:value.valueDoubleSet</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>:value.valueEnumTypeSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is mapped to <strong>:value.valueFloatSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>:value.valueIntegerSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is mapped to <strong>:value.valueShortSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is mapped to <strong>:value.valueStringSet</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${value.id}</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
+   * 	<dt>:value.id</dt><dd>is mapped to method's parameter <strong>value.id</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is used as ${value}
+   * 	is used as <code>:value</code>
    *
    * @return number of updated records
    */
@@ -513,23 +513,23 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set) VALUES (${bean.value}, ${bean.valueBeanSet}, ${bean.valueBigDecimalSet}, ${bean.valueByteSet}, ${bean.valueCharacterSet}, ${bean.valueDoubleSet}, ${bean.valueEnumTypeSet}, ${bean.valueFloatSet}, ${bean.valueIntegerSet}, ${bean.valueShortSet}, ${bean.valueStringSet})</pre>
+   * <pre>INSERT INTO bean (value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set) VALUES (:bean.value, :bean.valueBeanSet, :bean.valueBigDecimalSet, :bean.valueByteSet, :bean.valueCharacterSet, :bean.valueDoubleSet, :bean.valueEnumTypeSet, :bean.valueFloatSet, :bean.valueIntegerSet, :bean.valueShortSet, :bean.valueStringSet)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
-   * 	<dt>value_bean_set</dt><dd>is mapped to <strong>${bean.valueBeanSet}</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>${bean.valueBigDecimalSet}</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${bean.valueByteSet}</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is mapped to <strong>${bean.valueCharacterSet}</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is mapped to <strong>${bean.valueDoubleSet}</strong></dd>
-   * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>${bean.valueEnumTypeSet}</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is mapped to <strong>${bean.valueFloatSet}</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${bean.valueIntegerSet}</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is mapped to <strong>${bean.valueShortSet}</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is mapped to <strong>${bean.valueStringSet}</strong></dd>
+   * 	<dt>value</dt><dd>is mapped to <strong>:bean.value</strong></dd>
+   * 	<dt>value_bean_set</dt><dd>is mapped to <strong>:bean.valueBeanSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>:bean.valueBigDecimalSet</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>:bean.valueByteSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is mapped to <strong>:bean.valueCharacterSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is mapped to <strong>:bean.valueDoubleSet</strong></dd>
+   * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>:bean.valueEnumTypeSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is mapped to <strong>:bean.valueFloatSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>:bean.valueIntegerSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is mapped to <strong>:bean.valueShortSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is mapped to <strong>:bean.valueStringSet</strong></dd>
    * </dl>
    *
    * @param bean
@@ -601,11 +601,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO bean (value_big_decimal_set) VALUES (${valueBigDecimalSet})</pre>
+   * <pre>INSERT INTO bean (value_big_decimal_set) VALUES (:valueBigDecimalSet)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
-   * 	<dt>valueBigDecimalSet</dt><dd>is binded to query's parameter <strong>${valueBigDecimalSet}</strong> and method's parameter <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>valueBigDecimalSet</dt><dd>is binded to query's parameter <strong>:valueBigDecimalSet</strong> and method's parameter <strong>valueBigDecimalSet</strong></dd>
    * </dl>
    *
    * @param valueBigDecimalSet
@@ -687,11 +687,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${valueBigDecimalSet}</dt><dd>is binded to method's parameter <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>:valueBigDecimalSet</dt><dd>is binded to method's parameter <strong>valueBigDecimalSet</strong></dd>
    * </dl>
    *
    * @param valueBigDecimalSet
-   * 	is binded to <code>${valueBigDecimalSet}</code>
+   * 	is binded to <code>:valueBigDecimalSet</code>
    * @return selected bean or <code>null</code>.
    */
   @Override
@@ -761,16 +761,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL delete</h2>
-   * <pre>DELETE FROM bean WHERE value=${valueBigDecimalSet}</pre>
+   * <pre>DELETE FROM bean WHERE value=:valueBigDecimalSet</pre>
    *
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>:valueBigDecimalSet</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
    * </dl>
    *
    * @param valueBigDecimalSet
-   * 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
+   * 	is used as where parameter <strong>:valueBigDecimalSet</strong>
    *
    * @return number of deleted records
    */
@@ -806,7 +806,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL update</h2>
-   * <pre>UPDATE bean SET id=:id WHERE value=${valueBigDecimalSet}</pre>
+   * <pre>UPDATE bean SET id=:id WHERE value=:valueBigDecimalSet</pre>
    *
    * <h2>Updated columns:</h2>
    * <ul>
@@ -815,13 +815,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <h2>Where parameters:</h2>
    * <dl>
-   * 	<dt>${valueBigDecimalSet}</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>:valueBigDecimalSet</dt><dd>is mapped to method's parameter <strong>valueBigDecimalSet</strong></dd>
    * </dl>
    *
    * @param id
    * 	is used as updated field <strong>id</strong>
    * @param valueBigDecimalSet
-   * 	is used as where parameter <strong>${valueBigDecimalSet}</strong>
+   * 	is used as where parameter <strong>:valueBigDecimalSet</strong>
    *
    * @return number of updated records
    */

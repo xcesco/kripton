@@ -34,17 +34,17 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO comment (id, body, email, name, post_id) VALUES (${bean.id}, ${bean.body}, ${bean.email}, ${bean.name}, ${bean.postId})</pre>
+   * <pre>INSERT INTO comment (id, body, email, name, post_id) VALUES (:bean.id, :bean.body, :bean.email, :bean.name, :bean.postId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>body</dt><dd>is mapped to <strong>${bean.body}</strong></dd>
-   * 	<dt>email</dt><dd>is mapped to <strong>${bean.email}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>post_id</dt><dd>is mapped to <strong>${bean.postId}</strong></dd>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
+   * 	<dt>body</dt><dd>is mapped to <strong>:bean.body</strong></dd>
+   * 	<dt>email</dt><dd>is mapped to <strong>:bean.email</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>post_id</dt><dd>is mapped to <strong>:bean.postId</strong></dd>
    * </dl>
    *
    * @param bean
@@ -121,11 +121,11 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>postId</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>postId</strong></dd>
    * </dl>
    *
    * @param postId
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -201,11 +201,11 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${value}</dt><dd>is binded to method's parameter <strong>postId</strong></dd>
+   * 	<dt>:value</dt><dd>is binded to method's parameter <strong>postId</strong></dd>
    * </dl>
    *
    * @param postId
-   * 	is binded to <code>${value}</code>
+   * 	is binded to <code>:value</code>
    * @return selected bean or <code>null</code>.
    */
   @Override

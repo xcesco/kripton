@@ -62,7 +62,7 @@ public interface PersonDAO {
 	 * @param orderBy the order by
 	 * @return the list
 	 */
-	@BindSqlSelect(where = "name like ${nameTemp} || '%'")
+	@BindSqlSelect(where = "name like :nameTemp || '%'")
 	List<Person> selectOne(@BindSqlParam("nameTemp") String nameValue, @BindSqlDynamicWhere String where, @BindSqlDynamicOrderBy String orderBy);
 
 	/**

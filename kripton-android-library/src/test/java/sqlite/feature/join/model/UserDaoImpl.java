@@ -26,15 +26,15 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO user (age, last_name, name) VALUES (${age}, ${lastName}, ${name})</pre>
+   * <pre>INSERT INTO user (age, last_name, name) VALUES (:age, :lastName, :name)</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>age</dt><dd>is mapped to <strong>${entity.age}</strong></dd>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${entity.lastName}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${entity.name}</strong></dd>
+   * 	<dt>age</dt><dd>is mapped to <strong>:entity.age</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>:entity.lastName</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:entity.name</strong></dd>
    * </dl>
    *
    * @param entity

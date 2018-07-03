@@ -115,11 +115,11 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${id}</dt><dd>is binded to method's parameter <strong>id</strong></dd>
+   * 	<dt>:id</dt><dd>is binded to method's parameter <strong>id</strong></dd>
    * </dl>
    *
    * @param id
-   * 	is binded to <code>${id}</code>
+   * 	is binded to <code>:id</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -187,11 +187,11 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${dummy}</dt><dd>is binded to method's parameter <strong>value</strong></dd>
+   * 	<dt>:dummy</dt><dd>is binded to method's parameter <strong>value</strong></dd>
    * </dl>
    *
    * @param value
-   * 	is binded to <code>${dummy}</code>
+   * 	is binded to <code>:dummy</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -245,14 +245,14 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean_a_4 (bean_a2_id, value_string) VALUES (${bean.beanA2Id}, ${bean.valueString})</pre>
+   * <pre>INSERT INTO bean_a_4 (bean_a2_id, value_string) VALUES (:bean.beanA2Id, :bean.valueString)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>bean_a2_id</dt><dd>is mapped to <strong>${bean.beanA2Id}</strong></dd>
-   * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
+   * 	<dt>bean_a2_id</dt><dd>is mapped to <strong>:bean.beanA2Id</strong></dd>
+   * 	<dt>value_string</dt><dd>is mapped to <strong>:bean.valueString</strong></dd>
    * </dl>
    *
    * @param bean
@@ -319,17 +319,17 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>bean_a2_id</dt><dd>is mapped to <strong>${bean.beanA2Id}</strong></dd>
-   * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
+   * 	<dt>bean_a2_id</dt><dd>is mapped to <strong>:bean.beanA2Id</strong></dd>
+   * 	<dt>value_string</dt><dd>is mapped to <strong>:bean.valueString</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
    * <dl>
-   * 	<dt>${bean.valueString}</dt><dd>is mapped to method's parameter <strong>bean.valueString</strong></dd>
+   * 	<dt>:bean.valueString</dt><dd>is mapped to method's parameter <strong>bean.valueString</strong></dd>
    * </dl>
    *
    * @param bean
-   * 	is used as ${bean}
+   * 	is used as <code>:bean</code>
    *
    * @return number of updated records
    */
