@@ -24,13 +24,13 @@ import sqlite.feature.many2many.case6.model.PersonPhone;
  *  @see sqlite.feature.many2many.case6.model.PersonPhoneTable
  */
 public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao {
-  private static final String SELECT_BY_DATE_SQL11 = "SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE buy_date>?";
+  private static final String SELECT_BY_DATE_SQL11 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE buy_date>?";
 
-  private static final String SELECT_BY_ID_SQL12 = "SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE id=?";
+  private static final String SELECT_BY_ID_SQL12 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE id=?";
 
-  private static final String SELECT_BY_PERSON_ID_SQL13 = "SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE person_id=?";
+  private static final String SELECT_BY_PERSON_ID_SQL13 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE person_id=?";
 
-  private static final String SELECT_BY_PHONE_NUMBER_ID_SQL14 = "SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE phone_number_id=?";
+  private static final String SELECT_BY_PHONE_NUMBER_ID_SQL14 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE phone_number_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -47,14 +47,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE buy_date>${since}</pre>
+   * <pre>SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE buy_date>${since}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>phone_number_id</dt><dd>is associated to bean's property <strong>phoneNumberId</strong></dd>
-   * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -100,18 +100,18 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("phone_number_id");
-        int index3=_cursor.getColumnIndex("buy_date");
+        int index1=_cursor.getColumnIndex("buy_date");
+        int index2=_cursor.getColumnIndex("person_id");
+        int index3=_cursor.getColumnIndex("phone_number_id");
 
         do
          {
           resultBean=new PersonPhone();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.phoneNumberId=_cursor.getLong(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.buyDate=SQLDateUtils.read(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index1)) { resultBean.buyDate=SQLDateUtils.read(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.phoneNumberId=_cursor.getLong(index3); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -124,14 +124,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE id=${id}</pre>
+   * <pre>SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>phone_number_id</dt><dd>is associated to bean's property <strong>phoneNumberId</strong></dd>
-   * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -176,16 +176,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("phone_number_id");
-        int index3=_cursor.getColumnIndex("buy_date");
+        int index1=_cursor.getColumnIndex("buy_date");
+        int index2=_cursor.getColumnIndex("person_id");
+        int index3=_cursor.getColumnIndex("phone_number_id");
 
         resultBean=new PersonPhone();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.phoneNumberId=_cursor.getLong(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.buyDate=SQLDateUtils.read(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index1)) { resultBean.buyDate=SQLDateUtils.read(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.phoneNumberId=_cursor.getLong(index3); }
 
       }
       return resultBean;
@@ -195,14 +195,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE person_id=${personId}</pre>
+   * <pre>SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE person_id=${personId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>phone_number_id</dt><dd>is associated to bean's property <strong>phoneNumberId</strong></dd>
-   * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -248,18 +248,18 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("phone_number_id");
-        int index3=_cursor.getColumnIndex("buy_date");
+        int index1=_cursor.getColumnIndex("buy_date");
+        int index2=_cursor.getColumnIndex("person_id");
+        int index3=_cursor.getColumnIndex("phone_number_id");
 
         do
          {
           resultBean=new PersonPhone();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.phoneNumberId=_cursor.getLong(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.buyDate=SQLDateUtils.read(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index1)) { resultBean.buyDate=SQLDateUtils.read(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.phoneNumberId=_cursor.getLong(index3); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -272,14 +272,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, phone_number_id, buy_date FROM person_phone WHERE phone_number_id=${phoneNumberId}</pre>
+   * <pre>SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE phone_number_id=${phoneNumberId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>phone_number_id</dt><dd>is associated to bean's property <strong>phoneNumberId</strong></dd>
-   * 	<dt>buy_date</dt><dd>is associated to bean's property <strong>buyDate</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -325,18 +325,18 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("phone_number_id");
-        int index3=_cursor.getColumnIndex("buy_date");
+        int index1=_cursor.getColumnIndex("buy_date");
+        int index2=_cursor.getColumnIndex("person_id");
+        int index3=_cursor.getColumnIndex("phone_number_id");
 
         do
          {
           resultBean=new PersonPhone();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.phoneNumberId=_cursor.getLong(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.buyDate=SQLDateUtils.read(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index1)) { resultBean.buyDate=SQLDateUtils.read(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.phoneNumberId=_cursor.getLong(index3); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -483,15 +483,15 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person_phone (person_id, phone_number_id, buy_date) VALUES (${personId}, ${phoneNumberId}, ${buyDate})</pre>
+   * <pre>INSERT INTO person_phone (buy_date, person_id, phone_number_id) VALUES (${buyDate}, ${personId}, ${phoneNumberId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>buy_date</dt><dd>is mapped to <strong>${bean.buyDate}</strong></dd>
    * 	<dt>person_id</dt><dd>is mapped to <strong>${bean.personId}</strong></dd>
    * 	<dt>phone_number_id</dt><dd>is mapped to <strong>${bean.phoneNumberId}</strong></dd>
-   * 	<dt>buy_date</dt><dd>is mapped to <strong>${bean.buyDate}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -503,13 +503,13 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   public int insert(PersonPhone bean) {
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person_phone (person_id, phone_number_id, buy_date) VALUES (?, ?, ?)";
+      String _sql="INSERT INTO person_phone (buy_date, person_id, phone_number_id) VALUES (?, ?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
+    _contentValues.put("buy_date", SQLDateUtils.write(bean.buyDate));
     _contentValues.put("person_id", bean.personId);
     _contentValues.put("phone_number_id", bean.phoneNumberId);
-    _contentValues.put("buy_date", SQLDateUtils.write(bean.buyDate));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

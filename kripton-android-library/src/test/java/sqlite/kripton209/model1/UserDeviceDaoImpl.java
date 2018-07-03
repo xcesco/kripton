@@ -21,11 +21,11 @@ import java.util.List;
  *  @see UserDeviceTable
  */
 public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
-  private static final String SELECT_BY_ID_SQL5 = "SELECT id, user_id, device_id FROM user_device WHERE id=?";
+  private static final String SELECT_BY_ID_SQL5 = "SELECT id, device_id, user_id FROM user_device WHERE id=?";
 
-  private static final String SELECT_BY_USER_ID_SQL6 = "SELECT id, user_id, device_id FROM user_device WHERE user_id=?";
+  private static final String SELECT_BY_USER_ID_SQL6 = "SELECT id, device_id, user_id FROM user_device WHERE user_id=?";
 
-  private static final String SELECT_BY_DEVICE_ID_SQL7 = "SELECT id, user_id, device_id FROM user_device WHERE device_id=?";
+  private static final String SELECT_BY_DEVICE_ID_SQL7 = "SELECT id, device_id, user_id FROM user_device WHERE device_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -42,13 +42,13 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, user_id, device_id FROM user_device WHERE id=${id}</pre>
+   * <pre>SELECT id, device_id, user_id FROM user_device WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>device_id</dt><dd>is associated to bean's property <strong>deviceId</strong></dd>
+   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -93,14 +93,14 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("user_id");
-        int index2=_cursor.getColumnIndex("device_id");
+        int index1=_cursor.getColumnIndex("device_id");
+        int index2=_cursor.getColumnIndex("user_id");
 
         resultBean=new UserDevice();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.deviceId=_cursor.getLong(index2); }
+        if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
 
       }
       return resultBean;
@@ -110,13 +110,13 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, user_id, device_id FROM user_device WHERE user_id=${userId}</pre>
+   * <pre>SELECT id, device_id, user_id FROM user_device WHERE user_id=${userId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>device_id</dt><dd>is associated to bean's property <strong>deviceId</strong></dd>
+   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -162,16 +162,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("user_id");
-        int index2=_cursor.getColumnIndex("device_id");
+        int index1=_cursor.getColumnIndex("device_id");
+        int index2=_cursor.getColumnIndex("user_id");
 
         do
          {
           resultBean=new UserDevice();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.deviceId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -184,13 +184,13 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, user_id, device_id FROM user_device WHERE device_id=${deviceId}</pre>
+   * <pre>SELECT id, device_id, user_id FROM user_device WHERE device_id=${deviceId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>device_id</dt><dd>is associated to bean's property <strong>deviceId</strong></dd>
+   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -236,16 +236,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("user_id");
-        int index2=_cursor.getColumnIndex("device_id");
+        int index1=_cursor.getColumnIndex("device_id");
+        int index2=_cursor.getColumnIndex("user_id");
 
         do
          {
           resultBean=new UserDevice();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.deviceId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -392,14 +392,14 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO user_device (user_id, device_id) VALUES (${bean.userId}, ${bean.deviceId})</pre>
+   * <pre>INSERT INTO user_device (device_id, user_id) VALUES (${bean.deviceId}, ${bean.userId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>user_id</dt><dd>is mapped to <strong>${bean.userId}</strong></dd>
    * 	<dt>device_id</dt><dd>is mapped to <strong>${bean.deviceId}</strong></dd>
+   * 	<dt>user_id</dt><dd>is mapped to <strong>${bean.userId}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -411,12 +411,12 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   public int insert(UserDevice bean) {
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO user_device (user_id, device_id) VALUES (?, ?)";
+      String _sql="INSERT INTO user_device (device_id, user_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
-    _contentValues.put("user_id", bean.userId);
     _contentValues.put("device_id", bean.deviceId);
+    _contentValues.put("user_id", bean.userId);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

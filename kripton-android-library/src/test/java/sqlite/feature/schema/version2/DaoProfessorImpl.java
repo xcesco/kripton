@@ -27,14 +27,14 @@ public class DaoProfessorImpl extends Dao implements DaoProfessor {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO professor (name, birth_date, surname) VALUES (${name}, ${birthDate}, ${surname})</pre>
+   * <pre>INSERT INTO professor (birth_date, name, surname) VALUES (${birthDate}, ${name}, ${surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * </dl>
    *
@@ -47,12 +47,12 @@ public class DaoProfessorImpl extends Dao implements DaoProfessor {
   public long insert(Professor bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO professor (name, birth_date, surname) VALUES (?, ?, ?)";
+      String _sql="INSERT INTO professor (birth_date, name, surname) VALUES (?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("name", bean.name);
     _contentValues.put("birth_date", DateUtils.write(bean.birthDate));
+    _contentValues.put("name", bean.name);
     _contentValues.put("surname", bean.surname);
 
     // log section BEGIN

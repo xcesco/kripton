@@ -20,9 +20,9 @@ public class PrefixConfigTable implements SQLiteTable {
    * DDL to create table prefix_config
    * </p>
    *
-   * <pre>CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT, default_country TEXT, dual_billing_prefix TEXT, enabled INTEGER, dialog_timeout INTEGER);</pre>
+   * <pre>CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT, default_country TEXT, dialog_timeout INTEGER, dual_billing_prefix TEXT, enabled INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT, default_country TEXT, dual_billing_prefix TEXT, enabled INTEGER, dialog_timeout INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT, default_country TEXT, dialog_timeout INTEGER, dual_billing_prefix TEXT, enabled INTEGER);";
 
   /**
    * <p>
@@ -48,6 +48,13 @@ public class PrefixConfigTable implements SQLiteTable {
   public static final String COLUMN_DEFAULT_COUNTRY = "default_country";
 
   /**
+   * Entity's property <code>dialogTimeout</code> is associated to table column <code>dialog_timeout</code>. This costant represents column name.
+   *
+   *  @see PrefixConfig#dialogTimeout
+   */
+  public static final String COLUMN_DIALOG_TIMEOUT = "dialog_timeout";
+
+  /**
    * Entity's property <code>dualBillingPrefix</code> is associated to table column <code>dual_billing_prefix</code>. This costant represents column name.
    *
    *  @see PrefixConfig#dualBillingPrefix
@@ -62,16 +69,9 @@ public class PrefixConfigTable implements SQLiteTable {
   public static final String COLUMN_ENABLED = "enabled";
 
   /**
-   * Entity's property <code>dialogTimeout</code> is associated to table column <code>dialog_timeout</code>. This costant represents column name.
-   *
-   *  @see PrefixConfig#dialogTimeout
-   */
-  public static final String COLUMN_DIALOG_TIMEOUT = "dialog_timeout";
-
-  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_DEFAULT_COUNTRY, COLUMN_DUAL_BILLING_PREFIX, COLUMN_ENABLED, COLUMN_DIALOG_TIMEOUT};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_DEFAULT_COUNTRY, COLUMN_DIALOG_TIMEOUT, COLUMN_DUAL_BILLING_PREFIX, COLUMN_ENABLED};
 
   /**
    * Columns array

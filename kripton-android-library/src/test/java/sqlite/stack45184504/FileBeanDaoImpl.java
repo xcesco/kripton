@@ -25,7 +25,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
 
   private static SQLiteStatement insertPreparedStatement1;
 
-  private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, content, content_type FROM files WHERE id=?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, content, content_type, name FROM files WHERE id=?";
 
   public FileBeanDaoImpl(BindExampleDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -33,15 +33,15 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO files (name, content, content_type) VALUES (${bean.name}, ${bean.content}, ${bean.contentType})</pre>
+   * <pre>INSERT INTO files (content, content_type, name) VALUES (${bean.content}, ${bean.contentType}, ${bean.name})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
    * 	<dt>content_type</dt><dd>is mapped to <strong>${bean.contentType}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -53,13 +53,13 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
   public long insert(FileBean bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO files (name, content, content_type) VALUES (?, ?, ?)";
+      String _sql="INSERT INTO files (content, content_type, name) VALUES (?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("name", bean.name);
     _contentValues.put("content", bean.content);
     _contentValues.put("content_type", bean.contentType);
+    _contentValues.put("name", bean.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -179,14 +179,14 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, content, content_type FROM files WHERE id=${id}</pre>
+   * <pre>SELECT id, content, content_type, name FROM files WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>content_type</dt><dd>is associated to bean's property <strong>contentType</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -232,18 +232,18 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("content");
-        int index3=_cursor.getColumnIndex("content_type");
+        int index1=_cursor.getColumnIndex("content");
+        int index2=_cursor.getColumnIndex("content_type");
+        int index3=_cursor.getColumnIndex("name");
 
         do
          {
           resultBean=new FileBean();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.content=_cursor.getBlob(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.contentType=_cursor.getString(index3); }
+          if (!_cursor.isNull(index1)) { resultBean.content=_cursor.getBlob(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.contentType=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

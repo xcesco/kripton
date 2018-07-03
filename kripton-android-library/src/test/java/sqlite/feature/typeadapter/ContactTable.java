@@ -20,9 +20,9 @@ public class ContactTable implements SQLiteTable {
    * DDL to create table contact
    * </p>
    *
-   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, surname TEXT, birth_day INTEGER, password BLOB, type INTEGER, update_date TEXT, update_time TEXT);</pre>
+   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER, password BLOB, surname TEXT, type INTEGER, update_date TEXT, update_time TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, surname TEXT, birth_day INTEGER, password BLOB, type INTEGER, update_date TEXT, update_time TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER, password BLOB, surname TEXT, type INTEGER, update_date TEXT, update_time TEXT);";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class ContactTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
-   *
-   *  @see Contact#surname
-   */
-  public static final String COLUMN_SURNAME = "surname";
-
-  /**
    * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.
    *
    *  @see Contact#birthDay
@@ -60,6 +53,13 @@ public class ContactTable implements SQLiteTable {
    *  @see Contact#password
    */
   public static final String COLUMN_PASSWORD = "password";
+
+  /**
+   * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
+   *
+   *  @see Contact#surname
+   */
+  public static final String COLUMN_SURNAME = "surname";
 
   /**
    * Entity's property <code>type</code> is associated to table column <code>type</code>. This costant represents column name.
@@ -85,7 +85,7 @@ public class ContactTable implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_SURNAME, COLUMN_BIRTH_DAY, COLUMN_PASSWORD, COLUMN_TYPE, COLUMN_UPDATE_DATE, COLUMN_UPDATE_TIME};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_BIRTH_DAY, COLUMN_PASSWORD, COLUMN_SURNAME, COLUMN_TYPE, COLUMN_UPDATE_DATE, COLUMN_UPDATE_TIME};
 
   /**
    * Columns array

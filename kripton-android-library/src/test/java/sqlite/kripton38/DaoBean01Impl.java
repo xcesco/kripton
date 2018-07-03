@@ -19,7 +19,7 @@ import com.abubusoft.kripton.common.Triple;
  *  @see Bean01Table
  */
 public class DaoBean01Impl extends Dao implements DaoBean01 {
-  private static final String SELECT_ONE_SQL1 = "SELECT temp, id, text FROM bean01 WHERE id=?";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, temp, text FROM bean01 WHERE id=?";
 
   private static SQLiteStatement updateOnePreparedStatement0;
 
@@ -30,12 +30,12 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT temp, id, text FROM bean01 WHERE id=${id}</pre>
+   * <pre>SELECT id, temp, text FROM bean01 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>temp</dt><dd>is associated to bean's property <strong>temp</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>temp</dt><dd>is associated to bean's property <strong>temp</strong></dd>
    * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
@@ -80,14 +80,14 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("temp");
-        int index1=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("temp");
         int index2=_cursor.getColumnIndex("text");
 
         resultBean=new Bean01();
 
-        if (!_cursor.isNull(index0)) { resultBean.temp=Bean01Table.parseTemp(_cursor.getBlob(index0)); }
-        resultBean.setId(_cursor.getLong(index1));
+        resultBean.setId(_cursor.getLong(index0));
+        if (!_cursor.isNull(index1)) { resultBean.temp=Bean01Table.parseTemp(_cursor.getBlob(index1)); }
         if (!_cursor.isNull(index2)) { resultBean.setText(_cursor.getString(index2)); }
 
       }

@@ -32,10 +32,10 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -101,20 +101,20 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

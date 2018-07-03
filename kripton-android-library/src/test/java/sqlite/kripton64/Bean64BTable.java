@@ -34,9 +34,9 @@ public class Bean64BTable implements SQLiteTable {
    * DDL to create table bean64_b
    * </p>
    *
-   * <pre>CREATE TABLE bean64_b (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE bean64_b (id INTEGER PRIMARY KEY AUTOINCREMENT, value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_b (value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_b (id INTEGER PRIMARY KEY AUTOINCREMENT, value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT);";
 
   /**
    * <p>
@@ -46,6 +46,13 @@ public class Bean64BTable implements SQLiteTable {
    * <pre>DROP TABLE IF EXISTS bean64_b;</pre>
    */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean64_b;";
+
+  /**
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   *
+   *  @see Bean64B#id
+   */
+  public static final String COLUMN_ID = "id";
 
   /**
    * Entity's property <code>valueMapStringBean</code> is associated to table column <code>value_map_string_bean</code>. This costant represents column name.
@@ -69,20 +76,13 @@ public class Bean64BTable implements SQLiteTable {
   public static final String COLUMN_VALUE_STRING = "value_string";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
-   *
-   *  @see Bean64B#id
-   */
-  public static final String COLUMN_ID = "id";
-
-  /**
    * Bean64BBindMap */
   private static Bean64BBindMap bean64BBindMap = BinderUtils.mapperFor(Bean64B.class);
 
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_VALUE_MAP_STRING_BEAN, COLUMN_VALUE_SET_STRING, COLUMN_VALUE_STRING, COLUMN_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE_MAP_STRING_BEAN, COLUMN_VALUE_SET_STRING, COLUMN_VALUE_STRING};
 
   /**
    * for attribute valueMapStringBean serialization

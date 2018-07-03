@@ -20,9 +20,9 @@ public class SimpleAddressItemTable implements SQLiteTable {
    * DDL to create table simple_address_item
    * </p>
    *
-   * <pre>CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, city TEXT, state TEXT, phone INTEGER);</pre>
+   * <pre>CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, city TEXT, name TEXT, phone INTEGER, state TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, city TEXT, state TEXT, phone INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, city TEXT, name TEXT, phone INTEGER, state TEXT);";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class SimpleAddressItemTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
-   *
-   *  @see SimpleAddressItem#name
-   */
-  public static final String COLUMN_NAME = "name";
-
-  /**
    * Entity's property <code>address</code> is associated to table column <code>address</code>. This costant represents column name.
    *
    *  @see SimpleAddressItem#address
@@ -62,11 +55,11 @@ public class SimpleAddressItemTable implements SQLiteTable {
   public static final String COLUMN_CITY = "city";
 
   /**
-   * Entity's property <code>state</code> is associated to table column <code>state</code>. This costant represents column name.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
-   *  @see SimpleAddressItem#state
+   *  @see SimpleAddressItem#name
    */
-  public static final String COLUMN_STATE = "state";
+  public static final String COLUMN_NAME = "name";
 
   /**
    * Entity's property <code>phone</code> is associated to table column <code>phone</code>. This costant represents column name.
@@ -76,9 +69,16 @@ public class SimpleAddressItemTable implements SQLiteTable {
   public static final String COLUMN_PHONE = "phone";
 
   /**
+   * Entity's property <code>state</code> is associated to table column <code>state</code>. This costant represents column name.
+   *
+   *  @see SimpleAddressItem#state
+   */
+  public static final String COLUMN_STATE = "state";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_ADDRESS, COLUMN_CITY, COLUMN_STATE, COLUMN_PHONE};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ADDRESS, COLUMN_CITY, COLUMN_NAME, COLUMN_PHONE, COLUMN_STATE};
 
   /**
    * Columns array

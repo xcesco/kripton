@@ -20,9 +20,9 @@ public class UserTable implements SQLiteTable {
    * DDL to create table user
    * </p>
    *
-   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, last_name TEXT, age INTEGER);</pre>
+   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, age INTEGER, last_name TEXT, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, last_name TEXT, age INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, age INTEGER, last_name TEXT, name TEXT);";
 
   /**
    * <p>
@@ -41,11 +41,11 @@ public class UserTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   * Entity's property <code>age</code> is associated to table column <code>age</code>. This costant represents column name.
    *
-   *  @see User#name
+   *  @see User#age
    */
-  public static final String COLUMN_NAME = "name";
+  public static final String COLUMN_AGE = "age";
 
   /**
    * Entity's property <code>lastName</code> is associated to table column <code>last_name</code>. This costant represents column name.
@@ -55,16 +55,16 @@ public class UserTable implements SQLiteTable {
   public static final String COLUMN_LAST_NAME = "last_name";
 
   /**
-   * Entity's property <code>age</code> is associated to table column <code>age</code>. This costant represents column name.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
-   *  @see User#age
+   *  @see User#name
    */
-  public static final String COLUMN_AGE = "age";
+  public static final String COLUMN_NAME = "name";
 
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_LAST_NAME, COLUMN_AGE};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_AGE, COLUMN_LAST_NAME, COLUMN_NAME};
 
   /**
    * Columns array

@@ -26,15 +26,15 @@ import sqlite.feature.many2many.case4.model.PhoneNumber;
 public class PhoneDaoImpl extends Dao implements PhoneDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_ID_SQL1 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
   private static SQLiteStatement updateByIdPreparedStatement2;
 
-  private static final String SELECT_BY_NUMBER_SQL2 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ?";
+  private static final String SELECT_BY_NUMBER_SQL2 = "SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number WHERE number = ?";
 
-  private static final String SELECT_ALL_SQL3 = "SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number";
+  private static final String SELECT_ALL_SQL3 = "SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number ORDER BY contact_name, number";
 
   public PhoneDaoImpl(BindXenoDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -42,17 +42,17 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO phone_number (action, number, country_code, contact_name, contact_id) VALUES (${action}, ${number}, ${countryCode}, ${contactName}, ${contactId})</pre>
+   * <pre>INSERT OR REPLACE INTO phone_number (action, contact_id, contact_name, country_code, number) VALUES (${action}, ${contactId}, ${contactName}, ${countryCode}, ${number})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>action</dt><dd>is mapped to <strong>${bean.action}</strong></dd>
-   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
-   * 	<dt>country_code</dt><dd>is mapped to <strong>${bean.countryCode}</strong></dd>
-   * 	<dt>contact_name</dt><dd>is mapped to <strong>${bean.contactName}</strong></dd>
    * 	<dt>contact_id</dt><dd>is mapped to <strong>${bean.contactId}</strong></dd>
+   * 	<dt>contact_name</dt><dd>is mapped to <strong>${bean.contactName}</strong></dd>
+   * 	<dt>country_code</dt><dd>is mapped to <strong>${bean.countryCode}</strong></dd>
+   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -64,15 +64,15 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   public int insert(PhoneNumber bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT OR REPLACE INTO phone_number (action, number, country_code, contact_name, contact_id) VALUES (?, ?, ?, ?, ?)";
+      String _sql="INSERT OR REPLACE INTO phone_number (action, contact_id, contact_name, country_code, number) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("action", EnumUtils.write(bean.action));
-    _contentValues.put("number", bean.number);
-    _contentValues.put("country_code", bean.countryCode);
-    _contentValues.put("contact_name", bean.contactName);
     _contentValues.put("contact_id", bean.contactId);
+    _contentValues.put("contact_name", bean.contactName);
+    _contentValues.put("country_code", bean.countryCode);
+    _contentValues.put("number", bean.number);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -119,16 +119,16 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE id = ${id}</pre>
+   * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>action</dt><dd>is associated to bean's property <strong>action</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
-   * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
-   * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
    * 	<dt>contact_id</dt><dd>is associated to bean's property <strong>contactId</strong></dd>
+   * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
+   * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -174,19 +174,19 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("action");
-        int index2=_cursor.getColumnIndex("number");
-        int index3=_cursor.getColumnIndex("country_code");
-        int index4=_cursor.getColumnIndex("contact_name");
-        int index5=_cursor.getColumnIndex("contact_id");
+        int index2=_cursor.getColumnIndex("contact_id");
+        int index3=_cursor.getColumnIndex("contact_name");
+        int index4=_cursor.getColumnIndex("country_code");
+        int index5=_cursor.getColumnIndex("number");
 
         resultBean=new PhoneNumber();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(_cursor.getString(index1)); }
-        if (!_cursor.isNull(index2)) { resultBean.number=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.countryCode=_cursor.getString(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.contactName=_cursor.getString(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.contactId=_cursor.getString(index5); }
+        if (!_cursor.isNull(index2)) { resultBean.contactId=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.contactName=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.countryCode=_cursor.getString(index4); }
+        if (!_cursor.isNull(index5)) { resultBean.number=_cursor.getString(index5); }
 
       }
       return resultBean;
@@ -285,16 +285,16 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number WHERE number = ${number}</pre>
+   * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number WHERE number = ${number}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>action</dt><dd>is associated to bean's property <strong>action</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
-   * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
-   * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
    * 	<dt>contact_id</dt><dd>is associated to bean's property <strong>contactId</strong></dd>
+   * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
+   * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -340,19 +340,19 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("action");
-        int index2=_cursor.getColumnIndex("number");
-        int index3=_cursor.getColumnIndex("country_code");
-        int index4=_cursor.getColumnIndex("contact_name");
-        int index5=_cursor.getColumnIndex("contact_id");
+        int index2=_cursor.getColumnIndex("contact_id");
+        int index3=_cursor.getColumnIndex("contact_name");
+        int index4=_cursor.getColumnIndex("country_code");
+        int index5=_cursor.getColumnIndex("number");
 
         resultBean=new PhoneNumber();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(_cursor.getString(index1)); }
-        if (!_cursor.isNull(index2)) { resultBean.number=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.countryCode=_cursor.getString(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.contactName=_cursor.getString(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.contactId=_cursor.getString(index5); }
+        if (!_cursor.isNull(index2)) { resultBean.contactId=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.contactName=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.countryCode=_cursor.getString(index4); }
+        if (!_cursor.isNull(index5)) { resultBean.number=_cursor.getString(index5); }
 
       }
       return resultBean;
@@ -362,16 +362,16 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, action, number, country_code, contact_name, contact_id FROM phone_number ORDER BY contact_name, number</pre>
+   * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number ORDER BY contact_name, number</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>action</dt><dd>is associated to bean's property <strong>action</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
-   * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
-   * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
    * 	<dt>contact_id</dt><dd>is associated to bean's property <strong>contactId</strong></dd>
+   * 	<dt>contact_name</dt><dd>is associated to bean's property <strong>contactName</strong></dd>
+   * 	<dt>country_code</dt><dd>is associated to bean's property <strong>countryCode</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -410,10 +410,10 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("action");
-        int index2=_cursor.getColumnIndex("number");
-        int index3=_cursor.getColumnIndex("country_code");
-        int index4=_cursor.getColumnIndex("contact_name");
-        int index5=_cursor.getColumnIndex("contact_id");
+        int index2=_cursor.getColumnIndex("contact_id");
+        int index3=_cursor.getColumnIndex("contact_name");
+        int index4=_cursor.getColumnIndex("country_code");
+        int index5=_cursor.getColumnIndex("number");
 
         do
          {
@@ -421,10 +421,10 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
           resultBean.id=_cursor.getLong(index0);
           if (!_cursor.isNull(index1)) { resultBean.action=ActionType.valueOf(_cursor.getString(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.number=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.countryCode=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.contactName=_cursor.getString(index4); }
-          if (!_cursor.isNull(index5)) { resultBean.contactId=_cursor.getString(index5); }
+          if (!_cursor.isNull(index2)) { resultBean.contactId=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.contactName=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.countryCode=_cursor.getString(index4); }
+          if (!_cursor.isNull(index5)) { resultBean.number=_cursor.getString(index5); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

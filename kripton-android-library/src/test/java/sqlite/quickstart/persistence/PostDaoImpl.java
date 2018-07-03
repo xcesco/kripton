@@ -24,9 +24,9 @@ import sqlite.quickstart.model.Post;
 public class PostDaoImpl extends Dao implements PostDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_USER_ID_SQL3 = "SELECT user_id, id, title, body FROM post WHERE user_id = ?";
+  private static final String SELECT_BY_USER_ID_SQL3 = "SELECT id, body, title, user_id FROM post WHERE user_id = ?";
 
-  private static final String SELECT_ONE_BY_USER_ID_SQL4 = "SELECT user_id, id, title, body FROM post WHERE id = ?";
+  private static final String SELECT_ONE_BY_USER_ID_SQL4 = "SELECT id, body, title, user_id FROM post WHERE id = ?";
 
   public PostDaoImpl(BindQuickStartDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -34,16 +34,16 @@ public class PostDaoImpl extends Dao implements PostDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO post (user_id, id, title, body) VALUES (${bean.userId}, ${bean.id}, ${bean.title}, ${bean.body})</pre>
+   * <pre>INSERT INTO post (id, body, title, user_id) VALUES (${bean.id}, ${bean.body}, ${bean.title}, ${bean.userId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>user_id</dt><dd>is mapped to <strong>${bean.userId}</strong></dd>
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
    * 	<dt>body</dt><dd>is mapped to <strong>${bean.body}</strong></dd>
+   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
+   * 	<dt>user_id</dt><dd>is mapped to <strong>${bean.userId}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -54,14 +54,14 @@ public class PostDaoImpl extends Dao implements PostDao {
   public void insert(Post bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO post (user_id, id, title, body) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO post (id, body, title, user_id) VALUES (?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("user_id", bean.userId);
     _contentValues.put("id", bean.id);
-    _contentValues.put("title", bean.title);
     _contentValues.put("body", bean.body);
+    _contentValues.put("title", bean.title);
+    _contentValues.put("user_id", bean.userId);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -106,14 +106,14 @@ public class PostDaoImpl extends Dao implements PostDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT user_id, id, title, body FROM post WHERE user_id = ${value}</pre>
+   * <pre>SELECT id, body, title, user_id FROM post WHERE user_id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * 	<dt>body</dt><dd>is associated to bean's property <strong>body</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
+   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -158,19 +158,19 @@ public class PostDaoImpl extends Dao implements PostDao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("user_id");
-        int index1=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("body");
         int index2=_cursor.getColumnIndex("title");
-        int index3=_cursor.getColumnIndex("body");
+        int index3=_cursor.getColumnIndex("user_id");
 
         do
          {
           resultBean=new Post();
 
-          if (!_cursor.isNull(index0)) { resultBean.userId=_cursor.getLong(index0); }
-          resultBean.id=_cursor.getLong(index1);
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.body=_cursor.getString(index1); }
           if (!_cursor.isNull(index2)) { resultBean.title=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.body=_cursor.getString(index3); }
+          if (!_cursor.isNull(index3)) { resultBean.userId=_cursor.getLong(index3); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -183,14 +183,14 @@ public class PostDaoImpl extends Dao implements PostDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT user_id, id, title, body FROM post WHERE id = ${value}</pre>
+   * <pre>SELECT id, body, title, user_id FROM post WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * 	<dt>body</dt><dd>is associated to bean's property <strong>body</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
+   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -234,17 +234,17 @@ public class PostDaoImpl extends Dao implements PostDao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("user_id");
-        int index1=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("body");
         int index2=_cursor.getColumnIndex("title");
-        int index3=_cursor.getColumnIndex("body");
+        int index3=_cursor.getColumnIndex("user_id");
 
         resultBean=new Post();
 
-        if (!_cursor.isNull(index0)) { resultBean.userId=_cursor.getLong(index0); }
-        resultBean.id=_cursor.getLong(index1);
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.body=_cursor.getString(index1); }
         if (!_cursor.isNull(index2)) { resultBean.title=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.body=_cursor.getString(index3); }
+        if (!_cursor.isNull(index3)) { resultBean.userId=_cursor.getLong(index3); }
 
       }
       return resultBean;

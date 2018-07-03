@@ -20,9 +20,9 @@ public class LoanTable implements SQLiteTable {
    * DDL to create table loan
    * </p>
    *
-   * <pre>CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, start_time TEXT, end_time TEXT, book_id INTEGER, user_id INTEGER, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, book_id INTEGER, end_time TEXT, start_time TEXT, user_id INTEGER, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, start_time TEXT, end_time TEXT, book_id INTEGER, user_id INTEGER, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, book_id INTEGER, end_time TEXT, start_time TEXT, user_id INTEGER, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));";
 
   /**
    * <p>
@@ -41,11 +41,11 @@ public class LoanTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>startTime</code> is associated to table column <code>start_time</code>. This costant represents column name.
+   * Entity's property <code>bookId</code> is associated to table column <code>book_id</code>. This costant represents column name.
    *
-   *  @see Loan#startTime
+   *  @see Loan#bookId
    */
-  public static final String COLUMN_START_TIME = "start_time";
+  public static final String COLUMN_BOOK_ID = "book_id";
 
   /**
    * Entity's property <code>endTime</code> is associated to table column <code>end_time</code>. This costant represents column name.
@@ -55,11 +55,11 @@ public class LoanTable implements SQLiteTable {
   public static final String COLUMN_END_TIME = "end_time";
 
   /**
-   * Entity's property <code>bookId</code> is associated to table column <code>book_id</code>. This costant represents column name.
+   * Entity's property <code>startTime</code> is associated to table column <code>start_time</code>. This costant represents column name.
    *
-   *  @see Loan#bookId
+   *  @see Loan#startTime
    */
-  public static final String COLUMN_BOOK_ID = "book_id";
+  public static final String COLUMN_START_TIME = "start_time";
 
   /**
    * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column name.
@@ -71,7 +71,7 @@ public class LoanTable implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_START_TIME, COLUMN_END_TIME, COLUMN_BOOK_ID, COLUMN_USER_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_BOOK_ID, COLUMN_END_TIME, COLUMN_START_TIME, COLUMN_USER_ID};
 
   /**
    * Columns array

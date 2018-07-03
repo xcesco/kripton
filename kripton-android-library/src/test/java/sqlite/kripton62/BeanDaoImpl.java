@@ -36,13 +36,13 @@ import java.util.List;
  *  @see BeanTable
  */
 public class BeanDaoImpl extends Dao implements BeanDao {
-  private static final String SELECT_ONE_SQL1 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean";
 
-  private static final String SELECT_ONE_SQL2 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?";
+  private static final String SELECT_ONE_SQL2 = "SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ?";
 
-  private static final String SELECT_ONE_SQL3 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?";
+  private static final String SELECT_ONE_SQL3 = "SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ?";
 
-  private static final String SELECT_LIST_SQL4 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ?";
+  private static final String SELECT_LIST_SQL4 = "SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ?";
 
   private static SQLiteStatement updateOnePreparedStatement0;
 
@@ -50,7 +50,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   private static SQLiteStatement insertPreparedStatement2;
 
-  private static final String SELECT_ONE_SQL5 = "SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=?";
+  private static final String SELECT_ONE_SQL5 = "SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE value=?";
 
   private static SQLiteStatement deletePreparedStatement3;
 
@@ -63,22 +63,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean</pre>
+   * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
    * </dl>
    *
    * @return selected bean or <code>null</code>.
@@ -116,31 +116,31 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("value");
-        int index2=_cursor.getColumnIndex("value_byte_set");
-        int index3=_cursor.getColumnIndex("value_short_set");
-        int index4=_cursor.getColumnIndex("value_integer_set");
-        int index5=_cursor.getColumnIndex("value_string_set");
-        int index6=_cursor.getColumnIndex("value_character_set");
-        int index7=_cursor.getColumnIndex("value_float_set");
-        int index8=_cursor.getColumnIndex("value_double_set");
-        int index9=_cursor.getColumnIndex("value_big_decimal_set");
-        int index10=_cursor.getColumnIndex("value_bean_set");
-        int index11=_cursor.getColumnIndex("value_enum_type_set");
+        int index2=_cursor.getColumnIndex("value_bean_set");
+        int index3=_cursor.getColumnIndex("value_big_decimal_set");
+        int index4=_cursor.getColumnIndex("value_byte_set");
+        int index5=_cursor.getColumnIndex("value_character_set");
+        int index6=_cursor.getColumnIndex("value_double_set");
+        int index7=_cursor.getColumnIndex("value_enum_type_set");
+        int index8=_cursor.getColumnIndex("value_float_set");
+        int index9=_cursor.getColumnIndex("value_integer_set");
+        int index10=_cursor.getColumnIndex("value_short_set");
+        int index11=_cursor.getColumnIndex("value_string_set");
 
         resultBean=new Bean();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.value=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index2)); }
-        if (!_cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index3)); }
-        if (!_cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index4)); }
-        if (!_cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index5)); }
-        if (!_cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index6)); }
-        if (!_cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index7)); }
-        if (!_cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index8)); }
-        if (!_cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index9)); }
-        if (!_cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index10)); }
-        if (!_cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index5)); }
+        if (!_cursor.isNull(index6)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index6)); }
+        if (!_cursor.isNull(index7)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index7)); }
+        if (!_cursor.isNull(index8)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index8)); }
+        if (!_cursor.isNull(index9)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index9)); }
+        if (!_cursor.isNull(index10)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index10)); }
+        if (!_cursor.isNull(index11)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index11)); }
 
       }
       return resultBean;
@@ -150,22 +150,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -210,16 +210,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("value");
-        int index2=_cursor.getColumnIndex("value_byte_set");
-        int index3=_cursor.getColumnIndex("value_short_set");
-        int index4=_cursor.getColumnIndex("value_integer_set");
-        int index5=_cursor.getColumnIndex("value_string_set");
-        int index6=_cursor.getColumnIndex("value_character_set");
-        int index7=_cursor.getColumnIndex("value_float_set");
-        int index8=_cursor.getColumnIndex("value_double_set");
-        int index9=_cursor.getColumnIndex("value_big_decimal_set");
-        int index10=_cursor.getColumnIndex("value_bean_set");
-        int index11=_cursor.getColumnIndex("value_enum_type_set");
+        int index2=_cursor.getColumnIndex("value_bean_set");
+        int index3=_cursor.getColumnIndex("value_big_decimal_set");
+        int index4=_cursor.getColumnIndex("value_byte_set");
+        int index5=_cursor.getColumnIndex("value_character_set");
+        int index6=_cursor.getColumnIndex("value_double_set");
+        int index7=_cursor.getColumnIndex("value_enum_type_set");
+        int index8=_cursor.getColumnIndex("value_float_set");
+        int index9=_cursor.getColumnIndex("value_integer_set");
+        int index10=_cursor.getColumnIndex("value_short_set");
+        int index11=_cursor.getColumnIndex("value_string_set");
 
         int rowCount=_cursor.getCount();
         do
@@ -227,30 +227,30 @@ public class BeanDaoImpl extends Dao implements BeanDao {
           // reset mapping
           // id does not need reset
           resultBean.value=null;
-          resultBean.valueByteSet=null;
-          resultBean.valueShortSet=null;
-          resultBean.valueIntegerSet=null;
-          resultBean.valueStringSet=null;
-          resultBean.valueCharacterSet=null;
-          resultBean.valueFloatSet=null;
-          resultBean.valueDoubleSet=null;
-          resultBean.valueBigDecimalSet=null;
           resultBean.valueBeanSet=null;
+          resultBean.valueBigDecimalSet=null;
+          resultBean.valueByteSet=null;
+          resultBean.valueCharacterSet=null;
+          resultBean.valueDoubleSet=null;
           resultBean.valueEnumTypeSet=null;
+          resultBean.valueFloatSet=null;
+          resultBean.valueIntegerSet=null;
+          resultBean.valueShortSet=null;
+          resultBean.valueStringSet=null;
 
           // generate mapping
           resultBean.id=_cursor.getLong(index0);
           if (!_cursor.isNull(index1)) { resultBean.value=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index3)); }
-          if (!_cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index4)); }
-          if (!_cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index5)); }
-          if (!_cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index6)); }
-          if (!_cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index7)); }
-          if (!_cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index8)); }
-          if (!_cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index9)); }
-          if (!_cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index10)); }
-          if (!_cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index11)); }
+          if (!_cursor.isNull(index2)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index8)); }
+          if (!_cursor.isNull(index9)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index9)); }
+          if (!_cursor.isNull(index10)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index10)); }
+          if (!_cursor.isNull(index11)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index11)); }
 
           listener.onRead(resultBean, _cursor.getPosition(), rowCount);
         } while (_cursor.moveToNext());
@@ -261,22 +261,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -330,22 +330,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE id = ${id}</pre>
+   * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -392,16 +392,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("value");
-        int index2=_cursor.getColumnIndex("value_byte_set");
-        int index3=_cursor.getColumnIndex("value_short_set");
-        int index4=_cursor.getColumnIndex("value_integer_set");
-        int index5=_cursor.getColumnIndex("value_string_set");
-        int index6=_cursor.getColumnIndex("value_character_set");
-        int index7=_cursor.getColumnIndex("value_float_set");
-        int index8=_cursor.getColumnIndex("value_double_set");
-        int index9=_cursor.getColumnIndex("value_big_decimal_set");
-        int index10=_cursor.getColumnIndex("value_bean_set");
-        int index11=_cursor.getColumnIndex("value_enum_type_set");
+        int index2=_cursor.getColumnIndex("value_bean_set");
+        int index3=_cursor.getColumnIndex("value_big_decimal_set");
+        int index4=_cursor.getColumnIndex("value_byte_set");
+        int index5=_cursor.getColumnIndex("value_character_set");
+        int index6=_cursor.getColumnIndex("value_double_set");
+        int index7=_cursor.getColumnIndex("value_enum_type_set");
+        int index8=_cursor.getColumnIndex("value_float_set");
+        int index9=_cursor.getColumnIndex("value_integer_set");
+        int index10=_cursor.getColumnIndex("value_short_set");
+        int index11=_cursor.getColumnIndex("value_string_set");
 
         do
          {
@@ -409,16 +409,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
           resultBean.id=_cursor.getLong(index0);
           if (!_cursor.isNull(index1)) { resultBean.value=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index3)); }
-          if (!_cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index4)); }
-          if (!_cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index5)); }
-          if (!_cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index6)); }
-          if (!_cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index7)); }
-          if (!_cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index8)); }
-          if (!_cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index9)); }
-          if (!_cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index10)); }
-          if (!_cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index11)); }
+          if (!_cursor.isNull(index2)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index8)); }
+          if (!_cursor.isNull(index9)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index9)); }
+          if (!_cursor.isNull(index10)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index10)); }
+          if (!_cursor.isNull(index11)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index11)); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -430,21 +430,21 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean SET value=:value, value_byte_set=:valueByteSet, value_short_set=:valueShortSet, value_integer_set=:valueIntegerSet, value_string_set=:valueStringSet, value_character_set=:valueCharacterSet, value_float_set=:valueFloatSet, value_double_set=:valueDoubleSet, value_big_decimal_set=:valueBigDecimalSet, value_bean_set=:valueBeanSet, value_enum_type_set=:valueEnumTypeSet WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean SET value=:value, value_bean_set=:valueBeanSet, value_big_decimal_set=:valueBigDecimalSet, value_byte_set=:valueByteSet, value_character_set=:valueCharacterSet, value_double_set=:valueDoubleSet, value_enum_type_set=:valueEnumTypeSet, value_float_set=:valueFloatSet, value_integer_set=:valueIntegerSet, value_short_set=:valueShortSet, value_string_set=:valueStringSet WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>value</dt><dd>is mapped to <strong>${value.value}</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${value.valueByteSet}</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is mapped to <strong>${value.valueShortSet}</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${value.valueIntegerSet}</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is mapped to <strong>${value.valueStringSet}</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is mapped to <strong>${value.valueCharacterSet}</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is mapped to <strong>${value.valueFloatSet}</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is mapped to <strong>${value.valueDoubleSet}</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>${value.valueBigDecimalSet}</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is mapped to <strong>${value.valueBeanSet}</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>${value.valueBigDecimalSet}</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${value.valueByteSet}</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is mapped to <strong>${value.valueCharacterSet}</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is mapped to <strong>${value.valueDoubleSet}</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>${value.valueEnumTypeSet}</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is mapped to <strong>${value.valueFloatSet}</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${value.valueIntegerSet}</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is mapped to <strong>${value.valueShortSet}</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is mapped to <strong>${value.valueStringSet}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -461,21 +461,21 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   public long updateOne(Bean value) {
     if (updateOnePreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="UPDATE bean SET value=?, value_byte_set=?, value_short_set=?, value_integer_set=?, value_string_set=?, value_character_set=?, value_float_set=?, value_double_set=?, value_big_decimal_set=?, value_bean_set=?, value_enum_type_set=? WHERE id=?";
+      String _sql="UPDATE bean SET value=?, value_bean_set=?, value_big_decimal_set=?, value_byte_set=?, value_character_set=?, value_double_set=?, value_enum_type_set=?, value_float_set=?, value_integer_set=?, value_short_set=?, value_string_set=? WHERE id=?";
       updateOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement0);
     _contentValues.put("value", value.value);
-    _contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(value.valueByteSet));
-    _contentValues.put("value_short_set", BeanTable.serializeValueShortSet(value.valueShortSet));
-    _contentValues.put("value_integer_set", BeanTable.serializeValueIntegerSet(value.valueIntegerSet));
-    _contentValues.put("value_string_set", BeanTable.serializeValueStringSet(value.valueStringSet));
-    _contentValues.put("value_character_set", BeanTable.serializeValueCharacterSet(value.valueCharacterSet));
-    _contentValues.put("value_float_set", BeanTable.serializeValueFloatSet(value.valueFloatSet));
-    _contentValues.put("value_double_set", BeanTable.serializeValueDoubleSet(value.valueDoubleSet));
-    _contentValues.put("value_big_decimal_set", BeanTable.serializeValueBigDecimalSet(value.valueBigDecimalSet));
     _contentValues.put("value_bean_set", BeanTable.serializeValueBeanSet(value.valueBeanSet));
+    _contentValues.put("value_big_decimal_set", BeanTable.serializeValueBigDecimalSet(value.valueBigDecimalSet));
+    _contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(value.valueByteSet));
+    _contentValues.put("value_character_set", BeanTable.serializeValueCharacterSet(value.valueCharacterSet));
+    _contentValues.put("value_double_set", BeanTable.serializeValueDoubleSet(value.valueDoubleSet));
     _contentValues.put("value_enum_type_set", BeanTable.serializeValueEnumTypeSet(value.valueEnumTypeSet));
+    _contentValues.put("value_float_set", BeanTable.serializeValueFloatSet(value.valueFloatSet));
+    _contentValues.put("value_integer_set", BeanTable.serializeValueIntegerSet(value.valueIntegerSet));
+    _contentValues.put("value_short_set", BeanTable.serializeValueShortSet(value.valueShortSet));
+    _contentValues.put("value_string_set", BeanTable.serializeValueStringSet(value.valueStringSet));
 
     _contentValues.addWhereArgs(String.valueOf(value.id));
 
@@ -485,7 +485,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean SET value=:value, value_byte_set=:value_byte_set, value_short_set=:value_short_set, value_integer_set=:value_integer_set, value_string_set=:value_string_set, value_character_set=:value_character_set, value_float_set=:value_float_set, value_double_set=:value_double_set, value_big_decimal_set=:value_big_decimal_set, value_bean_set=:value_bean_set, value_enum_type_set=:value_enum_type_set WHERE id=?");
+      Logger.info("UPDATE bean SET value=:value, value_bean_set=:value_bean_set, value_big_decimal_set=:value_big_decimal_set, value_byte_set=:value_byte_set, value_character_set=:value_character_set, value_double_set=:value_double_set, value_enum_type_set=:value_enum_type_set, value_float_set=:value_float_set, value_integer_set=:value_integer_set, value_short_set=:value_short_set, value_string_set=:value_string_set WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -513,23 +513,23 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean (value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (${bean.value}, ${bean.valueByteSet}, ${bean.valueShortSet}, ${bean.valueIntegerSet}, ${bean.valueStringSet}, ${bean.valueCharacterSet}, ${bean.valueFloatSet}, ${bean.valueDoubleSet}, ${bean.valueBigDecimalSet}, ${bean.valueBeanSet}, ${bean.valueEnumTypeSet})</pre>
+   * <pre>INSERT INTO bean (value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set) VALUES (${bean.value}, ${bean.valueBeanSet}, ${bean.valueBigDecimalSet}, ${bean.valueByteSet}, ${bean.valueCharacterSet}, ${bean.valueDoubleSet}, ${bean.valueEnumTypeSet}, ${bean.valueFloatSet}, ${bean.valueIntegerSet}, ${bean.valueShortSet}, ${bean.valueStringSet})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${bean.valueByteSet}</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is mapped to <strong>${bean.valueShortSet}</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${bean.valueIntegerSet}</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is mapped to <strong>${bean.valueStringSet}</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is mapped to <strong>${bean.valueCharacterSet}</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is mapped to <strong>${bean.valueFloatSet}</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is mapped to <strong>${bean.valueDoubleSet}</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>${bean.valueBigDecimalSet}</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is mapped to <strong>${bean.valueBeanSet}</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is mapped to <strong>${bean.valueBigDecimalSet}</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is mapped to <strong>${bean.valueByteSet}</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is mapped to <strong>${bean.valueCharacterSet}</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is mapped to <strong>${bean.valueDoubleSet}</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is mapped to <strong>${bean.valueEnumTypeSet}</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is mapped to <strong>${bean.valueFloatSet}</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is mapped to <strong>${bean.valueIntegerSet}</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is mapped to <strong>${bean.valueShortSet}</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is mapped to <strong>${bean.valueStringSet}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -541,21 +541,21 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   public long insert(Bean bean) {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO bean (value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO bean (value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("value", bean.value);
-    _contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(bean.valueByteSet));
-    _contentValues.put("value_short_set", BeanTable.serializeValueShortSet(bean.valueShortSet));
-    _contentValues.put("value_integer_set", BeanTable.serializeValueIntegerSet(bean.valueIntegerSet));
-    _contentValues.put("value_string_set", BeanTable.serializeValueStringSet(bean.valueStringSet));
-    _contentValues.put("value_character_set", BeanTable.serializeValueCharacterSet(bean.valueCharacterSet));
-    _contentValues.put("value_float_set", BeanTable.serializeValueFloatSet(bean.valueFloatSet));
-    _contentValues.put("value_double_set", BeanTable.serializeValueDoubleSet(bean.valueDoubleSet));
-    _contentValues.put("value_big_decimal_set", BeanTable.serializeValueBigDecimalSet(bean.valueBigDecimalSet));
     _contentValues.put("value_bean_set", BeanTable.serializeValueBeanSet(bean.valueBeanSet));
+    _contentValues.put("value_big_decimal_set", BeanTable.serializeValueBigDecimalSet(bean.valueBigDecimalSet));
+    _contentValues.put("value_byte_set", BeanTable.serializeValueByteSet(bean.valueByteSet));
+    _contentValues.put("value_character_set", BeanTable.serializeValueCharacterSet(bean.valueCharacterSet));
+    _contentValues.put("value_double_set", BeanTable.serializeValueDoubleSet(bean.valueDoubleSet));
     _contentValues.put("value_enum_type_set", BeanTable.serializeValueEnumTypeSet(bean.valueEnumTypeSet));
+    _contentValues.put("value_float_set", BeanTable.serializeValueFloatSet(bean.valueFloatSet));
+    _contentValues.put("value_integer_set", BeanTable.serializeValueIntegerSet(bean.valueIntegerSet));
+    _contentValues.put("value_short_set", BeanTable.serializeValueShortSet(bean.valueShortSet));
+    _contentValues.put("value_string_set", BeanTable.serializeValueStringSet(bean.valueStringSet));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -667,22 +667,22 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, value, value_byte_set, value_short_set, value_integer_set, value_string_set, value_character_set, value_float_set, value_double_set, value_big_decimal_set, value_bean_set, value_enum_type_set FROM bean WHERE value=${valueBigDecimalSet}</pre>
+   * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE value=${valueBigDecimalSet}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
-   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
-   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
-   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
-   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
-   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
-   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
-   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
-   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is associated to bean's property <strong>valueBeanSet</strong></dd>
+   * 	<dt>value_big_decimal_set</dt><dd>is associated to bean's property <strong>valueBigDecimalSet</strong></dd>
+   * 	<dt>value_byte_set</dt><dd>is associated to bean's property <strong>valueByteSet</strong></dd>
+   * 	<dt>value_character_set</dt><dd>is associated to bean's property <strong>valueCharacterSet</strong></dd>
+   * 	<dt>value_double_set</dt><dd>is associated to bean's property <strong>valueDoubleSet</strong></dd>
    * 	<dt>value_enum_type_set</dt><dd>is associated to bean's property <strong>valueEnumTypeSet</strong></dd>
+   * 	<dt>value_float_set</dt><dd>is associated to bean's property <strong>valueFloatSet</strong></dd>
+   * 	<dt>value_integer_set</dt><dd>is associated to bean's property <strong>valueIntegerSet</strong></dd>
+   * 	<dt>value_short_set</dt><dd>is associated to bean's property <strong>valueShortSet</strong></dd>
+   * 	<dt>value_string_set</dt><dd>is associated to bean's property <strong>valueStringSet</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -728,31 +728,31 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("value");
-        int index2=_cursor.getColumnIndex("value_byte_set");
-        int index3=_cursor.getColumnIndex("value_short_set");
-        int index4=_cursor.getColumnIndex("value_integer_set");
-        int index5=_cursor.getColumnIndex("value_string_set");
-        int index6=_cursor.getColumnIndex("value_character_set");
-        int index7=_cursor.getColumnIndex("value_float_set");
-        int index8=_cursor.getColumnIndex("value_double_set");
-        int index9=_cursor.getColumnIndex("value_big_decimal_set");
-        int index10=_cursor.getColumnIndex("value_bean_set");
-        int index11=_cursor.getColumnIndex("value_enum_type_set");
+        int index2=_cursor.getColumnIndex("value_bean_set");
+        int index3=_cursor.getColumnIndex("value_big_decimal_set");
+        int index4=_cursor.getColumnIndex("value_byte_set");
+        int index5=_cursor.getColumnIndex("value_character_set");
+        int index6=_cursor.getColumnIndex("value_double_set");
+        int index7=_cursor.getColumnIndex("value_enum_type_set");
+        int index8=_cursor.getColumnIndex("value_float_set");
+        int index9=_cursor.getColumnIndex("value_integer_set");
+        int index10=_cursor.getColumnIndex("value_short_set");
+        int index11=_cursor.getColumnIndex("value_string_set");
 
         resultBean=new Bean();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.value=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index2)); }
-        if (!_cursor.isNull(index3)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index3)); }
-        if (!_cursor.isNull(index4)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index4)); }
-        if (!_cursor.isNull(index5)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index5)); }
-        if (!_cursor.isNull(index6)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index6)); }
-        if (!_cursor.isNull(index7)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index7)); }
-        if (!_cursor.isNull(index8)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index8)); }
-        if (!_cursor.isNull(index9)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index9)); }
-        if (!_cursor.isNull(index10)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index10)); }
-        if (!_cursor.isNull(index11)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBeanSet=BeanTable.parseValueBeanSet(_cursor.getBlob(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigDecimalSet=BeanTable.parseValueBigDecimalSet(_cursor.getBlob(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueByteSet=BeanTable.parseValueByteSet(_cursor.getBlob(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.valueCharacterSet=BeanTable.parseValueCharacterSet(_cursor.getBlob(index5)); }
+        if (!_cursor.isNull(index6)) { resultBean.valueDoubleSet=BeanTable.parseValueDoubleSet(_cursor.getBlob(index6)); }
+        if (!_cursor.isNull(index7)) { resultBean.valueEnumTypeSet=BeanTable.parseValueEnumTypeSet(_cursor.getBlob(index7)); }
+        if (!_cursor.isNull(index8)) { resultBean.valueFloatSet=BeanTable.parseValueFloatSet(_cursor.getBlob(index8)); }
+        if (!_cursor.isNull(index9)) { resultBean.valueIntegerSet=BeanTable.parseValueIntegerSet(_cursor.getBlob(index9)); }
+        if (!_cursor.isNull(index10)) { resultBean.valueShortSet=BeanTable.parseValueShortSet(_cursor.getBlob(index10)); }
+        if (!_cursor.isNull(index11)) { resultBean.valueStringSet=BeanTable.parseValueStringSet(_cursor.getBlob(index11)); }
 
       }
       return resultBean;

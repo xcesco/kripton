@@ -25,9 +25,9 @@ import sqlite.feature.relations.case4.model.Article;
 public class DaoArticleImpl extends Dao implements DaoArticle {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, title, description, link, author, guid, comments, channel_id FROM article WHERE channel_id=?";
+  private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, author, channel_id, comments, description, guid, link, title FROM article WHERE channel_id=?";
 
-  private static final String SELECT_ALL_SQL2 = "SELECT id, title, description, link, author, guid, comments, channel_id FROM article";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, author, channel_id, comments, description, guid, link, title FROM article";
 
   public DaoArticleImpl(BindRssDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -35,19 +35,19 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO article (title, description, link, author, guid, comments, channel_id) VALUES (${title}, ${description}, ${link}, ${author}, ${guid}, ${comments}, ${channelId})</pre>
+   * <pre>INSERT OR REPLACE INTO article (author, channel_id, comments, description, guid, link, title) VALUES (${author}, ${channelId}, ${comments}, ${description}, ${guid}, ${link}, ${title})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
-   * 	<dt>description</dt><dd>is mapped to <strong>${bean.description}</strong></dd>
-   * 	<dt>link</dt><dd>is mapped to <strong>${bean.link}</strong></dd>
    * 	<dt>author</dt><dd>is mapped to <strong>${bean.author}</strong></dd>
-   * 	<dt>guid</dt><dd>is mapped to <strong>${bean.guid}</strong></dd>
-   * 	<dt>comments</dt><dd>is mapped to <strong>${bean.comments}</strong></dd>
    * 	<dt>channel_id</dt><dd>is mapped to <strong>${bean.channelId}</strong></dd>
+   * 	<dt>comments</dt><dd>is mapped to <strong>${bean.comments}</strong></dd>
+   * 	<dt>description</dt><dd>is mapped to <strong>${bean.description}</strong></dd>
+   * 	<dt>guid</dt><dd>is mapped to <strong>${bean.guid}</strong></dd>
+   * 	<dt>link</dt><dd>is mapped to <strong>${bean.link}</strong></dd>
+   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -59,17 +59,17 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   public boolean insert(Article bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT OR REPLACE INTO article (title, description, link, author, guid, comments, channel_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT OR REPLACE INTO article (author, channel_id, comments, description, guid, link, title) VALUES (?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("title", bean.title);
-    _contentValues.put("description", bean.description);
-    _contentValues.put("link", UrlUtils.write(bean.link));
     _contentValues.put("author", bean.author);
-    _contentValues.put("guid", bean.guid);
-    _contentValues.put("comments", UrlUtils.write(bean.comments));
     _contentValues.put("channel_id", bean.channelId);
+    _contentValues.put("comments", UrlUtils.write(bean.comments));
+    _contentValues.put("description", bean.description);
+    _contentValues.put("guid", bean.guid);
+    _contentValues.put("link", UrlUtils.write(bean.link));
+    _contentValues.put("title", bean.title);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -116,18 +116,18 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, title, description, link, author, guid, comments, channel_id FROM article WHERE channel_id=${channelId}</pre>
+   * <pre>SELECT id, author, channel_id, comments, description, guid, link, title FROM article WHERE channel_id=${channelId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
-   * 	<dt>description</dt><dd>is associated to bean's property <strong>description</strong></dd>
-   * 	<dt>link</dt><dd>is associated to bean's property <strong>link</strong></dd>
    * 	<dt>author</dt><dd>is associated to bean's property <strong>author</strong></dd>
-   * 	<dt>guid</dt><dd>is associated to bean's property <strong>guid</strong></dd>
-   * 	<dt>comments</dt><dd>is associated to bean's property <strong>comments</strong></dd>
    * 	<dt>channel_id</dt><dd>is associated to bean's property <strong>channelId</strong></dd>
+   * 	<dt>comments</dt><dd>is associated to bean's property <strong>comments</strong></dd>
+   * 	<dt>description</dt><dd>is associated to bean's property <strong>description</strong></dd>
+   * 	<dt>guid</dt><dd>is associated to bean's property <strong>guid</strong></dd>
+   * 	<dt>link</dt><dd>is associated to bean's property <strong>link</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -173,26 +173,26 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("title");
-        int index2=_cursor.getColumnIndex("description");
-        int index3=_cursor.getColumnIndex("link");
-        int index4=_cursor.getColumnIndex("author");
+        int index1=_cursor.getColumnIndex("author");
+        int index2=_cursor.getColumnIndex("channel_id");
+        int index3=_cursor.getColumnIndex("comments");
+        int index4=_cursor.getColumnIndex("description");
         int index5=_cursor.getColumnIndex("guid");
-        int index6=_cursor.getColumnIndex("comments");
-        int index7=_cursor.getColumnIndex("channel_id");
+        int index6=_cursor.getColumnIndex("link");
+        int index7=_cursor.getColumnIndex("title");
 
         do
          {
           resultBean=new Article();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.title=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.description=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.link=UrlUtils.read(_cursor.getString(index3)); }
-          if (!_cursor.isNull(index4)) { resultBean.author=_cursor.getString(index4); }
+          if (!_cursor.isNull(index1)) { resultBean.author=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.channelId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.comments=UrlUtils.read(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.description=_cursor.getString(index4); }
           if (!_cursor.isNull(index5)) { resultBean.guid=_cursor.getString(index5); }
-          if (!_cursor.isNull(index6)) { resultBean.comments=UrlUtils.read(_cursor.getString(index6)); }
-          if (!_cursor.isNull(index7)) { resultBean.channelId=_cursor.getLong(index7); }
+          if (!_cursor.isNull(index6)) { resultBean.link=UrlUtils.read(_cursor.getString(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.title=_cursor.getString(index7); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -205,18 +205,18 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, title, description, link, author, guid, comments, channel_id FROM article</pre>
+   * <pre>SELECT id, author, channel_id, comments, description, guid, link, title FROM article</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
-   * 	<dt>description</dt><dd>is associated to bean's property <strong>description</strong></dd>
-   * 	<dt>link</dt><dd>is associated to bean's property <strong>link</strong></dd>
    * 	<dt>author</dt><dd>is associated to bean's property <strong>author</strong></dd>
-   * 	<dt>guid</dt><dd>is associated to bean's property <strong>guid</strong></dd>
-   * 	<dt>comments</dt><dd>is associated to bean's property <strong>comments</strong></dd>
    * 	<dt>channel_id</dt><dd>is associated to bean's property <strong>channelId</strong></dd>
+   * 	<dt>comments</dt><dd>is associated to bean's property <strong>comments</strong></dd>
+   * 	<dt>description</dt><dd>is associated to bean's property <strong>description</strong></dd>
+   * 	<dt>guid</dt><dd>is associated to bean's property <strong>guid</strong></dd>
+   * 	<dt>link</dt><dd>is associated to bean's property <strong>link</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -254,26 +254,26 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("title");
-        int index2=_cursor.getColumnIndex("description");
-        int index3=_cursor.getColumnIndex("link");
-        int index4=_cursor.getColumnIndex("author");
+        int index1=_cursor.getColumnIndex("author");
+        int index2=_cursor.getColumnIndex("channel_id");
+        int index3=_cursor.getColumnIndex("comments");
+        int index4=_cursor.getColumnIndex("description");
         int index5=_cursor.getColumnIndex("guid");
-        int index6=_cursor.getColumnIndex("comments");
-        int index7=_cursor.getColumnIndex("channel_id");
+        int index6=_cursor.getColumnIndex("link");
+        int index7=_cursor.getColumnIndex("title");
 
         do
          {
           resultBean=new Article();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.title=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.description=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.link=UrlUtils.read(_cursor.getString(index3)); }
-          if (!_cursor.isNull(index4)) { resultBean.author=_cursor.getString(index4); }
+          if (!_cursor.isNull(index1)) { resultBean.author=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.channelId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.comments=UrlUtils.read(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.description=_cursor.getString(index4); }
           if (!_cursor.isNull(index5)) { resultBean.guid=_cursor.getString(index5); }
-          if (!_cursor.isNull(index6)) { resultBean.comments=UrlUtils.read(_cursor.getString(index6)); }
-          if (!_cursor.isNull(index7)) { resultBean.channelId=_cursor.getLong(index7); }
+          if (!_cursor.isNull(index6)) { resultBean.link=UrlUtils.read(_cursor.getString(index6)); }
+          if (!_cursor.isNull(index7)) { resultBean.title=_cursor.getString(index7); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

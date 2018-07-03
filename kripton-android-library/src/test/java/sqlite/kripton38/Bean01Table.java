@@ -31,9 +31,9 @@ public class Bean01Table implements SQLiteTable {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (temp BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);</pre>
+   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, temp BLOB, text TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (temp BLOB, id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, temp BLOB, text TEXT);";
 
   /**
    * <p>
@@ -45,18 +45,18 @@ public class Bean01Table implements SQLiteTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS bean01;";
 
   /**
-   * Entity's property <code>temp</code> is associated to table column <code>temp</code>. This costant represents column name.
-   *
-   *  @see Bean01#temp
-   */
-  public static final String COLUMN_TEMP = "temp";
-
-  /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Bean01#id
    */
   public static final String COLUMN_ID = "id";
+
+  /**
+   * Entity's property <code>temp</code> is associated to table column <code>temp</code>. This costant represents column name.
+   *
+   *  @see Bean01#temp
+   */
+  public static final String COLUMN_TEMP = "temp";
 
   /**
    * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
@@ -68,7 +68,7 @@ public class Bean01Table implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_TEMP, COLUMN_ID, COLUMN_TEXT};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_TEMP, COLUMN_TEXT};
 
   /**
    * for attribute temp serialization

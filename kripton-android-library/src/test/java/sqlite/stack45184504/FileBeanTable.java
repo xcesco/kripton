@@ -20,9 +20,9 @@ public class FileBeanTable implements SQLiteTable {
    * DDL to create table files
    * </p>
    *
-   * <pre>CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, content BLOB, content_type TEXT);</pre>
+   * <pre>CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT, content BLOB, content_type TEXT, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, content BLOB, content_type TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT, content BLOB, content_type TEXT, name TEXT);";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class FileBeanTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
-   *
-   *  @see FileBean#name
-   */
-  public static final String COLUMN_NAME = "name";
-
-  /**
    * Entity's property <code>content</code> is associated to table column <code>content</code>. This costant represents column name.
    *
    *  @see FileBean#content
@@ -62,9 +55,16 @@ public class FileBeanTable implements SQLiteTable {
   public static final String COLUMN_CONTENT_TYPE = "content_type";
 
   /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   *
+   *  @see FileBean#name
+   */
+  public static final String COLUMN_NAME = "name";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_CONTENT, COLUMN_CONTENT_TYPE};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_CONTENT, COLUMN_CONTENT_TYPE, COLUMN_NAME};
 
   /**
    * for attribute content serialization

@@ -36,16 +36,16 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES (${bean.lista}, ${bean.messageDate}, ${bean.messageText}, ${bean.beanList}, ${bean.value})</pre>
+   * <pre>INSERT INTO bean01 (bean_list, lista, message_date, message_text, value) VALUES (${bean.beanList}, ${bean.lista}, ${bean.messageDate}, ${bean.messageText}, ${bean.value})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>bean_list</dt><dd>is mapped to <strong>${bean.beanList}</strong></dd>
    * 	<dt>lista</dt><dd>is mapped to <strong>${bean.lista}</strong></dd>
    * 	<dt>message_date</dt><dd>is mapped to <strong>${bean.messageDate}</strong></dd>
    * 	<dt>message_text</dt><dd>is mapped to <strong>${bean.messageText}</strong></dd>
-   * 	<dt>bean_list</dt><dd>is mapped to <strong>${bean.beanList}</strong></dd>
    * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
    * </dl>
    *
@@ -58,14 +58,14 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
   public long insert(Bean01 bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO bean01 (lista, message_date, message_text, bean_list, value) VALUES (?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO bean01 (bean_list, lista, message_date, message_text, value) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
+    _contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     _contentValues.put("lista", Bean01Table.serializeLista(bean.getLista()));
     _contentValues.put("message_date", bean.getMessageDate());
     _contentValues.put("message_text", bean.getMessageText());
-    _contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     _contentValues.put("value", bean.getValue());
 
     // log section BEGIN
@@ -335,14 +335,14 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean01 SET lista=:lista, message_date=:messageDate, message_text=:messageText, bean_list=:beanList, value=:value WHERE value=${bean.value}</pre>
+   * <pre>UPDATE bean01 SET bean_list=:beanList, lista=:lista, message_date=:messageDate, message_text=:messageText, value=:value WHERE value=${bean.value}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
+   * 	<dt>bean_list</dt><dd>is mapped to <strong>${bean.beanList}</strong></dd>
    * 	<dt>lista</dt><dd>is mapped to <strong>${bean.lista}</strong></dd>
    * 	<dt>message_date</dt><dd>is mapped to <strong>${bean.messageDate}</strong></dd>
    * 	<dt>message_text</dt><dd>is mapped to <strong>${bean.messageText}</strong></dd>
-   * 	<dt>bean_list</dt><dd>is mapped to <strong>${bean.beanList}</strong></dd>
    * 	<dt>value</dt><dd>is mapped to <strong>${bean.value}</strong></dd>
    * </dl>
    *
@@ -360,14 +360,14 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
   public long update(Bean01 bean) {
     if (updatePreparedStatement5==null) {
       // generate static SQL for statement
-      String _sql="UPDATE bean01 SET lista=?, message_date=?, message_text=?, bean_list=?, value=? WHERE value=?";
+      String _sql="UPDATE bean01 SET bean_list=?, lista=?, message_date=?, message_text=?, value=? WHERE value=?";
       updatePreparedStatement5 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement5);
+    _contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     _contentValues.put("lista", Bean01Table.serializeLista(bean.getLista()));
     _contentValues.put("message_date", bean.getMessageDate());
     _contentValues.put("message_text", bean.getMessageText());
-    _contentValues.put("bean_list", Bean01Table.serializeBeanList(bean.getBeanList()));
     _contentValues.put("value", bean.getValue());
 
     _contentValues.addWhereArgs(String.valueOf(bean.getValue()));
@@ -378,7 +378,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean01 SET lista=:lista, message_date=:message_date, message_text=:message_text, bean_list=:bean_list, value=:value WHERE value=?");
+      Logger.info("UPDATE bean01 SET bean_list=:bean_list, lista=:lista, message_date=:message_date, message_text=:message_text, value=:value WHERE value=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

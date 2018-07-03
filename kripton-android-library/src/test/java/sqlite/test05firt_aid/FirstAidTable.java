@@ -20,9 +20,9 @@ public class FirstAidTable implements SQLiteTable {
    * DDL to create table first_aid
    * </p>
    *
-   * <pre>CREATE TABLE first_aid (id INTEGER PRIMARY KEY AUTOINCREMENT, uid TEXT UNIQUE, description TEXT, info TEXT, longitude REAL, latitude REAL, address TEXT, address2 TEXT, city TEXT, phone TEXT, total_patient_count INTEGER, white_waiting_patients INTEGER, white_visiting_patients INTEGER, white_average_waiting_time TEXT, green_waiting_patients INTEGER, green_visiting_patients INTEGER, green_average_waiting_time TEXT, yellow_waiting_patients INTEGER, yellow_visiting_patients INTEGER, yellow_average_waiting_time TEXT, red_waiting_patients INTEGER, red_average_waiting_time TEXT);</pre>
+   * <pre>CREATE TABLE first_aid (id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, address2 TEXT, city TEXT, description TEXT, green_average_waiting_time TEXT, green_visiting_patients INTEGER, green_waiting_patients INTEGER, info TEXT, latitude REAL, longitude REAL, phone TEXT, red_average_waiting_time TEXT, red_waiting_patients INTEGER, total_patient_count INTEGER, uid TEXT UNIQUE, white_average_waiting_time TEXT, white_visiting_patients INTEGER, white_waiting_patients INTEGER, yellow_average_waiting_time TEXT, yellow_visiting_patients INTEGER, yellow_waiting_patients INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE first_aid (id INTEGER PRIMARY KEY AUTOINCREMENT, uid TEXT UNIQUE, description TEXT, info TEXT, longitude REAL, latitude REAL, address TEXT, address2 TEXT, city TEXT, phone TEXT, total_patient_count INTEGER, white_waiting_patients INTEGER, white_visiting_patients INTEGER, white_average_waiting_time TEXT, green_waiting_patients INTEGER, green_visiting_patients INTEGER, green_average_waiting_time TEXT, yellow_waiting_patients INTEGER, yellow_visiting_patients INTEGER, yellow_average_waiting_time TEXT, red_waiting_patients INTEGER, red_average_waiting_time TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE first_aid (id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, address2 TEXT, city TEXT, description TEXT, green_average_waiting_time TEXT, green_visiting_patients INTEGER, green_waiting_patients INTEGER, info TEXT, latitude REAL, longitude REAL, phone TEXT, red_average_waiting_time TEXT, red_waiting_patients INTEGER, total_patient_count INTEGER, uid TEXT UNIQUE, white_average_waiting_time TEXT, white_visiting_patients INTEGER, white_waiting_patients INTEGER, yellow_average_waiting_time TEXT, yellow_visiting_patients INTEGER, yellow_waiting_patients INTEGER);";
 
   /**
    * <p>
@@ -39,41 +39,6 @@ public class FirstAidTable implements SQLiteTable {
    *  @see FirstAid#id
    */
   public static final String COLUMN_ID = "id";
-
-  /**
-   * Entity's property <code>uid</code> is associated to table column <code>uid</code>. This costant represents column name.
-   *
-   *  @see FirstAid#uid
-   */
-  public static final String COLUMN_UID = "uid";
-
-  /**
-   * Entity's property <code>description</code> is associated to table column <code>description</code>. This costant represents column name.
-   *
-   *  @see FirstAid#description
-   */
-  public static final String COLUMN_DESCRIPTION = "description";
-
-  /**
-   * Entity's property <code>info</code> is associated to table column <code>info</code>. This costant represents column name.
-   *
-   *  @see FirstAid#info
-   */
-  public static final String COLUMN_INFO = "info";
-
-  /**
-   * Entity's property <code>longitude</code> is associated to table column <code>longitude</code>. This costant represents column name.
-   *
-   *  @see FirstAid#longitude
-   */
-  public static final String COLUMN_LONGITUDE = "longitude";
-
-  /**
-   * Entity's property <code>latitude</code> is associated to table column <code>latitude</code>. This costant represents column name.
-   *
-   *  @see FirstAid#latitude
-   */
-  public static final String COLUMN_LATITUDE = "latitude";
 
   /**
    * Entity's property <code>address</code> is associated to table column <code>address</code>. This costant represents column name.
@@ -97,53 +62,11 @@ public class FirstAidTable implements SQLiteTable {
   public static final String COLUMN_CITY = "city";
 
   /**
-   * Entity's property <code>phone</code> is associated to table column <code>phone</code>. This costant represents column name.
+   * Entity's property <code>description</code> is associated to table column <code>description</code>. This costant represents column name.
    *
-   *  @see FirstAid#phone
+   *  @see FirstAid#description
    */
-  public static final String COLUMN_PHONE = "phone";
-
-  /**
-   * Entity's property <code>totalPatientCount</code> is associated to table column <code>total_patient_count</code>. This costant represents column name.
-   *
-   *  @see FirstAid#totalPatientCount
-   */
-  public static final String COLUMN_TOTAL_PATIENT_COUNT = "total_patient_count";
-
-  /**
-   * Entity's property <code>whiteWaitingPatients</code> is associated to table column <code>white_waiting_patients</code>. This costant represents column name.
-   *
-   *  @see FirstAid#whiteWaitingPatients
-   */
-  public static final String COLUMN_WHITE_WAITING_PATIENTS = "white_waiting_patients";
-
-  /**
-   * Entity's property <code>whiteVisitingPatients</code> is associated to table column <code>white_visiting_patients</code>. This costant represents column name.
-   *
-   *  @see FirstAid#whiteVisitingPatients
-   */
-  public static final String COLUMN_WHITE_VISITING_PATIENTS = "white_visiting_patients";
-
-  /**
-   * Entity's property <code>whiteAverageWaitingTime</code> is associated to table column <code>white_average_waiting_time</code>. This costant represents column name.
-   *
-   *  @see FirstAid#whiteAverageWaitingTime
-   */
-  public static final String COLUMN_WHITE_AVERAGE_WAITING_TIME = "white_average_waiting_time";
-
-  /**
-   * Entity's property <code>greenWaitingPatients</code> is associated to table column <code>green_waiting_patients</code>. This costant represents column name.
-   *
-   *  @see FirstAid#greenWaitingPatients
-   */
-  public static final String COLUMN_GREEN_WAITING_PATIENTS = "green_waiting_patients";
-
-  /**
-   * Entity's property <code>greenVisitingPatients</code> is associated to table column <code>green_visiting_patients</code>. This costant represents column name.
-   *
-   *  @see FirstAid#greenVisitingPatients
-   */
-  public static final String COLUMN_GREEN_VISITING_PATIENTS = "green_visiting_patients";
+  public static final String COLUMN_DESCRIPTION = "description";
 
   /**
    * Entity's property <code>greenAverageWaitingTime</code> is associated to table column <code>green_average_waiting_time</code>. This costant represents column name.
@@ -153,32 +76,46 @@ public class FirstAidTable implements SQLiteTable {
   public static final String COLUMN_GREEN_AVERAGE_WAITING_TIME = "green_average_waiting_time";
 
   /**
-   * Entity's property <code>yellowWaitingPatients</code> is associated to table column <code>yellow_waiting_patients</code>. This costant represents column name.
+   * Entity's property <code>greenVisitingPatients</code> is associated to table column <code>green_visiting_patients</code>. This costant represents column name.
    *
-   *  @see FirstAid#yellowWaitingPatients
+   *  @see FirstAid#greenVisitingPatients
    */
-  public static final String COLUMN_YELLOW_WAITING_PATIENTS = "yellow_waiting_patients";
+  public static final String COLUMN_GREEN_VISITING_PATIENTS = "green_visiting_patients";
 
   /**
-   * Entity's property <code>yellowVisitingPatients</code> is associated to table column <code>yellow_visiting_patients</code>. This costant represents column name.
+   * Entity's property <code>greenWaitingPatients</code> is associated to table column <code>green_waiting_patients</code>. This costant represents column name.
    *
-   *  @see FirstAid#yellowVisitingPatients
+   *  @see FirstAid#greenWaitingPatients
    */
-  public static final String COLUMN_YELLOW_VISITING_PATIENTS = "yellow_visiting_patients";
+  public static final String COLUMN_GREEN_WAITING_PATIENTS = "green_waiting_patients";
 
   /**
-   * Entity's property <code>yellowAverageWaitingTime</code> is associated to table column <code>yellow_average_waiting_time</code>. This costant represents column name.
+   * Entity's property <code>info</code> is associated to table column <code>info</code>. This costant represents column name.
    *
-   *  @see FirstAid#yellowAverageWaitingTime
+   *  @see FirstAid#info
    */
-  public static final String COLUMN_YELLOW_AVERAGE_WAITING_TIME = "yellow_average_waiting_time";
+  public static final String COLUMN_INFO = "info";
 
   /**
-   * Entity's property <code>redWaitingPatients</code> is associated to table column <code>red_waiting_patients</code>. This costant represents column name.
+   * Entity's property <code>latitude</code> is associated to table column <code>latitude</code>. This costant represents column name.
    *
-   *  @see FirstAid#redWaitingPatients
+   *  @see FirstAid#latitude
    */
-  public static final String COLUMN_RED_WAITING_PATIENTS = "red_waiting_patients";
+  public static final String COLUMN_LATITUDE = "latitude";
+
+  /**
+   * Entity's property <code>longitude</code> is associated to table column <code>longitude</code>. This costant represents column name.
+   *
+   *  @see FirstAid#longitude
+   */
+  public static final String COLUMN_LONGITUDE = "longitude";
+
+  /**
+   * Entity's property <code>phone</code> is associated to table column <code>phone</code>. This costant represents column name.
+   *
+   *  @see FirstAid#phone
+   */
+  public static final String COLUMN_PHONE = "phone";
 
   /**
    * Entity's property <code>redAverageWaitingTime</code> is associated to table column <code>red_average_waiting_time</code>. This costant represents column name.
@@ -188,9 +125,72 @@ public class FirstAidTable implements SQLiteTable {
   public static final String COLUMN_RED_AVERAGE_WAITING_TIME = "red_average_waiting_time";
 
   /**
+   * Entity's property <code>redWaitingPatients</code> is associated to table column <code>red_waiting_patients</code>. This costant represents column name.
+   *
+   *  @see FirstAid#redWaitingPatients
+   */
+  public static final String COLUMN_RED_WAITING_PATIENTS = "red_waiting_patients";
+
+  /**
+   * Entity's property <code>totalPatientCount</code> is associated to table column <code>total_patient_count</code>. This costant represents column name.
+   *
+   *  @see FirstAid#totalPatientCount
+   */
+  public static final String COLUMN_TOTAL_PATIENT_COUNT = "total_patient_count";
+
+  /**
+   * Entity's property <code>uid</code> is associated to table column <code>uid</code>. This costant represents column name.
+   *
+   *  @see FirstAid#uid
+   */
+  public static final String COLUMN_UID = "uid";
+
+  /**
+   * Entity's property <code>whiteAverageWaitingTime</code> is associated to table column <code>white_average_waiting_time</code>. This costant represents column name.
+   *
+   *  @see FirstAid#whiteAverageWaitingTime
+   */
+  public static final String COLUMN_WHITE_AVERAGE_WAITING_TIME = "white_average_waiting_time";
+
+  /**
+   * Entity's property <code>whiteVisitingPatients</code> is associated to table column <code>white_visiting_patients</code>. This costant represents column name.
+   *
+   *  @see FirstAid#whiteVisitingPatients
+   */
+  public static final String COLUMN_WHITE_VISITING_PATIENTS = "white_visiting_patients";
+
+  /**
+   * Entity's property <code>whiteWaitingPatients</code> is associated to table column <code>white_waiting_patients</code>. This costant represents column name.
+   *
+   *  @see FirstAid#whiteWaitingPatients
+   */
+  public static final String COLUMN_WHITE_WAITING_PATIENTS = "white_waiting_patients";
+
+  /**
+   * Entity's property <code>yellowAverageWaitingTime</code> is associated to table column <code>yellow_average_waiting_time</code>. This costant represents column name.
+   *
+   *  @see FirstAid#yellowAverageWaitingTime
+   */
+  public static final String COLUMN_YELLOW_AVERAGE_WAITING_TIME = "yellow_average_waiting_time";
+
+  /**
+   * Entity's property <code>yellowVisitingPatients</code> is associated to table column <code>yellow_visiting_patients</code>. This costant represents column name.
+   *
+   *  @see FirstAid#yellowVisitingPatients
+   */
+  public static final String COLUMN_YELLOW_VISITING_PATIENTS = "yellow_visiting_patients";
+
+  /**
+   * Entity's property <code>yellowWaitingPatients</code> is associated to table column <code>yellow_waiting_patients</code>. This costant represents column name.
+   *
+   *  @see FirstAid#yellowWaitingPatients
+   */
+  public static final String COLUMN_YELLOW_WAITING_PATIENTS = "yellow_waiting_patients";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_UID, COLUMN_DESCRIPTION, COLUMN_INFO, COLUMN_LONGITUDE, COLUMN_LATITUDE, COLUMN_ADDRESS, COLUMN_ADDRESS2, COLUMN_CITY, COLUMN_PHONE, COLUMN_TOTAL_PATIENT_COUNT, COLUMN_WHITE_WAITING_PATIENTS, COLUMN_WHITE_VISITING_PATIENTS, COLUMN_WHITE_AVERAGE_WAITING_TIME, COLUMN_GREEN_WAITING_PATIENTS, COLUMN_GREEN_VISITING_PATIENTS, COLUMN_GREEN_AVERAGE_WAITING_TIME, COLUMN_YELLOW_WAITING_PATIENTS, COLUMN_YELLOW_VISITING_PATIENTS, COLUMN_YELLOW_AVERAGE_WAITING_TIME, COLUMN_RED_WAITING_PATIENTS, COLUMN_RED_AVERAGE_WAITING_TIME};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ADDRESS, COLUMN_ADDRESS2, COLUMN_CITY, COLUMN_DESCRIPTION, COLUMN_GREEN_AVERAGE_WAITING_TIME, COLUMN_GREEN_VISITING_PATIENTS, COLUMN_GREEN_WAITING_PATIENTS, COLUMN_INFO, COLUMN_LATITUDE, COLUMN_LONGITUDE, COLUMN_PHONE, COLUMN_RED_AVERAGE_WAITING_TIME, COLUMN_RED_WAITING_PATIENTS, COLUMN_TOTAL_PATIENT_COUNT, COLUMN_UID, COLUMN_WHITE_AVERAGE_WAITING_TIME, COLUMN_WHITE_VISITING_PATIENTS, COLUMN_WHITE_WAITING_PATIENTS, COLUMN_YELLOW_AVERAGE_WAITING_TIME, COLUMN_YELLOW_VISITING_PATIENTS, COLUMN_YELLOW_WAITING_PATIENTS};
 
   /**
    * Columns array

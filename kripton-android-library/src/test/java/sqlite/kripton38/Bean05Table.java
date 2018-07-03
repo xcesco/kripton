@@ -20,9 +20,9 @@ public class Bean05Table implements SQLiteTable {
    * DDL to create table ws_bean
    * </p>
    *
-   * <pre>CREATE TABLE ws_bean (pk INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, bean_type TEXT, text TEXT, content BLOB, creation_time TEXT);</pre>
+   * <pre>CREATE TABLE ws_bean (pk INTEGER PRIMARY KEY AUTOINCREMENT, bean_type TEXT, content BLOB, creation_time TEXT, number INTEGER, text TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE ws_bean (pk INTEGER PRIMARY KEY AUTOINCREMENT, number INTEGER, bean_type TEXT, text TEXT, content BLOB, creation_time TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE ws_bean (pk INTEGER PRIMARY KEY AUTOINCREMENT, bean_type TEXT, content BLOB, creation_time TEXT, number INTEGER, text TEXT);";
 
   /**
    * <p>
@@ -41,25 +41,11 @@ public class Bean05Table implements SQLiteTable {
   public static final String COLUMN_PK = "pk";
 
   /**
-   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column name.
-   *
-   *  @see Bean05#number
-   */
-  public static final String COLUMN_NUMBER = "number";
-
-  /**
    * Entity's property <code>beanType</code> is associated to table column <code>bean_type</code>. This costant represents column name.
    *
    *  @see Bean05#beanType
    */
   public static final String COLUMN_BEAN_TYPE = "bean_type";
-
-  /**
-   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
-   *
-   *  @see Bean05#text
-   */
-  public static final String COLUMN_TEXT = "text";
 
   /**
    * Entity's property <code>content</code> is associated to table column <code>content</code>. This costant represents column name.
@@ -76,9 +62,23 @@ public class Bean05Table implements SQLiteTable {
   public static final String COLUMN_CREATION_TIME = "creation_time";
 
   /**
+   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column name.
+   *
+   *  @see Bean05#number
+   */
+  public static final String COLUMN_NUMBER = "number";
+
+  /**
+   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
+   *
+   *  @see Bean05#text
+   */
+  public static final String COLUMN_TEXT = "text";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_PK, COLUMN_NUMBER, COLUMN_BEAN_TYPE, COLUMN_TEXT, COLUMN_CONTENT, COLUMN_CREATION_TIME};
+  private static final String[] COLUMNS = {COLUMN_PK, COLUMN_BEAN_TYPE, COLUMN_CONTENT, COLUMN_CREATION_TIME, COLUMN_NUMBER, COLUMN_TEXT};
 
   /**
    * for attribute content serialization

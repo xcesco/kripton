@@ -20,9 +20,9 @@ public class SongTable implements SQLiteTable {
    * DDL to create table song
    * </p>
    *
-   * <pre>CREATE TABLE song (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, album_id INTEGER, FOREIGN KEY(album_id) REFERENCES album(id));</pre>
+   * <pre>CREATE TABLE song (id INTEGER PRIMARY KEY AUTOINCREMENT, album_id INTEGER, name TEXT, FOREIGN KEY(album_id) REFERENCES album(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE song (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, album_id INTEGER, FOREIGN KEY(album_id) REFERENCES album(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE song (id INTEGER PRIMARY KEY AUTOINCREMENT, album_id INTEGER, name TEXT, FOREIGN KEY(album_id) REFERENCES album(id));";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class SongTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
-   *
-   *  @see Song#name
-   */
-  public static final String COLUMN_NAME = "name";
-
-  /**
    * Entity's property <code>albumId</code> is associated to table column <code>album_id</code>. This costant represents column name.
    *
    *  @see Song#albumId
@@ -55,9 +48,16 @@ public class SongTable implements SQLiteTable {
   public static final String COLUMN_ALBUM_ID = "album_id";
 
   /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   *
+   *  @see Song#name
+   */
+  public static final String COLUMN_NAME = "name";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_ALBUM_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ALBUM_ID, COLUMN_NAME};
 
   /**
    * Columns array

@@ -67,8 +67,8 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public AppPreferences read() {
     AppPreferences bean=new AppPreferences();
-    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
     bean.valueBoolean=(boolean)prefs.getBoolean("value", (boolean)bean.valueBoolean);
+    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
 
     return bean;
   }
@@ -80,21 +80,13 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public void write(AppPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putFloat("value_float",bean.valueFloat);
-
     editor.putBoolean("value",(boolean)bean.valueBoolean);
+
+    editor.putFloat("value_float",bean.valueFloat);
 
 
     editor.commit();
   }
-
-  /**
-   * reads property <code>valueFloat</code> from shared pref with key <code>value_float</code>
-   *
-   * @return property valueFloat value
-   */
-  public float getValueFloat() {
-    return prefs.getFloat("value_float", defaultBean.valueFloat);}
 
   /**
    * reads property <code>valueBoolean</code> from shared pref with key <code>value</code>
@@ -103,6 +95,14 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public boolean getValueBoolean() {
     return (boolean)prefs.getBoolean("value", (boolean)defaultBean.valueBoolean);}
+
+  /**
+   * reads property <code>valueFloat</code> from shared pref with key <code>value_float</code>
+   *
+   * @return property valueFloat value
+   */
+  public float getValueFloat() {
+    return prefs.getFloat("value_float", defaultBean.valueFloat);}
 
   /**
    * get instance of shared preferences
@@ -124,23 +124,6 @@ public class BindAppPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueFloat
-     */
-    public BindEditor putValueFloat(float value) {
-      editor.putFloat("value_float",value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueFloat
-     */
-    public BindEditor removeValueFloat() {
-      editor.remove("value_float");
-      return this;
-    }
-
-    /**
      * modifier for property valueBoolean
      */
     public BindEditor putValueBoolean(boolean value) {
@@ -154,6 +137,23 @@ public class BindAppPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeValueBoolean() {
       editor.remove("value");
+      return this;
+    }
+
+    /**
+     * modifier for property valueFloat
+     */
+    public BindEditor putValueFloat(float value) {
+      editor.putFloat("value_float",value);
+
+      return this;
+    }
+
+    /**
+     * remove property valueFloat
+     */
+    public BindEditor removeValueFloat() {
+      editor.remove("value_float");
       return this;
     }
 

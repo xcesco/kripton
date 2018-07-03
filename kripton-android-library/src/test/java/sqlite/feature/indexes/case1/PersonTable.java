@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_name TEXT UNIQUE, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); CREATE INDEX idx_person_1 on person (surname);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_name TEXT UNIQUE, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, surname TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); CREATE INDEX idx_person_1 on person (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_name TEXT UNIQUE, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); CREATE INDEX idx_person_1 on person (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_name TEXT UNIQUE, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, surname TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); CREATE INDEX idx_person_1 on person (surname);";
 
   /**
    * <p>
@@ -48,6 +48,20 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_ALIAS_NAME = "alias_name";
 
   /**
+   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column name.
+   *
+   *  @see Person#birthCity
+   */
+  public static final String COLUMN_BIRTH_CITY = "birth_city";
+
+  /**
+   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.
+   *
+   *  @see Person#birthDay
+   */
+  public static final String COLUMN_BIRTH_DAY = "birth_day";
+
+  /**
    * Entity's property <code>date</code> is associated to table column <code>date</code>. This costant represents column name.
    *
    *  @see Person#date
@@ -69,23 +83,9 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_SURNAME = "surname";
 
   /**
-   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column name.
-   *
-   *  @see Person#birthCity
-   */
-  public static final String COLUMN_BIRTH_CITY = "birth_city";
-
-  /**
-   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.
-   *
-   *  @see Person#birthDay
-   */
-  public static final String COLUMN_BIRTH_DAY = "birth_day";
-
-  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ALIAS_NAME, COLUMN_DATE, COLUMN_NAME, COLUMN_SURNAME, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ALIAS_NAME, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY, COLUMN_DATE, COLUMN_NAME, COLUMN_SURNAME};
 
   /**
    * Columns array

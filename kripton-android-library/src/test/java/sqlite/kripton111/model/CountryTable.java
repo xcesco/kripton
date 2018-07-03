@@ -20,9 +20,9 @@ public class CountryTable implements SQLiteTable {
    * DDL to create table country
    * </p>
    *
-   * <pre>CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, code TEXT UNIQUE NOT NULL, calling_code TEXT NOT NULL, region TEXT, name TEXT NOT NULL);</pre>
+   * <pre>CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, code TEXT UNIQUE NOT NULL, calling_code TEXT NOT NULL, region TEXT, name TEXT NOT NULL);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT);";
 
   /**
    * <p>
@@ -48,13 +48,6 @@ public class CountryTable implements SQLiteTable {
   public static final String COLUMN_AREA = "area";
 
   /**
-   * Entity's property <code>code</code> is associated to table column <code>code</code>. This costant represents column name.
-   *
-   *  @see Country#code
-   */
-  public static final String COLUMN_CODE = "code";
-
-  /**
    * Entity's property <code>callingCode</code> is associated to table column <code>calling_code</code>. This costant represents column name.
    *
    *  @see Country#callingCode
@@ -62,11 +55,11 @@ public class CountryTable implements SQLiteTable {
   public static final String COLUMN_CALLING_CODE = "calling_code";
 
   /**
-   * Entity's property <code>region</code> is associated to table column <code>region</code>. This costant represents column name.
+   * Entity's property <code>code</code> is associated to table column <code>code</code>. This costant represents column name.
    *
-   *  @see Country#region
+   *  @see Country#code
    */
-  public static final String COLUMN_REGION = "region";
+  public static final String COLUMN_CODE = "code";
 
   /**
    * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
@@ -76,9 +69,16 @@ public class CountryTable implements SQLiteTable {
   public static final String COLUMN_NAME = "name";
 
   /**
+   * Entity's property <code>region</code> is associated to table column <code>region</code>. This costant represents column name.
+   *
+   *  @see Country#region
+   */
+  public static final String COLUMN_REGION = "region";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_AREA, COLUMN_CODE, COLUMN_CALLING_CODE, COLUMN_REGION, COLUMN_NAME};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_AREA, COLUMN_CALLING_CODE, COLUMN_CODE, COLUMN_NAME, COLUMN_REGION};
 
   /**
    * Columns array

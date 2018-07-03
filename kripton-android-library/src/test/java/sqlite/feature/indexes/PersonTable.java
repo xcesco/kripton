@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, name_temp TEXT, surname TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, type_name TEXT, name_temp TEXT, date TEXT, name TEXT, surname TEXT, birth_city TEXT, birth_day TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, name_temp TEXT, surname TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);";
 
   /**
    * <p>
@@ -41,18 +41,18 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>typeName</code> is associated to table column <code>type_name</code>. This costant represents column name.
+   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column name.
    *
-   *  @see Person#typeName
+   *  @see Person#birthCity
    */
-  public static final String COLUMN_TYPE_NAME = "type_name";
+  public static final String COLUMN_BIRTH_CITY = "birth_city";
 
   /**
-   * Entity's property <code>nameTemp</code> is associated to table column <code>name_temp</code>. This costant represents column name.
+   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.
    *
-   *  @see Person#nameTemp
+   *  @see Person#birthDay
    */
-  public static final String COLUMN_NAME_TEMP = "name_temp";
+  public static final String COLUMN_BIRTH_DAY = "birth_day";
 
   /**
    * Entity's property <code>date</code> is associated to table column <code>date</code>. This costant represents column name.
@@ -69,6 +69,13 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_NAME = "name";
 
   /**
+   * Entity's property <code>nameTemp</code> is associated to table column <code>name_temp</code>. This costant represents column name.
+   *
+   *  @see Person#nameTemp
+   */
+  public static final String COLUMN_NAME_TEMP = "name_temp";
+
+  /**
    * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
    *
    *  @see Person#surname
@@ -76,23 +83,16 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_SURNAME = "surname";
 
   /**
-   * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column name.
+   * Entity's property <code>typeName</code> is associated to table column <code>type_name</code>. This costant represents column name.
    *
-   *  @see Person#birthCity
+   *  @see Person#typeName
    */
-  public static final String COLUMN_BIRTH_CITY = "birth_city";
-
-  /**
-   * Entity's property <code>birthDay</code> is associated to table column <code>birth_day</code>. This costant represents column name.
-   *
-   *  @see Person#birthDay
-   */
-  public static final String COLUMN_BIRTH_DAY = "birth_day";
+  public static final String COLUMN_TYPE_NAME = "type_name";
 
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_TYPE_NAME, COLUMN_NAME_TEMP, COLUMN_DATE, COLUMN_NAME, COLUMN_SURNAME, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY, COLUMN_DATE, COLUMN_NAME, COLUMN_NAME_TEMP, COLUMN_SURNAME, COLUMN_TYPE_NAME};
 
   /**
    * Columns array

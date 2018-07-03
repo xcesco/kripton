@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (name TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (name TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);";
 
   /**
    * <p>
@@ -34,13 +34,6 @@ public class PersonTable implements SQLiteTable {
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS person;";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
-   *
-   *  @see Person#name
-   */
-  public static final String COLUMN_NAME = "name";
-
-  /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
    *
    *  @see Person#id
@@ -48,9 +41,16 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   *
+   *  @see Person#name
+   */
+  public static final String COLUMN_NAME = "name";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_NAME, COLUMN_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME};
 
   /**
    * Columns array

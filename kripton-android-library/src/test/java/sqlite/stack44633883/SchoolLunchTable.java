@@ -30,9 +30,9 @@ public class SchoolLunchTable implements SQLiteTable {
    * DDL to create table SchoolLunches
    * </p>
    *
-   * <pre>CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, fresh INTEGER, contains_meat INTEGER, fruits BLOB);</pre>
+   * <pre>CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, contains_meat INTEGER, fresh INTEGER, fruits BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, fresh INTEGER, contains_meat INTEGER, fruits BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, contains_meat INTEGER, fresh INTEGER, fruits BLOB);";
 
   /**
    * <p>
@@ -51,18 +51,18 @@ public class SchoolLunchTable implements SQLiteTable {
   public static final String COLUMN_LUNCH_ID = "lunch_id";
 
   /**
-   * Entity's property <code>fresh</code> is associated to table column <code>fresh</code>. This costant represents column name.
-   *
-   *  @see SchoolLunch#fresh
-   */
-  public static final String COLUMN_FRESH = "fresh";
-
-  /**
    * Entity's property <code>containsMeat</code> is associated to table column <code>contains_meat</code>. This costant represents column name.
    *
    *  @see SchoolLunch#containsMeat
    */
   public static final String COLUMN_CONTAINS_MEAT = "contains_meat";
+
+  /**
+   * Entity's property <code>fresh</code> is associated to table column <code>fresh</code>. This costant represents column name.
+   *
+   *  @see SchoolLunch#fresh
+   */
+  public static final String COLUMN_FRESH = "fresh";
 
   /**
    * Entity's property <code>fruits</code> is associated to table column <code>fruits</code>. This costant represents column name.
@@ -74,7 +74,7 @@ public class SchoolLunchTable implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_LUNCH_ID, COLUMN_FRESH, COLUMN_CONTAINS_MEAT, COLUMN_FRUITS};
+  private static final String[] COLUMNS = {COLUMN_LUNCH_ID, COLUMN_CONTAINS_MEAT, COLUMN_FRESH, COLUMN_FRUITS};
 
   /**
    * for attribute fruits serialization

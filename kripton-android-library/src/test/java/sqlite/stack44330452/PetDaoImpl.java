@@ -18,7 +18,7 @@ import java.util.List;
  *  @see PetTable
  */
 public class PetDaoImpl extends Dao implements PetDao {
-  private static final String LOAD_PET_SQL2 = "SELECT id, user_id, name FROM pet";
+  private static final String LOAD_PET_SQL2 = "SELECT id, name, user_id FROM pet";
 
   public PetDaoImpl(BindPetUserDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -27,13 +27,13 @@ public class PetDaoImpl extends Dao implements PetDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, user_id, name FROM pet</pre>
+   * <pre>SELECT id, name, user_id FROM pet</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -71,16 +71,16 @@ public class PetDaoImpl extends Dao implements PetDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("user_id");
-        int index2=_cursor.getColumnIndex("name");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("user_id");
 
         do
          {
           resultBean=new Pet();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.name=_cursor.getString(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

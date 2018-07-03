@@ -24,9 +24,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   private static SQLiteStatement insertThread2PreparedStatement1;
 
-  private static final String SELECT_THREAD1_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person";
+  private static final String SELECT_THREAD1_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person";
 
-  private static final String SELECT_THREAD2_SQL2 = "SELECT id, name, surname, birth_city, birth_day FROM person";
+  private static final String SELECT_THREAD2_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person";
 
   public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -34,16 +34,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${bean.name}, ${bean.surname}, ${bean.birthCity}, ${bean.birthDay})</pre>
+   * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.name}, ${bean.surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -54,14 +54,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   public void insertThread1(Person bean) {
     if (insertThread1PreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO person (birth_city, birth_day, name, surname) VALUES (?, ?, ?, ?)";
       insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertThread1PreparedStatement0);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("surname", bean.surname);
     _contentValues.put("birth_city", bean.birthCity);
     _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -105,16 +105,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${bean.name}, ${bean.surname}, ${bean.birthCity}, ${bean.birthDay})</pre>
+   * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (${bean.birthCity}, ${bean.birthDay}, ${bean.name}, ${bean.surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -125,14 +125,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   public void insertThread2(Person bean) {
     if (insertThread2PreparedStatement1==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO person (birth_city, birth_day, name, surname) VALUES (?, ?, ?, ?)";
       insertThread2PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertThread2PreparedStatement1);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("surname", bean.surname);
     _contentValues.put("birth_city", bean.birthCity);
     _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -177,15 +177,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * @return selected bean or <code>null</code>.
@@ -222,18 +222,18 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         resultBean=new Person();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+        if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
       }
       return resultBean;
@@ -243,15 +243,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * @return selected bean or <code>null</code>.
@@ -288,18 +288,18 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         resultBean=new Person();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+        if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
       }
       return resultBean;

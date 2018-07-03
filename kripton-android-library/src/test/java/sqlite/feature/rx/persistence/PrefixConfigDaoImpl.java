@@ -24,13 +24,13 @@ import sqlite.feature.rx.model.PrefixConfig;
 public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL4 = "SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
   private static SQLiteStatement updateByIdPreparedStatement2;
 
-  private static final String SELECT_ONE_SQL5 = "SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config";
+  private static final String SELECT_ONE_SQL5 = "SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config";
 
   private static SQLiteStatement updatePreparedStatement3;
 
@@ -42,16 +42,16 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO prefix_config (default_country, dual_billing_prefix, enabled, dialog_timeout) VALUES (${defaultCountry}, ${dualBillingPrefix}, ${enabled}, ${dialogTimeout})</pre>
+   * <pre>INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (${defaultCountry}, ${dialogTimeout}, ${dualBillingPrefix}, ${enabled})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>default_country</dt><dd>is mapped to <strong>${bean.defaultCountry}</strong></dd>
+   * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>${bean.dialogTimeout}</strong></dd>
    * 	<dt>dual_billing_prefix</dt><dd>is mapped to <strong>${bean.dualBillingPrefix}</strong></dd>
    * 	<dt>enabled</dt><dd>is mapped to <strong>${bean.enabled}</strong></dd>
-   * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>${bean.dialogTimeout}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -63,14 +63,14 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   public int insert(PrefixConfig bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT OR REPLACE INTO prefix_config (default_country, dual_billing_prefix, enabled, dialog_timeout) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("default_country", bean.defaultCountry);
+    _contentValues.put("dialog_timeout", bean.dialogTimeout);
     _contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
     _contentValues.put("enabled", bean.enabled);
-    _contentValues.put("dialog_timeout", bean.dialogTimeout);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -120,15 +120,15 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config WHERE id = ${id}</pre>
+   * <pre>SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>default_country</dt><dd>is associated to bean's property <strong>defaultCountry</strong></dd>
+   * 	<dt>dialog_timeout</dt><dd>is associated to bean's property <strong>dialogTimeout</strong></dd>
    * 	<dt>dual_billing_prefix</dt><dd>is associated to bean's property <strong>dualBillingPrefix</strong></dd>
    * 	<dt>enabled</dt><dd>is associated to bean's property <strong>enabled</strong></dd>
-   * 	<dt>dialog_timeout</dt><dd>is associated to bean's property <strong>dialogTimeout</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -174,17 +174,17 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("default_country");
-        int index2=_cursor.getColumnIndex("dual_billing_prefix");
-        int index3=_cursor.getColumnIndex("enabled");
-        int index4=_cursor.getColumnIndex("dialog_timeout");
+        int index2=_cursor.getColumnIndex("dialog_timeout");
+        int index3=_cursor.getColumnIndex("dual_billing_prefix");
+        int index4=_cursor.getColumnIndex("enabled");
 
         resultBean=new PrefixConfig();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.defaultCountry=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.dualBillingPrefix=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.enabled=_cursor.getInt(index3)==0?false:true; }
-        if (!_cursor.isNull(index4)) { resultBean.dialogTimeout=_cursor.getLong(index4); }
+        if (!_cursor.isNull(index2)) { resultBean.dialogTimeout=_cursor.getLong(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.dualBillingPrefix=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.enabled=_cursor.getInt(index4)==0?false:true; }
 
       }
       return resultBean;
@@ -289,15 +289,15 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, default_country, dual_billing_prefix, enabled, dialog_timeout FROM prefix_config</pre>
+   * <pre>SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>default_country</dt><dd>is associated to bean's property <strong>defaultCountry</strong></dd>
+   * 	<dt>dialog_timeout</dt><dd>is associated to bean's property <strong>dialogTimeout</strong></dd>
    * 	<dt>dual_billing_prefix</dt><dd>is associated to bean's property <strong>dualBillingPrefix</strong></dd>
    * 	<dt>enabled</dt><dd>is associated to bean's property <strong>enabled</strong></dd>
-   * 	<dt>dialog_timeout</dt><dd>is associated to bean's property <strong>dialogTimeout</strong></dd>
    * </dl>
    *
    * @return selected bean or <code>null</code>.
@@ -335,17 +335,17 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("default_country");
-        int index2=_cursor.getColumnIndex("dual_billing_prefix");
-        int index3=_cursor.getColumnIndex("enabled");
-        int index4=_cursor.getColumnIndex("dialog_timeout");
+        int index2=_cursor.getColumnIndex("dialog_timeout");
+        int index3=_cursor.getColumnIndex("dual_billing_prefix");
+        int index4=_cursor.getColumnIndex("enabled");
 
         resultBean=new PrefixConfig();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.defaultCountry=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.dualBillingPrefix=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.enabled=_cursor.getInt(index3)==0?false:true; }
-        if (!_cursor.isNull(index4)) { resultBean.dialogTimeout=_cursor.getLong(index4); }
+        if (!_cursor.isNull(index2)) { resultBean.dialogTimeout=_cursor.getLong(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.dualBillingPrefix=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.enabled=_cursor.getInt(index4)==0?false:true; }
 
       }
       return resultBean;
@@ -354,14 +354,14 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE prefix_config SET default_country=:defaultCountry, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled, dialog_timeout=:dialogTimeout WHERE id = ${bean.id} </pre>
+   * <pre>UPDATE prefix_config SET default_country=:defaultCountry, dialog_timeout=:dialogTimeout, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled WHERE id = ${bean.id} </pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>default_country</dt><dd>is mapped to <strong>${bean.defaultCountry}</strong></dd>
+   * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>${bean.dialogTimeout}</strong></dd>
    * 	<dt>dual_billing_prefix</dt><dd>is mapped to <strong>${bean.dualBillingPrefix}</strong></dd>
    * 	<dt>enabled</dt><dd>is mapped to <strong>${bean.enabled}</strong></dd>
-   * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>${bean.dialogTimeout}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -378,14 +378,14 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   public int update(PrefixConfig bean) {
     if (updatePreparedStatement3==null) {
       // generate static SQL for statement
-      String _sql="UPDATE prefix_config SET default_country=?, dual_billing_prefix=?, enabled=?, dialog_timeout=? WHERE id = ? ";
+      String _sql="UPDATE prefix_config SET default_country=?, dialog_timeout=?, dual_billing_prefix=?, enabled=? WHERE id = ? ";
       updatePreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement3);
     _contentValues.put("default_country", bean.defaultCountry);
+    _contentValues.put("dialog_timeout", bean.dialogTimeout);
     _contentValues.put("dual_billing_prefix", bean.dualBillingPrefix);
     _contentValues.put("enabled", bean.enabled);
-    _contentValues.put("dialog_timeout", bean.dialogTimeout);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -395,7 +395,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE prefix_config SET default_country=:default_country, dual_billing_prefix=:dual_billing_prefix, enabled=:enabled, dialog_timeout=:dialog_timeout WHERE id = ? ");
+      Logger.info("UPDATE prefix_config SET default_country=:default_country, dialog_timeout=:dialog_timeout, dual_billing_prefix=:dual_billing_prefix, enabled=:enabled WHERE id = ? ");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

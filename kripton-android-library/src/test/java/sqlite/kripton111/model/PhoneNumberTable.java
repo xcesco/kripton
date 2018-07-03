@@ -20,9 +20,9 @@ public class PhoneNumberTable implements SQLiteTable {
    * DDL to create table phone_number
    * </p>
    *
-   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);</pre>
+   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, number TEXT, country_code TEXT, contact_name TEXT, contact_id TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);";
 
   /**
    * <p>
@@ -48,18 +48,11 @@ public class PhoneNumberTable implements SQLiteTable {
   public static final String COLUMN_ACTION_TYPE = "action_type";
 
   /**
-   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column name.
+   * Entity's property <code>contactId</code> is associated to table column <code>contact_id</code>. This costant represents column name.
    *
-   *  @see PhoneNumber#number
+   *  @see PhoneNumber#contactId
    */
-  public static final String COLUMN_NUMBER = "number";
-
-  /**
-   * Entity's property <code>countryCode</code> is associated to table column <code>country_code</code>. This costant represents column name.
-   *
-   *  @see PhoneNumber#countryCode
-   */
-  public static final String COLUMN_COUNTRY_CODE = "country_code";
+  public static final String COLUMN_CONTACT_ID = "contact_id";
 
   /**
    * Entity's property <code>contactName</code> is associated to table column <code>contact_name</code>. This costant represents column name.
@@ -69,16 +62,23 @@ public class PhoneNumberTable implements SQLiteTable {
   public static final String COLUMN_CONTACT_NAME = "contact_name";
 
   /**
-   * Entity's property <code>contactId</code> is associated to table column <code>contact_id</code>. This costant represents column name.
+   * Entity's property <code>countryCode</code> is associated to table column <code>country_code</code>. This costant represents column name.
    *
-   *  @see PhoneNumber#contactId
+   *  @see PhoneNumber#countryCode
    */
-  public static final String COLUMN_CONTACT_ID = "contact_id";
+  public static final String COLUMN_COUNTRY_CODE = "country_code";
+
+  /**
+   * Entity's property <code>number</code> is associated to table column <code>number</code>. This costant represents column name.
+   *
+   *  @see PhoneNumber#number
+   */
+  public static final String COLUMN_NUMBER = "number";
 
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ACTION_TYPE, COLUMN_NUMBER, COLUMN_COUNTRY_CODE, COLUMN_CONTACT_NAME, COLUMN_CONTACT_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ACTION_TYPE, COLUMN_CONTACT_ID, COLUMN_CONTACT_NAME, COLUMN_COUNTRY_CODE, COLUMN_NUMBER};
 
   /**
    * Columns array

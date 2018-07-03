@@ -30,9 +30,9 @@ public class UserTable implements SQLiteTable {
    * DDL to create table user
    * </p>
    *
-   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, username TEXT, email TEXT, address BLOB, phone TEXT, website TEXT, company BLOB);</pre>
+   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, address BLOB, company BLOB, email TEXT, name TEXT, phone TEXT, username TEXT, website TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, username TEXT, email TEXT, address BLOB, phone TEXT, website TEXT, company BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, address BLOB, company BLOB, email TEXT, name TEXT, phone TEXT, username TEXT, website TEXT);";
 
   /**
    * <p>
@@ -51,18 +51,18 @@ public class UserTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   * Entity's property <code>address</code> is associated to table column <code>address</code>. This costant represents column name.
    *
-   *  @see User#name
+   *  @see User#address
    */
-  public static final String COLUMN_NAME = "name";
+  public static final String COLUMN_ADDRESS = "address";
 
   /**
-   * Entity's property <code>username</code> is associated to table column <code>username</code>. This costant represents column name.
+   * Entity's property <code>company</code> is associated to table column <code>company</code>. This costant represents column name.
    *
-   *  @see User#username
+   *  @see User#company
    */
-  public static final String COLUMN_USERNAME = "username";
+  public static final String COLUMN_COMPANY = "company";
 
   /**
    * Entity's property <code>email</code> is associated to table column <code>email</code>. This costant represents column name.
@@ -72,11 +72,11 @@ public class UserTable implements SQLiteTable {
   public static final String COLUMN_EMAIL = "email";
 
   /**
-   * Entity's property <code>address</code> is associated to table column <code>address</code>. This costant represents column name.
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
-   *  @see User#address
+   *  @see User#name
    */
-  public static final String COLUMN_ADDRESS = "address";
+  public static final String COLUMN_NAME = "name";
 
   /**
    * Entity's property <code>phone</code> is associated to table column <code>phone</code>. This costant represents column name.
@@ -86,18 +86,18 @@ public class UserTable implements SQLiteTable {
   public static final String COLUMN_PHONE = "phone";
 
   /**
+   * Entity's property <code>username</code> is associated to table column <code>username</code>. This costant represents column name.
+   *
+   *  @see User#username
+   */
+  public static final String COLUMN_USERNAME = "username";
+
+  /**
    * Entity's property <code>website</code> is associated to table column <code>website</code>. This costant represents column name.
    *
    *  @see User#website
    */
   public static final String COLUMN_WEBSITE = "website";
-
-  /**
-   * Entity's property <code>company</code> is associated to table column <code>company</code>. This costant represents column name.
-   *
-   *  @see User#company
-   */
-  public static final String COLUMN_COMPANY = "company";
 
   /**
    * AddressBindMap */
@@ -110,7 +110,7 @@ public class UserTable implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_USERNAME, COLUMN_EMAIL, COLUMN_ADDRESS, COLUMN_PHONE, COLUMN_WEBSITE, COLUMN_COMPANY};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_ADDRESS, COLUMN_COMPANY, COLUMN_EMAIL, COLUMN_NAME, COLUMN_PHONE, COLUMN_USERNAME, COLUMN_WEBSITE};
 
   /**
    * for attribute address serialization

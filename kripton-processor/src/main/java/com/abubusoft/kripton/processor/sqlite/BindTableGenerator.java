@@ -71,7 +71,6 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>
  * Generate class ${entity}Table which represents table for entity.
@@ -152,8 +151,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
 		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC)
-				.addSuperinterface(SQLiteTable.class);
-		;
+				.addSuperinterface(SQLiteTable.class);		
 
 		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName),
 				Modifier.STATIC, Modifier.PRIVATE);

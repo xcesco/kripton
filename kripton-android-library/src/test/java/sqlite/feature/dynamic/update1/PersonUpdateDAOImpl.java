@@ -24,9 +24,9 @@ import sqlite.feature.dynamic.Person;
  *  @see sqlite.feature.dynamic.PersonTable
  */
 public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
-  private static final String SELECT_ONE_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || '%' ";
+  private static final String SELECT_ONE_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like ? || '%' ";
 
-  private static final String SELEC_ALL_SQL2 = "SELECT id, name, surname, birth_city, birth_day FROM person";
+  private static final String SELEC_ALL_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person";
 
   private static SQLiteStatement insertOnePreparedStatement0;
 
@@ -37,15 +37,15 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ${nameTemp} || '%' </pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like ${nameTemp} || '%' </pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -91,20 +91,20 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -315,14 +315,14 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ${bean.id} #{DYNAMIC_WHERE}</pre>
+   * <pre>UPDATE person SET birth_city=:birthCity, birth_day=:birthDay, name=:name, surname=:surname WHERE id = ${bean.id} #{DYNAMIC_WHERE}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -343,10 +343,10 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   @Override
   public void updateBean(Person bean, String where) {
     KriptonContentValues _contentValues=contentValuesForUpdate();
-    _contentValues.put("name", bean.name);
-    _contentValues.put("surname", bean.surname);
     _contentValues.put("birth_city", bean.birthCity);
     _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -365,12 +365,12 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     // manage WHERE arguments -- END
 
     // generate sql
-    String _sql=String.format("UPDATE person SET name=?, surname=?, birth_city=?, birth_day=? WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+    String _sql=String.format("UPDATE person SET birth_city=?, birth_day=?, name=?, surname=? WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
     // log section BEGIN
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birth_city, birth_day=:birth_day WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
+      Logger.info("UPDATE person SET birth_city=:birth_city, birth_day=:birth_day, name=:name, surname=:surname WHERE id = ? %s", StringUtils.ifNotEmptyAppend(_sqlDynamicWhere," AND "));
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -398,15 +398,15 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -444,20 +444,20 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, image BLOB);</pre>
+   * <pre>CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, image BLOB, name TEXT NOT NULL);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, image BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, image BLOB, name TEXT NOT NULL);";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_ID = "_id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
-   *
-   *  @see Person#name
-   */
-  public static final String COLUMN_NAME = "name";
-
-  /**
    * Entity's property <code>image</code> is associated to table column <code>image</code>. This costant represents column name.
    *
    *  @see Person#image
@@ -55,9 +48,16 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_IMAGE = "image";
 
   /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   *
+   *  @see Person#name
+   */
+  public static final String COLUMN_NAME = "name";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_IMAGE};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_IMAGE, COLUMN_NAME};
 
   /**
    * for attribute image serialization

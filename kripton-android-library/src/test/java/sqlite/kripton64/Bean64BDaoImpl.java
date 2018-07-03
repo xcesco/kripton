@@ -21,9 +21,9 @@ import java.util.List;
  *  @see Bean64BTable
  */
 public class Bean64BDaoImpl extends Dao implements Bean64BDao {
-  private static final String SELECT_ALL_SQL1 = "SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_b";
 
-  private static final String SELECT_LIST_SQL2 = "SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE id=?";
+  private static final String SELECT_LIST_SQL2 = "SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_b WHERE id=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -34,14 +34,14 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b</pre>
+   * <pre>SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_b</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
    * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -78,19 +78,19 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_map_string_bean");
-        int index1=_cursor.getColumnIndex("value_set_string");
-        int index2=_cursor.getColumnIndex("value_string");
-        int index3=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_map_string_bean");
+        int index2=_cursor.getColumnIndex("value_set_string");
+        int index3=_cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new Bean64B();
 
-          if (!_cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64BTable.parseValueMapStringBean(_cursor.getBlob(index0)); }
-          if (!_cursor.isNull(index1)) { resultBean.valueSetString=Bean64BTable.parseValueSetString(_cursor.getBlob(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.valueString=_cursor.getString(index2); }
-          resultBean.id=_cursor.getLong(index3);
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.valueMapStringBean=Bean64BTable.parseValueMapStringBean(_cursor.getBlob(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.valueSetString=Bean64BTable.parseValueSetString(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.valueString=_cursor.getString(index3); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -103,14 +103,14 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_map_string_bean, value_set_string, value_string, id FROM bean64_b WHERE id=${id}</pre>
+   * <pre>SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_b WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
    * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -155,19 +155,19 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_map_string_bean");
-        int index1=_cursor.getColumnIndex("value_set_string");
-        int index2=_cursor.getColumnIndex("value_string");
-        int index3=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_map_string_bean");
+        int index2=_cursor.getColumnIndex("value_set_string");
+        int index3=_cursor.getColumnIndex("value_string");
 
         do
          {
           resultBean=new Bean64B();
 
-          if (!_cursor.isNull(index0)) { resultBean.valueMapStringBean=Bean64BTable.parseValueMapStringBean(_cursor.getBlob(index0)); }
-          if (!_cursor.isNull(index1)) { resultBean.valueSetString=Bean64BTable.parseValueSetString(_cursor.getBlob(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.valueString=_cursor.getString(index2); }
-          resultBean.id=_cursor.getLong(index3);
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.valueMapStringBean=Bean64BTable.parseValueMapStringBean(_cursor.getBlob(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.valueSetString=Bean64BTable.parseValueSetString(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.valueString=_cursor.getString(index3); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

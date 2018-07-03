@@ -20,9 +20,9 @@ public class PersonCityErr3Table implements SQLiteTable {
    * DDL to create table person_city_err3
    * </p>
    *
-   * <pre>CREATE TABLE person_city_err3 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER, FOREIGN KEY(person_id) REFERENCES persons(id), FOREIGN KEY(city_id) REFERENCES cities(id));</pre>
+   * <pre>CREATE TABLE person_city_err3 (id INTEGER PRIMARY KEY AUTOINCREMENT, city_id INTEGER, person_id INTEGER, FOREIGN KEY(city_id) REFERENCES cities(id), FOREIGN KEY(person_id) REFERENCES persons(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city_err3 (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, city_id INTEGER, FOREIGN KEY(person_id) REFERENCES persons(id), FOREIGN KEY(city_id) REFERENCES cities(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city_err3 (id INTEGER PRIMARY KEY AUTOINCREMENT, city_id INTEGER, person_id INTEGER, FOREIGN KEY(city_id) REFERENCES cities(id), FOREIGN KEY(person_id) REFERENCES persons(id));";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class PersonCityErr3Table implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>personId</code> is associated to table column <code>person_id</code>. This costant represents column name.
-   *
-   *  @see PersonCityErr3#personId
-   */
-  public static final String COLUMN_PERSON_ID = "person_id";
-
-  /**
    * Entity's property <code>cityId</code> is associated to table column <code>city_id</code>. This costant represents column name.
    *
    *  @see PersonCityErr3#cityId
@@ -55,9 +48,16 @@ public class PersonCityErr3Table implements SQLiteTable {
   public static final String COLUMN_CITY_ID = "city_id";
 
   /**
+   * Entity's property <code>personId</code> is associated to table column <code>person_id</code>. This costant represents column name.
+   *
+   *  @see PersonCityErr3#personId
+   */
+  public static final String COLUMN_PERSON_ID = "person_id";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PERSON_ID, COLUMN_CITY_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_CITY_ID, COLUMN_PERSON_ID};
 
   /**
    * Columns array

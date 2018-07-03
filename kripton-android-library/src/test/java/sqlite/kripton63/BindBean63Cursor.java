@@ -26,12 +26,12 @@ public class BindBean63Cursor {
   protected int index1;
 
   /**
-   * Index for column "valueMapStringByte"
+   * Index for column "valueMapEnumByte"
    */
   protected int index2;
 
   /**
-   * Index for column "valueMapEnumByte"
+   * Index for column "valueMapStringByte"
    */
   protected int index3;
 
@@ -54,8 +54,8 @@ public class BindBean63Cursor {
 
     index0=cursor.getColumnIndex("id");
     index1=cursor.getColumnIndex("value");
-    index2=cursor.getColumnIndex("value_map_string_byte");
-    index3=cursor.getColumnIndex("value_map_enum_byte");
+    index2=cursor.getColumnIndex("value_map_enum_byte");
+    index3=cursor.getColumnIndex("value_map_string_byte");
 
     return this;
   }
@@ -77,8 +77,8 @@ public class BindBean63Cursor {
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.value=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index2));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index3));}
 
         resultList.add(resultBean);
       } while (cursor.moveToNext());
@@ -101,13 +101,13 @@ public class BindBean63Cursor {
        {
         if (index0>=0) { resultBean.id=0L;}
         if (index1>=0) { resultBean.value=null;}
-        if (index2>=0) { resultBean.valueMapStringByte=null;}
-        if (index3>=0) { resultBean.valueMapEnumByte=null;}
+        if (index2>=0) { resultBean.valueMapEnumByte=null;}
+        if (index3>=0) { resultBean.valueMapStringByte=null;}
 
         if (index0>=0 && !cursor.isNull(index0)) { resultBean.id=cursor.getLong(index0);}
         if (index1>=0 && !cursor.isNull(index1)) { resultBean.value=cursor.getString(index1);}
-        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index2));}
-        if (index3>=0 && !cursor.isNull(index3)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index3));}
+        if (index2>=0 && !cursor.isNull(index2)) { resultBean.valueMapEnumByte=Bean63Table.parseValueMapEnumByte(cursor.getBlob(index2));}
+        if (index3>=0 && !cursor.isNull(index3)) { resultBean.valueMapStringByte=Bean63Table.parseValueMapStringByte(cursor.getBlob(index3));}
 
         listener.onRow(resultBean, cursor.getPosition(),cursor.getCount());
       } while (cursor.moveToNext());

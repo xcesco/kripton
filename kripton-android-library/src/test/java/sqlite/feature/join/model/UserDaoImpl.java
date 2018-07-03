@@ -26,15 +26,15 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO user (name, last_name, age) VALUES (${name}, ${lastName}, ${age})</pre>
+   * <pre>INSERT INTO user (age, last_name, name) VALUES (${age}, ${lastName}, ${name})</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${entity.name}</strong></dd>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${entity.lastName}</strong></dd>
    * 	<dt>age</dt><dd>is mapped to <strong>${entity.age}</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>${entity.lastName}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${entity.name}</strong></dd>
    * </dl>
    *
    * @param entity
@@ -45,13 +45,13 @@ public class UserDaoImpl extends Dao implements UserDao {
   public void insert(User entity) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO user (name, last_name, age) VALUES (?, ?, ?)";
+      String _sql="INSERT INTO user (age, last_name, name) VALUES (?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("name", entity.name);
-    _contentValues.put("last_name", entity.lastName);
     _contentValues.put("age", entity.age);
+    _contentValues.put("last_name", entity.lastName);
+    _contentValues.put("name", entity.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

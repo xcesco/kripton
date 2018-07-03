@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, city INTEGER, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT, FOREIGN KEY(alias_parent_id) REFERENCES person(id), FOREIGN KEY(city) REFERENCES city(id));</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, birth_city TEXT, birth_day TEXT, city INTEGER, name TEXT, surname TEXT, value INTEGER, FOREIGN KEY(alias_parent_id) REFERENCES person(id), FOREIGN KEY(city) REFERENCES city(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, city INTEGER, birth_city TEXT, birth_day TEXT, value INTEGER, name TEXT, surname TEXT, FOREIGN KEY(alias_parent_id) REFERENCES person(id), FOREIGN KEY(city) REFERENCES city(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_parent_id INTEGER, birth_city TEXT, birth_day TEXT, city INTEGER, name TEXT, surname TEXT, value INTEGER, FOREIGN KEY(alias_parent_id) REFERENCES person(id), FOREIGN KEY(city) REFERENCES city(id));";
 
   /**
    * <p>
@@ -48,13 +48,6 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_PARENT_ID = "alias_parent_id";
 
   /**
-   * Entity's property <code>city</code> is associated to table column <code>city</code>. This costant represents column name.
-   *
-   *  @see Person#city
-   */
-  public static final String COLUMN_CITY = "city";
-
-  /**
    * Entity's property <code>birthCity</code> is associated to table column <code>birth_city</code>. This costant represents column name.
    *
    *  @see Person#birthCity
@@ -69,11 +62,11 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_BIRTH_DAY = "birth_day";
 
   /**
-   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
+   * Entity's property <code>city</code> is associated to table column <code>city</code>. This costant represents column name.
    *
-   *  @see Person#value
+   *  @see Person#city
    */
-  public static final String COLUMN_VALUE = "value";
+  public static final String COLUMN_CITY = "city";
 
   /**
    * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
@@ -90,9 +83,16 @@ public class PersonTable implements SQLiteTable {
   public static final String COLUMN_SURNAME = "surname";
 
   /**
+   * Entity's property <code>value</code> is associated to table column <code>value</code>. This costant represents column name.
+   *
+   *  @see Person#value
+   */
+  public static final String COLUMN_VALUE = "value";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PARENT_ID, COLUMN_CITY, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY, COLUMN_VALUE, COLUMN_NAME, COLUMN_SURNAME};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PARENT_ID, COLUMN_BIRTH_CITY, COLUMN_BIRTH_DAY, COLUMN_CITY, COLUMN_NAME, COLUMN_SURNAME, COLUMN_VALUE};
 
   /**
    * Columns array

@@ -66,17 +66,17 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   private static SQLiteStatement updateContactBean3PreparedStatement15;
 
-  private static final String SELECT_ALL_SQL1 = "SELECT uid, owner_uid, update_time, name, id FROM channel";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, name, owner_uid, uid, update_time FROM channel";
 
-  private static final String SELECT_RAW1_SQL2 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW1_SQL2 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
-  private static final String SELECT_RAW2_SQL3 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW2_SQL3 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
-  private static final String SELECT_RAW3_SQL4 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW3_SQL4 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
-  private static final String SELECT_RAW4_SQL5 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW4_SQL5 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
-  private static final String SELECT_RAW5_SQL6 = "SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=?";
+  private static final String SELECT_RAW5_SQL6 = "SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=?";
 
   private static final String SELECT_BEAN1_SQL7 = "SELECT count(*) FROM channel WHERE update_time=?";
 
@@ -493,16 +493,16 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (${bean.uid}, ${bean.ownerUid}, ${bean.updateTime}, ${bean.name})</pre>
+   * <pre>INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (${bean.name}, ${bean.ownerUid}, ${bean.uid}, ${bean.updateTime})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -514,14 +514,14 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   public int insertBean1(Channel bean) {
     if (insertBean1PreparedStatement7==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (?, ?, ?, ?)";
       insertBean1PreparedStatement7 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBean1PreparedStatement7);
-    _contentValues.put("uid", bean.getUid());
-    _contentValues.put("owner_uid", bean.getOwnerUid());
-    _contentValues.put("update_time", bean.getUpdateTime());
     _contentValues.put("name", bean.getName());
+    _contentValues.put("owner_uid", bean.getOwnerUid());
+    _contentValues.put("uid", bean.getUid());
+    _contentValues.put("update_time", bean.getUpdateTime());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -567,16 +567,16 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (${bean.uid}, ${bean.ownerUid}, ${bean.updateTime}, ${bean.name})</pre>
+   * <pre>INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (${bean.name}, ${bean.ownerUid}, ${bean.uid}, ${bean.updateTime})</pre>
    *
    * <p><code>arg.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${arg.uid}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${arg.ownerUid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${arg.updateTime}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${arg.name}</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${arg.ownerUid}</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>${arg.uid}</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>${arg.updateTime}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -588,14 +588,14 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   public boolean insertBean2(Channel bean) {
     if (insertBean2PreparedStatement8==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO channel (uid, owner_uid, update_time, name) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (?, ?, ?, ?)";
       insertBean2PreparedStatement8 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBean2PreparedStatement8);
-    _contentValues.put("uid", bean.getUid());
-    _contentValues.put("owner_uid", bean.getOwnerUid());
-    _contentValues.put("update_time", bean.getUpdateTime());
     _contentValues.put("name", bean.getName());
+    _contentValues.put("owner_uid", bean.getOwnerUid());
+    _contentValues.put("uid", bean.getUid());
+    _contentValues.put("update_time", bean.getUpdateTime());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -901,14 +901,14 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=${bean.id}</pre>
+   * <pre>UPDATE channel SET name=:name, owner_uid=:ownerUid, uid=:uid, update_time=:updateTime WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -925,14 +925,14 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   public int updateContactBean1(Channel value) {
     if (updateContactBean1PreparedStatement13==null) {
       // generate static SQL for statement
-      String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
+      String _sql="UPDATE channel SET name=?, owner_uid=?, uid=?, update_time=? WHERE id=?";
       updateContactBean1PreparedStatement13 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean1PreparedStatement13);
-    _contentValues.put("uid", value.getUid());
-    _contentValues.put("owner_uid", value.getOwnerUid());
-    _contentValues.put("update_time", value.getUpdateTime());
     _contentValues.put("name", value.getName());
+    _contentValues.put("owner_uid", value.getOwnerUid());
+    _contentValues.put("uid", value.getUid());
+    _contentValues.put("update_time", value.getUpdateTime());
 
     _contentValues.addWhereArgs(String.valueOf(value.getId()));
 
@@ -942,7 +942,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:owner_uid, update_time=:update_time, name=:name WHERE id=?");
+      Logger.info("UPDATE channel SET name=:name, owner_uid=:owner_uid, uid=:uid, update_time=:update_time WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -970,14 +970,14 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=${bean.id}</pre>
+   * <pre>UPDATE channel SET name=:name, owner_uid=:ownerUid, uid=:uid, update_time=:updateTime WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -994,14 +994,14 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   public long updateContactBean2(Channel bean) {
     if (updateContactBean2PreparedStatement14==null) {
       // generate static SQL for statement
-      String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
+      String _sql="UPDATE channel SET name=?, owner_uid=?, uid=?, update_time=? WHERE id=?";
       updateContactBean2PreparedStatement14 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean2PreparedStatement14);
-    _contentValues.put("uid", bean.getUid());
-    _contentValues.put("owner_uid", bean.getOwnerUid());
-    _contentValues.put("update_time", bean.getUpdateTime());
     _contentValues.put("name", bean.getName());
+    _contentValues.put("owner_uid", bean.getOwnerUid());
+    _contentValues.put("uid", bean.getUid());
+    _contentValues.put("update_time", bean.getUpdateTime());
 
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
 
@@ -1011,7 +1011,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:owner_uid, update_time=:update_time, name=:name WHERE id=?");
+      Logger.info("UPDATE channel SET name=:name, owner_uid=:owner_uid, uid=:uid, update_time=:update_time WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1039,14 +1039,14 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE channel SET uid=:uid, owner_uid=:ownerUid, update_time=:updateTime, name=:name WHERE id=${bean.id}</pre>
+   * <pre>UPDATE channel SET name=:name, owner_uid=:ownerUid, uid=:uid, update_time=:updateTime WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -1063,14 +1063,14 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   public boolean updateContactBean3(Channel bean) {
     if (updateContactBean3PreparedStatement15==null) {
       // generate static SQL for statement
-      String _sql="UPDATE channel SET uid=?, owner_uid=?, update_time=?, name=? WHERE id=?";
+      String _sql="UPDATE channel SET name=?, owner_uid=?, uid=?, update_time=? WHERE id=?";
       updateContactBean3PreparedStatement15 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateContactBean3PreparedStatement15);
-    _contentValues.put("uid", bean.getUid());
-    _contentValues.put("owner_uid", bean.getOwnerUid());
-    _contentValues.put("update_time", bean.getUpdateTime());
     _contentValues.put("name", bean.getName());
+    _contentValues.put("owner_uid", bean.getOwnerUid());
+    _contentValues.put("uid", bean.getUid());
+    _contentValues.put("update_time", bean.getUpdateTime());
 
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
 
@@ -1080,7 +1080,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE channel SET uid=:uid, owner_uid=:owner_uid, update_time=:update_time, name=:name WHERE id=?");
+      Logger.info("UPDATE channel SET name=:name, owner_uid=:owner_uid, uid=:uid, update_time=:update_time WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -1109,15 +1109,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel</pre>
+   * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -1154,21 +1154,21 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("uid");
-        int index1=_cursor.getColumnIndex("owner_uid");
-        int index2=_cursor.getColumnIndex("update_time");
-        int index3=_cursor.getColumnIndex("name");
-        int index4=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("owner_uid");
+        int index3=_cursor.getColumnIndex("uid");
+        int index4=_cursor.getColumnIndex("update_time");
 
         do
          {
           resultBean=new Channel();
 
-          if (!_cursor.isNull(index0)) { resultBean.setUid(_cursor.getString(index0)); }
-          if (!_cursor.isNull(index1)) { resultBean.setOwnerUid(_cursor.getString(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.setUpdateTime(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setName(_cursor.getString(index3)); }
-          resultBean.setId(_cursor.getLong(index4));
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setName(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setOwnerUid(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setUid(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setUpdateTime(_cursor.getLong(index4)); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -1181,15 +1181,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -1234,21 +1234,21 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("uid");
-        int index1=_cursor.getColumnIndex("owner_uid");
-        int index2=_cursor.getColumnIndex("update_time");
-        int index3=_cursor.getColumnIndex("name");
-        int index4=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("owner_uid");
+        int index3=_cursor.getColumnIndex("uid");
+        int index4=_cursor.getColumnIndex("update_time");
 
         do
          {
           resultBean=new Channel();
 
-          if (!_cursor.isNull(index0)) { resultBean.setUid(_cursor.getString(index0)); }
-          if (!_cursor.isNull(index1)) { resultBean.setOwnerUid(_cursor.getString(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.setUpdateTime(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setName(_cursor.getString(index3)); }
-          resultBean.setId(_cursor.getLong(index4));
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setName(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setOwnerUid(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setUid(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setUpdateTime(_cursor.getLong(index4)); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -1261,15 +1261,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -1314,15 +1314,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -1365,28 +1365,28 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       Channel resultBean=new Channel();
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("uid");
-        int index1=_cursor.getColumnIndex("owner_uid");
-        int index2=_cursor.getColumnIndex("update_time");
-        int index3=_cursor.getColumnIndex("name");
-        int index4=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("owner_uid");
+        int index3=_cursor.getColumnIndex("uid");
+        int index4=_cursor.getColumnIndex("update_time");
 
         int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
-          resultBean.setUid(null);
-          resultBean.setOwnerUid(null);
-          resultBean.setUpdateTime(0L);
-          resultBean.setName(null);
           // id does not need reset
+          resultBean.setName(null);
+          resultBean.setOwnerUid(null);
+          resultBean.setUid(null);
+          resultBean.setUpdateTime(0L);
 
           // generate mapping
-          if (!_cursor.isNull(index0)) { resultBean.setUid(_cursor.getString(index0)); }
-          if (!_cursor.isNull(index1)) { resultBean.setOwnerUid(_cursor.getString(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.setUpdateTime(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setName(_cursor.getString(index3)); }
-          resultBean.setId(_cursor.getLong(index4));
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setName(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setOwnerUid(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setUid(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setUpdateTime(_cursor.getLong(index4)); }
 
           listener.onRead(resultBean, _cursor.getPosition(), rowCount);
         } while (_cursor.moveToNext());
@@ -1397,15 +1397,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -1459,15 +1459,15 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT uid, owner_uid, update_time, name, id FROM channel WHERE update_time=${a}</pre>
+   * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -1512,21 +1512,21 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("uid");
-        int index1=_cursor.getColumnIndex("owner_uid");
-        int index2=_cursor.getColumnIndex("update_time");
-        int index3=_cursor.getColumnIndex("name");
-        int index4=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("owner_uid");
+        int index3=_cursor.getColumnIndex("uid");
+        int index4=_cursor.getColumnIndex("update_time");
 
         do
          {
           resultBean=new Channel();
 
-          if (!_cursor.isNull(index0)) { resultBean.setUid(_cursor.getString(index0)); }
-          if (!_cursor.isNull(index1)) { resultBean.setOwnerUid(_cursor.getString(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.setUpdateTime(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setName(_cursor.getString(index3)); }
-          resultBean.setId(_cursor.getLong(index4));
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setName(_cursor.getString(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setOwnerUid(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setUid(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.setUpdateTime(_cursor.getLong(index4)); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -1649,11 +1649,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         do
          {
           // reset mapping
-          resultBean.setUid(null);
-          resultBean.setOwnerUid(null);
-          resultBean.setUpdateTime(0L);
-          resultBean.setName(null);
           // id does not need reset
+          resultBean.setName(null);
+          resultBean.setOwnerUid(null);
+          resultBean.setUid(null);
+          resultBean.setUpdateTime(0L);
 
           // generate mapping
           if (!_cursor.isNull(index0)) { resultBean.setUpdateTime(_cursor.getLong(index0)); }

@@ -26,14 +26,14 @@ public class DaoSeminar2StudentImpl extends Dao implements DaoSeminar2Student {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO seminar_2_student (student_id, seminar_id) VALUES (${studentId}, ${seminarId})</pre>
+   * <pre>INSERT INTO seminar_2_student (seminar_id, student_id) VALUES (${seminarId}, ${studentId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>student_id</dt><dd>is mapped to <strong>${bean.studentId}</strong></dd>
    * 	<dt>seminar_id</dt><dd>is mapped to <strong>${bean.seminarId}</strong></dd>
+   * 	<dt>student_id</dt><dd>is mapped to <strong>${bean.studentId}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -45,12 +45,12 @@ public class DaoSeminar2StudentImpl extends Dao implements DaoSeminar2Student {
   public long insert(Seminar2Student bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO seminar_2_student (student_id, seminar_id) VALUES (?, ?)";
+      String _sql="INSERT INTO seminar_2_student (seminar_id, student_id) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("student_id", bean.studentId);
     _contentValues.put("seminar_id", bean.seminarId);
+    _contentValues.put("student_id", bean.studentId);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

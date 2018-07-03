@@ -35,23 +35,23 @@ import java.util.List;
  *  @see Bean05Table
  */
 public class DaoBean05Impl extends Dao implements DaoBean05 {
-  private static final String SELECT_ONE_SQL1 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
+  private static final String SELECT_ONE_SQL1 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_ONE_SQL2 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=? and text=?";
+  private static final String SELECT_ONE_SQL2 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=? and text=?";
 
-  private static final String SELECT_ALL_SQL3 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
+  private static final String SELECT_ALL_SQL3 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
   private static final String SELECT_P_K_SQL4 = "SELECT pk FROM ws_bean WHERE text = ?";
 
   private static final String SELECT_COUNT_SQL5 = "SELECT count(*) FROM ws_bean WHERE text = ?";
 
-  private static final String SELECT_CURSOR_LISTENER_SQL6 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
+  private static final String SELECT_CURSOR_LISTENER_SQL6 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_BEAN_LISTENER_SQL7 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
+  private static final String SELECT_BEAN_LISTENER_SQL7 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_ONE_SQL8 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
+  private static final String SELECT_ONE_SQL8 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_ONE_SQL9 = "SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=?";
+  private static final String SELECT_ONE_SQL9 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
   private static SQLiteStatement insertRawPreparedStatement0;
 
@@ -78,16 +78,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
+   * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -132,20 +132,20 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("pk");
-        int index1=_cursor.getColumnIndex("number");
-        int index2=_cursor.getColumnIndex("bean_type");
-        int index3=_cursor.getColumnIndex("text");
-        int index4=_cursor.getColumnIndex("content");
-        int index5=_cursor.getColumnIndex("creation_time");
+        int index1=_cursor.getColumnIndex("bean_type");
+        int index2=_cursor.getColumnIndex("content");
+        int index3=_cursor.getColumnIndex("creation_time");
+        int index4=_cursor.getColumnIndex("number");
+        int index5=_cursor.getColumnIndex("text");
 
         resultBean=new Bean05();
 
         resultBean.setPk(_cursor.getLong(index0));
-        if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
-        if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
-        if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
-        if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
-        if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
+        if (!_cursor.isNull(index1)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index1))); }
+        if (!_cursor.isNull(index2)) { resultBean.setContent(_cursor.getBlob(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index3))); }
+        if (!_cursor.isNull(index4)) { resultBean.setNumber(_cursor.getLong(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.setText(_cursor.getString(index5)); }
 
       }
       return resultBean;
@@ -155,16 +155,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${bean.pk} and text=${bean.text}</pre>
+   * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${bean.pk} and text=${bean.text}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -211,20 +211,20 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("pk");
-        int index1=_cursor.getColumnIndex("number");
-        int index2=_cursor.getColumnIndex("bean_type");
-        int index3=_cursor.getColumnIndex("text");
-        int index4=_cursor.getColumnIndex("content");
-        int index5=_cursor.getColumnIndex("creation_time");
+        int index1=_cursor.getColumnIndex("bean_type");
+        int index2=_cursor.getColumnIndex("content");
+        int index3=_cursor.getColumnIndex("creation_time");
+        int index4=_cursor.getColumnIndex("number");
+        int index5=_cursor.getColumnIndex("text");
 
         resultBean=new Bean05();
 
         resultBean.setPk(_cursor.getLong(index0));
-        if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
-        if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
-        if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
-        if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
-        if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
+        if (!_cursor.isNull(index1)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index1))); }
+        if (!_cursor.isNull(index2)) { resultBean.setContent(_cursor.getBlob(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index3))); }
+        if (!_cursor.isNull(index4)) { resultBean.setNumber(_cursor.getLong(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.setText(_cursor.getString(index5)); }
 
       }
       return resultBean;
@@ -234,16 +234,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
+   * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -289,22 +289,22 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("pk");
-        int index1=_cursor.getColumnIndex("number");
-        int index2=_cursor.getColumnIndex("bean_type");
-        int index3=_cursor.getColumnIndex("text");
-        int index4=_cursor.getColumnIndex("content");
-        int index5=_cursor.getColumnIndex("creation_time");
+        int index1=_cursor.getColumnIndex("bean_type");
+        int index2=_cursor.getColumnIndex("content");
+        int index3=_cursor.getColumnIndex("creation_time");
+        int index4=_cursor.getColumnIndex("number");
+        int index5=_cursor.getColumnIndex("text");
 
         do
          {
           resultBean=new Bean05();
 
           resultBean.setPk(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
-          if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
-          if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
-          if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
+          if (!_cursor.isNull(index1)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index1))); }
+          if (!_cursor.isNull(index2)) { resultBean.setContent(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.setNumber(_cursor.getLong(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.setText(_cursor.getString(index5)); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -439,16 +439,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
+   * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -502,16 +502,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
+   * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -555,30 +555,30 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("pk");
-        int index1=_cursor.getColumnIndex("number");
-        int index2=_cursor.getColumnIndex("bean_type");
-        int index3=_cursor.getColumnIndex("text");
-        int index4=_cursor.getColumnIndex("content");
-        int index5=_cursor.getColumnIndex("creation_time");
+        int index1=_cursor.getColumnIndex("bean_type");
+        int index2=_cursor.getColumnIndex("content");
+        int index3=_cursor.getColumnIndex("creation_time");
+        int index4=_cursor.getColumnIndex("number");
+        int index5=_cursor.getColumnIndex("text");
 
         int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
           // pk does not need reset
-          resultBean.setNumber(0L);
           resultBean.setBeanType(null);
-          resultBean.setText(null);
           resultBean.setContent(null);
           resultBean.setCreationTime(null);
+          resultBean.setNumber(0L);
+          resultBean.setText(null);
 
           // generate mapping
           resultBean.setPk(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
-          if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
-          if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
-          if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
+          if (!_cursor.isNull(index1)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index1))); }
+          if (!_cursor.isNull(index2)) { resultBean.setContent(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.setNumber(_cursor.getLong(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.setText(_cursor.getString(index5)); }
 
           listener.onRead(resultBean, _cursor.getPosition(), rowCount);
         } while (_cursor.moveToNext());
@@ -589,16 +589,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
+   * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -652,16 +652,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT pk, number, bean_type, text, content, creation_time FROM ws_bean WHERE pk=${id}</pre>
+   * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
-   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
    * 	<dt>bean_type</dt><dd>is associated to bean's property <strong>beanType</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
    * 	<dt>creation_time</dt><dd>is associated to bean's property <strong>creationTime</strong></dd>
+   * 	<dt>number</dt><dd>is associated to bean's property <strong>number</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -705,30 +705,30 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("pk");
-        int index1=_cursor.getColumnIndex("number");
-        int index2=_cursor.getColumnIndex("bean_type");
-        int index3=_cursor.getColumnIndex("text");
-        int index4=_cursor.getColumnIndex("content");
-        int index5=_cursor.getColumnIndex("creation_time");
+        int index1=_cursor.getColumnIndex("bean_type");
+        int index2=_cursor.getColumnIndex("content");
+        int index3=_cursor.getColumnIndex("creation_time");
+        int index4=_cursor.getColumnIndex("number");
+        int index5=_cursor.getColumnIndex("text");
 
         int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
           // pk does not need reset
-          resultBean.setNumber(0L);
           resultBean.setBeanType(null);
-          resultBean.setText(null);
           resultBean.setContent(null);
           resultBean.setCreationTime(null);
+          resultBean.setNumber(0L);
+          resultBean.setText(null);
 
           // generate mapping
           resultBean.setPk(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.setNumber(_cursor.getLong(index1)); }
-          if (!_cursor.isNull(index2)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index2))); }
-          if (!_cursor.isNull(index3)) { resultBean.setText(_cursor.getString(index3)); }
-          if (!_cursor.isNull(index4)) { resultBean.setContent(_cursor.getBlob(index4)); }
-          if (!_cursor.isNull(index5)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index5))); }
+          if (!_cursor.isNull(index1)) { resultBean.setBeanType(BeanType.valueOf(_cursor.getString(index1))); }
+          if (!_cursor.isNull(index2)) { resultBean.setContent(_cursor.getBlob(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.setCreationTime(DateUtils.read(_cursor.getString(index3))); }
+          if (!_cursor.isNull(index4)) { resultBean.setNumber(_cursor.getLong(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.setText(_cursor.getString(index5)); }
 
           listener.onRead(resultBean, _cursor.getPosition(), rowCount);
         } while (_cursor.moveToNext());
@@ -811,17 +811,17 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO ws_bean (number, bean_type, text, content, creation_time) VALUES (${bean.number}, ${bean.beanType}, ${bean.text}, ${bean.content}, ${bean.creationTime})</pre>
+   * <pre>INSERT INTO ws_bean (bean_type, content, creation_time, number, text) VALUES (${bean.beanType}, ${bean.content}, ${bean.creationTime}, ${bean.number}, ${bean.text})</pre>
    *
    * <p><code>bean.pk</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
    * 	<dt>bean_type</dt><dd>is mapped to <strong>${bean.beanType}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
    * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
    * 	<dt>creation_time</dt><dd>is mapped to <strong>${bean.creationTime}</strong></dd>
+   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -832,15 +832,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   public void insert(Bean05 bean) {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO ws_bean (number, bean_type, text, content, creation_time) VALUES (?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO ws_bean (bean_type, content, creation_time, number, text) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
-    _contentValues.put("number", bean.getNumber());
     _contentValues.put("bean_type", EnumUtils.write(bean.getBeanType()));
-    _contentValues.put("text", bean.getText());
     _contentValues.put("content", bean.getContent());
     _contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
+    _contentValues.put("number", bean.getNumber());
+    _contentValues.put("text", bean.getText());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -884,15 +884,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE ws_bean SET number=:number, bean_type=:beanType, text=:text, content=:content, creation_time=:creationTime WHERE pk=${bean.pk} and text=${bean.text} and creation_time=${bean.creationTime}</pre>
+   * <pre>UPDATE ws_bean SET bean_type=:beanType, content=:content, creation_time=:creationTime, number=:number, text=:text WHERE pk=${bean.pk} and text=${bean.text} and creation_time=${bean.creationTime}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
    * 	<dt>bean_type</dt><dd>is mapped to <strong>${bean.beanType}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
    * 	<dt>content</dt><dd>is mapped to <strong>${bean.content}</strong></dd>
    * 	<dt>creation_time</dt><dd>is mapped to <strong>${bean.creationTime}</strong></dd>
+   * 	<dt>number</dt><dd>is mapped to <strong>${bean.number}</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -911,15 +911,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   public long updateOne(Bean05 bean) {
     if (updateOnePreparedStatement2==null) {
       // generate static SQL for statement
-      String _sql="UPDATE ws_bean SET number=?, bean_type=?, text=?, content=?, creation_time=? WHERE pk=? and text=? and creation_time=?";
+      String _sql="UPDATE ws_bean SET bean_type=?, content=?, creation_time=?, number=?, text=? WHERE pk=? and text=? and creation_time=?";
       updateOnePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement2);
-    _contentValues.put("number", bean.getNumber());
     _contentValues.put("bean_type", EnumUtils.write(bean.getBeanType()));
-    _contentValues.put("text", bean.getText());
     _contentValues.put("content", bean.getContent());
     _contentValues.put("creation_time", DateUtils.write(bean.getCreationTime()));
+    _contentValues.put("number", bean.getNumber());
+    _contentValues.put("text", bean.getText());
 
     _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
     _contentValues.addWhereArgs((bean.getText()==null?"":bean.getText()));
@@ -931,7 +931,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE ws_bean SET number=:number, bean_type=:bean_type, text=:text, content=:content, creation_time=:creation_time WHERE pk=? and text=? and creation_time=?");
+      Logger.info("UPDATE ws_bean SET bean_type=:bean_type, content=:content, creation_time=:creation_time, number=:number, text=:text WHERE pk=? and text=? and creation_time=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;

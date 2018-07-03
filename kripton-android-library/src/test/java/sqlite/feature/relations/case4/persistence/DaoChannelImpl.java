@@ -26,7 +26,7 @@ import sqlite.feature.relations.case4.model.ChannelTable;
 public class DaoChannelImpl extends Dao implements DaoChannel {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_ALL_SQL3 = "SELECT id, title, link, description, language, copyright, pub_date, last_build_date, image FROM channel";
+  private static final String SELECT_ALL_SQL3 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, title FROM channel";
 
   private BindRssDaoFactory daoFactory;
 
@@ -37,20 +37,20 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO channel (title, link, description, language, copyright, pub_date, last_build_date, image) VALUES (${title}, ${link}, ${description}, ${language}, ${copyright}, ${pubDate}, ${lastBuildDate}, ${image})</pre>
+   * <pre>INSERT OR REPLACE INTO channel (copyright, description, image, language, last_build_date, link, pub_date, title) VALUES (${copyright}, ${description}, ${image}, ${language}, ${lastBuildDate}, ${link}, ${pubDate}, ${title})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
-   * 	<dt>link</dt><dd>is mapped to <strong>${bean.link}</strong></dd>
-   * 	<dt>description</dt><dd>is mapped to <strong>${bean.description}</strong></dd>
-   * 	<dt>language</dt><dd>is mapped to <strong>${bean.language}</strong></dd>
    * 	<dt>copyright</dt><dd>is mapped to <strong>${bean.copyright}</strong></dd>
-   * 	<dt>pub_date</dt><dd>is mapped to <strong>${bean.pubDate}</strong></dd>
-   * 	<dt>last_build_date</dt><dd>is mapped to <strong>${bean.lastBuildDate}</strong></dd>
+   * 	<dt>description</dt><dd>is mapped to <strong>${bean.description}</strong></dd>
    * 	<dt>image</dt><dd>is mapped to <strong>${bean.image}</strong></dd>
+   * 	<dt>language</dt><dd>is mapped to <strong>${bean.language}</strong></dd>
+   * 	<dt>last_build_date</dt><dd>is mapped to <strong>${bean.lastBuildDate}</strong></dd>
+   * 	<dt>link</dt><dd>is mapped to <strong>${bean.link}</strong></dd>
+   * 	<dt>pub_date</dt><dd>is mapped to <strong>${bean.pubDate}</strong></dd>
+   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -62,18 +62,18 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   public boolean insert(Channel bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT OR REPLACE INTO channel (title, link, description, language, copyright, pub_date, last_build_date, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT OR REPLACE INTO channel (copyright, description, image, language, last_build_date, link, pub_date, title) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("title", bean.title);
-    _contentValues.put("link", bean.link);
-    _contentValues.put("description", bean.description);
-    _contentValues.put("language", bean.language);
     _contentValues.put("copyright", bean.copyright);
-    _contentValues.put("pub_date", DateUtils.write(bean.pubDate));
-    _contentValues.put("last_build_date", DateUtils.write(bean.lastBuildDate));
+    _contentValues.put("description", bean.description);
     _contentValues.put("image", ChannelTable.serializeImage(bean.image));
+    _contentValues.put("language", bean.language);
+    _contentValues.put("last_build_date", DateUtils.write(bean.lastBuildDate));
+    _contentValues.put("link", bean.link);
+    _contentValues.put("pub_date", DateUtils.write(bean.pubDate));
+    _contentValues.put("title", bean.title);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -120,19 +120,19 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, title, link, description, language, copyright, pub_date, last_build_date, image FROM channel</pre>
+   * <pre>SELECT id, copyright, description, image, language, last_build_date, link, pub_date, title FROM channel</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
-   * 	<dt>link</dt><dd>is associated to bean's property <strong>link</strong></dd>
-   * 	<dt>description</dt><dd>is associated to bean's property <strong>description</strong></dd>
-   * 	<dt>language</dt><dd>is associated to bean's property <strong>language</strong></dd>
    * 	<dt>copyright</dt><dd>is associated to bean's property <strong>copyright</strong></dd>
-   * 	<dt>pub_date</dt><dd>is associated to bean's property <strong>pubDate</strong></dd>
-   * 	<dt>last_build_date</dt><dd>is associated to bean's property <strong>lastBuildDate</strong></dd>
+   * 	<dt>description</dt><dd>is associated to bean's property <strong>description</strong></dd>
    * 	<dt>image</dt><dd>is associated to bean's property <strong>image</strong></dd>
+   * 	<dt>language</dt><dd>is associated to bean's property <strong>language</strong></dd>
+   * 	<dt>last_build_date</dt><dd>is associated to bean's property <strong>lastBuildDate</strong></dd>
+   * 	<dt>link</dt><dd>is associated to bean's property <strong>link</strong></dd>
+   * 	<dt>pub_date</dt><dd>is associated to bean's property <strong>pubDate</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * </dl>
    *
    * <h2>Fields filled by subqueries:</h2>
@@ -175,28 +175,28 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("title");
-        int index2=_cursor.getColumnIndex("link");
-        int index3=_cursor.getColumnIndex("description");
+        int index1=_cursor.getColumnIndex("copyright");
+        int index2=_cursor.getColumnIndex("description");
+        int index3=_cursor.getColumnIndex("image");
         int index4=_cursor.getColumnIndex("language");
-        int index5=_cursor.getColumnIndex("copyright");
-        int index6=_cursor.getColumnIndex("pub_date");
-        int index7=_cursor.getColumnIndex("last_build_date");
-        int index8=_cursor.getColumnIndex("image");
+        int index5=_cursor.getColumnIndex("last_build_date");
+        int index6=_cursor.getColumnIndex("link");
+        int index7=_cursor.getColumnIndex("pub_date");
+        int index8=_cursor.getColumnIndex("title");
 
         do
          {
           resultBean=new Channel();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.title=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.link=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.description=_cursor.getString(index3); }
+          if (!_cursor.isNull(index1)) { resultBean.copyright=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.description=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.image=ChannelTable.parseImage(_cursor.getBlob(index3)); }
           if (!_cursor.isNull(index4)) { resultBean.language=_cursor.getString(index4); }
-          if (!_cursor.isNull(index5)) { resultBean.copyright=_cursor.getString(index5); }
-          if (!_cursor.isNull(index6)) { resultBean.pubDate=DateUtils.read(_cursor.getString(index6)); }
-          if (!_cursor.isNull(index7)) { resultBean.lastBuildDate=DateUtils.read(_cursor.getString(index7)); }
-          if (!_cursor.isNull(index8)) { resultBean.image=ChannelTable.parseImage(_cursor.getBlob(index8)); }
+          if (!_cursor.isNull(index5)) { resultBean.lastBuildDate=DateUtils.read(_cursor.getString(index5)); }
+          if (!_cursor.isNull(index6)) { resultBean.link=_cursor.getString(index6); }
+          if (!_cursor.isNull(index7)) { resultBean.pubDate=DateUtils.read(_cursor.getString(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.title=_cursor.getString(index8); }
           // sub query: resultBean.articles=this.daoFactory.getDaoArticle().selectByChannel(resultBean.id)
           resultBean.articles=this.daoFactory.getDaoArticle().selectByChannel(resultBean.id);
 

@@ -20,9 +20,9 @@ public class TodoTable implements SQLiteTable {
    * DDL to create table todo
    * </p>
    *
-   * <pre>CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, title TEXT, completed INTEGER);</pre>
+   * <pre>CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, completed INTEGER, title TEXT, user_id INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, title TEXT, completed INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, completed INTEGER, title TEXT, user_id INTEGER);";
 
   /**
    * <p>
@@ -41,11 +41,11 @@ public class TodoTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column name.
+   * Entity's property <code>completed</code> is associated to table column <code>completed</code>. This costant represents column name.
    *
-   *  @see Todo#userId
+   *  @see Todo#completed
    */
-  public static final String COLUMN_USER_ID = "user_id";
+  public static final String COLUMN_COMPLETED = "completed";
 
   /**
    * Entity's property <code>title</code> is associated to table column <code>title</code>. This costant represents column name.
@@ -55,16 +55,16 @@ public class TodoTable implements SQLiteTable {
   public static final String COLUMN_TITLE = "title";
 
   /**
-   * Entity's property <code>completed</code> is associated to table column <code>completed</code>. This costant represents column name.
+   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column name.
    *
-   *  @see Todo#completed
+   *  @see Todo#userId
    */
-  public static final String COLUMN_COMPLETED = "completed";
+  public static final String COLUMN_USER_ID = "user_id";
 
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_USER_ID, COLUMN_TITLE, COLUMN_COMPLETED};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_COMPLETED, COLUMN_TITLE, COLUMN_USER_ID};
 
   /**
    * Columns array

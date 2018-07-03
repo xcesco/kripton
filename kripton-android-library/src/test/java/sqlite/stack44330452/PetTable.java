@@ -20,9 +20,9 @@ public class PetTable implements SQLiteTable {
    * DDL to create table pet
    * </p>
    *
-   * <pre>CREATE TABLE pet (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, name TEXT, FOREIGN KEY(user_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE pet (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE pet (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, name TEXT, FOREIGN KEY(user_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE pet (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class PetTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column name.
-   *
-   *  @see Pet#userId
-   */
-  public static final String COLUMN_USER_ID = "user_id";
-
-  /**
    * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
    *
    *  @see Pet#name
@@ -55,9 +48,16 @@ public class PetTable implements SQLiteTable {
   public static final String COLUMN_NAME = "name";
 
   /**
+   * Entity's property <code>userId</code> is associated to table column <code>user_id</code>. This costant represents column name.
+   *
+   *  @see Pet#userId
+   */
+  public static final String COLUMN_USER_ID = "user_id";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_USER_ID, COLUMN_NAME};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_USER_ID};
 
   /**
    * Columns array

@@ -20,9 +20,9 @@ public class SeminarTable implements SQLiteTable {
    * DDL to create table seminar
    * </p>
    *
-   * <pre>CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, location TEXT);</pre>
+   * <pre>CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT, location TEXT, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, location TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT, location TEXT, name TEXT);";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class SeminarTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
-   *
-   *  @see Seminar#name
-   */
-  public static final String COLUMN_NAME = "name";
-
-  /**
    * Entity's property <code>location</code> is associated to table column <code>location</code>. This costant represents column name.
    *
    *  @see Seminar#location
@@ -55,9 +48,16 @@ public class SeminarTable implements SQLiteTable {
   public static final String COLUMN_LOCATION = "location";
 
   /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   *
+   *  @see Seminar#name
+   */
+  public static final String COLUMN_NAME = "name";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_LOCATION};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_LOCATION, COLUMN_NAME};
 
   /**
    * Columns array

@@ -25,17 +25,17 @@ import sqlite.feature.many2many.case4.model.CountryTable;
 public class CountryDaoImpl extends Dao implements CountryDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_ID_SQL6 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL6 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
   private static SQLiteStatement updateByIdPreparedStatement2;
 
-  private static final String SELECT_ALL_SQL7 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country ORDER BY name asc";
+  private static final String SELECT_ALL_SQL7 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country ORDER BY name asc";
 
-  private static final String SELECT_BY_CALLING_CODE_SQL8 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE calling_code = ?";
+  private static final String SELECT_BY_CALLING_CODE_SQL8 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE calling_code = ?";
 
-  private static final String SELECT_BY_COUNTRY_SQL9 = "SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE code = ?";
+  private static final String SELECT_BY_COUNTRY_SQL9 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE code = ?";
 
   public CountryDaoImpl(BindXenoDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -43,17 +43,17 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO country (area, code, calling_code, region, name, translated_name) VALUES (${area}, ${code}, ${callingCode}, ${region}, ${name}, ${translatedName})</pre>
+   * <pre>INSERT OR REPLACE INTO country (area, calling_code, code, name, region, translated_name) VALUES (${area}, ${callingCode}, ${code}, ${name}, ${region}, ${translatedName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>area</dt><dd>is mapped to <strong>${bean.area}</strong></dd>
-   * 	<dt>code</dt><dd>is mapped to <strong>${bean.code}</strong></dd>
    * 	<dt>calling_code</dt><dd>is mapped to <strong>${bean.callingCode}</strong></dd>
-   * 	<dt>region</dt><dd>is mapped to <strong>${bean.region}</strong></dd>
+   * 	<dt>code</dt><dd>is mapped to <strong>${bean.code}</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>region</dt><dd>is mapped to <strong>${bean.region}</strong></dd>
    * 	<dt>translated_name</dt><dd>is mapped to <strong>${bean.translatedName}</strong></dd>
    * </dl>
    *
@@ -66,15 +66,15 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   public int insert(Country bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT OR REPLACE INTO country (area, code, calling_code, region, name, translated_name) VALUES (?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT OR REPLACE INTO country (area, calling_code, code, name, region, translated_name) VALUES (?, ?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("area", bean.area);
-    _contentValues.put("code", bean.code);
     _contentValues.put("calling_code", bean.callingCode);
-    _contentValues.put("region", bean.region);
+    _contentValues.put("code", bean.code);
     _contentValues.put("name", bean.name);
+    _contentValues.put("region", bean.region);
     _contentValues.put("translated_name", CountryTable.serializeTranslatedName(bean.translatedName));
 
     // log section BEGIN
@@ -122,16 +122,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE id = ${id}</pre>
+   * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>area</dt><dd>is associated to bean's property <strong>area</strong></dd>
-   * 	<dt>code</dt><dd>is associated to bean's property <strong>code</strong></dd>
    * 	<dt>calling_code</dt><dd>is associated to bean's property <strong>callingCode</strong></dd>
-   * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
+   * 	<dt>code</dt><dd>is associated to bean's property <strong>code</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
    * 	<dt>translated_name</dt><dd>is associated to bean's property <strong>translatedName</strong></dd>
    * </dl>
    *
@@ -178,20 +178,20 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("area");
-        int index2=_cursor.getColumnIndex("code");
-        int index3=_cursor.getColumnIndex("calling_code");
-        int index4=_cursor.getColumnIndex("region");
-        int index5=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("calling_code");
+        int index3=_cursor.getColumnIndex("code");
+        int index4=_cursor.getColumnIndex("name");
+        int index5=_cursor.getColumnIndex("region");
         int index6=_cursor.getColumnIndex("translated_name");
 
         resultBean=new Country();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.area=_cursor.getLong(index1); }
-        resultBean.code=_cursor.getString(index2);
-        resultBean.callingCode=_cursor.getString(index3);
-        if (!_cursor.isNull(index4)) { resultBean.region=_cursor.getString(index4); }
-        resultBean.name=_cursor.getString(index5);
+        resultBean.callingCode=_cursor.getString(index2);
+        resultBean.code=_cursor.getString(index3);
+        resultBean.name=_cursor.getString(index4);
+        if (!_cursor.isNull(index5)) { resultBean.region=_cursor.getString(index5); }
         if (!_cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(_cursor.getBlob(index6)); }
 
       }
@@ -291,16 +291,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, area, code, calling_code, region, name, translated_name FROM country ORDER BY name asc</pre>
+   * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country ORDER BY name asc</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>area</dt><dd>is associated to bean's property <strong>area</strong></dd>
-   * 	<dt>code</dt><dd>is associated to bean's property <strong>code</strong></dd>
    * 	<dt>calling_code</dt><dd>is associated to bean's property <strong>callingCode</strong></dd>
-   * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
+   * 	<dt>code</dt><dd>is associated to bean's property <strong>code</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
    * 	<dt>translated_name</dt><dd>is associated to bean's property <strong>translatedName</strong></dd>
    * </dl>
    *
@@ -340,10 +340,10 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("area");
-        int index2=_cursor.getColumnIndex("code");
-        int index3=_cursor.getColumnIndex("calling_code");
-        int index4=_cursor.getColumnIndex("region");
-        int index5=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("calling_code");
+        int index3=_cursor.getColumnIndex("code");
+        int index4=_cursor.getColumnIndex("name");
+        int index5=_cursor.getColumnIndex("region");
         int index6=_cursor.getColumnIndex("translated_name");
 
         do
@@ -352,10 +352,10 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
           resultBean.id=_cursor.getLong(index0);
           if (!_cursor.isNull(index1)) { resultBean.area=_cursor.getLong(index1); }
-          resultBean.code=_cursor.getString(index2);
-          resultBean.callingCode=_cursor.getString(index3);
-          if (!_cursor.isNull(index4)) { resultBean.region=_cursor.getString(index4); }
-          resultBean.name=_cursor.getString(index5);
+          resultBean.callingCode=_cursor.getString(index2);
+          resultBean.code=_cursor.getString(index3);
+          resultBean.name=_cursor.getString(index4);
+          if (!_cursor.isNull(index5)) { resultBean.region=_cursor.getString(index5); }
           if (!_cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(_cursor.getBlob(index6)); }
 
           resultList.add(resultBean);
@@ -369,16 +369,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE calling_code = ${callingCode}</pre>
+   * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE calling_code = ${callingCode}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>area</dt><dd>is associated to bean's property <strong>area</strong></dd>
-   * 	<dt>code</dt><dd>is associated to bean's property <strong>code</strong></dd>
    * 	<dt>calling_code</dt><dd>is associated to bean's property <strong>callingCode</strong></dd>
-   * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
+   * 	<dt>code</dt><dd>is associated to bean's property <strong>code</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
    * 	<dt>translated_name</dt><dd>is associated to bean's property <strong>translatedName</strong></dd>
    * </dl>
    *
@@ -425,20 +425,20 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("area");
-        int index2=_cursor.getColumnIndex("code");
-        int index3=_cursor.getColumnIndex("calling_code");
-        int index4=_cursor.getColumnIndex("region");
-        int index5=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("calling_code");
+        int index3=_cursor.getColumnIndex("code");
+        int index4=_cursor.getColumnIndex("name");
+        int index5=_cursor.getColumnIndex("region");
         int index6=_cursor.getColumnIndex("translated_name");
 
         resultBean=new Country();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.area=_cursor.getLong(index1); }
-        resultBean.code=_cursor.getString(index2);
-        resultBean.callingCode=_cursor.getString(index3);
-        if (!_cursor.isNull(index4)) { resultBean.region=_cursor.getString(index4); }
-        resultBean.name=_cursor.getString(index5);
+        resultBean.callingCode=_cursor.getString(index2);
+        resultBean.code=_cursor.getString(index3);
+        resultBean.name=_cursor.getString(index4);
+        if (!_cursor.isNull(index5)) { resultBean.region=_cursor.getString(index5); }
         if (!_cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(_cursor.getBlob(index6)); }
 
       }
@@ -449,16 +449,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, area, code, calling_code, region, name, translated_name FROM country WHERE code = ${code}</pre>
+   * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE code = ${code}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>area</dt><dd>is associated to bean's property <strong>area</strong></dd>
-   * 	<dt>code</dt><dd>is associated to bean's property <strong>code</strong></dd>
    * 	<dt>calling_code</dt><dd>is associated to bean's property <strong>callingCode</strong></dd>
-   * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
+   * 	<dt>code</dt><dd>is associated to bean's property <strong>code</strong></dd>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>region</dt><dd>is associated to bean's property <strong>region</strong></dd>
    * 	<dt>translated_name</dt><dd>is associated to bean's property <strong>translatedName</strong></dd>
    * </dl>
    *
@@ -505,20 +505,20 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("area");
-        int index2=_cursor.getColumnIndex("code");
-        int index3=_cursor.getColumnIndex("calling_code");
-        int index4=_cursor.getColumnIndex("region");
-        int index5=_cursor.getColumnIndex("name");
+        int index2=_cursor.getColumnIndex("calling_code");
+        int index3=_cursor.getColumnIndex("code");
+        int index4=_cursor.getColumnIndex("name");
+        int index5=_cursor.getColumnIndex("region");
         int index6=_cursor.getColumnIndex("translated_name");
 
         resultBean=new Country();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.area=_cursor.getLong(index1); }
-        resultBean.code=_cursor.getString(index2);
-        resultBean.callingCode=_cursor.getString(index3);
-        if (!_cursor.isNull(index4)) { resultBean.region=_cursor.getString(index4); }
-        resultBean.name=_cursor.getString(index5);
+        resultBean.callingCode=_cursor.getString(index2);
+        resultBean.code=_cursor.getString(index3);
+        resultBean.name=_cursor.getString(index4);
+        if (!_cursor.isNull(index5)) { resultBean.region=_cursor.getString(index5); }
         if (!_cursor.isNull(index6)) { resultBean.translatedName=CountryTable.parseTranslatedName(_cursor.getBlob(index6)); }
 
       }

@@ -20,7 +20,7 @@ import java.util.List;
 public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
   private static final String GET_STUDENTS_SQL1 = "select * from students where first_name like ? || '%' ";
 
-  private static final String GET_STUDENTS_RAW_SQL2 = "SELECT first_name, surname, id FROM students WHERE first_name like ? || '%' ";
+  private static final String GET_STUDENTS_RAW_SQL2 = "SELECT id, first_name, surname FROM students WHERE first_name like ? || '%' ";
 
   public CollegeStudentDaoImpl(BindCollegeStudentsDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -33,9 +33,9 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    *
    * <h2>Projected columns:</h2>
    * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>first_name</dt><dd>is associated to bean's property <strong>firstName</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -80,17 +80,17 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("first_name");
-        int index1=_cursor.getColumnIndex("surname");
-        int index2=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("first_name");
+        int index2=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new CollegeStudent();
 
-          if (!_cursor.isNull(index0)) { resultBean.firstName=_cursor.getString(index0); }
-          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
-          resultBean.id=_cursor.getLong(index2);
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.firstName=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -103,13 +103,13 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT first_name, surname, id FROM students WHERE first_name like ${firstName} || '%' </pre>
+   * <pre>SELECT id, first_name, surname FROM students WHERE first_name like ${firstName} || '%' </pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>first_name</dt><dd>is associated to bean's property <strong>firstName</strong></dd>
    * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -154,17 +154,17 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("first_name");
-        int index1=_cursor.getColumnIndex("surname");
-        int index2=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("first_name");
+        int index2=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new CollegeStudent();
 
-          if (!_cursor.isNull(index0)) { resultBean.firstName=_cursor.getString(index0); }
-          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
-          resultBean.id=_cursor.getLong(index2);
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.firstName=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

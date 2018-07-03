@@ -27,7 +27,7 @@ import sqlite.feature.paginatedresult.model.Person;
 public class Dao3PersonImpl extends Dao implements Dao3Person {
   private static SQLiteStatement insertOnePreparedStatement0;
 
-  private static final String SELECT_ALL_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
 
   private static SQLiteStatement deleteAllPreparedStatement1;
 
@@ -38,15 +38,15 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE id>${value} ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE id>${value} ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -67,15 +67,15 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE id>${value} ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE id>${value} ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -92,7 +92,7 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
   private List<Person> select(long value, PaginatedResult4 paginatedResult) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
+    _sqlBuilder.append("SELECT id, birth_city, birth_day, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=null;
@@ -149,20 +149,20 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -250,15 +250,15 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -296,20 +296,20 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

@@ -24,9 +24,9 @@ import sqlite.quickstart.model.Comment;
 public class CommentDaoImpl extends Dao implements CommentDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_POST_ID_SQL5 = "SELECT post_id, id, name, email, body FROM comment WHERE post_id = ?";
+  private static final String SELECT_BY_POST_ID_SQL5 = "SELECT id, body, email, name, post_id FROM comment WHERE post_id = ?";
 
-  private static final String SELECT_ONE_BY_POST_ID_SQL6 = "SELECT post_id, id, name, email, body FROM comment WHERE id = ?";
+  private static final String SELECT_ONE_BY_POST_ID_SQL6 = "SELECT id, body, email, name, post_id FROM comment WHERE id = ?";
 
   public CommentDaoImpl(BindQuickStartDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -34,17 +34,17 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO comment (post_id, id, name, email, body) VALUES (${bean.postId}, ${bean.id}, ${bean.name}, ${bean.email}, ${bean.body})</pre>
+   * <pre>INSERT INTO comment (id, body, email, name, post_id) VALUES (${bean.id}, ${bean.body}, ${bean.email}, ${bean.name}, ${bean.postId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>post_id</dt><dd>is mapped to <strong>${bean.postId}</strong></dd>
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>email</dt><dd>is mapped to <strong>${bean.email}</strong></dd>
    * 	<dt>body</dt><dd>is mapped to <strong>${bean.body}</strong></dd>
+   * 	<dt>email</dt><dd>is mapped to <strong>${bean.email}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>post_id</dt><dd>is mapped to <strong>${bean.postId}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -55,15 +55,15 @@ public class CommentDaoImpl extends Dao implements CommentDao {
   public void insert(Comment bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO comment (post_id, id, name, email, body) VALUES (?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO comment (id, body, email, name, post_id) VALUES (?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("post_id", bean.postId);
     _contentValues.put("id", bean.id);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("email", bean.email);
     _contentValues.put("body", bean.body);
+    _contentValues.put("email", bean.email);
+    _contentValues.put("name", bean.name);
+    _contentValues.put("post_id", bean.postId);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -108,15 +108,15 @@ public class CommentDaoImpl extends Dao implements CommentDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT post_id, id, name, email, body FROM comment WHERE post_id = ${value}</pre>
+   * <pre>SELECT id, body, email, name, post_id FROM comment WHERE post_id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>post_id</dt><dd>is associated to bean's property <strong>postId</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
    * 	<dt>body</dt><dd>is associated to bean's property <strong>body</strong></dd>
+   * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>post_id</dt><dd>is associated to bean's property <strong>postId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -161,21 +161,21 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("post_id");
-        int index1=_cursor.getColumnIndex("id");
-        int index2=_cursor.getColumnIndex("name");
-        int index3=_cursor.getColumnIndex("email");
-        int index4=_cursor.getColumnIndex("body");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("body");
+        int index2=_cursor.getColumnIndex("email");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("post_id");
 
         do
          {
           resultBean=new Comment();
 
-          if (!_cursor.isNull(index0)) { resultBean.postId=_cursor.getLong(index0); }
-          resultBean.id=_cursor.getLong(index1);
-          if (!_cursor.isNull(index2)) { resultBean.name=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.email=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.body=_cursor.getString(index4); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.body=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.email=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.postId=_cursor.getLong(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -188,15 +188,15 @@ public class CommentDaoImpl extends Dao implements CommentDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT post_id, id, name, email, body FROM comment WHERE id = ${value}</pre>
+   * <pre>SELECT id, body, email, name, post_id FROM comment WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>post_id</dt><dd>is associated to bean's property <strong>postId</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
    * 	<dt>body</dt><dd>is associated to bean's property <strong>body</strong></dd>
+   * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>post_id</dt><dd>is associated to bean's property <strong>postId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -240,19 +240,19 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("post_id");
-        int index1=_cursor.getColumnIndex("id");
-        int index2=_cursor.getColumnIndex("name");
-        int index3=_cursor.getColumnIndex("email");
-        int index4=_cursor.getColumnIndex("body");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("body");
+        int index2=_cursor.getColumnIndex("email");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("post_id");
 
         resultBean=new Comment();
 
-        if (!_cursor.isNull(index0)) { resultBean.postId=_cursor.getLong(index0); }
-        resultBean.id=_cursor.getLong(index1);
-        if (!_cursor.isNull(index2)) { resultBean.name=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.email=_cursor.getString(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.body=_cursor.getString(index4); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.body=_cursor.getString(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.email=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.postId=_cursor.getLong(index4); }
 
       }
       return resultBean;

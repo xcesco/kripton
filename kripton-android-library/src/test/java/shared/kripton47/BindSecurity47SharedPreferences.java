@@ -86,12 +86,12 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public Security47 read() {
     Security47 bean=new Security47();
-    bean.fcmId=prefs.getString("fcm_id", bean.fcmId);
      {
       String temp=prefs.getString("authorization_token", null);
       bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): bean.authorizationToken;
     }
 
+    bean.fcmId=prefs.getString("fcm_id", bean.fcmId);
     bean.deviceUid=prefs.getString("device_uid", bean.deviceUid);
      {
       String temp=prefs.getString("user_identity", null);
@@ -109,14 +109,14 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Security47 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("fcm_id",bean.fcmId);
-
     if (bean.authorizationToken!=null)  {
       String temp=serializeAuthorizationToken(bean.authorizationToken);
       editor.putString("authorization_token",temp);
     }  else  {
       editor.remove("authorization_token");
     }
+
+    editor.putString("fcm_id",bean.fcmId);
 
     editor.putString("device_uid",bean.deviceUid);
 
@@ -132,14 +132,6 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reads property <code>fcmId</code> from shared pref with key <code>fcm_id</code>
-   *
-   * @return property fcmId value
-   */
-  public String getFcmId() {
-    return prefs.getString("fcm_id", defaultBean.fcmId);}
-
-  /**
    * reads property <code>authorizationToken</code> from shared pref with key <code>authorization_token</code>
    *
    * @return property authorizationToken value
@@ -148,6 +140,14 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     String temp=prefs.getString("authorization_token", null);
     return StringUtils.hasText(temp) ? parseAuthorizationToken(temp): defaultBean.authorizationToken;
   }
+
+  /**
+   * reads property <code>fcmId</code> from shared pref with key <code>fcm_id</code>
+   *
+   * @return property fcmId value
+   */
+  public String getFcmId() {
+    return prefs.getString("fcm_id", defaultBean.fcmId);}
 
   /**
    * reads property <code>deviceUid</code> from shared pref with key <code>device_uid</code>
@@ -275,23 +275,6 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property fcmId
-     */
-    public BindEditor putFcmId(String value) {
-      editor.putString("fcm_id",value);
-
-      return this;
-    }
-
-    /**
-     * remove property fcmId
-     */
-    public BindEditor removeFcmId() {
-      editor.remove("fcm_id");
-      return this;
-    }
-
-    /**
      * modifier for property authorizationToken
      */
     public BindEditor putAuthorizationToken(DeviceAccessToken value) {
@@ -310,6 +293,23 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeAuthorizationToken() {
       editor.remove("authorization_token");
+      return this;
+    }
+
+    /**
+     * modifier for property fcmId
+     */
+    public BindEditor putFcmId(String value) {
+      editor.putString("fcm_id",value);
+
+      return this;
+    }
+
+    /**
+     * remove property fcmId
+     */
+    public BindEditor removeFcmId() {
+      editor.remove("fcm_id");
       return this;
     }
 

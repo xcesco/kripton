@@ -24,9 +24,9 @@ import sqlite.quickstart.model.Todo;
 public class TodoDaoImpl extends Dao implements TodoDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_USER_ID_SQL7 = "SELECT id, user_id, title, completed FROM todo WHERE user_id = ?";
+  private static final String SELECT_BY_USER_ID_SQL7 = "SELECT id, completed, title, user_id FROM todo WHERE user_id = ?";
 
-  private static final String SELECT_ONE_BY_USER_ID_SQL8 = "SELECT id, user_id, title, completed FROM todo WHERE id = ?";
+  private static final String SELECT_ONE_BY_USER_ID_SQL8 = "SELECT id, completed, title, user_id FROM todo WHERE id = ?";
 
   public TodoDaoImpl(BindQuickStartDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -34,16 +34,16 @@ public class TodoDaoImpl extends Dao implements TodoDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO todo (id, user_id, title, completed) VALUES (${bean.id}, ${bean.userId}, ${bean.title}, ${bean.completed})</pre>
+   * <pre>INSERT INTO todo (id, completed, title, user_id) VALUES (${bean.id}, ${bean.completed}, ${bean.title}, ${bean.userId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>user_id</dt><dd>is mapped to <strong>${bean.userId}</strong></dd>
-   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
    * 	<dt>completed</dt><dd>is mapped to <strong>${bean.completed}</strong></dd>
+   * 	<dt>title</dt><dd>is mapped to <strong>${bean.title}</strong></dd>
+   * 	<dt>user_id</dt><dd>is mapped to <strong>${bean.userId}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -54,14 +54,14 @@ public class TodoDaoImpl extends Dao implements TodoDao {
   public void insert(Todo bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO todo (id, user_id, title, completed) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO todo (id, completed, title, user_id) VALUES (?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("id", bean.id);
-    _contentValues.put("user_id", bean.userId);
-    _contentValues.put("title", bean.title);
     _contentValues.put("completed", bean.completed);
+    _contentValues.put("title", bean.title);
+    _contentValues.put("user_id", bean.userId);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -106,14 +106,14 @@ public class TodoDaoImpl extends Dao implements TodoDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, user_id, title, completed FROM todo WHERE user_id = ${value}</pre>
+   * <pre>SELECT id, completed, title, user_id FROM todo WHERE user_id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
-   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * 	<dt>completed</dt><dd>is associated to bean's property <strong>completed</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
+   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -159,18 +159,18 @@ public class TodoDaoImpl extends Dao implements TodoDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("user_id");
+        int index1=_cursor.getColumnIndex("completed");
         int index2=_cursor.getColumnIndex("title");
-        int index3=_cursor.getColumnIndex("completed");
+        int index3=_cursor.getColumnIndex("user_id");
 
         do
          {
           resultBean=new Todo();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index1)) { resultBean.completed=_cursor.getInt(index1)==0?false:true; }
           if (!_cursor.isNull(index2)) { resultBean.title=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.completed=_cursor.getInt(index3)==0?false:true; }
+          if (!_cursor.isNull(index3)) { resultBean.userId=_cursor.getLong(index3); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -183,14 +183,14 @@ public class TodoDaoImpl extends Dao implements TodoDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, user_id, title, completed FROM todo WHERE id = ${value}</pre>
+   * <pre>SELECT id, completed, title, user_id FROM todo WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
-   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
    * 	<dt>completed</dt><dd>is associated to bean's property <strong>completed</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
+   * 	<dt>user_id</dt><dd>is associated to bean's property <strong>userId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -235,16 +235,16 @@ public class TodoDaoImpl extends Dao implements TodoDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("user_id");
+        int index1=_cursor.getColumnIndex("completed");
         int index2=_cursor.getColumnIndex("title");
-        int index3=_cursor.getColumnIndex("completed");
+        int index3=_cursor.getColumnIndex("user_id");
 
         resultBean=new Todo();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.userId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index1)) { resultBean.completed=_cursor.getInt(index1)==0?false:true; }
         if (!_cursor.isNull(index2)) { resultBean.title=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.completed=_cursor.getInt(index3)==0?false:true; }
+        if (!_cursor.isNull(index3)) { resultBean.userId=_cursor.getLong(index3); }
 
       }
       return resultBean;

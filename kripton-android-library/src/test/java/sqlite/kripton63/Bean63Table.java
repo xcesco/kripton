@@ -32,9 +32,9 @@ public class Bean63Table implements SQLiteTable {
    * DDL to create table bean63
    * </p>
    *
-   * <pre>CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_string_byte BLOB, value_map_enum_byte BLOB);</pre>
+   * <pre>CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_enum_byte BLOB, value_map_string_byte BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_string_byte BLOB, value_map_enum_byte BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean63 (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT, value_map_enum_byte BLOB, value_map_string_byte BLOB);";
 
   /**
    * <p>
@@ -60,13 +60,6 @@ public class Bean63Table implements SQLiteTable {
   public static final String COLUMN_VALUE = "value";
 
   /**
-   * Entity's property <code>valueMapStringByte</code> is associated to table column <code>value_map_string_byte</code>. This costant represents column name.
-   *
-   *  @see Bean63#valueMapStringByte
-   */
-  public static final String COLUMN_VALUE_MAP_STRING_BYTE = "value_map_string_byte";
-
-  /**
    * Entity's property <code>valueMapEnumByte</code> is associated to table column <code>value_map_enum_byte</code>. This costant represents column name.
    *
    *  @see Bean63#valueMapEnumByte
@@ -74,89 +67,16 @@ public class Bean63Table implements SQLiteTable {
   public static final String COLUMN_VALUE_MAP_ENUM_BYTE = "value_map_enum_byte";
 
   /**
+   * Entity's property <code>valueMapStringByte</code> is associated to table column <code>value_map_string_byte</code>. This costant represents column name.
+   *
+   *  @see Bean63#valueMapStringByte
+   */
+  public static final String COLUMN_VALUE_MAP_STRING_BYTE = "value_map_string_byte";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE_MAP_STRING_BYTE, COLUMN_VALUE_MAP_ENUM_BYTE};
-
-  /**
-   * for attribute valueMapStringByte serialization
-   */
-  public static byte[] serializeValueMapStringByte(Map<String, Byte> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        // write wrapper tag
-        if (value.size()>0) {
-          jacksonSerializer.writeFieldName("element");
-          jacksonSerializer.writeStartArray();
-          for (Map.Entry<String, Byte> item: value.entrySet()) {
-            jacksonSerializer.writeStartObject();
-            jacksonSerializer.writeStringField("key", item.getKey());
-            if (item.getValue()==null) {
-              jacksonSerializer.writeNullField("value");
-            } else {
-              jacksonSerializer.writeNumberField("value", item.getValue());
-            }
-            jacksonSerializer.writeEndObject();
-          }
-          jacksonSerializer.writeEndArray();
-        } else {
-          jacksonSerializer.writeNullField("element");
-        }
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueMapStringByte parsing
-   */
-  public static Map<String, Byte> parseValueMapStringByte(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Map<String, Byte> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashMap<String, Byte> collection=new HashMap<>();
-        String key=null;
-        Byte value=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          jacksonParser.nextValue();
-          key=jacksonParser.getText();
-          jacksonParser.nextValue();
-          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-            value=jacksonParser.getByteValue();
-          }
-          collection.put(key, value);
-          key=null;
-          value=null;
-          jacksonParser.nextToken();
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_VALUE, COLUMN_VALUE_MAP_ENUM_BYTE, COLUMN_VALUE_MAP_STRING_BYTE};
 
   /**
    * for attribute valueMapEnumByte serialization
@@ -224,6 +144,86 @@ public class Bean63Table implements SQLiteTable {
             String tempEnum=jacksonParser.getText();
             key=StringUtils.hasText(tempEnum)?EnumType.valueOf(tempEnum):null;
           }
+          jacksonParser.nextValue();
+          if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+            value=jacksonParser.getByteValue();
+          }
+          collection.put(key, value);
+          key=null;
+          value=null;
+          jacksonParser.nextToken();
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueMapStringByte serialization
+   */
+  public static byte[] serializeValueMapStringByte(Map<String, Byte> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        // write wrapper tag
+        if (value.size()>0) {
+          jacksonSerializer.writeFieldName("element");
+          jacksonSerializer.writeStartArray();
+          for (Map.Entry<String, Byte> item: value.entrySet()) {
+            jacksonSerializer.writeStartObject();
+            jacksonSerializer.writeStringField("key", item.getKey());
+            if (item.getValue()==null) {
+              jacksonSerializer.writeNullField("value");
+            } else {
+              jacksonSerializer.writeNumberField("value", item.getValue());
+            }
+            jacksonSerializer.writeEndObject();
+          }
+          jacksonSerializer.writeEndArray();
+        } else {
+          jacksonSerializer.writeNullField("element");
+        }
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueMapStringByte parsing
+   */
+  public static Map<String, Byte> parseValueMapStringByte(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Map<String, Byte> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashMap<String, Byte> collection=new HashMap<>();
+        String key=null;
+        Byte value=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          jacksonParser.nextValue();
+          key=jacksonParser.getText();
           jacksonParser.nextValue();
           if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
             value=jacksonParser.getByteValue();

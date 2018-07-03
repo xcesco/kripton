@@ -26,9 +26,9 @@ import java.util.List;
  *  @see ContactTable
  */
 public class ContactDaoImpl extends Dao implements ContactDao {
-  private static final String SELECT_BY_SURNAME_WITH_ADAPTER_SQL1 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
+  private static final String SELECT_BY_SURNAME_WITH_ADAPTER_SQL1 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=?";
 
-  private static final String SELECT_BY_SURNAME_SQL2 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=?";
+  private static final String SELECT_BY_SURNAME_SQL2 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=?";
 
   private static SQLiteStatement deleteCompactBeanPreparedStatement0;
 
@@ -38,15 +38,15 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
   private static SQLiteStatement deleteJQLRawPreparedStatement3;
 
-  private static final String SELECT_COMPACT_BEAN_SQL3 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=?  and type=?";
+  private static final String SELECT_COMPACT_BEAN_SQL3 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=?  and type=?";
 
-  private static final String SELECT_J_Q_L_BEAN_LISTENER_SQL4 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=? and password=? and type=?";
+  private static final String SELECT_J_Q_L_BEAN_LISTENER_SQL4 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=? and password=? and type=?";
 
   private static final String SELEC_J_Q_L_BEAN_SQL5 = "SELECT birth_day, password, type FROM contact WHERE id=? and password=? and type=?";
 
   private static final String SELECT_J_Q_L_RAW_SQL6 = "SELECT * FROM contact WHERE password=? and type=?";
 
-  private static final String SELECT_COMPACT_RAW_SQL7 = "SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE password=? and type=?";
+  private static final String SELECT_COMPACT_RAW_SQL7 = "SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE password=? and type=?";
 
   private static SQLiteStatement updateCompactBeanPreparedStatement4;
 
@@ -73,14 +73,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=${dummyTest}</pre>
+   * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=${dummyTest}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>password</dt><dd>is associated to bean's property <strong>password</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -129,11 +129,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("surname");
-        int index2=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=_cursor.getColumnIndex("password");
+        int index2=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
+        int index3=_cursor.getColumnIndex("surname");
         int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
         int index5=_cursor.getColumnIndex("update_date");
@@ -144,9 +144,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
           resultBean=new Contact();
 
           resultBean.setId(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index1)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.surname=_cursor.getString(index3); }
           if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
           if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
           if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
@@ -162,14 +162,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE surname=${dummy}</pre>
+   * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=${dummy}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>password</dt><dd>is associated to bean's property <strong>password</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -218,11 +218,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("surname");
-        int index2=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=_cursor.getColumnIndex("password");
+        int index2=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
+        int index3=_cursor.getColumnIndex("surname");
         int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
         int index5=_cursor.getColumnIndex("update_date");
@@ -233,9 +233,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
           resultBean=new Contact();
 
           resultBean.setId(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index1)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.surname=_cursor.getString(index3); }
           if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
           if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
           if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
@@ -432,14 +432,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=${bean.id}  and type=${bean.type}</pre>
+   * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=${bean.id}  and type=${bean.type}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>password</dt><dd>is associated to bean's property <strong>password</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -490,11 +490,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("surname");
-        int index2=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=_cursor.getColumnIndex("password");
+        int index2=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
+        int index3=_cursor.getColumnIndex("surname");
         int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
         int index5=_cursor.getColumnIndex("update_date");
@@ -505,9 +505,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
           resultBean=new Contact();
 
           resultBean.setId(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index1)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.surname=_cursor.getString(index3); }
           if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
           if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
           if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
@@ -523,14 +523,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE id=${bean.id} and password=${bean.password} and type=${bean.type}</pre>
+   * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=${bean.id} and password=${bean.password} and type=${bean.type}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>password</dt><dd>is associated to bean's property <strong>password</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -581,11 +581,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("surname");
-        int index2=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=_cursor.getColumnIndex("password");
+        int index2=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
+        int index3=_cursor.getColumnIndex("surname");
         int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
         int index5=_cursor.getColumnIndex("update_date");
@@ -596,18 +596,18 @@ public class ContactDaoImpl extends Dao implements ContactDao {
          {
           // reset mapping
           // id does not need reset
-          resultBean.surname=null;
           resultBean.birthDay=null;
           resultBean.setPassword(null);
+          resultBean.surname=null;
           resultBean.type=null;
           resultBean.updateDate=null;
           resultBean.updateTime=null;
 
           // generate mapping
           resultBean.setId(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index1)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.surname=_cursor.getString(index3); }
           if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
           if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
           if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
@@ -707,9 +707,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>password</dt><dd>is associated to bean's property <strong>password</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -762,11 +762,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("surname");
-        int index2=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=_cursor.getColumnIndex("password");
+        int index2=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
+        int index3=_cursor.getColumnIndex("surname");
         int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
         int index5=_cursor.getColumnIndex("update_date");
@@ -777,9 +777,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
           resultBean=new Contact();
 
           resultBean.setId(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index1)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.surname=_cursor.getString(index3); }
           if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
           if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
           if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }
@@ -795,14 +795,14 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, surname, birth_day, password, type, update_date, update_time FROM contact WHERE password=${password} and type=${type}</pre>
+   * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE password=${password} and type=${type}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
    * 	<dt>password</dt><dd>is associated to bean's property <strong>password</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
    * 	<dt>update_date</dt><dd>is associated to bean's property <strong>updateDate</strong></dd>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -855,11 +855,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("surname");
-        int index2=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_day");
         DateAdapterType birthDayAdapter=SQLTypeAdapterUtils.getAdapter(DateAdapterType.class);
-        int index3=_cursor.getColumnIndex("password");
+        int index2=_cursor.getColumnIndex("password");
         PasswordAdapterType passwordAdapter=SQLTypeAdapterUtils.getAdapter(PasswordAdapterType.class);
+        int index3=_cursor.getColumnIndex("surname");
         int index4=_cursor.getColumnIndex("type");
         EnumAdapterType typeAdapter=SQLTypeAdapterUtils.getAdapter(EnumAdapterType.class);
         int index5=_cursor.getColumnIndex("update_date");
@@ -870,9 +870,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
           resultBean=new Contact();
 
           resultBean.setId(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.surname=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index3))); }
+          if (!_cursor.isNull(index1)) { resultBean.birthDay=birthDayAdapter.toJava(_cursor.getLong(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.setPassword(passwordAdapter.toJava(_cursor.getBlob(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.surname=_cursor.getString(index3); }
           if (!_cursor.isNull(index4)) { resultBean.type=typeAdapter.toJava(_cursor.getInt(index4)); }
           if (!_cursor.isNull(index5)) { resultBean.updateDate=SQLDateUtils.read(_cursor.getString(index5)); }
           if (!_cursor.isNull(index6)) { resultBean.updateTime=SQLTimeUtils.read(_cursor.getString(index6)); }

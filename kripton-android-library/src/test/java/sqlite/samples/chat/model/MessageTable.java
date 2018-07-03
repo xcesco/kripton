@@ -20,9 +20,9 @@ public class MessageTable implements SQLiteTable {
    * DDL to create table message
    * </p>
    *
-   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT, sender_id INTEGER, receiver_id INTEGER, FOREIGN KEY(sender_id) REFERENCES user(id), FOREIGN KEY(receiver_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT, receiver_id INTEGER, sender_id INTEGER, FOREIGN KEY(receiver_id) REFERENCES user(id), FOREIGN KEY(sender_id) REFERENCES user(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT, sender_id INTEGER, receiver_id INTEGER, FOREIGN KEY(sender_id) REFERENCES user(id), FOREIGN KEY(receiver_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT, receiver_id INTEGER, sender_id INTEGER, FOREIGN KEY(receiver_id) REFERENCES user(id), FOREIGN KEY(sender_id) REFERENCES user(id));";
 
   /**
    * <p>
@@ -48,13 +48,6 @@ public class MessageTable implements SQLiteTable {
   public static final String COLUMN_CONTENT = "content";
 
   /**
-   * Entity's property <code>senderId</code> is associated to table column <code>sender_id</code>. This costant represents column name.
-   *
-   *  @see Message#senderId
-   */
-  public static final String COLUMN_SENDER_ID = "sender_id";
-
-  /**
    * Entity's property <code>receiverId</code> is associated to table column <code>receiver_id</code>. This costant represents column name.
    *
    *  @see Message#receiverId
@@ -62,9 +55,16 @@ public class MessageTable implements SQLiteTable {
   public static final String COLUMN_RECEIVER_ID = "receiver_id";
 
   /**
+   * Entity's property <code>senderId</code> is associated to table column <code>sender_id</code>. This costant represents column name.
+   *
+   *  @see Message#senderId
+   */
+  public static final String COLUMN_SENDER_ID = "sender_id";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_CONTENT, COLUMN_SENDER_ID, COLUMN_RECEIVER_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_CONTENT, COLUMN_RECEIVER_ID, COLUMN_SENDER_ID};
 
   /**
    * Columns array

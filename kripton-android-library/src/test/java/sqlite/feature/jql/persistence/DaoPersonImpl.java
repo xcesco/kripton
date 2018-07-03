@@ -22,7 +22,7 @@ import sqlite.feature.jql.entities.Person;
  *  @see sqlite.feature.jql.entities.PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static final String SELECT_ALL_SQL5 = "SELECT _id, name, image FROM person";
+  private static final String SELECT_ALL_SQL5 = "SELECT _id, image, name FROM person";
 
   private static SQLiteStatement insertBeanPreparedStatement0;
 
@@ -33,13 +33,13 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT _id, name, image FROM person</pre>
+   * <pre>SELECT _id, image, name FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>image</dt><dd>is associated to bean's property <strong>image</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -77,16 +77,16 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("_id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("image");
+        int index1=_cursor.getColumnIndex("image");
+        int index2=_cursor.getColumnIndex("name");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          resultBean.name=_cursor.getString(index1);
-          if (!_cursor.isNull(index2)) { resultBean.image=_cursor.getBlob(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.image=_cursor.getBlob(index1); }
+          resultBean.name=_cursor.getString(index2);
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -98,14 +98,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, image) VALUES (${name}, ${image})</pre>
+   * <pre>INSERT INTO person (image, name) VALUES (${image}, ${name})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>image</dt><dd>is mapped to <strong>${bean.image}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -116,12 +116,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   public Person insertBean(Person bean) {
     if (insertBeanPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person (name, image) VALUES (?, ?)";
+      String _sql="INSERT INTO person (image, name) VALUES (?, ?)";
       insertBeanPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertBeanPreparedStatement0);
-    _contentValues.put("name", bean.name);
     _contentValues.put("image", bean.image);
+    _contentValues.put("name", bean.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

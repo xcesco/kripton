@@ -30,9 +30,9 @@ public class ChannelTable implements SQLiteTable {
    * DDL to create table channel
    * </p>
    *
-   * <pre>CREATE TABLE channel (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, link TEXT, description TEXT, language TEXT, copyright TEXT, pub_date TEXT, last_build_date TEXT, image BLOB);</pre>
+   * <pre>CREATE TABLE channel (id INTEGER PRIMARY KEY AUTOINCREMENT, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT, pub_date TEXT, title TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE channel (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, link TEXT, description TEXT, language TEXT, copyright TEXT, pub_date TEXT, last_build_date TEXT, image BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE channel (id INTEGER PRIMARY KEY AUTOINCREMENT, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT, pub_date TEXT, title TEXT);";
 
   /**
    * <p>
@@ -51,18 +51,11 @@ public class ChannelTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>title</code> is associated to table column <code>title</code>. This costant represents column name.
+   * Entity's property <code>copyright</code> is associated to table column <code>copyright</code>. This costant represents column name.
    *
-   *  @see Channel#title
+   *  @see Channel#copyright
    */
-  public static final String COLUMN_TITLE = "title";
-
-  /**
-   * Entity's property <code>link</code> is associated to table column <code>link</code>. This costant represents column name.
-   *
-   *  @see Channel#link
-   */
-  public static final String COLUMN_LINK = "link";
+  public static final String COLUMN_COPYRIGHT = "copyright";
 
   /**
    * Entity's property <code>description</code> is associated to table column <code>description</code>. This costant represents column name.
@@ -72,25 +65,18 @@ public class ChannelTable implements SQLiteTable {
   public static final String COLUMN_DESCRIPTION = "description";
 
   /**
+   * Entity's property <code>image</code> is associated to table column <code>image</code>. This costant represents column name.
+   *
+   *  @see Channel#image
+   */
+  public static final String COLUMN_IMAGE = "image";
+
+  /**
    * Entity's property <code>language</code> is associated to table column <code>language</code>. This costant represents column name.
    *
    *  @see Channel#language
    */
   public static final String COLUMN_LANGUAGE = "language";
-
-  /**
-   * Entity's property <code>copyright</code> is associated to table column <code>copyright</code>. This costant represents column name.
-   *
-   *  @see Channel#copyright
-   */
-  public static final String COLUMN_COPYRIGHT = "copyright";
-
-  /**
-   * Entity's property <code>pubDate</code> is associated to table column <code>pub_date</code>. This costant represents column name.
-   *
-   *  @see Channel#pubDate
-   */
-  public static final String COLUMN_PUB_DATE = "pub_date";
 
   /**
    * Entity's property <code>lastBuildDate</code> is associated to table column <code>last_build_date</code>. This costant represents column name.
@@ -100,11 +86,25 @@ public class ChannelTable implements SQLiteTable {
   public static final String COLUMN_LAST_BUILD_DATE = "last_build_date";
 
   /**
-   * Entity's property <code>image</code> is associated to table column <code>image</code>. This costant represents column name.
+   * Entity's property <code>link</code> is associated to table column <code>link</code>. This costant represents column name.
    *
-   *  @see Channel#image
+   *  @see Channel#link
    */
-  public static final String COLUMN_IMAGE = "image";
+  public static final String COLUMN_LINK = "link";
+
+  /**
+   * Entity's property <code>pubDate</code> is associated to table column <code>pub_date</code>. This costant represents column name.
+   *
+   *  @see Channel#pubDate
+   */
+  public static final String COLUMN_PUB_DATE = "pub_date";
+
+  /**
+   * Entity's property <code>title</code> is associated to table column <code>title</code>. This costant represents column name.
+   *
+   *  @see Channel#title
+   */
+  public static final String COLUMN_TITLE = "title";
 
   /**
    * ImageBindMap */
@@ -113,7 +113,7 @@ public class ChannelTable implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_TITLE, COLUMN_LINK, COLUMN_DESCRIPTION, COLUMN_LANGUAGE, COLUMN_COPYRIGHT, COLUMN_PUB_DATE, COLUMN_LAST_BUILD_DATE, COLUMN_IMAGE};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_COPYRIGHT, COLUMN_DESCRIPTION, COLUMN_IMAGE, COLUMN_LANGUAGE, COLUMN_LAST_BUILD_DATE, COLUMN_LINK, COLUMN_PUB_DATE, COLUMN_TITLE};
 
   /**
    * for attribute image serialization

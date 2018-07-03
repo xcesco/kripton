@@ -33,11 +33,11 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
  *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
-  private static final String SELECT_BY_ID_SQL1 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=?";
 
   private static final String SELECT_BY_ID_J_Q_L_SQL2 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
 
-  private static final String SELECT_BY_ALL_SQL3 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+  private static final String SELECT_BY_ALL_SQL3 = "SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
   private static final String SELECT_BY_ALL_J_Q_L_SQL4 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
@@ -66,26 +66,26 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${bean.id}</pre>
+   * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${bean.id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>last_name</dt><dd>is associated to bean's property <strong>lastName</strong></dd>
-   * 	<dt>first_name</dt><dd>is associated to bean's property <strong>firstName</strong></dd>
-   * 	<dt>birth_date</dt><dd>is associated to bean's property <strong>birthDate</strong></dd>
-   * 	<dt>hire_date</dt><dd>is associated to bean's property <strong>hireDate</strong></dd>
    * 	<dt>address</dt><dd>is associated to bean's property <strong>address</strong></dd>
+   * 	<dt>birth_date</dt><dd>is associated to bean's property <strong>birthDate</strong></dd>
    * 	<dt>field_boolean</dt><dd>is associated to bean's property <strong>fieldBoolean</strong></dd>
    * 	<dt>field_byte</dt><dd>is associated to bean's property <strong>fieldByte</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
    * 	<dt>field_character</dt><dd>is associated to bean's property <strong>fieldCharacter</strong></dd>
-   * 	<dt>field_short</dt><dd>is associated to bean's property <strong>fieldShort</strong></dd>
+   * 	<dt>field_double</dt><dd>is associated to bean's property <strong>fieldDouble</strong></dd>
+   * 	<dt>field_float</dt><dd>is associated to bean's property <strong>fieldFloat</strong></dd>
    * 	<dt>field_integer</dt><dd>is associated to bean's property <strong>fieldInteger</strong></dd>
    * 	<dt>field_long</dt><dd>is associated to bean's property <strong>fieldLong</strong></dd>
-   * 	<dt>field_float</dt><dd>is associated to bean's property <strong>fieldFloat</strong></dd>
-   * 	<dt>field_double</dt><dd>is associated to bean's property <strong>fieldDouble</strong></dd>
+   * 	<dt>field_short</dt><dd>is associated to bean's property <strong>fieldShort</strong></dd>
    * 	<dt>field_string</dt><dd>is associated to bean's property <strong>fieldString</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
+   * 	<dt>first_name</dt><dd>is associated to bean's property <strong>firstName</strong></dd>
+   * 	<dt>hire_date</dt><dd>is associated to bean's property <strong>hireDate</strong></dd>
+   * 	<dt>last_name</dt><dd>is associated to bean's property <strong>lastName</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -130,51 +130,51 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("last_name");
-        int index2=_cursor.getColumnIndex("first_name");
-        int index3=_cursor.getColumnIndex("birth_date");
-        int index4=_cursor.getColumnIndex("hire_date");
-        int index5=_cursor.getColumnIndex("address");
+        int index1=_cursor.getColumnIndex("address");
         TypeAdapterAddress addressAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterAddress.class);
-        int index6=_cursor.getColumnIndex("field_boolean");
+        int index2=_cursor.getColumnIndex("birth_date");
+        int index3=_cursor.getColumnIndex("field_boolean");
         TypeAdapterBoolean fieldBooleanAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterBoolean.class);
-        int index7=_cursor.getColumnIndex("field_byte");
+        int index4=_cursor.getColumnIndex("field_byte");
         TypeAdapterByte fieldByteAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterByte.class);
-        int index8=_cursor.getColumnIndex("field_character");
-        TypeAdapterChar fieldCharacterAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterChar.class);
-        int index9=_cursor.getColumnIndex("field_short");
-        TypeAdapterShort fieldShortAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterShort.class);
-        int index10=_cursor.getColumnIndex("field_integer");
-        TypeAdapterInteger fieldIntegerAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterInteger.class);
-        int index11=_cursor.getColumnIndex("field_long");
-        TypeAdapterLong fieldLongAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterLong.class);
-        int index12=_cursor.getColumnIndex("field_float");
-        TypeAdapterFloat fieldFloatAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterFloat.class);
-        int index13=_cursor.getColumnIndex("field_double");
-        TypeAdapterDouble fieldDoubleAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterDouble.class);
-        int index14=_cursor.getColumnIndex("field_string");
-        TypeAdapterString fieldStringAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterString.class);
-        int index15=_cursor.getColumnIndex("field_byte_array");
+        int index5=_cursor.getColumnIndex("field_byte_array");
         TypeAdapterByteArray fieldByteArrayAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterByteArray.class);
+        int index6=_cursor.getColumnIndex("field_character");
+        TypeAdapterChar fieldCharacterAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterChar.class);
+        int index7=_cursor.getColumnIndex("field_double");
+        TypeAdapterDouble fieldDoubleAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterDouble.class);
+        int index8=_cursor.getColumnIndex("field_float");
+        TypeAdapterFloat fieldFloatAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterFloat.class);
+        int index9=_cursor.getColumnIndex("field_integer");
+        TypeAdapterInteger fieldIntegerAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterInteger.class);
+        int index10=_cursor.getColumnIndex("field_long");
+        TypeAdapterLong fieldLongAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterLong.class);
+        int index11=_cursor.getColumnIndex("field_short");
+        TypeAdapterShort fieldShortAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterShort.class);
+        int index12=_cursor.getColumnIndex("field_string");
+        TypeAdapterString fieldStringAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterString.class);
+        int index13=_cursor.getColumnIndex("first_name");
+        int index14=_cursor.getColumnIndex("hire_date");
+        int index15=_cursor.getColumnIndex("last_name");
 
         resultBean=new Employee();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.lastName=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.firstName=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(_cursor.getString(index3)); }
-        if (!_cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(_cursor.getString(index4)); }
-        if (!_cursor.isNull(index5)) { resultBean.address=addressAdapter.toJava(_cursor.getString(index5)); }
-        if (!_cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(_cursor.getInt(index6)==0?false:true); }
-        if (!_cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)_cursor.getInt(index7)); }
-        if (!_cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)_cursor.getInt(index8)); }
-        if (!_cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(_cursor.getShort(index9)); }
-        if (!_cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(_cursor.getInt(index10)); }
-        if (!_cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(_cursor.getLong(index11)); }
-        if (!_cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(_cursor.getFloat(index12)); }
-        if (!_cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(_cursor.getDouble(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(_cursor.getBlob(index15)); }
+        if (!_cursor.isNull(index1)) { resultBean.address=addressAdapter.toJava(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.birthDate=SQLDateUtils.read(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(_cursor.getInt(index3)==0?false:true); }
+        if (!_cursor.isNull(index4)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)_cursor.getInt(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(_cursor.getBlob(index5)); }
+        if (!_cursor.isNull(index6)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)_cursor.getInt(index6)); }
+        if (!_cursor.isNull(index7)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(_cursor.getDouble(index7)); }
+        if (!_cursor.isNull(index8)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(_cursor.getFloat(index8)); }
+        if (!_cursor.isNull(index9)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(_cursor.getInt(index9)); }
+        if (!_cursor.isNull(index10)) { resultBean.fieldLong=fieldLongAdapter.toJava(_cursor.getLong(index10)); }
+        if (!_cursor.isNull(index11)) { resultBean.fieldShort=fieldShortAdapter.toJava(_cursor.getShort(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.fieldString=fieldStringAdapter.toJava(_cursor.getString(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.firstName=_cursor.getString(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.hireDate=SQLDateUtils.read(_cursor.getString(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.lastName=_cursor.getString(index15); }
 
       }
       return resultBean;
@@ -302,26 +302,26 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
+   * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>last_name</dt><dd>is associated to bean's property <strong>lastName</strong></dd>
-   * 	<dt>first_name</dt><dd>is associated to bean's property <strong>firstName</strong></dd>
-   * 	<dt>birth_date</dt><dd>is associated to bean's property <strong>birthDate</strong></dd>
-   * 	<dt>hire_date</dt><dd>is associated to bean's property <strong>hireDate</strong></dd>
    * 	<dt>address</dt><dd>is associated to bean's property <strong>address</strong></dd>
+   * 	<dt>birth_date</dt><dd>is associated to bean's property <strong>birthDate</strong></dd>
    * 	<dt>field_boolean</dt><dd>is associated to bean's property <strong>fieldBoolean</strong></dd>
    * 	<dt>field_byte</dt><dd>is associated to bean's property <strong>fieldByte</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
    * 	<dt>field_character</dt><dd>is associated to bean's property <strong>fieldCharacter</strong></dd>
-   * 	<dt>field_short</dt><dd>is associated to bean's property <strong>fieldShort</strong></dd>
+   * 	<dt>field_double</dt><dd>is associated to bean's property <strong>fieldDouble</strong></dd>
+   * 	<dt>field_float</dt><dd>is associated to bean's property <strong>fieldFloat</strong></dd>
    * 	<dt>field_integer</dt><dd>is associated to bean's property <strong>fieldInteger</strong></dd>
    * 	<dt>field_long</dt><dd>is associated to bean's property <strong>fieldLong</strong></dd>
-   * 	<dt>field_float</dt><dd>is associated to bean's property <strong>fieldFloat</strong></dd>
-   * 	<dt>field_double</dt><dd>is associated to bean's property <strong>fieldDouble</strong></dd>
+   * 	<dt>field_short</dt><dd>is associated to bean's property <strong>fieldShort</strong></dd>
    * 	<dt>field_string</dt><dd>is associated to bean's property <strong>fieldString</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is associated to bean's property <strong>fieldByteArray</strong></dd>
+   * 	<dt>first_name</dt><dd>is associated to bean's property <strong>firstName</strong></dd>
+   * 	<dt>hire_date</dt><dd>is associated to bean's property <strong>hireDate</strong></dd>
+   * 	<dt>last_name</dt><dd>is associated to bean's property <strong>lastName</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -386,51 +386,51 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("last_name");
-        int index2=_cursor.getColumnIndex("first_name");
-        int index3=_cursor.getColumnIndex("birth_date");
-        int index4=_cursor.getColumnIndex("hire_date");
-        int index5=_cursor.getColumnIndex("address");
+        int index1=_cursor.getColumnIndex("address");
         TypeAdapterAddress addressAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterAddress.class);
-        int index6=_cursor.getColumnIndex("field_boolean");
+        int index2=_cursor.getColumnIndex("birth_date");
+        int index3=_cursor.getColumnIndex("field_boolean");
         TypeAdapterBoolean fieldBooleanAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterBoolean.class);
-        int index7=_cursor.getColumnIndex("field_byte");
+        int index4=_cursor.getColumnIndex("field_byte");
         TypeAdapterByte fieldByteAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterByte.class);
-        int index8=_cursor.getColumnIndex("field_character");
-        TypeAdapterChar fieldCharacterAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterChar.class);
-        int index9=_cursor.getColumnIndex("field_short");
-        TypeAdapterShort fieldShortAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterShort.class);
-        int index10=_cursor.getColumnIndex("field_integer");
-        TypeAdapterInteger fieldIntegerAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterInteger.class);
-        int index11=_cursor.getColumnIndex("field_long");
-        TypeAdapterLong fieldLongAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterLong.class);
-        int index12=_cursor.getColumnIndex("field_float");
-        TypeAdapterFloat fieldFloatAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterFloat.class);
-        int index13=_cursor.getColumnIndex("field_double");
-        TypeAdapterDouble fieldDoubleAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterDouble.class);
-        int index14=_cursor.getColumnIndex("field_string");
-        TypeAdapterString fieldStringAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterString.class);
-        int index15=_cursor.getColumnIndex("field_byte_array");
+        int index5=_cursor.getColumnIndex("field_byte_array");
         TypeAdapterByteArray fieldByteArrayAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterByteArray.class);
+        int index6=_cursor.getColumnIndex("field_character");
+        TypeAdapterChar fieldCharacterAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterChar.class);
+        int index7=_cursor.getColumnIndex("field_double");
+        TypeAdapterDouble fieldDoubleAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterDouble.class);
+        int index8=_cursor.getColumnIndex("field_float");
+        TypeAdapterFloat fieldFloatAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterFloat.class);
+        int index9=_cursor.getColumnIndex("field_integer");
+        TypeAdapterInteger fieldIntegerAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterInteger.class);
+        int index10=_cursor.getColumnIndex("field_long");
+        TypeAdapterLong fieldLongAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterLong.class);
+        int index11=_cursor.getColumnIndex("field_short");
+        TypeAdapterShort fieldShortAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterShort.class);
+        int index12=_cursor.getColumnIndex("field_string");
+        TypeAdapterString fieldStringAdapter=SQLTypeAdapterUtils.getAdapter(TypeAdapterString.class);
+        int index13=_cursor.getColumnIndex("first_name");
+        int index14=_cursor.getColumnIndex("hire_date");
+        int index15=_cursor.getColumnIndex("last_name");
 
         resultBean=new Employee();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.lastName=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.firstName=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.birthDate=SQLDateUtils.read(_cursor.getString(index3)); }
-        if (!_cursor.isNull(index4)) { resultBean.hireDate=SQLDateUtils.read(_cursor.getString(index4)); }
-        if (!_cursor.isNull(index5)) { resultBean.address=addressAdapter.toJava(_cursor.getString(index5)); }
-        if (!_cursor.isNull(index6)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(_cursor.getInt(index6)==0?false:true); }
-        if (!_cursor.isNull(index7)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)_cursor.getInt(index7)); }
-        if (!_cursor.isNull(index8)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)_cursor.getInt(index8)); }
-        if (!_cursor.isNull(index9)) { resultBean.fieldShort=fieldShortAdapter.toJava(_cursor.getShort(index9)); }
-        if (!_cursor.isNull(index10)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(_cursor.getInt(index10)); }
-        if (!_cursor.isNull(index11)) { resultBean.fieldLong=fieldLongAdapter.toJava(_cursor.getLong(index11)); }
-        if (!_cursor.isNull(index12)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(_cursor.getFloat(index12)); }
-        if (!_cursor.isNull(index13)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(_cursor.getDouble(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.fieldString=fieldStringAdapter.toJava(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(_cursor.getBlob(index15)); }
+        if (!_cursor.isNull(index1)) { resultBean.address=addressAdapter.toJava(_cursor.getString(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.birthDate=SQLDateUtils.read(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.fieldBoolean=fieldBooleanAdapter.toJava(_cursor.getInt(index3)==0?false:true); }
+        if (!_cursor.isNull(index4)) { resultBean.fieldByte=fieldByteAdapter.toJava((byte)_cursor.getInt(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.fieldByteArray=fieldByteArrayAdapter.toJava(_cursor.getBlob(index5)); }
+        if (!_cursor.isNull(index6)) { resultBean.fieldCharacter=fieldCharacterAdapter.toJava((char)_cursor.getInt(index6)); }
+        if (!_cursor.isNull(index7)) { resultBean.fieldDouble=fieldDoubleAdapter.toJava(_cursor.getDouble(index7)); }
+        if (!_cursor.isNull(index8)) { resultBean.fieldFloat=fieldFloatAdapter.toJava(_cursor.getFloat(index8)); }
+        if (!_cursor.isNull(index9)) { resultBean.fieldInteger=fieldIntegerAdapter.toJava(_cursor.getInt(index9)); }
+        if (!_cursor.isNull(index10)) { resultBean.fieldLong=fieldLongAdapter.toJava(_cursor.getLong(index10)); }
+        if (!_cursor.isNull(index11)) { resultBean.fieldShort=fieldShortAdapter.toJava(_cursor.getShort(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.fieldString=fieldStringAdapter.toJava(_cursor.getString(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.firstName=_cursor.getString(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.hireDate=SQLDateUtils.read(_cursor.getString(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.lastName=_cursor.getString(index15); }
 
       }
       return resultBean;
@@ -577,27 +577,27 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO employees (last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (${bean.lastName}, ${bean.firstName}, ${bean.birthDate}, ${bean.hireDate}, ${bean.address}, ${bean.fieldBoolean}, ${bean.fieldByte}, ${bean.fieldCharacter}, ${bean.fieldShort}, ${bean.fieldInteger}, ${bean.fieldLong}, ${bean.fieldFloat}, ${bean.fieldDouble}, ${bean.fieldString}, ${bean.fieldByteArray})</pre>
+   * <pre>INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (${bean.address}, ${bean.birthDate}, ${bean.fieldBoolean}, ${bean.fieldByte}, ${bean.fieldByteArray}, ${bean.fieldCharacter}, ${bean.fieldDouble}, ${bean.fieldFloat}, ${bean.fieldInteger}, ${bean.fieldLong}, ${bean.fieldShort}, ${bean.fieldString}, ${bean.firstName}, ${bean.hireDate}, ${bean.lastName})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
    * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
    * 	<dt>field_boolean</dt><dd>is mapped to <strong>${bean.fieldBoolean}</strong></dd>
    * 	<dt>field_byte</dt><dd>is mapped to <strong>${bean.fieldByte}</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
    * 	<dt>field_character</dt><dd>is mapped to <strong>${bean.fieldCharacter}</strong></dd>
-   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
+   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
+   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
    * 	<dt>field_integer</dt><dd>is mapped to <strong>${bean.fieldInteger}</strong></dd>
    * 	<dt>field_long</dt><dd>is mapped to <strong>${bean.fieldLong}</strong></dd>
-   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
-   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
+   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
    * 	<dt>field_string</dt><dd>is mapped to <strong>${bean.fieldString}</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -609,25 +609,25 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   public long insert(Employee bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO employees (last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("last_name", bean.lastName);
-    _contentValues.put("first_name", bean.firstName);
-    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
-    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
+    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
+    _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, bean.fieldByteArray));
     _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
-    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
+    _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, bean.fieldDouble));
+    _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
-    _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
-    _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, bean.fieldDouble));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
     _contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, bean.fieldString));
-    _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, bean.fieldByteArray));
+    _contentValues.put("first_name", bean.firstName);
+    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
+    _contentValues.put("last_name", bean.lastName);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -681,14 +681,14 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    * <dl>
    * 	<dt>field_boolean</dt><dd>is mapped to <strong>${bean.fieldBoolean}</strong></dd>
    * 	<dt>field_byte</dt><dd>is mapped to <strong>${bean.fieldByte}</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
    * 	<dt>field_character</dt><dd>is mapped to <strong>${bean.fieldCharacter}</strong></dd>
-   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
+   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
+   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
    * 	<dt>field_integer</dt><dd>is mapped to <strong>${bean.fieldInteger}</strong></dd>
    * 	<dt>field_long</dt><dd>is mapped to <strong>${bean.fieldLong}</strong></dd>
-   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
-   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
+   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
    * 	<dt>field_string</dt><dd>is mapped to <strong>${bean.fieldString}</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -759,25 +759,25 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
+   * <pre>UPDATE employees SET address=:address, birth_date=:birthDate, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_byte_array=:fieldByteArray, field_character=:fieldCharacter, field_double=:fieldDouble, field_float=:fieldFloat, field_integer=:fieldInteger, field_long=:fieldLong, field_short=:fieldShort, field_string=:fieldString, first_name=:firstName, hire_date=:hireDate, last_name=:lastName WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
    * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
    * 	<dt>field_boolean</dt><dd>is mapped to <strong>${bean.fieldBoolean}</strong></dd>
    * 	<dt>field_byte</dt><dd>is mapped to <strong>${bean.fieldByte}</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
    * 	<dt>field_character</dt><dd>is mapped to <strong>${bean.fieldCharacter}</strong></dd>
-   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
+   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
+   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
    * 	<dt>field_integer</dt><dd>is mapped to <strong>${bean.fieldInteger}</strong></dd>
    * 	<dt>field_long</dt><dd>is mapped to <strong>${bean.fieldLong}</strong></dd>
-   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
-   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
+   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
    * 	<dt>field_string</dt><dd>is mapped to <strong>${bean.fieldString}</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -803,25 +803,25 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   public long update(Employee bean) {
     if (updatePreparedStatement2==null) {
       // generate static SQL for statement
-      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+      String _sql="UPDATE employees SET address=?, birth_date=?, field_boolean=?, field_byte=?, field_byte_array=?, field_character=?, field_double=?, field_float=?, field_integer=?, field_long=?, field_short=?, field_string=?, first_name=?, hire_date=?, last_name=? WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
       updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
-    _contentValues.put("last_name", bean.lastName);
-    _contentValues.put("first_name", bean.firstName);
-    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
-    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
+    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
+    _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, bean.fieldByteArray));
     _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
-    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
+    _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, bean.fieldDouble));
+    _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
-    _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
-    _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, bean.fieldDouble));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
     _contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, bean.fieldString));
-    _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, bean.fieldByteArray));
+    _contentValues.put("first_name", bean.firstName);
+    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
+    _contentValues.put("last_name", bean.lastName);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByte.class, bean.fieldByte));
@@ -840,7 +840,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE employees SET last_name=:last_name, first_name=:first_name, birth_date=:birth_date, hire_date=:hire_date, address=:address, field_boolean=:field_boolean, field_byte=:field_byte, field_character=:field_character, field_short=:field_short, field_integer=:field_integer, field_long=:field_long, field_float=:field_float, field_double=:field_double, field_string=:field_string, field_byte_array=:field_byte_array WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
+      Logger.info("UPDATE employees SET address=:address, birth_date=:birth_date, field_boolean=:field_boolean, field_byte=:field_byte, field_byte_array=:field_byte_array, field_character=:field_character, field_double=:field_double, field_float=:field_float, field_integer=:field_integer, field_long=:field_long, field_short=:field_short, field_string=:field_string, first_name=:first_name, hire_date=:hire_date, last_name=:last_name WHERE id=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -868,25 +868,25 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_character=:fieldCharacter, field_short=:fieldShort, field_integer=:fieldInteger, field_long=:fieldLong, field_float=:fieldFloat, field_double=:fieldDouble, field_string=:fieldString, field_byte_array=:fieldByteArray WHERE id=${bean.id}</pre>
+   * <pre>UPDATE employees SET address=:address, birth_date=:birthDate, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_byte_array=:fieldByteArray, field_character=:fieldCharacter, field_double=:fieldDouble, field_float=:fieldFloat, field_integer=:fieldInteger, field_long=:fieldLong, field_short=:fieldShort, field_string=:fieldString, first_name=:firstName, hire_date=:hireDate, last_name=:lastName WHERE id=${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
    * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
    * 	<dt>field_boolean</dt><dd>is mapped to <strong>${bean.fieldBoolean}</strong></dd>
    * 	<dt>field_byte</dt><dd>is mapped to <strong>${bean.fieldByte}</strong></dd>
+   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
    * 	<dt>field_character</dt><dd>is mapped to <strong>${bean.fieldCharacter}</strong></dd>
-   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
+   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
+   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
    * 	<dt>field_integer</dt><dd>is mapped to <strong>${bean.fieldInteger}</strong></dd>
    * 	<dt>field_long</dt><dd>is mapped to <strong>${bean.fieldLong}</strong></dd>
-   * 	<dt>field_float</dt><dd>is mapped to <strong>${bean.fieldFloat}</strong></dd>
-   * 	<dt>field_double</dt><dd>is mapped to <strong>${bean.fieldDouble}</strong></dd>
+   * 	<dt>field_short</dt><dd>is mapped to <strong>${bean.fieldShort}</strong></dd>
    * 	<dt>field_string</dt><dd>is mapped to <strong>${bean.fieldString}</strong></dd>
-   * 	<dt>field_byte_array</dt><dd>is mapped to <strong>${bean.fieldByteArray}</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -903,25 +903,25 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   public long updateById(Employee bean) {
     if (updateByIdPreparedStatement3==null) {
       // generate static SQL for statement
-      String _sql="UPDATE employees SET last_name=?, first_name=?, birth_date=?, hire_date=?, address=?, field_boolean=?, field_byte=?, field_character=?, field_short=?, field_integer=?, field_long=?, field_float=?, field_double=?, field_string=?, field_byte_array=? WHERE id=?";
+      String _sql="UPDATE employees SET address=?, birth_date=?, field_boolean=?, field_byte=?, field_byte_array=?, field_character=?, field_double=?, field_float=?, field_integer=?, field_long=?, field_short=?, field_string=?, first_name=?, hire_date=?, last_name=? WHERE id=?";
       updateByIdPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement3);
-    _contentValues.put("last_name", bean.lastName);
-    _contentValues.put("first_name", bean.firstName);
-    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
-    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
     _contentValues.put("address", SQLTypeAdapterUtils.toData(TypeAdapterAddress.class, bean.address));
+    _contentValues.put("birth_date", SQLDateUtils.write(bean.birthDate));
     _contentValues.put("field_boolean", SQLTypeAdapterUtils.toData(TypeAdapterBoolean.class, bean.fieldBoolean));
     _contentValues.put("field_byte", SQLTypeAdapterUtils.toData(TypeAdapterByte.class, bean.fieldByte));
+    _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, bean.fieldByteArray));
     _contentValues.put("field_character", SQLTypeAdapterUtils.toData(TypeAdapterChar.class, bean.fieldCharacter));
-    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
+    _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, bean.fieldDouble));
+    _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
     _contentValues.put("field_integer", SQLTypeAdapterUtils.toData(TypeAdapterInteger.class, bean.fieldInteger));
     _contentValues.put("field_long", SQLTypeAdapterUtils.toData(TypeAdapterLong.class, bean.fieldLong));
-    _contentValues.put("field_float", SQLTypeAdapterUtils.toData(TypeAdapterFloat.class, bean.fieldFloat));
-    _contentValues.put("field_double", SQLTypeAdapterUtils.toData(TypeAdapterDouble.class, bean.fieldDouble));
+    _contentValues.put("field_short", SQLTypeAdapterUtils.toData(TypeAdapterShort.class, bean.fieldShort));
     _contentValues.put("field_string", SQLTypeAdapterUtils.toData(TypeAdapterString.class, bean.fieldString));
-    _contentValues.put("field_byte_array", SQLTypeAdapterUtils.toData(TypeAdapterByteArray.class, bean.fieldByteArray));
+    _contentValues.put("first_name", bean.firstName);
+    _contentValues.put("hire_date", SQLDateUtils.write(bean.hireDate));
+    _contentValues.put("last_name", bean.lastName);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -931,7 +931,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE employees SET last_name=:last_name, first_name=:first_name, birth_date=:birth_date, hire_date=:hire_date, address=:address, field_boolean=:field_boolean, field_byte=:field_byte, field_character=:field_character, field_short=:field_short, field_integer=:field_integer, field_long=:field_long, field_float=:field_float, field_double=:field_double, field_string=:field_string, field_byte_array=:field_byte_array WHERE id=?");
+      Logger.info("UPDATE employees SET address=:address, birth_date=:birth_date, field_boolean=:field_boolean, field_byte=:field_byte, field_byte_array=:field_byte_array, field_character=:field_character, field_double=:field_double, field_float=:field_float, field_integer=:field_integer, field_long=:field_long, field_short=:field_short, field_string=:field_string, first_name=:first_name, hire_date=:hire_date, last_name=:last_name WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -963,11 +963,11 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
    * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -1052,11 +1052,11 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
-   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
-   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
-   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
    * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
+   * 	<dt>birth_date</dt><dd>is mapped to <strong>${bean.birthDate}</strong></dd>
+   * 	<dt>first_name</dt><dd>is mapped to <strong>${bean.firstName}</strong></dd>
+   * 	<dt>hire_date</dt><dd>is mapped to <strong>${bean.hireDate}</strong></dd>
+   * 	<dt>last_name</dt><dd>is mapped to <strong>${bean.lastName}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>

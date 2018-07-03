@@ -23,7 +23,7 @@ import java.util.List;
 public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
   private static final String GET1_SQL1 = "SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED";
 
-  private static final String GET_ALL_SQL2 = "SELECT lunch_id, fresh, contains_meat, fruits FROM SchoolLunches";
+  private static final String GET_ALL_SQL2 = "SELECT lunch_id, contains_meat, fresh, fruits FROM SchoolLunches";
 
   private static SQLiteStatement insertAllPreparedStatement0;
 
@@ -41,8 +41,8 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>lunch_id</dt><dd>is associated to bean's property <strong>lunchId</strong></dd>
-   * 	<dt>fresh</dt><dd>is associated to bean's property <strong>fresh</strong></dd>
    * 	<dt>contains_meat</dt><dd>is associated to bean's property <strong>containsMeat</strong></dd>
+   * 	<dt>fresh</dt><dd>is associated to bean's property <strong>fresh</strong></dd>
    * 	<dt>fruits</dt><dd>is associated to bean's property <strong>fruits</strong></dd>
    * </dl>
    *
@@ -81,8 +81,8 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("lunch_id");
-        int index1=_cursor.getColumnIndex("fresh");
-        int index2=_cursor.getColumnIndex("contains_meat");
+        int index1=_cursor.getColumnIndex("contains_meat");
+        int index2=_cursor.getColumnIndex("fresh");
         int index3=_cursor.getColumnIndex("fruits");
 
         do
@@ -90,8 +90,8 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
           resultBean=new SchoolLunch();
 
           resultBean.setLunchId(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.setFresh(_cursor.getInt(index1)==0?false:true); }
-          if (!_cursor.isNull(index2)) { resultBean.setContainsMeat(_cursor.getInt(index2)==0?false:true); }
+          if (!_cursor.isNull(index1)) { resultBean.setContainsMeat(_cursor.getInt(index1)==0?false:true); }
+          if (!_cursor.isNull(index2)) { resultBean.setFresh(_cursor.getInt(index2)==0?false:true); }
           if (!_cursor.isNull(index3)) { resultBean.setFruits(SchoolLunchTable.parseFruits(_cursor.getBlob(index3))); }
 
           resultList.add(resultBean);
@@ -105,13 +105,13 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT lunch_id, fresh, contains_meat, fruits FROM SchoolLunches</pre>
+   * <pre>SELECT lunch_id, contains_meat, fresh, fruits FROM SchoolLunches</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>lunch_id</dt><dd>is associated to bean's property <strong>lunchId</strong></dd>
-   * 	<dt>fresh</dt><dd>is associated to bean's property <strong>fresh</strong></dd>
    * 	<dt>contains_meat</dt><dd>is associated to bean's property <strong>containsMeat</strong></dd>
+   * 	<dt>fresh</dt><dd>is associated to bean's property <strong>fresh</strong></dd>
    * 	<dt>fruits</dt><dd>is associated to bean's property <strong>fruits</strong></dd>
    * </dl>
    *
@@ -150,8 +150,8 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("lunch_id");
-        int index1=_cursor.getColumnIndex("fresh");
-        int index2=_cursor.getColumnIndex("contains_meat");
+        int index1=_cursor.getColumnIndex("contains_meat");
+        int index2=_cursor.getColumnIndex("fresh");
         int index3=_cursor.getColumnIndex("fruits");
 
         do
@@ -159,8 +159,8 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
           resultBean=new SchoolLunch();
 
           resultBean.setLunchId(_cursor.getLong(index0));
-          if (!_cursor.isNull(index1)) { resultBean.setFresh(_cursor.getInt(index1)==0?false:true); }
-          if (!_cursor.isNull(index2)) { resultBean.setContainsMeat(_cursor.getInt(index2)==0?false:true); }
+          if (!_cursor.isNull(index1)) { resultBean.setContainsMeat(_cursor.getInt(index1)==0?false:true); }
+          if (!_cursor.isNull(index2)) { resultBean.setFresh(_cursor.getInt(index2)==0?false:true); }
           if (!_cursor.isNull(index3)) { resultBean.setFruits(SchoolLunchTable.parseFruits(_cursor.getBlob(index3))); }
 
           resultList.add(resultBean);
@@ -173,14 +173,14 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO SchoolLunches (fresh, contains_meat, fruits) VALUES (${schoolLunches.fresh}, ${schoolLunches.containsMeat}, ${schoolLunches.fruits})</pre>
+   * <pre>INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (${schoolLunches.containsMeat}, ${schoolLunches.fresh}, ${schoolLunches.fruits})</pre>
    *
    * <p><code>schoolLunches.lunchId</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>fresh</dt><dd>is mapped to <strong>${schoolLunches.fresh}</strong></dd>
    * 	<dt>contains_meat</dt><dd>is mapped to <strong>${schoolLunches.containsMeat}</strong></dd>
+   * 	<dt>fresh</dt><dd>is mapped to <strong>${schoolLunches.fresh}</strong></dd>
    * 	<dt>fruits</dt><dd>is mapped to <strong>${schoolLunches.fruits}</strong></dd>
    * </dl>
    *
@@ -192,12 +192,12 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
   public void insertAll(SchoolLunch schoolLunches) {
     if (insertAllPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO SchoolLunches (fresh, contains_meat, fruits) VALUES (?, ?, ?)";
+      String _sql="INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (?, ?, ?)";
       insertAllPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertAllPreparedStatement0);
-    _contentValues.put("fresh", schoolLunches.isFresh());
     _contentValues.put("contains_meat", schoolLunches.isContainsMeat());
+    _contentValues.put("fresh", schoolLunches.isFresh());
     _contentValues.put("fruits", SchoolLunchTable.serializeFruits(schoolLunches.getFruits()));
 
     // log section BEGIN

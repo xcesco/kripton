@@ -19,8 +19,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.abubusoft.kripton.processor.exceptions.SQLPrimaryKeyNotFoundException;
-
 import sqlite.AbstractBindSQLiteProcessorTest;
 
 // TODO: Auto-generated Javadoc
@@ -32,16 +30,13 @@ import sqlite.AbstractBindSQLiteProcessorTest;
 public class Test205 extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * Test compile.
+	 * Test compile. Since 4.1.0 works.
 	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(SQLPrimaryKeyNotFoundException.class);
-		buildDataSourceProcessorTest(Bean96DataSource.class, Bean205Dao.class, Bean205.class);
+		//this.expectedException(SQLPrimaryKeyNotFoundException.class);
+		buildDataSourceProcessorTest(Bean96DataSource.class, Bean205Dao.class, Bean205.class, BaseBean205.class);
 	}
 
 }

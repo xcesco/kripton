@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -745,19 +746,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								entity.relations.add(new Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>(
 										property,
 										annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY), null,
-										null));
-
-								// more check must be done later, after model is
-								// fully builded
-								// check: it must be set or list
-								// TypeName propertyType =
-								// TypeUtility.typeName(property.getElement());
-								// AssertKripton.assertTrueOfInvalidDefinition(TypeUtility.isList(propertyType)
-								// || TypeUtility.isSet(propertyType) ||
-								// TypeUtility.isArray(propertyType),
-								// property,String.format("@%s can be used only
-								// on a List, Set o array type field",
-								// BindRelation.class));
+										null));							
 
 								return false;
 							}
@@ -877,6 +866,34 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		if (!property.isType(Long.TYPE, Long.class))
 			throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
+		
+		// order entities field by : first is PK, others are in natural order
+		List<SQLProperty> properties = currentEntity.getCollection();
+		properties.sort(new Comparator<SQLProperty>() {
+
+			@Override
+			public int compare(SQLProperty o1, SQLProperty o2) {
+				if (o1.isPrimaryKey()) {
+					return -1;
+				} else if (o2.isPrimaryKey()) {
+					return 1;
+				} else {
+					return o1.columnName.compareTo(o2.columnName);
+				}
+			}
+		});
+		// assert: we have a primary key
+		for (int i=1;i<properties.size();i++) {
+			if (properties.get(i).isPrimaryKey()) {
+				//swap
+				SQLProperty temp=properties.get(0);
+				properties.set(0, properties.get(i));
+				properties.set(i, temp);
+				break;
+			}
+		}
+		
+		
 
 		// add entity to schema after properties definition!
 		schema.addEntity(currentEntity);

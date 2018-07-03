@@ -20,9 +20,9 @@ public class PersonPhoneTable implements SQLiteTable {
    * DDL to create table person_phone
    * </p>
    *
-   * <pre>CREATE TABLE person_phone (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, phone_number_id INTEGER, buy_date TEXT, FOREIGN KEY(person_id) REFERENCES person(id), FOREIGN KEY(phone_number_id) REFERENCES phone_number(id));</pre>
+   * <pre>CREATE TABLE person_phone (id INTEGER PRIMARY KEY AUTOINCREMENT, buy_date TEXT, person_id INTEGER, phone_number_id INTEGER, FOREIGN KEY(person_id) REFERENCES person(id), FOREIGN KEY(phone_number_id) REFERENCES phone_number(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_phone (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, phone_number_id INTEGER, buy_date TEXT, FOREIGN KEY(person_id) REFERENCES person(id), FOREIGN KEY(phone_number_id) REFERENCES phone_number(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_phone (id INTEGER PRIMARY KEY AUTOINCREMENT, buy_date TEXT, person_id INTEGER, phone_number_id INTEGER, FOREIGN KEY(person_id) REFERENCES person(id), FOREIGN KEY(phone_number_id) REFERENCES phone_number(id));";
 
   /**
    * <p>
@@ -41,6 +41,13 @@ public class PersonPhoneTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
+   * Entity's property <code>buyDate</code> is associated to table column <code>buy_date</code>. This costant represents column name.
+   *
+   *  @see PersonPhone#buyDate
+   */
+  public static final String COLUMN_BUY_DATE = "buy_date";
+
+  /**
    * Entity's property <code>personId</code> is associated to table column <code>person_id</code>. This costant represents column name.
    *
    *  @see PersonPhone#personId
@@ -55,16 +62,9 @@ public class PersonPhoneTable implements SQLiteTable {
   public static final String COLUMN_PHONE_NUMBER_ID = "phone_number_id";
 
   /**
-   * Entity's property <code>buyDate</code> is associated to table column <code>buy_date</code>. This costant represents column name.
-   *
-   *  @see PersonPhone#buyDate
-   */
-  public static final String COLUMN_BUY_DATE = "buy_date";
-
-  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_PERSON_ID, COLUMN_PHONE_NUMBER_ID, COLUMN_BUY_DATE};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_BUY_DATE, COLUMN_PERSON_ID, COLUMN_PHONE_NUMBER_ID};
 
   /**
    * Columns array

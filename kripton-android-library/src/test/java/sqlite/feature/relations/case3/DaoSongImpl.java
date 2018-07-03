@@ -23,9 +23,9 @@ import java.util.List;
 public class DaoSongImpl extends Dao implements DaoSong {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_ALL_SQL2 = "SELECT id, name, album_id FROM song";
+  private static final String SELECT_ALL_SQL2 = "SELECT id, album_id, name FROM song";
 
-  private static final String SELECT_BY_ALBUM_ID_SQL3 = "SELECT id, name, album_id FROM song WHERE album_id=?";
+  private static final String SELECT_BY_ALBUM_ID_SQL3 = "SELECT id, album_id, name FROM song WHERE album_id=?";
 
   public DaoSongImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -33,14 +33,14 @@ public class DaoSongImpl extends Dao implements DaoSong {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO song (name, album_id) VALUES (${name}, ${albumId})</pre>
+   * <pre>INSERT INTO song (album_id, name) VALUES (${albumId}, ${name})</pre>
    *
    * <p><code>arg0.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${arg0.name}</strong></dd>
    * 	<dt>album_id</dt><dd>is mapped to <strong>${arg0.albumId}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${arg0.name}</strong></dd>
    * </dl>
    *
    * @param arg0
@@ -51,12 +51,12 @@ public class DaoSongImpl extends Dao implements DaoSong {
   public void insert(Song arg0) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO song (name, album_id) VALUES (?, ?)";
+      String _sql="INSERT INTO song (album_id, name) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("name", arg0.name);
     _contentValues.put("album_id", arg0.albumId);
+    _contentValues.put("name", arg0.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -101,13 +101,13 @@ public class DaoSongImpl extends Dao implements DaoSong {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, album_id FROM song</pre>
+   * <pre>SELECT id, album_id, name FROM song</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>album_id</dt><dd>is associated to bean's property <strong>albumId</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -145,16 +145,16 @@ public class DaoSongImpl extends Dao implements DaoSong {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("album_id");
+        int index1=_cursor.getColumnIndex("album_id");
+        int index2=_cursor.getColumnIndex("name");
 
         do
          {
           resultBean=new Song();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.albumId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.albumId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.name=_cursor.getString(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -167,13 +167,13 @@ public class DaoSongImpl extends Dao implements DaoSong {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, album_id FROM song WHERE album_id=${albumId}</pre>
+   * <pre>SELECT id, album_id, name FROM song WHERE album_id=${albumId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>album_id</dt><dd>is associated to bean's property <strong>albumId</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -219,16 +219,16 @@ public class DaoSongImpl extends Dao implements DaoSong {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("album_id");
+        int index1=_cursor.getColumnIndex("album_id");
+        int index2=_cursor.getColumnIndex("name");
 
         do
          {
           resultBean=new Song();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.albumId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.albumId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.name=_cursor.getString(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

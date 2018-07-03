@@ -16,7 +16,9 @@
 package com.abubusoft.kripton.processor.core.reflect;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.lang.model.element.Element;
@@ -103,30 +105,34 @@ public abstract class PropertyUtility {
 	 * @param listener
 	 *            the listener
 	 */
-	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<T, P> factoryProperty,
-			AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<T, P> listener) {
+	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils,
+			T entity, PropertyFactory<T, P> factoryProperty, AnnotationFilter propertyAnnotationFilter,
+			PropertyCreatedListener<T, P> listener) {
 		List<? extends Element> listA = elementUtils.getAllMembers(entity.getElement());
 		List<Element> list = new ArrayList<Element>(listA);
+		Map<String, P> propertyMap = new HashMap<>();
 
 		if (propertyAnnotationFilter != null) {
 			AnnotationUtility.forEachAnnotations(entity.getElement(), propertyAnnotationFilter, null);
 		}
 
+		// extract fields directly from class
+		extractFields(entity, factoryProperty, list, propertyMap);
+
+		list = null;
+		// go up in class hierarchy and extract other fields
 		String parentClassName = entity.getElement().getSuperclass().toString();
 		while (parentClassName != null && !Object.class.getCanonicalName().equals(parentClassName)) {
 			TypeElement parentTypeElement = BaseProcessor.elementUtils.getTypeElement(parentClassName);
 
-			List<? extends Element> parentList = elementUtils.getAllMembers(parentTypeElement);
-
-			list.addAll(parentList);
-			parentClassName = parentTypeElement.getSuperclass().toString();
-		}
-
-		P field;
-		for (Element item : list) {
-			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
-				field = factoryProperty.createProperty(entity, item);
-				entity.add(field);
+			if (parentTypeElement != null) {
+				List<? extends Element> parentList = elementUtils.getAllMembers(parentTypeElement);
+				list = new ArrayList<>(parentList);
+				extractFields(entity, factoryProperty, list, propertyMap);
+				parentClassName = parentTypeElement.getSuperclass().toString();
+			} else {
+				// parentTypeElement is null
+				parentClassName = null;
 			}
 		}
 
@@ -139,6 +145,13 @@ public abstract class PropertyUtility {
 		Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		int status = 0;
 
+		// define property for the entity (must be done before working with methods, due to parameters resolver)
+		for (P p : propertyMap.values()) {
+			entity.add(p);
+		}
+
+		// restore original methods and fields
+		list = new ArrayList<Element>(listA);
 		for (Element item : list) {
 			methodName = item.getSimpleName().toString();
 			if (item.getKind() == ElementKind.METHOD && item.getModifiers().contains(Modifier.PUBLIC)) {
@@ -161,20 +174,24 @@ public abstract class PropertyUtility {
 				}
 
 				propertyName = converter.convert(propertyName);
-				if (entity.contains(propertyName)) {
-					currentKriptonField = entity.get(propertyName);
+				if (propertyMap.containsKey(propertyName)) {
+					currentKriptonField = propertyMap.get(propertyName);
 
-					TypeMirror paramTypeMirror = method.getParameters().size() == 1 ? method.getParameters().get(0).asType() : null;
+					TypeMirror paramTypeMirror = method.getParameters().size() == 1
+							? method.getParameters().get(0).asType() : null;
 					TypeMirror returnTypeMirror = method.getReturnType();
 
 					// GET
-					if (status == 0 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(returnTypeMirror)))) {
+					if (status == 0 && currentKriptonField
+							.isType(entity.resolveTypeVariable(TypeUtility.typeName(returnTypeMirror)))) {
 						currentKriptonField.setFieldWithGetter(true);
 						// IS
-					} else if (status == 1 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(returnTypeMirror)))) {
+					} else if (status == 1 && currentKriptonField
+							.isType(entity.resolveTypeVariable(TypeUtility.typeName(returnTypeMirror)))) {
 						currentKriptonField.setFieldWithIs(true);
 						// SET
-					} else if (status == 2 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(paramTypeMirror)))) {
+					} else if (status == 2 && currentKriptonField
+							.isType(entity.resolveTypeVariable(TypeUtility.typeName(paramTypeMirror)))) {
 						currentKriptonField.setFieldWithSetter(true);
 					}
 				}
@@ -190,6 +207,29 @@ public abstract class PropertyUtility {
 				}
 			}
 
+		}
+	}
+
+	/**
+	 * @param entity
+	 * @param factoryProperty
+	 * @param list
+	 * @param propertyMap
+	 */
+	private static <P extends ModelProperty, T extends ModelClass<P>> void extractFields(T entity,
+			PropertyFactory<T, P> factoryProperty, List<Element> list, Map<String, P> propertyMap) {
+		P field;
+		// fill property map from current class
+		for (Element item : list) {
+			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
+				// insert only if it does not already exists
+				if (!propertyMap.containsKey(item.getSimpleName().toString())) {
+					field = factoryProperty.createProperty(entity, item);
+
+					// put properties in a map
+					propertyMap.put(field.getName(), field);
+				}
+			}
 		}
 	}
 
@@ -229,7 +269,8 @@ public abstract class PropertyUtility {
 		} else if (property.isFieldWithIs()) {
 			return "is" + converterField2Method.convert(property.getName()) + "()";
 		} else {
-			throw new PropertyVisibilityException(String.format("In class '%s' property '%s' can not be read", property.getParent().getElement().asType(), property.getName()));
+			throw new PropertyVisibilityException(String.format("In class '%s' property '%s' can not be read",
+					property.getParent().getElement().asType(), property.getName()));
 		}
 	}
 
@@ -263,7 +304,8 @@ public abstract class PropertyUtility {
 		} else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName());
 		} else {
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify", property.getName(), property.getParent().getElement().asType()));
+			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
+					property.getName(), property.getParent().getElement().asType()));
 		}
 	}
 
@@ -301,7 +343,8 @@ public abstract class PropertyUtility {
 		else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName()) + "(" + value + ")";
 		} else {
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify", property.getName(), property.getParent().getElement().asType()));
+			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
+					property.getName(), property.getParent().getElement().asType()));
 		}
 	}
 

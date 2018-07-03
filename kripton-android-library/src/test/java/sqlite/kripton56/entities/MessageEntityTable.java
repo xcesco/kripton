@@ -20,9 +20,9 @@ public class MessageEntityTable implements SQLiteTable {
    * DDL to create table message
    * </p>
    *
-   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);</pre>
+   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, channel_uid TEXT, face_uid TEXT, owner_type TEXT, owner_uid TEXT, text TEXT, update_time INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, owner_type TEXT, face_uid TEXT, text TEXT, owner_uid TEXT, channel_uid TEXT, update_time INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, channel_uid TEXT, face_uid TEXT, owner_type TEXT, owner_uid TEXT, text TEXT, update_time INTEGER);";
 
   /**
    * <p>
@@ -48,11 +48,11 @@ public class MessageEntityTable implements SQLiteTable {
   public static final String COLUMN_CHANNEL_ID = "channel_id";
 
   /**
-   * Entity's property <code>ownerType</code> is associated to table column <code>owner_type</code>. This costant represents column name.
+   * Entity's property <code>channelUid</code> is associated to table column <code>channel_uid</code>. This costant represents column name.
    *
-   *  @see MessageEntity#ownerType
+   *  @see MessageEntity#channelUid
    */
-  public static final String COLUMN_OWNER_TYPE = "owner_type";
+  public static final String COLUMN_CHANNEL_UID = "channel_uid";
 
   /**
    * Entity's property <code>faceUid</code> is associated to table column <code>face_uid</code>. This costant represents column name.
@@ -62,11 +62,11 @@ public class MessageEntityTable implements SQLiteTable {
   public static final String COLUMN_FACE_UID = "face_uid";
 
   /**
-   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
+   * Entity's property <code>ownerType</code> is associated to table column <code>owner_type</code>. This costant represents column name.
    *
-   *  @see MessageEntity#text
+   *  @see MessageEntity#ownerType
    */
-  public static final String COLUMN_TEXT = "text";
+  public static final String COLUMN_OWNER_TYPE = "owner_type";
 
   /**
    * Entity's property <code>ownerUid</code> is associated to table column <code>owner_uid</code>. This costant represents column name.
@@ -76,11 +76,11 @@ public class MessageEntityTable implements SQLiteTable {
   public static final String COLUMN_OWNER_UID = "owner_uid";
 
   /**
-   * Entity's property <code>channelUid</code> is associated to table column <code>channel_uid</code>. This costant represents column name.
+   * Entity's property <code>text</code> is associated to table column <code>text</code>. This costant represents column name.
    *
-   *  @see MessageEntity#channelUid
+   *  @see MessageEntity#text
    */
-  public static final String COLUMN_CHANNEL_UID = "channel_uid";
+  public static final String COLUMN_TEXT = "text";
 
   /**
    * Entity's property <code>updateTime</code> is associated to table column <code>update_time</code>. This costant represents column name.
@@ -92,7 +92,7 @@ public class MessageEntityTable implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_CHANNEL_ID, COLUMN_OWNER_TYPE, COLUMN_FACE_UID, COLUMN_TEXT, COLUMN_OWNER_UID, COLUMN_CHANNEL_UID, COLUMN_UPDATE_TIME};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_CHANNEL_ID, COLUMN_CHANNEL_UID, COLUMN_FACE_UID, COLUMN_OWNER_TYPE, COLUMN_OWNER_UID, COLUMN_TEXT, COLUMN_UPDATE_TIME};
 
   /**
    * Columns array

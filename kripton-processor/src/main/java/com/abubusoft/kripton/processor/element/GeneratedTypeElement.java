@@ -28,7 +28,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GeneratedTypeElement.
  */

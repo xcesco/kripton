@@ -22,7 +22,7 @@ import java.util.List;
  *  @see PersonTable
  */
 public class PersonDAOImpl extends Dao implements PersonDAO {
-  private static final String SELECT_BY_ID_SQL1 = "SELECT id, name, surname, birth_city, birth_day FROM person WHERE id=?";
+  private static final String SELECT_BY_ID_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person WHERE id=?";
 
   private static SQLiteStatement insertThread1PreparedStatement0;
 
@@ -30,7 +30,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   private static SQLiteStatement deletePreparedStatement2;
 
-  private static final String SELECT_ONE_SQL2 = "SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name";
+  private static final String SELECT_ONE_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
 
   private static final String SELECT_TWO_SQL3 = "select * from person order by name";
 
@@ -41,15 +41,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person WHERE id=${work.id}</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE id=${work.id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -95,20 +95,20 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -120,16 +120,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (${name}, ${surname}, ${birthCity}, ${birthDay})</pre>
+   * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (${birthCity}, ${birthDay}, ${name}, ${surname})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${bean.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -140,14 +140,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   public void insertThread1(Person bean) {
     if (insertThread1PreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO person (birth_city, birth_day, name, surname) VALUES (?, ?, ?, ?)";
       insertThread1PreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertThread1PreparedStatement0);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("surname", bean.surname);
     _contentValues.put("birth_city", bean.birthCity);
     _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -191,14 +191,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id=${work.id}</pre>
+   * <pre>UPDATE person SET birth_city=:birthCity, birth_day=:birthDay, name=:name, surname=:surname WHERE id=${work.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${work.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${work.surname}</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>${work.birthCity}</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>${work.birthDay}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${work.name}</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>${work.surname}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -215,14 +215,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   public boolean update(Person bean) {
     if (updatePreparedStatement1==null) {
       // generate static SQL for statement
-      String _sql="UPDATE person SET name=?, surname=?, birth_city=?, birth_day=? WHERE id=?";
+      String _sql="UPDATE person SET birth_city=?, birth_day=?, name=?, surname=? WHERE id=?";
       updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("surname", bean.surname);
     _contentValues.put("birth_city", bean.birthCity);
     _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -232,7 +232,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE person SET name=:name, surname=:surname, birth_city=:birth_city, birth_day=:birth_day WHERE id=?");
+      Logger.info("UPDATE person SET birth_city=:birth_city, birth_day=:birth_day, name=:name, surname=:surname WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -305,15 +305,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY name</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -351,20 +351,20 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -382,10 +382,10 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -423,20 +423,20 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -449,15 +449,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname, birth_city, birth_day FROM person ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * <h2>Method's parameters and associated dynamic parts:</h2>
@@ -473,7 +473,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   public List<Person> selectThree(String orderBy) {
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
-    _sqlBuilder.append("SELECT id, name, surname, birth_city, birth_day FROM person");
+    _sqlBuilder.append("SELECT id, birth_city, birth_day, name, surname FROM person");
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
     String _sortOrder=orderBy;
@@ -512,20 +512,20 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCity=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCity=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

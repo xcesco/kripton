@@ -24,7 +24,7 @@ import sqlite.feature.rx.model.Person;
 public class PersonDaoImpl extends Dao implements PersonDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_ID_SQL11 = "SELECT id, name, age FROM person WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL11 = "SELECT id, age, name FROM person WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
@@ -38,14 +38,14 @@ public class PersonDaoImpl extends Dao implements PersonDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT OR REPLACE INTO person (name, age) VALUES (${name}, ${age})</pre>
+   * <pre>INSERT OR REPLACE INTO person (age, name) VALUES (${age}, ${name})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * 	<dt>age</dt><dd>is mapped to <strong>${bean.age}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -57,12 +57,12 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   public int insert(Person bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT OR REPLACE INTO person (name, age) VALUES (?, ?)";
+      String _sql="INSERT OR REPLACE INTO person (age, name) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("name", bean.name);
     _contentValues.put("age", bean.age);
+    _contentValues.put("name", bean.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -112,13 +112,13 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, age FROM person WHERE id = ${id}</pre>
+   * <pre>SELECT id, age, name FROM person WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>age</dt><dd>is associated to bean's property <strong>age</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -163,14 +163,14 @@ public class PersonDaoImpl extends Dao implements PersonDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("age");
+        int index1=_cursor.getColumnIndex("age");
+        int index2=_cursor.getColumnIndex("name");
 
         resultBean=new Person();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.age=_cursor.getInt(index2); }
+        if (!_cursor.isNull(index1)) { resultBean.age=_cursor.getInt(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.name=_cursor.getString(index2); }
 
       }
       return resultBean;

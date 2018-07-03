@@ -20,9 +20,9 @@ public class CollegeStudentTable implements SQLiteTable {
    * DDL to create table students
    * </p>
    *
-   * <pre>CREATE TABLE students (first_name TEXT, surname TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);</pre>
+   * <pre>CREATE TABLE students (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, surname TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE students (first_name TEXT, surname TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE students (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, surname TEXT);";
 
   /**
    * <p>
@@ -32,6 +32,13 @@ public class CollegeStudentTable implements SQLiteTable {
    * <pre>DROP TABLE IF EXISTS students;</pre>
    */
   public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS students;";
+
+  /**
+   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
+   *
+   *  @see CollegeStudent#id
+   */
+  public static final String COLUMN_ID = "id";
 
   /**
    * Entity's property <code>firstName</code> is associated to table column <code>first_name</code>. This costant represents column name.
@@ -48,16 +55,9 @@ public class CollegeStudentTable implements SQLiteTable {
   public static final String COLUMN_SURNAME = "surname";
 
   /**
-   * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.
-   *
-   *  @see CollegeStudent#id
-   */
-  public static final String COLUMN_ID = "id";
-
-  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_FIRST_NAME, COLUMN_SURNAME, COLUMN_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_SURNAME};
 
   /**
    * Columns array

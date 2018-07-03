@@ -181,75 +181,75 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
   private static SQLiteStatement insertURLPreparedStatement62;
 
-  private static final String SELECT_LIST_SQL1 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ?";
+  private static final String SELECT_LIST_SQL1 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
 
-  private static final String SELECT_ONE_SQL2 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64";
+  private static final String SELECT_ONE_SQL2 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64";
 
-  private static final String SELECT_ONE_SQL3 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal=?";
+  private static final String SELECT_ONE_SQL3 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_big_decimal=?";
 
-  private static final String SELECT_ONE_SQL4 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal=?";
+  private static final String SELECT_ONE_SQL4 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_big_decimal=?";
 
-  private static final String SELECT_ONE_SQL5 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool_type=?";
+  private static final String SELECT_ONE_SQL5 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bool_type=?";
 
-  private static final String SELECT_ONE_SQL6 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool=?";
+  private static final String SELECT_ONE_SQL6 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bool=?";
 
-  private static final String SELECT_ONE_SQL7 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ?";
+  private static final String SELECT_ONE_SQL7 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
 
-  private static final String SELECT_ONE_SQL8 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ?";
+  private static final String SELECT_ONE_SQL8 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
 
-  private static final String SELECT_ONE_ARRAY_BEAN_TYPE_SQL9 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bean_array=?";
+  private static final String SELECT_ONE_ARRAY_BEAN_TYPE_SQL9 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bean_array=?";
 
-  private static final String SELECT_ONE_ARRAY_LONG_SQL10 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_array=?";
+  private static final String SELECT_ONE_ARRAY_LONG_SQL10 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_array=?";
 
-  private static final String SELECT_ONE_ARRAY_LONG_TYPE_SQL11 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type_array=?";
+  private static final String SELECT_ONE_ARRAY_LONG_TYPE_SQL11 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_type_array=?";
 
-  private static final String SELECT_ONE_BYTE_SQL12 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte=?";
+  private static final String SELECT_ONE_BYTE_SQL12 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_byte=?";
 
-  private static final String SELECT_ONE_BYTE_TYPE_SQL13 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte_type=?";
+  private static final String SELECT_ONE_BYTE_TYPE_SQL13 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_byte_type=?";
 
-  private static final String SELECT_ONE_CALENDAR_SQL14 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_calendar=?";
+  private static final String SELECT_ONE_CALENDAR_SQL14 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_calendar=?";
 
-  private static final String SELECT_ONE_CHAR_SQL15 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type=?";
+  private static final String SELECT_ONE_CHAR_SQL15 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_char_type=?";
 
-  private static final String SELECT_ONE_CHAR_TYPE_SQL16 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type=?";
+  private static final String SELECT_ONE_CHAR_TYPE_SQL16 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_char_type=?";
 
-  private static final String SELECT_ONE_CURRENCYE_SQL17 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_currency=?";
+  private static final String SELECT_ONE_CURRENCYE_SQL17 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_currency=?";
 
-  private static final String SELECT_ONE_DATE_SQL18 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_date=?";
+  private static final String SELECT_ONE_DATE_SQL18 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_date=?";
 
-  private static final String SELECT_ONE_DOUBLE_SQL19 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double=?";
+  private static final String SELECT_ONE_DOUBLE_SQL19 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_double=?";
 
-  private static final String SELECT_ONE_DOUBLE_TYPE_SQL20 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double_type=?";
+  private static final String SELECT_ONE_DOUBLE_TYPE_SQL20 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_double_type=?";
 
-  private static final String SELECT_ONE_ENUM_TYPE_SQL21 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_enum_type=?";
+  private static final String SELECT_ONE_ENUM_TYPE_SQL21 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_enum_type=?";
 
-  private static final String SELECT_ONE_FLOAT_SQL22 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float=?";
+  private static final String SELECT_ONE_FLOAT_SQL22 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_float=?";
 
-  private static final String SELECT_ONE_FLOAT_TYPE_SQL23 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float_type=?";
+  private static final String SELECT_ONE_FLOAT_TYPE_SQL23 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_float_type=?";
 
-  private static final String SELECT_ONE_INT_SQL24 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int=?";
+  private static final String SELECT_ONE_INT_SQL24 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_int=?";
 
-  private static final String SELECT_ONE_INT_TYPE_SQL25 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int_type=?";
+  private static final String SELECT_ONE_INT_TYPE_SQL25 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_int_type=?";
 
-  private static final String SELECT_ONE_LIST_LONG_SQL26 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_list=?";
+  private static final String SELECT_ONE_LIST_LONG_SQL26 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_list=?";
 
-  private static final String SELECT_ONE_LOCALE_SQL27 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_locale=?";
+  private static final String SELECT_ONE_LOCALE_SQL27 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_locale=?";
 
-  private static final String SELECT_ONE_LONG_SQL28 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long=?";
+  private static final String SELECT_ONE_LONG_SQL28 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long=?";
 
-  private static final String SELECT_ONE_LONG_TYPE_SQL29 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type=?";
+  private static final String SELECT_ONE_LONG_TYPE_SQL29 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_type=?";
 
-  private static final String SELECT_ONE_SHORT_SQL30 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short=?";
+  private static final String SELECT_ONE_SHORT_SQL30 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_short=?";
 
-  private static final String SELECT_ONE_SHORT_TYPE_SQL31 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short_type=?";
+  private static final String SELECT_ONE_SHORT_TYPE_SQL31 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_short_type=?";
 
-  private static final String SELECT_ONE_STRING_SQL32 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_string=?";
+  private static final String SELECT_ONE_STRING_SQL32 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_string=?";
 
-  private static final String SELECT_ONE_TIME_SQL33 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time=?";
+  private static final String SELECT_ONE_TIME_SQL33 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_time=?";
 
-  private static final String SELECT_ONE_TIME_ZONE_SQL34 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time_zone=?";
+  private static final String SELECT_ONE_TIME_ZONE_SQL34 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_time_zone=?";
 
-  private static final String SELECT_ONE_U_R_L_SQL35 = "SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_url=?";
+  private static final String SELECT_ONE_U_R_L_SQL35 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_url=?";
 
   private static final String SELECT_VALUE_BOOL_SQL36 = "SELECT value_bool FROM bean64";
 
@@ -1756,53 +1756,53 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (${bean.valueBoolType}, ${bean.valueBool}, ${bean.valueByteType}, ${bean.valueByte}, ${bean.valueShortType}, ${bean.valueShort}, ${bean.valueIntType}, ${bean.valueInt}, ${bean.valueString}, ${bean.valueCharType}, ${bean.valueChar}, ${bean.valueFloatType}, ${bean.valueFloat}, ${bean.valueBigInteger}, ${bean.valueBigDecimal}, ${bean.valueEnumType}, ${bean.valueLongType}, ${bean.valueLong}, ${bean.valueDoubleType}, ${bean.valueDouble}, ${bean.valueLocale}, ${bean.valueCalendar}, ${bean.valueDate}, ${bean.valueUrl}, ${bean.valueTime}, ${bean.valueCurrency}, ${bean.valueTimeZone}, ${bean.valueTimeList}, ${bean.valueStrinList}, ${bean.valueLongList}, ${bean.valueByteArray}, ${bean.valueLongTypeArray}, ${bean.valueLongArray}, ${bean.valueBeanArray}, ${bean.valueStringArray}, ${bean.valueCharList}, ${bean.valueCharTypeArray}, ${bean.valueCharArray}, ${bean.valueMapStringBean}, ${bean.valueLinkedMapStringBean}, ${bean.valueSetString})</pre>
+   * <pre>INSERT INTO bean64 (value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url) VALUES (${bean.valueBeanArray}, ${bean.valueBigDecimal}, ${bean.valueBigInteger}, ${bean.valueBool}, ${bean.valueBoolType}, ${bean.valueByte}, ${bean.valueByteArray}, ${bean.valueByteType}, ${bean.valueCalendar}, ${bean.valueChar}, ${bean.valueCharArray}, ${bean.valueCharList}, ${bean.valueCharType}, ${bean.valueCharTypeArray}, ${bean.valueCurrency}, ${bean.valueDate}, ${bean.valueDouble}, ${bean.valueDoubleType}, ${bean.valueEnumType}, ${bean.valueFloat}, ${bean.valueFloatType}, ${bean.valueInt}, ${bean.valueIntType}, ${bean.valueLinkedMapStringBean}, ${bean.valueLocale}, ${bean.valueLong}, ${bean.valueLongArray}, ${bean.valueLongList}, ${bean.valueLongType}, ${bean.valueLongTypeArray}, ${bean.valueMapStringBean}, ${bean.valueSetString}, ${bean.valueShort}, ${bean.valueShortType}, ${bean.valueStrinList}, ${bean.valueString}, ${bean.valueStringArray}, ${bean.valueTime}, ${bean.valueTimeList}, ${bean.valueTimeZone}, ${bean.valueUrl})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is mapped to <strong>${bean.valueBoolType}</strong></dd>
-   * 	<dt>value_bool</dt><dd>is mapped to <strong>${bean.valueBool}</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is mapped to <strong>${bean.valueByteType}</strong></dd>
-   * 	<dt>value_byte</dt><dd>is mapped to <strong>${bean.valueByte}</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is mapped to <strong>${bean.valueShortType}</strong></dd>
-   * 	<dt>value_short</dt><dd>is mapped to <strong>${bean.valueShort}</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is mapped to <strong>${bean.valueIntType}</strong></dd>
-   * 	<dt>value_int</dt><dd>is mapped to <strong>${bean.valueInt}</strong></dd>
-   * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is mapped to <strong>${bean.valueCharType}</strong></dd>
-   * 	<dt>value_char</dt><dd>is mapped to <strong>${bean.valueChar}</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is mapped to <strong>${bean.valueFloatType}</strong></dd>
-   * 	<dt>value_float</dt><dd>is mapped to <strong>${bean.valueFloat}</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is mapped to <strong>${bean.valueBigInteger}</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is mapped to <strong>${bean.valueBigDecimal}</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is mapped to <strong>${bean.valueEnumType}</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is mapped to <strong>${bean.valueLongType}</strong></dd>
-   * 	<dt>value_long</dt><dd>is mapped to <strong>${bean.valueLong}</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is mapped to <strong>${bean.valueDoubleType}</strong></dd>
-   * 	<dt>value_double</dt><dd>is mapped to <strong>${bean.valueDouble}</strong></dd>
-   * 	<dt>value_locale</dt><dd>is mapped to <strong>${bean.valueLocale}</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is mapped to <strong>${bean.valueCalendar}</strong></dd>
-   * 	<dt>value_date</dt><dd>is mapped to <strong>${bean.valueDate}</strong></dd>
-   * 	<dt>value_url</dt><dd>is mapped to <strong>${bean.valueUrl}</strong></dd>
-   * 	<dt>value_time</dt><dd>is mapped to <strong>${bean.valueTime}</strong></dd>
-   * 	<dt>value_currency</dt><dd>is mapped to <strong>${bean.valueCurrency}</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is mapped to <strong>${bean.valueTimeZone}</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is mapped to <strong>${bean.valueTimeList}</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is mapped to <strong>${bean.valueStrinList}</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is mapped to <strong>${bean.valueLongList}</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is mapped to <strong>${bean.valueByteArray}</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is mapped to <strong>${bean.valueLongTypeArray}</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is mapped to <strong>${bean.valueLongArray}</strong></dd>
    * 	<dt>value_bean_array</dt><dd>is mapped to <strong>${bean.valueBeanArray}</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is mapped to <strong>${bean.valueStringArray}</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is mapped to <strong>${bean.valueCharList}</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is mapped to <strong>${bean.valueCharTypeArray}</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is mapped to <strong>${bean.valueBigDecimal}</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is mapped to <strong>${bean.valueBigInteger}</strong></dd>
+   * 	<dt>value_bool</dt><dd>is mapped to <strong>${bean.valueBool}</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is mapped to <strong>${bean.valueBoolType}</strong></dd>
+   * 	<dt>value_byte</dt><dd>is mapped to <strong>${bean.valueByte}</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is mapped to <strong>${bean.valueByteArray}</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is mapped to <strong>${bean.valueByteType}</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is mapped to <strong>${bean.valueCalendar}</strong></dd>
+   * 	<dt>value_char</dt><dd>is mapped to <strong>${bean.valueChar}</strong></dd>
    * 	<dt>value_char_array</dt><dd>is mapped to <strong>${bean.valueCharArray}</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is mapped to <strong>${bean.valueMapStringBean}</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is mapped to <strong>${bean.valueCharList}</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is mapped to <strong>${bean.valueCharType}</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is mapped to <strong>${bean.valueCharTypeArray}</strong></dd>
+   * 	<dt>value_currency</dt><dd>is mapped to <strong>${bean.valueCurrency}</strong></dd>
+   * 	<dt>value_date</dt><dd>is mapped to <strong>${bean.valueDate}</strong></dd>
+   * 	<dt>value_double</dt><dd>is mapped to <strong>${bean.valueDouble}</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is mapped to <strong>${bean.valueDoubleType}</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is mapped to <strong>${bean.valueEnumType}</strong></dd>
+   * 	<dt>value_float</dt><dd>is mapped to <strong>${bean.valueFloat}</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is mapped to <strong>${bean.valueFloatType}</strong></dd>
+   * 	<dt>value_int</dt><dd>is mapped to <strong>${bean.valueInt}</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is mapped to <strong>${bean.valueIntType}</strong></dd>
    * 	<dt>value_linked_map_string_bean</dt><dd>is mapped to <strong>${bean.valueLinkedMapStringBean}</strong></dd>
+   * 	<dt>value_locale</dt><dd>is mapped to <strong>${bean.valueLocale}</strong></dd>
+   * 	<dt>value_long</dt><dd>is mapped to <strong>${bean.valueLong}</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is mapped to <strong>${bean.valueLongArray}</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is mapped to <strong>${bean.valueLongList}</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is mapped to <strong>${bean.valueLongType}</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is mapped to <strong>${bean.valueLongTypeArray}</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is mapped to <strong>${bean.valueMapStringBean}</strong></dd>
    * 	<dt>value_set_string</dt><dd>is mapped to <strong>${bean.valueSetString}</strong></dd>
+   * 	<dt>value_short</dt><dd>is mapped to <strong>${bean.valueShort}</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is mapped to <strong>${bean.valueShortType}</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is mapped to <strong>${bean.valueStrinList}</strong></dd>
+   * 	<dt>value_string</dt><dd>is mapped to <strong>${bean.valueString}</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is mapped to <strong>${bean.valueStringArray}</strong></dd>
+   * 	<dt>value_time</dt><dd>is mapped to <strong>${bean.valueTime}</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is mapped to <strong>${bean.valueTimeList}</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is mapped to <strong>${bean.valueTimeZone}</strong></dd>
+   * 	<dt>value_url</dt><dd>is mapped to <strong>${bean.valueUrl}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -1814,51 +1814,51 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   public long insert(Bean64 bean) {
     if (insertPreparedStatement31==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO bean64 (value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO bean64 (value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement31 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement31);
-    _contentValues.put("value_bool_type", bean.valueBoolType);
-    _contentValues.put("value_bool", bean.valueBool);
-    _contentValues.put("value_byte_type", bean.valueByteType);
-    _contentValues.put("value_byte", bean.valueByte);
-    _contentValues.put("value_short_type", bean.valueShortType);
-    _contentValues.put("value_short", bean.valueShort);
-    _contentValues.put("value_int_type", bean.valueIntType);
-    _contentValues.put("value_int", bean.valueInt);
-    _contentValues.put("value_string", bean.valueString);
-    _contentValues.put("value_char_type", bean.valueCharType);
-    _contentValues.put("value_char", bean.valueChar);
-    _contentValues.put("value_float_type", bean.valueFloatType);
-    _contentValues.put("value_float", bean.valueFloat);
-    _contentValues.put("value_big_integer", bean.valueBigInteger);
-    _contentValues.put("value_big_decimal", bean.valueBigDecimal);
-    _contentValues.put("value_enum_type", EnumUtils.write(bean.valueEnumType));
-    _contentValues.put("value_long_type", bean.valueLongType);
-    _contentValues.put("value_long", bean.valueLong);
-    _contentValues.put("value_double_type", bean.valueDoubleType);
-    _contentValues.put("value_double", bean.valueDouble);
-    _contentValues.put("value_locale", LocaleUtils.write(bean.valueLocale));
-    _contentValues.put("value_calendar", CalendarUtils.write(bean.valueCalendar));
-    _contentValues.put("value_date", DateUtils.write(bean.valueDate));
-    _contentValues.put("value_url", UrlUtils.write(bean.valueUrl));
-    _contentValues.put("value_time", SQLTimeUtils.write(bean.valueTime));
-    _contentValues.put("value_currency", CurrencyUtils.write(bean.valueCurrency));
-    _contentValues.put("value_time_zone", TimeZoneUtils.write(bean.valueTimeZone));
-    _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(bean.valueTimeList));
-    _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(bean.valueStrinList));
-    _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(bean.valueLongList));
-    _contentValues.put("value_byte_array", bean.valueByteArray);
-    _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(bean.valueLongTypeArray));
-    _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(bean.valueLongArray));
     _contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(bean.valueBeanArray));
-    _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(bean.valueStringArray));
-    _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(bean.valueCharList));
-    _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(bean.valueCharTypeArray));
+    _contentValues.put("value_big_decimal", bean.valueBigDecimal);
+    _contentValues.put("value_big_integer", bean.valueBigInteger);
+    _contentValues.put("value_bool", bean.valueBool);
+    _contentValues.put("value_bool_type", bean.valueBoolType);
+    _contentValues.put("value_byte", bean.valueByte);
+    _contentValues.put("value_byte_array", bean.valueByteArray);
+    _contentValues.put("value_byte_type", bean.valueByteType);
+    _contentValues.put("value_calendar", CalendarUtils.write(bean.valueCalendar));
+    _contentValues.put("value_char", bean.valueChar);
     _contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(bean.valueCharArray));
-    _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(bean.valueMapStringBean));
+    _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(bean.valueCharList));
+    _contentValues.put("value_char_type", bean.valueCharType);
+    _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(bean.valueCharTypeArray));
+    _contentValues.put("value_currency", CurrencyUtils.write(bean.valueCurrency));
+    _contentValues.put("value_date", DateUtils.write(bean.valueDate));
+    _contentValues.put("value_double", bean.valueDouble);
+    _contentValues.put("value_double_type", bean.valueDoubleType);
+    _contentValues.put("value_enum_type", EnumUtils.write(bean.valueEnumType));
+    _contentValues.put("value_float", bean.valueFloat);
+    _contentValues.put("value_float_type", bean.valueFloatType);
+    _contentValues.put("value_int", bean.valueInt);
+    _contentValues.put("value_int_type", bean.valueIntType);
     _contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(bean.valueLinkedMapStringBean));
+    _contentValues.put("value_locale", LocaleUtils.write(bean.valueLocale));
+    _contentValues.put("value_long", bean.valueLong);
+    _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(bean.valueLongArray));
+    _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(bean.valueLongList));
+    _contentValues.put("value_long_type", bean.valueLongType);
+    _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(bean.valueLongTypeArray));
+    _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(bean.valueMapStringBean));
     _contentValues.put("value_set_string", Bean64Table.serializeValueSetString(bean.valueSetString));
+    _contentValues.put("value_short", bean.valueShort);
+    _contentValues.put("value_short_type", bean.valueShortType);
+    _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(bean.valueStrinList));
+    _contentValues.put("value_string", bean.valueString);
+    _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(bean.valueStringArray));
+    _contentValues.put("value_time", SQLTimeUtils.write(bean.valueTime));
+    _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(bean.valueTimeList));
+    _contentValues.put("value_time_zone", TimeZoneUtils.write(bean.valueTimeZone));
+    _contentValues.put("value_url", UrlUtils.write(bean.valueUrl));
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -3920,52 +3920,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -4010,95 +4010,95 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         do
          {
           resultBean=new Bean64();
 
-          if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-          if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-          if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-          if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-          if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-          if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-          if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-          if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+          if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+          if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+          if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+          if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+          if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
           if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-          if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-          if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-          if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-          if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-          if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-          if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-          if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+          if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+          if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+          if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+          if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+          if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+          if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+          if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
           if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-          if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-          if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-          if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-          if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-          if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-          if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-          if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-          if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-          if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-          if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-          if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-          if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-          if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-          if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-          if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-          if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-          if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-          if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-          if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-          if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-          if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-          if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-          resultBean.id=_cursor.getLong(index41);
+          if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+          if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+          if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+          if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+          if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+          if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+          if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+          if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+          if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+          if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+          if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+          if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+          if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+          if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+          if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+          if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+          if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+          if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+          if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+          if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+          if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+          if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+          if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -4111,52 +4111,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * @return selected bean or <code>null</code>.
@@ -4192,93 +4192,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -4288,52 +4288,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal=${valueBigDecimal}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -4377,93 +4377,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -4473,52 +4473,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_big_decimal=${valueBigDecimal}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -4562,93 +4562,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -4658,52 +4658,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool_type=${valueBoolType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bool_type=${valueBoolType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -4747,93 +4747,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -4843,52 +4843,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bool=${valueBool}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bool=${valueBool}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -4932,93 +4932,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -5028,52 +5028,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -5116,139 +5116,139 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       Bean64 resultBean=new Bean64();
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         int rowCount=_cursor.getCount();
         do
          {
           // reset mapping
-          resultBean.valueBoolType=false;
-          resultBean.valueBool=null;
-          resultBean.valueByteType=0;
-          resultBean.valueByte=null;
-          resultBean.valueShortType=0;
-          resultBean.valueShort=null;
-          resultBean.valueIntType=0;
-          resultBean.valueInt=null;
-          resultBean.valueString=null;
-          resultBean.valueCharType=0;
-          resultBean.valueChar=null;
-          resultBean.valueFloatType=0f;
-          resultBean.valueFloat=null;
-          resultBean.valueBigInteger=null;
-          resultBean.valueBigDecimal=null;
-          resultBean.valueEnumType=null;
-          resultBean.valueLongType=0L;
-          resultBean.valueLong=null;
-          resultBean.valueDoubleType=0;
-          resultBean.valueDouble=null;
-          resultBean.valueLocale=null;
-          resultBean.valueCalendar=null;
-          resultBean.valueDate=null;
-          resultBean.valueUrl=null;
-          resultBean.valueTime=null;
-          resultBean.valueCurrency=null;
-          resultBean.valueTimeZone=null;
-          resultBean.valueTimeList=null;
-          resultBean.valueStrinList=null;
-          resultBean.valueLongList=null;
-          resultBean.valueByteArray=null;
-          resultBean.valueLongTypeArray=null;
-          resultBean.valueLongArray=null;
-          resultBean.valueBeanArray=null;
-          resultBean.valueStringArray=null;
-          resultBean.valueCharList=null;
-          resultBean.valueCharTypeArray=null;
-          resultBean.valueCharArray=null;
-          resultBean.valueMapStringBean=null;
-          resultBean.valueLinkedMapStringBean=null;
-          resultBean.valueSetString=null;
           // id does not need reset
+          resultBean.valueBeanArray=null;
+          resultBean.valueBigDecimal=null;
+          resultBean.valueBigInteger=null;
+          resultBean.valueBool=null;
+          resultBean.valueBoolType=false;
+          resultBean.valueByte=null;
+          resultBean.valueByteArray=null;
+          resultBean.valueByteType=0;
+          resultBean.valueCalendar=null;
+          resultBean.valueChar=null;
+          resultBean.valueCharArray=null;
+          resultBean.valueCharList=null;
+          resultBean.valueCharType=0;
+          resultBean.valueCharTypeArray=null;
+          resultBean.valueCurrency=null;
+          resultBean.valueDate=null;
+          resultBean.valueDouble=null;
+          resultBean.valueDoubleType=0;
+          resultBean.valueEnumType=null;
+          resultBean.valueFloat=null;
+          resultBean.valueFloatType=0f;
+          resultBean.valueInt=null;
+          resultBean.valueIntType=0;
+          resultBean.valueLinkedMapStringBean=null;
+          resultBean.valueLocale=null;
+          resultBean.valueLong=null;
+          resultBean.valueLongArray=null;
+          resultBean.valueLongList=null;
+          resultBean.valueLongType=0L;
+          resultBean.valueLongTypeArray=null;
+          resultBean.valueMapStringBean=null;
+          resultBean.valueSetString=null;
+          resultBean.valueShort=null;
+          resultBean.valueShortType=0;
+          resultBean.valueStrinList=null;
+          resultBean.valueString=null;
+          resultBean.valueStringArray=null;
+          resultBean.valueTime=null;
+          resultBean.valueTimeList=null;
+          resultBean.valueTimeZone=null;
+          resultBean.valueUrl=null;
 
           // generate mapping
-          if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-          if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-          if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-          if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-          if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-          if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-          if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-          if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+          resultBean.id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+          if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+          if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+          if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+          if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+          if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
           if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-          if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-          if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-          if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-          if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-          if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-          if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-          if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+          if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+          if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+          if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+          if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+          if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+          if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+          if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
           if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-          if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-          if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-          if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-          if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-          if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-          if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-          if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-          if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-          if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-          if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-          if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-          if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-          if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-          if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-          if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-          if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-          if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-          if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-          if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-          if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-          if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-          if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-          resultBean.id=_cursor.getLong(index41);
+          if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+          if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+          if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+          if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+          if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+          if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+          if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+          if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+          if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+          if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+          if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+          if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+          if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+          if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+          if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+          if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+          if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+          if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+          if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+          if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+          if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+          if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+          if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
           listener.onRead(resultBean, _cursor.getPosition(), rowCount);
         } while (_cursor.moveToNext());
@@ -5259,52 +5259,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE id = ${id}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -5358,52 +5358,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_bean_array=${valueBeanArray}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bean_array=${valueBeanArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -5447,93 +5447,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -5543,52 +5543,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_array=${valueLongArray}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_array=${valueLongArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -5632,93 +5632,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -5728,52 +5728,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type_array=${valueLongTypeArray}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_type_array=${valueLongTypeArray}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -5817,93 +5817,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -5913,52 +5913,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte=${valueByte}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_byte=${valueByte}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -6002,93 +6002,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -6098,52 +6098,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_byte_type=${valueByteType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_byte_type=${valueByteType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -6187,93 +6187,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -6283,52 +6283,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_calendar=${valueCalendar}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_calendar=${valueCalendar}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -6372,93 +6372,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -6468,52 +6468,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type=${valueChar}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_char_type=${valueChar}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -6557,93 +6557,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -6653,52 +6653,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_char_type=${valueCharType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_char_type=${valueCharType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -6742,93 +6742,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -6838,52 +6838,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_currency=${valueCurrency}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_currency=${valueCurrency}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -6927,93 +6927,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -7023,52 +7023,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_date=${valueDate}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_date=${valueDate}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -7112,93 +7112,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -7208,52 +7208,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double=${valueDouble}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_double=${valueDouble}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -7297,93 +7297,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -7393,52 +7393,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_double_type=${valueDoubleType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_double_type=${valueDoubleType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -7482,93 +7482,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -7578,52 +7578,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_enum_type=${valueEnumType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_enum_type=${valueEnumType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -7667,93 +7667,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -7763,52 +7763,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float=${valueFloat}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_float=${valueFloat}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -7852,93 +7852,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -7948,52 +7948,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_float_type=${valueFloatType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_float_type=${valueFloatType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -8037,93 +8037,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -8133,52 +8133,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int=${valueInt}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_int=${valueInt}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -8222,93 +8222,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -8318,52 +8318,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_int_type=${valueIntType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_int_type=${valueIntType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -8407,93 +8407,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -8503,52 +8503,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_list=${valueLongList}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_list=${valueLongList}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -8592,93 +8592,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -8688,52 +8688,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_locale=${valueLocale}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_locale=${valueLocale}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -8777,93 +8777,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -8873,52 +8873,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long=${valueLong}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long=${valueLong}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -8962,93 +8962,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -9058,52 +9058,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_long_type=${valueLongType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_type=${valueLongType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -9147,93 +9147,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -9243,52 +9243,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short=${valueShort}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_short=${valueShort}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -9332,93 +9332,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -9428,52 +9428,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_short_type=${valueShortType}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_short_type=${valueShortType}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -9517,93 +9517,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -9613,52 +9613,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_string=${valueString}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_string=${valueString}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -9702,93 +9702,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -9798,52 +9798,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time=${valueTime}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_time=${valueTime}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -9887,93 +9887,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -9983,52 +9983,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_time_zone=${valueTimeZone}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_time_zone=${valueTimeZone}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -10072,93 +10072,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -10168,52 +10168,52 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT value_bool_type, value_bool, value_byte_type, value_byte, value_short_type, value_short, value_int_type, value_int, value_string, value_char_type, value_char, value_float_type, value_float, value_big_integer, value_big_decimal, value_enum_type, value_long_type, value_long, value_double_type, value_double, value_locale, value_calendar, value_date, value_url, value_time, value_currency, value_time_zone, value_time_list, value_strin_list, value_long_list, value_byte_array, value_long_type_array, value_long_array, value_bean_array, value_string_array, value_char_list, value_char_type_array, value_char_array, value_map_string_bean, value_linked_map_string_bean, value_set_string, id FROM bean64 WHERE value_url=${valueUrl}</pre>
+   * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_url=${valueUrl}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
-   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
-   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
-   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
-   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
-   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
-   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
-   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
-   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
-   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
-   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
-   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
-   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
-   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
-   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
-   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
-   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
-   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
-   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>value_bean_array</dt><dd>is associated to bean's property <strong>valueBeanArray</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is associated to bean's property <strong>valueBigDecimal</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is associated to bean's property <strong>valueBigInteger</strong></dd>
+   * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is associated to bean's property <strong>valueBoolType</strong></dd>
+   * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is associated to bean's property <strong>valueByteArray</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is associated to bean's property <strong>valueByteType</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is associated to bean's property <strong>valueCalendar</strong></dd>
+   * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
+   * 	<dt>value_char_array</dt><dd>is associated to bean's property <strong>valueCharArray</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is associated to bean's property <strong>valueCharList</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is associated to bean's property <strong>valueCharType</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is associated to bean's property <strong>valueCharTypeArray</strong></dd>
+   * 	<dt>value_currency</dt><dd>is associated to bean's property <strong>valueCurrency</strong></dd>
+   * 	<dt>value_date</dt><dd>is associated to bean's property <strong>valueDate</strong></dd>
+   * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is associated to bean's property <strong>valueDoubleType</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is associated to bean's property <strong>valueEnumType</strong></dd>
+   * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is associated to bean's property <strong>valueFloatType</strong></dd>
+   * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is associated to bean's property <strong>valueIntType</strong></dd>
+   * 	<dt>value_linked_map_string_bean</dt><dd>is associated to bean's property <strong>valueLinkedMapStringBean</strong></dd>
+   * 	<dt>value_locale</dt><dd>is associated to bean's property <strong>valueLocale</strong></dd>
+   * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is associated to bean's property <strong>valueLongArray</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is associated to bean's property <strong>valueLongList</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is associated to bean's property <strong>valueLongType</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is associated to bean's property <strong>valueLongTypeArray</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is associated to bean's property <strong>valueMapStringBean</strong></dd>
+   * 	<dt>value_set_string</dt><dd>is associated to bean's property <strong>valueSetString</strong></dd>
+   * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is associated to bean's property <strong>valueShortType</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is associated to bean's property <strong>valueStrinList</strong></dd>
+   * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is associated to bean's property <strong>valueStringArray</strong></dd>
+   * 	<dt>value_time</dt><dd>is associated to bean's property <strong>valueTime</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is associated to bean's property <strong>valueTimeList</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is associated to bean's property <strong>valueTimeZone</strong></dd>
+   * 	<dt>value_url</dt><dd>is associated to bean's property <strong>valueUrl</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -10257,93 +10257,93 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("value_bool_type");
-        int index1=_cursor.getColumnIndex("value_bool");
-        int index2=_cursor.getColumnIndex("value_byte_type");
-        int index3=_cursor.getColumnIndex("value_byte");
-        int index4=_cursor.getColumnIndex("value_short_type");
-        int index5=_cursor.getColumnIndex("value_short");
-        int index6=_cursor.getColumnIndex("value_int_type");
-        int index7=_cursor.getColumnIndex("value_int");
-        int index8=_cursor.getColumnIndex("value_string");
-        int index9=_cursor.getColumnIndex("value_char_type");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("value_bean_array");
+        int index2=_cursor.getColumnIndex("value_big_decimal");
+        int index3=_cursor.getColumnIndex("value_big_integer");
+        int index4=_cursor.getColumnIndex("value_bool");
+        int index5=_cursor.getColumnIndex("value_bool_type");
+        int index6=_cursor.getColumnIndex("value_byte");
+        int index7=_cursor.getColumnIndex("value_byte_array");
+        int index8=_cursor.getColumnIndex("value_byte_type");
+        int index9=_cursor.getColumnIndex("value_calendar");
         int index10=_cursor.getColumnIndex("value_char");
-        int index11=_cursor.getColumnIndex("value_float_type");
-        int index12=_cursor.getColumnIndex("value_float");
-        int index13=_cursor.getColumnIndex("value_big_integer");
-        int index14=_cursor.getColumnIndex("value_big_decimal");
-        int index15=_cursor.getColumnIndex("value_enum_type");
-        int index16=_cursor.getColumnIndex("value_long_type");
-        int index17=_cursor.getColumnIndex("value_long");
+        int index11=_cursor.getColumnIndex("value_char_array");
+        int index12=_cursor.getColumnIndex("value_char_list");
+        int index13=_cursor.getColumnIndex("value_char_type");
+        int index14=_cursor.getColumnIndex("value_char_type_array");
+        int index15=_cursor.getColumnIndex("value_currency");
+        int index16=_cursor.getColumnIndex("value_date");
+        int index17=_cursor.getColumnIndex("value_double");
         int index18=_cursor.getColumnIndex("value_double_type");
-        int index19=_cursor.getColumnIndex("value_double");
-        int index20=_cursor.getColumnIndex("value_locale");
-        int index21=_cursor.getColumnIndex("value_calendar");
-        int index22=_cursor.getColumnIndex("value_date");
-        int index23=_cursor.getColumnIndex("value_url");
-        int index24=_cursor.getColumnIndex("value_time");
-        int index25=_cursor.getColumnIndex("value_currency");
-        int index26=_cursor.getColumnIndex("value_time_zone");
-        int index27=_cursor.getColumnIndex("value_time_list");
-        int index28=_cursor.getColumnIndex("value_strin_list");
-        int index29=_cursor.getColumnIndex("value_long_list");
-        int index30=_cursor.getColumnIndex("value_byte_array");
-        int index31=_cursor.getColumnIndex("value_long_type_array");
-        int index32=_cursor.getColumnIndex("value_long_array");
-        int index33=_cursor.getColumnIndex("value_bean_array");
-        int index34=_cursor.getColumnIndex("value_string_array");
-        int index35=_cursor.getColumnIndex("value_char_list");
-        int index36=_cursor.getColumnIndex("value_char_type_array");
-        int index37=_cursor.getColumnIndex("value_char_array");
-        int index38=_cursor.getColumnIndex("value_map_string_bean");
-        int index39=_cursor.getColumnIndex("value_linked_map_string_bean");
-        int index40=_cursor.getColumnIndex("value_set_string");
-        int index41=_cursor.getColumnIndex("id");
+        int index19=_cursor.getColumnIndex("value_enum_type");
+        int index20=_cursor.getColumnIndex("value_float");
+        int index21=_cursor.getColumnIndex("value_float_type");
+        int index22=_cursor.getColumnIndex("value_int");
+        int index23=_cursor.getColumnIndex("value_int_type");
+        int index24=_cursor.getColumnIndex("value_linked_map_string_bean");
+        int index25=_cursor.getColumnIndex("value_locale");
+        int index26=_cursor.getColumnIndex("value_long");
+        int index27=_cursor.getColumnIndex("value_long_array");
+        int index28=_cursor.getColumnIndex("value_long_list");
+        int index29=_cursor.getColumnIndex("value_long_type");
+        int index30=_cursor.getColumnIndex("value_long_type_array");
+        int index31=_cursor.getColumnIndex("value_map_string_bean");
+        int index32=_cursor.getColumnIndex("value_set_string");
+        int index33=_cursor.getColumnIndex("value_short");
+        int index34=_cursor.getColumnIndex("value_short_type");
+        int index35=_cursor.getColumnIndex("value_strin_list");
+        int index36=_cursor.getColumnIndex("value_string");
+        int index37=_cursor.getColumnIndex("value_string_array");
+        int index38=_cursor.getColumnIndex("value_time");
+        int index39=_cursor.getColumnIndex("value_time_list");
+        int index40=_cursor.getColumnIndex("value_time_zone");
+        int index41=_cursor.getColumnIndex("value_url");
 
         resultBean=new Bean64();
 
-        if (!_cursor.isNull(index0)) { resultBean.valueBoolType=_cursor.getInt(index0)==0?false:true; }
-        if (!_cursor.isNull(index1)) { resultBean.valueBool=_cursor.getInt(index1)==0?false:true; }
-        if (!_cursor.isNull(index2)) { resultBean.valueByteType=(byte)_cursor.getInt(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.valueByte=(byte)_cursor.getInt(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.valueShortType=_cursor.getShort(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.valueShort=_cursor.getShort(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.valueIntType=_cursor.getInt(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.valueInt=_cursor.getInt(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.valueString=_cursor.getString(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.valueCharType=(char)_cursor.getInt(index9); }
+        resultBean.id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index2)); }
+        if (!_cursor.isNull(index3)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index3)); }
+        if (!_cursor.isNull(index4)) { resultBean.valueBool=_cursor.getInt(index4)==0?false:true; }
+        if (!_cursor.isNull(index5)) { resultBean.valueBoolType=_cursor.getInt(index5)==0?false:true; }
+        if (!_cursor.isNull(index6)) { resultBean.valueByte=(byte)_cursor.getInt(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.valueByteArray=_cursor.getBlob(index7); }
+        if (!_cursor.isNull(index8)) { resultBean.valueByteType=(byte)_cursor.getInt(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index9)); }
         if (!_cursor.isNull(index10)) { resultBean.valueChar=(char)_cursor.getInt(index10); }
-        if (!_cursor.isNull(index11)) { resultBean.valueFloatType=_cursor.getFloat(index11); }
-        if (!_cursor.isNull(index12)) { resultBean.valueFloat=_cursor.getFloat(index12); }
-        if (!_cursor.isNull(index13)) { resultBean.valueBigInteger=new BigInteger(_cursor.getString(index13)); }
-        if (!_cursor.isNull(index14)) { resultBean.valueBigDecimal=new BigDecimal(_cursor.getString(index14)); }
-        if (!_cursor.isNull(index15)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index15)); }
-        if (!_cursor.isNull(index16)) { resultBean.valueLongType=_cursor.getLong(index16); }
-        if (!_cursor.isNull(index17)) { resultBean.valueLong=_cursor.getLong(index17); }
+        if (!_cursor.isNull(index11)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index11)); }
+        if (!_cursor.isNull(index12)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index12)); }
+        if (!_cursor.isNull(index13)) { resultBean.valueCharType=(char)_cursor.getInt(index13); }
+        if (!_cursor.isNull(index14)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index14)); }
+        if (!_cursor.isNull(index15)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index15)); }
+        if (!_cursor.isNull(index16)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index16)); }
+        if (!_cursor.isNull(index17)) { resultBean.valueDouble=_cursor.getDouble(index17); }
         if (!_cursor.isNull(index18)) { resultBean.valueDoubleType=_cursor.getDouble(index18); }
-        if (!_cursor.isNull(index19)) { resultBean.valueDouble=_cursor.getDouble(index19); }
-        if (!_cursor.isNull(index20)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index20)); }
-        if (!_cursor.isNull(index21)) { resultBean.valueCalendar=CalendarUtils.read(_cursor.getString(index21)); }
-        if (!_cursor.isNull(index22)) { resultBean.valueDate=DateUtils.read(_cursor.getString(index22)); }
-        if (!_cursor.isNull(index23)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index23)); }
-        if (!_cursor.isNull(index24)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index24)); }
-        if (!_cursor.isNull(index25)) { resultBean.valueCurrency=CurrencyUtils.read(_cursor.getString(index25)); }
-        if (!_cursor.isNull(index26)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index26)); }
-        if (!_cursor.isNull(index27)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index27)); }
-        if (!_cursor.isNull(index28)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index28)); }
-        if (!_cursor.isNull(index29)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index29)); }
-        if (!_cursor.isNull(index30)) { resultBean.valueByteArray=_cursor.getBlob(index30); }
-        if (!_cursor.isNull(index31)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index31)); }
-        if (!_cursor.isNull(index32)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index32)); }
-        if (!_cursor.isNull(index33)) { resultBean.valueBeanArray=Bean64Table.parseValueBeanArray(_cursor.getBlob(index33)); }
-        if (!_cursor.isNull(index34)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index34)); }
-        if (!_cursor.isNull(index35)) { resultBean.valueCharList=Bean64Table.parseValueCharList(_cursor.getBlob(index35)); }
-        if (!_cursor.isNull(index36)) { resultBean.valueCharTypeArray=Bean64Table.parseValueCharTypeArray(_cursor.getBlob(index36)); }
-        if (!_cursor.isNull(index37)) { resultBean.valueCharArray=Bean64Table.parseValueCharArray(_cursor.getBlob(index37)); }
-        if (!_cursor.isNull(index38)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index38)); }
-        if (!_cursor.isNull(index39)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index39)); }
-        if (!_cursor.isNull(index40)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index40)); }
-        resultBean.id=_cursor.getLong(index41);
+        if (!_cursor.isNull(index19)) { resultBean.valueEnumType=EnumType.valueOf(_cursor.getString(index19)); }
+        if (!_cursor.isNull(index20)) { resultBean.valueFloat=_cursor.getFloat(index20); }
+        if (!_cursor.isNull(index21)) { resultBean.valueFloatType=_cursor.getFloat(index21); }
+        if (!_cursor.isNull(index22)) { resultBean.valueInt=_cursor.getInt(index22); }
+        if (!_cursor.isNull(index23)) { resultBean.valueIntType=_cursor.getInt(index23); }
+        if (!_cursor.isNull(index24)) { resultBean.valueLinkedMapStringBean=Bean64Table.parseValueLinkedMapStringBean(_cursor.getBlob(index24)); }
+        if (!_cursor.isNull(index25)) { resultBean.valueLocale=LocaleUtils.read(_cursor.getString(index25)); }
+        if (!_cursor.isNull(index26)) { resultBean.valueLong=_cursor.getLong(index26); }
+        if (!_cursor.isNull(index27)) { resultBean.valueLongArray=Bean64Table.parseValueLongArray(_cursor.getBlob(index27)); }
+        if (!_cursor.isNull(index28)) { resultBean.valueLongList=Bean64Table.parseValueLongList(_cursor.getBlob(index28)); }
+        if (!_cursor.isNull(index29)) { resultBean.valueLongType=_cursor.getLong(index29); }
+        if (!_cursor.isNull(index30)) { resultBean.valueLongTypeArray=Bean64Table.parseValueLongTypeArray(_cursor.getBlob(index30)); }
+        if (!_cursor.isNull(index31)) { resultBean.valueMapStringBean=Bean64Table.parseValueMapStringBean(_cursor.getBlob(index31)); }
+        if (!_cursor.isNull(index32)) { resultBean.valueSetString=Bean64Table.parseValueSetString(_cursor.getBlob(index32)); }
+        if (!_cursor.isNull(index33)) { resultBean.valueShort=_cursor.getShort(index33); }
+        if (!_cursor.isNull(index34)) { resultBean.valueShortType=_cursor.getShort(index34); }
+        if (!_cursor.isNull(index35)) { resultBean.valueStrinList=Bean64Table.parseValueStrinList(_cursor.getBlob(index35)); }
+        if (!_cursor.isNull(index36)) { resultBean.valueString=_cursor.getString(index36); }
+        if (!_cursor.isNull(index37)) { resultBean.valueStringArray=Bean64Table.parseValueStringArray(_cursor.getBlob(index37)); }
+        if (!_cursor.isNull(index38)) { resultBean.valueTime=SQLTimeUtils.read(_cursor.getString(index38)); }
+        if (!_cursor.isNull(index39)) { resultBean.valueTimeList=Bean64Table.parseValueTimeList(_cursor.getBlob(index39)); }
+        if (!_cursor.isNull(index40)) { resultBean.valueTimeZone=TimeZoneUtils.read(_cursor.getString(index40)); }
+        if (!_cursor.isNull(index41)) { resultBean.valueUrl=UrlUtils.read(_cursor.getString(index41)); }
 
       }
       return resultBean;
@@ -11185,51 +11185,51 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE bean64 SET value_bool_type=:valueBoolType, value_bool=:valueBool, value_byte_type=:valueByteType, value_byte=:valueByte, value_short_type=:valueShortType, value_short=:valueShort, value_int_type=:valueIntType, value_int=:valueInt, value_string=:valueString, value_char_type=:valueCharType, value_char=:valueChar, value_float_type=:valueFloatType, value_float=:valueFloat, value_big_integer=:valueBigInteger, value_big_decimal=:valueBigDecimal, value_enum_type=:valueEnumType, value_long_type=:valueLongType, value_long=:valueLong, value_double_type=:valueDoubleType, value_double=:valueDouble, value_locale=:valueLocale, value_calendar=:valueCalendar, value_date=:valueDate, value_url=:valueUrl, value_time=:valueTime, value_currency=:valueCurrency, value_time_zone=:valueTimeZone, value_time_list=:valueTimeList, value_strin_list=:valueStrinList, value_long_list=:valueLongList, value_byte_array=:valueByteArray, value_long_type_array=:valueLongTypeArray, value_long_array=:valueLongArray, value_bean_array=:valueBeanArray, value_string_array=:valueStringArray, value_char_list=:valueCharList, value_char_type_array=:valueCharTypeArray, value_char_array=:valueCharArray, value_map_string_bean=:valueMapStringBean, value_linked_map_string_bean=:valueLinkedMapStringBean, value_set_string=:valueSetString WHERE id=${value.id}</pre>
+   * <pre>UPDATE bean64 SET value_bean_array=:valueBeanArray, value_big_decimal=:valueBigDecimal, value_big_integer=:valueBigInteger, value_bool=:valueBool, value_bool_type=:valueBoolType, value_byte=:valueByte, value_byte_array=:valueByteArray, value_byte_type=:valueByteType, value_calendar=:valueCalendar, value_char=:valueChar, value_char_array=:valueCharArray, value_char_list=:valueCharList, value_char_type=:valueCharType, value_char_type_array=:valueCharTypeArray, value_currency=:valueCurrency, value_date=:valueDate, value_double=:valueDouble, value_double_type=:valueDoubleType, value_enum_type=:valueEnumType, value_float=:valueFloat, value_float_type=:valueFloatType, value_int=:valueInt, value_int_type=:valueIntType, value_linked_map_string_bean=:valueLinkedMapStringBean, value_locale=:valueLocale, value_long=:valueLong, value_long_array=:valueLongArray, value_long_list=:valueLongList, value_long_type=:valueLongType, value_long_type_array=:valueLongTypeArray, value_map_string_bean=:valueMapStringBean, value_set_string=:valueSetString, value_short=:valueShort, value_short_type=:valueShortType, value_strin_list=:valueStrinList, value_string=:valueString, value_string_array=:valueStringArray, value_time=:valueTime, value_time_list=:valueTimeList, value_time_zone=:valueTimeZone, value_url=:valueUrl WHERE id=${value.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
-   * 	<dt>value_bool_type</dt><dd>is mapped to <strong>${value.valueBoolType}</strong></dd>
-   * 	<dt>value_bool</dt><dd>is mapped to <strong>${value.valueBool}</strong></dd>
-   * 	<dt>value_byte_type</dt><dd>is mapped to <strong>${value.valueByteType}</strong></dd>
-   * 	<dt>value_byte</dt><dd>is mapped to <strong>${value.valueByte}</strong></dd>
-   * 	<dt>value_short_type</dt><dd>is mapped to <strong>${value.valueShortType}</strong></dd>
-   * 	<dt>value_short</dt><dd>is mapped to <strong>${value.valueShort}</strong></dd>
-   * 	<dt>value_int_type</dt><dd>is mapped to <strong>${value.valueIntType}</strong></dd>
-   * 	<dt>value_int</dt><dd>is mapped to <strong>${value.valueInt}</strong></dd>
-   * 	<dt>value_string</dt><dd>is mapped to <strong>${value.valueString}</strong></dd>
-   * 	<dt>value_char_type</dt><dd>is mapped to <strong>${value.valueCharType}</strong></dd>
-   * 	<dt>value_char</dt><dd>is mapped to <strong>${value.valueChar}</strong></dd>
-   * 	<dt>value_float_type</dt><dd>is mapped to <strong>${value.valueFloatType}</strong></dd>
-   * 	<dt>value_float</dt><dd>is mapped to <strong>${value.valueFloat}</strong></dd>
-   * 	<dt>value_big_integer</dt><dd>is mapped to <strong>${value.valueBigInteger}</strong></dd>
-   * 	<dt>value_big_decimal</dt><dd>is mapped to <strong>${value.valueBigDecimal}</strong></dd>
-   * 	<dt>value_enum_type</dt><dd>is mapped to <strong>${value.valueEnumType}</strong></dd>
-   * 	<dt>value_long_type</dt><dd>is mapped to <strong>${value.valueLongType}</strong></dd>
-   * 	<dt>value_long</dt><dd>is mapped to <strong>${value.valueLong}</strong></dd>
-   * 	<dt>value_double_type</dt><dd>is mapped to <strong>${value.valueDoubleType}</strong></dd>
-   * 	<dt>value_double</dt><dd>is mapped to <strong>${value.valueDouble}</strong></dd>
-   * 	<dt>value_locale</dt><dd>is mapped to <strong>${value.valueLocale}</strong></dd>
-   * 	<dt>value_calendar</dt><dd>is mapped to <strong>${value.valueCalendar}</strong></dd>
-   * 	<dt>value_date</dt><dd>is mapped to <strong>${value.valueDate}</strong></dd>
-   * 	<dt>value_url</dt><dd>is mapped to <strong>${value.valueUrl}</strong></dd>
-   * 	<dt>value_time</dt><dd>is mapped to <strong>${value.valueTime}</strong></dd>
-   * 	<dt>value_currency</dt><dd>is mapped to <strong>${value.valueCurrency}</strong></dd>
-   * 	<dt>value_time_zone</dt><dd>is mapped to <strong>${value.valueTimeZone}</strong></dd>
-   * 	<dt>value_time_list</dt><dd>is mapped to <strong>${value.valueTimeList}</strong></dd>
-   * 	<dt>value_strin_list</dt><dd>is mapped to <strong>${value.valueStrinList}</strong></dd>
-   * 	<dt>value_long_list</dt><dd>is mapped to <strong>${value.valueLongList}</strong></dd>
-   * 	<dt>value_byte_array</dt><dd>is mapped to <strong>${value.valueByteArray}</strong></dd>
-   * 	<dt>value_long_type_array</dt><dd>is mapped to <strong>${value.valueLongTypeArray}</strong></dd>
-   * 	<dt>value_long_array</dt><dd>is mapped to <strong>${value.valueLongArray}</strong></dd>
    * 	<dt>value_bean_array</dt><dd>is mapped to <strong>${value.valueBeanArray}</strong></dd>
-   * 	<dt>value_string_array</dt><dd>is mapped to <strong>${value.valueStringArray}</strong></dd>
-   * 	<dt>value_char_list</dt><dd>is mapped to <strong>${value.valueCharList}</strong></dd>
-   * 	<dt>value_char_type_array</dt><dd>is mapped to <strong>${value.valueCharTypeArray}</strong></dd>
+   * 	<dt>value_big_decimal</dt><dd>is mapped to <strong>${value.valueBigDecimal}</strong></dd>
+   * 	<dt>value_big_integer</dt><dd>is mapped to <strong>${value.valueBigInteger}</strong></dd>
+   * 	<dt>value_bool</dt><dd>is mapped to <strong>${value.valueBool}</strong></dd>
+   * 	<dt>value_bool_type</dt><dd>is mapped to <strong>${value.valueBoolType}</strong></dd>
+   * 	<dt>value_byte</dt><dd>is mapped to <strong>${value.valueByte}</strong></dd>
+   * 	<dt>value_byte_array</dt><dd>is mapped to <strong>${value.valueByteArray}</strong></dd>
+   * 	<dt>value_byte_type</dt><dd>is mapped to <strong>${value.valueByteType}</strong></dd>
+   * 	<dt>value_calendar</dt><dd>is mapped to <strong>${value.valueCalendar}</strong></dd>
+   * 	<dt>value_char</dt><dd>is mapped to <strong>${value.valueChar}</strong></dd>
    * 	<dt>value_char_array</dt><dd>is mapped to <strong>${value.valueCharArray}</strong></dd>
-   * 	<dt>value_map_string_bean</dt><dd>is mapped to <strong>${value.valueMapStringBean}</strong></dd>
+   * 	<dt>value_char_list</dt><dd>is mapped to <strong>${value.valueCharList}</strong></dd>
+   * 	<dt>value_char_type</dt><dd>is mapped to <strong>${value.valueCharType}</strong></dd>
+   * 	<dt>value_char_type_array</dt><dd>is mapped to <strong>${value.valueCharTypeArray}</strong></dd>
+   * 	<dt>value_currency</dt><dd>is mapped to <strong>${value.valueCurrency}</strong></dd>
+   * 	<dt>value_date</dt><dd>is mapped to <strong>${value.valueDate}</strong></dd>
+   * 	<dt>value_double</dt><dd>is mapped to <strong>${value.valueDouble}</strong></dd>
+   * 	<dt>value_double_type</dt><dd>is mapped to <strong>${value.valueDoubleType}</strong></dd>
+   * 	<dt>value_enum_type</dt><dd>is mapped to <strong>${value.valueEnumType}</strong></dd>
+   * 	<dt>value_float</dt><dd>is mapped to <strong>${value.valueFloat}</strong></dd>
+   * 	<dt>value_float_type</dt><dd>is mapped to <strong>${value.valueFloatType}</strong></dd>
+   * 	<dt>value_int</dt><dd>is mapped to <strong>${value.valueInt}</strong></dd>
+   * 	<dt>value_int_type</dt><dd>is mapped to <strong>${value.valueIntType}</strong></dd>
    * 	<dt>value_linked_map_string_bean</dt><dd>is mapped to <strong>${value.valueLinkedMapStringBean}</strong></dd>
+   * 	<dt>value_locale</dt><dd>is mapped to <strong>${value.valueLocale}</strong></dd>
+   * 	<dt>value_long</dt><dd>is mapped to <strong>${value.valueLong}</strong></dd>
+   * 	<dt>value_long_array</dt><dd>is mapped to <strong>${value.valueLongArray}</strong></dd>
+   * 	<dt>value_long_list</dt><dd>is mapped to <strong>${value.valueLongList}</strong></dd>
+   * 	<dt>value_long_type</dt><dd>is mapped to <strong>${value.valueLongType}</strong></dd>
+   * 	<dt>value_long_type_array</dt><dd>is mapped to <strong>${value.valueLongTypeArray}</strong></dd>
+   * 	<dt>value_map_string_bean</dt><dd>is mapped to <strong>${value.valueMapStringBean}</strong></dd>
    * 	<dt>value_set_string</dt><dd>is mapped to <strong>${value.valueSetString}</strong></dd>
+   * 	<dt>value_short</dt><dd>is mapped to <strong>${value.valueShort}</strong></dd>
+   * 	<dt>value_short_type</dt><dd>is mapped to <strong>${value.valueShortType}</strong></dd>
+   * 	<dt>value_strin_list</dt><dd>is mapped to <strong>${value.valueStrinList}</strong></dd>
+   * 	<dt>value_string</dt><dd>is mapped to <strong>${value.valueString}</strong></dd>
+   * 	<dt>value_string_array</dt><dd>is mapped to <strong>${value.valueStringArray}</strong></dd>
+   * 	<dt>value_time</dt><dd>is mapped to <strong>${value.valueTime}</strong></dd>
+   * 	<dt>value_time_list</dt><dd>is mapped to <strong>${value.valueTimeList}</strong></dd>
+   * 	<dt>value_time_zone</dt><dd>is mapped to <strong>${value.valueTimeZone}</strong></dd>
+   * 	<dt>value_url</dt><dd>is mapped to <strong>${value.valueUrl}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -11246,51 +11246,51 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   public long updateOne(Bean64 value) {
     if (updateOnePreparedStatement63==null) {
       // generate static SQL for statement
-      String _sql="UPDATE bean64 SET value_bool_type=?, value_bool=?, value_byte_type=?, value_byte=?, value_short_type=?, value_short=?, value_int_type=?, value_int=?, value_string=?, value_char_type=?, value_char=?, value_float_type=?, value_float=?, value_big_integer=?, value_big_decimal=?, value_enum_type=?, value_long_type=?, value_long=?, value_double_type=?, value_double=?, value_locale=?, value_calendar=?, value_date=?, value_url=?, value_time=?, value_currency=?, value_time_zone=?, value_time_list=?, value_strin_list=?, value_long_list=?, value_byte_array=?, value_long_type_array=?, value_long_array=?, value_bean_array=?, value_string_array=?, value_char_list=?, value_char_type_array=?, value_char_array=?, value_map_string_bean=?, value_linked_map_string_bean=?, value_set_string=? WHERE id=?";
+      String _sql="UPDATE bean64 SET value_bean_array=?, value_big_decimal=?, value_big_integer=?, value_bool=?, value_bool_type=?, value_byte=?, value_byte_array=?, value_byte_type=?, value_calendar=?, value_char=?, value_char_array=?, value_char_list=?, value_char_type=?, value_char_type_array=?, value_currency=?, value_date=?, value_double=?, value_double_type=?, value_enum_type=?, value_float=?, value_float_type=?, value_int=?, value_int_type=?, value_linked_map_string_bean=?, value_locale=?, value_long=?, value_long_array=?, value_long_list=?, value_long_type=?, value_long_type_array=?, value_map_string_bean=?, value_set_string=?, value_short=?, value_short_type=?, value_strin_list=?, value_string=?, value_string_array=?, value_time=?, value_time_list=?, value_time_zone=?, value_url=? WHERE id=?";
       updateOnePreparedStatement63 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateOnePreparedStatement63);
-    _contentValues.put("value_bool_type", value.valueBoolType);
-    _contentValues.put("value_bool", value.valueBool);
-    _contentValues.put("value_byte_type", value.valueByteType);
-    _contentValues.put("value_byte", value.valueByte);
-    _contentValues.put("value_short_type", value.valueShortType);
-    _contentValues.put("value_short", value.valueShort);
-    _contentValues.put("value_int_type", value.valueIntType);
-    _contentValues.put("value_int", value.valueInt);
-    _contentValues.put("value_string", value.valueString);
-    _contentValues.put("value_char_type", value.valueCharType);
-    _contentValues.put("value_char", value.valueChar);
-    _contentValues.put("value_float_type", value.valueFloatType);
-    _contentValues.put("value_float", value.valueFloat);
-    _contentValues.put("value_big_integer", value.valueBigInteger);
-    _contentValues.put("value_big_decimal", value.valueBigDecimal);
-    _contentValues.put("value_enum_type", EnumUtils.write(value.valueEnumType));
-    _contentValues.put("value_long_type", value.valueLongType);
-    _contentValues.put("value_long", value.valueLong);
-    _contentValues.put("value_double_type", value.valueDoubleType);
-    _contentValues.put("value_double", value.valueDouble);
-    _contentValues.put("value_locale", LocaleUtils.write(value.valueLocale));
-    _contentValues.put("value_calendar", CalendarUtils.write(value.valueCalendar));
-    _contentValues.put("value_date", DateUtils.write(value.valueDate));
-    _contentValues.put("value_url", UrlUtils.write(value.valueUrl));
-    _contentValues.put("value_time", SQLTimeUtils.write(value.valueTime));
-    _contentValues.put("value_currency", CurrencyUtils.write(value.valueCurrency));
-    _contentValues.put("value_time_zone", TimeZoneUtils.write(value.valueTimeZone));
-    _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(value.valueTimeList));
-    _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(value.valueStrinList));
-    _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(value.valueLongList));
-    _contentValues.put("value_byte_array", value.valueByteArray);
-    _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(value.valueLongTypeArray));
-    _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(value.valueLongArray));
     _contentValues.put("value_bean_array", Bean64Table.serializeValueBeanArray(value.valueBeanArray));
-    _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(value.valueStringArray));
-    _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(value.valueCharList));
-    _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(value.valueCharTypeArray));
+    _contentValues.put("value_big_decimal", value.valueBigDecimal);
+    _contentValues.put("value_big_integer", value.valueBigInteger);
+    _contentValues.put("value_bool", value.valueBool);
+    _contentValues.put("value_bool_type", value.valueBoolType);
+    _contentValues.put("value_byte", value.valueByte);
+    _contentValues.put("value_byte_array", value.valueByteArray);
+    _contentValues.put("value_byte_type", value.valueByteType);
+    _contentValues.put("value_calendar", CalendarUtils.write(value.valueCalendar));
+    _contentValues.put("value_char", value.valueChar);
     _contentValues.put("value_char_array", Bean64Table.serializeValueCharArray(value.valueCharArray));
-    _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(value.valueMapStringBean));
+    _contentValues.put("value_char_list", Bean64Table.serializeValueCharList(value.valueCharList));
+    _contentValues.put("value_char_type", value.valueCharType);
+    _contentValues.put("value_char_type_array", Bean64Table.serializeValueCharTypeArray(value.valueCharTypeArray));
+    _contentValues.put("value_currency", CurrencyUtils.write(value.valueCurrency));
+    _contentValues.put("value_date", DateUtils.write(value.valueDate));
+    _contentValues.put("value_double", value.valueDouble);
+    _contentValues.put("value_double_type", value.valueDoubleType);
+    _contentValues.put("value_enum_type", EnumUtils.write(value.valueEnumType));
+    _contentValues.put("value_float", value.valueFloat);
+    _contentValues.put("value_float_type", value.valueFloatType);
+    _contentValues.put("value_int", value.valueInt);
+    _contentValues.put("value_int_type", value.valueIntType);
     _contentValues.put("value_linked_map_string_bean", Bean64Table.serializeValueLinkedMapStringBean(value.valueLinkedMapStringBean));
+    _contentValues.put("value_locale", LocaleUtils.write(value.valueLocale));
+    _contentValues.put("value_long", value.valueLong);
+    _contentValues.put("value_long_array", Bean64Table.serializeValueLongArray(value.valueLongArray));
+    _contentValues.put("value_long_list", Bean64Table.serializeValueLongList(value.valueLongList));
+    _contentValues.put("value_long_type", value.valueLongType);
+    _contentValues.put("value_long_type_array", Bean64Table.serializeValueLongTypeArray(value.valueLongTypeArray));
+    _contentValues.put("value_map_string_bean", Bean64Table.serializeValueMapStringBean(value.valueMapStringBean));
     _contentValues.put("value_set_string", Bean64Table.serializeValueSetString(value.valueSetString));
+    _contentValues.put("value_short", value.valueShort);
+    _contentValues.put("value_short_type", value.valueShortType);
+    _contentValues.put("value_strin_list", Bean64Table.serializeValueStrinList(value.valueStrinList));
+    _contentValues.put("value_string", value.valueString);
+    _contentValues.put("value_string_array", Bean64Table.serializeValueStringArray(value.valueStringArray));
+    _contentValues.put("value_time", SQLTimeUtils.write(value.valueTime));
+    _contentValues.put("value_time_list", Bean64Table.serializeValueTimeList(value.valueTimeList));
+    _contentValues.put("value_time_zone", TimeZoneUtils.write(value.valueTimeZone));
+    _contentValues.put("value_url", UrlUtils.write(value.valueUrl));
 
     _contentValues.addWhereArgs(String.valueOf(value.id));
 
@@ -11300,7 +11300,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE bean64 SET value_bool_type=:value_bool_type, value_bool=:value_bool, value_byte_type=:value_byte_type, value_byte=:value_byte, value_short_type=:value_short_type, value_short=:value_short, value_int_type=:value_int_type, value_int=:value_int, value_string=:value_string, value_char_type=:value_char_type, value_char=:value_char, value_float_type=:value_float_type, value_float=:value_float, value_big_integer=:value_big_integer, value_big_decimal=:value_big_decimal, value_enum_type=:value_enum_type, value_long_type=:value_long_type, value_long=:value_long, value_double_type=:value_double_type, value_double=:value_double, value_locale=:value_locale, value_calendar=:value_calendar, value_date=:value_date, value_url=:value_url, value_time=:value_time, value_currency=:value_currency, value_time_zone=:value_time_zone, value_time_list=:value_time_list, value_strin_list=:value_strin_list, value_long_list=:value_long_list, value_byte_array=:value_byte_array, value_long_type_array=:value_long_type_array, value_long_array=:value_long_array, value_bean_array=:value_bean_array, value_string_array=:value_string_array, value_char_list=:value_char_list, value_char_type_array=:value_char_type_array, value_char_array=:value_char_array, value_map_string_bean=:value_map_string_bean, value_linked_map_string_bean=:value_linked_map_string_bean, value_set_string=:value_set_string WHERE id=?");
+      Logger.info("UPDATE bean64 SET value_bean_array=:value_bean_array, value_big_decimal=:value_big_decimal, value_big_integer=:value_big_integer, value_bool=:value_bool, value_bool_type=:value_bool_type, value_byte=:value_byte, value_byte_array=:value_byte_array, value_byte_type=:value_byte_type, value_calendar=:value_calendar, value_char=:value_char, value_char_array=:value_char_array, value_char_list=:value_char_list, value_char_type=:value_char_type, value_char_type_array=:value_char_type_array, value_currency=:value_currency, value_date=:value_date, value_double=:value_double, value_double_type=:value_double_type, value_enum_type=:value_enum_type, value_float=:value_float, value_float_type=:value_float_type, value_int=:value_int, value_int_type=:value_int_type, value_linked_map_string_bean=:value_linked_map_string_bean, value_locale=:value_locale, value_long=:value_long, value_long_array=:value_long_array, value_long_list=:value_long_list, value_long_type=:value_long_type, value_long_type_array=:value_long_type_array, value_map_string_bean=:value_map_string_bean, value_set_string=:value_set_string, value_short=:value_short, value_short_type=:value_short_type, value_strin_list=:value_strin_list, value_string=:value_string, value_string_array=:value_string_array, value_time=:value_time, value_time_list=:value_time_list, value_time_zone=:value_time_zone, value_url=:value_url WHERE id=?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -13407,76 +13407,6 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   }
 
   /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(Bean64[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        Bean64 item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private Bean64[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Bean64[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Bean64> collection=new ArrayList<>();
-        Bean64 item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=bean64BindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
    * for param serializer2 serialization
    */
   private byte[] serializer2(Long[] value) {
@@ -13547,9 +13477,9 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   }
 
   /**
-   * for param serializer5 serialization
+   * for param serializer1 serialization
    */
-  private byte[] serializer5(Set<String> value) {
+  private byte[] serializer1(Bean64[] value) {
     if (value==null) {
       return null;
     }
@@ -13559,14 +13489,17 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
+        int n=value.length;
+        Bean64 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("element");
         jacksonSerializer.writeStartArray();
-        for (String item: value) {
+        for (int i=0; i<n; i++) {
+          item=value[i];
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item);
+            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -13580,9 +13513,9 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   }
 
   /**
-   * for param parser5 parsing
+   * for param parser1 parsing
    */
-  private Set<String> parser5(byte[] input) {
+  private Bean64[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -13593,19 +13526,19 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Set<String> result=null;
+      Bean64[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
+        ArrayList<Bean64> collection=new ArrayList<>();
+        Bean64 item=null;
         while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=jacksonParser.getText();
+            item=bean64BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
-        result=collection;
+        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
       }
       return result;
     } catch(Exception e) {
@@ -13742,6 +13675,73 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer5 serialization
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser5 parsing
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {

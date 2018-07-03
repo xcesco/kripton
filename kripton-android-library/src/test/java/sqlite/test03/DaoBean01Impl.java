@@ -18,7 +18,7 @@ import java.util.List;
  *  @see Bean01Table
  */
 public class DaoBean01Impl extends Dao implements DaoBean01 {
-  private static final String LIST_ALL_SQL1 = "SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1";
+  private static final String LIST_ALL_SQL1 = "SELECT id, bean_list, lista, message_date, message_text, value FROM bean01 WHERE 1=1";
 
   public DaoBean01Impl(BindDummy01DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -27,15 +27,15 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT lista, id, message_date, message_text, bean_list, value FROM bean01 WHERE 1=1</pre>
+   * <pre>SELECT id, bean_list, lista, message_date, message_text, value FROM bean01 WHERE 1=1</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>lista</dt><dd>is associated to bean's property <strong>lista</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>bean_list</dt><dd>is associated to bean's property <strong>beanList</strong></dd>
+   * 	<dt>lista</dt><dd>is associated to bean's property <strong>lista</strong></dd>
    * 	<dt>message_date</dt><dd>is associated to bean's property <strong>messageDate</strong></dd>
    * 	<dt>message_text</dt><dd>is associated to bean's property <strong>messageText</strong></dd>
-   * 	<dt>bean_list</dt><dd>is associated to bean's property <strong>beanList</strong></dd>
    * 	<dt>value</dt><dd>is associated to bean's property <strong>value</strong></dd>
    * </dl>
    *
@@ -73,22 +73,22 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("lista");
-        int index1=_cursor.getColumnIndex("id");
-        int index2=_cursor.getColumnIndex("message_date");
-        int index3=_cursor.getColumnIndex("message_text");
-        int index4=_cursor.getColumnIndex("bean_list");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("bean_list");
+        int index2=_cursor.getColumnIndex("lista");
+        int index3=_cursor.getColumnIndex("message_date");
+        int index4=_cursor.getColumnIndex("message_text");
         int index5=_cursor.getColumnIndex("value");
 
         do
          {
           resultBean=new Bean01();
 
-          if (!_cursor.isNull(index0)) { resultBean.setLista(Bean01Table.parseLista(_cursor.getBlob(index0))); }
-          resultBean.setId(_cursor.getLong(index1));
-          if (!_cursor.isNull(index2)) { resultBean.setMessageDate(_cursor.getLong(index2)); }
-          resultBean.setMessageText(_cursor.getString(index3));
-          if (!_cursor.isNull(index4)) { resultBean.setBeanList(Bean01Table.parseBeanList(_cursor.getBlob(index4))); }
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.setBeanList(Bean01Table.parseBeanList(_cursor.getBlob(index1))); }
+          if (!_cursor.isNull(index2)) { resultBean.setLista(Bean01Table.parseLista(_cursor.getBlob(index2))); }
+          if (!_cursor.isNull(index3)) { resultBean.setMessageDate(_cursor.getLong(index3)); }
+          resultBean.setMessageText(_cursor.getString(index4));
           if (!_cursor.isNull(index5)) { resultBean.setValue(_cursor.getLong(index5)); }
 
           resultList.add(resultBean);

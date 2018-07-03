@@ -18,7 +18,7 @@ import java.util.List;
  *  @see PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static final String SELECT_ALL_SQL1 = "SELECT name, id FROM person";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, name FROM person";
 
   public DaoPersonImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -27,12 +27,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT name, id FROM person</pre>
+   * <pre>SELECT id, name FROM person</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -69,15 +69,15 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
       if (_cursor.moveToFirst()) {
 
-        int index0=_cursor.getColumnIndex("name");
-        int index1=_cursor.getColumnIndex("id");
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("name");
 
         do
          {
           resultBean=new Person();
 
-          if (!_cursor.isNull(index0)) { resultBean.name=_cursor.getString(index0); }
-          resultBean.setId(_cursor.getLong(index1));
+          resultBean.setId(_cursor.getLong(index0));
+          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());

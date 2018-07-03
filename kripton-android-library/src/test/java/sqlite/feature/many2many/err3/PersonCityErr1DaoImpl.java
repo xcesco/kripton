@@ -21,11 +21,11 @@ import java.util.List;
  *  @see PersonCityErr3Table
  */
 public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr1Dao {
-  private static final String SELECT_BY_ID_SQL5 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE id=?";
+  private static final String SELECT_BY_ID_SQL5 = "SELECT id, city_id, person_id FROM person_city_err3 WHERE id=?";
 
-  private static final String SELECT_BY_PERSON_ID_SQL6 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE person_id=?";
+  private static final String SELECT_BY_PERSON_ID_SQL6 = "SELECT id, city_id, person_id FROM person_city_err3 WHERE person_id=?";
 
-  private static final String SELECT_BY_CITY_ID_SQL7 = "SELECT id, person_id, city_id FROM person_city_err3 WHERE city_id=?";
+  private static final String SELECT_BY_CITY_ID_SQL7 = "SELECT id, city_id, person_id FROM person_city_err3 WHERE city_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -42,13 +42,13 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_err3 WHERE id=${id}</pre>
+   * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
+   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -94,16 +94,16 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("city_id");
+        int index1=_cursor.getColumnIndex("city_id");
+        int index2=_cursor.getColumnIndex("person_id");
 
         do
          {
           resultBean=new PersonCityErr3();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -116,13 +116,13 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_err3 WHERE person_id=${personId}</pre>
+   * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE person_id=${personId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
+   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -168,16 +168,16 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("city_id");
+        int index1=_cursor.getColumnIndex("city_id");
+        int index2=_cursor.getColumnIndex("person_id");
 
         do
          {
           resultBean=new PersonCityErr3();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -190,13 +190,13 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_err3 WHERE city_id=${cityId}</pre>
+   * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE city_id=${cityId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
+   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -242,16 +242,16 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("city_id");
+        int index1=_cursor.getColumnIndex("city_id");
+        int index2=_cursor.getColumnIndex("person_id");
 
         do
          {
           resultBean=new PersonCityErr3();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -398,14 +398,14 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person_city_err3 (person_id, city_id) VALUES (${personId}, ${cityId})</pre>
+   * <pre>INSERT INTO person_city_err3 (city_id, person_id) VALUES (${cityId}, ${personId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>person_id</dt><dd>is mapped to <strong>${bean.personId}</strong></dd>
    * 	<dt>city_id</dt><dd>is mapped to <strong>${bean.cityId}</strong></dd>
+   * 	<dt>person_id</dt><dd>is mapped to <strong>${bean.personId}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -417,12 +417,12 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
   public int insert(PersonCityErr3 bean) {
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person_city_err3 (person_id, city_id) VALUES (?, ?)";
+      String _sql="INSERT INTO person_city_err3 (city_id, person_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
-    _contentValues.put("person_id", bean.personId);
     _contentValues.put("city_id", bean.cityId);
+    _contentValues.put("person_id", bean.personId);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

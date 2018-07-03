@@ -25,9 +25,9 @@ import sqlite.quickstart.model.UserTable;
 public class UserDaoImpl extends Dao implements UserDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_ALL_SQL1 = "SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc";
+  private static final String SELECT_ALL_SQL1 = "SELECT id, address, company, email, name, phone, username, website FROM user ORDER BY username asc";
 
-  private static final String SELECT_BY_ID_SQL2 = "SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ?";
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, address, company, email, name, phone, username, website FROM user WHERE id = ?";
 
   public UserDaoImpl(BindQuickStartDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -35,20 +35,20 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO user (id, name, username, email, address, phone, website, company) VALUES (${bean.id}, ${bean.name}, ${bean.username}, ${bean.email}, ${bean.address}, ${bean.phone}, ${bean.website}, ${bean.company})</pre>
+   * <pre>INSERT INTO user (id, address, company, email, name, phone, username, website) VALUES (${bean.id}, ${bean.address}, ${bean.company}, ${bean.email}, ${bean.name}, ${bean.phone}, ${bean.username}, ${bean.website})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>id</dt><dd>is mapped to <strong>${bean.id}</strong></dd>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>username</dt><dd>is mapped to <strong>${bean.username}</strong></dd>
-   * 	<dt>email</dt><dd>is mapped to <strong>${bean.email}</strong></dd>
    * 	<dt>address</dt><dd>is mapped to <strong>${bean.address}</strong></dd>
-   * 	<dt>phone</dt><dd>is mapped to <strong>${bean.phone}</strong></dd>
-   * 	<dt>website</dt><dd>is mapped to <strong>${bean.website}</strong></dd>
    * 	<dt>company</dt><dd>is mapped to <strong>${bean.company}</strong></dd>
+   * 	<dt>email</dt><dd>is mapped to <strong>${bean.email}</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
+   * 	<dt>phone</dt><dd>is mapped to <strong>${bean.phone}</strong></dd>
+   * 	<dt>username</dt><dd>is mapped to <strong>${bean.username}</strong></dd>
+   * 	<dt>website</dt><dd>is mapped to <strong>${bean.website}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -59,18 +59,18 @@ public class UserDaoImpl extends Dao implements UserDao {
   public void insert(User bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO user (id, name, username, email, address, phone, website, company) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO user (id, address, company, email, name, phone, username, website) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
     _contentValues.put("id", bean.id);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("username", bean.username);
-    _contentValues.put("email", bean.email);
     _contentValues.put("address", UserTable.serializeAddress(bean.address));
-    _contentValues.put("phone", bean.phone);
-    _contentValues.put("website", bean.website);
     _contentValues.put("company", UserTable.serializeCompany(bean.company));
+    _contentValues.put("email", bean.email);
+    _contentValues.put("name", bean.name);
+    _contentValues.put("phone", bean.phone);
+    _contentValues.put("username", bean.username);
+    _contentValues.put("website", bean.website);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -115,18 +115,18 @@ public class UserDaoImpl extends Dao implements UserDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, username, email, address, phone, website, company FROM user ORDER BY username asc</pre>
+   * <pre>SELECT id, address, company, email, name, phone, username, website FROM user ORDER BY username asc</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>username</dt><dd>is associated to bean's property <strong>username</strong></dd>
-   * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
    * 	<dt>address</dt><dd>is associated to bean's property <strong>address</strong></dd>
-   * 	<dt>phone</dt><dd>is associated to bean's property <strong>phone</strong></dd>
-   * 	<dt>website</dt><dd>is associated to bean's property <strong>website</strong></dd>
    * 	<dt>company</dt><dd>is associated to bean's property <strong>company</strong></dd>
+   * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>phone</dt><dd>is associated to bean's property <strong>phone</strong></dd>
+   * 	<dt>username</dt><dd>is associated to bean's property <strong>username</strong></dd>
+   * 	<dt>website</dt><dd>is associated to bean's property <strong>website</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -164,26 +164,26 @@ public class UserDaoImpl extends Dao implements UserDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("username");
+        int index1=_cursor.getColumnIndex("address");
+        int index2=_cursor.getColumnIndex("company");
         int index3=_cursor.getColumnIndex("email");
-        int index4=_cursor.getColumnIndex("address");
+        int index4=_cursor.getColumnIndex("name");
         int index5=_cursor.getColumnIndex("phone");
-        int index6=_cursor.getColumnIndex("website");
-        int index7=_cursor.getColumnIndex("company");
+        int index6=_cursor.getColumnIndex("username");
+        int index7=_cursor.getColumnIndex("website");
 
         do
          {
           resultBean=new User();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.username=_cursor.getString(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.address=UserTable.parseAddress(_cursor.getBlob(index1)); }
+          if (!_cursor.isNull(index2)) { resultBean.company=UserTable.parseCompany(_cursor.getBlob(index2)); }
           if (!_cursor.isNull(index3)) { resultBean.email=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(_cursor.getBlob(index4)); }
+          if (!_cursor.isNull(index4)) { resultBean.name=_cursor.getString(index4); }
           if (!_cursor.isNull(index5)) { resultBean.phone=_cursor.getString(index5); }
-          if (!_cursor.isNull(index6)) { resultBean.website=_cursor.getString(index6); }
-          if (!_cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(_cursor.getBlob(index7)); }
+          if (!_cursor.isNull(index6)) { resultBean.username=_cursor.getString(index6); }
+          if (!_cursor.isNull(index7)) { resultBean.website=_cursor.getString(index7); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -196,18 +196,18 @@ public class UserDaoImpl extends Dao implements UserDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, username, email, address, phone, website, company FROM user WHERE id = ${value}</pre>
+   * <pre>SELECT id, address, company, email, name, phone, username, website FROM user WHERE id = ${value}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>username</dt><dd>is associated to bean's property <strong>username</strong></dd>
-   * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
    * 	<dt>address</dt><dd>is associated to bean's property <strong>address</strong></dd>
-   * 	<dt>phone</dt><dd>is associated to bean's property <strong>phone</strong></dd>
-   * 	<dt>website</dt><dd>is associated to bean's property <strong>website</strong></dd>
    * 	<dt>company</dt><dd>is associated to bean's property <strong>company</strong></dd>
+   * 	<dt>email</dt><dd>is associated to bean's property <strong>email</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>phone</dt><dd>is associated to bean's property <strong>phone</strong></dd>
+   * 	<dt>username</dt><dd>is associated to bean's property <strong>username</strong></dd>
+   * 	<dt>website</dt><dd>is associated to bean's property <strong>website</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -252,24 +252,24 @@ public class UserDaoImpl extends Dao implements UserDao {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("username");
+        int index1=_cursor.getColumnIndex("address");
+        int index2=_cursor.getColumnIndex("company");
         int index3=_cursor.getColumnIndex("email");
-        int index4=_cursor.getColumnIndex("address");
+        int index4=_cursor.getColumnIndex("name");
         int index5=_cursor.getColumnIndex("phone");
-        int index6=_cursor.getColumnIndex("website");
-        int index7=_cursor.getColumnIndex("company");
+        int index6=_cursor.getColumnIndex("username");
+        int index7=_cursor.getColumnIndex("website");
 
         resultBean=new User();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.username=_cursor.getString(index2); }
+        if (!_cursor.isNull(index1)) { resultBean.address=UserTable.parseAddress(_cursor.getBlob(index1)); }
+        if (!_cursor.isNull(index2)) { resultBean.company=UserTable.parseCompany(_cursor.getBlob(index2)); }
         if (!_cursor.isNull(index3)) { resultBean.email=_cursor.getString(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.address=UserTable.parseAddress(_cursor.getBlob(index4)); }
+        if (!_cursor.isNull(index4)) { resultBean.name=_cursor.getString(index4); }
         if (!_cursor.isNull(index5)) { resultBean.phone=_cursor.getString(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.website=_cursor.getString(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.company=UserTable.parseCompany(_cursor.getBlob(index7)); }
+        if (!_cursor.isNull(index6)) { resultBean.username=_cursor.getString(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.website=_cursor.getString(index7); }
 
       }
       return resultBean;

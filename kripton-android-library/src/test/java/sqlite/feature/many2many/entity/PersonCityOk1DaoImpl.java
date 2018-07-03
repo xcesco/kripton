@@ -21,13 +21,13 @@ import java.util.List;
  *  @see PersonCityOk1Table
  */
 public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1Dao {
-  private static final String SELECT_ALL_SQL5 = "SELECT id, person_id, city_id FROM person_city_ok1";
+  private static final String SELECT_ALL_SQL5 = "SELECT id, city_id, person_id FROM person_city_ok1";
 
-  private static final String SELECT_BY_ID_SQL6 = "SELECT id, person_id, city_id FROM person_city_ok1 WHERE id=?";
+  private static final String SELECT_BY_ID_SQL6 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE id=?";
 
-  private static final String SELECT_BY_PERSON_ID_SQL7 = "SELECT id, person_id, city_id FROM person_city_ok1 WHERE person_id=?";
+  private static final String SELECT_BY_PERSON_ID_SQL7 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE person_id=?";
 
-  private static final String SELECT_BY_CITY_ID_SQL8 = "SELECT id, person_id, city_id FROM person_city_ok1 WHERE city_id=?";
+  private static final String SELECT_BY_CITY_ID_SQL8 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE city_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -44,13 +44,13 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_ok1</pre>
+   * <pre>SELECT id, city_id, person_id FROM person_city_ok1</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
+   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * </dl>
    *
    * @return collection of bean or empty collection.
@@ -88,16 +88,16 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("city_id");
+        int index1=_cursor.getColumnIndex("city_id");
+        int index2=_cursor.getColumnIndex("person_id");
 
         do
          {
           resultBean=new PersonCityOk1();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -110,13 +110,13 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_ok1 WHERE id=${id}</pre>
+   * <pre>SELECT id, city_id, person_id FROM person_city_ok1 WHERE id=${id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
+   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -161,14 +161,14 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("city_id");
+        int index1=_cursor.getColumnIndex("city_id");
+        int index2=_cursor.getColumnIndex("person_id");
 
         resultBean=new PersonCityOk1();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
+        if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
       }
       return resultBean;
@@ -178,13 +178,13 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_ok1 WHERE person_id=${personId}</pre>
+   * <pre>SELECT id, city_id, person_id FROM person_city_ok1 WHERE person_id=${personId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
+   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -230,16 +230,16 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("city_id");
+        int index1=_cursor.getColumnIndex("city_id");
+        int index2=_cursor.getColumnIndex("person_id");
 
         do
          {
           resultBean=new PersonCityOk1();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -252,13 +252,13 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, person_id, city_id FROM person_city_ok1 WHERE city_id=${cityId}</pre>
+   * <pre>SELECT id, city_id, person_id FROM person_city_ok1 WHERE city_id=${cityId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * 	<dt>city_id</dt><dd>is associated to bean's property <strong>cityId</strong></dd>
+   * 	<dt>person_id</dt><dd>is associated to bean's property <strong>personId</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -304,16 +304,16 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("person_id");
-        int index2=_cursor.getColumnIndex("city_id");
+        int index1=_cursor.getColumnIndex("city_id");
+        int index2=_cursor.getColumnIndex("person_id");
 
         do
          {
           resultBean=new PersonCityOk1();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.personId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.cityId=_cursor.getLong(index2); }
+          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -460,14 +460,14 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person_city_ok1 (person_id, city_id) VALUES (${personId}, ${cityId})</pre>
+   * <pre>INSERT INTO person_city_ok1 (city_id, person_id) VALUES (${cityId}, ${personId})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>person_id</dt><dd>is mapped to <strong>${bean.personId}</strong></dd>
    * 	<dt>city_id</dt><dd>is mapped to <strong>${bean.cityId}</strong></dd>
+   * 	<dt>person_id</dt><dd>is mapped to <strong>${bean.personId}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -479,12 +479,12 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
   public int insert(PersonCityOk1 bean) {
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person_city_ok1 (person_id, city_id) VALUES (?, ?)";
+      String _sql="INSERT INTO person_city_ok1 (city_id, person_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
-    _contentValues.put("person_id", bean.personId);
     _contentValues.put("city_id", bean.cityId);
+    _contentValues.put("person_id", bean.personId);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

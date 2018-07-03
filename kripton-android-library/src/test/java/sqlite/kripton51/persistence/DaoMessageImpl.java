@@ -25,13 +25,13 @@ import sqlite.kripton51.internal.MessageType;
  *  @see sqlite.kripton51.entities.MessageEntityTable
  */
 public class DaoMessageImpl extends Dao implements DaoMessage {
-  private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ?";
+  private static final String SELECT_BY_CHANNEL_SQL1 = "SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE channel_id = ?";
 
   private static SQLiteStatement updateByIdPreparedStatement0;
 
   private static SQLiteStatement insertPreparedStatement1;
 
-  private static final String SELECT_BY_UID_SQL2 = "SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ?";
+  private static final String SELECT_BY_UID_SQL2 = "SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE uid = ?";
 
   public DaoMessageImpl(BindWhisperDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -40,20 +40,20 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE channel_id = ${channelId}</pre>
+   * <pre>SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE channel_id = ${channelId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>channel_id</dt><dd>is associated to bean's property <strong>channelId</strong></dd>
-   * 	<dt>owner_type</dt><dd>is associated to bean's property <strong>ownerType</strong></dd>
-   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
-   * 	<dt>face_uid</dt><dd>is associated to bean's property <strong>faceUid</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
    * 	<dt>channel_uid</dt><dd>is associated to bean's property <strong>channelUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
+   * 	<dt>face_uid</dt><dd>is associated to bean's property <strong>faceUid</strong></dd>
+   * 	<dt>owner_type</dt><dd>is associated to bean's property <strong>ownerType</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -100,14 +100,14 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("channel_id");
-        int index2=_cursor.getColumnIndex("owner_type");
-        int index3=_cursor.getColumnIndex("uid");
-        int index4=_cursor.getColumnIndex("face_uid");
-        int index5=_cursor.getColumnIndex("text");
-        int index6=_cursor.getColumnIndex("owner_uid");
-        int index7=_cursor.getColumnIndex("channel_uid");
-        int index8=_cursor.getColumnIndex("update_time");
-        int index9=_cursor.getColumnIndex("type");
+        int index2=_cursor.getColumnIndex("channel_uid");
+        int index3=_cursor.getColumnIndex("face_uid");
+        int index4=_cursor.getColumnIndex("owner_type");
+        int index5=_cursor.getColumnIndex("owner_uid");
+        int index6=_cursor.getColumnIndex("text");
+        int index7=_cursor.getColumnIndex("type");
+        int index8=_cursor.getColumnIndex("uid");
+        int index9=_cursor.getColumnIndex("update_time");
 
         do
          {
@@ -115,14 +115,14 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
           resultBean.id=_cursor.getLong(index0);
           if (!_cursor.isNull(index1)) { resultBean.channelId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(_cursor.getString(index2)); }
-          if (!_cursor.isNull(index3)) { resultBean.uid=_cursor.getString(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.faceUid=_cursor.getString(index4); }
-          if (!_cursor.isNull(index5)) { resultBean.text=_cursor.getString(index5); }
-          if (!_cursor.isNull(index6)) { resultBean.ownerUid=_cursor.getString(index6); }
-          if (!_cursor.isNull(index7)) { resultBean.channelUid=_cursor.getString(index7); }
-          if (!_cursor.isNull(index8)) { resultBean.updateTime=_cursor.getLong(index8); }
-          if (!_cursor.isNull(index9)) { resultBean.type=MessageType.valueOf(_cursor.getString(index9)); }
+          if (!_cursor.isNull(index2)) { resultBean.channelUid=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.faceUid=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.ownerType=OwnerType.valueOf(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index5)) { resultBean.ownerUid=_cursor.getString(index5); }
+          if (!_cursor.isNull(index6)) { resultBean.text=_cursor.getString(index6); }
+          if (!_cursor.isNull(index7)) { resultBean.type=MessageType.valueOf(_cursor.getString(index7)); }
+          if (!_cursor.isNull(index8)) { resultBean.uid=_cursor.getString(index8); }
+          if (!_cursor.isNull(index9)) { resultBean.updateTime=_cursor.getLong(index9); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -134,19 +134,19 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
   /**
    * <h2>SQL update:</h2>
-   * <pre>UPDATE message SET channel_id=:channelId, owner_type=:ownerType, uid=:uid, face_uid=:faceUid, text=:text, owner_uid=:ownerUid, channel_uid=:channelUid, update_time=:updateTime, type=:type WHERE id = ${bean.id}</pre>
+   * <pre>UPDATE message SET channel_id=:channelId, channel_uid=:channelUid, face_uid=:faceUid, owner_type=:ownerType, owner_uid=:ownerUid, text=:text, type=:type, uid=:uid, update_time=:updateTime WHERE id = ${bean.id}</pre>
    *
    * <h2>Updated columns:</h2>
    * <dl>
    * 	<dt>channel_id</dt><dd>is mapped to <strong>${bean.channelId}</strong></dd>
-   * 	<dt>owner_type</dt><dd>is mapped to <strong>${bean.ownerType}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>face_uid</dt><dd>is mapped to <strong>${bean.faceUid}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
    * 	<dt>channel_uid</dt><dd>is mapped to <strong>${bean.channelUid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
+   * 	<dt>face_uid</dt><dd>is mapped to <strong>${bean.faceUid}</strong></dd>
+   * 	<dt>owner_type</dt><dd>is mapped to <strong>${bean.ownerType}</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
    * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * </dl>
    *
    * <h2>Parameters used in where conditions:</h2>
@@ -163,19 +163,19 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   public boolean updateById(MessageEntity bean) {
     if (updateByIdPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="UPDATE message SET channel_id=?, owner_type=?, uid=?, face_uid=?, text=?, owner_uid=?, channel_uid=?, update_time=?, type=? WHERE id = ?";
+      String _sql="UPDATE message SET channel_id=?, channel_uid=?, face_uid=?, owner_type=?, owner_uid=?, text=?, type=?, uid=?, update_time=? WHERE id = ?";
       updateByIdPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(updateByIdPreparedStatement0);
     _contentValues.put("channel_id", bean.channelId);
-    _contentValues.put("owner_type", EnumUtils.write(bean.ownerType));
-    _contentValues.put("uid", bean.uid);
-    _contentValues.put("face_uid", bean.faceUid);
-    _contentValues.put("text", bean.text);
-    _contentValues.put("owner_uid", bean.ownerUid);
     _contentValues.put("channel_uid", bean.channelUid);
-    _contentValues.put("update_time", bean.updateTime);
+    _contentValues.put("face_uid", bean.faceUid);
+    _contentValues.put("owner_type", EnumUtils.write(bean.ownerType));
+    _contentValues.put("owner_uid", bean.ownerUid);
+    _contentValues.put("text", bean.text);
     _contentValues.put("type", EnumUtils.write(bean.type));
+    _contentValues.put("uid", bean.uid);
+    _contentValues.put("update_time", bean.updateTime);
 
     _contentValues.addWhereArgs(String.valueOf(bean.id));
 
@@ -185,7 +185,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     if (_context.isLogEnabled()) {
 
       // display log
-      Logger.info("UPDATE message SET channel_id=:channel_id, owner_type=:owner_type, uid=:uid, face_uid=:face_uid, text=:text, owner_uid=:owner_uid, channel_uid=:channel_uid, update_time=:update_time, type=:type WHERE id = ?");
+      Logger.info("UPDATE message SET channel_id=:channel_id, channel_uid=:channel_uid, face_uid=:face_uid, owner_type=:owner_type, owner_uid=:owner_uid, text=:text, type=:type, uid=:uid, update_time=:update_time WHERE id = ?");
 
       // log for content values -- BEGIN
       Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
@@ -213,21 +213,21 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO message (channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES (${bean.channelId}, ${bean.ownerType}, ${bean.uid}, ${bean.faceUid}, ${bean.text}, ${bean.ownerUid}, ${bean.channelUid}, ${bean.updateTime}, ${bean.type})</pre>
+   * <pre>INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (${bean.channelId}, ${bean.channelUid}, ${bean.faceUid}, ${bean.ownerType}, ${bean.ownerUid}, ${bean.text}, ${bean.type}, ${bean.uid}, ${bean.updateTime})</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
    * 	<dt>channel_id</dt><dd>is mapped to <strong>${bean.channelId}</strong></dd>
-   * 	<dt>owner_type</dt><dd>is mapped to <strong>${bean.ownerType}</strong></dd>
-   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
-   * 	<dt>face_uid</dt><dd>is mapped to <strong>${bean.faceUid}</strong></dd>
-   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
    * 	<dt>channel_uid</dt><dd>is mapped to <strong>${bean.channelUid}</strong></dd>
-   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
+   * 	<dt>face_uid</dt><dd>is mapped to <strong>${bean.faceUid}</strong></dd>
+   * 	<dt>owner_type</dt><dd>is mapped to <strong>${bean.ownerType}</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is mapped to <strong>${bean.ownerUid}</strong></dd>
+   * 	<dt>text</dt><dd>is mapped to <strong>${bean.text}</strong></dd>
    * 	<dt>type</dt><dd>is mapped to <strong>${bean.type}</strong></dd>
+   * 	<dt>uid</dt><dd>is mapped to <strong>${bean.uid}</strong></dd>
+   * 	<dt>update_time</dt><dd>is mapped to <strong>${bean.updateTime}</strong></dd>
    * </dl>
    *
    * @param bean
@@ -238,19 +238,19 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   public void insert(MessageEntity bean) {
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO message (channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      String _sql="INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
       insertPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement1);
     _contentValues.put("channel_id", bean.channelId);
-    _contentValues.put("owner_type", EnumUtils.write(bean.ownerType));
-    _contentValues.put("uid", bean.uid);
-    _contentValues.put("face_uid", bean.faceUid);
-    _contentValues.put("text", bean.text);
-    _contentValues.put("owner_uid", bean.ownerUid);
     _contentValues.put("channel_uid", bean.channelUid);
-    _contentValues.put("update_time", bean.updateTime);
+    _contentValues.put("face_uid", bean.faceUid);
+    _contentValues.put("owner_type", EnumUtils.write(bean.ownerType));
+    _contentValues.put("owner_uid", bean.ownerUid);
+    _contentValues.put("text", bean.text);
     _contentValues.put("type", EnumUtils.write(bean.type));
+    _contentValues.put("uid", bean.uid);
+    _contentValues.put("update_time", bean.updateTime);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -295,20 +295,20 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, channel_id, owner_type, uid, face_uid, text, owner_uid, channel_uid, update_time, type FROM message WHERE uid = ${uid}</pre>
+   * <pre>SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE uid = ${uid}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
    * 	<dt>channel_id</dt><dd>is associated to bean's property <strong>channelId</strong></dd>
-   * 	<dt>owner_type</dt><dd>is associated to bean's property <strong>ownerType</strong></dd>
-   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
-   * 	<dt>face_uid</dt><dd>is associated to bean's property <strong>faceUid</strong></dd>
-   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
-   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
    * 	<dt>channel_uid</dt><dd>is associated to bean's property <strong>channelUid</strong></dd>
-   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
+   * 	<dt>face_uid</dt><dd>is associated to bean's property <strong>faceUid</strong></dd>
+   * 	<dt>owner_type</dt><dd>is associated to bean's property <strong>ownerType</strong></dd>
+   * 	<dt>owner_uid</dt><dd>is associated to bean's property <strong>ownerUid</strong></dd>
+   * 	<dt>text</dt><dd>is associated to bean's property <strong>text</strong></dd>
    * 	<dt>type</dt><dd>is associated to bean's property <strong>type</strong></dd>
+   * 	<dt>uid</dt><dd>is associated to bean's property <strong>uid</strong></dd>
+   * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
@@ -354,27 +354,27 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
         int index0=_cursor.getColumnIndex("id");
         int index1=_cursor.getColumnIndex("channel_id");
-        int index2=_cursor.getColumnIndex("owner_type");
-        int index3=_cursor.getColumnIndex("uid");
-        int index4=_cursor.getColumnIndex("face_uid");
-        int index5=_cursor.getColumnIndex("text");
-        int index6=_cursor.getColumnIndex("owner_uid");
-        int index7=_cursor.getColumnIndex("channel_uid");
-        int index8=_cursor.getColumnIndex("update_time");
-        int index9=_cursor.getColumnIndex("type");
+        int index2=_cursor.getColumnIndex("channel_uid");
+        int index3=_cursor.getColumnIndex("face_uid");
+        int index4=_cursor.getColumnIndex("owner_type");
+        int index5=_cursor.getColumnIndex("owner_uid");
+        int index6=_cursor.getColumnIndex("text");
+        int index7=_cursor.getColumnIndex("type");
+        int index8=_cursor.getColumnIndex("uid");
+        int index9=_cursor.getColumnIndex("update_time");
 
         resultBean=new MessageEntity();
 
         resultBean.id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { resultBean.channelId=_cursor.getLong(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.ownerType=OwnerType.valueOf(_cursor.getString(index2)); }
-        if (!_cursor.isNull(index3)) { resultBean.uid=_cursor.getString(index3); }
-        if (!_cursor.isNull(index4)) { resultBean.faceUid=_cursor.getString(index4); }
-        if (!_cursor.isNull(index5)) { resultBean.text=_cursor.getString(index5); }
-        if (!_cursor.isNull(index6)) { resultBean.ownerUid=_cursor.getString(index6); }
-        if (!_cursor.isNull(index7)) { resultBean.channelUid=_cursor.getString(index7); }
-        if (!_cursor.isNull(index8)) { resultBean.updateTime=_cursor.getLong(index8); }
-        if (!_cursor.isNull(index9)) { resultBean.type=MessageType.valueOf(_cursor.getString(index9)); }
+        if (!_cursor.isNull(index2)) { resultBean.channelUid=_cursor.getString(index2); }
+        if (!_cursor.isNull(index3)) { resultBean.faceUid=_cursor.getString(index3); }
+        if (!_cursor.isNull(index4)) { resultBean.ownerType=OwnerType.valueOf(_cursor.getString(index4)); }
+        if (!_cursor.isNull(index5)) { resultBean.ownerUid=_cursor.getString(index5); }
+        if (!_cursor.isNull(index6)) { resultBean.text=_cursor.getString(index6); }
+        if (!_cursor.isNull(index7)) { resultBean.type=MessageType.valueOf(_cursor.getString(index7)); }
+        if (!_cursor.isNull(index8)) { resultBean.uid=_cursor.getString(index8); }
+        if (!_cursor.isNull(index9)) { resultBean.updateTime=_cursor.getLong(index9); }
 
       }
       return resultBean;

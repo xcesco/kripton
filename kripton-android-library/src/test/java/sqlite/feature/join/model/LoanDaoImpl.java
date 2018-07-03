@@ -27,15 +27,15 @@ public class LoanDaoImpl extends Dao implements LoanDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO loan (start_time, end_time, book_id, user_id) VALUES (${startTime}, ${endTime}, ${bookId}, ${userId})</pre>
+   * <pre>INSERT INTO loan (book_id, end_time, start_time, user_id) VALUES (${bookId}, ${endTime}, ${startTime}, ${userId})</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>start_time</dt><dd>is mapped to <strong>${entity.startTime}</strong></dd>
-   * 	<dt>end_time</dt><dd>is mapped to <strong>${entity.endTime}</strong></dd>
    * 	<dt>book_id</dt><dd>is mapped to <strong>${entity.bookId}</strong></dd>
+   * 	<dt>end_time</dt><dd>is mapped to <strong>${entity.endTime}</strong></dd>
+   * 	<dt>start_time</dt><dd>is mapped to <strong>${entity.startTime}</strong></dd>
    * 	<dt>user_id</dt><dd>is mapped to <strong>${entity.userId}</strong></dd>
    * </dl>
    *
@@ -47,13 +47,13 @@ public class LoanDaoImpl extends Dao implements LoanDao {
   public void insert(Loan entity) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO loan (start_time, end_time, book_id, user_id) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO loan (book_id, end_time, start_time, user_id) VALUES (?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("start_time", SQLDateUtils.write(entity.startTime));
-    _contentValues.put("end_time", SQLDateUtils.write(entity.endTime));
     _contentValues.put("book_id", entity.bookId);
+    _contentValues.put("end_time", SQLDateUtils.write(entity.endTime));
+    _contentValues.put("start_time", SQLDateUtils.write(entity.startTime));
     _contentValues.put("user_id", entity.userId);
 
     // log section BEGIN

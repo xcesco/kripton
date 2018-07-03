@@ -72,7 +72,7 @@ import com.abubusoft.kripton.android.sqlite.NoParentEntity;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.METHOD })
+@Target(ElementType.FIELD)
 public @interface BindSqlColumn {
 
 	/** The nullable default. */
