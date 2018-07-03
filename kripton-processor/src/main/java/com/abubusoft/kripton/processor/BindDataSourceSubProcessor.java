@@ -354,7 +354,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									+ relation.value1;
 							
 							final Set<String> conditionToTest=new HashSet<String>();
-							String[] prefix={"${",":{",""};
+							String[] prefix={"${",":{",":"};
 							String[] suffix={"}","}",""};
 							
 							for (int i=0;i<prefix.length;i++) {
