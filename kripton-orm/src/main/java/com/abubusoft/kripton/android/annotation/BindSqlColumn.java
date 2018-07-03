@@ -35,8 +35,8 @@ import com.abubusoft.kripton.android.sqlite.NoParentEntity;
  * or STANDARD. Default value is STANDARD.</li>
  * <li><strong>enabled</strong>: if false means that associated field is not
  * binded to SQLite database table. Default value is true.</li>
- * <li><strong>parentEntity</strong>: link to entity/class linked by this field if
- * it is a foreign key. It can be used only on long/Long column type.</li>
+ * <li><strong>parentEntity</strong>: link to entity/class linked by this field
+ * if it is a foreign key. It can be used only on long/Long column type.</li>
  * <li><strong>nullable</strong> if true, column can be set to
  * <code>null</code>. Default value is <code>true</code></li>
  * <li><strong>onDelete</strong> Action to take on foreign key constraint during
@@ -72,7 +72,7 @@ import com.abubusoft.kripton.android.sqlite.NoParentEntity;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface BindSqlColumn {
 
 	/** The nullable default. */
@@ -109,8 +109,8 @@ public @interface BindSqlColumn {
 	public boolean nullable() default NULLABLE_DEFAULT;
 
 	/**
-	 * Indicates that this field will be used as foreign key in a relationship with the specified entity.
-	 *  It can be used only on long/Long column type.
+	 * Indicates that this field will be used as foreign key in a relationship
+	 * with the specified entity. It can be used only on long/Long column type.
 	 * 
 	 * @return foreign entity class to reference
 	 */

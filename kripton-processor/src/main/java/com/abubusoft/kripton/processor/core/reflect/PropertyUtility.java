@@ -23,11 +23,13 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
+import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -47,33 +49,36 @@ public abstract class PropertyUtility {
 
 	/** The Constant SET_PREFIX. */
 	private static final String SET_PREFIX = "set";
-	
+
 	/** The Constant IS_PREFIX. */
 	private static final String IS_PREFIX = "is";
-	
+
 	/** The Constant GET_PREFIX. */
 	private static final String GET_PREFIX = "get";
 
 	/**
-	 * The listener interface for receiving propertyCreated events.
-	 * The class that is interested in processing a propertyCreated
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addPropertyCreatedListener</code> method. When
-	 * the propertyCreated event occurs, that object's appropriate
+	 * The listener interface for receiving propertyCreated events. The class
+	 * that is interested in processing a propertyCreated event implements this
+	 * interface, and the object created with that class is registered with a
+	 * component using the component's <code>addPropertyCreatedListener</code>
+	 * method. When the propertyCreated event occurs, that object's appropriate
 	 * method is invoked.
 	 *
-	 * @param <T> the generic type
-	 * @param <E> the element type
+	 * @param <T>
+	 *            the generic type
+	 * @param <E>
+	 *            the element type
 	 */
 	public interface PropertyCreatedListener<T extends ModelClass<? extends E>, E extends ModelProperty> {
-		
+
 		/**
 		 * If true, the property will be included in the class. If return false,
 		 * the property will be ignored
 		 *
-		 * @param entity the entity
-		 * @param property the property
+		 * @param entity
+		 *            the entity
+		 * @param property
+		 *            the property
 		 * @return true to include property, false otherwise
 		 */
 		boolean onProperty(T entity, E property);
@@ -83,27 +88,44 @@ public abstract class PropertyUtility {
 	 * Given a model clazz, define its properties. The listener allow to select
 	 * which property include in class definition.
 	 *
-	 * @param <P> the generic type
-	 * @param <T> the generic type
-	 * @param elementUtils the element utils
-	 * @param entity the entity
-	 * @param factoryProperty the factory property
-	 * @param propertyAnnotationFilter            
-	 * 			if null, no filter is applied to annotations
-	 * @param listener the listener
+	 * @param <P>
+	 *            the generic type
+	 * @param <T>
+	 *            the generic type
+	 * @param elementUtils
+	 *            the element utils
+	 * @param entity
+	 *            the entity
+	 * @param factoryProperty
+	 *            the factory property
+	 * @param propertyAnnotationFilter
+	 *            if null, no filter is applied to annotations
+	 * @param listener
+	 *            the listener
 	 */
 	public static <P extends ModelProperty, T extends ModelClass<P>> void buildProperties(Elements elementUtils, T entity, PropertyFactory<T, P> factoryProperty,
 			AnnotationFilter propertyAnnotationFilter, PropertyCreatedListener<T, P> listener) {
-		List<? extends Element> list = elementUtils.getAllMembers(entity.getElement());
-				
+		List<? extends Element> listA = elementUtils.getAllMembers(entity.getElement());
+		List<Element> list = new ArrayList<Element>(listA);
+
 		if (propertyAnnotationFilter != null) {
 			AnnotationUtility.forEachAnnotations(entity.getElement(), propertyAnnotationFilter, null);
+		}
+
+		String parentClassName = entity.getElement().getSuperclass().toString();
+		while (parentClassName != null && !Object.class.getCanonicalName().equals(parentClassName)) {
+			TypeElement parentTypeElement = BaseProcessor.elementUtils.getTypeElement(parentClassName);
+
+			List<? extends Element> parentList = elementUtils.getAllMembers(parentTypeElement);
+
+			list.addAll(parentList);
+			parentClassName = parentTypeElement.getSuperclass().toString();
 		}
 
 		P field;
 		for (Element item : list) {
 			if (item.getKind() == ElementKind.FIELD && modifierIsAcceptable(item)) {
-				field = factoryProperty.createProperty(entity, item);				
+				field = factoryProperty.createProperty(entity, item);
 				entity.add(field);
 			}
 		}
@@ -120,11 +142,12 @@ public abstract class PropertyUtility {
 		for (Element item : list) {
 			methodName = item.getSimpleName().toString();
 			if (item.getKind() == ElementKind.METHOD && item.getModifiers().contains(Modifier.PUBLIC)) {
-				ExecutableElement  method=(ExecutableElement)item;
-				
+				ExecutableElement method = (ExecutableElement) item;
+
 				// this method can not be usefull
-				if (method.getParameters().size()>1) continue;
-				
+				if (method.getParameters().size() > 1)
+					continue;
+
 				status = -1;
 				if (methodName.startsWith(GET_PREFIX)) {
 					status = 0;
@@ -140,21 +163,20 @@ public abstract class PropertyUtility {
 				propertyName = converter.convert(propertyName);
 				if (entity.contains(propertyName)) {
 					currentKriptonField = entity.get(propertyName);
-					
-					TypeMirror paramTypeMirror=method.getParameters().size()==1 ? method.getParameters().get(0).asType(): null;
-					TypeMirror returnTypeMirror=method.getReturnType();
+
+					TypeMirror paramTypeMirror = method.getParameters().size() == 1 ? method.getParameters().get(0).asType() : null;
+					TypeMirror returnTypeMirror = method.getReturnType();
 
 					// GET
 					if (status == 0 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(returnTypeMirror)))) {
 						currentKriptonField.setFieldWithGetter(true);
-					// IS
+						// IS
 					} else if (status == 1 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(returnTypeMirror)))) {
 						currentKriptonField.setFieldWithIs(true);
-					// SET
+						// SET
 					} else if (status == 2 && currentKriptonField.isType(entity.resolveTypeVariable(TypeUtility.typeName(paramTypeMirror)))) {
 						currentKriptonField.setFieldWithSetter(true);
 					}
-
 				}
 			}
 		}
@@ -174,7 +196,8 @@ public abstract class PropertyUtility {
 	/**
 	 * Modifier is acceptable.
 	 *
-	 * @param item the item
+	 * @param item
+	 *            the item
 	 * @return true, if successful
 	 */
 	static boolean modifierIsAcceptable(Element item) {
@@ -191,8 +214,10 @@ public abstract class PropertyUtility {
 	/**
 	 * Gets the ter.
 	 *
-	 * @param beanClass the bean class
-	 * @param property the property
+	 * @param beanClass
+	 *            the bean class
+	 * @param property
+	 *            the property
 	 * @return the ter
 	 */
 	public static String getter(ModelProperty property) {
@@ -203,7 +228,7 @@ public abstract class PropertyUtility {
 			return "get" + converterField2Method.convert(property.getName()) + "()";
 		} else if (property.isFieldWithIs()) {
 			return "is" + converterField2Method.convert(property.getName()) + "()";
-		} else {			
+		} else {
 			throw new PropertyVisibilityException(String.format("In class '%s' property '%s' can not be read", property.getParent().getElement().asType(), property.getName()));
 		}
 	}
@@ -211,9 +236,12 @@ public abstract class PropertyUtility {
 	/**
 	 * Gets the ter.
 	 *
-	 * @param beanName the bean name
-	 * @param beanClass the bean class
-	 * @param property the property
+	 * @param beanName
+	 *            the bean name
+	 * @param beanClass
+	 *            the bean class
+	 * @param property
+	 *            the property
 	 * @return the ter
 	 */
 	public static String getter(String beanName, TypeName beanClass, ModelProperty property) {
@@ -223,8 +251,10 @@ public abstract class PropertyUtility {
 	/**
 	 * Setter.
 	 *
-	 * @param beanClass the bean class
-	 * @param property the property
+	 * @param beanClass
+	 *            the bean class
+	 * @param property
+	 *            the property
 	 * @return the string
 	 */
 	public static String setter(TypeName beanClass, ModelProperty property) {
@@ -232,7 +262,7 @@ public abstract class PropertyUtility {
 			return property.getName();
 		} else if (property.isFieldWithSetter()) {
 			return "set" + converterField2Method.convert(property.getName());
-		} else {			
+		} else {
 			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify", property.getName(), property.getParent().getElement().asType()));
 		}
 	}
@@ -240,10 +270,14 @@ public abstract class PropertyUtility {
 	/**
 	 * Setter.
 	 *
-	 * @param beanClass the bean class
-	 * @param beanName the bean name
-	 * @param property the property
-	 * @param value the value
+	 * @param beanClass
+	 *            the bean class
+	 * @param beanName
+	 *            the bean name
+	 * @param property
+	 *            the property
+	 * @param value
+	 *            the value
 	 * @return the string
 	 */
 	public static String setter(TypeName beanClass, String beanName, ModelProperty property, String value) {
@@ -253,9 +287,12 @@ public abstract class PropertyUtility {
 	/**
 	 * Setter.
 	 *
-	 * @param beanClass the bean class
-	 * @param property the property
-	 * @param value the value
+	 * @param beanClass
+	 *            the bean class
+	 * @param property
+	 *            the property
+	 * @param value
+	 *            the value
 	 * @return the string
 	 */
 	private static String setter(ModelProperty property, String value) {

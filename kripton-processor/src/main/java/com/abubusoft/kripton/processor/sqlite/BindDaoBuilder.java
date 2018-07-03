@@ -19,7 +19,6 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
 import java.lang.ref.WeakReference;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map.Entry;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -232,14 +231,16 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 			// field liveDatas
 			{
 				FieldSpec.Builder liveDataBuilder = FieldSpec
-						.builder(ParameterizedTypeName.get(ClassName.get(Collection.class),
-								ParameterizedTypeName.get(ClassName.get(WeakReference.class),
-										ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class)))),
+						.builder(
+								ParameterizedTypeName.get(ClassName.get(Collection.class),
+										ParameterizedTypeName.get(ClassName.get(WeakReference.class),
+												ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class)))),
 								"liveDatas")
 						.addModifiers(Modifier.STATIC)
 						.initializer(CodeBlock.builder()
-								.add("new $T()", ParameterizedTypeName.get(ClassName.get(CopyOnWriteArraySet.class), ParameterizedTypeName
-										.get(ClassName.get(WeakReference.class), ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class)))))
+								.add("new $T()",
+										ParameterizedTypeName.get(ClassName.get(CopyOnWriteArraySet.class), ParameterizedTypeName.get(ClassName.get(WeakReference.class),
+												ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class)))))
 								.build());
 				builder.addField(liveDataBuilder.build());
 			}
@@ -255,12 +256,10 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 			// invalidateLiveData
 			{
-				// check datasource and dao package must be the same, otherwise invalidate must be public				
-												
-				
-				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_INVALIDATE_LIVE_DATA)
-						.addJavadoc("<p>Invalidate livedata.</p>\n\n")
-						.addModifiers(Modifier.PUBLIC);
+				// check datasource and dao package must be the same, otherwise
+				// invalidate must be public
+
+				MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(METHOD_NAME_INVALIDATE_LIVE_DATA).addJavadoc("<p>Invalidate livedata.</p>\n\n").addModifiers(Modifier.PUBLIC);
 				methodBuilder.beginControlFlow("for ($T item: liveDatas)", ParameterizedTypeName.get(ClassName.get(WeakReference.class),
 						ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), WildcardTypeName.subtypeOf(Object.class))));
 				methodBuilder.beginControlFlow("if (item.get()!=null)");
