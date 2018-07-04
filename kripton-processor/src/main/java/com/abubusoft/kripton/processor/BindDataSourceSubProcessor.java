@@ -123,14 +123,14 @@ import edu.emory.mathcs.backport.java.util.Collections;
 public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	public String SCHEMA_LOCATION_OPTIONS = "kripton.schemaLocation";
-	
+
 	public String ANDROID_X_OPTIONS = "kripton.androidx";
 
 	public Set<String> getSupportedOptions() {
 		HashSet<String> result = new HashSet<>();
 
 		result.add(SCHEMA_LOCATION_OPTIONS);
-		result.add(ANDROID_X_OPTIONS);		
+		result.add(ANDROID_X_OPTIONS);
 
 		return result;
 	}
@@ -228,6 +228,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 			} // end foreach bean
 
+			// sort table by its name, BEFORE inject generated tables and entities
+			Collections.sort(currentSchema.getCollection(), new Comparator<SQLiteDaoDefinition>() {
+				@Override
+				public int compare(SQLiteDaoDefinition o1, SQLiteDaoDefinition o2) {
+					return o1.getTableName().compareTo(o2.getTableName());
+				}
+			});
+
 			// DAO analysis
 			// Get all generated dao definitions
 			for (String generatedDaoItem : currentSchema.getDaoNameSet()) {
@@ -316,24 +324,20 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 						for (Triple<String, String, SQLiteModelMethod> childrenSelect : method.childrenSelects) {
 							final Touple<SQLProperty, String, SQLiteEntity, SQLRelationType> relation = entity
 									.findRelationByParentProperty(childrenSelect.value0);
-							
+
 							AssertKripton.assertTrueOrInvalidMethodSignException(relation != null, method,
 									" property '%s#%s' does not exits (referred by annotation @%s(%s='%s', %s='%s'))",
-									entity.getSimpleName(),
-									childrenSelect.value0,
-									BindSqlChildSelect.class.getSimpleName(),
-									AnnotationAttributeType.FIELD.getValue(),									
-									childrenSelect.value0,
-									AnnotationAttributeType.METHOD.getValue(),
+									entity.getSimpleName(), childrenSelect.value0,
+									BindSqlChildSelect.class.getSimpleName(), AnnotationAttributeType.FIELD.getValue(),
+									childrenSelect.value0, AnnotationAttributeType.METHOD.getValue(),
 									childrenSelect.value1);
 
 							final SQLiteDaoDefinition childDaoDefinition = schema
 									.findDaoDefinitionForEntity(relation.value2);
 							AssertKripton.assertTrueOrInvalidMethodSignException(childDaoDefinition != null, method,
 									" dao for entity '%s', referred by @%s annotation, does not exists",
-									relation.value2,
-									BindSqlChildSelect.class.getSimpleName());
-							
+									relation.value2, BindSqlChildSelect.class.getSimpleName());
+
 							final SQLiteModelMethod subMethod = childDaoDefinition.get(childrenSelect.value1);
 
 							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod != null, method,
@@ -349,43 +353,42 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									childDaoDefinition.getTypeName(), subMethod.getName(),
 									BindSqlChildSelect.class.getSimpleName());
 
-							final String defaultConditionToTest1 = relation.value1 + "="+SqlAnalyzer.PARAM_PREFIX
-									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) +SqlAnalyzer.PARAM_SUFFIX;
+							final String defaultConditionToTest1 = relation.value1 + "=" + SqlAnalyzer.PARAM_PREFIX
+									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0)
+									+ SqlAnalyzer.PARAM_SUFFIX;
 							final String defaultConditionToTest2 = SqlAnalyzer.PARAM_PREFIX
-									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + SqlAnalyzer.PARAM_SUFFIX+"="
-									+ relation.value1;
-							
-							final Set<String> conditionToTest=new HashSet<String>();
-							String[] prefix={"${",":{",":"};
-							String[] suffix={"}","}",""};
-							
-							for (int i=0;i<prefix.length;i++) {
-								final String conditionToTest1 = relation.value1 + "="+prefix[i]
-										+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + suffix[i];
+									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0)
+									+ SqlAnalyzer.PARAM_SUFFIX + "=" + relation.value1;
+
+							final Set<String> conditionToTest = new HashSet<String>();
+							String[] prefix = { "${", ":{", ":" };
+							String[] suffix = { "}", "}", "" };
+
+							for (int i = 0; i < prefix.length; i++) {
+								final String conditionToTest1 = relation.value1 + "=" + prefix[i]
+										+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0)
+										+ suffix[i];
 								final String conditionToTest2 = prefix[i]
-										+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0) + suffix[i]+"="
-										+ relation.value1;
-								
+										+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0)
+										+ suffix[i] + "=" + relation.value1;
+
 								conditionToTest.add(conditionToTest1);
 								conditionToTest.add(conditionToTest2);
-							}								
-							
-							
+							}
+
 							JQLChecker.getInstance().analyze(subMethod, subMethod.jql, new JqlBaseListener() {
 
 								@Override
 								public void enterWhere_stmt_clauses(Where_stmt_clausesContext ctx) {
-									boolean found=false;
-									
-									for (String item:conditionToTest) {
+									boolean found = false;
+
+									for (String item : conditionToTest) {
 										if (ctx.getText().contains(item)) {
-											found=true;
+											found = true;
 										}
 									}
-									
-									AssertKripton.assertTrueOrInvalidMethodSignException(
-											found,
-											method,
+
+									AssertKripton.assertTrueOrInvalidMethodSignException(found, method,
 											" method '%s#%s' referred by @%s annotation must have a where condition like '%s' or '%s'",
 											childDaoDefinition.getTypeName(), subMethod.getName(),
 											BindSqlChildSelect.class.getSimpleName(), defaultConditionToTest1,
@@ -771,7 +774,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								entity.relations.add(new Touple<SQLProperty, String, SQLiteEntity, SQLRelationType>(
 										property,
 										annotationBindRelation.getAttribute(AnnotationAttributeType.FOREIGN_KEY), null,
-										null));							
+										null));
 
 								return false;
 							}
@@ -788,7 +791,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 												annotationBindColumn, AnnotationAttributeType.COLUMN_AFFINITY));
 
 								property.columnType = columnType;
-								property.setPrimaryKey(columnType == ColumnType.PRIMARY_KEY);
+								property.setPrimaryKey((columnType == ColumnType.PRIMARY_KEY) || (columnType == ColumnType.PRIMARY_KEY_UNMANGED));
 
 								String parentClassName = annotationBindColumn
 										.getAttributeAsClassName(AnnotationAttributeType.PARENT_ENTITY);
@@ -870,7 +873,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		SQLProperty primaryKey = currentEntity.getPrimaryKey();
 		if (primaryKey != null) {
 			primaryKey.setPrimaryKey(true);
-			primaryKey.columnType = ColumnType.PRIMARY_KEY;
+			
+			if (!(primaryKey.columnType==ColumnType.PRIMARY_KEY || primaryKey.columnType==ColumnType.PRIMARY_KEY_UNMANGED)) {
+				primaryKey.columnType = ColumnType.PRIMARY_KEY;
+			}
 			primaryKey.setNullable(false);
 		}
 
@@ -891,7 +897,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		if (!property.isType(Long.TYPE, Long.class, String.class))
 			throw (new SQLPrimaryKeyNotValidTypeException(currentEntity, property));
-		
+
 		// order entities field by : first is PK, others are in natural order
 		List<SQLProperty> properties = currentEntity.getCollection();
 		Collections.sort(properties, new Comparator<SQLProperty>() {
@@ -908,17 +914,15 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			}
 		});
 		// assert: we have a primary key
-		for (int i=1;i<properties.size();i++) {
+		for (int i = 1; i < properties.size(); i++) {
 			if (properties.get(i).isPrimaryKey()) {
-				//swap
-				SQLProperty temp=properties.get(0);
+				// swap
+				SQLProperty temp = properties.get(0);
 				properties.set(0, properties.get(i));
 				properties.set(i, temp);
 				break;
 			}
 		}
-		
-		
 
 		// add entity to schema after properties definition!
 		schema.addEntity(currentEntity);
@@ -1211,7 +1215,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					AnnotationAttributeType.CURSOR_FACTORY);
 			configDatabaseLifecycleHandler = AnnotationUtility.extractAsClassName(databaseSchema,
 					BindDataSourceOptions.class, AnnotationAttributeType.DATABASE_LIFECYCLE_HANDLER);
-		} 
+		}
 
 		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName,
 				schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper, generateRx,

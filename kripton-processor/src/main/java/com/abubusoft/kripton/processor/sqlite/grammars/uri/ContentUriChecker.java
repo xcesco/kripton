@@ -41,7 +41,6 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.UriParser.Path_segmentContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ContentUriChecker.
  *
@@ -222,7 +221,7 @@ public class ContentUriChecker {
 		parser.addErrorListener(new ContentUriBaseErrorListener() {
 			@Override
 			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-				AssertKripton.assertTrue(false, "unespected char at pos %s of SQL '%s'", charPositionInLine, input);
+				AssertKripton.assertTrue(false, "unespected char at pos %s of URI '%s'", charPositionInLine, input);
 			}
 		});
 

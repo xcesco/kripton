@@ -18,7 +18,7 @@ import com.abubusoft.kripton.android.Logger;
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
  * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#selectAll1ForContentProvider}</td></tr>
- * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#selectById2ForContentProvider}</td></tr>
+ * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/:id</pre></td><td>{@link CheeseDaoImpl#selectById2ForContentProvider}</td></tr>
  * </table>
  *
  * <h2>Supported insert operations</h2>
@@ -116,7 +116,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <h2>URI standard</h2>
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre></p>
    * <h2>URI with parameters</h2>
-   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre>
+   * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/:id</pre>
    *
    * <p>Method associated to this URI is {@link CheeseDaoImpl#selectById2ForContentProvider}</p>
    */
@@ -169,7 +169,7 @@ public class BindSampleContentProvider extends ContentProvider {
    * <table>
    * <tr><th>URI</th><th>DAO.METHOD</th></tr>
    * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese</pre></td><td>{@link CheeseDaoImpl#selectAll1ForContentProvider}</td></tr>
-   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#selectById2ForContentProvider}</td></tr>
+   * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/:id</pre></td><td>{@link CheeseDaoImpl#selectById2ForContentProvider}</td></tr>
    * </table>
    *
    */
@@ -184,7 +184,7 @@ public class BindSampleContentProvider extends ContentProvider {
         break;
       }
       case PATH_CHEESE_2_INDEX: {
-        // URI: content://com.abubusoft.contentprovidersample.provider/cheese/${id}
+        // URI: content://com.abubusoft.contentprovidersample.provider/cheese/:id
         returnCursor=dataSource.getCheeseDao().selectById2ForContentProvider(uri, projection, selection, selectionArgs, sortOrder);
         break;
       }

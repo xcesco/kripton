@@ -21,6 +21,12 @@ import java.util.List;
  *
  * @see AppDataSource
  * @see BindAppDaoFactory
+ * @see DaoZArtist
+ * @see DaoZArtistImpl
+ * @see ZArtist
+ * @see DaoSong
+ * @see DaoSongImpl
+ * @see Song
  * @see DaoAlbum
  * @see DaoAlbumImpl
  * @see Album
@@ -37,14 +43,34 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   private static final Object mutex = new Object();
 
   /**
+   * Unique identifier for Dao DaoZArtist
+   */
+  public static final int DAO_Z_ARTIST_UID = 0;
+
+  /**
+   * Unique identifier for Dao DaoSong
+   */
+  public static final int DAO_SONG_UID = 1;
+
+  /**
    * Unique identifier for Dao DaoAlbum
    */
-  public static final int DAO_ALBUM_UID = 0;
+  public static final int DAO_ALBUM_UID = 2;
 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new AlbumTable()};
+  static final SQLiteTable[] TABLES = {new AlbumTable(), new SongTable(), new ZArtistTable()};
+
+  /**
+   * <p>dao instance</p>
+   */
+  protected DaoZArtistImpl daoZArtist = new DaoZArtistImpl(this);
+
+  /**
+   * <p>dao instance</p>
+   */
+  protected DaoSongImpl daoSong = new DaoSongImpl(this);
 
   /**
    * <p>dao instance</p>
@@ -57,7 +83,17 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindAppDataSource(DataSourceOptions options) {
-    super("app.db", 1, options);
+    super("pk_string_case1.db", 1, options);
+  }
+
+  @Override
+  public DaoZArtistImpl getDaoZArtist() {
+    return daoZArtist;
+  }
+
+  @Override
+  public DaoSongImpl getDaoSong() {
+    return daoSong;
   }
 
   @Override
@@ -217,6 +253,18 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     }
     // log section END
     database.execSQL(AlbumTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",SongTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(SongTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",ZArtistTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(ZArtistTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -261,6 +309,18 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       }
       // log section END
       database.execSQL(AlbumTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",SongTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(SongTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",ZArtistTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(ZArtistTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -279,6 +339,8 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   public void clearCompiledStatements() {
+    DaoZArtistImpl.clearCompiledStatements();
+    DaoSongImpl.clearCompiledStatements();
     DaoAlbumImpl.clearCompiledStatements();
   }
 
@@ -360,10 +422,36 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   class DataSourceSingleThread implements BindAppDaoFactory {
     private SQLContextInSessionImpl _context;
 
+    protected DaoZArtistImpl _daoZArtist;
+
+    protected DaoSongImpl _daoSong;
+
     protected DaoAlbumImpl _daoAlbum;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindAppDataSource.this);
+    }
+
+    /**
+     *
+     * retrieve dao DaoZArtist
+     */
+    public DaoZArtistImpl getDaoZArtist() {
+      if (_daoZArtist==null) {
+        _daoZArtist=new DaoZArtistImpl(this);
+      }
+      return _daoZArtist;
+    }
+
+    /**
+     *
+     * retrieve dao DaoSong
+     */
+    public DaoSongImpl getDaoSong() {
+      if (_daoSong==null) {
+        _daoSong=new DaoSongImpl(this);
+      }
+      return _daoSong;
     }
 
     /**

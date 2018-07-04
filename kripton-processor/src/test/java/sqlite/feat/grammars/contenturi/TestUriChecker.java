@@ -60,8 +60,10 @@ public class TestUriChecker extends BaseProcessorTest {
 	/**
 	 * Check list.
 	 *
-	 * @param actual the actual
-	 * @param input the input
+	 * @param actual
+	 *            the actual
+	 * @param input
+	 *            the input
 	 */
 	protected void checkList(List<ContentUriPlaceHolder> actual, ContentUriPlaceHolder... input) {
 		List<ContentUriPlaceHolder> aspected = new ArrayList<>();
@@ -78,7 +80,9 @@ public class TestUriChecker extends BaseProcessorTest {
 	 */
 	@Test
 	public void testVerify() {
-		String[] inputs = { "content://androi.authority/test/${ input0 }", "content://androi.authority/test/a/${ input0 }", "content://androi.authority/_", "content://androi.authority/"
+		String[] inputs = { "content://androi.authority/test/${ input0 }",
+				"content://androi.authority/test/a/${ input0 }", "content://androi.authority/_",
+				"content://androi.authority/a"
 
 		};
 
@@ -92,18 +96,20 @@ public class TestUriChecker extends BaseProcessorTest {
 	 */
 	@Test
 	public void testVerifyFail() {
-		String[] inputs = { "content://androi.authority/test/${ input0 }/", "content://androi.authority/${ input0 }/", "content://androi.authority/{ input0 }",
-				"content://androi.authority/test/a/{ input0 }", "content://androi.authority", "content://androi.authority/$", "content://androi.authority///" };
+		String[] inputs = { "content://androi.authority/test/${ input0 }/", "content://androi.authority/${ input0 }/",
+				"content://androi.authority/{ input0 }", "content://androi.authority/test/a/{ input0 }",
+				"content://androi.authority", "content://androi.authority/$", "content://androi.authority///" };
 
 		for (String input : inputs) {
 
 			try {
 				ContentUriChecker.getInstance().verify(input);
 				fail();
-			} catch (KriptonProcessorException e) {
-				// Every cycle has to go here
+			} catch (Exception e) {
+
 			}
 
+			//
 		}
 	}
 
@@ -140,9 +146,11 @@ public class TestUriChecker extends BaseProcessorTest {
 	/**
 	 * <p>
 	 * OK
-	 * </p>.
+	 * </p>
+	 * .
 	 *
-	 * @throws Throwable the throwable
+	 * @throws Throwable
+	 *             the throwable
 	 */
 	@Test
 	public void testOK() throws Throwable {
@@ -165,7 +173,8 @@ public class TestUriChecker extends BaseProcessorTest {
 	/**
 	 * Test extractor.
 	 *
-	 * @throws Throwable the throwable
+	 * @throws Throwable
+	 *             the throwable
 	 */
 	@Test
 	public void testExtractor() throws Throwable {
@@ -191,7 +200,8 @@ public class TestUriChecker extends BaseProcessorTest {
 		log(expected);
 		// log(""+expected.split("/").length);
 
-		ContentProviderURIParamsExtractor extractor = new ContentProviderURIParamsExtractor(expected, input.split("/").length);
+		ContentProviderURIParamsExtractor extractor = new ContentProviderURIParamsExtractor(expected,
+				input.split("/").length);
 
 		for (ContentUriPlaceHolder item : parameters.values()) {
 			assertTrue(extractor.getPathSegment(item.pathSegmentIndex).equals("?"));
@@ -202,9 +212,11 @@ public class TestUriChecker extends BaseProcessorTest {
 	/**
 	 * <p>
 	 * OK
-	 * </p>.
+	 * </p>
+	 * .
 	 *
-	 * @throws Throwable the throwable
+	 * @throws Throwable
+	 *             the throwable
 	 */
 	@Test(expected = KriptonProcessorException.class)
 	public void testERROR() throws Throwable {
@@ -228,10 +240,10 @@ public class TestUriChecker extends BaseProcessorTest {
 
 			@Override
 			public SQLProperty findPropertyByName(String name) {
-				//SQLEntity entity=new SQLEntity(null, null);
-				//entity.
-				//SQLProperty properties = new SQLProperty(entity, null, null);
-				//properties.columnName = name;
+				// SQLEntity entity=new SQLEntity(null, null);
+				// entity.
+				// SQLProperty properties = new SQLProperty(entity, null, null);
+				// properties.columnName = name;
 				return null;
 			}
 

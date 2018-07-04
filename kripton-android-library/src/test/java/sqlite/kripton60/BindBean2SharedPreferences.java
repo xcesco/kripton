@@ -103,8 +103,28 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   public Bean2 read() {
     Bean2 bean=new Bean2();
      {
-      String temp=prefs.getString("value_bean_array", null);
-      bean.setValueBeanArray(StringUtils.hasText(temp) ? parseValueBeanArray(temp): bean.getValueBeanArray());
+      String temp=prefs.getString("value_enum_type", null);
+      bean.setValueEnumType((StringUtils.hasText(temp)) ? EnumType.valueOf(temp): bean.getValueEnumType());
+    }
+
+     {
+      String temp=prefs.getString("value_time", null);
+      bean.setValueTime((StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): bean.getValueTime());}
+
+     {
+      String temp=prefs.getString("value_currency", null);
+      bean.setValueCurrency((StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): bean.getValueCurrency());}
+
+    bean.setValueShortType((short)prefs.getInt("value_short_type", (short)bean.getValueShortType()));
+     {
+      String temp=prefs.getString("value_big_integer", "0");
+      bean.setValueBigInteger((StringUtils.hasText(temp)) ? new BigInteger(temp): bean.getValueBigInteger());
+    }
+
+    bean.setValueInt((int)prefs.getInt("value_int", (int)(bean.getValueInt()==null?0:bean.getValueInt())));
+     {
+      String temp=prefs.getString("value_strin_list", null);
+      bean.setValueStrinList(StringUtils.hasText(temp) ? parseValueStrinList(temp): bean.getValueStrinList());
     }
 
      {
@@ -112,83 +132,24 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       bean.setValueUrl((StringUtils.hasText(temp)) ? UrlUtils.read(temp): bean.getValueUrl());}
 
     bean.setValueByte((byte)prefs.getInt("value_byte", (byte)(bean.getValueByte()==null?(byte)0:bean.getValueByte())));
-    bean.setValueInt((int)prefs.getInt("value_int", (int)(bean.getValueInt()==null?0:bean.getValueInt())));
-     {
-      String temp=prefs.getString("value_strin_list", null);
-      bean.setValueStrinList(StringUtils.hasText(temp) ? parseValueStrinList(temp): bean.getValueStrinList());
-    }
-
-    bean.setValueShortType((short)prefs.getInt("value_short_type", (short)bean.getValueShortType()));
-    bean.setValueIntType((int)prefs.getInt("value_int_type", (int)bean.getValueIntType()));
-    bean.setValueBool((boolean)prefs.getBoolean("value_bool", (boolean)(bean.getValueBool()==null?false:bean.getValueBool())));
-     {
-      String temp=prefs.getString("value_calendar", null);
-      bean.setValueCalendar((StringUtils.hasText(temp)) ? CalendarUtils.read(temp): bean.getValueCalendar());}
-
-    bean.setValueShort((short)prefs.getInt("value_short", (short)(bean.getValueShort()==null?(short)0:bean.getValueShort())));
-    bean.setId(prefs.getLong("id", bean.getId()));
-     {
-      String temp=prefs.getString("value_big_decimal", "0");
-      bean.setValueBigDecimal((StringUtils.hasText(temp)) ? new BigDecimal(temp): bean.getValueBigDecimal());
-    }
-
-    bean.setValueFloat(prefs.getFloat("value_float", (bean.getValueFloat()==null?0F:bean.getValueFloat())));
-    bean.setValueLong(prefs.getLong("value_long", (bean.getValueLong()==null?0L:bean.getValueLong())));
-     {
-      String temp=prefs.getString("value_char_type_array", null);
-      bean.setValueCharTypeArray(StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): bean.getValueCharTypeArray());
-    }
-
-     {
-      String temp=prefs.getString("value_long_type_array", null);
-      bean.setValueLongTypeArray(StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): bean.getValueLongTypeArray());
-    }
-
-     {
-      String temp=prefs.getString("value_long_list", null);
-      bean.setValueLongList(StringUtils.hasText(temp) ? parseValueLongList(temp): bean.getValueLongList());
-    }
-
-     {
-      String temp=prefs.getString("value_big_integer", "0");
-      bean.setValueBigInteger((StringUtils.hasText(temp)) ? new BigInteger(temp): bean.getValueBigInteger());
-    }
-
-    bean.setValueByteType((byte)prefs.getInt("value_byte_type", (byte)bean.getValueByteType()));
-     {
-      String temp=prefs.getString("value_currency", null);
-      bean.setValueCurrency((StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): bean.getValueCurrency());}
-
-     {
-      String temp=prefs.getString("value_double", null);
-      bean.setValueDouble((StringUtils.hasText(temp)) ? Double.valueOf(temp): bean.getValueDouble());
-    }
-
-     {
-      String temp=prefs.getString("value_byte_array", null);
-      bean.setValueByteArray(StringUtils.hasText(temp) ? parseValueByteArray(temp): bean.getValueByteArray());
-    }
-
-     {
-      String temp=prefs.getString("value_string_array", null);
-      bean.setValueStringArray(StringUtils.hasText(temp) ? parseValueStringArray(temp): bean.getValueStringArray());
-    }
-
-     {
-      String temp=prefs.getString("value_date", null);
-      bean.setValueDate((StringUtils.hasText(temp)) ? DateUtils.read(temp): bean.getValueDate());}
-
-    bean.setValueChar((char)prefs.getInt("value_char", (char)(bean.getValueChar()==null?(char)0:bean.getValueChar())));
-    bean.setValueFloatType(prefs.getFloat("value_float_type", bean.getValueFloatType()));
-     {
-      String temp=prefs.getString("value_time_zone", null);
-      bean.setValueTimeZone((StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): bean.getValueTimeZone());}
-
-    bean.setValueLongType(prefs.getLong("value_long_type", bean.getValueLongType()));
-    bean.setValueCharType((char)prefs.getInt("value_char_type", (char)bean.getValueCharType()));
      {
       String temp=prefs.getString("value_char_list", null);
       bean.setValueCharList(StringUtils.hasText(temp) ? parseValueCharList(temp): bean.getValueCharList());
+    }
+
+    bean.setValueFloat(prefs.getFloat("value_float", (bean.getValueFloat()==null?0F:bean.getValueFloat())));
+    bean.setValueIntType((int)prefs.getInt("value_int_type", (int)bean.getValueIntType()));
+    bean.setValueLongType(prefs.getLong("value_long_type", bean.getValueLongType()));
+     {
+      String temp=prefs.getString("value_bean", null);
+      bean.setValueBean(StringUtils.hasText(temp) ? parseValueBean(temp): bean.getValueBean());
+    }
+
+    bean.setValueLong(prefs.getLong("value_long", (bean.getValueLong()==null?0L:bean.getValueLong())));
+    bean.setValueShort((short)prefs.getInt("value_short", (short)(bean.getValueShort()==null?(short)0:bean.getValueShort())));
+     {
+      String temp=prefs.getString("value_long_type_array", null);
+      bean.setValueLongTypeArray(StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): bean.getValueLongTypeArray());
     }
 
      {
@@ -197,39 +158,78 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
      {
-      String temp=prefs.getString("value_time", null);
-      bean.setValueTime((StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): bean.getValueTime());}
-
-     {
-      String temp=prefs.getString("value_bean", null);
-      bean.setValueBean(StringUtils.hasText(temp) ? parseValueBean(temp): bean.getValueBean());
-    }
-
-    bean.setValueBoolType((boolean)prefs.getBoolean("value_bool_type", (boolean)bean.isValueBoolType()));
-    bean.setValueString(prefs.getString("value_string", bean.getValueString()));
-     {
-      String temp=prefs.getString("value_enum_type", null);
-      bean.setValueEnumType((StringUtils.hasText(temp)) ? EnumType.valueOf(temp): bean.getValueEnumType());
+      String temp=prefs.getString("value_byte_array", null);
+      bean.setValueByteArray(StringUtils.hasText(temp) ? parseValueByteArray(temp): bean.getValueByteArray());
     }
 
      {
-      String temp=prefs.getString("value_locale", null);
-      bean.setValueLocale((StringUtils.hasText(temp)) ? LocaleUtils.read(temp): bean.getValueLocale());}
+      String temp=prefs.getString("value_double", null);
+      bean.setValueDouble((StringUtils.hasText(temp)) ? Double.valueOf(temp): bean.getValueDouble());
+    }
+
+    bean.setId(prefs.getLong("id", bean.getId()));
+     {
+      String temp=prefs.getString("value_bean_array", null);
+      bean.setValueBeanArray(StringUtils.hasText(temp) ? parseValueBeanArray(temp): bean.getValueBeanArray());
+    }
+
+     {
+      String temp=prefs.getString("value_big_decimal", "0");
+      bean.setValueBigDecimal((StringUtils.hasText(temp)) ? new BigDecimal(temp): bean.getValueBigDecimal());
+    }
+
+     {
+      String temp=prefs.getString("value_time_zone", null);
+      bean.setValueTimeZone((StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): bean.getValueTimeZone());}
+
+     {
+      String temp=prefs.getString("value_char_type_array", null);
+      bean.setValueCharTypeArray(StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): bean.getValueCharTypeArray());
+    }
 
      {
       String temp=prefs.getString("value_double_type", null);
       bean.setValueDoubleType((StringUtils.hasText(temp)) ? Double.valueOf(temp): bean.getValueDoubleType());
     }
 
+    bean.setValueCharType((char)prefs.getInt("value_char_type", (char)bean.getValueCharType()));
+     {
+      String temp=prefs.getString("value_date", null);
+      bean.setValueDate((StringUtils.hasText(temp)) ? DateUtils.read(temp): bean.getValueDate());}
+
+    bean.setValueFloatType(prefs.getFloat("value_float_type", bean.getValueFloatType()));
+    bean.setValueBool((boolean)prefs.getBoolean("value_bool", (boolean)(bean.getValueBool()==null?false:bean.getValueBool())));
+    bean.setValueBoolType((boolean)prefs.getBoolean("value_bool_type", (boolean)bean.isValueBoolType()));
      {
       String temp=prefs.getString("value_char_array", null);
       bean.setValueCharArray(StringUtils.hasText(temp) ? parseValueCharArray(temp): bean.getValueCharArray());
     }
 
+    bean.setValueChar((char)prefs.getInt("value_char", (char)(bean.getValueChar()==null?(char)0:bean.getValueChar())));
      {
       String temp=prefs.getString("value_long_array", null);
       bean.setValueLongArray(StringUtils.hasText(temp) ? parseValueLongArray(temp): bean.getValueLongArray());
     }
+
+     {
+      String temp=prefs.getString("value_string_array", null);
+      bean.setValueStringArray(StringUtils.hasText(temp) ? parseValueStringArray(temp): bean.getValueStringArray());
+    }
+
+    bean.setValueString(prefs.getString("value_string", bean.getValueString()));
+     {
+      String temp=prefs.getString("value_calendar", null);
+      bean.setValueCalendar((StringUtils.hasText(temp)) ? CalendarUtils.read(temp): bean.getValueCalendar());}
+
+     {
+      String temp=prefs.getString("value_long_list", null);
+      bean.setValueLongList(StringUtils.hasText(temp) ? parseValueLongList(temp): bean.getValueLongList());
+    }
+
+    bean.setValueByteType((byte)prefs.getInt("value_byte_type", (byte)bean.getValueByteType()));
+     {
+      String temp=prefs.getString("value_locale", null);
+      bean.setValueLocale((StringUtils.hasText(temp)) ? LocaleUtils.read(temp): bean.getValueLocale());}
 
 
     return bean;
@@ -242,11 +242,36 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean2 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    if (bean.getValueBeanArray()!=null)  {
-      String temp=serializeValueBeanArray(bean.getValueBeanArray());
-      editor.putString("value_bean_array",temp);
+    if (bean.getValueEnumType()!=null)  {
+      editor.putString("value_enum_type",bean.getValueEnumType().toString() );
+    } else {
+      editor.remove("valueEnumType");
+    }
+
+    if (bean.getValueTime()!=null)  {
+      editor.putString("value_time",SQLTimeUtils.write(bean.getValueTime()));
+    } else {
+      editor.remove("valueTime");
+    }
+
+    if (bean.getValueCurrency()!=null)  {
+      editor.putString("value_currency",CurrencyUtils.write(bean.getValueCurrency()));
+    } else {
+      editor.remove("valueCurrency");
+    }
+
+    editor.putInt("value_short_type",(int)bean.getValueShortType());
+
+    if (bean.getValueBigInteger()!=null) editor.putString("value_big_integer",bean.getValueBigInteger().toString() ); else editor.putString("value_big_integer", null);
+    if (bean.getValueInt()!=null)  {
+      editor.putInt("value_int",(int)bean.getValueInt());
+    }
+
+    if (bean.getValueStrinList()!=null)  {
+      String temp=serializeValueStrinList(bean.getValueStrinList());
+      editor.putString("value_strin_list",temp);
     }  else  {
-      editor.remove("value_bean_array");
+      editor.remove("value_strin_list");
     }
 
     if (bean.getValueUrl()!=null)  {
@@ -259,51 +284,34 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       editor.putInt("value_byte",(int)bean.getValueByte());
     }
 
-    if (bean.getValueInt()!=null)  {
-      editor.putInt("value_int",(int)bean.getValueInt());
-    }
-
-    if (bean.getValueStrinList()!=null)  {
-      String temp=serializeValueStrinList(bean.getValueStrinList());
-      editor.putString("value_strin_list",temp);
+    if (bean.getValueCharList()!=null)  {
+      String temp=serializeValueCharList(bean.getValueCharList());
+      editor.putString("value_char_list",temp);
     }  else  {
-      editor.remove("value_strin_list");
+      editor.remove("value_char_list");
     }
 
-    editor.putInt("value_short_type",(int)bean.getValueShortType());
+    if (bean.getValueFloat()!=null)  {
+      editor.putFloat("value_float",bean.getValueFloat());
+    }
 
     editor.putInt("value_int_type",(int)bean.getValueIntType());
 
-    if (bean.getValueBool()!=null)  {
-      editor.putBoolean("value_bool",(boolean)bean.getValueBool());
-    }
+    editor.putLong("value_long_type",bean.getValueLongType());
 
-    if (bean.getValueCalendar()!=null)  {
-      editor.putString("value_calendar",CalendarUtils.write(bean.getValueCalendar()));
-    } else {
-      editor.remove("valueCalendar");
-    }
-
-    if (bean.getValueShort()!=null)  {
-      editor.putInt("value_short",(int)bean.getValueShort());
-    }
-
-    editor.putLong("id",bean.getId());
-
-    if (bean.getValueBigDecimal()!=null) editor.putString("value_big_decimal",bean.getValueBigDecimal().toPlainString() ); else editor.putString("value_big_decimal", null);
-    if (bean.getValueFloat()!=null)  {
-      editor.putFloat("value_float",bean.getValueFloat());
+    if (bean.getValueBean()!=null)  {
+      String temp=serializeValueBean(bean.getValueBean());
+      editor.putString("value_bean",temp);
+    }  else  {
+      editor.remove("value_bean");
     }
 
     if (bean.getValueLong()!=null)  {
       editor.putLong("value_long",bean.getValueLong());
     }
 
-    if (bean.getValueCharTypeArray()!=null)  {
-      String temp=serializeValueCharTypeArray(bean.getValueCharTypeArray());
-      editor.putString("value_char_type_array",temp);
-    }  else  {
-      editor.remove("value_char_type_array");
+    if (bean.getValueShort()!=null)  {
+      editor.putInt("value_short",(int)bean.getValueShort());
     }
 
     if (bean.getValueLongTypeArray()!=null)  {
@@ -313,26 +321,11 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       editor.remove("value_long_type_array");
     }
 
-    if (bean.getValueLongList()!=null)  {
-      String temp=serializeValueLongList(bean.getValueLongList());
-      editor.putString("value_long_list",temp);
+    if (bean.getValueTimeList()!=null)  {
+      String temp=serializeValueTimeList(bean.getValueTimeList());
+      editor.putString("value_time_list",temp);
     }  else  {
-      editor.remove("value_long_list");
-    }
-
-    if (bean.getValueBigInteger()!=null) editor.putString("value_big_integer",bean.getValueBigInteger().toString() ); else editor.putString("value_big_integer", null);
-    editor.putInt("value_byte_type",(int)bean.getValueByteType());
-
-    if (bean.getValueCurrency()!=null)  {
-      editor.putString("value_currency",CurrencyUtils.write(bean.getValueCurrency()));
-    } else {
-      editor.remove("valueCurrency");
-    }
-
-    if (bean.getValueDouble()!=null)  {
-      editor.putString("value_double",String.valueOf(bean.getValueDouble()));
-    } else {
-      editor.remove("valueDouble");
+      editor.remove("value_time_list");
     }
 
     if (bean.getValueByteArray()!=null)  {
@@ -342,12 +335,38 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       editor.remove("value_byte_array");
     }
 
-    if (bean.getValueStringArray()!=null)  {
-      String temp=serializeValueStringArray(bean.getValueStringArray());
-      editor.putString("value_string_array",temp);
-    }  else  {
-      editor.remove("value_string_array");
+    if (bean.getValueDouble()!=null)  {
+      editor.putString("value_double",String.valueOf(bean.getValueDouble()));
+    } else {
+      editor.remove("valueDouble");
     }
+
+    editor.putLong("id",bean.getId());
+
+    if (bean.getValueBeanArray()!=null)  {
+      String temp=serializeValueBeanArray(bean.getValueBeanArray());
+      editor.putString("value_bean_array",temp);
+    }  else  {
+      editor.remove("value_bean_array");
+    }
+
+    if (bean.getValueBigDecimal()!=null) editor.putString("value_big_decimal",bean.getValueBigDecimal().toPlainString() ); else editor.putString("value_big_decimal", null);
+    if (bean.getValueTimeZone()!=null)  {
+      editor.putString("value_time_zone",TimeZoneUtils.write(bean.getValueTimeZone()));
+    } else {
+      editor.remove("valueTimeZone");
+    }
+
+    if (bean.getValueCharTypeArray()!=null)  {
+      String temp=serializeValueCharTypeArray(bean.getValueCharTypeArray());
+      editor.putString("value_char_type_array",temp);
+    }  else  {
+      editor.remove("value_char_type_array");
+    }
+
+    editor.putString("value_double_type",String.valueOf(bean.getValueDoubleType()));
+
+    editor.putInt("value_char_type",(char)bean.getValueCharType());
 
     if (bean.getValueDate()!=null)  {
       editor.putString("value_date",DateUtils.write(bean.getValueDate()));
@@ -355,72 +374,23 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       editor.remove("valueDate");
     }
 
-    if (bean.getValueChar()!=null)  {
-      editor.putInt("value_char",(char)bean.getValueChar());
-    }
-
     editor.putFloat("value_float_type",bean.getValueFloatType());
 
-    if (bean.getValueTimeZone()!=null)  {
-      editor.putString("value_time_zone",TimeZoneUtils.write(bean.getValueTimeZone()));
-    } else {
-      editor.remove("valueTimeZone");
-    }
-
-    editor.putLong("value_long_type",bean.getValueLongType());
-
-    editor.putInt("value_char_type",(char)bean.getValueCharType());
-
-    if (bean.getValueCharList()!=null)  {
-      String temp=serializeValueCharList(bean.getValueCharList());
-      editor.putString("value_char_list",temp);
-    }  else  {
-      editor.remove("value_char_list");
-    }
-
-    if (bean.getValueTimeList()!=null)  {
-      String temp=serializeValueTimeList(bean.getValueTimeList());
-      editor.putString("value_time_list",temp);
-    }  else  {
-      editor.remove("value_time_list");
-    }
-
-    if (bean.getValueTime()!=null)  {
-      editor.putString("value_time",SQLTimeUtils.write(bean.getValueTime()));
-    } else {
-      editor.remove("valueTime");
-    }
-
-    if (bean.getValueBean()!=null)  {
-      String temp=serializeValueBean(bean.getValueBean());
-      editor.putString("value_bean",temp);
-    }  else  {
-      editor.remove("value_bean");
+    if (bean.getValueBool()!=null)  {
+      editor.putBoolean("value_bool",(boolean)bean.getValueBool());
     }
 
     editor.putBoolean("value_bool_type",(boolean)bean.isValueBoolType());
-
-    editor.putString("value_string",bean.getValueString());
-
-    if (bean.getValueEnumType()!=null)  {
-      editor.putString("value_enum_type",bean.getValueEnumType().toString() );
-    } else {
-      editor.remove("valueEnumType");
-    }
-
-    if (bean.getValueLocale()!=null)  {
-      editor.putString("value_locale",LocaleUtils.write(bean.getValueLocale()));
-    } else {
-      editor.remove("valueLocale");
-    }
-
-    editor.putString("value_double_type",String.valueOf(bean.getValueDoubleType()));
 
     if (bean.getValueCharArray()!=null)  {
       String temp=serializeValueCharArray(bean.getValueCharArray());
       editor.putString("value_char_array",temp);
     }  else  {
       editor.remove("value_char_array");
+    }
+
+    if (bean.getValueChar()!=null)  {
+      editor.putInt("value_char",(char)bean.getValueChar());
     }
 
     if (bean.getValueLongArray()!=null)  {
@@ -430,36 +400,85 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       editor.remove("value_long_array");
     }
 
+    if (bean.getValueStringArray()!=null)  {
+      String temp=serializeValueStringArray(bean.getValueStringArray());
+      editor.putString("value_string_array",temp);
+    }  else  {
+      editor.remove("value_string_array");
+    }
+
+    editor.putString("value_string",bean.getValueString());
+
+    if (bean.getValueCalendar()!=null)  {
+      editor.putString("value_calendar",CalendarUtils.write(bean.getValueCalendar()));
+    } else {
+      editor.remove("valueCalendar");
+    }
+
+    if (bean.getValueLongList()!=null)  {
+      String temp=serializeValueLongList(bean.getValueLongList());
+      editor.putString("value_long_list",temp);
+    }  else  {
+      editor.remove("value_long_list");
+    }
+
+    editor.putInt("value_byte_type",(int)bean.getValueByteType());
+
+    if (bean.getValueLocale()!=null)  {
+      editor.putString("value_locale",LocaleUtils.write(bean.getValueLocale()));
+    } else {
+      editor.remove("valueLocale");
+    }
+
 
     editor.commit();
   }
 
   /**
-   * reads property <code>valueBeanArray</code> from shared pref with key <code>value_bean_array</code>
+   * reads property <code>valueEnumType</code> from shared pref with key <code>value_enum_type</code>
    *
-   * @return property valueBeanArray value
+   * @return property valueEnumType value
    */
-  public Bean2[] getValueBeanArray() {
-    String temp=prefs.getString("value_bean_array", null);
-    return StringUtils.hasText(temp) ? parseValueBeanArray(temp): defaultBean.getValueBeanArray();
+  public EnumType getValueEnumType() {
+    String temp=prefs.getString("value_enum_type", null);
+    return (StringUtils.hasText(temp)) ? EnumType.valueOf(temp): defaultBean.getValueEnumType();
   }
 
   /**
-   * reads property <code>valueUrl</code> from shared pref with key <code>value_url</code>
+   * reads property <code>valueTime</code> from shared pref with key <code>value_time</code>
    *
-   * @return property valueUrl value
+   * @return property valueTime value
    */
-  public URL getValueUrl() {
-    String temp=prefs.getString("value_url", null);
-    return (StringUtils.hasText(temp)) ? UrlUtils.read(temp): defaultBean.getValueUrl();}
+  public Time getValueTime() {
+    String temp=prefs.getString("value_time", null);
+    return (StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): defaultBean.getValueTime();}
 
   /**
-   * reads property <code>valueByte</code> from shared pref with key <code>value_byte</code>
+   * reads property <code>valueCurrency</code> from shared pref with key <code>value_currency</code>
    *
-   * @return property valueByte value
+   * @return property valueCurrency value
    */
-  public Byte getValueByte() {
-    return (byte)prefs.getInt("value_byte", (byte)(defaultBean.getValueByte()==null?(byte)0:defaultBean.getValueByte()));}
+  public Currency getValueCurrency() {
+    String temp=prefs.getString("value_currency", null);
+    return (StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): defaultBean.getValueCurrency();}
+
+  /**
+   * reads property <code>valueShortType</code> from shared pref with key <code>value_short_type</code>
+   *
+   * @return property valueShortType value
+   */
+  public short getValueShortType() {
+    return (short)prefs.getInt("value_short_type", (short)defaultBean.getValueShortType());}
+
+  /**
+   * reads property <code>valueBigInteger</code> from shared pref with key <code>value_big_integer</code>
+   *
+   * @return property valueBigInteger value
+   */
+  public BigInteger getValueBigInteger() {
+    String temp=prefs.getString("value_big_integer", "0");
+    return (StringUtils.hasText(temp)) ? new BigInteger(temp): defaultBean.getValueBigInteger();
+  }
 
   /**
    * reads property <code>valueInt</code> from shared pref with key <code>value_int</code>
@@ -480,62 +499,30 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reads property <code>valueShortType</code> from shared pref with key <code>value_short_type</code>
+   * reads property <code>valueUrl</code> from shared pref with key <code>value_url</code>
    *
-   * @return property valueShortType value
+   * @return property valueUrl value
    */
-  public short getValueShortType() {
-    return (short)prefs.getInt("value_short_type", (short)defaultBean.getValueShortType());}
+  public URL getValueUrl() {
+    String temp=prefs.getString("value_url", null);
+    return (StringUtils.hasText(temp)) ? UrlUtils.read(temp): defaultBean.getValueUrl();}
 
   /**
-   * reads property <code>valueIntType</code> from shared pref with key <code>value_int_type</code>
+   * reads property <code>valueByte</code> from shared pref with key <code>value_byte</code>
    *
-   * @return property valueIntType value
+   * @return property valueByte value
    */
-  public int getValueIntType() {
-    return (int)prefs.getInt("value_int_type", (int)defaultBean.getValueIntType());}
+  public Byte getValueByte() {
+    return (byte)prefs.getInt("value_byte", (byte)(defaultBean.getValueByte()==null?(byte)0:defaultBean.getValueByte()));}
 
   /**
-   * reads property <code>valueBool</code> from shared pref with key <code>value_bool</code>
+   * reads property <code>valueCharList</code> from shared pref with key <code>value_char_list</code>
    *
-   * @return property valueBool value
+   * @return property valueCharList value
    */
-  public Boolean getValueBool() {
-    return (boolean)prefs.getBoolean("value_bool", (boolean)(defaultBean.getValueBool()==null?false:defaultBean.getValueBool()));}
-
-  /**
-   * reads property <code>valueCalendar</code> from shared pref with key <code>value_calendar</code>
-   *
-   * @return property valueCalendar value
-   */
-  public Calendar getValueCalendar() {
-    String temp=prefs.getString("value_calendar", null);
-    return (StringUtils.hasText(temp)) ? CalendarUtils.read(temp): defaultBean.getValueCalendar();}
-
-  /**
-   * reads property <code>valueShort</code> from shared pref with key <code>value_short</code>
-   *
-   * @return property valueShort value
-   */
-  public Short getValueShort() {
-    return (short)prefs.getInt("value_short", (short)(defaultBean.getValueShort()==null?(short)0:defaultBean.getValueShort()));}
-
-  /**
-   * reads property <code>id</code> from shared pref with key <code>id</code>
-   *
-   * @return property id value
-   */
-  public long getId() {
-    return prefs.getLong("id", defaultBean.getId());}
-
-  /**
-   * reads property <code>valueBigDecimal</code> from shared pref with key <code>value_big_decimal</code>
-   *
-   * @return property valueBigDecimal value
-   */
-  public BigDecimal getValueBigDecimal() {
-    String temp=prefs.getString("value_big_decimal", "0");
-    return (StringUtils.hasText(temp)) ? new BigDecimal(temp): defaultBean.getValueBigDecimal();
+  public LinkedList<Character> getValueCharList() {
+    String temp=prefs.getString("value_char_list", null);
+    return StringUtils.hasText(temp) ? parseValueCharList(temp): defaultBean.getValueCharList();
   }
 
   /**
@@ -547,133 +534,12 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return prefs.getFloat("value_float", (defaultBean.getValueFloat()==null?0F:defaultBean.getValueFloat()));}
 
   /**
-   * reads property <code>valueLong</code> from shared pref with key <code>value_long</code>
+   * reads property <code>valueIntType</code> from shared pref with key <code>value_int_type</code>
    *
-   * @return property valueLong value
+   * @return property valueIntType value
    */
-  public Long getValueLong() {
-    return prefs.getLong("value_long", (defaultBean.getValueLong()==null?0L:defaultBean.getValueLong()));}
-
-  /**
-   * reads property <code>valueCharTypeArray</code> from shared pref with key <code>value_char_type_array</code>
-   *
-   * @return property valueCharTypeArray value
-   */
-  public char[] getValueCharTypeArray() {
-    String temp=prefs.getString("value_char_type_array", null);
-    return StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): defaultBean.getValueCharTypeArray();
-  }
-
-  /**
-   * reads property <code>valueLongTypeArray</code> from shared pref with key <code>value_long_type_array</code>
-   *
-   * @return property valueLongTypeArray value
-   */
-  public long[] getValueLongTypeArray() {
-    String temp=prefs.getString("value_long_type_array", null);
-    return StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): defaultBean.getValueLongTypeArray();
-  }
-
-  /**
-   * reads property <code>valueLongList</code> from shared pref with key <code>value_long_list</code>
-   *
-   * @return property valueLongList value
-   */
-  public LinkedList<Long> getValueLongList() {
-    String temp=prefs.getString("value_long_list", null);
-    return StringUtils.hasText(temp) ? parseValueLongList(temp): defaultBean.getValueLongList();
-  }
-
-  /**
-   * reads property <code>valueBigInteger</code> from shared pref with key <code>value_big_integer</code>
-   *
-   * @return property valueBigInteger value
-   */
-  public BigInteger getValueBigInteger() {
-    String temp=prefs.getString("value_big_integer", "0");
-    return (StringUtils.hasText(temp)) ? new BigInteger(temp): defaultBean.getValueBigInteger();
-  }
-
-  /**
-   * reads property <code>valueByteType</code> from shared pref with key <code>value_byte_type</code>
-   *
-   * @return property valueByteType value
-   */
-  public byte getValueByteType() {
-    return (byte)prefs.getInt("value_byte_type", (byte)defaultBean.getValueByteType());}
-
-  /**
-   * reads property <code>valueCurrency</code> from shared pref with key <code>value_currency</code>
-   *
-   * @return property valueCurrency value
-   */
-  public Currency getValueCurrency() {
-    String temp=prefs.getString("value_currency", null);
-    return (StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): defaultBean.getValueCurrency();}
-
-  /**
-   * reads property <code>valueDouble</code> from shared pref with key <code>value_double</code>
-   *
-   * @return property valueDouble value
-   */
-  public Double getValueDouble() {
-    String temp=prefs.getString("value_double", null);
-    return (StringUtils.hasText(temp)) ? Double.valueOf(temp): defaultBean.getValueDouble();
-  }
-
-  /**
-   * reads property <code>valueByteArray</code> from shared pref with key <code>value_byte_array</code>
-   *
-   * @return property valueByteArray value
-   */
-  public byte[] getValueByteArray() {
-    String temp=prefs.getString("value_byte_array", null);
-    return StringUtils.hasText(temp) ? parseValueByteArray(temp): defaultBean.getValueByteArray();
-  }
-
-  /**
-   * reads property <code>valueStringArray</code> from shared pref with key <code>value_string_array</code>
-   *
-   * @return property valueStringArray value
-   */
-  public String[] getValueStringArray() {
-    String temp=prefs.getString("value_string_array", null);
-    return StringUtils.hasText(temp) ? parseValueStringArray(temp): defaultBean.getValueStringArray();
-  }
-
-  /**
-   * reads property <code>valueDate</code> from shared pref with key <code>value_date</code>
-   *
-   * @return property valueDate value
-   */
-  public Date getValueDate() {
-    String temp=prefs.getString("value_date", null);
-    return (StringUtils.hasText(temp)) ? DateUtils.read(temp): defaultBean.getValueDate();}
-
-  /**
-   * reads property <code>valueChar</code> from shared pref with key <code>value_char</code>
-   *
-   * @return property valueChar value
-   */
-  public Character getValueChar() {
-    return (char)prefs.getInt("value_char", (char)(defaultBean.getValueChar()==null?(char)0:defaultBean.getValueChar()));}
-
-  /**
-   * reads property <code>valueFloatType</code> from shared pref with key <code>value_float_type</code>
-   *
-   * @return property valueFloatType value
-   */
-  public float getValueFloatType() {
-    return prefs.getFloat("value_float_type", defaultBean.getValueFloatType());}
-
-  /**
-   * reads property <code>valueTimeZone</code> from shared pref with key <code>value_time_zone</code>
-   *
-   * @return property valueTimeZone value
-   */
-  public TimeZone getValueTimeZone() {
-    String temp=prefs.getString("value_time_zone", null);
-    return (StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): defaultBean.getValueTimeZone();}
+  public int getValueIntType() {
+    return (int)prefs.getInt("value_int_type", (int)defaultBean.getValueIntType());}
 
   /**
    * reads property <code>valueLongType</code> from shared pref with key <code>value_long_type</code>
@@ -684,21 +550,39 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     return prefs.getLong("value_long_type", defaultBean.getValueLongType());}
 
   /**
-   * reads property <code>valueCharType</code> from shared pref with key <code>value_char_type</code>
+   * reads property <code>valueBean</code> from shared pref with key <code>value_bean</code>
    *
-   * @return property valueCharType value
+   * @return property valueBean value
    */
-  public char getValueCharType() {
-    return (char)prefs.getInt("value_char_type", (char)defaultBean.getValueCharType());}
+  public Bean2 getValueBean() {
+    String temp=prefs.getString("value_bean", null);
+    return StringUtils.hasText(temp) ? parseValueBean(temp): defaultBean.getValueBean();
+  }
 
   /**
-   * reads property <code>valueCharList</code> from shared pref with key <code>value_char_list</code>
+   * reads property <code>valueLong</code> from shared pref with key <code>value_long</code>
    *
-   * @return property valueCharList value
+   * @return property valueLong value
    */
-  public LinkedList<Character> getValueCharList() {
-    String temp=prefs.getString("value_char_list", null);
-    return StringUtils.hasText(temp) ? parseValueCharList(temp): defaultBean.getValueCharList();
+  public Long getValueLong() {
+    return prefs.getLong("value_long", (defaultBean.getValueLong()==null?0L:defaultBean.getValueLong()));}
+
+  /**
+   * reads property <code>valueShort</code> from shared pref with key <code>value_short</code>
+   *
+   * @return property valueShort value
+   */
+  public Short getValueShort() {
+    return (short)prefs.getInt("value_short", (short)(defaultBean.getValueShort()==null?(short)0:defaultBean.getValueShort()));}
+
+  /**
+   * reads property <code>valueLongTypeArray</code> from shared pref with key <code>value_long_type_array</code>
+   *
+   * @return property valueLongTypeArray value
+   */
+  public long[] getValueLongTypeArray() {
+    String temp=prefs.getString("value_long_type_array", null);
+    return StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): defaultBean.getValueLongTypeArray();
   }
 
   /**
@@ -712,58 +596,71 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reads property <code>valueTime</code> from shared pref with key <code>value_time</code>
+   * reads property <code>valueByteArray</code> from shared pref with key <code>value_byte_array</code>
    *
-   * @return property valueTime value
+   * @return property valueByteArray value
    */
-  public Time getValueTime() {
-    String temp=prefs.getString("value_time", null);
-    return (StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): defaultBean.getValueTime();}
-
-  /**
-   * reads property <code>valueBean</code> from shared pref with key <code>value_bean</code>
-   *
-   * @return property valueBean value
-   */
-  public Bean2 getValueBean() {
-    String temp=prefs.getString("value_bean", null);
-    return StringUtils.hasText(temp) ? parseValueBean(temp): defaultBean.getValueBean();
+  public byte[] getValueByteArray() {
+    String temp=prefs.getString("value_byte_array", null);
+    return StringUtils.hasText(temp) ? parseValueByteArray(temp): defaultBean.getValueByteArray();
   }
 
   /**
-   * reads property <code>valueBoolType</code> from shared pref with key <code>value_bool_type</code>
+   * reads property <code>valueDouble</code> from shared pref with key <code>value_double</code>
    *
-   * @return property valueBoolType value
+   * @return property valueDouble value
    */
-  public boolean getValueBoolType() {
-    return (boolean)prefs.getBoolean("value_bool_type", (boolean)defaultBean.isValueBoolType());}
-
-  /**
-   * reads property <code>valueString</code> from shared pref with key <code>value_string</code>
-   *
-   * @return property valueString value
-   */
-  public String getValueString() {
-    return prefs.getString("value_string", defaultBean.getValueString());}
-
-  /**
-   * reads property <code>valueEnumType</code> from shared pref with key <code>value_enum_type</code>
-   *
-   * @return property valueEnumType value
-   */
-  public EnumType getValueEnumType() {
-    String temp=prefs.getString("value_enum_type", null);
-    return (StringUtils.hasText(temp)) ? EnumType.valueOf(temp): defaultBean.getValueEnumType();
+  public Double getValueDouble() {
+    String temp=prefs.getString("value_double", null);
+    return (StringUtils.hasText(temp)) ? Double.valueOf(temp): defaultBean.getValueDouble();
   }
 
   /**
-   * reads property <code>valueLocale</code> from shared pref with key <code>value_locale</code>
+   * reads property <code>id</code> from shared pref with key <code>id</code>
    *
-   * @return property valueLocale value
+   * @return property id value
    */
-  public Locale getValueLocale() {
-    String temp=prefs.getString("value_locale", null);
-    return (StringUtils.hasText(temp)) ? LocaleUtils.read(temp): defaultBean.getValueLocale();}
+  public long getId() {
+    return prefs.getLong("id", defaultBean.getId());}
+
+  /**
+   * reads property <code>valueBeanArray</code> from shared pref with key <code>value_bean_array</code>
+   *
+   * @return property valueBeanArray value
+   */
+  public Bean2[] getValueBeanArray() {
+    String temp=prefs.getString("value_bean_array", null);
+    return StringUtils.hasText(temp) ? parseValueBeanArray(temp): defaultBean.getValueBeanArray();
+  }
+
+  /**
+   * reads property <code>valueBigDecimal</code> from shared pref with key <code>value_big_decimal</code>
+   *
+   * @return property valueBigDecimal value
+   */
+  public BigDecimal getValueBigDecimal() {
+    String temp=prefs.getString("value_big_decimal", "0");
+    return (StringUtils.hasText(temp)) ? new BigDecimal(temp): defaultBean.getValueBigDecimal();
+  }
+
+  /**
+   * reads property <code>valueTimeZone</code> from shared pref with key <code>value_time_zone</code>
+   *
+   * @return property valueTimeZone value
+   */
+  public TimeZone getValueTimeZone() {
+    String temp=prefs.getString("value_time_zone", null);
+    return (StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): defaultBean.getValueTimeZone();}
+
+  /**
+   * reads property <code>valueCharTypeArray</code> from shared pref with key <code>value_char_type_array</code>
+   *
+   * @return property valueCharTypeArray value
+   */
+  public char[] getValueCharTypeArray() {
+    String temp=prefs.getString("value_char_type_array", null);
+    return StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): defaultBean.getValueCharTypeArray();
+  }
 
   /**
    * reads property <code>valueDoubleType</code> from shared pref with key <code>value_double_type</code>
@@ -776,6 +673,47 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * reads property <code>valueCharType</code> from shared pref with key <code>value_char_type</code>
+   *
+   * @return property valueCharType value
+   */
+  public char getValueCharType() {
+    return (char)prefs.getInt("value_char_type", (char)defaultBean.getValueCharType());}
+
+  /**
+   * reads property <code>valueDate</code> from shared pref with key <code>value_date</code>
+   *
+   * @return property valueDate value
+   */
+  public Date getValueDate() {
+    String temp=prefs.getString("value_date", null);
+    return (StringUtils.hasText(temp)) ? DateUtils.read(temp): defaultBean.getValueDate();}
+
+  /**
+   * reads property <code>valueFloatType</code> from shared pref with key <code>value_float_type</code>
+   *
+   * @return property valueFloatType value
+   */
+  public float getValueFloatType() {
+    return prefs.getFloat("value_float_type", defaultBean.getValueFloatType());}
+
+  /**
+   * reads property <code>valueBool</code> from shared pref with key <code>value_bool</code>
+   *
+   * @return property valueBool value
+   */
+  public Boolean getValueBool() {
+    return (boolean)prefs.getBoolean("value_bool", (boolean)(defaultBean.getValueBool()==null?false:defaultBean.getValueBool()));}
+
+  /**
+   * reads property <code>valueBoolType</code> from shared pref with key <code>value_bool_type</code>
+   *
+   * @return property valueBoolType value
+   */
+  public boolean getValueBoolType() {
+    return (boolean)prefs.getBoolean("value_bool_type", (boolean)defaultBean.isValueBoolType());}
+
+  /**
    * reads property <code>valueCharArray</code> from shared pref with key <code>value_char_array</code>
    *
    * @return property valueCharArray value
@@ -784,6 +722,14 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     String temp=prefs.getString("value_char_array", null);
     return StringUtils.hasText(temp) ? parseValueCharArray(temp): defaultBean.getValueCharArray();
   }
+
+  /**
+   * reads property <code>valueChar</code> from shared pref with key <code>value_char</code>
+   *
+   * @return property valueChar value
+   */
+  public Character getValueChar() {
+    return (char)prefs.getInt("value_char", (char)(defaultBean.getValueChar()==null?(char)0:defaultBean.getValueChar()));}
 
   /**
    * reads property <code>valueLongArray</code> from shared pref with key <code>value_long_array</code>
@@ -796,75 +742,58 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBeanArray serialization
+   * reads property <code>valueStringArray</code> from shared pref with key <code>value_string_array</code>
+   *
+   * @return property valueStringArray value
    */
-  protected String serializeValueBeanArray(Bean2[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        int n=value.length;
-        Bean2 item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("valueBeanArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            bean2BindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toString();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
+  public String[] getValueStringArray() {
+    String temp=prefs.getString("value_string_array", null);
+    return StringUtils.hasText(temp) ? parseValueStringArray(temp): defaultBean.getValueStringArray();
   }
 
   /**
-   * for attribute valueBeanArray parsing
+   * reads property <code>valueString</code> from shared pref with key <code>value_string</code>
+   *
+   * @return property valueString value
    */
-  protected Bean2[] parseValueBeanArray(String input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Bean2[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Bean2> collection=new ArrayList<>();
-        Bean2 item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=bean2BindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asArray(collection, new Bean2[collection.size()]);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
+  public String getValueString() {
+    return prefs.getString("value_string", defaultBean.getValueString());}
+
+  /**
+   * reads property <code>valueCalendar</code> from shared pref with key <code>value_calendar</code>
+   *
+   * @return property valueCalendar value
+   */
+  public Calendar getValueCalendar() {
+    String temp=prefs.getString("value_calendar", null);
+    return (StringUtils.hasText(temp)) ? CalendarUtils.read(temp): defaultBean.getValueCalendar();}
+
+  /**
+   * reads property <code>valueLongList</code> from shared pref with key <code>value_long_list</code>
+   *
+   * @return property valueLongList value
+   */
+  public LinkedList<Long> getValueLongList() {
+    String temp=prefs.getString("value_long_list", null);
+    return StringUtils.hasText(temp) ? parseValueLongList(temp): defaultBean.getValueLongList();
   }
+
+  /**
+   * reads property <code>valueByteType</code> from shared pref with key <code>value_byte_type</code>
+   *
+   * @return property valueByteType value
+   */
+  public byte getValueByteType() {
+    return (byte)prefs.getInt("value_byte_type", (byte)defaultBean.getValueByteType());}
+
+  /**
+   * reads property <code>valueLocale</code> from shared pref with key <code>value_locale</code>
+   *
+   * @return property valueLocale value
+   */
+  public Locale getValueLocale() {
+    String temp=prefs.getString("value_locale", null);
+    return (StringUtils.hasText(temp)) ? LocaleUtils.read(temp): defaultBean.getValueLocale();}
 
   /**
    * for attribute valueStrinList serialization
@@ -930,330 +859,6 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
           collection.add(item);
         }
         result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueCharTypeArray serialization
-   */
-  protected String serializeValueCharTypeArray(char[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        int n=value.length;
-        char item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("valueCharTypeArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          jacksonSerializer.writeNumber(item);
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toString();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueCharTypeArray parsing
-   */
-  protected char[] parseValueCharTypeArray(String input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      char[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Character> collection=new ArrayList<>();
-        Character item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=Character.valueOf((char)jacksonParser.getIntValue());
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asCharacterTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueLongTypeArray serialization
-   */
-  protected String serializeValueLongTypeArray(long[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        int n=value.length;
-        long item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("valueLongTypeArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          jacksonSerializer.writeNumber(item);
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toString();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueLongTypeArray parsing
-   */
-  protected long[] parseValueLongTypeArray(String input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      long[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Long> collection=new ArrayList<>();
-        Long item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getLongValue();
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asLongTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueLongList serialization
-   */
-  protected String serializeValueLongList(LinkedList<Long> value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        int n=value.size();
-        Long item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("valueLongList");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value.get(i);
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeNumber(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toString();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueLongList parsing
-   */
-  protected LinkedList<Long> parseValueLongList(String input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      LinkedList<Long> result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        LinkedList<Long> collection=new LinkedList<>();
-        Long item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getLongValue();
-          }
-          collection.add(item);
-        }
-        result=collection;
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueByteArray serialization
-   */
-  protected String serializeValueByteArray(byte[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        jacksonSerializer.writeBinaryField("valueByteArray", value);
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toString();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueByteArray parsing
-   */
-  protected byte[] parseValueByteArray(String input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      byte[] result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getBinaryValue();
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueStringArray serialization
-   */
-  protected String serializeValueStringArray(String[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      jacksonSerializer.writeStartObject();
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        int n=value.length;
-        String item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("valueStringArray");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeString(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toString();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute valueStringArray parsing
-   */
-  protected String[] parseValueStringArray(String input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      String[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<String> collection=new ArrayList<>();
-        String item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=jacksonParser.getText();
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asArray(collection, new String[collection.size()]);
       }
       return result;
     } catch(Exception e) {
@@ -1333,6 +938,117 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * for attribute valueBean serialization
+   */
+  protected String serializeValueBean(Bean2 value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        bean2BindMap.serializeOnJackson(value, jacksonSerializer);
+      }
+      jacksonSerializer.flush();
+      return stream.toString();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueBean parsing
+   */
+  protected Bean2 parseValueBean(String input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      Bean2 result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+        result=bean2BindMap.parseOnJackson(jacksonParser);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueLongTypeArray serialization
+   */
+  protected String serializeValueLongTypeArray(long[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueLongTypeArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toString();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueLongTypeArray parsing
+   */
+  protected long[] parseValueLongTypeArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      long[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Long> collection=new ArrayList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * for attribute valueTimeList serialization
    */
   protected String serializeValueTimeList(List<Time> value) {
@@ -1404,20 +1120,22 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBean serialization
+   * for attribute valueByteArray serialization
    */
-  protected String serializeValueBean(Bean2 value) {
+  protected String serializeValueByteArray(byte[] value) {
     if (value==null) {
       return null;
     }
     KriptonJsonContext context=KriptonBinder.jsonBind();
     try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
       JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
       int fieldCount=0;
       if (value!=null)  {
         fieldCount++;
-        bean2BindMap.serializeOnJackson(value, jacksonSerializer);
+        jacksonSerializer.writeBinaryField("valueByteArray", value);
       }
+      jacksonSerializer.writeEndObject();
       jacksonSerializer.flush();
       return stream.toString();
     } catch(Exception e) {
@@ -1426,9 +1144,9 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute valueBean parsing
+   * for attribute valueByteArray parsing
    */
-  protected Bean2 parseValueBean(String input) {
+  protected byte[] parseValueByteArray(String input) {
     if (input==null) {
       return null;
     }
@@ -1437,9 +1155,149 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
       jacksonParser.nextToken();
-      Bean2 result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=bean2BindMap.parseOnJackson(jacksonParser);
+      // value of "element"
+      jacksonParser.nextValue();
+      byte[] result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getBinaryValue();
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueBeanArray serialization
+   */
+  protected String serializeValueBeanArray(Bean2[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        Bean2 item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueBeanArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            bean2BindMap.serializeOnJackson(item, jacksonSerializer);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toString();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueBeanArray parsing
+   */
+  protected Bean2[] parseValueBeanArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Bean2[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Bean2> collection=new ArrayList<>();
+        Bean2 item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=bean2BindMap.parseOnJackson(jacksonParser);
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new Bean2[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueCharTypeArray serialization
+   */
+  protected String serializeValueCharTypeArray(char[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        char item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueCharTypeArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toString();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueCharTypeArray parsing
+   */
+  protected char[] parseValueCharTypeArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      char[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterTypeArray(collection);
       }
       return result;
     } catch(Exception e) {
@@ -1590,6 +1448,148 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
+   * for attribute valueStringArray serialization
+   */
+  protected String serializeValueStringArray(String[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.length;
+        String item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueStringArray");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toString();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueStringArray parsing
+   */
+  protected String[] parseValueStringArray(String input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      String[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<String> collection=new ArrayList<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asArray(collection, new String[collection.size()]);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueLongList serialization
+   */
+  protected String serializeValueLongList(LinkedList<Long> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      jacksonSerializer.writeStartObject();
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        int n=value.size();
+        Long item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("valueLongList");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value.get(i);
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toString();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for attribute valueLongList parsing
+   */
+  protected LinkedList<Long> parseValueLongList(String input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      LinkedList<Long> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        LinkedList<Long> collection=new LinkedList<>();
+        Long item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getLongValue();
+          }
+          collection.add(item);
+        }
+        result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
    * get instance of shared preferences
    */
   public static synchronized BindBean2SharedPreferences getInstance() {
@@ -1609,64 +1609,98 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBeanArray
+     * modifier for property valueEnumType
      */
-    public BindEditor putValueBeanArray(Bean2[] value) {
+    public BindEditor putValueEnumType(EnumType value) {
       if (value!=null)  {
-        String temp=serializeValueBeanArray(value);
-        editor.putString("value_bean_array",temp);
-      }  else  {
-        editor.remove("value_bean_array");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueBeanArray
-     */
-    public BindEditor removeValueBeanArray() {
-      editor.remove("value_bean_array");
-      return this;
-    }
-
-    /**
-     * modifier for property valueUrl
-     */
-    public BindEditor putValueUrl(URL value) {
-      if (value!=null)  {
-        editor.putString("value_url",UrlUtils.write(value));
+        editor.putString("value_enum_type",value.toString() );
       } else {
-        editor.remove("valueUrl");
+        editor.remove("valueEnumType");
       }
 
       return this;
     }
 
     /**
-     * remove property valueUrl
+     * remove property valueEnumType
      */
-    public BindEditor removeValueUrl() {
-      editor.remove("value_url");
+    public BindEditor removeValueEnumType() {
+      editor.remove("value_enum_type");
       return this;
     }
 
     /**
-     * modifier for property valueByte
+     * modifier for property valueTime
      */
-    public BindEditor putValueByte(Byte value) {
+    public BindEditor putValueTime(Time value) {
       if (value!=null)  {
-        editor.putInt("value_byte",(int)value);
+        editor.putString("value_time",SQLTimeUtils.write(value));
+      } else {
+        editor.remove("valueTime");
       }
 
       return this;
     }
 
     /**
-     * remove property valueByte
+     * remove property valueTime
      */
-    public BindEditor removeValueByte() {
-      editor.remove("value_byte");
+    public BindEditor removeValueTime() {
+      editor.remove("value_time");
+      return this;
+    }
+
+    /**
+     * modifier for property valueCurrency
+     */
+    public BindEditor putValueCurrency(Currency value) {
+      if (value!=null)  {
+        editor.putString("value_currency",CurrencyUtils.write(value));
+      } else {
+        editor.remove("valueCurrency");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueCurrency
+     */
+    public BindEditor removeValueCurrency() {
+      editor.remove("value_currency");
+      return this;
+    }
+
+    /**
+     * modifier for property valueShortType
+     */
+    public BindEditor putValueShortType(short value) {
+      editor.putInt("value_short_type",(int)value);
+
+      return this;
+    }
+
+    /**
+     * remove property valueShortType
+     */
+    public BindEditor removeValueShortType() {
+      editor.remove("value_short_type");
+      return this;
+    }
+
+    /**
+     * modifier for property valueBigInteger
+     */
+    public BindEditor putValueBigInteger(BigInteger value) {
+      if (value!=null) editor.putString("value_big_integer",value.toString()); else editor.remove("value_big_integer");
+      return this;
+    }
+
+    /**
+     * remove property valueBigInteger
+     */
+    public BindEditor removeValueBigInteger() {
+      editor.remove("value_big_integer");
       return this;
     }
 
@@ -1712,463 +1746,42 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueShortType
+     * modifier for property valueUrl
      */
-    public BindEditor putValueShortType(short value) {
-      editor.putInt("value_short_type",(int)value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueShortType
-     */
-    public BindEditor removeValueShortType() {
-      editor.remove("value_short_type");
-      return this;
-    }
-
-    /**
-     * modifier for property valueIntType
-     */
-    public BindEditor putValueIntType(int value) {
-      editor.putInt("value_int_type",(int)value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueIntType
-     */
-    public BindEditor removeValueIntType() {
-      editor.remove("value_int_type");
-      return this;
-    }
-
-    /**
-     * modifier for property valueBool
-     */
-    public BindEditor putValueBool(Boolean value) {
+    public BindEditor putValueUrl(URL value) {
       if (value!=null)  {
-        editor.putBoolean("value_bool",(boolean)value);
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueBool
-     */
-    public BindEditor removeValueBool() {
-      editor.remove("value_bool");
-      return this;
-    }
-
-    /**
-     * modifier for property valueCalendar
-     */
-    public BindEditor putValueCalendar(Calendar value) {
-      if (value!=null)  {
-        editor.putString("value_calendar",CalendarUtils.write(value));
+        editor.putString("value_url",UrlUtils.write(value));
       } else {
-        editor.remove("valueCalendar");
+        editor.remove("valueUrl");
       }
 
       return this;
     }
 
     /**
-     * remove property valueCalendar
+     * remove property valueUrl
      */
-    public BindEditor removeValueCalendar() {
-      editor.remove("value_calendar");
+    public BindEditor removeValueUrl() {
+      editor.remove("value_url");
       return this;
     }
 
     /**
-     * modifier for property valueShort
+     * modifier for property valueByte
      */
-    public BindEditor putValueShort(Short value) {
+    public BindEditor putValueByte(Byte value) {
       if (value!=null)  {
-        editor.putInt("value_short",(int)value);
+        editor.putInt("value_byte",(int)value);
       }
 
       return this;
     }
 
     /**
-     * remove property valueShort
+     * remove property valueByte
      */
-    public BindEditor removeValueShort() {
-      editor.remove("value_short");
-      return this;
-    }
-
-    /**
-     * modifier for property id
-     */
-    public BindEditor putId(long value) {
-      editor.putLong("id",value);
-
-      return this;
-    }
-
-    /**
-     * remove property id
-     */
-    public BindEditor removeId() {
-      editor.remove("id");
-      return this;
-    }
-
-    /**
-     * modifier for property valueBigDecimal
-     */
-    public BindEditor putValueBigDecimal(BigDecimal value) {
-      if (value!=null) editor.putString("value_big_decimal",value.toPlainString()); else editor.remove("value_big_decimal");
-      return this;
-    }
-
-    /**
-     * remove property valueBigDecimal
-     */
-    public BindEditor removeValueBigDecimal() {
-      editor.remove("value_big_decimal");
-      return this;
-    }
-
-    /**
-     * modifier for property valueFloat
-     */
-    public BindEditor putValueFloat(Float value) {
-      if (value!=null)  {
-        editor.putFloat("value_float",value);
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueFloat
-     */
-    public BindEditor removeValueFloat() {
-      editor.remove("value_float");
-      return this;
-    }
-
-    /**
-     * modifier for property valueLong
-     */
-    public BindEditor putValueLong(Long value) {
-      if (value!=null)  {
-        editor.putLong("value_long",value);
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueLong
-     */
-    public BindEditor removeValueLong() {
-      editor.remove("value_long");
-      return this;
-    }
-
-    /**
-     * modifier for property valueCharTypeArray
-     */
-    public BindEditor putValueCharTypeArray(char[] value) {
-      if (value!=null)  {
-        String temp=serializeValueCharTypeArray(value);
-        editor.putString("value_char_type_array",temp);
-      }  else  {
-        editor.remove("value_char_type_array");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueCharTypeArray
-     */
-    public BindEditor removeValueCharTypeArray() {
-      editor.remove("value_char_type_array");
-      return this;
-    }
-
-    /**
-     * modifier for property valueLongTypeArray
-     */
-    public BindEditor putValueLongTypeArray(long[] value) {
-      if (value!=null)  {
-        String temp=serializeValueLongTypeArray(value);
-        editor.putString("value_long_type_array",temp);
-      }  else  {
-        editor.remove("value_long_type_array");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueLongTypeArray
-     */
-    public BindEditor removeValueLongTypeArray() {
-      editor.remove("value_long_type_array");
-      return this;
-    }
-
-    /**
-     * modifier for property valueLongList
-     */
-    public BindEditor putValueLongList(LinkedList<Long> value) {
-      if (value!=null)  {
-        String temp=serializeValueLongList(value);
-        editor.putString("value_long_list",temp);
-      }  else  {
-        editor.remove("value_long_list");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueLongList
-     */
-    public BindEditor removeValueLongList() {
-      editor.remove("value_long_list");
-      return this;
-    }
-
-    /**
-     * modifier for property valueBigInteger
-     */
-    public BindEditor putValueBigInteger(BigInteger value) {
-      if (value!=null) editor.putString("value_big_integer",value.toString()); else editor.remove("value_big_integer");
-      return this;
-    }
-
-    /**
-     * remove property valueBigInteger
-     */
-    public BindEditor removeValueBigInteger() {
-      editor.remove("value_big_integer");
-      return this;
-    }
-
-    /**
-     * modifier for property valueByteType
-     */
-    public BindEditor putValueByteType(byte value) {
-      editor.putInt("value_byte_type",(int)value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueByteType
-     */
-    public BindEditor removeValueByteType() {
-      editor.remove("value_byte_type");
-      return this;
-    }
-
-    /**
-     * modifier for property valueCurrency
-     */
-    public BindEditor putValueCurrency(Currency value) {
-      if (value!=null)  {
-        editor.putString("value_currency",CurrencyUtils.write(value));
-      } else {
-        editor.remove("valueCurrency");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueCurrency
-     */
-    public BindEditor removeValueCurrency() {
-      editor.remove("value_currency");
-      return this;
-    }
-
-    /**
-     * modifier for property valueDouble
-     */
-    public BindEditor putValueDouble(Double value) {
-      if (value!=null)  {
-        editor.putString("value_double",String.valueOf(value));
-      } else {
-        editor.remove("valueDouble");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueDouble
-     */
-    public BindEditor removeValueDouble() {
-      editor.remove("value_double");
-      return this;
-    }
-
-    /**
-     * modifier for property valueByteArray
-     */
-    public BindEditor putValueByteArray(byte[] value) {
-      if (value!=null)  {
-        String temp=serializeValueByteArray(value);
-        editor.putString("value_byte_array",temp);
-      }  else  {
-        editor.remove("value_byte_array");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueByteArray
-     */
-    public BindEditor removeValueByteArray() {
-      editor.remove("value_byte_array");
-      return this;
-    }
-
-    /**
-     * modifier for property valueStringArray
-     */
-    public BindEditor putValueStringArray(String[] value) {
-      if (value!=null)  {
-        String temp=serializeValueStringArray(value);
-        editor.putString("value_string_array",temp);
-      }  else  {
-        editor.remove("value_string_array");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueStringArray
-     */
-    public BindEditor removeValueStringArray() {
-      editor.remove("value_string_array");
-      return this;
-    }
-
-    /**
-     * modifier for property valueDate
-     */
-    public BindEditor putValueDate(Date value) {
-      if (value!=null)  {
-        editor.putString("value_date",DateUtils.write(value));
-      } else {
-        editor.remove("valueDate");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueDate
-     */
-    public BindEditor removeValueDate() {
-      editor.remove("value_date");
-      return this;
-    }
-
-    /**
-     * modifier for property valueChar
-     */
-    public BindEditor putValueChar(Character value) {
-      if (value!=null)  {
-        editor.putInt("value_char",(char)value);
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueChar
-     */
-    public BindEditor removeValueChar() {
-      editor.remove("value_char");
-      return this;
-    }
-
-    /**
-     * modifier for property valueFloatType
-     */
-    public BindEditor putValueFloatType(float value) {
-      editor.putFloat("value_float_type",value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueFloatType
-     */
-    public BindEditor removeValueFloatType() {
-      editor.remove("value_float_type");
-      return this;
-    }
-
-    /**
-     * modifier for property valueTimeZone
-     */
-    public BindEditor putValueTimeZone(TimeZone value) {
-      if (value!=null)  {
-        editor.putString("value_time_zone",TimeZoneUtils.write(value));
-      } else {
-        editor.remove("valueTimeZone");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueTimeZone
-     */
-    public BindEditor removeValueTimeZone() {
-      editor.remove("value_time_zone");
-      return this;
-    }
-
-    /**
-     * modifier for property valueLongType
-     */
-    public BindEditor putValueLongType(long value) {
-      editor.putLong("value_long_type",value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueLongType
-     */
-    public BindEditor removeValueLongType() {
-      editor.remove("value_long_type");
-      return this;
-    }
-
-    /**
-     * modifier for property valueCharType
-     */
-    public BindEditor putValueCharType(char value) {
-      editor.putInt("value_char_type",(char)value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueCharType
-     */
-    public BindEditor removeValueCharType() {
-      editor.remove("value_char_type");
+    public BindEditor removeValueByte() {
+      editor.remove("value_byte");
       return this;
     }
 
@@ -2195,45 +1808,55 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueTimeList
+     * modifier for property valueFloat
      */
-    public BindEditor putValueTimeList(List<Time> value) {
+    public BindEditor putValueFloat(Float value) {
       if (value!=null)  {
-        String temp=serializeValueTimeList(value);
-        editor.putString("value_time_list",temp);
-      }  else  {
-        editor.remove("value_time_list");
+        editor.putFloat("value_float",value);
       }
 
       return this;
     }
 
     /**
-     * remove property valueTimeList
+     * remove property valueFloat
      */
-    public BindEditor removeValueTimeList() {
-      editor.remove("value_time_list");
+    public BindEditor removeValueFloat() {
+      editor.remove("value_float");
       return this;
     }
 
     /**
-     * modifier for property valueTime
+     * modifier for property valueIntType
      */
-    public BindEditor putValueTime(Time value) {
-      if (value!=null)  {
-        editor.putString("value_time",SQLTimeUtils.write(value));
-      } else {
-        editor.remove("valueTime");
-      }
+    public BindEditor putValueIntType(int value) {
+      editor.putInt("value_int_type",(int)value);
 
       return this;
     }
 
     /**
-     * remove property valueTime
+     * remove property valueIntType
      */
-    public BindEditor removeValueTime() {
-      editor.remove("value_time");
+    public BindEditor removeValueIntType() {
+      editor.remove("value_int_type");
+      return this;
+    }
+
+    /**
+     * modifier for property valueLongType
+     */
+    public BindEditor putValueLongType(long value) {
+      editor.putLong("value_long_type",value);
+
+      return this;
+    }
+
+    /**
+     * remove property valueLongType
+     */
+    public BindEditor removeValueLongType() {
+      editor.remove("value_long_type");
       return this;
     }
 
@@ -2260,78 +1883,225 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property valueBoolType
+     * modifier for property valueLong
      */
-    public BindEditor putValueBoolType(boolean value) {
-      editor.putBoolean("value_bool_type",(boolean)value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueBoolType
-     */
-    public BindEditor removeValueBoolType() {
-      editor.remove("value_bool_type");
-      return this;
-    }
-
-    /**
-     * modifier for property valueString
-     */
-    public BindEditor putValueString(String value) {
-      editor.putString("value_string",value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueString
-     */
-    public BindEditor removeValueString() {
-      editor.remove("value_string");
-      return this;
-    }
-
-    /**
-     * modifier for property valueEnumType
-     */
-    public BindEditor putValueEnumType(EnumType value) {
+    public BindEditor putValueLong(Long value) {
       if (value!=null)  {
-        editor.putString("value_enum_type",value.toString() );
-      } else {
-        editor.remove("valueEnumType");
+        editor.putLong("value_long",value);
       }
 
       return this;
     }
 
     /**
-     * remove property valueEnumType
+     * remove property valueLong
      */
-    public BindEditor removeValueEnumType() {
-      editor.remove("value_enum_type");
+    public BindEditor removeValueLong() {
+      editor.remove("value_long");
       return this;
     }
 
     /**
-     * modifier for property valueLocale
+     * modifier for property valueShort
      */
-    public BindEditor putValueLocale(Locale value) {
+    public BindEditor putValueShort(Short value) {
       if (value!=null)  {
-        editor.putString("value_locale",LocaleUtils.write(value));
-      } else {
-        editor.remove("valueLocale");
+        editor.putInt("value_short",(int)value);
       }
 
       return this;
     }
 
     /**
-     * remove property valueLocale
+     * remove property valueShort
      */
-    public BindEditor removeValueLocale() {
-      editor.remove("value_locale");
+    public BindEditor removeValueShort() {
+      editor.remove("value_short");
+      return this;
+    }
+
+    /**
+     * modifier for property valueLongTypeArray
+     */
+    public BindEditor putValueLongTypeArray(long[] value) {
+      if (value!=null)  {
+        String temp=serializeValueLongTypeArray(value);
+        editor.putString("value_long_type_array",temp);
+      }  else  {
+        editor.remove("value_long_type_array");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueLongTypeArray
+     */
+    public BindEditor removeValueLongTypeArray() {
+      editor.remove("value_long_type_array");
+      return this;
+    }
+
+    /**
+     * modifier for property valueTimeList
+     */
+    public BindEditor putValueTimeList(List<Time> value) {
+      if (value!=null)  {
+        String temp=serializeValueTimeList(value);
+        editor.putString("value_time_list",temp);
+      }  else  {
+        editor.remove("value_time_list");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueTimeList
+     */
+    public BindEditor removeValueTimeList() {
+      editor.remove("value_time_list");
+      return this;
+    }
+
+    /**
+     * modifier for property valueByteArray
+     */
+    public BindEditor putValueByteArray(byte[] value) {
+      if (value!=null)  {
+        String temp=serializeValueByteArray(value);
+        editor.putString("value_byte_array",temp);
+      }  else  {
+        editor.remove("value_byte_array");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueByteArray
+     */
+    public BindEditor removeValueByteArray() {
+      editor.remove("value_byte_array");
+      return this;
+    }
+
+    /**
+     * modifier for property valueDouble
+     */
+    public BindEditor putValueDouble(Double value) {
+      if (value!=null)  {
+        editor.putString("value_double",String.valueOf(value));
+      } else {
+        editor.remove("valueDouble");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueDouble
+     */
+    public BindEditor removeValueDouble() {
+      editor.remove("value_double");
+      return this;
+    }
+
+    /**
+     * modifier for property id
+     */
+    public BindEditor putId(long value) {
+      editor.putLong("id",value);
+
+      return this;
+    }
+
+    /**
+     * remove property id
+     */
+    public BindEditor removeId() {
+      editor.remove("id");
+      return this;
+    }
+
+    /**
+     * modifier for property valueBeanArray
+     */
+    public BindEditor putValueBeanArray(Bean2[] value) {
+      if (value!=null)  {
+        String temp=serializeValueBeanArray(value);
+        editor.putString("value_bean_array",temp);
+      }  else  {
+        editor.remove("value_bean_array");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueBeanArray
+     */
+    public BindEditor removeValueBeanArray() {
+      editor.remove("value_bean_array");
+      return this;
+    }
+
+    /**
+     * modifier for property valueBigDecimal
+     */
+    public BindEditor putValueBigDecimal(BigDecimal value) {
+      if (value!=null) editor.putString("value_big_decimal",value.toPlainString()); else editor.remove("value_big_decimal");
+      return this;
+    }
+
+    /**
+     * remove property valueBigDecimal
+     */
+    public BindEditor removeValueBigDecimal() {
+      editor.remove("value_big_decimal");
+      return this;
+    }
+
+    /**
+     * modifier for property valueTimeZone
+     */
+    public BindEditor putValueTimeZone(TimeZone value) {
+      if (value!=null)  {
+        editor.putString("value_time_zone",TimeZoneUtils.write(value));
+      } else {
+        editor.remove("valueTimeZone");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueTimeZone
+     */
+    public BindEditor removeValueTimeZone() {
+      editor.remove("value_time_zone");
+      return this;
+    }
+
+    /**
+     * modifier for property valueCharTypeArray
+     */
+    public BindEditor putValueCharTypeArray(char[] value) {
+      if (value!=null)  {
+        String temp=serializeValueCharTypeArray(value);
+        editor.putString("value_char_type_array",temp);
+      }  else  {
+        editor.remove("value_char_type_array");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueCharTypeArray
+     */
+    public BindEditor removeValueCharTypeArray() {
+      editor.remove("value_char_type_array");
       return this;
     }
 
@@ -2349,6 +2119,97 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeValueDoubleType() {
       editor.remove("value_double_type");
+      return this;
+    }
+
+    /**
+     * modifier for property valueCharType
+     */
+    public BindEditor putValueCharType(char value) {
+      editor.putInt("value_char_type",(char)value);
+
+      return this;
+    }
+
+    /**
+     * remove property valueCharType
+     */
+    public BindEditor removeValueCharType() {
+      editor.remove("value_char_type");
+      return this;
+    }
+
+    /**
+     * modifier for property valueDate
+     */
+    public BindEditor putValueDate(Date value) {
+      if (value!=null)  {
+        editor.putString("value_date",DateUtils.write(value));
+      } else {
+        editor.remove("valueDate");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueDate
+     */
+    public BindEditor removeValueDate() {
+      editor.remove("value_date");
+      return this;
+    }
+
+    /**
+     * modifier for property valueFloatType
+     */
+    public BindEditor putValueFloatType(float value) {
+      editor.putFloat("value_float_type",value);
+
+      return this;
+    }
+
+    /**
+     * remove property valueFloatType
+     */
+    public BindEditor removeValueFloatType() {
+      editor.remove("value_float_type");
+      return this;
+    }
+
+    /**
+     * modifier for property valueBool
+     */
+    public BindEditor putValueBool(Boolean value) {
+      if (value!=null)  {
+        editor.putBoolean("value_bool",(boolean)value);
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueBool
+     */
+    public BindEditor removeValueBool() {
+      editor.remove("value_bool");
+      return this;
+    }
+
+    /**
+     * modifier for property valueBoolType
+     */
+    public BindEditor putValueBoolType(boolean value) {
+      editor.putBoolean("value_bool_type",(boolean)value);
+
+      return this;
+    }
+
+    /**
+     * remove property valueBoolType
+     */
+    public BindEditor removeValueBoolType() {
+      editor.remove("value_bool_type");
       return this;
     }
 
@@ -2375,6 +2236,25 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * modifier for property valueChar
+     */
+    public BindEditor putValueChar(Character value) {
+      if (value!=null)  {
+        editor.putInt("value_char",(char)value);
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueChar
+     */
+    public BindEditor removeValueChar() {
+      editor.remove("value_char");
+      return this;
+    }
+
+    /**
      * modifier for property valueLongArray
      */
     public BindEditor putValueLongArray(Long[] value) {
@@ -2393,6 +2273,126 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeValueLongArray() {
       editor.remove("value_long_array");
+      return this;
+    }
+
+    /**
+     * modifier for property valueStringArray
+     */
+    public BindEditor putValueStringArray(String[] value) {
+      if (value!=null)  {
+        String temp=serializeValueStringArray(value);
+        editor.putString("value_string_array",temp);
+      }  else  {
+        editor.remove("value_string_array");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueStringArray
+     */
+    public BindEditor removeValueStringArray() {
+      editor.remove("value_string_array");
+      return this;
+    }
+
+    /**
+     * modifier for property valueString
+     */
+    public BindEditor putValueString(String value) {
+      editor.putString("value_string",value);
+
+      return this;
+    }
+
+    /**
+     * remove property valueString
+     */
+    public BindEditor removeValueString() {
+      editor.remove("value_string");
+      return this;
+    }
+
+    /**
+     * modifier for property valueCalendar
+     */
+    public BindEditor putValueCalendar(Calendar value) {
+      if (value!=null)  {
+        editor.putString("value_calendar",CalendarUtils.write(value));
+      } else {
+        editor.remove("valueCalendar");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueCalendar
+     */
+    public BindEditor removeValueCalendar() {
+      editor.remove("value_calendar");
+      return this;
+    }
+
+    /**
+     * modifier for property valueLongList
+     */
+    public BindEditor putValueLongList(LinkedList<Long> value) {
+      if (value!=null)  {
+        String temp=serializeValueLongList(value);
+        editor.putString("value_long_list",temp);
+      }  else  {
+        editor.remove("value_long_list");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueLongList
+     */
+    public BindEditor removeValueLongList() {
+      editor.remove("value_long_list");
+      return this;
+    }
+
+    /**
+     * modifier for property valueByteType
+     */
+    public BindEditor putValueByteType(byte value) {
+      editor.putInt("value_byte_type",(int)value);
+
+      return this;
+    }
+
+    /**
+     * remove property valueByteType
+     */
+    public BindEditor removeValueByteType() {
+      editor.remove("value_byte_type");
+      return this;
+    }
+
+    /**
+     * modifier for property valueLocale
+     */
+    public BindEditor putValueLocale(Locale value) {
+      if (value!=null)  {
+        editor.putString("value_locale",LocaleUtils.write(value));
+      } else {
+        editor.remove("valueLocale");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property valueLocale
+     */
+    public BindEditor removeValueLocale() {
+      editor.remove("value_locale");
       return this;
     }
 

@@ -24,6 +24,10 @@ import sqlite.feature.pkstring.case1.Album;
 import sqlite.feature.pkstring.case1.AppDataSource;
 import sqlite.feature.pkstring.case1.DaoAlbum;
 import sqlite.feature.pkstring.case1.DaoBase;
+import sqlite.feature.pkstring.case1.DaoZArtist;
+import sqlite.feature.pkstring.case1.ZArtist;
+import sqlite.feature.pkstring.case1.Song;
+import sqlite.feature.pkstring.case1.DaoSong;
 
 
 /**
@@ -39,7 +43,7 @@ public class TestCompilePkString1 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws Throwable {		
-		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoBase.class, AppDataSource.class);
+		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoBase.class, AppDataSource.class, DaoZArtist.class, ZArtist.class, DaoSong.class, Song.class);
 	}
 
 }

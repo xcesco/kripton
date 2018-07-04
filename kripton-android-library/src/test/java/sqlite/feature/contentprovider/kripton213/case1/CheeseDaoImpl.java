@@ -340,7 +340,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name FROM cheeses WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM cheeses WHERE id=:{id}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -407,10 +407,10 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * <pre>content://com.abubusoft.contentprovidersample.provider/cheese/#</pre>
    *
    * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name FROM Cheese WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM Cheese WHERE id=:{id}</pre>
    *
    * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, name FROM cheeses WHERE id=${id}</pre>
+   * <pre>SELECT id, name FROM cheeses WHERE id=:{id}</pre>
    *
    * <h3>Path variables defined:</h3>
    * <ul>

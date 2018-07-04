@@ -22,10 +22,16 @@ public enum ColumnType {
 
 	/**
 	 * <p>
-	 * Primary key.
+	 * Primary key automatically incremeted.
 	 * </p>
 	 */
 	PRIMARY_KEY,
+	/**
+	 * <p>
+	 * Primary key unmanaged. Values are not incremented automatically, user have to manage its values.
+	 * </p>
+	 */
+	PRIMARY_KEY_UNMANGED,
 	/**
 	 * <p>
 	 * Unique. It can be considered as alternative key.

@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlType;
 @BindSqlType
 public class Album {
 	
-	@BindSqlColumn(columnType=ColumnType.PRIMARY_KEY)
+	@BindSqlColumn(columnType=ColumnType.PRIMARY_KEY_UNMANGED)
 	public String name;
 	
 	public Date year;

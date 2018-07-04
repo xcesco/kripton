@@ -97,8 +97,8 @@ public interface CheeseDao {
      * @return A {@link Cursor} of the selected cheese.
      */
     //@Query("SELECT * FROM " + Cheese.TABLE_NAME + " WHERE " + Cheese.COLUMN_ID + " = :id")
-    @BindContentProviderEntry(path = "${id}")
-    @BindSqlSelect(where ="id=${id}")
+    @BindContentProviderEntry(path = ":id")
+    @BindSqlSelect(where ="id=:{id}")
     Cheese selectById(long id);
 
     /**

@@ -37,7 +37,10 @@ grammar Uri;
 
 bind_parameter
  : '$' '{' SPACES* bind_parameter_name SPACES* '}'
+ | ':' SPACES* '{' SPACES* bind_parameter_name SPACES* '}'
+ | ':' bind_parameter_name
  ;
+
 
 bind_parameter_name 
  : STRING

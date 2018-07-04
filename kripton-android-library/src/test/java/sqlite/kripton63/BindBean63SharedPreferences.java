@@ -79,18 +79,18 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public Bean63 read() {
     Bean63 bean=new Bean63();
-    bean.id=prefs.getLong("id", bean.id);
      {
       String temp=prefs.getString("value_map_enum_byte", null);
       bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): bean.valueMapEnumByte;
     }
 
+    bean.id=prefs.getLong("id", bean.id);
+    bean.value=prefs.getString("value", bean.value);
      {
       String temp=prefs.getString("value_map_string_byte", null);
       bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): bean.valueMapStringByte;
     }
 
-    bean.value=prefs.getString("value", bean.value);
 
     return bean;
   }
@@ -102,14 +102,16 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Bean63 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putLong("id",bean.id);
-
     if (bean.valueMapEnumByte!=null)  {
       String temp=serializeValueMapEnumByte(bean.valueMapEnumByte);
       editor.putString("value_map_enum_byte",temp);
     }  else  {
       editor.remove("value_map_enum_byte");
     }
+
+    editor.putLong("id",bean.id);
+
+    editor.putString("value",bean.value);
 
     if (bean.valueMapStringByte!=null)  {
       String temp=serializeValueMapStringByte(bean.valueMapStringByte);
@@ -118,19 +120,9 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
       editor.remove("value_map_string_byte");
     }
 
-    editor.putString("value",bean.value);
-
 
     editor.commit();
   }
-
-  /**
-   * reads property <code>id</code> from shared pref with key <code>id</code>
-   *
-   * @return property id value
-   */
-  public long getId() {
-    return prefs.getLong("id", defaultBean.id);}
 
   /**
    * reads property <code>valueMapEnumByte</code> from shared pref with key <code>value_map_enum_byte</code>
@@ -143,14 +135,12 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reads property <code>valueMapStringByte</code> from shared pref with key <code>value_map_string_byte</code>
+   * reads property <code>id</code> from shared pref with key <code>id</code>
    *
-   * @return property valueMapStringByte value
+   * @return property id value
    */
-  public Map<String, Byte> getValueMapStringByte() {
-    String temp=prefs.getString("value_map_string_byte", null);
-    return StringUtils.hasText(temp) ? parseValueMapStringByte(temp): defaultBean.valueMapStringByte;
-  }
+  public long getId() {
+    return prefs.getLong("id", defaultBean.id);}
 
   /**
    * reads property <code>value</code> from shared pref with key <code>value</code>
@@ -159,6 +149,16 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public String getValue() {
     return prefs.getString("value", defaultBean.value);}
+
+  /**
+   * reads property <code>valueMapStringByte</code> from shared pref with key <code>value_map_string_byte</code>
+   *
+   * @return property valueMapStringByte value
+   */
+  public Map<String, Byte> getValueMapStringByte() {
+    String temp=prefs.getString("value_map_string_byte", null);
+    return StringUtils.hasText(temp) ? parseValueMapStringByte(temp): defaultBean.valueMapStringByte;
+  }
 
   /**
    * for attribute valueMapEnumByte serialization
@@ -343,23 +343,6 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property id
-     */
-    public BindEditor putId(long value) {
-      editor.putLong("id",value);
-
-      return this;
-    }
-
-    /**
-     * remove property id
-     */
-    public BindEditor removeId() {
-      editor.remove("id");
-      return this;
-    }
-
-    /**
      * modifier for property valueMapEnumByte
      */
     public BindEditor putValueMapEnumByte(HashMap<EnumType, Byte> value) {
@@ -382,6 +365,40 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
+     * modifier for property id
+     */
+    public BindEditor putId(long value) {
+      editor.putLong("id",value);
+
+      return this;
+    }
+
+    /**
+     * remove property id
+     */
+    public BindEditor removeId() {
+      editor.remove("id");
+      return this;
+    }
+
+    /**
+     * modifier for property value
+     */
+    public BindEditor putValue(String value) {
+      editor.putString("value",value);
+
+      return this;
+    }
+
+    /**
+     * remove property value
+     */
+    public BindEditor removeValue() {
+      editor.remove("value");
+      return this;
+    }
+
+    /**
      * modifier for property valueMapStringByte
      */
     public BindEditor putValueMapStringByte(Map<String, Byte> value) {
@@ -400,23 +417,6 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeValueMapStringByte() {
       editor.remove("value_map_string_byte");
-      return this;
-    }
-
-    /**
-     * modifier for property value
-     */
-    public BindEditor putValue(String value) {
-      editor.putString("value",value);
-
-      return this;
-    }
-
-    /**
-     * remove property value
-     */
-    public BindEditor removeValue() {
-      editor.remove("value");
       return this;
     }
 

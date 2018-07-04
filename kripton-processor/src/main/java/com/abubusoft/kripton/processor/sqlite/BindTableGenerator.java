@@ -201,6 +201,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			case PRIMARY_KEY:
 				bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
 				break;
+			case PRIMARY_KEY_UNMANGED:
+				bufferTable.append(" PRIMARY KEY");
+				break;
 			case UNIQUE:
 				bufferTable.append(" UNIQUE");
 				break;
@@ -218,7 +221,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			// if it is not primary key and it is not nullable, then add not
 			// null
-			if (!nullable && item.columnType != ColumnType.PRIMARY_KEY) {
+			if (!nullable && !(item.columnType == ColumnType.PRIMARY_KEY || item.columnType == ColumnType.PRIMARY_KEY_UNMANGED)) {
 				bufferTable.append(" NOT NULL");
 			}
 
@@ -448,6 +451,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			case PRIMARY_KEY:
 				bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
 				break;
+			case PRIMARY_KEY_UNMANGED:
+				bufferTable.append(" PRIMARY KEY");
+				break;
 			case UNIQUE:
 				bufferTable.append(" UNIQUE");
 				break;
@@ -465,7 +471,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			// if it is not primary key and it is not nullable, then add not
 			// null
-			if (!nullable && item.columnType != ColumnType.PRIMARY_KEY) {
+			if (!nullable && !(item.columnType == ColumnType.PRIMARY_KEY || item.columnType == ColumnType.PRIMARY_KEY_UNMANGED)) {
 				bufferTable.append(" NOT NULL");
 			}
 
