@@ -449,10 +449,11 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			switch (item.columnType) {
 			case PRIMARY_KEY:
-				bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
-				break;
 			case PRIMARY_KEY_UNMANGED:
-				bufferTable.append(" PRIMARY KEY");
+				bufferTable.append(" PRIMARY KEY");	
+				if (!item.isType(String.class) && item.columnType==ColumnType.PRIMARY_KEY) {
+					bufferTable.append(" AUTOINCREMENT");
+				} 														
 				break;
 			case UNIQUE:
 				bufferTable.append(" UNIQUE");

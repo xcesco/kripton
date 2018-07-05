@@ -46,7 +46,7 @@ public interface BaseStringDao<E> {
 	 *            the bean
 	 * @return the long
 	 */
-	@BindSqlInsert
+	@BindSqlInsert(includePrimaryKey=true)
 	long insert(E bean);
 
 	/**

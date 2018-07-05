@@ -100,12 +100,13 @@ public class CityDaoImpl extends Dao implements CityDao {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO cities (name) VALUES (:name)</pre>
+   * <pre>INSERT INTO cities (id, name) VALUES (:id, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
@@ -118,10 +119,11 @@ public class CityDaoImpl extends Dao implements CityDao {
   public long insert(City bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO cities (name) VALUES (?)";
+      String _sql="INSERT INTO cities (id, name) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
+    _contentValues.put("id", bean.id);
     _contentValues.put("name", bean.name);
 
     // log section BEGIN

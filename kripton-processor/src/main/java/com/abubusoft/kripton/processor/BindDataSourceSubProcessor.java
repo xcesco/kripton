@@ -878,6 +878,11 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				primaryKey.columnType = ColumnType.PRIMARY_KEY;
 			}
 			primaryKey.setNullable(false);
+			
+			// if PK is String is mandatory that is UNMANAGED
+			if (TypeUtility.isString(primaryKey.getPropertyType().getTypeName())) {
+				primaryKey.columnType = ColumnType.PRIMARY_KEY_UNMANGED;
+			}
 		}
 
 		if (currentEntity.getCollection().size() == 0) {

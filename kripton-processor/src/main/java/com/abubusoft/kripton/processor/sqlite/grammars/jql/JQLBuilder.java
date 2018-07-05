@@ -41,6 +41,7 @@ import java.util.Set;
 
 import javax.lang.model.element.VariableElement;
 
+import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicOrderBy;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -337,14 +338,19 @@ public abstract class JQLBuilder {
 			// to
 			final Class<? extends Annotation> annotation = BindSqlInsert.class;
 			final SQLiteDaoDefinition dao = method.getParent();
-			final boolean includePrimaryKey = AnnotationUtility.extractAsBoolean(method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY);
+			final One<Boolean> includePrimaryKey = new One<>(AnnotationUtility.extractAsBoolean(method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY));
 
+			//
+			if (method.getParent().getEntity().getPrimaryKey().columnType==ColumnType.PRIMARY_KEY_UNMANGED) {
+				includePrimaryKey.value0=true;
+			}
+			
 			// define field list
 			// every method parameter can be used only as insert field
 			InsertType insertResultType = SqlInsertBuilder.detectInsertType(method);
 			Set<String> fields;
 			if (insertResultType == InsertType.INSERT_BEAN) {
-				fields = extractFieldsFromAnnotation(method, annotation, includePrimaryKey);
+				fields = extractFieldsFromAnnotation(method, annotation, includePrimaryKey.value0);
 			} else {
 				fields = extractFieldsFromMethodParameters(method, annotation);
 			}

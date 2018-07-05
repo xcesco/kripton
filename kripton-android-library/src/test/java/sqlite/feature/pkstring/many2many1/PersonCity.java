@@ -38,5 +38,5 @@ public class PersonCity {
       parentEntity = City.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long cityId;
+  public String cityId;
 }
