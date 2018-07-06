@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 
+import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
@@ -93,7 +94,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class,
 				methodBuilder, null);
 
-		ModelProperty primaryKey = entity.getPrimaryKey();
+		SQLProperty primaryKey = entity.getPrimaryKey();
 
 		// generate javadoc and query
 		generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
@@ -117,8 +118,9 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);
 		}
 
-		if (primaryKey != null && !primaryKey.isType(String.class)) {
+		if (primaryKey != null && !primaryKey.isType(String.class) && primaryKey.columnType!=ColumnType.PRIMARY_KEY_UNMANGED) {
 			// if PK string, can not overwrite id (with a long)
+			// same thing if column type is UNMANAGED (user manage PK)
 			if (primaryKey.isPublicField()) {
 				methodBuilder.addCode("$L.$L=result;\n", method.getParameters().get(0).value0, primaryKey.getName());
 			} else {
