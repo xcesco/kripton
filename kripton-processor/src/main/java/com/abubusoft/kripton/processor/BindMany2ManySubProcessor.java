@@ -36,7 +36,6 @@ import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.exceptions.InvalidKindForAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
 
-// TODO: Auto-generated Javadoc
 /**
  * Annotation processor for shared preferences.
  *
@@ -103,6 +102,10 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		}
 
 		return true;
+	}
+	
+	public void generateClasses() {
+		
 	}
 
 

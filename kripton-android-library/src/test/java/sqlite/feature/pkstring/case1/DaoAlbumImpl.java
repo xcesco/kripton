@@ -51,12 +51,13 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO album (year) VALUES (:year)</pre>
+   * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
    *
@@ -68,10 +69,11 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   public void insert(Album bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO album (year) VALUES (?)";
+      String _sql="INSERT INTO album (name, year) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
+    _contentValues.put("name", bean.name);
     _contentValues.put("year", SQLDateUtils.write(bean.year));
 
     // log section BEGIN
@@ -111,17 +113,17 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
-    bean.name=String.valueOf(result);
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO album (year) VALUES (:year)</pre>
+   * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
    *
@@ -133,10 +135,11 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   public String insert1(Album bean) {
     if (insert1PreparedStatement1==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO album (year) VALUES (?)";
+      String _sql="INSERT INTO album (name, year) VALUES (?, ?)";
       insert1PreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insert1PreparedStatement1);
+    _contentValues.put("name", bean.name);
     _contentValues.put("year", SQLDateUtils.write(bean.year));
 
     // log section BEGIN
@@ -176,19 +179,19 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert1PreparedStatement1, _contentValues);
-    bean.name=String.valueOf(result);
 
     return String.valueOf(result);
   }
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO album (year) VALUES (:year)</pre>
+   * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
    *
@@ -201,10 +204,11 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   public long insert2(Album bean) {
     if (insert2PreparedStatement2==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO album (year) VALUES (?)";
+      String _sql="INSERT INTO album (name, year) VALUES (?, ?)";
       insert2PreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insert2PreparedStatement2);
+    _contentValues.put("name", bean.name);
     _contentValues.put("year", SQLDateUtils.write(bean.year));
 
     // log section BEGIN
@@ -244,7 +248,6 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert2PreparedStatement2, _contentValues);
-    bean.name=String.valueOf(result);
 
     return result;
   }

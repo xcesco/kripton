@@ -41,7 +41,7 @@ public class TestCompilePkStringError2 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class, "In class 'DaoAlbum', method 'update' has an invalid signature: no field is included in this query");
+		this.expectedException(InvalidMethodSignException.class, "In class 'DaoAlbum', method 'update' has an invalid signature: no field was specified for update");
 		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoBase.class, AppDataSource.class);
 	}
 

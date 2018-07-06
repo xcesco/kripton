@@ -1,9 +1,9 @@
 package sqlite.feature.pkstring.err2;
 
-import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlUpdate;
 
 public interface DaoBase<E> {
 
-	@BindSqlInsert
+	@BindSqlUpdate(where="name=${bean.name}")
 	void update(E bean);
 }

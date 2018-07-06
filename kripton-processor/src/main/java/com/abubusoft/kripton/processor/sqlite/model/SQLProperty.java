@@ -29,6 +29,7 @@ import com.abubusoft.kripton.android.sqlite.NoParentEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.ManagedModelProperty;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
@@ -36,11 +37,18 @@ import com.abubusoft.kripton.processor.sqlite.transform.SQLTransform;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLProperty.
  */
 public class SQLProperty extends ManagedModelProperty {
+
+	public boolean hasPropertyType() {
+		return this.propertyType != null;
+	}
+
+	public void updatePropertyType(TypeName propertyTypeName) {
+		this.propertyType = new ModelType(propertyTypeName);
+	}
 
 	/**
 	 * Construtor used for generated fields.
@@ -50,16 +58,19 @@ public class SQLProperty extends ManagedModelProperty {
 	 * @param parentTypeName
 	 *            class name of parent type
 	 */
-	public SQLProperty(String name, TypeName parentTypeName) {
+	public SQLProperty(String name, TypeName parentTypeName, TypeName propertyTypeName) {
 		super(null, null, null);
 
 		this.name = name;
 		this.entityTypeName = parentTypeName;
 
+		if (propertyTypeName != null) {
+			this.propertyType = new ModelType(propertyTypeName);
+		}
+
 		onDeleteAction = ForeignKeyAction.NO_ACTION;
 		onUpdateAction = ForeignKeyAction.NO_ACTION;
 
-		// TODO check global type adapter
 	}
 
 	/**
@@ -81,14 +92,17 @@ public class SQLProperty extends ManagedModelProperty {
 		ModelAnnotation annotationBindAdapter = this.getAnnotation(BindSqlAdapter.class);
 		if (annotationBindAdapter != null) {
 			typeAdapter.adapterClazz = annotationBindAdapter.getAttributeAsClassName(AnnotationAttributeType.ADAPTER);
-			typeAdapter.dataType = TypeAdapterHelper.detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
+			typeAdapter.dataType = TypeAdapterHelper.detectDestinationType(entity.getElement(),
+					typeAdapter.adapterClazz);
 			SQLTransform transform = SQLTransformer.lookup(TypeUtility.typeName(typeAdapter.dataType));
 
 			// check type adapter
 			checkTypeAdapter(entity, element.asType(), typeAdapter, annotationBindAdapter);
 
 			if (!transform.isTypeAdapterAware()) {
-				String msg = String.format("In class '%s', property '%s' is of type '%s' and it can not be annotated with @%s", element.asType().toString(), getName(), getPropertyType().getTypeName(),
+				String msg = String.format(
+						"In class '%s', property '%s' is of type '%s' and it can not be annotated with @%s",
+						element.asType().toString(), getName(), getPropertyType().getTypeName(),
 						BindSqlAdapter.class.getSimpleName());
 				throw (new IncompatibleAnnotationException(msg));
 			}
@@ -98,7 +112,8 @@ public class SQLProperty extends ManagedModelProperty {
 		if (!hasTypeAdapter() && entity.schema.globalSqlTypeAdapter.containsKey(globalKey)) {
 			// check for global type adapter
 			typeAdapter.adapterClazz = entity.schema.globalSqlTypeAdapter.get(globalKey);
-			typeAdapter.dataType = TypeAdapterHelper.detectDestinationType(entity.getElement(), typeAdapter.adapterClazz);
+			typeAdapter.dataType = TypeAdapterHelper.detectDestinationType(entity.getElement(),
+					typeAdapter.adapterClazz);
 		}
 
 		onDeleteAction = ForeignKeyAction.NO_ACTION;
@@ -179,7 +194,8 @@ public class SQLProperty extends ManagedModelProperty {
 	 * @return true, if successful
 	 */
 	public boolean isForeignKey() {
-		return !StringUtils.isEmpty(foreignParentClassName) && !NoParentEntity.class.getName().equals(foreignParentClassName);
+		return !StringUtils.isEmpty(foreignParentClassName)
+				&& !NoParentEntity.class.getName().equals(foreignParentClassName);
 	}
 
 	/**

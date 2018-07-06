@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.SQLPrimaryKeyNotValidTypeException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
 import sqlite.feature.pkstring.err1.Album;
@@ -41,7 +42,7 @@ public class TestCompilePkStringError1 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class, "In class 'DaoAlbum', method 'insert' has an invalid signature: no field is included in this query");
+		this.expectedException(SQLPrimaryKeyNotValidTypeException.class, "Bean 'sqlite.feature.pkstring.err1.Album' have name as primary key but it is not Long or long type field");
 		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoBase.class, AppDataSource.class);
 	}
 

@@ -163,7 +163,6 @@ public class CityDaoImpl extends Dao implements CityDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
-    bean.id=String.valueOf(result);
 
     return result;
   }

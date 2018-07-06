@@ -27,13 +27,14 @@ import base.BaseProcessorTest;
 // @formatter:off
 @Suite.SuiteClasses({
 	TestCompilePkString1.class,
+	TestCompilePkStringMany2Many.class,
 	TestCompilePkStringError1.class,
 	TestCompilePkStringError2.class
 	})
 // @formatter:on
 public class TestPkStringSuite extends BaseProcessorTest {
 	
-	//TODO many2many
+	//TODO many2many - OK
 	//TODO relationship
 	//TODO childselect
 

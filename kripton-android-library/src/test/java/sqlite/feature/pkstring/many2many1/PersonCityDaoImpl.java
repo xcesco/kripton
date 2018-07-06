@@ -99,7 +99,7 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
         resultBean=new PersonCity();
 
         resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getString(index1); }
         if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
       }
@@ -170,7 +170,7 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
           resultBean=new PersonCity();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getString(index1); }
           if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
@@ -203,12 +203,12 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<PersonCity> selectByCityId(long cityId) {
+  public List<PersonCity> selectByCityId(String cityId) {
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CITY_ID_SQL7;
     // add where arguments
-    _contentValues.addWhereArgs(String.valueOf(cityId));
+    _contentValues.addWhereArgs((cityId==null?"":cityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -244,7 +244,7 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
           resultBean=new PersonCity();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getString(index1); }
           if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
 
           resultList.add(resultBean);
@@ -361,14 +361,14 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    * @return number of deleted records
    */
   @Override
-  public int deleteByCityId(long cityId) {
+  public int deleteByCityId(String cityId) {
     if (deleteByCityIdPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM person_city WHERE city_id=?";
       deleteByCityIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByCityIdPreparedStatement2);
-    _contentValues.addWhereArgs(String.valueOf(cityId));
+    _contentValues.addWhereArgs((cityId==null?"":cityId));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END

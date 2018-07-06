@@ -56,37 +56,47 @@ import android.database.sqlite.SQLiteStatement;
  */
 public class InsertBeanHelper implements InsertCodeGenerator {
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, boolean, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeName)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.
+	 * InsertCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder,
+	 * com.squareup.javapoet.MethodSpec.Builder, boolean,
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod,
+	 * com.squareup.javapoet.TypeName)
 	 */
 	@Override
-	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields,
+			SQLiteModelMethod method, TypeName returnType) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
 		SQLiteEntity entity = daoDefinition.getEntity();
 		// String sqlInsert;
-		
+
 		// retrieve content values
 		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
-			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);			
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 		} else {
-			String psName=method.buildPreparedStatementName();
-			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class),  psName, Modifier.PRIVATE, Modifier.STATIC).build());
-			
-			methodBuilder.beginControlFlow("if ($L==null)",psName);
-			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);			
-			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);						
-			methodBuilder.endControlFlow();
-			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, psName);
-		}
-		
+			String psName = method.buildPreparedStatementName();
+			classBuilder.addField(FieldSpec
+					.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
 
-		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlInsert.class);
-		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class, methodBuilder, null);
+			methodBuilder.beginControlFlow("if ($L==null)", psName);
+			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);
+			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
+			methodBuilder.endControlFlow();
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class,
+					psName);
+		}
+
+		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method,
+				BindSqlInsert.class);
+		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class,
+				methodBuilder, null);
 
 		ModelProperty primaryKey = entity.getPrimaryKey();
-		
+
 		// generate javadoc and query
-		generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);		
+		generateJavaDoc(methodBuilder, method, returnType, listUsedProperty, primaryKey);
 
 		SqlBuilderHelper.generateLog(method, methodBuilder);
 
@@ -94,37 +104,34 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		if (method.jql.hasDynamicParts() || method.jql.containsSelectOperation) {
 			// does not memorize compiled statement, it can vary every time
 			// generate SQL for insert
-			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);				
-			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
-		} else {			
-			String psName=method.buildPreparedStatementName();			
-			methodBuilder.addStatement("long result = $T.insert($L, _contentValues)", KriptonDatabaseWrapper.class, psName);
-		}
-		
-		if (method.getParent().getParent().generateRx) {
-			GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);		
+			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);
+			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)",
+					KriptonDatabaseWrapper.class);
+		} else {
+			String psName = method.buildPreparedStatementName();
+			methodBuilder.addStatement("long result = $T.insert($L, _contentValues)", KriptonDatabaseWrapper.class,
+					psName);
 		}
 
-		if (primaryKey != null) {
-			if (primaryKey.isType(String.class)) {
-				if (primaryKey.isPublicField()) {
-					methodBuilder.addCode("$L.$L=String.valueOf(result);\n", method.getParameters().get(0).value0, primaryKey.getName());
-				} else {
-					methodBuilder.addCode("$L.$L(String.valueOf(result));\n", method.getParameters().get(0).value0, PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
-				}
-			} else {
-				if (primaryKey.isPublicField()) {
-					methodBuilder.addCode("$L.$L=result;\n", method.getParameters().get(0).value0, primaryKey.getName());
-				} else {
-					methodBuilder.addCode("$L.$L(result);\n", method.getParameters().get(0).value0, PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
-				}	
-			}			
+		if (method.getParent().getParent().generateRx) {
+			GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);
 		}
-		
+
+		if (primaryKey != null && !primaryKey.isType(String.class)) {
+			// if PK string, can not overwrite id (with a long)
+			if (primaryKey.isPublicField()) {
+				methodBuilder.addCode("$L.$L=result;\n", method.getParameters().get(0).value0, primaryKey.getName());
+			} else {
+				methodBuilder.addCode("$L.$L(result);\n", method.getParameters().get(0).value0,
+						PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
+			}
+
+		}
+
 		// support for livedata
 		if (daoDefinition.hasLiveData()) {
 			methodBuilder.addComment("support for livedata");
-			methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result>0?1:0)");
+			methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT + "(result>0?1:0)");
 		}
 
 		// define return value
@@ -155,13 +162,19 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	/**
 	 * Generate java doc.
 	 *
-	 * @param methodBuilder the method builder
-	 * @param method the method
-	 * @param returnType the return type
-	 * @param listUsedProperty the list used property
-	 * @param primaryKey the primary key
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param method
+	 *            the method
+	 * @param returnType
+	 *            the return type
+	 * @param listUsedProperty
+	 *            the list used property
+	 * @param primaryKey
+	 *            the primary key
 	 */
-	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
+	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType,
+			List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
 		// transform JQL to SQL
 		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
@@ -178,9 +191,9 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			@Override
 			public String onBindParameter(String bindParameterName) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
-				
+
 				return SqlAnalyzer.PARAM_PREFIX + resolvedParamName + SqlAnalyzer.PARAM_SUFFIX;
-			}						
+			}
 
 		});
 
@@ -190,7 +203,9 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 
 			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
 			methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sqlInsert);
-			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
+			methodBuilder.addJavadoc(
+					"<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n",
+					beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");
 
 			// list of inserted fields
@@ -199,14 +214,16 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			for (SQLProperty property : listUsedProperty) {
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", property.columnName);
 				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n",
-						SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(method.getParameters().get(0).value0) + "." + method.findParameterNameByAlias(property.getName()) + SqlAnalyzer.PARAM_SUFFIX);
+						SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(method.getParameters().get(0).value0)
+								+ "." + method.findParameterNameByAlias(property.getName()) + SqlAnalyzer.PARAM_SUFFIX);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 
 			// update bean have only one parameter: the bean to update
 			for (Pair<String, TypeName> param : method.getParameters()) {
 				methodBuilder.addJavadoc("@param $L", param.value0);
-				methodBuilder.addJavadoc("\n\tis mapped to parameter <strong>$L</strong>\n", method.findParameterAliasByName(param.value0));
+				methodBuilder.addJavadoc("\n\tis mapped to parameter <strong>$L</strong>\n",
+						method.findParameterAliasByName(param.value0));
 			}
 
 			InsertRawHelper.generateJavaDocReturnType(methodBuilder, returnType);
@@ -216,7 +233,8 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	/**
 	 * Gets the conflict algorithm type.
 	 *
-	 * @param method the method
+	 * @param method
+	 *            the method
 	 * @return the conflict algorithm type
 	 */
 	public static ConflictAlgorithmType getConflictAlgorithmType(SQLiteModelMethod method) {

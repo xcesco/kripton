@@ -15,21 +15,18 @@
  ******************************************************************************/
 package sqlite.feature.pkstring;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Date;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import com.abubusoft.kripton.android.Logger;
-
-
 import base.BaseAndroidTest;
-import sqlite.feature.pkstring.many2many1.*;
+import sqlite.feature.pkstring.many2many1.BindPersonCirtyDaoFactory;
+import sqlite.feature.pkstring.many2many1.BindPersonCirtyDataSource;
 import sqlite.feature.pkstring.many2many1.BindPersonCirtyDataSource.Batch;
+import sqlite.feature.pkstring.many2many1.City;
+import sqlite.feature.pkstring.many2many1.Person;
+import sqlite.feature.pkstring.many2many1.PersonCity;
 
 
 /**

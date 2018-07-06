@@ -31,7 +31,7 @@ public interface GeneratedPersonCityDao extends PersonCityDao {
   @BindSqlSelect(
       where = "cityId=:cityId"
   )
-  List<PersonCity> selectByCityId(@BindSqlParam("cityId") long cityId);
+  List<PersonCity> selectByCityId(@BindSqlParam("cityId") String cityId);
 
   @BindSqlDelete(
       where = "id=:id"
@@ -46,7 +46,7 @@ public interface GeneratedPersonCityDao extends PersonCityDao {
   @BindSqlDelete(
       where = "cityId=:cityId"
   )
-  int deleteByCityId(@BindSqlParam("cityId") long cityId);
+  int deleteByCityId(@BindSqlParam("cityId") String cityId);
 
   @BindSqlInsert
   int insert(@BindSqlParam("bean") PersonCity bean);

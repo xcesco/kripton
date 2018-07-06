@@ -26,13 +26,21 @@ import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.TypeName;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class M2MEntity.
  */
 public class M2MEntity extends M2MBase {
+	
+	public TypeName propertyPrimaryKey;
+
+	public TypeName propertyKey1;
+
+	public TypeName propertyKey2;
 
 	/** The package name. */
 	private String packageName;
@@ -123,6 +131,7 @@ public class M2MEntity extends M2MBase {
 
 	/**
 	 * Works with @BindDaoMany2Many and @BindDao to extract entity name.
+	 * @param schema 
 	 *
 	 * @param daoElement the dao element
 	 * @return the m 2 M entity
@@ -137,7 +146,8 @@ public class M2MEntity extends M2MBase {
 		String packageName = null;
 		boolean needToCreate = true;
 		boolean generatedMethods=true;
-
+		
+		
 		if (daoElement.getAnnotation(BindDaoMany2Many.class) != null) {
 			entity1 = TypeUtility.className(AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_1));
 			entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2));

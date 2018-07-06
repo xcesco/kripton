@@ -13,37 +13,21 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package com.abubusoft.kripton.processor.bind.model.many2many;
+package sqlite.feature.pkstring;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * The Class M2MModel.
+ * The Class TestPerformanceSuite.
  */
-public class M2MModel {
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestPkString1Runtime.class
+		 })
+//@formatter:on
+public class TestPkStringSuite {
 
-	/** The entities. */
-	List<M2MEntity> entities=new ArrayList<M2MEntity>();
-
-	/**
-	 * Gets the entities.
-	 *
-	 * @return the entities
-	 */
-	public List<M2MEntity> getEntities() {
-		return entities;
-	}
-
-	/**
-	 * Entity add.
-	 *
-	 * @param entity the entity
-	 */
-	public void entityAdd(M2MEntity entity) {
-		entities.add(entity);		
-	}
-		
-	
-	
 }

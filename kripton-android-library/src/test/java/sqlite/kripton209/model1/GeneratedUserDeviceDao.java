@@ -26,12 +26,12 @@ public interface GeneratedUserDeviceDao extends UserDeviceDao {
   @BindSqlSelect(
       where = "userId=:userId"
   )
-  List<UserDevice> selectByUserId(@BindSqlParam("userId") long userId);
+  List<UserDevice> selectByUserId(@BindSqlParam("userId") Long userId);
 
   @BindSqlSelect(
       where = "deviceId=:deviceId"
   )
-  List<UserDevice> selectByDeviceId(@BindSqlParam("deviceId") long deviceId);
+  List<UserDevice> selectByDeviceId(@BindSqlParam("deviceId") Long deviceId);
 
   @BindSqlDelete(
       where = "id=:id"
@@ -41,12 +41,12 @@ public interface GeneratedUserDeviceDao extends UserDeviceDao {
   @BindSqlDelete(
       where = "userId=:userId"
   )
-  int deleteByUserId(@BindSqlParam("userId") long userId);
+  int deleteByUserId(@BindSqlParam("userId") Long userId);
 
   @BindSqlDelete(
       where = "deviceId=:deviceId"
   )
-  int deleteByDeviceId(@BindSqlParam("deviceId") long deviceId);
+  int deleteByDeviceId(@BindSqlParam("deviceId") Long deviceId);
 
   @BindSqlInsert
   int insert(@BindSqlParam("bean") UserDevice bean);

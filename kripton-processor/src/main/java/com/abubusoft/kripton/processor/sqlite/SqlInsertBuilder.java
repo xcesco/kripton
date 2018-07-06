@@ -49,7 +49,6 @@ import com.squareup.javapoet.TypeSpec;
 import android.content.ContentValues;
 import android.net.Uri;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SqlInsertBuilder.
  *

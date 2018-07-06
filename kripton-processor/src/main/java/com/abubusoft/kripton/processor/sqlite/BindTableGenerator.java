@@ -195,7 +195,11 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			bufferTable.append(item.columnName);
 
 			// every column is a long
-			bufferTable.append(" " + SQLTransformer.lookup(TypeName.LONG).getColumnTypeAsString());
+			if (item.getPropertyType()==null) {
+				bufferTable.append(" " + SQLTransformer.lookup(TypeName.LONG).getColumnTypeAsString());
+			} else {
+				bufferTable.append(" " + SQLTransformer.lookup(item.getPropertyType().getTypeName()).getColumnTypeAsString());
+			}
 
 			switch (item.columnType) {
 			case PRIMARY_KEY:

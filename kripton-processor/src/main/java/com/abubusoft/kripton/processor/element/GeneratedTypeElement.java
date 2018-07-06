@@ -50,7 +50,7 @@ public class GeneratedTypeElement implements Finder<SQLProperty> {
 	
 	/** The properties. */
 	public List<SQLProperty> properties=new ArrayList<SQLProperty>();
-
+	
 	/* (non-Javadoc)
 	 * @see com.abubusoft.kripton.processor.core.Finder#getTableName()
 	 */

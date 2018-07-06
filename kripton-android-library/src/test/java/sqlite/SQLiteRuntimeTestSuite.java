@@ -29,6 +29,7 @@ import sqlite.feature.indexes.TestIndexesRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
 import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
 import sqlite.feature.paginatedresult.TestPaginatedResultRuntimeSuite;
+import sqlite.feature.pkstring.TestPkStringSuite;
 import sqlite.feature.relations.TestFeatureRelationRuntimeSuite;
 import sqlite.feature.schema.TestSchemaRuntimeSuite;
 import sqlite.feature.speed.TestSpeedRuntime;
@@ -79,7 +80,8 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestStack44330452RuntimeSuite.class,
 	TestStack44633883RuntimeSuite.class,
 	
-	Test209RuntimeSuite.class
+	Test209RuntimeSuite.class,
+	TestPkStringSuite.class
 	
 	 })
 // @formatter:on

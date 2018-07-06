@@ -29,7 +29,7 @@ public class UserDevice {
       parentEntity = User.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long userId;
+  public Long userId;
 
   /**
    * Foreign key to Device model class
@@ -38,5 +38,5 @@ public class UserDevice {
       parentEntity = Device.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long deviceId;
+  public Long deviceId;
 }

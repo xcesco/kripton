@@ -129,12 +129,12 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<UserDevice> selectByUserId(long userId) {
+  public List<UserDevice> selectByUserId(Long userId) {
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_USER_ID_SQL6;
     // add where arguments
-    _contentValues.addWhereArgs(String.valueOf(userId));
+    _contentValues.addWhereArgs((userId==null?"":String.valueOf(userId)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -203,12 +203,12 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * @return collection of bean or empty collection.
    */
   @Override
-  public List<UserDevice> selectByDeviceId(long deviceId) {
+  public List<UserDevice> selectByDeviceId(Long deviceId) {
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_DEVICE_ID_SQL7;
     // add where arguments
-    _contentValues.addWhereArgs(String.valueOf(deviceId));
+    _contentValues.addWhereArgs((deviceId==null?"":String.valueOf(deviceId)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -316,14 +316,14 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * @return number of deleted records
    */
   @Override
-  public int deleteByUserId(long userId) {
+  public int deleteByUserId(Long userId) {
     if (deleteByUserIdPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user_2_device WHERE user_id=?";
       deleteByUserIdPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByUserIdPreparedStatement1);
-    _contentValues.addWhereArgs(String.valueOf(userId));
+    _contentValues.addWhereArgs((userId==null?"":String.valueOf(userId)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -361,14 +361,14 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * @return number of deleted records
    */
   @Override
-  public int deleteByDeviceId(long deviceId) {
+  public int deleteByDeviceId(Long deviceId) {
     if (deleteByDeviceIdPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="DELETE FROM user_2_device WHERE device_id=?";
       deleteByDeviceIdPreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(deleteByDeviceIdPreparedStatement2);
-    _contentValues.addWhereArgs(String.valueOf(deviceId));
+    _contentValues.addWhereArgs((deviceId==null?"":String.valueOf(deviceId)));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
