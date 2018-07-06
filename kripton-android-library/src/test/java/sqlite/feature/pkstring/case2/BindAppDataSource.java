@@ -1,4 +1,4 @@
-package sqlite.feature.livedata.persistence2;
+package sqlite.feature.pkstring.case2;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.Logger;
@@ -12,8 +12,6 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
-import java.util.Set;
-import sqlite.feature.livedata.data.PersonTable;
 
 /**
  * <p>
@@ -23,12 +21,9 @@ import sqlite.feature.livedata.data.PersonTable;
  *
  * @see AppDataSource
  * @see BindAppDaoFactory
- * @see DaoPerson
- * @see DaoPersonImpl
- * @see Person
- * @see DaoCity
- * @see DaoCityImpl
- * @see City
+ * @see DaoAlbum
+ * @see DaoAlbumImpl
+ * @see Album
  */
 public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
   /**
@@ -42,29 +37,19 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   private static final Object mutex = new Object();
 
   /**
-   * Unique identifier for Dao DaoPerson
+   * Unique identifier for Dao DaoAlbum
    */
-  public static final int DAO_PERSON_UID = 0;
-
-  /**
-   * Unique identifier for Dao DaoCity
-   */
-  public static final int DAO_CITY_UID = 1;
+  public static final int DAO_ALBUM_UID = 0;
 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new CityTable(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new AlbumTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoCityImpl daoCity = new DaoCityImpl(this);
+  protected DaoAlbumImpl daoAlbum = new DaoAlbumImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -72,17 +57,12 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindAppDataSource(DataSourceOptions options) {
-    super("app.db", 2, options);
+    super("app.db", 1, options);
   }
 
   @Override
-  public DaoPersonImpl getDaoPerson() {
-    return daoPerson;
-  }
-
-  @Override
-  public DaoCityImpl getDaoCity() {
-    return daoCity;
+  public DaoAlbumImpl getDaoAlbum() {
+    return daoAlbum;
   }
 
   /**
@@ -233,16 +213,10 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",AlbumTable.CREATE_TABLE_SQL);
     }
     // log section END
-    database.execSQL(CityTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(AlbumTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -283,16 +257,10 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",AlbumTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(CityTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(AlbumTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -311,8 +279,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   public void clearCompiledStatements() {
-    DaoPersonImpl.clearCompiledStatements();
-    DaoCityImpl.clearCompiledStatements();
+    DaoAlbumImpl.clearCompiledStatements();
   }
 
   /**
@@ -393,9 +360,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   class DataSourceSingleThread implements BindAppDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    protected DaoPersonImpl _daoPerson;
-
-    protected DaoCityImpl _daoCity;
+    protected DaoAlbumImpl _daoAlbum;
 
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindAppDataSource.this);
@@ -403,24 +368,13 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
 
     /**
      *
-     * retrieve dao DaoPerson
+     * retrieve dao DaoAlbum
      */
-    public DaoPersonImpl getDaoPerson() {
-      if (_daoPerson==null) {
-        _daoPerson=new DaoPersonImpl(this);
+    public DaoAlbumImpl getDaoAlbum() {
+      if (_daoAlbum==null) {
+        _daoAlbum=new DaoAlbumImpl(this);
       }
-      return _daoPerson;
-    }
-
-    /**
-     *
-     * retrieve dao DaoCity
-     */
-    public DaoCityImpl getDaoCity() {
-      if (_daoCity==null) {
-        _daoCity=new DaoCityImpl(this);
-      }
-      return _daoCity;
+      return _daoAlbum;
     }
 
     @Override
@@ -429,22 +383,12 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     }
 
     protected void onSessionOpened() {
-      // support for live data
-      _context.onSessionOpened();
     }
 
     protected void onSessionClear() {
-      // support for live data
-      _context.onSessionOpened();
     }
 
     protected void onSessionClosed() {
-      // support for live data
-      Set<Integer> daosWithEvents=_context.onSessionClosed();
-      if (_daoPerson!=null && daosWithEvents.contains(DAO_PERSON_UID)) {
-        _daoPerson.invalidateLiveData();
-      }
-      // "_daoCity" has no live data
     }
 
     public DataSourceSingleThread bindToThread() {
