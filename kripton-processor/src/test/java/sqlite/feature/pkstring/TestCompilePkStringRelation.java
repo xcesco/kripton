@@ -15,34 +15,28 @@
  *******************************************************************************/
 package sqlite.feature.pkstring;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.pkstring.relations.*;
+
 
 /**
- * The Class TestRXSuite.
+ * The Class TestCompileRX.
  */
-@RunWith(Suite.class)
-// @formatter:off
-@Suite.SuiteClasses({
-	TestCompilePkString1.class,
-	TestCompilePkString2.class,
-	
-	TestCompilePkStringError1.class,
-	TestCompilePkStringError2.class,
-	
-	TestCompilePkStringMany2Many.class,
-	
-	TestCompilePkStringRelation.class,
-	TestCompilePkStringRelationErr1.class,
-	TestCompilePkStringRelationErr2.class
-	})
-// @formatter:on
-public class TestPkStringSuite extends BaseProcessorTest {
-	
-	//TODO many2many - OK
-	//TODO relationship
-	//TODO childselect
+@RunWith(JUnit4.class)
+public class TestCompilePkStringRelation extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * Test compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
+	@Test
+	public void testCompile() throws Throwable {		
+		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, DaoBase.class, AppDataSource.class, Song.class);
+	}
 
 }

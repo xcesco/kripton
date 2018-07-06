@@ -504,7 +504,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 				// foreign key can ben used only with column type
 				// long/Long
-				if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE)) {
+				if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE, String.class)) {
 					throw new InvalidForeignKeyTypeException(item);
 				}
 

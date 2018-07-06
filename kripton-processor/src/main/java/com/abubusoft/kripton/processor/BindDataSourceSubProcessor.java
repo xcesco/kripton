@@ -330,7 +330,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									BindSqlChildSelect.class.getSimpleName(), AnnotationAttributeType.FIELD.getValue(),
 									childrenSelect.value0, AnnotationAttributeType.METHOD.getValue(),
 									childrenSelect.value1);
-
+																		
+														
 							final SQLiteDaoDefinition childDaoDefinition = schema
 									.findDaoDefinitionForEntity(relation.value2);
 							AssertKripton.assertTrueOrInvalidMethodSignException(childDaoDefinition != null, method,
@@ -343,14 +344,23 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									" method '%s#%s', referred by @%s annotation, does not exists",
 									childDaoDefinition.getElement().getSimpleName().toString(), childrenSelect.value1,
 									BindSqlChildSelect.class.getSimpleName());
-
-							// set sub method to invoke
-							childrenSelect.value2 = subMethod;
-
+							
 							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod.getParameters().size() == 1,
 									method, " method '%s#%s', referred by @%s annotation, can have only one parameter",
 									childDaoDefinition.getTypeName(), subMethod.getName(),
 									BindSqlChildSelect.class.getSimpleName());
+														
+							
+							AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(subMethod.getParameters().get(0).value1,entity.getPrimaryKey().getPropertyType().getTypeName()), method,
+									" method referred by annotation @%s(%s='%s', %s='%s') has invalid type parameter ",									
+									BindSqlChildSelect.class.getSimpleName(), AnnotationAttributeType.FIELD.getValue(),
+									childrenSelect.value0, AnnotationAttributeType.METHOD.getValue(),
+									childrenSelect.value1);		
+
+							// set sub method to invoke
+							childrenSelect.value2 = subMethod;
+
+							
 
 							final String defaultConditionToTest1 = relation.value1 + "=" + SqlAnalyzer.PARAM_PREFIX
 									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0)
@@ -425,9 +435,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 							// check parameter type
 							AssertKripton.assertTrueOrInvalidMethodSignException(
 									TypeUtility.isTypeIncludedIn(subMethod.getParameters().get(0).value1, Long.TYPE,
-											Long.class),
+											Long.class, String.class),
 									method,
-									" method '%s#%s' referred by @%s annotation can have only one parameter of type Long or long",
+									" method '%s#%s' referred by @%s annotation can have only one parameter of type String, Long or long",
 									childDaoDefinition.getTypeName(), relation.value1,
 									BindSqlChildSelect.class.getSimpleName(), relation.value1);
 
@@ -483,7 +493,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// ASSERT: check valid type
 		AssertKripton.assertTrueOfInvalidDefinition(referredEntity != null, item.value0,
 				String.format("invalid type for @%s annotated element", BindSqlRelation.class.getSimpleName()));
-
+				
 		// ASSERT: check if child entity has field
 		List<SQLProperty> foreignKeyPropertyList = referredEntity.getForeignKeysToEntity(entity, item.value1);
 		AssertKripton.assertTrueOfInvalidDefinition(foreignKeyPropertyList.size() == 1, item.value0,
@@ -495,6 +505,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		if (!StringUtils.hasText(item.value1)) {
 			item.value1 = foreignKeyPropertyList.get(0).getName();
 		}
+		
+		SQLProperty foreignKey = referredEntity.get(item.value1);
+		AssertKripton.assertTrueOfInvalidDefinition(
+				TypeUtility.isEquals(entity.getPrimaryKey().getPropertyType().getTypeName(), foreignKey.getPropertyType().getTypeName()),
+				item.value0,
+				String.format("%s#%s is a foreign key to %s#%s: they have to be same type", referredEntity.getName(), foreignKey.getName() ,entity.getName(), entity.getPrimaryKey().getName()));
+				
 	}
 
 	/**
