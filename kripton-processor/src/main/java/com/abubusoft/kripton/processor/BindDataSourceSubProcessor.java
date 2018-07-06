@@ -115,8 +115,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-import edu.emory.mathcs.backport.java.util.Collections;
-
 /**
  * The Class BindDataSourceSubProcessor.
  */
