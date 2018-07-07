@@ -54,7 +54,7 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new CityTable(), new PersonTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable(), new CityTable()};
 
   /**
    * <p>dao instance</p>
@@ -233,16 +233,16 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(CityTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(CityTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -283,16 +283,16 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(CityTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(CityTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);

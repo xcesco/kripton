@@ -38,7 +38,7 @@ public class TestCompilePkStringRelationErr1 extends AbstractBindSQLiteProcessor
 	 */
 	@Test
 	public void testCompile() throws Throwable {		
-		this.expectedException(InvalidMethodSignException.class, "In class 'DaoAlbum', method 'selectAlbums' has an invalid signature:  method referred by annotation @BindSqlChildSelect(field='songs', method='selectByAlbumId') has invalid type parameter ");
+		this.expectedException(InvalidMethodSignException.class, "In class 'DaoAlbum', method 'selectAlbums' has an invalid signature:  method 'sqlite.feature.pkstring.relations.err1.DaoSong#selectByAlbumId' referred by annotation @BindSqlChildSelect(field='songs', method='selectByAlbumId') has invalid parameter type");
 		buildDataSourceProcessorTest(Album.class, DaoAlbum.class, DaoSong.class, DaoBase.class, AppDataSource.class, Song.class);
 	}
 

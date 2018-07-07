@@ -47,7 +47,7 @@ public class TestChildSelectError4 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws Throwable {
-		this.expectedException(InvalidMethodSignException.class, "In class 'DaoChannel', method 'selectAll' has an invalid signature:  method 'sqlite.feature.childselect.error4.DaoArticle#selectAll', referred by @BindSqlChildSelect annotation, can have only one parameter");
+		this.expectedException(InvalidMethodSignException.class, "In class 'DaoChannel', method 'selectAll' has an invalid signature:  method 'sqlite.feature.childselect.error4.DaoArticle#selectAll', referred by annotation @BindSqlChildSelect(field='articles', method='selectAll'), can have only one parameter");
 		buildDataSourceProcessorTest(Article.class, Channel.class, DateAdapter.class, Entity.class, Image.class,
 				RSSFeed.class, DaoArticle.class, DaoBase.class, DaoChannel.class, RssDataSource.class);
 	}

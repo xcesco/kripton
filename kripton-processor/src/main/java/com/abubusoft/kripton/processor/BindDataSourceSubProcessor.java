@@ -346,17 +346,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									BindSqlChildSelect.class.getSimpleName());
 							
 							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod.getParameters().size() == 1,
-									method, " method '%s#%s', referred by @%s annotation, can have only one parameter",
+									method, " method '%s#%s', referred by annotation @%s(%s='%s', %s='%s'), can have only one parameter",
 									childDaoDefinition.getTypeName(), subMethod.getName(),
-									BindSqlChildSelect.class.getSimpleName());
+									BindSqlChildSelect.class.getSimpleName(),
+									AnnotationAttributeType.FIELD.getValue(), childrenSelect.value0, 
+									AnnotationAttributeType.METHOD.getValue(), childrenSelect.value1);
 														
-							
-							AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(subMethod.getParameters().get(0).value1,entity.getPrimaryKey().getPropertyType().getTypeName()), method,
-									" method referred by annotation @%s(%s='%s', %s='%s') has invalid type parameter ",									
-									BindSqlChildSelect.class.getSimpleName(), AnnotationAttributeType.FIELD.getValue(),
-									childrenSelect.value0, AnnotationAttributeType.METHOD.getValue(),
-									childrenSelect.value1);		
-
+														
 							// set sub method to invoke
 							childrenSelect.value2 = subMethod;
 
@@ -405,6 +401,14 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								}
 
 							});
+							
+							AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(subMethod.getParameters().get(0).value1,entity.getPrimaryKey().getPropertyType().getTypeName()), method,
+									" method '%s#%s' referred by annotation @%s(%s='%s', %s='%s') has invalid parameter type ",
+									childDaoDefinition.getTypeName(), subMethod.getName(),
+									BindSqlChildSelect.class.getSimpleName(), 
+									AnnotationAttributeType.FIELD.getValue(), childrenSelect.value0, 
+									AnnotationAttributeType.METHOD.getValue(), childrenSelect.value1);		
+
 
 							TypeName parentFieldTypeName = relation.value0.getPropertyType().getTypeName();
 							AssertKripton.assertTrueOrInvalidMethodSignException(

@@ -48,6 +48,7 @@ public class TestChildSelectError6 extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testCompile() throws Throwable {
 		this.expectedException(InvalidMethodSignException.class, "In class 'DaoChannel', method 'selectAll' has an invalid signature:  method 'sqlite.feature.childselect.error6.DaoArticle#selectByTitle' referred by @BindSqlChildSelect annotation must have a where condition like 'channelId=:title' or ':title=channelId'");
+																/* "In class 'DaoChannel', method 'selectAll' has an invalid signature:  method referred by annotation @BindSqlChildSelect(field='articles', method='selectByTitle') has invalid type parameter"*/
 		buildDataSourceProcessorTest(Article.class, Channel.class, DateAdapter.class, Entity.class, Image.class,
 				RSSFeed.class, DaoArticle.class, DaoBase.class, DaoChannel.class, RssDataSource.class);
 	}
