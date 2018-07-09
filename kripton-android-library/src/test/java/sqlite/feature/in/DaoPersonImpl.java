@@ -33,24 +33,24 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>select * from person where birth_city_id=${birthCityId}</pre>
+   * <pre>select * from person where birth_city_id=:{birthCityId}</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * 	<dt>birth_city_id</dt><dd>is associated to bean's property <strong>birthCityId</strong></dd>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>surname</dt><dd>is associated to bean's property <strong>surname</strong></dd>
    * </dl>
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>${birthCityId}</dt><dd>is binded to method's parameter <strong>birthCityId</strong></dd>
+   * 	<dt>:birthCityId</dt><dd>is binded to method's parameter <strong>birthCityId</strong></dd>
    * </dl>
    *
    * @param birthCityId
-   * 	is binded to <code>${birthCityId}</code>
+   * 	is binded to <code>:birthCityId</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -87,20 +87,20 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
-        int index1=_cursor.getColumnIndex("name");
-        int index2=_cursor.getColumnIndex("surname");
-        int index3=_cursor.getColumnIndex("birth_city_id");
-        int index4=_cursor.getColumnIndex("birth_day");
+        int index1=_cursor.getColumnIndex("birth_city_id");
+        int index2=_cursor.getColumnIndex("birth_day");
+        int index3=_cursor.getColumnIndex("name");
+        int index4=_cursor.getColumnIndex("surname");
 
         do
          {
           resultBean=new Person();
 
           resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-          if (!_cursor.isNull(index3)) { resultBean.birthCityId=_cursor.getLong(index3); }
-          if (!_cursor.isNull(index4)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index4)); }
+          if (!_cursor.isNull(index1)) { resultBean.birthCityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.birthDay=DateUtils.read(_cursor.getString(index2)); }
+          if (!_cursor.isNull(index3)) { resultBean.name=_cursor.getString(index3); }
+          if (!_cursor.isNull(index4)) { resultBean.surname=_cursor.getString(index4); }
 
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
@@ -112,16 +112,16 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO person (name, surname, birth_city_id, birth_day) VALUES (${bean.name}, ${bean.surname}, ${bean.birthCityId}, ${bean.birthDay})</pre>
+   * <pre>INSERT INTO person (birth_city_id, birth_day, name, surname) VALUES (:bean.birthCityId, :bean.birthDay, :bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>surname</dt><dd>is mapped to <strong>${bean.surname}</strong></dd>
-   * 	<dt>birth_city_id</dt><dd>is mapped to <strong>${bean.birthCityId}</strong></dd>
-   * 	<dt>birth_day</dt><dd>is mapped to <strong>${bean.birthDay}</strong></dd>
+   * 	<dt>birth_city_id</dt><dd>is mapped to <strong>:bean.birthCityId</strong></dd>
+   * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
    * </dl>
    *
    * @param bean
@@ -132,14 +132,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   public void insert(Person bean) {
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person (name, surname, birth_city_id, birth_day) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO person (birth_city_id, birth_day, name, surname) VALUES (?, ?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("surname", bean.surname);
     _contentValues.put("birth_city_id", bean.birthCityId);
     _contentValues.put("birth_day", DateUtils.write(bean.birthDay));
+    _contentValues.put("name", bean.name);
+    _contentValues.put("surname", bean.surname);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {

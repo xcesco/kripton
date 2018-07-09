@@ -346,7 +346,7 @@ expr
  | expr K_IS K_NOT? expr
  | expr K_NOT? K_BETWEEN expr K_AND expr
  | expr K_NOT? K_IN ( '(' ( select_stmt
-                          | expr ( ',' expr )*
+                          | where_stmt_in_clause
                           )?
                       ')'
                     | ( database_name '.' )? table_name )
@@ -421,6 +421,10 @@ where_stmt
 where_stmt_clauses
  : expr
  ;
+ 
+where_stmt_in_clause  
+ : expr ( ',' expr )*
+ ; 
 
 table_fully_qualified_name
  : ( database_name '.' )? table_name ( K_INDEXED K_BY index_name
