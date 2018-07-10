@@ -52,7 +52,11 @@ public class JQL {
 		/** The dynamic page size. */
 		DYNAMIC_PAGE_SIZE,
 		/** The dynamic page offset. */
-		DYNAMIC_PAGE_OFFSET
+		DYNAMIC_PAGE_OFFSET,
+		/**
+		 * States for query parameters that are used as arrays
+		 */
+		DYNAMIC_SPREAD
 	}
 
 	/**
