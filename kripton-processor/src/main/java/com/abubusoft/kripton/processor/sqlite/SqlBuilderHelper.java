@@ -17,6 +17,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SpreadUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
@@ -42,6 +43,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -404,7 +406,7 @@ public abstract class SqlBuilderHelper {
 	 * @param sqlWhereParamsAlreadyDefined
 	 *            the sql where params already defined
 	 */
-	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, boolean sqlWhereParamsAlreadyDefined) {
+	public static void generateWhereCondition(final MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, boolean sqlWhereParamsAlreadyDefined) {
 		final JQL jql = method.jql;
 		final JQLChecker jqlChecker = JQLChecker.getInstance();
 	
@@ -429,6 +431,8 @@ public abstract class SqlBuilderHelper {
 				}
 
 			});
+			
+			final StringBuilder dynamicCodeBlock=new StringBuilder();			
 
 			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");
 			String sqlWhere = jqlChecker.replaceFromVariableStatement(method, whereStatement.value0, new JQLReplacerListenerImpl(method) {
@@ -449,7 +453,13 @@ public abstract class SqlBuilderHelper {
 
 				@Override
 				public String onBindParameter(String bindParameterName, boolean inStatement) {
+					if (!inStatement) {
 					return "?";
+					} else {
+						methodBuilder.addComment("need to use $T operations", SpreadUtils.class);
+						dynamicCodeBlock.append((dynamicCodeBlock.length()>0 ? ",":"")+String.format("SpreadUtils.generateQuestion(%s)", method.findParameterNameByAlias(bindParameterName)));
+						return "%s";
+					}
 				}
 			});
 
@@ -458,17 +468,25 @@ public abstract class SqlBuilderHelper {
 			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE);
 
 			if (method.jql.operationType == JQLType.SELECT) {
+				
+				String prefix="";
+				String suffix="";
 				// we have to include WHERE keywords
+				if (jql.isDynamicSpreadConditions()) {
+					prefix="String.format(";
+					suffix=String.format(",%s)",dynamicCodeBlock.toString());															
+				} 
+				
 				if (jql.isStaticWhereConditions() && !jql.isDynamicWhereConditions()) {
 					// case static statement and NO dynamic
-
-					methodBuilder.addStatement("String _sqlWhereStatement=$S", value);
+					methodBuilder.addStatement("String _sqlWhereStatement="+prefix+"$S"+suffix, value);
 				} else if (jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-					methodBuilder.addStatement("String _sqlWhereStatement=$S+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class, "_sqlDynamicWhere",
+					methodBuilder.addStatement("String _sqlWhereStatement="+prefix+"$S"+suffix+"+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class, "_sqlDynamicWhere",
 							method.dynamicWherePrepend);
 				} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
+					// in this case no spread is managed
 					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" $L \")", StringUtils.class, "_sqlDynamicWhere", JQLKeywords.WHERE_KEYWORD);
-				}
+				}												
 			} else {
 				// we DON'T have to include WHERE keywords
 				value = value.replace(" " + JQLKeywords.WHERE_KEYWORD, "");

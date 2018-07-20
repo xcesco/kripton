@@ -498,8 +498,13 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				for (String item : paramGetters) {
 					rawParameters = paramNames.get(i).indexOf(".") == -1;
 
-					if (method.jql.spreadParams.contains(item)) {
+					if (method.jql.spreadParams.contains(method.findParameterAliasByName(item))) {												
+						methodBuilder.beginControlFlow("if ($L!=null)", item);
 						methodBuilder.addComment("$L is managed as spread param", item);
+						methodBuilder.beginControlFlow("for (int _i=0; _i<$L.length;_i++)", item);
+						methodBuilder.addStatement(" _contentValues.addWhereArgs(args[_i])");
+						methodBuilder.endControlFlow();
+						methodBuilder.endControlFlow();
 					} else {
 
 						methodBuilder.addCode("_contentValues.addWhereArgs(");

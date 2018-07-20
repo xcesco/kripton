@@ -4,6 +4,7 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SpreadUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name FROM city WHERE id in (:{args})</pre>
+   * <pre>SELECT id, name FROM city WHERE id in (:{dummy})</pre>
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -35,11 +36,11 @@ public class DaoCityImpl extends Dao implements DaoCity {
    *
    * <h2>Query's parameters:</h2>
    * <dl>
-   * 	<dt>:args</dt><dd>is binded to method's parameter <strong>args</strong></dd>
+   * 	<dt>:dummy</dt><dd>is binded to method's parameter <strong>args</strong></dd>
    * </dl>
    *
    * @param args
-   * 	is binded to <code>:args</code>
+   * 	is binded to <code>:dummy</code>
    * @return collection of bean or empty collection.
    */
   @Override
@@ -51,15 +52,21 @@ public class DaoCityImpl extends Dao implements DaoCity {
     // generation CODE_001 -- END
 
     // manage WHERE arguments -- BEGIN
+    // need to use SpreadUtils operations
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE id in (?)";
+    String _sqlWhereStatement=String.format(" WHERE id in (%s)",SpreadUtils.generateQuestion(args));
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
     String _sql=_sqlBuilder.toString();
     // add where arguments
-    // args is managed as spread param
+    if (args!=null) {
+      // args is managed as spread param
+      for (int _i=0; _i<args.length;_i++) {
+         _contentValues.addWhereArgs(args[_i]);
+      }
+    }
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section BEGIN
     if (_context.isLogEnabled()) {

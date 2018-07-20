@@ -222,6 +222,16 @@ public class JQL {
 	public boolean isDynamicWhereConditions() {
 		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE);
 	}
+	
+	/**
+	 * if <code>true</code> states that JQL has dynamic arguments managed with spread operator.
+	 * 
+	 * @return if <code>true</code> states that JQL has a dynamic parameter managed with spread operator
+	 *         
+	 */
+	public boolean isDynamicSpreadConditions() {
+		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_SPREAD);
+	}
 
 	/**
 	 * if <code>true</code> states that JQL has a WHERE statement, static or
