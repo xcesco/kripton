@@ -111,7 +111,6 @@ public class KriptonProcessor extends BaseProcessor {
 			count++;			
 			if (count ==1) {
 
-
 				many2ManyProcessor.clear();
 				typeProcessor.clear();
 				sharedPreferencesProcessor.clear();

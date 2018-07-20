@@ -24,6 +24,7 @@ import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
 import sqlite.feature.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feature.foreignkey.TestForeignKeyRuntimeSuite;
 import sqlite.feature.globaltypeadapters.TestGlobalTypeAdapterRuntimeSuite;
+import sqlite.feature.in.TestFeatureInRuntimeSuite;
 import sqlite.feature.includefields.TestIncludeFieldsRuntimeSuite;
 import sqlite.feature.indexes.TestIndexesRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
@@ -65,6 +66,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestIndexesRuntimeSuite.class,
 	TestRuntimeMany2ManySuite.class,
 	TestColumnAffinitySuite.class,
+	TestFeatureInRuntimeSuite.class,
 	
 	Test64RuntimeSuite.class,
 	Test84RuntimeSuite.class,

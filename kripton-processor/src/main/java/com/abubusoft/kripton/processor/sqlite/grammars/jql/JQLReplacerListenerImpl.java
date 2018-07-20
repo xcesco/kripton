@@ -47,12 +47,19 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	/** The current entity. */
 	protected SQLiteEntity currentEntity;
 
+	private boolean onlyBindParameter=false;
+	
+	public JQLReplacerListenerImpl(SQLiteModelMethod method) {
+		this(method, false);
+	}
+
 	/**
 	 * Instantiates a new JQL replacer listener impl.
 	 *
 	 * @param method the method
 	 */
-	public JQLReplacerListenerImpl(SQLiteModelMethod method) {
+	public JQLReplacerListenerImpl(SQLiteModelMethod method, boolean skipTest) {
+		this.onlyBindParameter=skipTest;
 		this.currentMethod = method;
 		if (method != null) {
 			this.currentDaoDefinition = method.getParent();
@@ -82,6 +89,8 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 */
 	@Override
 	public String onTableName(String tableName) {
+		if (onlyBindParameter) return null;
+		
 		if (currentSchema != null) {
 			Finder<SQLProperty> finder = currentSchema.getEntityBySimpleName(tableName);
 			AssertKripton.assertTrueOrUnknownClassInJQLException(finder != null, currentMethod, tableName);
@@ -95,7 +104,9 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onColumnName(java.lang.String)
 	 */
 	@Override
-	public String onColumnName(String columnName) {		
+	public String onColumnName(String columnName) {
+		if (onlyBindParameter) return null;
+		
 		if (currentSchema != null) {
 			Set<SQLProperty> props = currentSchema.getPropertyBySimpleName(columnName);
 			AssertKripton.assertTrueOrUnknownPropertyInJQLException(props != null && props.size()>0, currentMethod, columnName);
@@ -110,6 +121,8 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 */
 	@Override
 	public String onColumnNameToUpdate(String columnName) {
+		if (onlyBindParameter) return null;
+		
 		if (currentSchema != null) {
 			Set<SQLProperty> props = currentSchema.getPropertyBySimpleName(columnName);
 			AssertKripton.assertTrueOrUnknownPropertyInJQLException(props != null && props.size()>0, currentMethod, columnName);
@@ -172,6 +185,8 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 */
 	@Override
 	public String onColumnFullyQualifiedName(String tableName, String columnName) {
+		if (onlyBindParameter) return null;
+		
 		return JQLReplacerListenerImpl.resolveFullyQualifiedColumnName(currentSchema, currentMethod, tableName, columnName);
 	}
 
@@ -183,18 +198,18 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 * @param schema the schema
 	 * @param method the method
 	 * @param className the class name
-	 * @param propertyName the property name
+	 * @param columnName the property name
 	 * @return resolved name ex: "person.birth_date"
 	 */
-	public static String resolveFullyQualifiedColumnName(SQLiteDatabaseSchema schema, SQLiteModelMethod method, String className, String propertyName) {
+	public static String resolveFullyQualifiedColumnName(SQLiteDatabaseSchema schema, SQLiteModelMethod method, String className, String columnName) {
 		Finder<SQLProperty> currentEntity = method.getParent().getEntity();
 		if (StringUtils.hasText(className)) {
 			currentEntity = schema.getEntityBySimpleName(className);
 			AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, className);
 		}
-
-		SQLProperty currentProperty = currentEntity.findPropertyByName(propertyName);
-		AssertKripton.assertTrueOrUnknownPropertyInJQLException(currentProperty != null, method, propertyName);
+		
+		SQLProperty currentProperty = currentEntity.findPropertyByName(columnName);		
+		AssertKripton.assertTrueOrUnknownPropertyInJQLException(currentProperty != null, method, columnName);
 
 		return (StringUtils.hasText(className) ? currentEntity.getTableName() + "." : "") + currentProperty.columnName;
 	}

@@ -29,7 +29,6 @@ import sqlite.feature.contentprovider.kripton35.persistence.CityDAO;
 import sqlite.feature.contentprovider.kripton35.persistence.PersonDAO;
 import sqlite.feature.contentprovider.kripton35.persistence.PersonDataSource;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestContentProvider.
  */

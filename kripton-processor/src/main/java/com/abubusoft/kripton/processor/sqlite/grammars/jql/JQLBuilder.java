@@ -55,6 +55,7 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
@@ -634,7 +635,8 @@ public abstract class JQLBuilder {
 
 		}
 
-		result.value=JQLChecker.getInstance().replace(method, result.value, new JQLReplacerListenerImpl(method) {
+		result.value=JQLChecker.getInstance().replace(method, result.value, new JQLReplacerListenerImpl(method, true) {
+						
 			@Override
 			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				if (inStatement) {

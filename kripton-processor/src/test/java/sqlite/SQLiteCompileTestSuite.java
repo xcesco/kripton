@@ -32,6 +32,7 @@ import sqlite.feature.foreignkey.TestForeignKeySuite;
 import sqlite.feature.foreignkeyaction.TestForeignKeyActionSuite;
 import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.globaltypeadapters.TestGlobalSqlTypeAdaptersSuite;
+import sqlite.feature.in.TestInSuite;
 import sqlite.feature.includefields.IncludeFieldsTestSuite;
 import sqlite.feature.indexes.IndexTestSuite;
 import sqlite.feature.javadoc.TestJavadocFeatureSuite;
@@ -115,6 +116,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestRelationSuite.class,
 			TestColumnAffinityTestSuite.class,
 			TestChildSelectSuite.class,
+			TestInSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,

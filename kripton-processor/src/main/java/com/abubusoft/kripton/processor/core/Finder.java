@@ -17,7 +17,6 @@ package com.abubusoft.kripton.processor.core;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface Finder.
  *
@@ -32,6 +31,7 @@ public interface Finder<T> {
 	 * @return the t
 	 */
 	T findPropertyByName(String name);
+	
 
 	/**
 	 * Gets the collection.

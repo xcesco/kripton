@@ -50,6 +50,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
+import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -495,50 +496,54 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				String beanName = null;
 				beanName = method.findEntityProperty();
 
-				for (String item : paramGetters) {
+				for (String methodParam : paramGetters) {
 					rawParameters = paramNames.get(i).indexOf(".") == -1;
 
-					if (method.jql.spreadParams.contains(method.findParameterAliasByName(item))) {												
-						methodBuilder.beginControlFlow("if ($L!=null)", item);
-						methodBuilder.addComment("$L is managed as spread param", item);
-						methodBuilder.beginControlFlow("for (int _i=0; _i<$L.length;_i++)", item);
-						methodBuilder.addStatement(" _contentValues.addWhereArgs(args[_i])");
+					if (method.jql.spreadParams.contains(method.findParameterAliasByName(methodParam))) {
+						// paramTypeName = paramTypeNames.get(i);
+						String sizeMethod="";
+						String elementMethod="";
+						TypeName paramCollTypeName = paramTypeNames.get(i);
+						if (paramCollTypeName instanceof ArrayTypeName) {
+							sizeMethod="length";
+							elementMethod="[_i]";
+							paramTypeName = ((ArrayTypeName) paramCollTypeName).componentType;
+						} else if (paramCollTypeName instanceof ParameterizedTypeName) {
+							sizeMethod="size()";
+							elementMethod=".get(_i)";
+							paramTypeName = ((ParameterizedTypeName) paramCollTypeName).typeArguments.get(0);
+						} else {
+							paramTypeName = TypeName.get(String.class);
+						}
+						
+
+						methodBuilder.beginControlFlow("if ($L!=null)", methodParam);
+						methodBuilder.addComment("$L is managed as spread param", methodParam);
+						methodBuilder.beginControlFlow("for (int _i=0; _i<$L.$L;_i++)", methodParam, sizeMethod);
+						methodBuilder.addCode(" _contentValues.addWhereArgs(");
+						generateRawWhereArg(method, methodBuilder, paramTypeName, TypeUtility.isNullable(paramTypeName), methodParam, methodParam+elementMethod);
+						methodBuilder.addCode(");\n");
 						methodBuilder.endControlFlow();
 						methodBuilder.endControlFlow();
 					} else {
+						paramTypeName = paramTypeNames.get(i);
 
 						methodBuilder.addCode("_contentValues.addWhereArgs(");
 						logArgsBuffer.append(separator + "%s");
-
-						paramTypeName = paramTypeNames.get(i);
 
 						// code for query arguments
 						nullable = TypeUtility.isNullable(paramTypeName);
 
 						if (rawParameters) {
-							if (nullable && !method.hasAdapterForParam(item)) {
-								methodBuilder.addCode("($L==null?\"\":", item);
-							}
-
-							// check for string conversion
-							TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
-
-							SQLTransformer.javaMethodParam2WhereConditions(methodBuilder, method, item, paramTypeName);
-
-							// check for string conversion
-							TypeUtility.endStringConversion(methodBuilder, paramTypeName);
-
-							if (nullable && !method.hasAdapterForParam(item)) {
-								methodBuilder.addCode(")");
-							}
+							generateRawWhereArg(method, methodBuilder, paramTypeName, nullable, methodParam);
 						} else {
 
 							// eventually we take associated property
 							SQLProperty property = usedBeanPropertyNames.get(i) == null ? null
 									: entity.get(usedBeanPropertyNames.get(i));
 
-							if (nullable && !(property != null) && !method.hasAdapterForParam(item)) {
-								methodBuilder.addCode("($L==null?\"\":", item);
+							if (nullable && !(property != null) && !method.hasAdapterForParam(methodParam)) {
+								methodBuilder.addCode("($L==null?\"\":", methodParam);
 							}
 
 							// check for string conversion
@@ -555,16 +560,15 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 							// check for string conversion
 							TypeUtility.endStringConversion(methodBuilder, paramTypeName);
 
-							if (nullable && !(property != null) && !method.hasAdapterForParam(item)) {
+							if (nullable && !(property != null) && !method.hasAdapterForParam(methodParam)) {
 								methodBuilder.addCode(")");
 							}
 						}
-
-						separator = ", ";
-						i++;
-
 						methodBuilder.addCode(");\n");
 					}
+
+					separator = ", ";
+					i++;
 
 				}
 			}
@@ -623,6 +627,40 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			}
 		}
 
+	}
+	
+	private void generateRawWhereArg(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName paramTypeName,
+			boolean nullable, String item) {
+		generateRawWhereArg(method, methodBuilder, paramTypeName, nullable, item, item);
+	}
+
+	/**
+	 * @param method
+	 * @param methodBuilder
+	 * @param paramTypeName
+	 * @param nullable
+	 * @param methodItem
+	 * 		is the name of method's parameter
+	 * @param item
+	 * 		is the name of used parameter
+	 */
+	private void generateRawWhereArg(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName paramTypeName,
+			boolean nullable, String methodItem, String item) {
+		if (nullable && !method.hasAdapterForParam(methodItem)) {
+			methodBuilder.addCode("($L==null?\"\":", item);
+		}
+
+		// check for string conversion
+		TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
+
+		SQLTransformer.javaMethodParam2WhereConditions(methodBuilder, method, methodItem , item, paramTypeName);
+
+		// check for string conversion
+		TypeUtility.endStringConversion(methodBuilder, paramTypeName);
+
+		if (nullable && !method.hasAdapterForParam(methodItem)) {
+			methodBuilder.addCode(")");
+		}
 	}
 
 	/**
