@@ -15,7 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
@@ -127,6 +129,8 @@ public class JQL {
 
 	/** The dynamic replace. */
 	public Map<JQLDynamicStatementType, String> dynamicReplace;
+	
+	public Set<String> spreadParams=new HashSet<String>();
 
 	/** The static order by. */
 	boolean staticOrderBy;

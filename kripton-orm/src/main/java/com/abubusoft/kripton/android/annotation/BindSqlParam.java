@@ -42,5 +42,6 @@ public @interface BindSqlParam {
 	 *
 	 * @return the class&lt;? extends sql type adapter&lt;?,?&gt;&gt;
 	 */
-	Class<? extends SqlTypeAdapter<?, ?>> adapter() default NoAdapter.class;		
+	Class<? extends SqlTypeAdapter<?, ?>> adapter() default NoAdapter.class;	
+		
 }

@@ -65,6 +65,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_cor
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Select_or_valuesContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
+import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_in_clauseContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 
 /**
@@ -362,6 +363,8 @@ public class JQLChecker {
 	 * @author Francesco Benincasa (info@abubusoft.com)
 	 */
 	public class JQLRewriterListener extends JqlBaseListener {
+		
+		private boolean inStatement=false;
 
 		/** The listener. */
 		private JQLReplacerListener listener;
@@ -397,9 +400,9 @@ public class JQLChecker {
 		public void enterBind_parameter(Bind_parameterContext ctx) {
 			String value;
 			if (ctx.bind_parameter_name() != null) {
-				value = listener.onBindParameter(ctx.bind_parameter_name().getText());
+				value = listener.onBindParameter(ctx.bind_parameter_name().getText(), inStatement);
 			} else {
-				value = listener.onBindParameter(ctx.getText());
+				value = listener.onBindParameter(ctx.getText(), inStatement);
 			}
 
 			// skip without replace
@@ -511,6 +514,16 @@ public class JQLChecker {
 		@Override
 		public void exitColumn_value_set(Column_value_setContext ctx) {
 			listener.onColumnValueSetEnd(ctx);
+		}
+						
+		@Override
+		public void enterWhere_stmt_in_clause(Where_stmt_in_clauseContext ctx) {
+			inStatement = true;
+		}
+
+		@Override
+		public void exitWhere_stmt_in_clause(Where_stmt_in_clauseContext ctx) {
+			inStatement = false;
 		}
 	}
 

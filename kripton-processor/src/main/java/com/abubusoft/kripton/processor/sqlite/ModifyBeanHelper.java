@@ -405,7 +405,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				if (!usedInWhere.value0) {
 					if (bindParameterName.contains(".")) {
 						String[] a = bindParameterName.split("\\.");

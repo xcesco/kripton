@@ -198,7 +198,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 
 				if (inColumnValues.value0) {

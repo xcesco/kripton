@@ -22,7 +22,7 @@ import java.util.List;
  *  @see PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static final String SELECT1_ALL_SQL2 = "select * from person where birth_city_id=?";
+  private static final String SELECT1_ALL_SQL3 = "select * from person where birth_city_id=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -57,7 +57,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   public List<Person> select1All(long birthCityId) {
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT1_ALL_SQL2;
+    String _sql=SELECT1_ALL_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(birthCityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

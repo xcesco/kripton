@@ -11,8 +11,9 @@ import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 @BindDao(City.class)
 public interface DaoCity {
 
-	@BindSqlSelect(where="id in (:args)")
-	List<City> selectAll(@BindSqlSpread List<String> args);
-
-	List<City> selectAll(String... args);
+	/*@BindSqlSelect(where="id in (:{args})")
+	List<City> selectAll(@BindSqlParam(spread=true) List<String> args);*/
+	
+	@BindSqlSelect(where="id in (:{args})")
+	List<City> selectAll2(String ... args);
 }

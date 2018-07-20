@@ -191,7 +191,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 
 				return SqlAnalyzer.PARAM_PREFIX + resolvedParamName + SqlAnalyzer.PARAM_SUFFIX;

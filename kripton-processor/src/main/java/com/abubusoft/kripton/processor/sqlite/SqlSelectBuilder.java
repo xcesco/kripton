@@ -410,7 +410,7 @@ public abstract class SqlSelectBuilder {
 		String sql = jqlChecker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				if (replaceWithQuestion) {
 					return "?";
 				}

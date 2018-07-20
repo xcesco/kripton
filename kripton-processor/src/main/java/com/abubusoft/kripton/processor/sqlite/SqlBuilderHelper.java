@@ -448,7 +448,7 @@ public abstract class SqlBuilderHelper {
 				}
 
 				@Override
-				public String onBindParameter(String bindParameterName) {
+				public String onBindParameter(String bindParameterName, boolean inStatement) {
 					return "?";
 				}
 			});
@@ -536,7 +536,7 @@ public abstract class SqlBuilderHelper {
 			String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 				@Override
-				public String onBindParameter(String bindParameterName) {
+				public String onBindParameter(String bindParameterName, boolean inStatement) {
 					if (inWhere.value0) {
 						return "?";
 					}
@@ -625,7 +625,7 @@ public abstract class SqlBuilderHelper {
 		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				return "?";
 			}
 		});
@@ -687,7 +687,7 @@ public abstract class SqlBuilderHelper {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				return "?";
 			}
 		});

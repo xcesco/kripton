@@ -24,9 +24,6 @@ import java.util.List;
  * @see DaoCity
  * @see DaoCityImpl
  * @see City
- * @see DaoPerson
- * @see DaoPersonImpl
- * @see Person
  */
 public class BindAppDataSource extends AbstractDataSource implements BindAppDaoFactory, AppDataSource {
   /**
@@ -45,24 +42,14 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   public static final int DAO_CITY_UID = 0;
 
   /**
-   * Unique identifier for Dao DaoPerson
-   */
-  public static final int DAO_PERSON_UID = 1;
-
-  /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable(), new CityTable()};
+  static final SQLiteTable[] TABLES = {new CityTable()};
 
   /**
    * <p>dao instance</p>
    */
   protected DaoCityImpl daoCity = new DaoCityImpl(this);
-
-  /**
-   * <p>dao instance</p>
-   */
-  protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
@@ -76,11 +63,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   @Override
   public DaoCityImpl getDaoCity() {
     return daoCity;
-  }
-
-  @Override
-  public DaoPersonImpl getDaoPerson() {
-    return daoPerson;
   }
 
   /**
@@ -235,12 +217,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     }
     // log section END
     database.execSQL(CityTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -285,12 +261,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       }
       // log section END
       database.execSQL(CityTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -303,7 +273,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
-    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
@@ -311,7 +280,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
 
   public void clearCompiledStatements() {
     DaoCityImpl.clearCompiledStatements();
-    DaoPersonImpl.clearCompiledStatements();
   }
 
   /**
@@ -394,8 +362,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
 
     protected DaoCityImpl _daoCity;
 
-    protected DaoPersonImpl _daoPerson;
-
     DataSourceSingleThread() {
       _context=new SQLContextInSessionImpl(BindAppDataSource.this);
     }
@@ -409,17 +375,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
         _daoCity=new DaoCityImpl(this);
       }
       return _daoCity;
-    }
-
-    /**
-     *
-     * retrieve dao DaoPerson
-     */
-    public DaoPersonImpl getDaoPerson() {
-      if (_daoPerson==null) {
-        _daoPerson=new DaoPersonImpl(this);
-      }
-      return _daoPerson;
     }
 
     @Override

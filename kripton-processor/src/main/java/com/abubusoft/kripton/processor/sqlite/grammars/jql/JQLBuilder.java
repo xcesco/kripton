@@ -491,35 +491,10 @@ public abstract class JQLBuilder {
 		final SQLiteDaoDefinition dao = method.getParent();
 
 		if (StringUtils.hasText(preparedJql)) {
-			final One<Boolean> inStatement = new One<>(false);
 			result.value = preparedJql;
 
-			// in SELECT SQL only where statement can contains bind parameter
+			// In SELECT SQL only where statement can contains bind parameter
 			JQLChecker.getInstance().analyze(method, result, new JqlBaseListener() {
-	
-				@Override
-				public void enterBind_parameter_name(Bind_parameter_nameContext ctx) {
-					result.bindParameterOnWhereStatementCounter++;
-					
-					if (inStatement.value0==true) {
-						int start = ctx.getStart().getStartIndex() - 1;
-						int stop = ctx.getStop().getStopIndex() + 1;
-
-						String dynamicSpread = result.value.substring(start, stop);
-
-						dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_SPREAD, dynamicSpread);
-					}
-				}
-
-				@Override
-				public void enterWhere_stmt_in_clause(Where_stmt_in_clauseContext ctx) {
-					inStatement.value0 = true;
-				}
-
-				@Override
-				public void exitWhere_stmt_in_clause(Where_stmt_in_clauseContext ctx) {
-					inStatement.value0 = false;
-				}
 
 				@Override
 				public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
@@ -656,7 +631,26 @@ public abstract class JQLBuilder {
 			builder.append(defineLimitStatement(method, result, annotation, dynamicReplace));
 
 			result.value = builder.toString();
+
 		}
+
+		result.value=JQLChecker.getInstance().replace(method, result.value, new JQLReplacerListenerImpl(method) {
+			@Override
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
+				if (inStatement) {
+					String dynamicSpread = bindParameterName;
+
+					dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_SPREAD, dynamicSpread);
+					result.spreadParams.add(dynamicSpread);				
+
+					//return "#{"+JQLDynamicStatementType.DYNAMIC_SPREAD+"}";
+					return null;
+				}
+
+				return null;
+			}
+		});
+
 		result.operationType = JQLType.SELECT;
 		result.dynamicReplace = dynamicReplace;
 		return result;

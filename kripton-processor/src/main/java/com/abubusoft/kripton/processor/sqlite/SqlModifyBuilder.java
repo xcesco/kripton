@@ -536,7 +536,7 @@ public abstract class SqlModifyBuilder {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {				
+			public String onBindParameter(String bindParameterName, boolean inStatement) {				
 				
 				if (usedInWhere.value0) {
 					return "?";
@@ -600,7 +600,7 @@ public abstract class SqlModifyBuilder {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				return "?";
 			}
 

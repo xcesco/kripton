@@ -256,7 +256,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
 
@@ -440,7 +440,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 				AssertKripton.assertTrueOrUnknownParamInJQLException(resolvedParamName != null, method, bindParameterName);
 

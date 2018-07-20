@@ -130,7 +130,7 @@ public abstract class GenericSQLHelper {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName,boolean inStatement) {
 				String propertyName = method.findParameterAliasByName(bindParameterName);
 				
 				if (columnsToUpdate.value0) {

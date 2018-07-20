@@ -34,7 +34,7 @@ public class TestFeatureIn extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void compile() throws Throwable {
-		buildDataSourceProcessorTest(DaoPerson.class, Person.class, City.class, DaoCity.class, AppDataSource.class);
+		buildDataSourceProcessorTest(City.class, DaoCity.class, AppDataSource.class);
 	}
 
 

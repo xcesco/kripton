@@ -112,7 +112,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inClause) {
 				return "?";
 			}
 
@@ -278,7 +278,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inClause) {
 				return "?";
 			}
 
@@ -363,7 +363,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inClause) {
 				return "?";
 			}
 
@@ -482,7 +482,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 				}
 
 				@Override
-				public String onBindParameter(String bindParameterName) {
+				public String onBindParameter(String bindParameterName, boolean inClause) {
 					return "?";
 				}
 

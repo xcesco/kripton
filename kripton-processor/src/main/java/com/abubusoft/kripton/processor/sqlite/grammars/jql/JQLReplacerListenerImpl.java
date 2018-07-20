@@ -30,7 +30,6 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class JQLReplacerListenerImpl.
  */
@@ -66,7 +65,7 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListener#onBindParameter(java.lang.String)
 	 */
 	@Override
-	public String onBindParameter(String bindParameterName) {
+	public String onBindParameter(String bindParameterName, boolean inStatement) {
 		return null;
 	}
 

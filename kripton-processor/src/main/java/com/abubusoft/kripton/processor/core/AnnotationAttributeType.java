@@ -166,7 +166,7 @@ public enum AnnotationAttributeType {
 
 	/** The entity 2. */
 	ENTITY_2("entity2"),
-
+	
 	/** The table name. */
 	TABLE_NAME("tableName"),
 
