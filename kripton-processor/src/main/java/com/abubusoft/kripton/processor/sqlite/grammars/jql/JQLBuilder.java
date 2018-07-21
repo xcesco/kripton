@@ -59,10 +59,12 @@ import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
+import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertType;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder;
+import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
@@ -174,7 +176,13 @@ public abstract class JQLBuilder {
 
 		if (method.hasAnnotation(BindSqlSelect.class)) {
 			checkFieldsDefinitions(method, BindSqlSelect.class);
-			return buildJQLSelect(method, result, dynamicReplace, preparedJql);
+			JQL query = buildJQLSelect(method, result, dynamicReplace, preparedJql);
+
+			AssertKripton.assertTrueOrInvalidMethodSignException(
+					!(query.isDynamicSpreadConditions() && method.hasBeanAsParameter()), method, "structed parameter can not be used in 'in' condition");
+
+			return query;
+
 		} else if (method.hasAnnotation(BindSqlInsert.class)) {
 			checkFieldsDefinitions(method, BindSqlInsert.class);
 			return buildJQLInsert(method, result, preparedJql);
@@ -635,23 +643,25 @@ public abstract class JQLBuilder {
 
 		}
 
-		result.value=JQLChecker.getInstance().replace(method, result.value, new JQLReplacerListenerImpl(method, true) {
-						
-			@Override
-			public String onBindParameter(String bindParameterName, boolean inStatement) {
-				if (inStatement) {
-					String dynamicSpread = bindParameterName;
+		result.value = JQLChecker.getInstance().replace(method, result.value,
+				new JQLReplacerListenerImpl(method, true) {
 
-					dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_SPREAD, dynamicSpread);
-					result.spreadParams.add(dynamicSpread);				
+					@Override
+					public String onBindParameter(String bindParameterName, boolean inStatement) {
+						if (inStatement) {
+							String dynamicSpread = bindParameterName;
 
-					//return "#{"+JQLDynamicStatementType.DYNAMIC_SPREAD+"}";
-					return null;
-				}
+							dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_SPREAD, dynamicSpread);
+							result.spreadParams.add(dynamicSpread);
 
-				return null;
-			}
-		});
+							// return
+							// "#{"+JQLDynamicStatementType.DYNAMIC_SPREAD+"}";
+							return null;
+						}
+
+						return null;
+					}
+				});
 
 		result.operationType = JQLType.SELECT;
 		result.dynamicReplace = dynamicReplace;

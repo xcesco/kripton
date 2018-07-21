@@ -24,6 +24,7 @@ import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
@@ -131,7 +132,6 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/** The parameter name 2 adapter. */
 	protected Map<String, String> parameterName2Adapter;
-	
 
 	/** The parent. */
 	private WeakReference<SQLiteDaoDefinition> parent;
@@ -204,7 +204,23 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * list of children selects. Valid only for select methods
 	 */
 	public List<Triple<String, String, SQLiteModelMethod>> childrenSelects = new ArrayList<>();
-	
+
+	/**
+	 * return true if is use a bean (that this dao manage) as parameter.
+	 * 
+	 * @return return true if is use a bean (that this dao manage) as parameter.
+	 */
+	public boolean hasBeanAsParameter() {
+		TypeName entityTypeName = TypeUtility.typeName(this.getParent().getEntity().getElement());
+
+		for (Pair<String, TypeName> item : this.parameters) {
+			if (item.value1.equals(entityTypeName)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	/**
 	 * has children selects
@@ -242,13 +258,13 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 		this.parameterAlias2NameField = new HashMap<>();
 		this.parameterName2Alias = new HashMap<>();
-		this.parameterName2Adapter = new HashMap<>();		
-		
-		//element.isV
+		this.parameterName2Adapter = new HashMap<>();
+
+		// element.isV
 
 		// analyze method looking for BindSqlParam
 		for (VariableElement p : element.getParameters()) {
-			
+
 			BindSqlParam paramAlias = p.getAnnotation(BindSqlParam.class);
 			if (paramAlias != null) {
 				// check for name
@@ -264,8 +280,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 				if (!NoAdapter.class.getCanonicalName().equals(paramAdapter)) {
 					this.parameterName2Adapter.put(p.getSimpleName().toString(), paramAdapter);
 				}
-				
-				
+
 			}
 
 			if (TypeUtility.isEquals(TypeUtility.typeName(p.asType()), parent.getEntityClassName())) {

@@ -15,28 +15,33 @@
  *******************************************************************************/
 package sqlite.feature.in;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.in.err1.AppDataSource;
+import sqlite.feature.in.err1.City;
+import sqlite.feature.in.err1.DaoCity;
 
 /**
- * The Class TestGenericHierarchySuite.
+ * Test the alias param
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestFeatureIn1.class,
-		TestFeatureIn2.class,
-		TestFeatureIn3.class,
-		TestFeatureIn4.class,
-		TestFeatureIn5.class,
-		TestFeatureInErr1.class,
-		TestFeatureInErr2.class
-		
-		 })
-//@formatter:on
-public class TestInSuite extends BaseProcessorTest {
+@RunWith(JUnit4.class)
+public class TestFeatureInErr1 extends AbstractBindSQLiteProcessorTest {
+
+	/**
+	 * Compile.
+	 *
+	 * @throws Throwable the throwable
+	 */
+	@Test
+	public void compile() throws Throwable {
+		this.expectedException(InvalidMethodSignException.class, "In class 'DaoCity', method 'selectAll2' has an invalid signature: structed parameter can not be used in 'in' condition");
+		buildDataSourceProcessorTest(City.class, DaoCity.class, AppDataSource.class);
+	}
+
 
 }
