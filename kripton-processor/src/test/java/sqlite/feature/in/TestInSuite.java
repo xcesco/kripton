@@ -33,7 +33,8 @@ import base.BaseProcessorTest;
 		TestFeatureIn4.class,
 		TestFeatureIn5.class,
 		TestFeatureInErr1.class,
-		TestFeatureInErr2.class
+		TestFeatureInErr2.class,
+		TestFeatureInErr3.class
 		
 		 })
 //@formatter:on

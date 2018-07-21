@@ -343,6 +343,7 @@ public class JQLChecker {
 	 * @return string obtained by replacements
 	 */
 	public String replaceFromVariableStatement(JQLContext context, String jql, final JQLReplacerListener listener) {
+		JQLRewriterListener rewriterListener = new JQLRewriterListener();
 		rewriterListener.init(listener);
 
 		return replaceFromVariableStatementInternal(context, jql, replace, rewriterListener);
@@ -526,10 +527,7 @@ public class JQLChecker {
 			inStatement = false;
 		}
 	}
-
-	/** The rewriter listener. */
-	JQLRewriterListener rewriterListener = new JQLRewriterListener();
-
+	
 	/**
 	 * Replace place holder with element passed by listener.
 	 *
@@ -551,6 +549,7 @@ public class JQLChecker {
 	 * @return string obtained by replacements
 	 */
 	public String replace(final JQLContext jqlContext, String jql, final JQLReplacerListener listener) {
+		JQLRewriterListener rewriterListener = new JQLRewriterListener();
 		rewriterListener.init(listener);
 
 		return replaceInternal(jqlContext, jql, replace, rewriterListener);

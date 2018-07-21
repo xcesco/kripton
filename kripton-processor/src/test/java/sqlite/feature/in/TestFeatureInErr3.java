@@ -22,15 +22,15 @@ import org.junit.runners.JUnit4;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.in.err1.AppDataSource;
-import sqlite.feature.in.err1.City;
-import sqlite.feature.in.err1.DaoCity;
+import sqlite.feature.in.err3.AppDataSource;
+import sqlite.feature.in.err3.City;
+import sqlite.feature.in.err3.DaoCity;
 
 /**
  * Test the alias param
  */
 @RunWith(JUnit4.class)
-public class TestFeatureInErr1 extends AbstractBindSQLiteProcessorTest {
+public class TestFeatureInErr3 extends AbstractBindSQLiteProcessorTest {
 
 	/**
 	 * Compile.

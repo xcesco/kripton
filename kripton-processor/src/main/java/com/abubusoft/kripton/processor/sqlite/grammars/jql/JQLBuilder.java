@@ -55,16 +55,13 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAttributesInAnnotationException;
-import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertType;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder;
-import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.SqlModifyBuilder.ModifyType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDynamicStatementType;
@@ -72,14 +69,12 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynamic_sqlContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameter_nameContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Columns_to_updateContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Conflict_algorithmContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Projected_columnsContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
-import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_in_clauseContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
@@ -176,13 +171,7 @@ public abstract class JQLBuilder {
 
 		if (method.hasAnnotation(BindSqlSelect.class)) {
 			checkFieldsDefinitions(method, BindSqlSelect.class);
-			JQL query = buildJQLSelect(method, result, dynamicReplace, preparedJql);
-
-			AssertKripton.assertTrueOrInvalidMethodSignException(
-					!(query.isDynamicSpreadConditions() && method.hasBeanAsParameter()), method, "structed parameter can not be used in 'in' condition");
-
-			return query;
-
+			return buildJQLSelect(method, result, dynamicReplace, preparedJql);			
 		} else if (method.hasAnnotation(BindSqlInsert.class)) {
 			checkFieldsDefinitions(method, BindSqlInsert.class);
 			return buildJQLInsert(method, result, preparedJql);
@@ -648,7 +637,13 @@ public abstract class JQLBuilder {
 
 					@Override
 					public String onBindParameter(String bindParameterName, boolean inStatement) {
-						if (inStatement) {
+						if (inStatement) {							
+							TypeName typeName = method.findParameterType(method.findParameterNameByAlias(bindParameterName));
+							
+							AssertKripton.assertTrueOrInvalidMethodSignException(typeName!=null && (TypeUtility.isArray(typeName) || TypeUtility.isCollection(typeName)),
+									method, "'in' condition need an array or collection parameter");
+							
+							
 							String dynamicSpread = bindParameterName;
 
 							dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_SPREAD, dynamicSpread);
