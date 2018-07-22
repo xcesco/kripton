@@ -21,6 +21,8 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
@@ -34,7 +36,6 @@ import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MapBindTransformation.
  */
@@ -43,19 +44,12 @@ public class MapBindTransformation extends AbstractBindTransform {
 	/** The nc. */
 	static Converter<String, String> nc = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_CAMEL);
 
-	//private ParameterizedTypeName mapTypeName;
-	//private TypeName keyTypeName;
-	//private TypeName valueTypeName;
-
 	/**
 	 * Instantiates a new map bind transformation.
 	 *
 	 * @param clazz the clazz
 	 */
-	public MapBindTransformation(ParameterizedTypeName clazz) {
-		//this.mapTypeName = clazz;
-		//this.keyTypeName = mapTypeName.typeArguments.get(0);
-		//this.valueTypeName = mapTypeName.typeArguments.get(1);
+	public MapBindTransformation(ParameterizedTypeName clazz) {		
 	}
 	
 	/* (non-Javadoc)
@@ -75,6 +69,8 @@ public class MapBindTransformation extends AbstractBindTransform {
 		if (mapTypeName.rawType.toString().startsWith(Map.class.getCanonicalName())) {
 			// it's a list
 			return HashMap.class;
+		} else if (mapTypeName.rawType.toString().startsWith(SortedMap.class.getCanonicalName())) {
+			return TreeMap.class;
 		}
 		try {
 			return Class.forName(mapTypeName.rawType.toString());

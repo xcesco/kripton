@@ -13,41 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.test01;
+package bind.feature.immutable;
 
-import java.util.SortedMap;
-import java.util.SortedSet;
+import java.io.IOException;
 
-// TODO: Auto-generated Javadoc
+import org.junit.Test;
+
+import bind.AbstractBindTypeProcessorTest;
+import bind.feature.immutable.case1.Bean;
+
 /**
- * The Class Bean01.
+ * The Class TestCompile72.
  */
-public class Bean01 {
-
-	/** The id. */
-	protected long id;
+public class TestCompileImmutable1 extends AbstractBindTypeProcessorTest {
+	
 
 	/**
-	 * Gets the id.
+	 * Test compile.
 	 *
-	 * @return the id
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
-	public long getId() {
-		return id;
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException
+	{
+		buildBindProcessorTest(Bean.class);
 	}
-
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public SortedMap<String, Long> map;
-	
-	public SortedSet<String> set;
 	
 	
 }

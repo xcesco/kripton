@@ -32,6 +32,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -145,7 +146,8 @@ public abstract class PropertyUtility {
 		Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		int status = 0;
 
-		// define property for the entity (must be done before working with methods, due to parameters resolver)
+		// define property for the entity (must be done before working with
+		// methods, due to parameters resolver)
 		for (P p : propertyMap.values()) {
 			entity.add(p);
 		}
@@ -299,13 +301,17 @@ public abstract class PropertyUtility {
 	 * @return the string
 	 */
 	public static String setter(TypeName beanClass, ModelProperty property) {
-		if (property.isPublicField()) {
-			return property.getName();
-		} else if (property.isFieldWithSetter()) {
-			return "set" + converterField2Method.convert(property.getName());
+		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName();
 		} else {
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
-					property.getName(), property.getParent().getElement().asType()));
+			if (property.isPublicField()) {
+				return property.getName();
+			} else if (property.isFieldWithSetter()) {
+				return "set" + converterField2Method.convert(property.getName());
+			} else {
+				throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
+						property.getName(), property.getParent().getElement().asType()));
+			}
 		}
 	}
 
@@ -323,7 +329,11 @@ public abstract class PropertyUtility {
 	 * @return the string
 	 */
 	public static String setter(TypeName beanClass, String beanName, ModelProperty property, String value) {
-		return beanName + (beanClass != null ? "." + setter(property, value) : "=" + value);
+		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName() + "=" + value;
+		} else {
+			return beanName + (beanClass != null ? "." + setter(property, value) : "=" + value);
+		}
 	}
 
 	/**
@@ -338,14 +348,20 @@ public abstract class PropertyUtility {
 	 * @return the string
 	 */
 	private static String setter(ModelProperty property, String value) {
-		if (property.isPublicField())
-			return property.getName() + "=" + value;
-		else if (property.isFieldWithSetter()) {
-			return "set" + converterField2Method.convert(property.getName()) + "(" + value + ")";
+		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName() + "=" + value;
 		} else {
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
-					property.getName(), property.getParent().getElement().asType()));
+			if (property.isPublicField())
+				return property.getName() + "=" + value;
+			else if (property.isFieldWithSetter()) {
+				return "set" + converterField2Method.convert(property.getName()) + "(" + value + ")";
+			} else {
+
+				throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
+						property.getName(), property.getParent().getElement().asType()));
+			}
 		}
+
 	}
 
 }

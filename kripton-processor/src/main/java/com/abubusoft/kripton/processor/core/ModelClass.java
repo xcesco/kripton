@@ -22,8 +22,10 @@ import java.util.List;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
  * The Class ModelClass.
@@ -36,6 +38,13 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	/** The annotations. */
 	protected List<ModelAnnotation> annotations;
 	
+	List<Pair<String, TypeName>> immutableConstructors;
+	
+	public List<Pair<String, TypeName>> getImmutableConstructors() {
+		return immutableConstructors;
+	}
+	
+
 	/**
 	 * Gets the annotations.
 	 *
@@ -47,6 +56,16 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 
 	/** The type variable resolver. */
 	protected TypeVariableResolver typeVariableResolver;
+
+	boolean emptyContructor;
+	
+	public boolean isImmutablePojo() {
+		return immutableConstructors!=null;
+	}
+
+	public boolean isMutablePojo() {
+		return emptyContructor && !isImmutablePojo();
+	}
 
 	/**
 	 * Instantiates a new model class.

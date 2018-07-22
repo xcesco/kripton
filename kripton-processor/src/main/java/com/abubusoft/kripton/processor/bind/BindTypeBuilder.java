@@ -46,6 +46,7 @@ import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.transform.BindTransform;
 import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
@@ -58,6 +59,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 /**
@@ -248,23 +250,27 @@ public abstract class BindTypeBuilder {
 	 *
 	 * @param context
 	 *            the context
-	 * @param bean
+	 * @param entity
 	 *            kind of object to manage
 	 */
-	private static void generateParseOnXml(BindTypeContext context, BindEntity bean) {
+	private static void generateParseOnXml(BindTypeContext context, BindEntity entity) {
 		// @formatter:off
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("parseOnXml").addJavadoc("parse xml\n")
 				.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
 				// .addParameter(typeName(KriptonXmlContext.class), "context")
 				.addParameter(typeName(XMLParser.class), "xmlParser")
-				.addParameter(typeName(Integer.TYPE), "currentEventType").returns(typeName(bean.getElement()))
+				.addParameter(typeName(Integer.TYPE), "currentEventType").returns(typeName(entity.getElement()))
 				.addException(Exception.class);
 		// @formatter:on
 
-		// methodBuilder.beginControlFlow("try");
-		// methodBuilder.addStatement("$T xmlParser = wrapper.xmlParser",
-		// XmlPullParser.class);
-		methodBuilder.addStatement("$T instance = new $T()", bean.getElement(), bean.getElement());
+		boolean mutableObject = entity.isMutablePojo();
+
+		if (mutableObject) {
+			methodBuilder.addStatement("$T instance = new $T()", entity.getElement(), entity.getElement());
+		} else {
+			ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
+		}
+
 		methodBuilder.addStatement("int eventType = currentEventType");
 		methodBuilder.addStatement("boolean read=true");
 
@@ -278,7 +284,7 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.addStatement("String elementName = currentTag");
 
-		generateParseOnXmlAttributes(context, methodBuilder, bean);
+		generateParseOnXmlAttributes(context, methodBuilder, entity);
 
 		methodBuilder.addCode("\n");
 		methodBuilder.addCode("//sub-elements\n");
@@ -293,16 +299,16 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.beginControlFlow("switch(eventType)$>");
 		methodBuilder.addCode("case $T.START_TAG:\n$>", XmlPullParser.class);
-		generateParserOnXmlStartElement(context, methodBuilder, "instance", "xmlParser", bean);
+		generateParserOnXmlStartElement(context, methodBuilder, "instance", "xmlParser", entity);
 		methodBuilder.addStatement("$<break");
 
 		methodBuilder.addCode("case $T.END_TAG:\n$>", XmlPullParser.class);
-		generateParserOnXmlEndElement(context, methodBuilder, "instance", "xmlParser", bean);
+		generateParserOnXmlEndElement(context, methodBuilder, "instance", "xmlParser", entity);
 		methodBuilder.addStatement("$<break");
 
 		methodBuilder.addCode("case $T.CDSECT:\n", XmlPullParser.class);
 		methodBuilder.addCode("case $T.TEXT:\n$>", XmlPullParser.class);
-		generateParserOnXmlCharacters(context, methodBuilder, "instance", "xmlParser", bean);
+		generateParserOnXmlCharacters(context, methodBuilder, "instance", "xmlParser", entity);
 		methodBuilder.addStatement("$<break");
 
 		methodBuilder.addCode("default:\n$>");
@@ -313,13 +319,11 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.endControlFlow();
 
+		if (!mutableObject) {
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+		}
+
 		methodBuilder.addStatement("return instance");
-		// methodBuilder.nextControlFlow("catch($T e)",
-		// typeName(Exception.class));
-		// methodBuilder.addStatement("e.printStackTrace()");
-		// methodBuilder.addStatement("throw (new $T(e))",
-		// typeName(KriptonRuntimeException.class));
-		// methodBuilder.endControlFlow();
 
 		context.builder.addMethod(methodBuilder.build());
 	}
@@ -395,7 +399,8 @@ public abstract class BindTypeBuilder {
 				methodBuilder.addCode("case $S:\n$>", BindProperty.xmlName(property));
 
 				bindTransform = BindTransformer.lookup(property);
-				methodBuilder.addCode("// field $L (mapped by $S)\n", property.getName(), BindProperty.xmlName(property));
+				methodBuilder.addCode("// field $L (mapped by $S)\n", property.getName(),
+						BindProperty.xmlName(property));
 				bindTransform.generateParseOnXml(context, methodBuilder, "xmlParser",
 						property.getPropertyType().getTypeName(), "instance", property);
 
@@ -465,7 +470,8 @@ public abstract class BindTypeBuilder {
 				// here we manage only property of bean type
 				if (bindTransform != null) {
 					methodBuilder.addCode("case $S:\n$>", BindProperty.xmlName(property));
-					methodBuilder.addCode("// property $L (mapped on $S)\n", property.getName(), BindProperty.xmlName(property));
+					methodBuilder.addCode("// property $L (mapped on $S)\n", property.getName(),
+							BindProperty.xmlName(property));
 
 					// methodBuilder.beginControlFlow("if
 					// (!xmlParser.isEmptyElement())");
@@ -543,10 +549,13 @@ public abstract class BindTypeBuilder {
 				.addException(Exception.class);
 		// @formatter:on
 
-		// methodBuilder.beginControlFlow("try");
-		// methodBuilder.addStatement("$T jacksonParser =
-		// wrapper.jacksonParser", JsonParser.class);
-		methodBuilder.addStatement("$T instance = new $T()", entity.getElement(), entity.getElement());
+		boolean mutableObject = entity.isMutablePojo();
+
+		if (mutableObject) {
+			methodBuilder.addStatement("$T instance = new $T()", entity.getElement(), entity.getElement());
+		} else {
+			ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
+		}
 		methodBuilder.addStatement("String fieldName");
 
 		methodBuilder.beginControlFlow("if (jacksonParser.currentToken() == null)");
@@ -555,6 +564,9 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.beginControlFlow("if (jacksonParser.currentToken() != $T.START_OBJECT)", JsonToken.class);
 		methodBuilder.addStatement("jacksonParser.skipChildren()");
+		if (!mutableObject) {
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+		}
 		methodBuilder.addStatement("return instance");
 		methodBuilder.endControlFlow();
 
@@ -572,8 +584,10 @@ public abstract class BindTypeBuilder {
 
 				methodBuilder.addCode("case $S:\n$>", item.label);
 				methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
+
 				bindTransform.generateParseOnJackson(context, methodBuilder, "jacksonParser",
 						item.getPropertyType().getTypeName(), "instance", item);
+
 				methodBuilder.addCode("$<break;\n");
 			}
 
@@ -589,12 +603,11 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.endControlFlow();
 
+		if (!mutableObject) {
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+		}
 		methodBuilder.addStatement("return instance");
-		// methodBuilder.nextControlFlow("catch ($T e)", Exception.class);
-		// methodBuilder.addStatement("e.printStackTrace()");
-		// methodBuilder.addStatement("throw new $T(e)",
-		// KriptonRuntimeException.class);
-		// methodBuilder.endControlFlow();
+
 		context.builder.addMethod(methodBuilder.build());
 
 	}
@@ -617,10 +630,14 @@ public abstract class BindTypeBuilder {
 				.addException(Exception.class);
 		// @formatter:on
 
-		// methodBuilder.beginControlFlow("try");
-		// methodBuilder.addStatement("$T jacksonParser =
-		// wrapper.jacksonParser", JsonParser.class);
-		methodBuilder.addStatement("$T instance = new $T()", entity.getElement(), entity.getElement());
+		boolean mutableObject = entity.isMutablePojo();
+
+		if (mutableObject) {
+			methodBuilder.addStatement("$T instance = new $T()", entity.getElement(), entity.getElement());
+		} else {
+			ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
+		}
+
 		methodBuilder.addStatement("String fieldName");
 
 		methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() == null)");
@@ -629,6 +646,9 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() != $T.START_OBJECT)", JsonToken.class);
 		methodBuilder.addStatement("jacksonParser.skipChildren()");
+		if (!mutableObject) {
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+		}
 		methodBuilder.addStatement("return instance");
 		methodBuilder.endControlFlow();
 
@@ -646,8 +666,10 @@ public abstract class BindTypeBuilder {
 
 				methodBuilder.addCode("case $S:\n$>", item.label);
 				methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), item.label);
+
 				bindTransform.generateParseOnJacksonAsString(context, methodBuilder, "jacksonParser",
 						item.getPropertyType().getTypeName(), "instance", item);
+				
 				methodBuilder.addCode("$<break;\n");
 			}
 
@@ -664,12 +686,11 @@ public abstract class BindTypeBuilder {
 
 		methodBuilder.endControlFlow();
 
+		if (!mutableObject) {
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+		}
 		methodBuilder.addStatement("return instance");
-		// methodBuilder.nextControlFlow("catch ($T e)", Exception.class);
-		// methodBuilder.addStatement("e.printStackTrace()");
-		// methodBuilder.addStatement("throw new $T(e)",
-		// KriptonRuntimeException.class);
-		// methodBuilder.endControlFlow();
+
 		context.builder.addMethod(methodBuilder.build());
 
 	}
@@ -826,8 +847,7 @@ public abstract class BindTypeBuilder {
 		for (BindProperty item : entity.getCollection()) {
 			bindTransform = BindTransformer.lookup(item);
 
-			methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(),
-					BindProperty.xmlName(item));
+			methodBuilder.addCode("// field $L (mapped with $S)\n", item.getName(), BindProperty.xmlName(item));
 			if (item.hasTypeAdapter()) {
 				methodBuilder.addCode("// field trasformation $L $L \n", item.typeAdapter.dataType,
 						item.typeAdapter.adapterClazz);
@@ -850,5 +870,5 @@ public abstract class BindTypeBuilder {
 
 		context.builder.addMethod(methodBuilder.build());
 	}
-	
+
 }

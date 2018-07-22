@@ -45,6 +45,7 @@ import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.bind.transform.ByteArrayBindTransform;
 import com.abubusoft.kripton.processor.bind.transform.ObjectBindTransform;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -143,7 +144,7 @@ public abstract class BindEntityBuilder {
 		
 		
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class, AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
-
+				
 		PropertyUtility.buildProperties(elementUtils, currentEntity, new PropertyFactory<BindEntity, BindProperty>() {
 
 			@Override
@@ -335,6 +336,8 @@ public abstract class BindEntityBuilder {
 			}
 
 		});
+		
+		ImmutableUtility.buildConstructors(elementUtils, currentEntity);
 
 		// if we don't have model, we dont save bean definition
 		if (model != null) {

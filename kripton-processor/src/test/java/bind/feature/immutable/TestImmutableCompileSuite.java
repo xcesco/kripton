@@ -13,41 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.test01;
+package bind.feature.immutable;
 
-import java.util.SortedMap;
-import java.util.SortedSet;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-// TODO: Auto-generated Javadoc
+import bind.AbstractBindTypeProcessorTest;
+
 /**
- * The Class Bean01.
+ * The Class Test72CompileSuite.
  */
-public class Bean01 {
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestCompileImmutable1.class		
+		 })
+//@formatter:on
+public class TestImmutableCompileSuite extends AbstractBindTypeProcessorTest {
 
-	/** The id. */
-	protected long id;
-
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public SortedMap<String, Long> map;
-	
-	public SortedSet<String> set;
-	
-	
 }

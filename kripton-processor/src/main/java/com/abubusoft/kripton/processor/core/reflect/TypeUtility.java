@@ -759,14 +759,14 @@ public abstract class TypeUtility {
 		}
 	}
 
-	public static boolean isAssignable(TypeName typeName, TypeName assignableTypeName) {		
+	public static boolean isAssignable(TypeName typeName, TypeName assignableTypeName) {
 		try {
-			Class<?> assignableClazz= Class.forName(assignableTypeName.toString());
+			Class<?> assignableClazz = Class.forName(assignableTypeName.toString());
 			return isAssignable(typeName, assignableClazz);
 		} catch (ClassNotFoundException e) {
 			return false;
 		}
-		
+
 	}
 
 	/**
@@ -796,6 +796,32 @@ public abstract class TypeUtility {
 			return fullName.substring(0, fullName.lastIndexOf("."));
 		}
 		return "";
+	}
+
+	public static String getDefaultValue(TypeName value) {
+		if (!isTypePrimitive(value)) {
+			return null;
+		} else {
+			if (value == TypeName.BOOLEAN) {
+				return "false";
+			} else if (value == TypeName.BYTE) {
+				return "(byte)0";
+			} else if (value == TypeName.CHAR) {
+				return "(char)0";
+			} else if (value == TypeName.DOUBLE) {
+				return "0.0";
+			} else if (value == TypeName.FLOAT) {
+				return "0.0f";
+			} else if (value == TypeName.INT) {
+				return "0";
+			} else if (value == TypeName.LONG) {
+				return "0";
+			} else if (value == TypeName.SHORT) {
+				return "(short)0";
+			} else {
+				return "0";
+			}
+		}
 	}
 
 }

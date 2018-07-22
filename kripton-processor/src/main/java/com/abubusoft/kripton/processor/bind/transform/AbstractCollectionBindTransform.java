@@ -23,6 +23,10 @@ import static com.abubusoft.kripton.processor.core.reflect.PropertyUtility.sette
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -37,6 +41,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.MethodSpec.Builder;
+
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
@@ -127,6 +132,10 @@ public abstract class AbstractCollectionBindTransform extends AbstractBindTransf
 	protected Class<?> defineCollectionClass(ParameterizedTypeName collectionTypeName) {
 		if (collectionTypeName.rawType.toString().startsWith(collectionClazz.getCanonicalName())) {
 			return defaultClazz;
+		} else if (collectionTypeName.rawType.toString().startsWith(SortedMap.class.getCanonicalName())) {
+			return TreeMap.class;
+		} else if (collectionTypeName.rawType.toString().startsWith(SortedSet.class.getCanonicalName())) {
+			return TreeSet.class;
 		}
 		try {
 			return Class.forName(collectionTypeName.rawType.toString());

@@ -22,6 +22,7 @@ import bind.bindenum.TestEnumSuite;
 import bind.directmap.TestDirectMapSuite;
 import bind.feature.generichierarchy.TestGenericHierarchySuite;
 import bind.feature.generichierarchy.kripton109.Test109CompileSuite;
+import bind.feature.immutable.TestImmutableCompileSuite;
 import bind.feature.namespace.CompileNamespaceTestSuite;
 import bind.feature.typeadapter.kripton87.Test87CompileSuite;
 import bind.kripton110.TestCompile110;
@@ -46,6 +47,9 @@ import bind.rss.TestRSSCompile;
 //@formatter:off
 @Suite.SuiteClasses(
 		{
+			// feature
+			TestImmutableCompileSuite.class, 
+			
 		Test42CompileSuite.class,
 		Test70CompileSuite.class,
 		Test71CompileSuite.class,
