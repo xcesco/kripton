@@ -19,8 +19,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
-import org.apache.commons.collections.map.UnmodifiableOrderedMap;
-
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
