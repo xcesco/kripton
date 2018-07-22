@@ -68,6 +68,7 @@ import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.Touple;
@@ -948,6 +949,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				break;
 			}
 		}
+		
+		ImmutableUtility.buildConstructors(elementUtils, currentEntity);
 
 		// add entity to schema after properties definition!
 		schema.addEntity(currentEntity);

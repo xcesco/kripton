@@ -23,8 +23,6 @@ import javax.lang.model.element.TypeElement;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelClass;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
  * The Class BindEntity.
