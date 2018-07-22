@@ -570,7 +570,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
       // immutable object: inizialize object
-      Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
+      Bean instance=new Bean((__sortableSet==null ? null : Collections.unmodifiableSortedSet(__sortableSet)),(__map==null ? null : Collections.unmodifiableMap(__map)),(__mapSorted==null ? null : Collections.unmodifiableSortedMap(__mapSorted)),__name,__birthDate,__age,__numberOfCars,(__items==null ? null : Collections.unmodifiableList(__items)),__itemsString,__buffer,__bufferString);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -718,7 +718,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           break;}
     }
     // immutable object: inizialize object
-    Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
+    Bean instance=new Bean((__sortableSet==null ? null : Collections.unmodifiableSortedSet(__sortableSet)),(__map==null ? null : Collections.unmodifiableMap(__map)),(__mapSorted==null ? null : Collections.unmodifiableSortedMap(__mapSorted)),__name,__birthDate,__age,__numberOfCars,(__items==null ? null : Collections.unmodifiableList(__items)),__itemsString,__buffer,__bufferString);
     return instance;
   }
 
@@ -747,7 +747,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
       // immutable object: inizialize object
-      Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
+      Bean instance=new Bean((__sortableSet==null ? null : Collections.unmodifiableSortedSet(__sortableSet)),(__map==null ? null : Collections.unmodifiableMap(__map)),(__mapSorted==null ? null : Collections.unmodifiableSortedMap(__mapSorted)),__name,__birthDate,__age,__numberOfCars,(__items==null ? null : Collections.unmodifiableList(__items)),__itemsString,__buffer,__bufferString);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -961,7 +961,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
           break;}
     }
     // immutable object: inizialize object
-    Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
+    Bean instance=new Bean((__sortableSet==null ? null : Collections.unmodifiableSortedSet(__sortableSet)),(__map==null ? null : Collections.unmodifiableMap(__map)),(__mapSorted==null ? null : Collections.unmodifiableSortedMap(__mapSorted)),__name,__birthDate,__age,__numberOfCars,(__items==null ? null : Collections.unmodifiableList(__items)),__itemsString,__buffer,__bufferString);
     return instance;
   }
 
@@ -1235,7 +1235,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
         }
       }
       // immutable object: inizialize object
-      Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
+      Bean instance=new Bean((__sortableSet==null ? null : Collections.unmodifiableSortedSet(__sortableSet)),(__map==null ? null : Collections.unmodifiableMap(__map)),(__mapSorted==null ? null : Collections.unmodifiableSortedMap(__mapSorted)),__name,__birthDate,__age,__numberOfCars,(__items==null ? null : Collections.unmodifiableList(__items)),__itemsString,__buffer,__bufferString);
       return instance;
     }
   }
