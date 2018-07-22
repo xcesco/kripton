@@ -92,13 +92,19 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
    */
   @Override
   public Vector3 parseOnJackson(JsonParser jacksonParser) throws Exception {
-    Vector3 instance = new Vector3();
+    // immutable object: inizialize temporary variables for properties
+    float __x=0.0f;
+    float __y=0.0f;
+    float __z=0.0f;
+
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
     }
     if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
+      // immutable object: inizialize object
+      Vector3 instance=new Vector3(__x,__y,__z);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -109,20 +115,22 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
       switch (fieldName) {
           case "x":
             // field x (mapped with "x")
-            instance.x=jacksonParser.getFloatValue();
+            __x=jacksonParser.getFloatValue();
           break;
           case "y":
             // field y (mapped with "y")
-            instance.y=jacksonParser.getFloatValue();
+            __y=jacksonParser.getFloatValue();
           break;
           case "z":
             // field z (mapped with "z")
-            instance.z=jacksonParser.getFloatValue();
+            __z=jacksonParser.getFloatValue();
           break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
+    // immutable object: inizialize object
+    Vector3 instance=new Vector3(__x,__y,__z);
     return instance;
   }
 
@@ -131,13 +139,19 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
    */
   @Override
   public Vector3 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    Vector3 instance = new Vector3();
+    // immutable object: inizialize temporary variables for properties
+    float __x=0.0f;
+    float __y=0.0f;
+    float __z=0.0f;
+
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
     }
     if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
+      // immutable object: inizialize object
+      Vector3 instance=new Vector3(__x,__y,__z);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -148,20 +162,22 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
       switch (fieldName) {
           case "x":
             // field x (mapped with "x")
-            instance.x=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
+            __x=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
           break;
           case "y":
             // field y (mapped with "y")
-            instance.y=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
+            __y=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
           break;
           case "z":
             // field z (mapped with "z")
-            instance.z=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
+            __z=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
           break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
+    // immutable object: inizialize object
+    Vector3 instance=new Vector3(__x,__y,__z);
     return instance;
   }
 
@@ -170,7 +186,11 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
    */
   @Override
   public Vector3 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    Vector3 instance = new Vector3();
+    // immutable object: inizialize temporary variables for properties
+    float __x=0.0f;
+    float __y=0.0f;
+    float __z=0.0f;
+
     int eventType = currentEventType;
     boolean read=true;
 
@@ -190,15 +210,15 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
       switch(attributeName) {
           case "x":
             // field x (mapped by "x")
-            instance.x=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
+            __x=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
           break;
           case "y":
             // field y (mapped by "y")
-            instance.y=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
+            __y=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
           break;
           case "z":
             // field z (mapped by "z")
-            instance.z=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
+            __z=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
           break;
           default:
           break;
@@ -231,6 +251,8 @@ public class Vector3BindMap extends AbstractMapper<Vector3> {
           break;
       }
     }
+    // immutable object: inizialize object
+    Vector3 instance=new Vector3(__x,__y,__z);
     return instance;
   }
 }

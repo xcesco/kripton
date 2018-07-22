@@ -32,17 +32,6 @@ import com.abubusoft.kripton.annotation.BindXmlType;
 		@BindXmlNamespace(prefix="", uri="http://www.dummy.com")
 		})
 public class Person {
-	
-	public Person() {
-		
-	}
-	
-	public Person(String name, String surname, Date birthday, List<String> tags, Person parent) {
-		this.name=name;
-		this.surname=surname;
-		this.birthday=birthday;
-		this.parent=parent;
-	}
 
 	/** The name. */
 	@BindXml(namespace="tool")

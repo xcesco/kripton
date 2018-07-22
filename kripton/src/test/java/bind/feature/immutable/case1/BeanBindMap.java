@@ -3,6 +3,7 @@ package bind.feature.immutable.case1;
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;
 import com.abubusoft.kripton.common.Base64Utils;
+import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.PrimitiveUtils;
 import com.abubusoft.kripton.common.StringUtils;
@@ -17,7 +18,13 @@ import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * This class is binder map for Bean
@@ -47,6 +54,25 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     if (object.getBuffer()!=null)  {
       fieldCount++;
       jacksonSerializer.writeBinaryField("buffer", object.getBuffer());
+    }
+
+    // field bufferString (mapped with "bufferString")
+    if (object.getBufferString()!=null)  {
+      fieldCount++;
+      int n=object.getBufferString().length;
+      String item;
+      // write wrapper tag
+      jacksonSerializer.writeFieldName("bufferString");
+      jacksonSerializer.writeStartArray();
+      for (int i=0; i<n; i++) {
+        item=object.getBufferString()[i];
+        if (item==null) {
+          jacksonSerializer.writeNull();
+        } else {
+          jacksonSerializer.writeString(item);
+        }
+      }
+      jacksonSerializer.writeEndArray();
     }
 
     // field items (mapped with "items")
@@ -87,6 +113,52 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       jacksonSerializer.writeEndArray();
     }
 
+    // field map (mapped with "map")
+    if (object.getMap()!=null)  {
+      fieldCount++;
+      // write wrapper tag
+      if (object.getMap().size()>0) {
+        jacksonSerializer.writeFieldName("map");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<String, Long> item: object.getMap().entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("key", item.getKey());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("value");
+          } else {
+            jacksonSerializer.writeNumberField("value", item.getValue());
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      } else {
+        jacksonSerializer.writeNullField("map");
+      }
+    }
+
+    // field mapSorted (mapped with "mapSorted")
+    if (object.getMapSorted()!=null)  {
+      fieldCount++;
+      // write wrapper tag
+      if (object.getMapSorted().size()>0) {
+        jacksonSerializer.writeFieldName("mapSorted");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<String, String> item: object.getMapSorted().entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("key", item.getKey());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeNullField("value");
+          } else {
+            jacksonSerializer.writeStringField("value", item.getValue());
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      } else {
+        jacksonSerializer.writeNullField("mapSorted");
+      }
+    }
+
     // field name (mapped with "name")
     if (object.getName()!=null)  {
       fieldCount++;
@@ -97,6 +169,22 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     if (object.getNumberOfCars()!=null)  {
       fieldCount++;
       jacksonSerializer.writeNumberField("numberOfCars", object.getNumberOfCars());
+    }
+
+    // field sortableSet (mapped with "sortableSet")
+    if (object.getSortableSet()!=null)  {
+      fieldCount++;
+      // write wrapper tag
+      jacksonSerializer.writeFieldName("sortableSet");
+      jacksonSerializer.writeStartArray();
+      for (String item: object.getSortableSet()) {
+        if (item==null) {
+          jacksonSerializer.writeNull();
+        } else {
+          jacksonSerializer.writeString(item);
+        }
+      }
+      jacksonSerializer.writeEndArray();
     }
 
     jacksonSerializer.writeEndObject();
@@ -124,6 +212,29 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     if (object.getBuffer()!=null)  {
       fieldCount++;
       jacksonSerializer.writeBinaryField("buffer", object.getBuffer());
+    }
+
+    // field bufferString (mapped with "bufferString")
+    if (object.getBufferString()!=null)  {
+      fieldCount++;
+      int n=object.getBufferString().length;
+      String item;
+      // write wrapper tag
+      jacksonSerializer.writeFieldName("bufferString");
+      if (n>0) {
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=object.getBufferString()[i];
+          if (item==null) {
+            jacksonSerializer.writeString("null");
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      } else {
+        jacksonSerializer.writeString("");
+      }
     }
 
     // field items (mapped with "items")
@@ -172,6 +283,52 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       }
     }
 
+    // field map (mapped with "map")
+    if (object.getMap()!=null)  {
+      fieldCount++;
+      // write wrapper tag
+      if (object.getMap().size()>0) {
+        jacksonSerializer.writeFieldName("map");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<String, Long> item: object.getMap().entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("key", item.getKey());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeStringField("value", "null");
+          } else {
+            jacksonSerializer.writeStringField("value", PrimitiveUtils.writeLong(item.getValue()));
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      } else {
+        jacksonSerializer.writeStringField("map", "null");
+      }
+    }
+
+    // field mapSorted (mapped with "mapSorted")
+    if (object.getMapSorted()!=null)  {
+      fieldCount++;
+      // write wrapper tag
+      if (object.getMapSorted().size()>0) {
+        jacksonSerializer.writeFieldName("mapSorted");
+        jacksonSerializer.writeStartArray();
+        for (Map.Entry<String, String> item: object.getMapSorted().entrySet()) {
+          jacksonSerializer.writeStartObject();
+          jacksonSerializer.writeStringField("key", item.getKey());
+          if (item.getValue()==null) {
+            jacksonSerializer.writeStringField("value", "null");
+          } else {
+            jacksonSerializer.writeStringField("value", item.getValue());
+          }
+          jacksonSerializer.writeEndObject();
+        }
+        jacksonSerializer.writeEndArray();
+      } else {
+        jacksonSerializer.writeStringField("mapSorted", "null");
+      }
+    }
+
     // field name (mapped with "name")
     if (object.getName()!=null)  {
       fieldCount++;
@@ -181,6 +338,27 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     // field numberOfCars (mapped with "numberOfCars")
     if (object.getNumberOfCars()!=null)  {
       jacksonSerializer.writeStringField("numberOfCars", PrimitiveUtils.writeLong(object.getNumberOfCars()));
+    }
+
+    // field sortableSet (mapped with "sortableSet")
+    if (object.getSortableSet()!=null)  {
+      fieldCount++;
+      int n=object.getSortableSet().size();
+      // write wrapper tag
+      jacksonSerializer.writeFieldName("sortableSet");
+      if (n>0) {
+        jacksonSerializer.writeStartArray();
+        for (String item: object.getSortableSet()) {
+          if (item==null) {
+            jacksonSerializer.writeString("null");
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      } else {
+        jacksonSerializer.writeString("");
+      }
     }
 
     jacksonSerializer.writeEndObject();
@@ -216,6 +394,28 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       xmlSerializer.writeStartElement("buffer");
       xmlSerializer.writeBinary(object.getBuffer());
       xmlSerializer.writeEndElement();
+    }
+
+    // field bufferString (mapped with "bufferString")
+    if (object.getBufferString()!=null)  {
+      int n=object.getBufferString().length;
+      String item;
+      for (int i=0; i<n; i++) {
+        item=object.getBufferString()[i];
+        if (item==null) {
+          xmlSerializer.writeEmptyElement("bufferString");
+        } else {
+          xmlSerializer.writeStartElement("bufferString");
+          xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item));
+          xmlSerializer.writeEndElement();
+        }
+      }
+      // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+      if (n==0) {
+        xmlSerializer.writeStartElement("bufferString");
+        xmlSerializer.writeAttribute("emptyCollection", "true");
+        xmlSerializer.writeEndElement();
+      }
     }
 
     // field items (mapped with "items")
@@ -262,6 +462,50 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       }
     }
 
+    // field map (mapped with "map")
+    if (object.getMap()!=null)  {
+      for (Map.Entry<String, Long> item: object.getMap().entrySet()) {
+        xmlSerializer.writeStartElement("map");
+          if (item.getKey()!=null) {
+            xmlSerializer.writeStartElement("key");
+            xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.getKey()));
+            xmlSerializer.writeEndElement();
+          }
+          if (item.getValue()==null) {
+            xmlSerializer.writeEmptyElement("value");
+          } else {
+            if (item.getValue()!=null)  {
+              xmlSerializer.writeStartElement("value");
+              xmlSerializer.writeLong(item.getValue());
+              xmlSerializer.writeEndElement();
+            }
+          }
+        xmlSerializer.writeEndElement();
+      }
+    }
+
+    // field mapSorted (mapped with "mapSorted")
+    if (object.getMapSorted()!=null)  {
+      for (Map.Entry<String, String> item: object.getMapSorted().entrySet()) {
+        xmlSerializer.writeStartElement("mapSorted");
+          if (item.getKey()!=null) {
+            xmlSerializer.writeStartElement("key");
+            xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.getKey()));
+            xmlSerializer.writeEndElement();
+          }
+          if (item.getValue()==null) {
+            xmlSerializer.writeEmptyElement("value");
+          } else {
+            if (item.getValue()!=null) {
+              xmlSerializer.writeStartElement("value");
+              xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item.getValue()));
+              xmlSerializer.writeEndElement();
+            }
+          }
+        xmlSerializer.writeEndElement();
+      }
+    }
+
     // field name (mapped with "name")
     if (object.getName()!=null) {
       xmlSerializer.writeStartElement("name");
@@ -276,6 +520,26 @@ public class BeanBindMap extends AbstractMapper<Bean> {
       xmlSerializer.writeEndElement();
     }
 
+    // field sortableSet (mapped with "sortableSet")
+    if (object.getSortableSet()!=null)  {
+      int n=object.getSortableSet().size();
+      for (String item: object.getSortableSet()) {
+        if (item==null) {
+          xmlSerializer.writeEmptyElement("sortableSet");
+        } else {
+          xmlSerializer.writeStartElement("sortableSet");
+          xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(item));
+          xmlSerializer.writeEndElement();
+        }
+      }
+      // to distinguish between first empty element and empty collection, we write an attribute emptyCollection
+      if (n==0) {
+        xmlSerializer.writeStartElement("sortableSet");
+        xmlSerializer.writeAttribute("emptyCollection", "true");
+        xmlSerializer.writeEndElement();
+      }
+    }
+
     if (currentEventType == 0) {
       xmlSerializer.writeEndElement();
     }
@@ -287,6 +551,9 @@ public class BeanBindMap extends AbstractMapper<Bean> {
   @Override
   public Bean parseOnJackson(JsonParser jacksonParser) throws Exception {
     // immutable object: inizialize temporary variables for properties
+    SortedSet<String> __sortableSet=null;
+    Map<String, Long> __map=null;
+    SortedMap<String, String> __mapSorted=null;
     String __name=null;
     Date __birthDate=null;
     long __age=0;
@@ -294,6 +561,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     List<Long> __items=null;
     ArrayList<String> __itemsString=null;
     byte[] __buffer=null;
+    String[] __bufferString=null;
 
     String fieldName;
     if (jacksonParser.currentToken() == null) {
@@ -302,7 +570,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
       // immutable object: inizialize object
-      Bean instance=new Bean(__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer);
+      Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -325,6 +593,22 @@ public class BeanBindMap extends AbstractMapper<Bean> {
             // field buffer (mapped with "buffer")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               __buffer=jacksonParser.getBinaryValue();
+            }
+          break;
+          case "bufferString":
+            // field bufferString (mapped with "bufferString")
+            if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+              ArrayList<String> collection=new ArrayList<>();
+              String item=null;
+              while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                  item=null;
+                } else {
+                  item=jacksonParser.getText();
+                }
+                collection.add(item);
+              }
+              __bufferString=CollectionUtils.asArray(collection, new String[collection.size()]);
             }
           break;
           case "items":
@@ -359,6 +643,48 @@ public class BeanBindMap extends AbstractMapper<Bean> {
               __itemsString=collection;
             }
           break;
+          case "map":
+            // field map (mapped with "map")
+            if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+              HashMap<String, Long> collection=new HashMap<>();
+              String key=null;
+              Long value=null;
+              while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                jacksonParser.nextValue();
+                key=jacksonParser.getText();
+                jacksonParser.nextValue();
+                if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                  value=jacksonParser.getLongValue();
+                }
+                collection.put(key, value);
+                key=null;
+                value=null;
+                jacksonParser.nextToken();
+              }
+              __map=collection;
+            }
+          break;
+          case "mapSorted":
+            // field mapSorted (mapped with "mapSorted")
+            if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+              TreeMap<String, String> collection=new TreeMap<>();
+              String key=null;
+              String value=null;
+              while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                jacksonParser.nextValue();
+                key=jacksonParser.getText();
+                jacksonParser.nextValue();
+                if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                  value=jacksonParser.getText();
+                }
+                collection.put(key, value);
+                key=null;
+                value=null;
+                jacksonParser.nextToken();
+              }
+              __mapSorted=collection;
+            }
+          break;
           case "name":
             // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -371,12 +697,28 @@ public class BeanBindMap extends AbstractMapper<Bean> {
               __numberOfCars=jacksonParser.getLongValue();
             }
           break;
+          case "sortableSet":
+            // field sortableSet (mapped with "sortableSet")
+            if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+              TreeSet<String> collection=new TreeSet<>();
+              String item=null;
+              while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+                  item=null;
+                } else {
+                  item=jacksonParser.getText();
+                }
+                collection.add(item);
+              }
+              __sortableSet=collection;
+            }
+          break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
     // immutable object: inizialize object
-    Bean instance=new Bean(__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer);
+    Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
     return instance;
   }
 
@@ -386,6 +728,9 @@ public class BeanBindMap extends AbstractMapper<Bean> {
   @Override
   public Bean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
     // immutable object: inizialize temporary variables for properties
+    SortedSet<String> __sortableSet=null;
+    Map<String, Long> __map=null;
+    SortedMap<String, String> __mapSorted=null;
     String __name=null;
     Date __birthDate=null;
     long __age=0;
@@ -393,6 +738,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     List<Long> __items=null;
     ArrayList<String> __itemsString=null;
     byte[] __buffer=null;
+    String[] __bufferString=null;
 
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
@@ -401,7 +747,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
       // immutable object: inizialize object
-      Bean instance=new Bean(__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer);
+      Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -424,6 +770,29 @@ public class BeanBindMap extends AbstractMapper<Bean> {
             // field buffer (mapped with "buffer")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               __buffer=Base64Utils.decode(jacksonParser.getValueAsString());
+            }
+          break;
+          case "bufferString":
+            // field bufferString (mapped with "bufferString")
+            if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+              ArrayList<String> collection=new ArrayList<>();
+              String item=null;
+              String tempValue=null;
+              while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                tempValue=jacksonParser.getValueAsString();
+                if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
+                  item=null;
+                } else {
+                  if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                    item=jacksonParser.getText();
+                  }
+                }
+                collection.add(item);
+              }
+              __bufferString=CollectionUtils.asArray(collection, new String[collection.size()]);
+            } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+              ArrayList<String> collection=new ArrayList<>();
+              __bufferString=CollectionUtils.asArray(collection, new String[collection.size()]);
             }
           break;
           case "items":
@@ -470,6 +839,88 @@ public class BeanBindMap extends AbstractMapper<Bean> {
               __itemsString=collection;
             }
           break;
+          case "map":
+            // field map (mapped with "map")
+            if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+              HashMap<String, Long> collection=new HashMap<>();
+              String key=null;
+              Long value=null;
+              JsonToken current;
+              String tempValue=null;
+              while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                current=jacksonParser.currentToken();
+                for (int i=0; i<2 ;i++) {
+                  while (current != JsonToken.FIELD_NAME) {
+                    current=jacksonParser.nextToken();
+                  }
+                  jacksonParser.nextValue();
+                  switch(jacksonParser.getCurrentName()) {
+                  case "key":
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      key=jacksonParser.getText();
+                    }
+                  break;
+                  case "value":
+                    tempValue=jacksonParser.getValueAsString();
+                    if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
+                      value=null;
+                    } else {
+                      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                        value=PrimitiveUtils.readLong(jacksonParser.getText(), null);
+                      }
+                    }
+                  break;
+                  }
+                }
+                collection.put(key, value);
+                key=null;
+                value=null;
+                jacksonParser.nextToken();
+              }
+              __map=collection;
+            }
+          break;
+          case "mapSorted":
+            // field mapSorted (mapped with "mapSorted")
+            if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+              TreeMap<String, String> collection=new TreeMap<>();
+              String key=null;
+              String value=null;
+              JsonToken current;
+              String tempValue=null;
+              while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                current=jacksonParser.currentToken();
+                for (int i=0; i<2 ;i++) {
+                  while (current != JsonToken.FIELD_NAME) {
+                    current=jacksonParser.nextToken();
+                  }
+                  jacksonParser.nextValue();
+                  switch(jacksonParser.getCurrentName()) {
+                  case "key":
+                    if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                      key=jacksonParser.getText();
+                    }
+                  break;
+                  case "value":
+                    tempValue=jacksonParser.getValueAsString();
+                    if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
+                      value=null;
+                    } else {
+                      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                        value=jacksonParser.getText();
+                      }
+                    }
+                  break;
+                  }
+                }
+                collection.put(key, value);
+                key=null;
+                value=null;
+                jacksonParser.nextToken();
+              }
+              __mapSorted=collection;
+            }
+          break;
           case "name":
             // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
@@ -482,12 +933,35 @@ public class BeanBindMap extends AbstractMapper<Bean> {
               __numberOfCars=PrimitiveUtils.readLong(jacksonParser.getText(), null);
             }
           break;
+          case "sortableSet":
+            // field sortableSet (mapped with "sortableSet")
+            if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+              TreeSet<String> collection=new TreeSet<>();
+              String item=null;
+              String tempValue=null;
+              while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+                tempValue=jacksonParser.getValueAsString();
+                if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && "null".equals(tempValue)) {
+                  item=null;
+                } else {
+                  if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+                    item=jacksonParser.getText();
+                  }
+                }
+                collection.add(item);
+              }
+              __sortableSet=collection;
+            } else if (jacksonParser.currentToken()==JsonToken.VALUE_STRING && !StringUtils.hasText(jacksonParser.getValueAsString())) {
+              TreeSet<String> collection=new TreeSet<>();
+              __sortableSet=collection;
+            }
+          break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
     // immutable object: inizialize object
-    Bean instance=new Bean(__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer);
+    Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
     return instance;
   }
 
@@ -497,6 +971,9 @@ public class BeanBindMap extends AbstractMapper<Bean> {
   @Override
   public Bean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
     // immutable object: inizialize temporary variables for properties
+    SortedSet<String> __sortableSet=null;
+    Map<String, Long> __map=null;
+    SortedMap<String, String> __mapSorted=null;
     String __name=null;
     Date __birthDate=null;
     long __age=0;
@@ -504,6 +981,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     List<Long> __items=null;
     ArrayList<String> __itemsString=null;
     byte[] __buffer=null;
+    String[] __bufferString=null;
 
     int eventType = currentEventType;
     boolean read=true;
@@ -540,6 +1018,36 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "buffer":
                   // property buffer (mapped on "buffer")
                   __buffer=xmlParser.getElementAsBinary();
+                break;
+                case "bufferString":
+                  // property bufferString (mapped on "bufferString")
+                   {
+                    ArrayList<String> collection=new ArrayList<>();
+                    String item;
+                    // add first element
+                    item=null;
+                    if (xmlParser.isEmptyElement()) {
+                      // if there's a an empty collection it marked with attribute emptyCollection
+                      if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                        collection.add(item);
+                      }
+                      xmlParser.nextTag();
+                    } else {
+                      item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                      collection.add(item);
+                    }
+                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("bufferString")) {
+                      if (xmlParser.isEmptyElement()) {
+                        item=null;
+                        xmlParser.nextTag();
+                      } else {
+                        item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                      }
+                      collection.add(item);
+                    }
+                    __bufferString=CollectionUtils.asArray(collection, new String[collection.size()]);
+                    read=false;
+                  }
                 break;
                 case "items":
                   // property items (mapped on "items")
@@ -601,6 +1109,76 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                     read=false;
                   }
                 break;
+                case "map":
+                  // property map (mapped on "map")
+                   {
+                    HashMap<String, Long> collection=new HashMap<>();
+                    String key;
+                    Long value;
+                    // add first element
+                    xmlParser.nextTag();
+                    key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                    xmlParser.nextTag();
+                    if (xmlParser.isEmptyElement()) {
+                      value=null;
+                      xmlParser.nextTag();
+                    } else {
+                      value=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null);
+                    }
+                    xmlParser.nextTag();
+                    collection.put(key, value);
+                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("map")) {
+                      xmlParser.nextTag();
+                      key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                      xmlParser.nextTag();
+                      if (xmlParser.isEmptyElement()) {
+                        value=null;
+                        xmlParser.nextTag();
+                      } else {
+                        value=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null);
+                      }
+                      xmlParser.nextTag();
+                      collection.put(key, value);
+                    }
+                    __map=collection;
+                    read=false;
+                  }
+                break;
+                case "mapSorted":
+                  // property mapSorted (mapped on "mapSorted")
+                   {
+                    TreeMap<String, String> collection=new TreeMap<>();
+                    String key;
+                    String value;
+                    // add first element
+                    xmlParser.nextTag();
+                    key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                    xmlParser.nextTag();
+                    if (xmlParser.isEmptyElement()) {
+                      value=null;
+                      xmlParser.nextTag();
+                    } else {
+                      value=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                    }
+                    xmlParser.nextTag();
+                    collection.put(key, value);
+                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("mapSorted")) {
+                      xmlParser.nextTag();
+                      key=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                      xmlParser.nextTag();
+                      if (xmlParser.isEmptyElement()) {
+                        value=null;
+                        xmlParser.nextTag();
+                      } else {
+                        value=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                      }
+                      xmlParser.nextTag();
+                      collection.put(key, value);
+                    }
+                    __mapSorted=collection;
+                    read=false;
+                  }
+                break;
                 case "name":
                   // property name (mapped on "name")
                   __name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
@@ -608,6 +1186,36 @@ public class BeanBindMap extends AbstractMapper<Bean> {
                 case "numberOfCars":
                   // property numberOfCars (mapped on "numberOfCars")
                   __numberOfCars=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null);
+                break;
+                case "sortableSet":
+                  // property sortableSet (mapped on "sortableSet")
+                   {
+                    TreeSet<String> collection=new TreeSet<>();
+                    String item;
+                    // add first element
+                    item=null;
+                    if (xmlParser.isEmptyElement()) {
+                      // if there's a an empty collection it marked with attribute emptyCollection
+                      if (XmlAttributeUtils.getAttributeAsBoolean(xmlParser, "emptyCollection", false)==false) {
+                        collection.add(item);
+                      }
+                      xmlParser.nextTag();
+                    } else {
+                      item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                      collection.add(item);
+                    }
+                    while (xmlParser.nextTag() != XmlPullParser.END_TAG && xmlParser.getName().toString().equals("sortableSet")) {
+                      if (xmlParser.isEmptyElement()) {
+                        item=null;
+                        xmlParser.nextTag();
+                      } else {
+                        item=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
+                      }
+                      collection.add(item);
+                    }
+                    __sortableSet=collection;
+                    read=false;
+                  }
                 break;
                 default:
                 break;
@@ -627,7 +1235,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
         }
       }
       // immutable object: inizialize object
-      Bean instance=new Bean(__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer);
+      Bean instance=new Bean(Collections.unmodifiableSortedSet(__sortableSet),Collections.unmodifiableMap(__map),Collections.unmodifiableSortedMap(__mapSorted),__name,__birthDate,__age,__numberOfCars,Collections.unmodifiableList(__items),__itemsString,__buffer,__bufferString);
       return instance;
     }
   }

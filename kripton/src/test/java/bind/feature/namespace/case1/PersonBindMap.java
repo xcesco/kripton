@@ -13,8 +13,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * This class is binder map for Person
@@ -217,20 +215,15 @@ public class PersonBindMap extends AbstractMapper<Person> {
    * parse with jackson
    */
   @Override
-  public Person parseOnJackson(JsonParser jacksonParser) throws Exception {    
-    String name=null;
-    String surname=null;
-    Date birthday=null;
-    List<String> tags=null;
-    Person parent=null;
-        
+  public Person parseOnJackson(JsonParser jacksonParser) throws Exception {
+    Person instance = new Person();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
     }
     if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
-      return new Person(null, null, null, null, null);
+      return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
       fieldName = jacksonParser.getCurrentName();
@@ -241,25 +234,25 @@ public class PersonBindMap extends AbstractMapper<Person> {
           case "birthday":
             // field birthday (mapped with "birthday")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              birthday=DateUtils.read(jacksonParser.getText());
+              instance.birthday=DateUtils.read(jacksonParser.getText());
             }
           break;
           case "name":
             // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              name=jacksonParser.getText();
+              instance.name=jacksonParser.getText();
             }
           break;
           case "parent":
             // field parent (mapped with "parent")
             if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-              parent=personBindMap.parseOnJackson(jacksonParser);
+              instance.parent=personBindMap.parseOnJackson(jacksonParser);
             }
           break;
           case "surname":
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              surname=jacksonParser.getText();
+              instance.surname=jacksonParser.getText();
             }
           break;
           case "tags":
@@ -275,16 +268,13 @@ public class PersonBindMap extends AbstractMapper<Person> {
                 }
                 collection.add(item);
               }
-              tags=collection;
+              instance.tags=collection;
             }
           break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
-    
-    Person instance = new Person(name, surname,birthday, tags, parent);
-    
     return instance;
   }
 

@@ -18,32 +18,31 @@ package bind.feature.immutable.case1;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.SortedSet;
 
 import com.abubusoft.kripton.annotation.BindType;
 
 @BindType
 public class Bean {
 	
+	private SortedSet<String> sortableSet;
 
-	/**
-	 * @param name
-	 * @param birthDate
-	 * @param age
-	 * @param numberOfCars
-	 * @param items
-	 * @param itemsString
-	 * @param buffer
-	 */
-	public Bean(String name, Date birthDate, long age, Long numberOfCars, List<Long> items,
-			ArrayList<String> itemsString, byte[] buffer) {
-		super();
-		this.name = name;
-		this.birthDate = birthDate;
-		this.age = age;
-		this.numberOfCars = numberOfCars;
-		this.items = items;
-		this.itemsString = itemsString;
-		this.buffer = buffer;
+	public SortedSet<String> getSortableSet() {
+		return sortableSet;
+	}
+	
+	private Map<String, Long> map;
+	
+	private SortedMap<String, String> mapSorted;
+
+	public Map<String, Long> getMap() {
+		return map;
+	}
+
+	public SortedMap<String, String> getMapSorted() {
+		return mapSorted;
 	}
 
 	private String name;
@@ -82,7 +81,43 @@ public class Bean {
 		return items;
 	}
 	
+	/**
+	 * @param sortableSet
+	 * @param map
+	 * @param mapSorted
+	 * @param name
+	 * @param birthDate
+	 * @param age
+	 * @param numberOfCars
+	 * @param items
+	 * @param itemsString
+	 * @param buffer
+	 * @param bufferString
+	 */
+	public Bean(SortedSet<String> sortableSet, Map<String, Long> map, SortedMap<String, String> mapSorted, String name,
+			Date birthDate, long age, Long numberOfCars, List<Long> items, ArrayList<String> itemsString, byte[] buffer,
+			String[] bufferString) {
+		super();
+		this.sortableSet = sortableSet;
+		this.map = map;
+		this.mapSorted = mapSorted;
+		this.name = name;
+		this.birthDate = birthDate;
+		this.age = age;
+		this.numberOfCars = numberOfCars;
+		this.items = items;
+		this.itemsString = itemsString;
+		this.buffer = buffer;
+		this.bufferString = bufferString;
+	}
+
 	private byte[] buffer;
+	
+	private String[] bufferString;
+
+	public String[] getBufferString() {
+		return bufferString;
+	}
 
 	public byte[] getBuffer() {
 		return buffer;

@@ -1,8 +1,7 @@
-package com.abubusoft.kripton.retrofit3;
+package bind.retrofit.film;
 
-import com.abubusoft.kripton.retrofit3.model.FilmDetail;
-import com.abubusoft.kripton.retrofit3.model.Search;
-
+import bind.retrofit.film.model.FilmDetail;
+import bind.retrofit.film.model.Search;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;

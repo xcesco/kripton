@@ -38,6 +38,7 @@ import bind.kripton77.Test77;
 import bind.kripton78.Test78CompileSuite;
 import bind.kripton80contextcollection.Test80CompileSuite;
 import bind.kripton81morecoveragetests.Test81CompileSuite;
+import bind.retrofit.film.model.TestFilmCompile;
 import bind.rss.TestRSSCompile;
 
 /**
@@ -69,6 +70,7 @@ import bind.rss.TestRSSCompile;
 		TestDirectMapSuite.class,
 		Test109CompileSuite.class,
 		TestCompile110.class,
+		TestFilmCompile.class, 
 		
 		// features
 		CompileNamespaceTestSuite.class,

@@ -109,20 +109,30 @@ public abstract class ImmutableUtility {
 		for (Pair<String, TypeName> property : entity.getImmutableConstructors()) {
 			if (TypeUtility.isList(property.value1)					
 					&& ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(List.class))) {
-				methodBuilder.addCode(separator + "$T.unmodifiableList(" + IMMUTABLE_PREFIX + property.value0 + ")",
-						Collections.class);
+				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableList($L))",
+						IMMUTABLE_PREFIX+property.value0,
+						Collections.class,
+						IMMUTABLE_PREFIX + property.value0);
 			} else if (TypeUtility.isSet(property.value1) && ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(SortedSet.class))) {
-				methodBuilder.addCode(separator + "$T.unmodifiableSortedSet(" + IMMUTABLE_PREFIX + property.value0 + ")",
-						Collections.class);			
+				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableSortedSet($L))",
+						IMMUTABLE_PREFIX+property.value0,
+						Collections.class,
+						IMMUTABLE_PREFIX + property.value0);			
 			} else if (TypeUtility.isSet(property.value1) && ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(Set.class))) {
-				methodBuilder.addCode(separator + "$T.unmodifiableSet(" + IMMUTABLE_PREFIX + property.value0 + ")",
-						Collections.class);
+				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableSet($L))",
+						IMMUTABLE_PREFIX+property.value0,
+						Collections.class,
+						IMMUTABLE_PREFIX + property.value0);
 			} else if (TypeUtility.isMap(property.value1) && ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(SortedMap.class))) {
-				methodBuilder.addCode(separator + "$T.unmodifiableSortedMap(" + IMMUTABLE_PREFIX + property.value0 + ")",
-						Collections.class);			
+				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableSortedMap($L))",
+						IMMUTABLE_PREFIX+property.value0,
+						Collections.class,
+						IMMUTABLE_PREFIX + property.value0);			
 			} else if (TypeUtility.isMap(property.value1) && ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(Map.class))) {
-				methodBuilder.addCode(separator + "$T.unmodifiableMap(" + IMMUTABLE_PREFIX + property.value0 + ")",
-						Collections.class);
+				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableMap($L))",
+						IMMUTABLE_PREFIX+property.value0,
+						Collections.class,
+						IMMUTABLE_PREFIX + property.value0);
 			} else {
 				methodBuilder.addCode(separator + IMMUTABLE_PREFIX + property.value0);
 			}

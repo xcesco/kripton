@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package com.abubusoft.kripton.retrofit3;
+package bind.retrofit.film;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -22,8 +22,8 @@ import org.junit.Test;
 
 import com.abubusoft.kripton.retrofit2.AbstractBaseTest;
 import com.abubusoft.kripton.retrofit2.KriptonBinderConverterFactory;
-import com.abubusoft.kripton.retrofit3.model.Search;
 
+import bind.retrofit.film.model.Search;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Response;
