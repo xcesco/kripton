@@ -13,27 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.adapter.example01;
+package sqlite.feature.immutable.adapter;
 
-import java.util.Date;
-import java.util.List;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
-
-// TODO: Auto-generated Javadoc
 /**
- * The Interface PersonDAO.
+ * The Interface Example01DataSource.
  */
-@BindDao(Person.class)
-public interface PersonDAO {
+@BindDataSource(daoSet=PersonDAO.class, fileName = "example.db")
+public interface AppDataSource {
 
-	/**
-	 * Select by birthday.
-	 *
-	 * @param birthDay the birth day
-	 * @return the list
-	 */
-	@BindSqlSelect(where="birthDate=${birthDay}")
-	public List<Person> selectByBirthday(Date birthDay);
 }

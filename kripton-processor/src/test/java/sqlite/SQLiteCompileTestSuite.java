@@ -18,6 +18,7 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import sqlite.adapter.example01.TestAdapterSuite;
 import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
@@ -32,6 +33,7 @@ import sqlite.feature.foreignkey.TestForeignKeySuite;
 import sqlite.feature.foreignkeyaction.TestForeignKeyActionSuite;
 import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.globaltypeadapters.TestGlobalSqlTypeAdaptersSuite;
+import sqlite.feature.immutable.TestCompileImmutableSuite;
 import sqlite.feature.in.TestInSuite;
 import sqlite.feature.includefields.IncludeFieldsTestSuite;
 import sqlite.feature.indexes.IndexTestSuite;
@@ -117,6 +119,8 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestColumnAffinityTestSuite.class,
 			TestChildSelectSuite.class,
 			TestInSuite.class,
+			TestCompileImmutableSuite.class,
+			TestAdapterSuite.class,
 			
 			// bug-fix			
 			Example01Suite.class,

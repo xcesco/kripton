@@ -13,27 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.adapter.example01;
+package sqlite.feature.immutable;
 
-import java.util.Date;
-import java.util.List;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.immutable.adapter.AppDataSource;
+import sqlite.feature.immutable.adapter.DateAdapter;
+import sqlite.feature.immutable.adapter.Person;
+import sqlite.feature.immutable.adapter.PersonDAO;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface PersonDAO.
+ * The Class TestAdapter01.
  */
-@BindDao(Person.class)
-public interface PersonDAO {
+@RunWith(JUnit4.class)
+public class TestCompileAdapterImmutable extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * Select by birthday.
+	 * No @BindType is put in bean definition.
 	 *
-	 * @param birthDay the birth day
-	 * @return the list
+	 * @throws Throwable the throwable
 	 */
-	@BindSqlSelect(where="birthDate=${birthDay}")
-	public List<Person> selectByBirthday(Date birthDay);
+	@Test
+	public void test01() throws Throwable {
+		buildDataSourceProcessorTest(AppDataSource.class, PersonDAO.class, Person.class, DateAdapter.class);
+	}
+
 }

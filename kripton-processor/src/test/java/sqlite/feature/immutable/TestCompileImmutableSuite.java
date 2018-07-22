@@ -13,27 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.adapter.example01;
+package sqlite.feature.immutable;
 
-import java.util.Date;
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import base.BaseProcessorTest;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Interface PersonDAO.
+ * The Class TestAdapterSuite.
  */
-@BindDao(Person.class)
-public interface PersonDAO {
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestCompileAdapterImmutable.class		
+		 })
+//@formatter:on
+public class TestCompileImmutableSuite extends BaseProcessorTest {
 
-	/**
-	 * Select by birthday.
-	 *
-	 * @param birthDay the birth day
-	 * @return the list
-	 */
-	@BindSqlSelect(where="birthDate=${birthDay}")
-	public List<Person> selectByBirthday(Date birthDay);
 }

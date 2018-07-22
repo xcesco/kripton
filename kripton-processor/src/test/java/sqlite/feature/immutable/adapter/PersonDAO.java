@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.adapter.example01;
+package sqlite.feature.immutable.adapter;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,6 @@ import java.util.List;
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface PersonDAO.
  */

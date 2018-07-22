@@ -13,27 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.adapter.example01;
+package sqlite.feature.immutable.adapter;
 
 import java.util.Date;
-import java.util.List;
-
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.SqlTypeAdapter;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface PersonDAO.
+ * The Class DateAdapter.
  */
-@BindDao(Person.class)
-public interface PersonDAO {
+public class DateAdapter implements SqlTypeAdapter<Date, Long> {
 
-	/**
-	 * Select by birthday.
-	 *
-	 * @param birthDay the birth day
-	 * @return the list
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
 	 */
-	@BindSqlSelect(where="birthDate=${birthDay}")
-	public List<Person> selectByBirthday(Date birthDay);
+	@Override
+	public Date toJava(Long dataValue) {
+		if (dataValue==null) return null;
+		
+		return new Date(dataValue);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
+	 */
+	@Override
+	public Long toData(Date javaValue) {
+		if (javaValue!=null) return javaValue.getTime();
+		
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.abubusoft.kripton.android.SqlTypeAdapter#toString(java.lang.Object)
+	 */
+	@Override
+	public String toString(Date javaValue) {
+		if (javaValue==null) return null;
+		
+		return String.valueOf(toData(javaValue));
+	}
+	
+
+
 }
