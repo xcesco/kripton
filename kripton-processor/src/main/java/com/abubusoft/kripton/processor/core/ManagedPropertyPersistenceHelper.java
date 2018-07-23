@@ -208,11 +208,19 @@ public abstract class ManagedPropertyPersistenceHelper {
 			String parserName = "jacksonParser";
 			BindTransform bindTransform = BindTransformer.lookup(property);
 
-			methodBuilder.addStatement("$T result=null", property.getPropertyType().getTypeName());
-
+			if (property.getParent()==null || ((ModelClass<?>)property.getParent()).isMutablePojo()) {
+				methodBuilder.addStatement("$T result=null", property.getPropertyType().getTypeName());
+			} else {
+				methodBuilder.addStatement("$T $L=null", property.getPropertyType().getTypeName(), ImmutableUtility.IMMUTABLE_PREFIX+property.getName());	
+			}
+			
 			bindTransform.generateParseOnJackson(context, methodBuilder, parserName, null, "result", property);
 
-			methodBuilder.addStatement("return result");
+			if (property.getParent()==null || ((ModelClass<?>)property.getParent()).isMutablePojo()) {
+				methodBuilder.addStatement("return result");				
+			} else {
+				methodBuilder.addStatement("return $L", ImmutableUtility.IMMUTABLE_PREFIX+property.getName());				
+			}
 
 			methodBuilder.nextControlFlow("catch($T e)", Exception.class);
 			methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);

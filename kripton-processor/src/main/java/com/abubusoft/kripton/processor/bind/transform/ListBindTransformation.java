@@ -20,7 +20,6 @@ import java.util.List;
 
 import com.squareup.javapoet.ParameterizedTypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ListBindTransformation.
  */

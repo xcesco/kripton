@@ -1,13 +1,16 @@
-package shared.feature.rx.case1;
+package shared.feature.immutable.livedata;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.persistence.JacksonWrapperParser;
@@ -15,10 +18,11 @@ import com.abubusoft.kripton.persistence.JacksonWrapperSerializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
-import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.Subject;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * This class is the shared preference binder defined for AppPreferences
@@ -36,117 +40,64 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   private final AppPreferences defaultBean;
 
-  /**
-   * subject for field valueBoolean - shared pref value_boolean
-   */
-  private Subject<Boolean> valueBooleanSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field valueLong - shared pref value_long
-   */
-  private Subject<Long> valueLongSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field stringList - shared pref string_list
-   */
-  private Subject<List<String>> stringListSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field name - shared pref name
-   */
-  private Subject<String> nameSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field description - shared pref description
-   */
-  private Subject<String> descriptionSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field stringArray - shared pref string_array
-   */
-  private Subject<String[]> stringArraySubject = BehaviorSubject.create();
-
-  /**
-   * subject for field valueInt - shared pref value_int
-   */
-  private Subject<Integer> valueIntSubject = BehaviorSubject.create();
-
-  /**
-   * subject for field valueFloat - shared pref value_float
-   */
-  private Subject<Float> valueFloatSubject = BehaviorSubject.create();
+  @SuppressWarnings("rawtypes")
+  private List<Pair<String, WeakReference<KriptonComputableLiveData>>> liveDatas = new CopyOnWriteArrayList<Pair<String, WeakReference<KriptonComputableLiveData>>>();
 
   /**
    * Listener used to propagate shared prefs changes through RX
    */
-  private SharedPreferences.OnSharedPreferenceChangeListener rxListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+  private SharedPreferences.OnSharedPreferenceChangeListener liveDataListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-      switch (key) {
-        // value_boolean - valueBoolean
-        case "value_boolean": {
-        boolean _value=(boolean)sharedPreferences.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
-        valueBooleanSubject.onNext(_value);
-        return;
-        }
-        // value_long - valueLong
-        case "value_long": {
-        Long _value=sharedPreferences.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
-        if (_value!=null) {
-          valueLongSubject.onNext(_value);
-        }
-        return;
-        }
-        // string_list - stringList
-        case "string_list": {
-        String temp=sharedPreferences.getString("string_list", null);
-        List<String> _value=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
+    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences,
+        final String key) {
+      KriptonLibrary.getExecutorService().execute(new Runnable() {
+        @Override
+        public void run() {
+          switch (key) {
+            // value_boolean - valueBoolean
+            case "value_boolean": {
+            boolean _value=(boolean)sharedPreferences.getBoolean("value_boolean", (boolean)defaultBean.isValueBoolean());
+            updateLiveData("value_boolean", _value);
+            return;
+            }
+            // string_list - stringList
+            case "string_list": {
+            String temp=sharedPreferences.getString("string_list", null);
+            List<String> _value=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.getStringList();
 
-        if (_value!=null) {
-          stringListSubject.onNext(_value);
-        }
-        return;
-        }
-        // name - name
-        case "name": {
-        String _value=sharedPreferences.getString("name", defaultBean.name);
-        if (_value!=null) {
-          nameSubject.onNext(_value);
-        }
-        return;
-        }
-        // description - description
-        case "description": {
-        String _value=sharedPreferences.getString("description", defaultBean.getDescription());
-        if (_value!=null) {
-          descriptionSubject.onNext(_value);
-        }
-        return;
-        }
-        // string_array - stringArray
-        case "string_array": {
-        String temp=sharedPreferences.getString("string_array", null);
-        String[] _value=StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray();
+            updateLiveData("string_list", _value);
+            return;
+            }
+            // name - name
+            case "name": {
+            String _value=sharedPreferences.getString("name", defaultBean.getName());
+            updateLiveData("name", _value);
+            return;
+            }
+            // description - description
+            case "description": {
+            String _value=sharedPreferences.getString("description", defaultBean.getDescription());
+            updateLiveData("description", _value);
+            return;
+            }
+            // string_array - stringArray
+            case "string_array": {
+            String temp=sharedPreferences.getString("string_array", null);
+            String[] _value=StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray();
 
-        if (_value!=null) {
-          stringArraySubject.onNext(_value);
+            updateLiveData("string_array", _value);
+            return;
+            }
+            // value_float - valueFloat
+            case "value_float": {
+            float _value=sharedPreferences.getFloat("value_float", defaultBean.getValueFloat());
+            updateLiveData("value_float", _value);
+            return;
+            }
+            default: return;
+          }
         }
-        return;
-        }
-        // value_int - valueInt
-        case "value_int": {
-        int _value=(int)sharedPreferences.getInt("value_int", (int)defaultBean.valueInt);
-        valueIntSubject.onNext(_value);
-        return;
-        }
-        // value_float - valueFloat
-        case "value_float": {
-        float _value=sharedPreferences.getFloat("value_float", defaultBean.valueFloat);
-        valueFloatSubject.onNext(_value);
-        return;
-        }
-        default: return;
-      }
+      });
     }
   };
 
@@ -155,7 +106,15 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   private BindAppPreferences() {
     createPrefs();
-    defaultBean=new AppPreferences();
+    // immutable object: initialize temporary variables for properties
+    String __name=null;
+    String __description=null;
+    float __valueFloat=0.0f;
+    boolean __valueBoolean=false;
+    String[] __stringArray=null;
+    List<String> __stringList=null;
+    // immutable object: inizialize object
+    defaultBean=new AppPreferences(__name,__description,__valueFloat,__valueBoolean,__stringArray,(__stringList==null ? null : Collections.unmodifiableList(__stringList)));
   }
 
   /**
@@ -171,7 +130,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   private void createPrefs() {
     // no typeName specified, using default shared preferences
     prefs=PreferenceManager.getDefaultSharedPreferences(KriptonLibrary.getContext());
-    prefs.registerOnSharedPreferenceChangeListener(rxListener);
+    prefs.registerOnSharedPreferenceChangeListener(liveDataListener);
   }
 
   /**
@@ -182,91 +141,141 @@ public class BindAppPreferences extends AbstractSharedPreference {
     return this;
   }
 
-  /**
-   * Obtains an observable to <code>valueBoolean</code> property
-   *
-   * @return
-   * an observable to <code>valueBoolean</code> property
-   */
-  public Subject<Boolean> getValueBooleanAsObservable() {
-    return valueBooleanSubject;
+  @SuppressWarnings("rawtypes")
+  protected void registryLiveData(String key, KriptonComputableLiveData<?> value) {
+    liveDatas.add(new Pair<String , WeakReference<KriptonComputableLiveData>>(key, new WeakReference<KriptonComputableLiveData>(value)));
+  }
+
+  @SuppressWarnings("rawtypes")
+  protected void updateLiveData(String key, Object value) {
+    for (Pair<String, WeakReference<KriptonComputableLiveData>> item : liveDatas) {
+      if (item.value0.equals(key) && item.value1.get() != null) {
+        item.value1.get().invalidate();
+      }
+    }
   }
 
   /**
-   * Obtains an observable to <code>valueLong</code> property
+   * Obtains an LiveData to <code>valueBoolean</code> property
    *
    * @return
-   * an observable to <code>valueLong</code> property
+   * an LiveData to <code>valueBoolean</code> property
    */
-  public Subject<Long> getValueLongAsObservable() {
-    return valueLongSubject;
+  public MutableLiveData<Boolean> getValueBooleanAsLiveData() {
+    KriptonComputableLiveData<Boolean> liveData=new KriptonComputableLiveData<Boolean>() {
+      @Override
+      protected Boolean compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getValueBoolean();
+      }
+    };
+    registryLiveData("value_boolean", liveData);
+    return liveData.getLiveData();
   }
 
   /**
-   * Obtains an observable to <code>stringList</code> property
+   * Obtains an LiveData to <code>stringList</code> property
    *
    * @return
-   * an observable to <code>stringList</code> property
+   * an LiveData to <code>stringList</code> property
    */
-  public Subject<List<String>> getStringListAsObservable() {
-    return stringListSubject;
+  public MutableLiveData<List<String>> getStringListAsLiveData() {
+    KriptonComputableLiveData<List<String>> liveData=new KriptonComputableLiveData<List<String>>() {
+      @Override
+      protected List<String> compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getStringList();
+      }
+    };
+    registryLiveData("string_list", liveData);
+    return liveData.getLiveData();
   }
 
   /**
-   * Obtains an observable to <code>name</code> property
+   * Obtains an LiveData to <code>name</code> property
    *
    * @return
-   * an observable to <code>name</code> property
+   * an LiveData to <code>name</code> property
    */
-  public Subject<String> getNameAsObservable() {
-    return nameSubject;
+  public MutableLiveData<String> getNameAsLiveData() {
+    KriptonComputableLiveData<String> liveData=new KriptonComputableLiveData<String>() {
+      @Override
+      protected String compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getName();
+      }
+    };
+    registryLiveData("name", liveData);
+    return liveData.getLiveData();
   }
 
   /**
-   * Obtains an observable to <code>description</code> property
+   * Obtains an LiveData to <code>description</code> property
    *
    * @return
-   * an observable to <code>description</code> property
+   * an LiveData to <code>description</code> property
    */
-  public Subject<String> getDescriptionAsObservable() {
-    return descriptionSubject;
+  public MutableLiveData<String> getDescriptionAsLiveData() {
+    KriptonComputableLiveData<String> liveData=new KriptonComputableLiveData<String>() {
+      @Override
+      protected String compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getDescription();
+      }
+    };
+    registryLiveData("description", liveData);
+    return liveData.getLiveData();
   }
 
   /**
-   * Obtains an observable to <code>stringArray</code> property
+   * Obtains an LiveData to <code>stringArray</code> property
    *
    * @return
-   * an observable to <code>stringArray</code> property
+   * an LiveData to <code>stringArray</code> property
    */
-  public Subject<String[]> getStringArrayAsObservable() {
-    return stringArraySubject;
+  public MutableLiveData<String[]> getStringArrayAsLiveData() {
+    KriptonComputableLiveData<String[]> liveData=new KriptonComputableLiveData<String[]>() {
+      @Override
+      protected String[] compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getStringArray();
+      }
+    };
+    registryLiveData("string_array", liveData);
+    return liveData.getLiveData();
   }
 
   /**
-   * Obtains an observable to <code>valueInt</code> property
+   * Obtains an LiveData to <code>valueFloat</code> property
    *
    * @return
-   * an observable to <code>valueInt</code> property
+   * an LiveData to <code>valueFloat</code> property
    */
-  public Subject<Integer> getValueIntAsObservable() {
-    return valueIntSubject;
-  }
-
-  /**
-   * Obtains an observable to <code>valueFloat</code> property
-   *
-   * @return
-   * an observable to <code>valueFloat</code> property
-   */
-  public Subject<Float> getValueFloatAsObservable() {
-    return valueFloatSubject;
+  public MutableLiveData<Float> getValueFloatAsLiveData() {
+    KriptonComputableLiveData<Float> liveData=new KriptonComputableLiveData<Float>() {
+      @Override
+      protected Float compute() {
+        BindAppPreferences.this.refresh();
+        return BindAppPreferences.this.getValueFloat();
+      }
+    };
+    registryLiveData("value_float", liveData);
+    return liveData.getLiveData();
   }
 
   /**
    * reset shared preferences
    */
   public void reset() {
-    AppPreferences bean=new AppPreferences();
+    // immutable object: initialize temporary variables for properties
+    String __name=null;
+    String __description=null;
+    float __valueFloat=0.0f;
+    boolean __valueBoolean=false;
+    String[] __stringArray=null;
+    List<String> __stringList=null;
+    // immutable object: inizialize object
+    AppPreferences bean=new AppPreferences(__name,__description,__valueFloat,__valueBoolean,__stringArray,(__stringList==null ? null : Collections.unmodifiableList(__stringList)));
     write(bean);
   }
 
@@ -276,23 +285,32 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return read bean
    */
   public AppPreferences read() {
-    AppPreferences bean=new AppPreferences();
-    bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
-    bean.valueLong=prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
+
+    // initialize temporary variable for immutable POJO
+    // immutable object: initialize temporary variables for properties
+    String __name=null;
+    String __description=null;
+    float __valueFloat=0.0f;
+    boolean __valueBoolean=false;
+    String[] __stringArray=null;
+    List<String> __stringList=null;
+    __valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.isValueBoolean());
      {
       String temp=prefs.getString("string_list", null);
-      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
+      __stringList=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.getStringList();
     }
 
-    bean.name=prefs.getString("name", defaultBean.name);
-    bean.setDescription(prefs.getString("description", defaultBean.getDescription()));
+    __name=prefs.getString("name", defaultBean.getName());
+    __description=prefs.getString("description", defaultBean.getDescription());
      {
       String temp=prefs.getString("string_array", null);
-      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray());
+      __stringArray=StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray();
     }
 
-    bean.valueInt=(int)prefs.getInt("value_int", (int)defaultBean.valueInt);
-    bean.valueFloat=prefs.getFloat("value_float", defaultBean.valueFloat);
+    __valueFloat=prefs.getFloat("value_float", defaultBean.getValueFloat());
+    // reset temporary variable for immutable POJO
+    // immutable object: inizialize object
+    AppPreferences bean=new AppPreferences(__name,__description,__valueFloat,__valueBoolean,__stringArray,(__stringList==null ? null : Collections.unmodifiableList(__stringList)));
 
     return bean;
   }
@@ -304,20 +322,16 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public void write(AppPreferences bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putBoolean("value_boolean",(boolean)bean.valueBoolean);
+    editor.putBoolean("value_boolean",(boolean)bean.isValueBoolean());
 
-    if (bean.valueLong!=null)  {
-      editor.putLong("value_long",bean.valueLong);
-    }
-
-    if (bean.stringList!=null)  {
-      String temp=serializeStringList(bean.stringList);
+    if (bean.getStringList()!=null)  {
+      String temp=serializeStringList(bean.getStringList());
       editor.putString("string_list",temp);
     }  else  {
       editor.remove("string_list");
     }
 
-    editor.putString("name",bean.name);
+    editor.putString("name",bean.getName());
 
     editor.putString("description",bean.getDescription());
 
@@ -328,9 +342,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       editor.remove("string_array");
     }
 
-    editor.putInt("value_int",(int)bean.valueInt);
-
-    editor.putFloat("value_float",bean.valueFloat);
+    editor.putFloat("value_float",bean.getValueFloat());
 
 
     editor.commit();
@@ -342,15 +354,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property valueBoolean value
    */
   public boolean getValueBoolean() {
-    return (boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);}
-
-  /**
-   * reads property <code>valueLong</code> from shared pref with key <code>value_long</code>
-   *
-   * @return property valueLong value
-   */
-  public Long getValueLong() {
-    return prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));}
+    return (boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.isValueBoolean());}
 
   /**
    * reads property <code>stringList</code> from shared pref with key <code>string_list</code>
@@ -359,7 +363,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public List<String> getStringList() {
     String temp=prefs.getString("string_list", null);
-    return StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
+    return StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.getStringList();
   }
 
   /**
@@ -368,7 +372,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * @return property name value
    */
   public String getName() {
-    return prefs.getString("name", defaultBean.name);}
+    return prefs.getString("name", defaultBean.getName());}
 
   /**
    * reads property <code>description</code> from shared pref with key <code>description</code>
@@ -389,20 +393,12 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * reads property <code>valueInt</code> from shared pref with key <code>value_int</code>
-   *
-   * @return property valueInt value
-   */
-  public int getValueInt() {
-    return (int)prefs.getInt("value_int", (int)defaultBean.valueInt);}
-
-  /**
    * reads property <code>valueFloat</code> from shared pref with key <code>value_float</code>
    *
    * @return property valueFloat value
    */
   public float getValueFloat() {
-    return prefs.getFloat("value_float", defaultBean.valueFloat);}
+    return prefs.getFloat("value_float", defaultBean.getValueFloat());}
 
   /**
    * for attribute stringList serialization
@@ -455,7 +451,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      List<String> result=null;
+      List<String> __stringList=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<String> collection=new ArrayList<>();
         String item=null;
@@ -467,9 +463,9 @@ public class BindAppPreferences extends AbstractSharedPreference {
           }
           collection.add(item);
         }
-        result=collection;
+        __stringList=collection;
       }
-      return result;
+      return __stringList;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -526,7 +522,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      String[] result=null;
+      String[] __stringArray=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
         ArrayList<String> collection=new ArrayList<>();
         String item=null;
@@ -538,9 +534,9 @@ public class BindAppPreferences extends AbstractSharedPreference {
           }
           collection.add(item);
         }
-        result=CollectionUtils.asArray(collection, new String[collection.size()]);
+        __stringArray=CollectionUtils.asArray(collection, new String[collection.size()]);
       }
-      return result;
+      return __stringArray;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }
@@ -579,25 +575,6 @@ public class BindAppPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeValueBoolean() {
       editor.remove("value_boolean");
-      return this;
-    }
-
-    /**
-     * modifier for property valueLong
-     */
-    public BindEditor putValueLong(Long value) {
-      if (value!=null)  {
-        editor.putLong("value_long",value);
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property valueLong
-     */
-    public BindEditor removeValueLong() {
-      editor.remove("value_long");
       return this;
     }
 
@@ -676,23 +653,6 @@ public class BindAppPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeStringArray() {
       editor.remove("string_array");
-      return this;
-    }
-
-    /**
-     * modifier for property valueInt
-     */
-    public BindEditor putValueInt(int value) {
-      editor.putInt("value_int",(int)value);
-
-      return this;
-    }
-
-    /**
-     * remove property valueInt
-     */
-    public BindEditor removeValueInt() {
-      editor.remove("value_int");
       return this;
     }
 

@@ -143,8 +143,8 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 				if (primaryKey.isPublicField()) {
 					methodBuilder.addCode("$L.$L=result;\n", entityParamName, primaryKey.getName());
 				} else {
-					methodBuilder.addCode("$L.$L(result);\n", entityParamName,
-							PropertyUtility.setter(typeName(entity.getElement()), primaryKey));
+					methodBuilder.addCode("$L(result);\n",
+							PropertyUtility.setter(typeName(entity.getElement()),entityParamName,  primaryKey));
 				}
 
 			}

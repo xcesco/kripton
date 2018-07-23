@@ -567,7 +567,7 @@ public abstract class BindSharedPreferencesBuilder {
 		
 		if (entity.isImmutablePojo()) {
 			ImmutableUtility.generateImmutableVariableInit(entity, method);
-			ImmutableUtility.generateImmutableEntityCreation(entity, method, "defaultBean",true);
+			ImmutableUtility.generateImmutableEntityCreation(entity, method, "defaultBean",false);
 		} else {
 			method.addStatement("defaultBean=new $T()", className(beanClassName));	
 		}
@@ -674,8 +674,14 @@ public abstract class BindSharedPreferencesBuilder {
 				transform = PrefsTransformer.lookup(item);
 			}
 
-			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "bean", item,
-					true, ReadType.NONE);
+			if (entity.isImmutablePojo()) {
+				transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), null, item,
+						true, ReadType.NONE);
+			} else {
+				transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "bean", item,
+						true, ReadType.NONE);	
+			}
+			
 			methodBuilder.addCode("\n");
 		}
 

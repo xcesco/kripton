@@ -46,4 +46,6 @@ public abstract class AbstractPrefsTransform implements PrefsTransform {
 	public boolean isTypeAdapterAware() {
 		return typeAdapterAware;
 	}
+	
+	protected final static String DEFAULT_BEAN_NAME="defaultBean";
 }

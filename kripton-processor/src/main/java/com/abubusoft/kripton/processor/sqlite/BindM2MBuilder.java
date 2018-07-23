@@ -514,8 +514,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		classBuilder.addJavadoc("\nGenerated entity implementation for <code>$L</code>\n", entity.name);
 		classBuilder.addJavadoc("</p>\n");
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
-		// classBuilder.addJavadoc(" @see $T\n",
-		// TypeUtility.className(entity.getElement().getQualifiedName().toString()));
+		// classBuilder.addJavadoc(" @see $T\n",		
 
 		{
 			// @formatter:off

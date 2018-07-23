@@ -59,7 +59,7 @@ public class EnumPrefsTransform extends AbstractPrefsTransform {
 		methodBuilder.addStatement("String temp=$L.getString($S, null)", preferenceName, property.getPreferenceKey());
 
 		if (readAll) {
-			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
+			methodBuilder.addCode(setter(beanClass, beanName, property) + (!property.isPublicField() && beanName!=null ? "(" : "="));
 		} 
 		
 		switch (readType) {
@@ -75,10 +75,10 @@ public class EnumPrefsTransform extends AbstractPrefsTransform {
 
 		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
 		methodBuilder.addCode("$T.valueOf(temp)", typeName);
-		methodBuilder.addCode(": $L", getter(beanName, beanClass, property));
+		methodBuilder.addCode(": $L", getter(DEFAULT_BEAN_NAME, beanClass, property));
 
 		if (readAll) {
-			methodBuilder.addCode((!property.isPublicField() ? ")" : ""));
+			methodBuilder.addCode(!property.isPublicField() && beanName!=null ? ")" : "");
 		}
 
 		methodBuilder.addCode(";\n");

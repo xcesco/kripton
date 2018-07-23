@@ -64,7 +64,7 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 		
 		methodBuilder.addStatement("String temp=$L.getString($S, $S)", preferenceName, property.getPreferenceKey(), defaultValue);
 		if (readAll) {					
-			methodBuilder.addCode("$L.$L" + (!property.isPublicField()?"(":"=")+"", beanName, setter(beanClass, property));
+			methodBuilder.addCode(setter(beanClass, beanName, property) + (!property.isPublicField() && beanName!=null ? "(" : "="));
 		} 
 		switch (readType) {
 		case NONE:
@@ -79,10 +79,10 @@ abstract class AbstractNumberPrefsTransform extends AbstractPrefsTransform {
 		
 		methodBuilder.addCode("($T.hasText(temp)) ? ", StringUtils.class);
 		methodBuilder.addCode("new $T(temp)",  clazz);
-		methodBuilder.addCode(": $L", getter(beanName, beanClass, property));
+		methodBuilder.addCode(": $L", getter(DEFAULT_BEAN_NAME, beanClass, property));
 		
 		if (readAll) {
-			methodBuilder.addCode((!property.isPublicField()?")":""));
+			methodBuilder.addCode(!property.isPublicField() && beanName!=null ? ")" : "");
 		}
 		
 		methodBuilder.addCode(";\n");

@@ -300,14 +300,18 @@ public abstract class PropertyUtility {
 	 *            the property
 	 * @return the string
 	 */
-	public static String setter(TypeName beanClass, ModelProperty property) {
+	public static String setter(TypeName beanClass, String beanName, ModelProperty property) {		
 		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
 			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName();
 		} else {
+			String prefix=""; 
+			if (beanName!=null) {
+				prefix=beanName+".";
+			}
 			if (property.isPublicField()) {
-				return property.getName();
+				return prefix+property.getName();
 			} else if (property.isFieldWithSetter()) {
-				return "set" + converterField2Method.convert(property.getName());
+				return prefix+"set" + converterField2Method.convert(property.getName());
 			} else {
 				throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
 						property.getName(), property.getParent().getElement().asType()));
