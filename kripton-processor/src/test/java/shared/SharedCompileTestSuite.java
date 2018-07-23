@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import shared.feature.enumeration.TestEnumerationCompileSuite;
+import shared.feature.immutable.TestSharedImmutableCompileSuite;
 import shared.feature.livedata.TestSharedLiveDataCompileSuite;
 import shared.feature.livedatax.TestSharedLiveDataXCompileSuite;
 import shared.feature.rx.TestSharedRxCompileSuite;
@@ -46,7 +47,8 @@ import shared.kripton50.TestKripton50;
 	TestSharedRxCompileSuite.class,
 	TestSharedLiveDataCompileSuite.class,
 	TestSharedLiveDataXCompileSuite.class,
-	TestEnumerationCompileSuite.class
+	TestEnumerationCompileSuite.class,
+	TestSharedImmutableCompileSuite.class
 	 })
 // @formatter:on
 public class SharedCompileTestSuite {

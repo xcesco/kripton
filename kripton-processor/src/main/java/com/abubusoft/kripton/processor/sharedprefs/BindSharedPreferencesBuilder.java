@@ -43,6 +43,7 @@ import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
@@ -171,7 +172,7 @@ public abstract class BindSharedPreferencesBuilder {
 
 		generateCreate(sharedPreferenceName, beanClassName, generateRx, generateLiveData);
 
-		generateConstructor(sharedPreferenceName, beanClassName);
+		generateConstructor(entity, sharedPreferenceName, beanClassName);
 
 		generateRefresh(sharedPreferenceName, className);
 
@@ -503,8 +504,8 @@ public abstract class BindSharedPreferencesBuilder {
 
 			{ // remove
 				MethodSpec.Builder builder = MethodSpec.methodBuilder("remove" + converter.convert(item.getName()))
-						.addModifiers(Modifier.PUBLIC)
-						.addJavadoc("remove property $L\n", item.getName()).returns(typeName("BindEditor"));
+						.addModifiers(Modifier.PUBLIC).addJavadoc("remove property $L\n", item.getName())
+						.returns(typeName("BindEditor"));
 
 				builder.addStatement("editor.remove($S)", item.getPreferenceKey());
 
@@ -514,8 +515,7 @@ public abstract class BindSharedPreferencesBuilder {
 		}
 
 		{ // clear
-			MethodSpec.Builder builder = MethodSpec.methodBuilder("clear")
-					.addModifiers(Modifier.PUBLIC)
+			MethodSpec.Builder builder = MethodSpec.methodBuilder("clear").addModifiers(Modifier.PUBLIC)
 					.addJavadoc("clear all properties\n").returns(typeName("BindEditor"));
 
 			builder.addStatement("editor.clear()");
@@ -552,18 +552,27 @@ public abstract class BindSharedPreferencesBuilder {
 
 	/**
 	 * Generate constructor.
+	 * @param entity 
 	 *
 	 * @param sharedPreferenceName
 	 *            the shared preference name
 	 * @param beanClassName
 	 *            the bean class name
 	 */
-	private static void generateConstructor(String sharedPreferenceName, String beanClassName) {
+	private static void generateConstructor(PrefsEntity entity, String sharedPreferenceName, String beanClassName) {
 		MethodSpec.Builder method = MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE)
 				.addJavadoc("constructor\n");
 
 		method.addStatement("createPrefs()");
-		method.addStatement("defaultBean=new $T()", className(beanClassName));
+		
+		if (entity.isImmutablePojo()) {
+			ImmutableUtility.generateImmutableVariableInit(entity, method);
+			ImmutableUtility.generateImmutableEntityCreation(entity, method, "defaultBean",true);
+		} else {
+			method.addStatement("defaultBean=new $T()", className(beanClassName));	
+		}
+		
+		
 		builder.addMethod(method.build());
 	}
 
@@ -594,7 +603,14 @@ public abstract class BindSharedPreferencesBuilder {
 		// write method
 		MethodSpec.Builder method = MethodSpec.methodBuilder("reset").addModifiers(Modifier.PUBLIC)
 				.addJavadoc("reset shared preferences\n").returns(Void.TYPE);
-		method.addStatement("$T bean=new $T()", entity.getElement(), entity.getElement());
+		
+		if (entity.isImmutablePojo()) {
+			ImmutableUtility.generateImmutableVariableInit(entity, method);
+			ImmutableUtility.generateImmutableEntityCreation(entity, method, "bean",true);
+		} else {
+			method.addStatement("$T bean=new $T()", entity.getElement(), entity.getElement());	
+		}
+		
 		method.addStatement("write(bean)");
 		builder.addMethod(method.build());
 	}
@@ -639,7 +655,15 @@ public abstract class BindSharedPreferencesBuilder {
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("read").addModifiers(Modifier.PUBLIC)
 				.addJavadoc("read bean entirely\n\n").addJavadoc("@return read bean\n")
 				.returns(typeName(entity.getName()));
-		methodBuilder.addStatement("$T bean=new $T()", typeName(entity.getName()), typeName(entity.getName()));
+
+		// immutable management
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addCode("\n");
+			methodBuilder.addComment("initialize temporary variable for immutable POJO");
+			ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
+		} else {
+			methodBuilder.addStatement("$T bean=new $T()", typeName(entity.getName()), typeName(entity.getName()));
+		}
 
 		PrefsTransform transform;
 
@@ -653,6 +677,12 @@ public abstract class BindSharedPreferencesBuilder {
 			transform.generateReadProperty(methodBuilder, "prefs", typeName(item.getElement().asType()), "bean", item,
 					true, ReadType.NONE);
 			methodBuilder.addCode("\n");
+		}
+
+		// immutable management
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addComment("reset temporary variable for immutable POJO");
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "bean",true);
 		}
 
 		methodBuilder.addCode("\n");

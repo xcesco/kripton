@@ -72,7 +72,7 @@ abstract class AbstractPrimitivePrefsTransform extends AbstractPrefsTransform {
 	 */
 	@Override
 	public void generateReadProperty(Builder methodBuilder, String preferenceName, TypeName beanClass, String beanName, PrefsProperty property, boolean readAll, ReadType readType) {
-		if (readAll) {
+		if (readAll) {						
 			methodBuilder.addCode("$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
 		} 
 		switch (readType) {
