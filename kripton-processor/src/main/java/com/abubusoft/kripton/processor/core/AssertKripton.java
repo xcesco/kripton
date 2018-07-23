@@ -399,4 +399,18 @@ public abstract class AssertKripton {
 		}
 	}
 
+	/**
+	 * When a pojo has a valid constructor
+	 * 
+	 * @param expression
+	 * @param entity
+	 */
+	public static void assertTrueOfInvalidConstructor(boolean expression, ModelClass<?> entity) {
+		if (!expression) {
+			String msg = String.format("Class '%s' has no constructor without parameters (to be a mutable class) or with all parameters (to be an immutable class).", entity.getElement().getQualifiedName());
+			throw (new InvalidDefinition(msg));
+		}
+		
+	}
+
 }

@@ -95,7 +95,7 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 			String msg = e.getMessage();
 			error(null, msg);
 
-			if (DEBUG_MODE) {
+			if (DEBUG_MODE || KriptonProcessor.debugMode) {
 				logger.log(Level.SEVERE, msg);
 				e.printStackTrace();
 			}

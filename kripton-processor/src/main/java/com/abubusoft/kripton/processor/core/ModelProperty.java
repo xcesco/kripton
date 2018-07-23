@@ -27,6 +27,8 @@ import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.utils.LiteralType;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -170,7 +172,12 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 
 		this.parent = new WeakReference<ModelEntity>(entity);
 
-		if (element != null) {
+		if (element != null) {			
+			TypeName temp1=TypeName.get(element.asType());
+			LiteralType temp2 = LiteralType.of(element.asType().toString());
+			AssertKripton.fail((temp1 instanceof ClassName) && temp2.isCollection(), "In bean '%s' property '%s' can not use Object as parameter", entity.getElement().asType().toString() ,element.getSimpleName().toString()); 
+			
+			
 			propertyType = new ModelType(element.asType());
 			publicField = element.getModifiers().contains(Modifier.PUBLIC);
 		}

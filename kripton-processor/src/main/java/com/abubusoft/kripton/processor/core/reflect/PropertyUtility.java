@@ -243,7 +243,8 @@ public abstract class PropertyUtility {
 	 * @return true, if successful
 	 */
 	static boolean modifierIsAcceptable(Element item) {
-		Object[] values = { Modifier.NATIVE, Modifier.STATIC, Modifier.FINAL, Modifier.ABSTRACT };
+		// kotlin define properties as final
+		Object[] values = { Modifier.NATIVE, Modifier.STATIC, /* Modifier.FINAL, */  Modifier.ABSTRACT };
 
 		for (Object i : values) {
 			if (item.getModifiers().contains(i))

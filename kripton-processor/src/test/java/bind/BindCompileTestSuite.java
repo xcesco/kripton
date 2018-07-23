@@ -23,6 +23,7 @@ import bind.directmap.TestDirectMapSuite;
 import bind.feature.generichierarchy.TestGenericHierarchySuite;
 import bind.feature.generichierarchy.kripton109.Test109CompileSuite;
 import bind.feature.immutable.TestImmutableCompileSuite;
+import bind.feature.kotlin.TestBindTypeKotlinCompileSuite;
 import bind.feature.namespace.CompileNamespaceTestSuite;
 import bind.feature.typeadapter.kripton87.Test87CompileSuite;
 import bind.kripton110.TestCompile110;
@@ -50,6 +51,7 @@ import bind.rss.TestRSSCompile;
 		{
 			// feature
 			TestImmutableCompileSuite.class, 
+			TestBindTypeKotlinCompileSuite.class, 
 			
 		Test42CompileSuite.class,
 		Test70CompileSuite.class,

@@ -89,6 +89,8 @@ public abstract class ImmutableUtility {
 
 			}
 		}
+		
+		AssertKripton.assertTrueOfInvalidConstructor(entity.emptyContructor==true || entity.immutableConstructors!=null, entity);
 	}
 
 	public static void generateImmutableVariableReset(ModelClass<?> entity, Builder methodBuilder) {

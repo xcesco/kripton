@@ -18,6 +18,7 @@ package com.abubusoft.kripton.processor.core;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.utils.LiteralType;
 import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -51,11 +52,13 @@ public class ModelType {
 
 	/**
 	 * Instantiates a new model type.
+	 * @param entity 
 	 *
 	 * @param type the type
 	 */
 	public ModelType(TypeMirror type) {
-		// super(type.toString());
+		// super(type.toString());		
+		
 		this.typeName = TypeUtility.typeName(type);
 	}
 

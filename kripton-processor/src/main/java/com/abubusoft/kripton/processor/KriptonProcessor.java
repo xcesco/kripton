@@ -37,10 +37,13 @@ import com.abubusoft.kripton.common.StringUtils;
 public class KriptonProcessor extends BaseProcessor {
 	
 	
+	public static boolean debugMode=false;
+	
 	@Override
 	public Set<String> getSupportedOptions() {
 		Set<String> options = new LinkedHashSet<String>();
-
+		
+		options.add(KriptonOptions.DEBUG);
 		options.addAll(typeProcessor.getSupportedOptions());
 		options.addAll(sharedPreferencesProcessor.getSupportedOptions());
 		options.addAll(dataSourceProcessor.getSupportedOptions());
@@ -93,6 +96,9 @@ public class KriptonProcessor extends BaseProcessor {
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
+		
+		// add debug mode
+		KriptonProcessor.debugMode = "true".equals(processingEnv.getOptions().get(KriptonOptions.DEBUG));
 
 		typeProcessor.init(processingEnv);
 		many2ManyProcessor.init(processingEnv);
@@ -142,7 +148,7 @@ public class KriptonProcessor extends BaseProcessor {
 			String msg = StringUtils.nvl(e.getMessage());
 			error(null, e.getClass().getCanonicalName() + ": " + msg);
 			
-			if (DEBUG_MODE) {
+			if (DEBUG_MODE || KriptonProcessor.debugMode) {
 				logger.log(Level.SEVERE, msg);
 				e.printStackTrace();
 			}
