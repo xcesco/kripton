@@ -168,7 +168,7 @@ public class BindApp1Preferences extends AbstractSharedPreference {
       bean.valueSet=new HashSet<String>(temp);
     }
 
-    bean.right=PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("right", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(bean.right)));
+    bean.right=PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("right", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(defaultBean.right)));
 
     return bean;
   }

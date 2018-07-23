@@ -67,8 +67,8 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public AppPreferences read() {
     AppPreferences bean=new AppPreferences();
-    bean.valueBoolean=(boolean)prefs.getBoolean("value", (boolean)bean.valueBoolean);
-    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
+    bean.valueBoolean=(boolean)prefs.getBoolean("value", (boolean)defaultBean.valueBoolean);
+    bean.valueFloat=prefs.getFloat("value_float", defaultBean.valueFloat);
 
     return bean;
   }
