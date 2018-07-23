@@ -59,6 +59,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    */
   @Override
   public List<Person> selectOne(String nameValue) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
@@ -84,6 +85,8 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -112,6 +115,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -413,6 +417,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    */
   @Override
   public List<Person> selecAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELEC_ALL_SQL2;
@@ -437,6 +442,8 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -465,6 +472,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -491,6 +499,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
@@ -540,6 +549,7 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

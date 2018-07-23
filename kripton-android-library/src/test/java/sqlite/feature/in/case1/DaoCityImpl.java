@@ -46,6 +46,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
    */
   @Override
   public long insert(City bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO city (name) VALUES (?)";
@@ -91,9 +92,11 @@ public class DaoCityImpl extends Dao implements DaoCity {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -118,6 +121,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
    */
   @Override
   public List<City> selectAll2(List<Long> args) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, name FROM city");
@@ -160,6 +164,8 @@ public class DaoCityImpl extends Dao implements DaoCity {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<City> resultList=new ArrayList<City>(_cursor.getCount());
       City resultBean=null;
@@ -182,6 +188,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

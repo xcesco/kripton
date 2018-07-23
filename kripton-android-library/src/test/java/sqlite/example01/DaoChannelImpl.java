@@ -303,6 +303,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public long insertRaw1(String b, long azz) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertRaw1PreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
@@ -351,6 +352,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertRaw1PreparedStatement4, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -372,6 +374,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public boolean insertRaw2(String b, long id) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertRaw2PreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
@@ -420,6 +423,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertRaw2PreparedStatement5, _contentValues);
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -441,6 +445,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public int insertRaw3(String ownerUid, long id) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertRaw3PreparedStatement6==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (owner_uid, id) VALUES (?, ?)";
@@ -489,6 +494,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertRaw3PreparedStatement6, _contentValues);
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -512,6 +518,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public int insertBean1(Channel bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBean1PreparedStatement7==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (?, ?, ?, ?)";
@@ -560,9 +567,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBean1PreparedStatement7, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -586,6 +595,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public boolean insertBean2(Channel bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBean2PreparedStatement8==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (?, ?, ?, ?)";
@@ -634,9 +644,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBean2PreparedStatement8, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1124,6 +1136,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public List<Channel> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
@@ -1148,6 +1161,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Channel> resultList=new ArrayList<Channel>(_cursor.getCount());
       Channel resultBean=null;
@@ -1176,6 +1191,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1203,6 +1219,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public List<Channel> selectRaw1(long updateTimeA) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_RAW1_SQL2;
@@ -1228,6 +1245,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Channel> resultList=new ArrayList<Channel>(_cursor.getCount());
       Channel resultBean=null;
@@ -1256,6 +1275,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1283,6 +1303,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public Cursor selectRaw2(long updateTimeA) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_RAW2_SQL3;
@@ -1308,7 +1329,10 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       Logger.info("Rows found: %s",_cursor.getCount());
     }
     // log section END
+    // common part generation - END
+    // Specialized part - SelectRawHelper - BEGIN
     return _cursor;
+    // Specialized part - SelectRawHelper - END
   }
 
   /**
@@ -1337,6 +1361,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public void selectRaw3(long updateTimeA, OnReadBeanListener<Channel> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_RAW3_SQL4;
@@ -1362,6 +1387,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Channel resultBean=new Channel();
       if (_cursor.moveToFirst()) {
 
@@ -1375,7 +1402,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.setName(null);
           resultBean.setOwnerUid(null);
           resultBean.setUid(null);
@@ -1392,6 +1419,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -1420,6 +1448,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public void selectRaw4(long updateTimeA, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_RAW4_SQL5;
@@ -1445,6 +1474,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -1454,6 +1485,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -1481,6 +1513,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public Set<Channel> selectRaw5(long updateTimeA) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_RAW5_SQL6;
@@ -1506,6 +1539,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       LinkedHashSet<Channel> resultList=new LinkedHashSet<Channel>();
       Channel resultBean=null;
@@ -1534,6 +1569,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1557,6 +1593,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public long selectBean1(Channel value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN1_SQL7;
@@ -1582,6 +1619,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       long result=0L;
 
       if (_cursor.moveToFirst()) {
@@ -1591,6 +1630,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -1615,6 +1655,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public void selectBean2(Channel value, OnReadBeanListener<Channel> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN2_SQL8;
@@ -1640,6 +1681,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Channel resultBean=new Channel();
       if (_cursor.moveToFirst()) {
 
@@ -1649,7 +1692,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.setName(null);
           resultBean.setOwnerUid(null);
           resultBean.setUid(null);
@@ -1662,6 +1705,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -1686,6 +1730,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public void selectBean3(Channel value, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN3_SQL9;
@@ -1711,6 +1756,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -1720,6 +1767,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -1743,6 +1791,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public Cursor selectBean4(Channel value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN4_SQL10;
@@ -1768,7 +1817,10 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       Logger.info("Rows found: %s",_cursor.getCount());
     }
     // log section END
+    // common part generation - END
+    // Specialized part - SelectRawHelper - BEGIN
     return _cursor;
+    // Specialized part - SelectRawHelper - END
   }
 
   /**
@@ -1792,6 +1844,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public Channel selectBean5(Channel value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN5_SQL11;
@@ -1817,6 +1870,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Channel resultBean=null;
 
@@ -1831,6 +1886,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -1854,6 +1910,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public ArrayList<Channel> selectBean6(Channel value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN6_SQL12;
@@ -1879,6 +1936,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Channel> resultList=new ArrayList<Channel>(_cursor.getCount());
       Channel resultBean=null;
@@ -1899,6 +1958,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1922,6 +1982,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public Set<Channel> selectBean7(Channel value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN7_SQL13;
@@ -1947,6 +2008,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       LinkedHashSet<Channel> resultList=new LinkedHashSet<Channel>();
       Channel resultBean=null;
@@ -1967,6 +2030,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1990,6 +2054,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public List<Long> selectBean8(Channel value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN8_SQL14;
@@ -2015,6 +2080,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarListHelper - BEGIN
 
       ArrayList<Long> resultList=new ArrayList<Long>(_cursor.getCount());
 
@@ -2032,6 +2099,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       }
       return resultList;
     }
+    // Specialized part - SelectScalarListHelper - END
   }
 
   /**

@@ -55,6 +55,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    */
   @Override
   public int insert(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (age, name) VALUES (?, ?)";
@@ -101,12 +102,14 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
+    bean.id=result;
     if (result>0) {
       subject.onNext(SQLiteEvent.createInsert(result));
     }
-    bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -132,6 +135,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    */
   @Override
   public Person selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL11;
@@ -157,6 +161,8 @@ public class PersonDaoImpl extends Dao implements PersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -175,6 +181,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

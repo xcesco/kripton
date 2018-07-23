@@ -60,6 +60,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public boolean insert(Channel bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO channel (copyright, description, image, language, last_build_date, link, pub_date, title) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -112,9 +113,11 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -144,6 +147,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    */
   @Override
   public List<Channel> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL3;
@@ -168,6 +172,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Channel> resultList=new ArrayList<Channel>(_cursor.getCount());
       Channel resultBean=null;
@@ -206,6 +212,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

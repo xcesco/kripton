@@ -77,6 +77,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
@@ -101,6 +102,8 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
@@ -143,6 +146,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -177,6 +181,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectById(long uid) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL2;
@@ -202,6 +207,8 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
@@ -244,6 +251,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -288,6 +296,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   @Override
   public List<Bean84A> selectWhere(List<String> param1, Map<Integer, String> param2,
       Character[] param3, char[] param4) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_WHERE_SQL3;
@@ -316,6 +325,8 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
@@ -358,6 +369,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -388,6 +400,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    */
   @Override
   public boolean insertAll(Bean84A bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertAllPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean84_a (column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -443,9 +456,11 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -464,6 +479,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    */
   @Override
   public boolean insert(List<String> param1) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean84_a (column_list_string) VALUES (?)";
@@ -511,6 +527,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**

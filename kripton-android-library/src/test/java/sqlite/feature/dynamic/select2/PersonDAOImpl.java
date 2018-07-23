@@ -49,6 +49,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public List<Person> select(String where) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, birth_city, birth_day, name, surname FROM person");
@@ -86,6 +87,8 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -114,6 +117,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

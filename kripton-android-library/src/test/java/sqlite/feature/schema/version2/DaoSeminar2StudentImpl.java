@@ -43,6 +43,7 @@ public class DaoSeminar2StudentImpl extends Dao implements DaoSeminar2Student {
    */
   @Override
   public long insert(Seminar2Student bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO seminar_2_student (seminar_id, student_id) VALUES (?, ?)";
@@ -89,9 +90,11 @@ public class DaoSeminar2StudentImpl extends Dao implements DaoSeminar2Student {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

@@ -92,11 +92,10 @@ public class Point3BindMap extends AbstractMapper<Point3> {
    */
   @Override
   public Point3 parseOnJackson(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     float __x=0.0f;
     float __y=0.0f;
     float __z=0.0f;
-
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -139,11 +138,10 @@ public class Point3BindMap extends AbstractMapper<Point3> {
    */
   @Override
   public Point3 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     float __x=0.0f;
     float __y=0.0f;
     float __z=0.0f;
-
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -186,11 +184,10 @@ public class Point3BindMap extends AbstractMapper<Point3> {
    */
   @Override
   public Point3 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     float __x=0.0f;
     float __y=0.0f;
     float __z=0.0f;
-
     int eventType = currentEventType;
     boolean read=true;
 

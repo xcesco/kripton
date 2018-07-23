@@ -42,6 +42,7 @@ public class PKDaoImpl extends Dao implements PKDao {
    */
   @Override
   public void insert(PKBean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO p_k_bean (id, description) VALUES (?, ?)";
@@ -88,7 +89,9 @@ public class PKDaoImpl extends Dao implements PKDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

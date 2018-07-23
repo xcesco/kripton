@@ -39,6 +39,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public List<Album> selectAlbums() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALBUMS_SQL1;
@@ -63,6 +64,8 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Album> resultList=new ArrayList<Album>(_cursor.getCount());
       Album resultBean=null;
@@ -85,6 +88,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

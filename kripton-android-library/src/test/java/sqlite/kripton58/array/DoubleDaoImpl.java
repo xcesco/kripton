@@ -72,6 +72,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
    */
   @Override
   public DoubleBean selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
@@ -96,6 +97,8 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       DoubleBean resultBean=null;
 
@@ -114,6 +117,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -142,6 +146,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
    */
   @Override
   public DoubleBean selectOne(double[] value, Double[] value2) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -168,6 +173,8 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       DoubleBean resultBean=null;
 
@@ -186,6 +193,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -215,6 +223,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
    */
   @Override
   public void selectOne(double[] value, Double[] value2, OnReadBeanListener<DoubleBean> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
@@ -241,6 +250,8 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       DoubleBean resultBean=new DoubleBean();
       if (_cursor.moveToFirst()) {
 
@@ -252,7 +263,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.value=null;
           resultBean.value2=null;
 
@@ -265,6 +276,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -294,6 +306,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
    */
   @Override
   public void selectOne(double[] value, Double[] value2, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL4;
@@ -320,6 +333,8 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -329,6 +344,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -357,6 +373,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
    */
   @Override
   public List<DoubleBean> selectList(double[] value, Double[] value2) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL5;
@@ -383,6 +400,8 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<DoubleBean> resultList=new ArrayList<DoubleBean>(_cursor.getCount());
       DoubleBean resultBean=null;
@@ -407,6 +426,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -500,6 +520,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
    */
   @Override
   public long insert(long id, double[] value, Double[] value2) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO double_bean (id, value, value2) VALUES (?, ?, ?)";
@@ -549,6 +570,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -570,6 +592,7 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
    */
   @Override
   public long insert(DoubleBean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO double_bean (value, value2) VALUES (?, ?)";
@@ -616,9 +639,11 @@ public class DoubleDaoImpl extends Dao implements DoubleDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

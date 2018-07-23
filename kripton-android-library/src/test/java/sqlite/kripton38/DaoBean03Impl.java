@@ -48,6 +48,7 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
    */
   @Override
   public Bean03 selectOne(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
@@ -73,6 +74,8 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean03 resultBean=null;
 
@@ -89,6 +92,7 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

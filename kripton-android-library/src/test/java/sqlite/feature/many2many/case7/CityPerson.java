@@ -20,7 +20,7 @@ public class CityPerson {
   @BindSqlColumn(
       columnType = ColumnType.PRIMARY_KEY
   )
-  public long id;
+  private long id;
 
   /**
    * Foreign key to City model class
@@ -29,7 +29,7 @@ public class CityPerson {
       parentEntity = City.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long cityId;
+  private long cityId;
 
   /**
    * Foreign key to Person model class
@@ -38,5 +38,23 @@ public class CityPerson {
       parentEntity = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long personId;
+  private long personId;
+
+  public CityPerson(long id, long cityId, long personId) {
+    this.id=id;
+    this.cityId=cityId;
+    this.personId=personId;
+  }
+
+  public long getId() {
+    return this.id;
+  }
+
+  public long getCityId() {
+    return this.cityId;
+  }
+
+  public long getPersonId() {
+    return this.personId;
+  }
 }

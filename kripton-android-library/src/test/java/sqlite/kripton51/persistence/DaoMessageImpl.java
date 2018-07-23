@@ -67,6 +67,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    */
   @Override
   public List<MessageEntity> selectByChannel(long channelId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CHANNEL_SQL1;
@@ -92,6 +93,8 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<MessageEntity> resultList=new ArrayList<MessageEntity>(_cursor.getCount());
       MessageEntity resultBean=null;
@@ -130,6 +133,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -236,6 +240,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    */
   @Override
   public void insert(MessageEntity bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -289,7 +294,9 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -322,6 +329,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    */
   @Override
   public MessageEntity selectByUid(String uid) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_UID_SQL2;
@@ -347,6 +355,8 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       MessageEntity resultBean=null;
 
@@ -379,6 +389,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   public static void clearCompiledStatements() {

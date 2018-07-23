@@ -362,7 +362,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    */
   @Override
   public Artist insert(Artist bean) {
-    // // Specialized Insert - InsertType - BEGIN
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO artist (name) VALUES (?)";
@@ -420,7 +420,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     bean=new Artist(__id,__name);
 
     return bean;
-    // // Specialized Insert - InsertType - END
+    // Specialized Insert - InsertType - END
   }
 
   /**

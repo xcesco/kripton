@@ -40,6 +40,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public List<Song> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
@@ -64,6 +65,8 @@ public class DaoSongImpl extends Dao implements DaoSong {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Song> resultList=new ArrayList<Song>(_cursor.getCount());
       Song resultBean=null;
@@ -88,6 +91,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

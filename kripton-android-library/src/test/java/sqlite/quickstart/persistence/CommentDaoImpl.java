@@ -53,6 +53,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    */
   @Override
   public void insert(Comment bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO comment (id, body, email, name, post_id) VALUES (?, ?, ?, ?, ?)";
@@ -102,7 +103,9 @@ public class CommentDaoImpl extends Dao implements CommentDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -130,6 +133,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    */
   @Override
   public List<Comment> selectByPostId(long postId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_POST_ID_SQL5;
@@ -155,6 +159,8 @@ public class CommentDaoImpl extends Dao implements CommentDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Comment> resultList=new ArrayList<Comment>(_cursor.getCount());
       Comment resultBean=null;
@@ -183,6 +189,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -210,6 +217,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    */
   @Override
   public Comment selectOneByPostId(long postId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BY_POST_ID_SQL6;
@@ -235,6 +243,8 @@ public class CommentDaoImpl extends Dao implements CommentDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Comment resultBean=null;
 
@@ -257,6 +267,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   public static void clearCompiledStatements() {

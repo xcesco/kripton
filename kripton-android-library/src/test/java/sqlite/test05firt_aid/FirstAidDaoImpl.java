@@ -66,6 +66,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
    */
   @Override
   public List<FirstAid> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
@@ -90,6 +91,8 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<FirstAid> resultList=new ArrayList<FirstAid>(_cursor.getCount());
       FirstAid resultBean=null;
@@ -152,6 +155,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -233,6 +237,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
    */
   @Override
   public int insert(FirstAid bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO first_aid (address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -298,9 +303,11 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

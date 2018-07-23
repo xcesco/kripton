@@ -55,6 +55,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    */
   @Override
   public SimpleAddressItem selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
@@ -62,6 +63,8 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       SimpleAddressItem resultBean=null;
 
@@ -86,6 +89,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -131,12 +135,15 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    */
   @Override
   public ArrayList<SimpleAddressItem> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<SimpleAddressItem> resultList=new ArrayList<SimpleAddressItem>(_cursor.getCount());
       SimpleAddressItem resultBean=null;
@@ -167,6 +174,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -190,6 +198,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    */
   @Override
   public void insert(SimpleAddressItem bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO simple_address_item (address, city, name, phone, state) VALUES (?, ?, ?, ?, ?)";
@@ -204,7 +213,9 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

@@ -69,6 +69,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    */
   @Override
   public List<Person> selectAllBeans() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_BEANS_SQL1;
@@ -93,6 +94,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -119,6 +122,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -198,6 +202,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    */
   @Override
   public int selectAllBeansCount() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_BEANS_COUNT_SQL2;
@@ -222,6 +227,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       int result=0;
 
       if (_cursor.moveToFirst()) {
@@ -231,6 +238,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -320,6 +328,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    */
   @Override
   public Person selectOneBean(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BEAN_SQL3;
@@ -345,6 +354,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -365,6 +376,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -472,6 +484,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    */
   @Override
   public Person selectOneBeanWithDynamic(long id, String where) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT person_name FROM person");
@@ -510,6 +523,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -524,6 +539,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -639,6 +655,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    */
   @Override
   public Person selectOneBeanWithDynamicAndArgs(long id, String name, String where, String[] args) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
@@ -685,6 +702,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -705,6 +724,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -825,6 +845,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    */
   @Override
   public Person selectOneBeanWithDynamicOrder(long id, String order) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
@@ -867,6 +888,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -887,6 +910,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -1005,6 +1029,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
   @Override
   public void selectOneBeanWithDynamicOrderAndListener(String surname, String order,
       OnReadBeanListener<Person> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
@@ -1047,6 +1072,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Person resultBean=new Person();
       if (_cursor.moveToFirst()) {
 
@@ -1059,7 +1086,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.setPersonName(null);
           resultBean.setPersonSurname(null);
           resultBean.setStudent(false);
@@ -1074,6 +1101,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -1183,6 +1211,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
    */
   @Override
   public Person selectWithJQL(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_WITH_J_Q_L_SQL4;
@@ -1208,6 +1237,8 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -1228,6 +1259,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

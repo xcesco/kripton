@@ -71,6 +71,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
    */
   @Override
   public ByteBean selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
@@ -95,6 +96,8 @@ public class ByteDaoImpl extends Dao implements ByteDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       ByteBean resultBean=null;
 
@@ -113,6 +116,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -138,6 +142,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
    */
   @Override
   public ByteBean selectOne(List<Short> value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -163,6 +168,8 @@ public class ByteDaoImpl extends Dao implements ByteDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       ByteBean resultBean=null;
 
@@ -181,6 +188,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -207,6 +215,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
    */
   @Override
   public void selectOne(List<Byte> value, OnReadBeanListener<ByteBean> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
@@ -232,6 +241,8 @@ public class ByteDaoImpl extends Dao implements ByteDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       ByteBean resultBean=new ByteBean();
       if (_cursor.moveToFirst()) {
 
@@ -243,7 +254,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.value=null;
           resultBean.value2=null;
 
@@ -256,6 +267,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -282,6 +294,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
    */
   @Override
   public void selectOne(List<Short> value, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL4;
@@ -307,6 +320,8 @@ public class ByteDaoImpl extends Dao implements ByteDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -316,6 +331,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -341,6 +357,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
    */
   @Override
   public List<ByteBean> selectList(List<Short> value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL5;
@@ -366,6 +383,8 @@ public class ByteDaoImpl extends Dao implements ByteDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<ByteBean> resultList=new ArrayList<ByteBean>(_cursor.getCount());
       ByteBean resultBean=null;
@@ -390,6 +409,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -480,6 +500,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
    */
   @Override
   public long insert(long id, List<Byte> value) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO byte_bean (id, value) VALUES (?, ?)";
@@ -528,6 +549,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -549,6 +571,7 @@ public class ByteDaoImpl extends Dao implements ByteDao {
    */
   @Override
   public long insert(ByteBean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO byte_bean (value, value2) VALUES (?, ?)";
@@ -595,9 +618,11 @@ public class ByteDaoImpl extends Dao implements ByteDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

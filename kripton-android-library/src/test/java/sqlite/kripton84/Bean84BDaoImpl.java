@@ -70,6 +70,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    */
   @Override
   public Bean84B selectById(long param1) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
@@ -95,6 +96,8 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean84B resultBean=null;
 
@@ -111,6 +114,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -135,6 +139,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    */
   @Override
   public Bean84B selectByBean(Bean84B2 param1) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_BEAN_SQL2;
@@ -160,6 +165,8 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean84B resultBean=null;
 
@@ -176,6 +183,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -196,6 +204,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    */
   @Override
   public boolean insert(Bean84B bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean84_b (column_bean) VALUES (?)";
@@ -241,9 +250,11 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**

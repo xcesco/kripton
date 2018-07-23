@@ -57,6 +57,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
    */
   @Override
   public List<PersonCityOk1> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL5;
@@ -81,6 +82,8 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityOk1> resultList=new ArrayList<PersonCityOk1>(_cursor.getCount());
       PersonCityOk1 resultBean=null;
@@ -105,6 +108,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -130,6 +134,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
    */
   @Override
   public PersonCityOk1 selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL6;
@@ -155,6 +160,8 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PersonCityOk1 resultBean=null;
 
@@ -173,6 +180,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -198,6 +206,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
    */
   @Override
   public List<PersonCityOk1> selectByPersonId(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PERSON_ID_SQL7;
@@ -223,6 +232,8 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityOk1> resultList=new ArrayList<PersonCityOk1>(_cursor.getCount());
       PersonCityOk1 resultBean=null;
@@ -247,6 +258,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -272,6 +284,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
    */
   @Override
   public List<PersonCityOk1> selectByCityId(long cityId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CITY_ID_SQL8;
@@ -297,6 +310,8 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityOk1> resultList=new ArrayList<PersonCityOk1>(_cursor.getCount());
       PersonCityOk1 resultBean=null;
@@ -321,6 +336,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -477,6 +493,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
    */
   @Override
   public int insert(PersonCityOk1 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person_city_ok1 (city_id, person_id) VALUES (?, ?)";
@@ -523,9 +540,11 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

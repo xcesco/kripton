@@ -99,6 +99,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public Employee selectById(Employee bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
@@ -124,6 +125,8 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -179,6 +182,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -217,6 +221,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public Employee selectByIdJQL(Employee bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_J_Q_L_SQL2;
@@ -242,6 +247,8 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -297,6 +304,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -345,6 +353,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public Employee selectByAll(Employee bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_SQL3;
@@ -380,6 +389,8 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -435,6 +446,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -483,6 +495,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public Employee selectByAllJQL(Employee bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_J_Q_L_SQL4;
@@ -518,6 +531,8 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -573,6 +588,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -607,6 +623,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public long insert(Employee bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -666,9 +683,11 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -698,6 +717,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public long insertJQL(Employee bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertJQLPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -752,9 +772,11 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertJQLPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

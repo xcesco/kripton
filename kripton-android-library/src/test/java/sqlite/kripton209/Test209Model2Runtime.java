@@ -57,9 +57,7 @@ public class Test209Model2Runtime extends BaseAndroidTest {
 				user.userName ="user-test";				
 				daoFactory.getUserDao().insert(user);
 				
-				UserDevice userDevice=new UserDevice();
-				userDevice.deviceId=device.id;
-				userDevice.userId=user.id;
+				UserDevice userDevice=new UserDevice(0, user.id, device.id);				
 				daoFactory.getUserDeviceDao().insert(userDevice);
 				
 				List<Device> devices=daoFactory.getDeviceDao().getUserDevices(user.id);

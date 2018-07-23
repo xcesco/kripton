@@ -97,6 +97,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public List<Contact> selectBySurnameWithAdapter(String dummy) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_SURNAME_WITH_ADAPTER_SQL1;
@@ -122,6 +123,8 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
@@ -157,6 +160,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -186,6 +190,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public List<Contact> selectBySurname(String dummy) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_SURNAME_SQL2;
@@ -211,6 +216,8 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
@@ -246,6 +253,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -457,6 +465,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public List<Contact> selectCompactBean(Contact bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_COMPACT_BEAN_SQL3;
@@ -483,6 +492,8 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
@@ -518,6 +529,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -550,6 +562,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public void selectJQLBeanListener(Contact bean, OnReadBeanListener<Contact> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_J_Q_L_BEAN_LISTENER_SQL4;
@@ -577,6 +590,8 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Contact resultBean=new Contact();
       if (_cursor.moveToFirst()) {
 
@@ -595,7 +610,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.birthDay=null;
           resultBean.setPassword(null);
           resultBean.surname=null;
@@ -616,6 +631,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -643,6 +659,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public List<Contact> selecJQLBean(Contact bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELEC_J_Q_L_BEAN_SQL5;
@@ -670,6 +687,8 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
@@ -697,6 +716,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -729,6 +749,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public List<Contact> selectJQLRaw(String password, ContactType type) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_J_Q_L_RAW_SQL6;
@@ -755,6 +776,8 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
@@ -790,6 +813,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -822,6 +846,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public List<Contact> selectCompactRaw(String password, ContactType type) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_COMPACT_RAW_SQL7;
@@ -848,6 +873,8 @@ public class ContactDaoImpl extends Dao implements ContactDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Contact> resultList=new ArrayList<Contact>(_cursor.getCount());
       Contact resultBean=null;
@@ -883,6 +910,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1260,6 +1288,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public long insertCompactRaw(String password, ContactType type, long id) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCompactRawPreparedStatement9==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO contact (password, type, id) VALUES (?, ?, ?)";
@@ -1309,6 +1338,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCompactRawPreparedStatement9, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1330,6 +1360,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public long insertCompactBean(Contact bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCompactBeanPreparedStatement10==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO contact (id, type) VALUES (?, ?)";
@@ -1376,9 +1407,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCompactBeanPreparedStatement10, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1401,6 +1434,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public long insertJQLBean(Contact bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertJQLBeanPreparedStatement11==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO contact (password, type, id) VALUES (?, ?, ?)";
@@ -1448,9 +1482,11 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertJQLBeanPreparedStatement11, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1475,6 +1511,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    */
   @Override
   public long insertJQLRaw(String password, Date birthDay, ContactType type, long id) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertJQLRawPreparedStatement12==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO contact (password, type, id) VALUES (?, ?, ?)";
@@ -1524,6 +1561,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertJQLRawPreparedStatement12, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

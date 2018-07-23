@@ -49,6 +49,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    */
   @Override
   public List<CollegeStudent> getStudents(String firstName) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_STUDENTS_SQL1;
@@ -74,6 +75,8 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<CollegeStudent> resultList=new ArrayList<CollegeStudent>(_cursor.getCount());
       CollegeStudent resultBean=null;
@@ -98,6 +101,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -123,6 +127,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    */
   @Override
   public List<CollegeStudent> getStudentsRaw(String firstName) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_STUDENTS_RAW_SQL2;
@@ -148,6 +153,8 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<CollegeStudent> resultList=new ArrayList<CollegeStudent>(_cursor.getCount());
       CollegeStudent resultBean=null;
@@ -172,6 +179,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

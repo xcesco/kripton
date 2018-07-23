@@ -62,6 +62,8 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
   @Override
   public PaginatedResult<Person> select(int pageSize) {
     PaginatedResult3 paginatedResult=new PaginatedResult3(pageSize);
+    // common part generation - BEGIN
+    // common part generation - END
     return paginatedResult;
   }
 
@@ -91,6 +93,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
    * @return result list
    */
   private List<Person> select(int pageSize, PaginatedResult3 paginatedResult) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, birth_city, birth_day, name, surname FROM person");
@@ -135,6 +138,8 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
 
       List<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -163,6 +168,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
 
       return resultList;
     }
+    // Specialized part II - SelectPaginatedResultHelper - END
   }
 
   /**
@@ -189,6 +195,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
@@ -238,6 +245,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -258,6 +266,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
    */
   @Override
   public List<Person> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
@@ -282,6 +291,8 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -310,6 +321,7 @@ public class Dao2PersonImpl extends Dao implements Dao2Person {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**

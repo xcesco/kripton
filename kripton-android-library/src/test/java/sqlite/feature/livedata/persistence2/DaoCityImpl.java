@@ -38,6 +38,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
    */
   @Override
   public List<City> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL3;
@@ -62,6 +63,8 @@ public class DaoCityImpl extends Dao implements DaoCity {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<City> resultList=new ArrayList<City>(_cursor.getCount());
       City resultBean=null;
@@ -82,6 +85,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

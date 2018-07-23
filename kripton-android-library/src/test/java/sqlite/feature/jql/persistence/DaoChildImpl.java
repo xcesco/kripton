@@ -58,6 +58,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public List<Child> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
@@ -82,6 +83,8 @@ public class DaoChildImpl extends Dao implements DaoChild {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
@@ -106,6 +109,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -126,6 +130,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public Child insertBean(Child bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO child (name, parent_id) VALUES (?, ?)";
@@ -172,9 +177,11 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return bean;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -200,6 +207,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public List<Child> selectByParent(long parentId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PARENT_SQL2;
@@ -225,6 +233,8 @@ public class DaoChildImpl extends Dao implements DaoChild {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
@@ -249,6 +259,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -272,6 +283,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public int selectByParent2(long parentId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PARENT2_SQL3;
@@ -297,6 +309,8 @@ public class DaoChildImpl extends Dao implements DaoChild {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       int result=0;
 
       if (_cursor.moveToFirst()) {
@@ -306,6 +320,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -331,6 +346,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public List<Child> selectByParentId(long parentId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PARENT_ID_SQL4;
@@ -356,6 +372,8 @@ public class DaoChildImpl extends Dao implements DaoChild {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
@@ -380,6 +398,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -403,6 +422,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public void insertByCopy(long parentId, long aliasParentId, long parent) {
+    // Specialized Insert - InsertType - BEGIN
     KriptonContentValues _contentValues=contentValuesForUpdate();
     // build where condition
     _contentValues.addWhereArgs(String.valueOf(parentId));
@@ -438,6 +458,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // log section END
 
     database().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _contentValues.whereArgsAsArray());
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -458,6 +479,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public void insertByCopy3(Child bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertByCopy3PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="insert into child (name, parent_id) values (?, ?)";
@@ -504,7 +526,9 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertByCopy3PreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -526,6 +550,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public int insertByCopy(long parentId, String name) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertByCopyPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO child (parent_id, name) VALUES (?, ?)";
@@ -574,6 +599,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertByCopyPreparedStatement2, _contentValues);
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

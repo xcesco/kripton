@@ -58,6 +58,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    */
   @Override
   public int insertOneRaw(String name, String personSurname) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOneRawPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (person_name, person_surname) VALUES (?, ?)";
@@ -106,6 +107,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOneRawPreparedStatement0, _contentValues);
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -168,6 +170,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    */
   @Override
   public int insertOneRawFieldName(String name) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOneRawFieldNamePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_name) VALUES (?)";
@@ -215,6 +218,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOneRawFieldNamePreparedStatement1, _contentValues);
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -281,6 +285,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    */
   @Override
   public int insertOne2RawFieldName(String surnname, String name) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOne2RawFieldNamePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_name, person_surname) VALUES (?, ?)";
@@ -329,6 +334,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOne2RawFieldNamePreparedStatement2, _contentValues);
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -390,6 +396,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
    */
   @Override
   public void insertRawFromSelect(String name) {
+    // Specialized Insert - InsertType - BEGIN
     KriptonContentValues _contentValues=contentValuesForUpdate();
     // build where condition
     _contentValues.addWhereArgs((name==null?"":name));
@@ -423,6 +430,7 @@ public class InsertRawPersonDaoImpl extends Dao implements InsertRawPersonDao {
     // log section END
 
     database().execSQL("INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=?", _contentValues.whereArgsAsArray());
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

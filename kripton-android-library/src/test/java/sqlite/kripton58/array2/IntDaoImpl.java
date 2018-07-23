@@ -72,6 +72,7 @@ public class IntDaoImpl extends Dao implements IntDao {
    */
   @Override
   public IntBean selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
@@ -96,6 +97,8 @@ public class IntDaoImpl extends Dao implements IntDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       IntBean resultBean=null;
 
@@ -114,6 +117,7 @@ public class IntDaoImpl extends Dao implements IntDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -142,6 +146,7 @@ public class IntDaoImpl extends Dao implements IntDao {
    */
   @Override
   public IntBean selectOne(int[] value, Integer[] value2) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -168,6 +173,8 @@ public class IntDaoImpl extends Dao implements IntDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       IntBean resultBean=null;
 
@@ -186,6 +193,7 @@ public class IntDaoImpl extends Dao implements IntDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -215,6 +223,7 @@ public class IntDaoImpl extends Dao implements IntDao {
    */
   @Override
   public void selectOne(int[] value, Integer[] value2, OnReadBeanListener<IntBean> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
@@ -241,6 +250,8 @@ public class IntDaoImpl extends Dao implements IntDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       IntBean resultBean=new IntBean();
       if (_cursor.moveToFirst()) {
 
@@ -252,7 +263,7 @@ public class IntDaoImpl extends Dao implements IntDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.setValue(null);
           resultBean.setValue2(null);
 
@@ -265,6 +276,7 @@ public class IntDaoImpl extends Dao implements IntDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -294,6 +306,7 @@ public class IntDaoImpl extends Dao implements IntDao {
    */
   @Override
   public void selectOne(int[] value, Integer[] value2, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL4;
@@ -320,6 +333,8 @@ public class IntDaoImpl extends Dao implements IntDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -329,6 +344,7 @@ public class IntDaoImpl extends Dao implements IntDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -357,6 +373,7 @@ public class IntDaoImpl extends Dao implements IntDao {
    */
   @Override
   public List<IntBean> selectList(int[] value, Integer[] value2) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL5;
@@ -383,6 +400,8 @@ public class IntDaoImpl extends Dao implements IntDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<IntBean> resultList=new ArrayList<IntBean>(_cursor.getCount());
       IntBean resultBean=null;
@@ -407,6 +426,7 @@ public class IntDaoImpl extends Dao implements IntDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -500,6 +520,7 @@ public class IntDaoImpl extends Dao implements IntDao {
    */
   @Override
   public long insert(long id, int[] value, Integer[] value2) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO int_bean (id, value, value2) VALUES (?, ?, ?)";
@@ -549,6 +570,7 @@ public class IntDaoImpl extends Dao implements IntDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -570,6 +592,7 @@ public class IntDaoImpl extends Dao implements IntDao {
    */
   @Override
   public long insert(IntBean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO int_bean (value, value2) VALUES (?, ?)";
@@ -616,9 +639,11 @@ public class IntDaoImpl extends Dao implements IntDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

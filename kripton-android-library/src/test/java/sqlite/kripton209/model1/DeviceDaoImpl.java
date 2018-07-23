@@ -48,6 +48,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    */
   @Override
   public void insert(Device device) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO device (name) VALUES (?)";
@@ -93,7 +94,9 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     device.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -111,6 +114,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    */
   @Override
   public List<Device> getAllDevices() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_ALL_DEVICES_SQL1;
@@ -135,6 +139,8 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Device> resultList=new ArrayList<Device>(_cursor.getCount());
       Device resultBean=null;
@@ -157,6 +163,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -181,6 +188,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    */
   @Override
   public List<Device> getUserDevices(Long userId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_USER_DEVICES_SQL2;
@@ -206,6 +214,8 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Device> resultList=new ArrayList<Device>(_cursor.getCount());
       Device resultBean=null;
@@ -228,6 +238,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

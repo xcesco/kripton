@@ -100,10 +100,9 @@ public class RatingBindMap extends AbstractMapper<Rating> {
    */
   @Override
   public Rating parseOnJackson(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __source=null;
     String __value=null;
-
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -146,10 +145,9 @@ public class RatingBindMap extends AbstractMapper<Rating> {
    */
   @Override
   public Rating parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __source=null;
     String __value=null;
-
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -192,10 +190,9 @@ public class RatingBindMap extends AbstractMapper<Rating> {
    */
   @Override
   public Rating parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __source=null;
     String __value=null;
-
     int eventType = currentEventType;
     boolean read=true;
 

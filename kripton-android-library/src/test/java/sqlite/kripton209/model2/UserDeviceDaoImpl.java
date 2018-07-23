@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -62,6 +63,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    */
   @Override
   public UserDevice selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL5;
@@ -87,8 +89,16 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       UserDevice resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      Long __userId=null;
+      Long __deviceId=null;
 
       if (_cursor.moveToFirst()) {
 
@@ -96,15 +106,22 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
         int index1=_cursor.getColumnIndex("device_id");
         int index2=_cursor.getColumnIndex("user_id");
 
-        resultBean=new UserDevice();
-
-        resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
+        // reset temporary variable for immutable POJO
+        // immutable object: initialize temporary variables for properties
+        __id=0;
+        __userId=null;
+        __deviceId=null;
+        __id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { __deviceId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { __userId=_cursor.getLong(index2); }
 
       }
+      // define immutable POJO
+      // immutable object: inizialize object
+      resultBean=new UserDevice(__id,__userId,__deviceId);
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -126,10 +143,11 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * @param userId
    * 	is binded to <code>:userId</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<UserDevice> selectByUserId(Long userId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_USER_ID_SQL6;
@@ -155,9 +173,17 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<UserDevice> resultList=new ArrayList<UserDevice>(_cursor.getCount());
       UserDevice resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      Long __userId=null;
+      Long __deviceId=null;
 
       if (_cursor.moveToFirst()) {
 
@@ -167,18 +193,25 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
         do
          {
-          resultBean=new UserDevice();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __userId=null;
+          __deviceId=null;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __deviceId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { __userId=_cursor.getLong(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new UserDevice(__id,__userId,__deviceId);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -200,10 +233,11 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * @param deviceId
    * 	is binded to <code>:deviceId</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<UserDevice> selectByDeviceId(Long deviceId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_DEVICE_ID_SQL7;
@@ -229,9 +263,17 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<UserDevice> resultList=new ArrayList<UserDevice>(_cursor.getCount());
       UserDevice resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      Long __userId=null;
+      Long __deviceId=null;
 
       if (_cursor.moveToFirst()) {
 
@@ -241,18 +283,25 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
         do
          {
-          resultBean=new UserDevice();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __userId=null;
+          __deviceId=null;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __deviceId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { __userId=_cursor.getLong(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new UserDevice(__id,__userId,__deviceId);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -409,14 +458,15 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    */
   @Override
   public int insert(UserDevice bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO user_2_device (device_id, user_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
-    _contentValues.put("device_id", bean.deviceId);
-    _contentValues.put("user_id", bean.userId);
+    _contentValues.put("device_id", bean.getDeviceId());
+    _contentValues.put("user_id", bean.getUserId());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -455,9 +505,9 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
-    bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

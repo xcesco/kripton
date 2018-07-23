@@ -46,6 +46,7 @@ public class BookDaoImpl extends Dao implements BookDao {
    */
   @Override
   public void insert(Book entity) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO book (title) VALUES (?)";
@@ -91,7 +92,9 @@ public class BookDaoImpl extends Dao implements BookDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     entity.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -116,6 +119,7 @@ public class BookDaoImpl extends Dao implements BookDao {
    */
   @Override
   public List<Book> findBooksBorrowedByUser(long userId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=FIND_BOOKS_BORROWED_BY_USER_SQL1;
@@ -141,6 +145,8 @@ public class BookDaoImpl extends Dao implements BookDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Book> resultList=new ArrayList<Book>(_cursor.getCount());
       Book resultBean=null;
@@ -163,6 +169,7 @@ public class BookDaoImpl extends Dao implements BookDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

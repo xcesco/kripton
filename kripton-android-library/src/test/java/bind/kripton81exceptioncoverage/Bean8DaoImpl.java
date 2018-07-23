@@ -39,6 +39,7 @@ public class Bean8DaoImpl extends Dao implements Bean8Dao {
    */
   @Override
   public List<Bean8> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
@@ -63,6 +64,8 @@ public class Bean8DaoImpl extends Dao implements Bean8Dao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean8> resultList=new ArrayList<Bean8>(_cursor.getCount());
       Bean8 resultBean=null;
@@ -85,6 +88,7 @@ public class Bean8DaoImpl extends Dao implements Bean8Dao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

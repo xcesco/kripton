@@ -85,6 +85,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public Bean2 selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
@@ -109,6 +110,8 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean2 resultBean=null;
 
@@ -145,6 +148,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -180,6 +184,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean2> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -205,6 +210,8 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean2 resultBean=new Bean2();
       if (_cursor.moveToFirst()) {
 
@@ -225,7 +232,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.value=null;
           resultBean.setValueBeanSet(null);
           resultBean.setValueBigDecimalSet(null);
@@ -256,6 +263,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -291,6 +299,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
@@ -316,6 +325,8 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -325,6 +336,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -359,6 +371,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public List<Bean2> selectList(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL4;
@@ -384,6 +397,8 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean2> resultList=new ArrayList<Bean2>(_cursor.getCount());
       Bean2 resultBean=null;
@@ -426,6 +441,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -539,6 +555,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public long insert(Bean2 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean2 (value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -594,9 +611,11 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -615,6 +634,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public long insert(HashSet<BigDecimal> valueBigDecimalSet) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean2 (value_big_decimal_set) VALUES (?)";
@@ -662,6 +682,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -696,6 +717,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public Bean2 selectOne(HashSet<BigDecimal> valueBigDecimalSet) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL5;
@@ -721,6 +743,8 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean2 resultBean=null;
 
@@ -757,6 +781,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

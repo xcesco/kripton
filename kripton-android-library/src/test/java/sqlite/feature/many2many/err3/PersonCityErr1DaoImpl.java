@@ -62,6 +62,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    */
   @Override
   public List<PersonCityErr3> selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL5;
@@ -87,6 +88,8 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityErr3> resultList=new ArrayList<PersonCityErr3>(_cursor.getCount());
       PersonCityErr3 resultBean=null;
@@ -111,6 +114,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -136,6 +140,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    */
   @Override
   public List<PersonCityErr3> selectByPersonId(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PERSON_ID_SQL6;
@@ -161,6 +166,8 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityErr3> resultList=new ArrayList<PersonCityErr3>(_cursor.getCount());
       PersonCityErr3 resultBean=null;
@@ -185,6 +192,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -210,6 +218,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    */
   @Override
   public List<PersonCityErr3> selectByCityId(long cityId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CITY_ID_SQL7;
@@ -235,6 +244,8 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityErr3> resultList=new ArrayList<PersonCityErr3>(_cursor.getCount());
       PersonCityErr3 resultBean=null;
@@ -259,6 +270,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -415,6 +427,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    */
   @Override
   public int insert(PersonCityErr3 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person_city_err3 (city_id, person_id) VALUES (?, ?)";
@@ -461,9 +474,11 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

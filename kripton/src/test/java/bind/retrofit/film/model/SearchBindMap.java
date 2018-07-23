@@ -176,11 +176,10 @@ public class SearchBindMap extends AbstractMapper<Search> {
    */
   @Override
   public Search parseOnJackson(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __response=null;
     List<Film> __search=null;
     String __totalResults=null;
-
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -239,11 +238,10 @@ public class SearchBindMap extends AbstractMapper<Search> {
    */
   @Override
   public Search parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __response=null;
     List<Film> __search=null;
     String __totalResults=null;
-
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -307,11 +305,10 @@ public class SearchBindMap extends AbstractMapper<Search> {
    */
   @Override
   public Search parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __response=null;
     List<Film> __search=null;
     String __totalResults=null;
-
     int eventType = currentEventType;
     boolean read=true;
 

@@ -57,6 +57,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    */
   @Override
   public boolean insert(Article bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO article (author, channel_id, comments, description, guid, link, title) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -108,9 +109,11 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -141,6 +144,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    */
   @Override
   public List<Article> selectByChannel(long channelId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CHANNEL_SQL1;
@@ -166,6 +170,8 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Article> resultList=new ArrayList<Article>(_cursor.getCount());
       Article resultBean=null;
@@ -200,6 +206,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -223,6 +230,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    */
   @Override
   public List<Article> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
@@ -247,6 +255,8 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Article> resultList=new ArrayList<Article>(_cursor.getCount());
       Article resultBean=null;
@@ -281,6 +291,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

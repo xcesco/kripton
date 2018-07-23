@@ -53,7 +53,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public PaginatedResult<Person> select() {
-    PaginatedResult0 paginatedResult=new PaginatedResult0();
+    PaginatedResult6 paginatedResult=new PaginatedResult6();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -77,7 +77,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	handler of paginated result
    * @return result list
    */
-  private List<Person> select(PaginatedResult0 paginatedResult) {
+  private List<Person> select(PaginatedResult6 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -196,7 +196,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
-    // // Specialized Insert - InsertType - BEGIN
+    // Specialized Insert - InsertType - BEGIN
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
@@ -246,7 +246,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
-    // // Specialized Insert - InsertType - END
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -393,8 +393,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult0 extends PaginatedResult<Person> {
-    PaginatedResult0() {
+  public class PaginatedResult6 extends PaginatedResult<Person> {
+    PaginatedResult6() {
       this.pageSize=10;
     }
 

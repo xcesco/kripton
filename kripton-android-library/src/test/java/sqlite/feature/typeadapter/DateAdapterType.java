@@ -19,7 +19,6 @@ import java.util.Date;
 
 import com.abubusoft.kripton.android.SqlTypeAdapter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DateAdapterType.
  */

@@ -963,4 +963,8 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return getName() + "Sql" + nextCounter();
 	}
 
+	public boolean isSpreadParameter(String methodParamName) {
+		return this.jql.spreadParams.contains(methodParamName);
+	}
+
 }

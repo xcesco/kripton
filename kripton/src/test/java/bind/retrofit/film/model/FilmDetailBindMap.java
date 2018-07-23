@@ -595,7 +595,7 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
    */
   @Override
   public FilmDetail parseOnJackson(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __title=null;
     String __year=null;
     String __rated=null;
@@ -621,7 +621,6 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
     String __production=null;
     String __website=null;
     String __response=null;
-
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -812,7 +811,7 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
    */
   @Override
   public FilmDetail parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __title=null;
     String __year=null;
     String __rated=null;
@@ -838,7 +837,6 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
     String __production=null;
     String __website=null;
     String __response=null;
-
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -1034,7 +1032,7 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
    */
   @Override
   public FilmDetail parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __title=null;
     String __year=null;
     String __rated=null;
@@ -1060,7 +1058,6 @@ public class FilmDetailBindMap extends AbstractMapper<FilmDetail> {
     String __production=null;
     String __website=null;
     String __response=null;
-
     int eventType = currentEventType;
     boolean read=true;
 

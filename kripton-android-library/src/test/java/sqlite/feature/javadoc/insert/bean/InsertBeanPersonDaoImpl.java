@@ -60,6 +60,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    */
   @Override
   public int insertOneBean(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOneBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (person_name, person_surname, student) VALUES (?, ?, ?)";
@@ -107,9 +108,11 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOneBeanPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -174,6 +177,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    */
   @Override
   public int insertOneBeanFieldName(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOneBeanFieldNamePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_name) VALUES (?)";
@@ -219,9 +223,11 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOneBeanFieldNamePreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -288,6 +294,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    */
   @Override
   public int insertOneBeanFieldSurname(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOneBeanFieldSurnamePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (person_surname, student) VALUES (?, ?)";
@@ -334,9 +341,11 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOneBeanFieldSurnamePreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -401,6 +410,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
    */
   @Override
   public void insertBeanFromSelect(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("person_name", bean.getPersonName());
 
@@ -436,7 +446,9 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
     // generate SQL for insert
     String _sql=String.format("INSERT OR REPLACE INTO person (%s) SELECT person_name FROM person WHERE person_name=?", _contentValues.keyList());
     long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

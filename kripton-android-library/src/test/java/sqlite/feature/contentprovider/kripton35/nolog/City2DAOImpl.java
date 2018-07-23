@@ -53,6 +53,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
    */
   @Override
   public void insertBean(City bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO city (name) VALUES (?)";
@@ -63,7 +64,9 @@ public class City2DAOImpl extends Dao implements City2DAO {
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -131,6 +134,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
    */
   @Override
   public City selectCityFromPerson(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_CITY_FROM_PERSON_SQL2;
@@ -138,6 +142,8 @@ public class City2DAOImpl extends Dao implements City2DAO {
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       City resultBean=null;
 
@@ -154,6 +160,7 @@ public class City2DAOImpl extends Dao implements City2DAO {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

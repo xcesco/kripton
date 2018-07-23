@@ -22,7 +22,7 @@ public class PersonPhoneNumber {
   @BindSqlColumn(
       columnType = ColumnType.PRIMARY_KEY
   )
-  public long id;
+  private long id;
 
   /**
    * Foreign key to Person model class
@@ -31,7 +31,7 @@ public class PersonPhoneNumber {
       parentEntity = Person.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long personId;
+  private long personId;
 
   /**
    * Foreign key to PhoneNumber model class
@@ -40,5 +40,23 @@ public class PersonPhoneNumber {
       parentEntity = PhoneNumber.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public long phoneNumberId;
+  private long phoneNumberId;
+
+  public PersonPhoneNumber(long id, long personId, long phoneNumberId) {
+    this.id=id;
+    this.personId=personId;
+    this.phoneNumberId=phoneNumberId;
+  }
+
+  public long getId() {
+    return this.id;
+  }
+
+  public long getPersonId() {
+    return this.personId;
+  }
+
+  public long getPhoneNumberId() {
+    return this.phoneNumberId;
+  }
 }

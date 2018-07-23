@@ -51,6 +51,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
    */
   @Override
   public long insert(FileBean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO files (content, content_type, name) VALUES (?, ?, ?)";
@@ -98,9 +99,11 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -125,6 +128,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
    */
   @Override
   public long insert(String name, String contentType, byte[] content) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO files (name, content_type, content) VALUES (?, ?, ?)";
@@ -174,6 +178,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -200,6 +205,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
    */
   @Override
   public List<FileBean> selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
@@ -225,6 +231,8 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<FileBean> resultList=new ArrayList<FileBean>(_cursor.getCount());
       FileBean resultBean=null;
@@ -251,6 +259,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

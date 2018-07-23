@@ -66,6 +66,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    */
   @Override
   public int insert(PhoneNumber bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO phone_number (action, contact_id, contact_name, country_code, number) VALUES (?, ?, ?, ?, ?)";
@@ -115,12 +116,14 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
+    bean.id=result;
     if (result>0) {
       subject.onNext(SQLiteEvent.createInsert(result));
     }
-    bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -149,6 +152,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    */
   @Override
   public PhoneNumber selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
@@ -174,6 +178,8 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PhoneNumber resultBean=null;
 
@@ -198,6 +204,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -321,6 +328,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    */
   @Override
   public PhoneNumber selectByNumber(String number) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_NUMBER_SQL2;
@@ -346,6 +354,8 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PhoneNumber resultBean=null;
 
@@ -370,6 +380,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -391,6 +402,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    */
   @Override
   public List<PhoneNumber> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL3;
@@ -415,6 +427,8 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PhoneNumber> resultList=new ArrayList<PhoneNumber>(_cursor.getCount());
       PhoneNumber resultBean=null;
@@ -445,6 +459,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public PublishSubject<SQLiteEvent> getSubject() {

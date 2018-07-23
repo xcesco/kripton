@@ -157,13 +157,12 @@ public class FilmBindMap extends AbstractMapper<Film> {
    */
   @Override
   public Film parseOnJackson(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __title=null;
     String __year=null;
     String __imdbID=null;
     String __type=null;
     String __poster=null;
-
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -224,13 +223,12 @@ public class FilmBindMap extends AbstractMapper<Film> {
    */
   @Override
   public Film parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __title=null;
     String __year=null;
     String __imdbID=null;
     String __type=null;
     String __poster=null;
-
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -291,13 +289,12 @@ public class FilmBindMap extends AbstractMapper<Film> {
    */
   @Override
   public Film parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     String __title=null;
     String __year=null;
     String __imdbID=null;
     String __type=null;
     String __poster=null;
-
     int eventType = currentEventType;
     boolean read=true;
 

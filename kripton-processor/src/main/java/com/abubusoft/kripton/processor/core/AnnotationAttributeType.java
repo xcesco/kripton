@@ -160,6 +160,8 @@ public enum AnnotationAttributeType {
 
 	/** The in memory. */
 	IN_MEMORY("inMemory"),
+	
+	IMMUTABLE("immutable"),
 
 	/** The entity 1. */
 	ENTITY_1("entity1"),

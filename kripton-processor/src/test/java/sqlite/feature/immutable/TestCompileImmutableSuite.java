@@ -29,7 +29,8 @@ import base.BaseProcessorTest;
 		{ 
 		TestCompileAdapterImmutable.class,
 		TestCompileContentProviderImmutable.class,
-		TestCompilePagedResultImmutable.class
+		TestCompilePagedResultImmutable.class,
+		TestCompileMany2ManyImmutable.class
 		 })
 //@formatter:on
 public class TestCompileImmutableSuite extends BaseProcessorTest {

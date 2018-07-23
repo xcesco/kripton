@@ -64,6 +64,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   @Override
   public int count() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=COUNT_SQL1;
@@ -88,6 +89,8 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       int result=0;
 
       if (_cursor.moveToFirst()) {
@@ -97,6 +100,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -117,6 +121,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   @Override
   public long insert(Cheese cheese) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO cheeses (name) VALUES (?)";
@@ -162,9 +167,11 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     cheese.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -226,6 +233,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   @Override
   public List<Cheese> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
@@ -250,6 +258,8 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Cheese> resultList=new ArrayList<Cheese>(_cursor.getCount());
       Cheese resultBean=null;
@@ -272,6 +282,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -359,6 +370,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   @Override
   public Cheese selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL3;
@@ -384,6 +396,8 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Cheese resultBean=null;
 
@@ -400,6 +414,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

@@ -57,6 +57,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    */
   @Override
   public int insert(PrefixConfig bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (?, ?, ?, ?)";
@@ -105,9 +106,11 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -135,6 +138,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    */
   @Override
   public PrefixConfig selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL4;
@@ -160,6 +164,8 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PrefixConfig resultBean=null;
 
@@ -182,6 +188,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -291,6 +298,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    */
   @Override
   public PrefixConfig selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL5;
@@ -315,6 +323,8 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PrefixConfig resultBean=null;
 
@@ -337,6 +347,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

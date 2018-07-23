@@ -373,7 +373,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    */
   @Override
   public Album insert(Album bean) {
-    // // Specialized Insert - InsertType - BEGIN
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (artist_id, name) VALUES (?, ?)";
@@ -434,7 +434,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     bean=new Album(__id,__name,__artistId);
 
     return bean;
-    // // Specialized Insert - InsertType - END
+    // Specialized Insert - InsertType - END
   }
 
   /**

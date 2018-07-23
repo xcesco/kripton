@@ -50,6 +50,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
    */
   @Override
   public List<BeanA_2> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL4;
@@ -74,6 +75,8 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<BeanA_2> resultList=new ArrayList<BeanA_2>(_cursor.getCount());
       BeanA_2 resultBean=null;
@@ -96,6 +99,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -120,6 +124,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
    */
   @Override
   public List<BeanA_2> selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL5;
@@ -145,6 +150,8 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<BeanA_2> resultList=new ArrayList<BeanA_2>(_cursor.getCount());
       BeanA_2 resultBean=null;
@@ -167,6 +174,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -190,6 +198,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
    */
   @Override
   public List<BeanA_2> selectByString(String value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_STRING_SQL6;
@@ -215,6 +224,8 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<BeanA_2> resultList=new ArrayList<BeanA_2>(_cursor.getCount());
       BeanA_2 resultBean=null;
@@ -235,6 +246,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -255,6 +267,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
    */
   @Override
   public int insert(BeanA_2 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean_a_2 (value_string2) VALUES (?)";
@@ -300,9 +313,11 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

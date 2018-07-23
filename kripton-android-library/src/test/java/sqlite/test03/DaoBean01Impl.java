@@ -43,6 +43,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    */
   @Override
   public List<Bean01> listAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=LIST_ALL_SQL1;
@@ -67,6 +68,8 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean01> resultList=new ArrayList<Bean01>(_cursor.getCount());
       Bean01 resultBean=null;
@@ -97,6 +100,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

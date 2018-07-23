@@ -48,6 +48,7 @@ public class CityDaoImpl extends Dao implements CityDao {
    */
   @Override
   public List<City> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL3;
@@ -72,6 +73,8 @@ public class CityDaoImpl extends Dao implements CityDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<City> resultList=new ArrayList<City>(_cursor.getCount());
       City resultBean=null;
@@ -94,6 +97,7 @@ public class CityDaoImpl extends Dao implements CityDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -114,6 +118,7 @@ public class CityDaoImpl extends Dao implements CityDao {
    */
   @Override
   public long insert(City bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO cities (name) VALUES (?)";
@@ -159,9 +164,11 @@ public class CityDaoImpl extends Dao implements CityDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -186,6 +193,7 @@ public class CityDaoImpl extends Dao implements CityDao {
    */
   @Override
   public City selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL4;
@@ -211,6 +219,8 @@ public class CityDaoImpl extends Dao implements CityDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       City resultBean=null;
 
@@ -227,6 +237,7 @@ public class CityDaoImpl extends Dao implements CityDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

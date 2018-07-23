@@ -68,6 +68,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public List<PersonPhone> selectByDate(Date since) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_DATE_SQL11;
@@ -93,6 +94,8 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonPhone> resultList=new ArrayList<PersonPhone>(_cursor.getCount());
       PersonPhone resultBean=null;
@@ -119,6 +122,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -145,6 +149,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public PersonPhone selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL12;
@@ -170,6 +175,8 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PersonPhone resultBean=null;
 
@@ -190,6 +197,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -216,6 +224,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public List<PersonPhone> selectByPersonId(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PERSON_ID_SQL13;
@@ -241,6 +250,8 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonPhone> resultList=new ArrayList<PersonPhone>(_cursor.getCount());
       PersonPhone resultBean=null;
@@ -267,6 +278,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -293,6 +305,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public List<PersonPhone> selectByPhoneNumberId(long phoneNumberId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PHONE_NUMBER_ID_SQL14;
@@ -318,6 +331,8 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonPhone> resultList=new ArrayList<PersonPhone>(_cursor.getCount());
       PersonPhone resultBean=null;
@@ -344,6 +359,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -501,6 +517,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public int insert(PersonPhone bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person_phone (buy_date, person_id, phone_number_id) VALUES (?, ?, ?)";
@@ -548,9 +565,11 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

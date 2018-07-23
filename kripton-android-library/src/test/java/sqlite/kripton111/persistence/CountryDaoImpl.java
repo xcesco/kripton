@@ -60,6 +60,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public int insert(Country bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO country (area, calling_code, code, name, region) VALUES (?, ?, ?, ?, ?)";
@@ -109,9 +110,11 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -140,6 +143,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public Country selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL6;
@@ -165,6 +169,8 @@ public class CountryDaoImpl extends Dao implements CountryDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Country resultBean=null;
 
@@ -189,6 +195,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -255,6 +262,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public List<Country> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL7;
@@ -279,6 +287,8 @@ public class CountryDaoImpl extends Dao implements CountryDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Country> resultList=new ArrayList<Country>(_cursor.getCount());
       Country resultBean=null;
@@ -309,6 +319,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -337,6 +348,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public Country selectByCallingCode(String callingCode) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CALLING_CODE_SQL8;
@@ -362,6 +374,8 @@ public class CountryDaoImpl extends Dao implements CountryDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Country resultBean=null;
 
@@ -386,6 +400,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -414,6 +429,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public Country selectByCountry(String code) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_COUNTRY_SQL9;
@@ -439,6 +455,8 @@ public class CountryDaoImpl extends Dao implements CountryDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Country resultBean=null;
 
@@ -463,6 +481,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   public static void clearCompiledStatements() {

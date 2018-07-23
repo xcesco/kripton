@@ -50,6 +50,7 @@ public class Bean96DaoImpl extends Dao implements Bean96Dao {
    */
   @Override
   public Bean96 selectByBean(String name) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_BEAN_SQL1;
@@ -75,6 +76,8 @@ public class Bean96DaoImpl extends Dao implements Bean96Dao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean96 resultBean=null;
 
@@ -93,6 +96,7 @@ public class Bean96DaoImpl extends Dao implements Bean96Dao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -114,6 +118,7 @@ public class Bean96DaoImpl extends Dao implements Bean96Dao {
    */
   @Override
   public boolean insert(Bean96 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean96 (name, surname) VALUES (?, ?)";
@@ -160,9 +165,11 @@ public class Bean96DaoImpl extends Dao implements Bean96Dao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

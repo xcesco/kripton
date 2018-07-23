@@ -48,6 +48,7 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
    */
   @Override
   public List<Bean64B> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
@@ -72,6 +73,8 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean64B> resultList=new ArrayList<Bean64B>(_cursor.getCount());
       Bean64B resultBean=null;
@@ -98,6 +101,7 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -124,6 +128,7 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
    */
   @Override
   public List<Bean64B> selectList(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL2;
@@ -149,6 +154,8 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean64B> resultList=new ArrayList<Bean64B>(_cursor.getCount());
       Bean64B resultBean=null;
@@ -175,6 +182,7 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -197,6 +205,7 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
    */
   @Override
   public long insert(Bean64B bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean64_b (value_map_string_bean, value_set_string, value_string) VALUES (?, ?, ?)";
@@ -244,9 +253,11 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

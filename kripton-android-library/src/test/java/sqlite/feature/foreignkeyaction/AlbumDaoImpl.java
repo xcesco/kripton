@@ -58,6 +58,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    */
   @Override
   public Album selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL3;
@@ -83,6 +84,8 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Album resultBean=null;
 
@@ -101,6 +104,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -119,6 +123,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    */
   @Override
   public List<Album> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL4;
@@ -143,6 +148,8 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Album> resultList=new ArrayList<Album>(_cursor.getCount());
       Album resultBean=null;
@@ -167,6 +174,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -253,6 +261,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    */
   @Override
   public long insert(Album bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (artist_id, name) VALUES (?, ?)";
@@ -299,9 +308,11 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

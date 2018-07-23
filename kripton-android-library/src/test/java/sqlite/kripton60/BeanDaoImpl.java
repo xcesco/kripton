@@ -1812,6 +1812,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(Bean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement31==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1897,9 +1898,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement31, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1918,6 +1921,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(BigDecimal valueBigDecimal) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement32==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_big_decimal) VALUES (?)";
@@ -1965,6 +1969,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement32, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1983,6 +1988,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(BigInteger valueBigInteger) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement33==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_big_integer) VALUES (?)";
@@ -2030,6 +2036,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement33, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2048,6 +2055,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(boolean valueBoolType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement34==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_bool_type) VALUES (?)";
@@ -2095,6 +2103,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement34, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2113,6 +2122,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(Boolean valueBool) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement35==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_bool) VALUES (?)";
@@ -2160,6 +2170,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement35, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2178,6 +2189,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertArrayBeanType(Bean[] valueBeanArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertArrayBeanTypePreparedStatement36==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_bean_array) VALUES (?)";
@@ -2225,6 +2237,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertArrayBeanTypePreparedStatement36, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2243,6 +2256,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertArrayLong(Long[] valueLongArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertArrayLongPreparedStatement37==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long_array) VALUES (?)";
@@ -2290,6 +2304,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertArrayLongPreparedStatement37, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2308,6 +2323,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertArrayLongType(long[] valueLongTypeArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertArrayLongTypePreparedStatement38==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long_type_array) VALUES (?)";
@@ -2355,6 +2371,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertArrayLongTypePreparedStatement38, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2373,6 +2390,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertByte(Byte valueByte) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBytePreparedStatement39==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_byte) VALUES (?)";
@@ -2420,6 +2438,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBytePreparedStatement39, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2438,6 +2457,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertByteType(byte valueByteType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertByteTypePreparedStatement40==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_byte_type) VALUES (?)";
@@ -2485,6 +2505,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertByteTypePreparedStatement40, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2503,6 +2524,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertCalendar(Calendar valueCalendar) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCalendarPreparedStatement41==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_calendar) VALUES (?)";
@@ -2550,6 +2572,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCalendarPreparedStatement41, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2568,6 +2591,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertChar(Character valueChar) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCharPreparedStatement42==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_char) VALUES (?)";
@@ -2615,6 +2639,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCharPreparedStatement42, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2633,6 +2658,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertCharType(char valueCharType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCharTypePreparedStatement43==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_char_type) VALUES (?)";
@@ -2680,6 +2706,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCharTypePreparedStatement43, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2698,6 +2725,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertCurrency(Currency valueCurrency) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCurrencyPreparedStatement44==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_currency) VALUES (?)";
@@ -2745,6 +2773,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCurrencyPreparedStatement44, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2763,6 +2792,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertDate(Date valueDate) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertDatePreparedStatement45==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_date) VALUES (?)";
@@ -2810,6 +2840,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertDatePreparedStatement45, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2828,6 +2859,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertDouble(Double valueDouble) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertDoublePreparedStatement46==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_double) VALUES (?)";
@@ -2875,6 +2907,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertDoublePreparedStatement46, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2893,6 +2926,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertDoubleType(double valueDoubleType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertDoubleTypePreparedStatement47==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_double_type) VALUES (?)";
@@ -2940,6 +2974,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertDoubleTypePreparedStatement47, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2958,6 +2993,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertEnumType(EnumType valueEnumType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertEnumTypePreparedStatement48==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_enum_type) VALUES (?)";
@@ -3005,6 +3041,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertEnumTypePreparedStatement48, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3023,6 +3060,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertFloat(Float valueFloat) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertFloatPreparedStatement49==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_float) VALUES (?)";
@@ -3070,6 +3108,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertFloatPreparedStatement49, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3088,6 +3127,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertFloatType(float valueFloatType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertFloatTypePreparedStatement50==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_float_type) VALUES (?)";
@@ -3135,6 +3175,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertFloatTypePreparedStatement50, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3153,6 +3194,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertInt(Integer valueInt) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertIntPreparedStatement51==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_int) VALUES (?)";
@@ -3200,6 +3242,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertIntPreparedStatement51, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3218,6 +3261,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertIntType(int valueIntType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertIntTypePreparedStatement52==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_int_type) VALUES (?)";
@@ -3265,6 +3309,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertIntTypePreparedStatement52, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3283,6 +3328,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertListLong(LinkedList<Long> valueLongList) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertListLongPreparedStatement53==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long_list) VALUES (?)";
@@ -3330,6 +3376,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertListLongPreparedStatement53, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3348,6 +3395,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertLocale(Locale valueLocale) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertLocalePreparedStatement54==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_locale) VALUES (?)";
@@ -3395,6 +3443,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertLocalePreparedStatement54, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3413,6 +3462,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertLong(Long valueLong) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertLongPreparedStatement55==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long) VALUES (?)";
@@ -3460,6 +3510,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertLongPreparedStatement55, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3478,6 +3529,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertLongType(long valueLongType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertLongTypePreparedStatement56==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long_type) VALUES (?)";
@@ -3525,6 +3577,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertLongTypePreparedStatement56, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3543,6 +3596,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertShort(Short valueShort) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertShortPreparedStatement57==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_short) VALUES (?)";
@@ -3590,6 +3644,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertShortPreparedStatement57, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3608,6 +3663,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertShortType(short valueShortType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertShortTypePreparedStatement58==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_short_type) VALUES (?)";
@@ -3655,6 +3711,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertShortTypePreparedStatement58, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3673,6 +3730,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertString(String valueString) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertStringPreparedStatement59==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_string) VALUES (?)";
@@ -3720,6 +3778,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertStringPreparedStatement59, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3738,6 +3797,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertTime(Time valueTime) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertTimePreparedStatement60==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_time) VALUES (?)";
@@ -3785,6 +3845,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertTimePreparedStatement60, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3803,6 +3864,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertTimeZone(TimeZone valueTimeZone) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertTimeZonePreparedStatement61==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_time_zone) VALUES (?)";
@@ -3850,6 +3912,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertTimeZonePreparedStatement61, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3868,6 +3931,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertURL(URL valueUrl) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertURLPreparedStatement62==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_url) VALUES (?)";
@@ -3915,6 +3979,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertURLPreparedStatement62, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3979,6 +4044,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public List<Bean> selectList(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL1;
@@ -4004,6 +4070,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean> resultList=new ArrayList<Bean>(_cursor.getCount());
       Bean resultBean=null;
@@ -4106,6 +4174,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -4163,6 +4232,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -4187,6 +4257,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -4283,6 +4355,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -4347,6 +4420,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne(BigDecimal valueBigDecimal) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
@@ -4372,6 +4446,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -4468,6 +4544,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -4532,6 +4609,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne(BigInteger valueBigDecimal) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL4;
@@ -4557,6 +4635,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -4653,6 +4733,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -4717,6 +4798,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne(boolean valueBoolType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL5;
@@ -4742,6 +4824,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -4838,6 +4922,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -4902,6 +4987,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne(Boolean valueBool) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL6;
@@ -4927,6 +5013,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -5023,6 +5111,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -5088,6 +5177,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL7;
@@ -5113,6 +5203,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean resultBean=new Bean();
       if (_cursor.moveToFirst()) {
 
@@ -5163,7 +5255,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.valueBeanArray=null;
           resultBean.valueBigDecimal=null;
           resultBean.valueBigInteger=null;
@@ -5254,6 +5346,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -5319,6 +5412,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL8;
@@ -5344,6 +5438,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -5353,6 +5449,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -5417,6 +5514,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayBeanType(Bean[] valueBeanArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_ARRAY_BEAN_TYPE_SQL9;
@@ -5442,6 +5540,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -5538,6 +5638,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -5602,6 +5703,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayLong(Long[] valueLongArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_ARRAY_LONG_SQL10;
@@ -5627,6 +5729,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -5723,6 +5827,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -5787,6 +5892,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayLongType(long[] valueLongTypeArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_ARRAY_LONG_TYPE_SQL11;
@@ -5812,6 +5918,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -5908,6 +6016,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -5972,6 +6081,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneByte(Byte valueByte) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BYTE_SQL12;
@@ -5997,6 +6107,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6093,6 +6205,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -6157,6 +6270,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneByteType(boolean valueByteType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BYTE_TYPE_SQL13;
@@ -6182,6 +6296,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6278,6 +6394,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -6342,6 +6459,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneCalendar(Calendar valueCalendar) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_CALENDAR_SQL14;
@@ -6367,6 +6485,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6463,6 +6583,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -6527,6 +6648,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneChar(Character valueChar) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_CHAR_SQL15;
@@ -6552,6 +6674,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6648,6 +6772,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -6712,6 +6837,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneCharType(char valueCharType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_CHAR_TYPE_SQL16;
@@ -6737,6 +6863,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6833,6 +6961,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -6897,6 +7026,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneCurrencye(Currency valueCurrency) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_CURRENCYE_SQL17;
@@ -6922,6 +7052,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7018,6 +7150,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -7082,6 +7215,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneDate(Date valueDate) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_DATE_SQL18;
@@ -7107,6 +7241,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7203,6 +7339,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -7267,6 +7404,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneDouble(Double valueDouble) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_DOUBLE_SQL19;
@@ -7292,6 +7430,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7388,6 +7528,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -7452,6 +7593,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneDoubleType(double valueDoubleType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_DOUBLE_TYPE_SQL20;
@@ -7477,6 +7619,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7573,6 +7717,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -7637,6 +7782,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneEnumType(EnumType valueEnumType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_ENUM_TYPE_SQL21;
@@ -7662,6 +7808,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7758,6 +7906,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -7822,6 +7971,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneFloat(Float valueFloat) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_FLOAT_SQL22;
@@ -7847,6 +7997,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7943,6 +8095,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -8007,6 +8160,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneFloatType(float valueFloatType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_FLOAT_TYPE_SQL23;
@@ -8032,6 +8186,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8128,6 +8284,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -8192,6 +8349,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneInt(Integer valueInt) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_INT_SQL24;
@@ -8217,6 +8375,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8313,6 +8473,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -8377,6 +8538,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneIntType(int valueIntType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_INT_TYPE_SQL25;
@@ -8402,6 +8564,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8498,6 +8662,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -8562,6 +8727,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneListLong(LinkedList<Long> valueLongList) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_LIST_LONG_SQL26;
@@ -8587,6 +8753,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8683,6 +8851,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -8747,6 +8916,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneLocale(Calendar valueLocale) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_LOCALE_SQL27;
@@ -8772,6 +8942,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8868,6 +9040,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -8932,6 +9105,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneLong(Long valueLong) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_LONG_SQL28;
@@ -8957,6 +9131,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9053,6 +9229,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -9117,6 +9294,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneLongType(long valueLongType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_LONG_TYPE_SQL29;
@@ -9142,6 +9320,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9238,6 +9418,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -9302,6 +9483,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneShort(Short valueShort) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SHORT_SQL30;
@@ -9327,6 +9509,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9423,6 +9607,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -9487,6 +9672,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneShortType(short valueShortType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SHORT_TYPE_SQL31;
@@ -9512,6 +9698,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9608,6 +9796,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -9672,6 +9861,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneString(String valueString) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_STRING_SQL32;
@@ -9697,6 +9887,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9793,6 +9985,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -9857,6 +10050,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneTime(Time valueTime) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_TIME_SQL33;
@@ -9882,6 +10076,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9978,6 +10174,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -10042,6 +10239,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneTimeZone(TimeZone valueTimeZone) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_TIME_ZONE_SQL34;
@@ -10067,6 +10265,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -10163,6 +10363,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -10227,6 +10428,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneURL(URL valueUrl) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_U_R_L_SQL35;
@@ -10252,6 +10454,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -10348,6 +10552,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -10364,6 +10569,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Boolean selectValueBool() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_BOOL_SQL36;
@@ -10388,6 +10594,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Boolean result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10397,6 +10605,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10413,6 +10622,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public boolean selectValueBoolType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_BOOL_TYPE_SQL37;
@@ -10437,6 +10647,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       boolean result=false;
 
       if (_cursor.moveToFirst()) {
@@ -10446,6 +10658,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10462,6 +10675,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Byte selectValueByte() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_BYTE_SQL38;
@@ -10486,6 +10700,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Byte result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10495,6 +10711,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10511,6 +10728,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public byte selectValueByteType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_BYTE_TYPE_SQL39;
@@ -10535,6 +10753,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       byte result=0;
 
       if (_cursor.moveToFirst()) {
@@ -10544,6 +10764,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10560,6 +10781,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Character selectValueChar() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_CHAR_SQL40;
@@ -10584,6 +10806,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Character result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10593,6 +10817,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10609,6 +10834,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public char selectValueCharType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_CHAR_TYPE_SQL41;
@@ -10633,6 +10859,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       char result=0;
 
       if (_cursor.moveToFirst()) {
@@ -10642,6 +10870,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10658,6 +10887,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Double selectValueDouble() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_DOUBLE_SQL42;
@@ -10682,6 +10912,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Double result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10691,6 +10923,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10707,6 +10940,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public double selectValueDoubleType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_DOUBLE_TYPE_SQL43;
@@ -10731,6 +10965,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       double result=0;
 
       if (_cursor.moveToFirst()) {
@@ -10740,6 +10976,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10756,6 +10993,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Float selectValueFloat() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_FLOAT_SQL44;
@@ -10780,6 +11018,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Float result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10789,6 +11029,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10805,6 +11046,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public float selectValueFloatType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_FLOAT_TYPE_SQL45;
@@ -10829,6 +11071,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       float result=0f;
 
       if (_cursor.moveToFirst()) {
@@ -10838,6 +11082,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10854,6 +11099,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Integer selectValueInt() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_INT_SQL46;
@@ -10878,6 +11124,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Integer result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10887,6 +11135,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10903,6 +11152,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public int selectValueIntType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_INT_TYPE_SQL47;
@@ -10927,6 +11177,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       int result=0;
 
       if (_cursor.moveToFirst()) {
@@ -10936,6 +11188,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -10952,6 +11205,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Long selectValueLong() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_LONG_SQL48;
@@ -10976,6 +11230,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Long result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10985,6 +11241,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -11001,6 +11258,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long selectValueLongType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_LONG_TYPE_SQL49;
@@ -11025,6 +11283,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       long result=0L;
 
       if (_cursor.moveToFirst()) {
@@ -11034,6 +11294,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -11050,6 +11311,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Short selectValueShort() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_SHORT_SQL50;
@@ -11074,6 +11336,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Short result=null;
 
       if (_cursor.moveToFirst()) {
@@ -11083,6 +11347,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -11099,6 +11364,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public short selectValueShortType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_SHORT_TYPE_SQL51;
@@ -11123,6 +11389,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       short result=0;
 
       if (_cursor.moveToFirst()) {
@@ -11132,6 +11400,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -11148,6 +11417,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public String selectValueString() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_STRING_SQL52;
@@ -11172,6 +11442,8 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       String result=null;
 
       if (_cursor.moveToFirst()) {
@@ -11181,6 +11453,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**

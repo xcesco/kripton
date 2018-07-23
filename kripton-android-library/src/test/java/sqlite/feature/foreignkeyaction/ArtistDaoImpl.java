@@ -57,6 +57,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    */
   @Override
   public Artist selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
@@ -82,6 +83,8 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Artist resultBean=null;
 
@@ -98,6 +101,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -115,6 +119,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    */
   @Override
   public List<Artist> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
@@ -139,6 +144,8 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Artist> resultList=new ArrayList<Artist>(_cursor.getCount());
       Artist resultBean=null;
@@ -161,6 +168,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -244,6 +252,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    */
   @Override
   public long insert(Artist bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO artist (name) VALUES (?)";
@@ -289,9 +298,11 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

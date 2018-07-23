@@ -45,6 +45,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    */
   @Override
   public void insert(Loan entity) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO loan (book_id, end_time, start_time, user_id) VALUES (?, ?, ?, ?)";
@@ -93,7 +94,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     entity.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

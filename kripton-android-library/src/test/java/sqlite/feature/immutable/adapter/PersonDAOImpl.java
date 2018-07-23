@@ -70,7 +70,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public Person insert(Person bean) {
-    // // Specialized Insert - InsertType - BEGIN
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (birth, name, surname) VALUES (?, ?, ?)";
@@ -139,7 +139,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     registryEvent(result>0?1:0);
 
     return bean;
-    // // Specialized Insert - InsertType - END
+    // Specialized Insert - InsertType - END
   }
 
   /**

@@ -56,6 +56,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    */
   @Override
   public long insert(Bean01 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (bean_list, lista, message_date, message_text, value) VALUES (?, ?, ?, ?, ?)";
@@ -105,9 +106,11 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -129,6 +132,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    */
   @Override
   public long insert(long value, long messageDate) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (value, message_date) VALUES (?, ?)";
@@ -177,6 +181,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

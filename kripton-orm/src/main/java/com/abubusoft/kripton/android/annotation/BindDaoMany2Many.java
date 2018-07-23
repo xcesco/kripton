@@ -76,5 +76,11 @@ public @interface BindDaoMany2Many {
 	 * @return true, if successful
 	 */
 	boolean methods() default true;
+	
+	/**
+	 * If true (default) generated entity will be an immutable class.
+	 * @return
+	 */
+	boolean immutable() default true;
 
 }

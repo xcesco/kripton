@@ -101,6 +101,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public Bean05 selectOne(Long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
@@ -126,6 +127,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean05 resultBean=null;
 
@@ -150,6 +153,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -179,6 +183,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public Bean05 selectOne(Bean05 bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -205,6 +210,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean05 resultBean=null;
 
@@ -229,6 +236,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -257,6 +265,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public List<Bean05> selectAll(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL3;
@@ -282,6 +291,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean05> resultList=new ArrayList<Bean05>(_cursor.getCount());
       Bean05 resultBean=null;
@@ -312,6 +323,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -335,6 +347,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public List<Long> selectPK(String text) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_P_K_SQL4;
@@ -360,6 +373,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarListHelper - BEGIN
 
       ArrayList<Long> resultList=new ArrayList<Long>(_cursor.getCount());
 
@@ -377,6 +392,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return resultList;
     }
+    // Specialized part - SelectScalarListHelper - END
   }
 
   /**
@@ -400,6 +416,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public Long selectCount(String text) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_COUNT_SQL5;
@@ -425,6 +442,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Long result=null;
 
       if (_cursor.moveToFirst()) {
@@ -434,6 +453,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -463,6 +483,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_CURSOR_LISTENER_SQL6;
@@ -488,6 +509,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -497,6 +520,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -526,6 +550,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN_LISTENER_SQL7;
@@ -551,6 +576,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean05 resultBean=new Bean05();
       if (_cursor.moveToFirst()) {
 
@@ -565,7 +592,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         do
          {
           // reset mapping
-          // pk does not need reset
+          // pk does not need reset (it will be taken from db)
           resultBean.setBeanType(null);
           resultBean.setContent(null);
           resultBean.setCreationTime(null);
@@ -584,6 +611,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -613,6 +641,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL8;
@@ -638,6 +667,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -647,6 +678,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -676,6 +708,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL9;
@@ -701,6 +734,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean05 resultBean=new Bean05();
       if (_cursor.moveToFirst()) {
 
@@ -715,7 +750,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         do
          {
           // reset mapping
-          // pk does not need reset
+          // pk does not need reset (it will be taken from db)
           resultBean.setBeanType(null);
           resultBean.setContent(null);
           resultBean.setCreationTime(null);
@@ -734,6 +769,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -758,6 +794,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public long insertRaw(String text, byte[] content, Date creationTime) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertRawPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO ws_bean (text, content, creation_time) VALUES (?, ?, ?)";
@@ -807,6 +844,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertRawPreparedStatement0, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -830,6 +868,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void insert(Bean05 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO ws_bean (bean_type, content, creation_time, number, text) VALUES (?, ?, ?, ?, ?)";
@@ -879,7 +918,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setPk(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1245,6 +1286,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public byte[] getOne(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_ONE_SQL10;
@@ -1270,6 +1312,8 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       byte[] result=null;
 
       if (_cursor.moveToFirst()) {
@@ -1279,6 +1323,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**

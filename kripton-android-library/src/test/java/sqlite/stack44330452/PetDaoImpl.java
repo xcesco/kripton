@@ -40,6 +40,7 @@ public class PetDaoImpl extends Dao implements PetDao {
    */
   @Override
   public List<Pet> loadPet() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=LOAD_PET_SQL2;
@@ -64,6 +65,8 @@ public class PetDaoImpl extends Dao implements PetDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Pet> resultList=new ArrayList<Pet>(_cursor.getCount());
       Pet resultBean=null;
@@ -88,6 +91,7 @@ public class PetDaoImpl extends Dao implements PetDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

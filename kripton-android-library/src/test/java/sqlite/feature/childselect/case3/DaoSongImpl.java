@@ -50,6 +50,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public void insert(Song bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (album_id, name) VALUES (?, ?)";
@@ -96,7 +97,9 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -115,6 +118,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public List<Song> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
@@ -139,6 +143,8 @@ public class DaoSongImpl extends Dao implements DaoSong {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Song> resultList=new ArrayList<Song>(_cursor.getCount());
       Song resultBean=null;
@@ -163,6 +169,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -188,6 +195,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public HashSet<Song> selectByAlbumId(long dummy) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALBUM_ID_SQL3;
@@ -213,6 +221,8 @@ public class DaoSongImpl extends Dao implements DaoSong {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       HashSet<Song> resultList=new HashSet<Song>();
       Song resultBean=null;
@@ -237,6 +247,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

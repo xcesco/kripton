@@ -193,8 +193,17 @@ public abstract class SQLTransformer {
 	private static void checkTypeAdapterForParam( SQLiteModelMethod method,
 			String methodParamName, Class<? extends Annotation> annotation) {
 		
-		TypeName adapterType = method.getAdapterForParam(methodParamName);
 		TypeName paramType=method.findParameterType(methodParamName);
+		if (method.isSpreadParameter(methodParamName)) {
+			if (paramType instanceof ArrayTypeName) {				
+				paramType = ((ArrayTypeName) paramType).componentType;
+			} else if (paramType instanceof ParameterizedTypeName) {				
+				paramType = ((ParameterizedTypeName) paramType).typeArguments.get(0);
+			} 
+		}
+		
+		TypeName adapterType = method.getAdapterForParam(methodParamName);
+		
 		
 		TypeName sourceType = TypeUtility.typeName(TypeAdapterHelper.detectSourceType(method, adapterType));
 		TypeName uboxSourceType=sourceType;

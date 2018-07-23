@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -62,6 +63,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    */
   @Override
   public CityPerson selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL3;
@@ -87,8 +89,16 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       CityPerson resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      long __cityId=0;
+      long __personId=0;
 
       if (_cursor.moveToFirst()) {
 
@@ -96,15 +106,22 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
         int index1=_cursor.getColumnIndex("city_id");
         int index2=_cursor.getColumnIndex("person_id");
 
-        resultBean=new CityPerson();
-
-        resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
+        // reset temporary variable for immutable POJO
+        // immutable object: initialize temporary variables for properties
+        __id=0;
+        __cityId=0;
+        __personId=0;
+        __id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { __cityId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { __personId=_cursor.getLong(index2); }
 
       }
+      // define immutable POJO
+      // immutable object: inizialize object
+      resultBean=new CityPerson(__id,__cityId,__personId);
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -126,10 +143,11 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    *
    * @param cityId
    * 	is binded to <code>:cityId</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<CityPerson> selectByCityId(long cityId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CITY_ID_SQL4;
@@ -155,9 +173,17 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<CityPerson> resultList=new ArrayList<CityPerson>(_cursor.getCount());
       CityPerson resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      long __cityId=0;
+      long __personId=0;
 
       if (_cursor.moveToFirst()) {
 
@@ -167,18 +193,25 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
 
         do
          {
-          resultBean=new CityPerson();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __cityId=0;
+          __personId=0;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { __personId=_cursor.getLong(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new CityPerson(__id,__cityId,__personId);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -200,10 +233,11 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    *
    * @param personId
    * 	is binded to <code>:personId</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<CityPerson> selectByPersonId(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PERSON_ID_SQL5;
@@ -229,9 +263,17 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<CityPerson> resultList=new ArrayList<CityPerson>(_cursor.getCount());
       CityPerson resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      long __cityId=0;
+      long __personId=0;
 
       if (_cursor.moveToFirst()) {
 
@@ -241,18 +283,25 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
 
         do
          {
-          resultBean=new CityPerson();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __cityId=0;
+          __personId=0;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { __personId=_cursor.getLong(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new CityPerson(__id,__cityId,__personId);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -409,14 +458,15 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    */
   @Override
   public int insert(CityPerson bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO city_person (city_id, person_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
-    _contentValues.put("city_id", bean.cityId);
-    _contentValues.put("person_id", bean.personId);
+    _contentValues.put("city_id", bean.getCityId());
+    _contentValues.put("person_id", bean.getPersonId());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -455,9 +505,9 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
-    bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

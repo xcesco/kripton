@@ -50,6 +50,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public void insert(Album bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (id, name) VALUES (?, ?)";
@@ -96,6 +97,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -118,6 +120,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public List<Album> selectAlbums() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALBUMS_SQL1;
@@ -142,6 +145,8 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Album> resultList=new ArrayList<Album>(_cursor.getCount());
       Album resultBean=null;
@@ -166,6 +171,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

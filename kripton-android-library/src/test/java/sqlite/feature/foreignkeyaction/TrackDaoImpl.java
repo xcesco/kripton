@@ -57,6 +57,7 @@ public class TrackDaoImpl extends Dao implements TrackDao {
    */
   @Override
   public Track selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL5;
@@ -82,6 +83,8 @@ public class TrackDaoImpl extends Dao implements TrackDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Track resultBean=null;
 
@@ -98,6 +101,7 @@ public class TrackDaoImpl extends Dao implements TrackDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -115,6 +119,7 @@ public class TrackDaoImpl extends Dao implements TrackDao {
    */
   @Override
   public List<Track> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL6;
@@ -139,6 +144,8 @@ public class TrackDaoImpl extends Dao implements TrackDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Track> resultList=new ArrayList<Track>(_cursor.getCount());
       Track resultBean=null;
@@ -161,6 +168,7 @@ public class TrackDaoImpl extends Dao implements TrackDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -244,6 +252,7 @@ public class TrackDaoImpl extends Dao implements TrackDao {
    */
   @Override
   public long insert(Track bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO track (album_id) VALUES (?)";
@@ -289,9 +298,11 @@ public class TrackDaoImpl extends Dao implements TrackDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

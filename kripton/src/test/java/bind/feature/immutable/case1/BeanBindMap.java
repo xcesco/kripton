@@ -550,7 +550,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
    */
   @Override
   public Bean parseOnJackson(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     SortedSet<String> __sortableSet=null;
     Map<String, Long> __map=null;
     SortedMap<String, String> __mapSorted=null;
@@ -562,7 +562,6 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     ArrayList<String> __itemsString=null;
     byte[] __buffer=null;
     String[] __bufferString=null;
-
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
@@ -727,7 +726,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
    */
   @Override
   public Bean parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     SortedSet<String> __sortableSet=null;
     Map<String, Long> __map=null;
     SortedMap<String, String> __mapSorted=null;
@@ -739,7 +738,6 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     ArrayList<String> __itemsString=null;
     byte[] __buffer=null;
     String[] __bufferString=null;
-
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
@@ -970,7 +968,7 @@ public class BeanBindMap extends AbstractMapper<Bean> {
    */
   @Override
   public Bean parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    // immutable object: inizialize temporary variables for properties
+    // immutable object: initialize temporary variables for properties
     SortedSet<String> __sortableSet=null;
     Map<String, Long> __map=null;
     SortedMap<String, String> __mapSorted=null;
@@ -982,7 +980,6 @@ public class BeanBindMap extends AbstractMapper<Bean> {
     ArrayList<String> __itemsString=null;
     byte[] __buffer=null;
     String[] __bufferString=null;
-
     int eventType = currentEventType;
     boolean read=true;
 

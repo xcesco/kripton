@@ -50,6 +50,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    */
   @Override
   public List<SchoolLunch> get1() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET1_SQL1;
@@ -74,6 +75,8 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<SchoolLunch> resultList=new ArrayList<SchoolLunch>(_cursor.getCount());
       SchoolLunch resultBean=null;
@@ -100,6 +103,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -119,6 +123,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    */
   @Override
   public List<SchoolLunch> getAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_ALL_SQL2;
@@ -143,6 +148,8 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<SchoolLunch> resultList=new ArrayList<SchoolLunch>(_cursor.getCount());
       SchoolLunch resultBean=null;
@@ -169,6 +176,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -190,6 +198,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    */
   @Override
   public void insertAll(SchoolLunch schoolLunches) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertAllPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (?, ?, ?)";
@@ -237,7 +246,9 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     schoolLunches.setLunchId(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**

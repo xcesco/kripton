@@ -38,6 +38,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   @Override
   public List<User> loadUser() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=LOAD_USER_SQL1;
@@ -62,6 +63,8 @@ public class UserDaoImpl extends Dao implements UserDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<User> resultList=new ArrayList<User>(_cursor.getCount());
       User resultBean=null;
@@ -82,6 +85,7 @@ public class UserDaoImpl extends Dao implements UserDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

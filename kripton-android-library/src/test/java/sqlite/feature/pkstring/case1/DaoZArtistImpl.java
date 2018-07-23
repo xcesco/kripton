@@ -60,6 +60,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
    */
   @Override
   public void insert(ZArtist bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (name, year) VALUES (?, ?)";
@@ -106,7 +107,9 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -127,6 +130,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
    */
   @Override
   public String insert1(ZArtist bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert1PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (name, year) VALUES (?, ?)";
@@ -173,9 +177,11 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert1PreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return String.valueOf(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -197,6 +203,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
    */
   @Override
   public long insert2(ZArtist bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert2PreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (name, year) VALUES (?, ?)";
@@ -243,9 +250,11 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert2PreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -263,6 +272,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
    */
   @Override
   public void insert3(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert3PreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (year) VALUES (?)";
@@ -309,6 +319,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert3PreparedStatement3, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -326,6 +337,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
    */
   @Override
   public String insert4(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert4PreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (year) VALUES (?)";
@@ -373,6 +385,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert4PreparedStatement4, _contentValues);
     return String.valueOf(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -391,6 +404,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
    */
   @Override
   public long insert5(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert5PreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO z_artist (year) VALUES (?)";
@@ -438,6 +452,7 @@ public class DaoZArtistImpl extends Dao implements DaoZArtist {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert5PreparedStatement5, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

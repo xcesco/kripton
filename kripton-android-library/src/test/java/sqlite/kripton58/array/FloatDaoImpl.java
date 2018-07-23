@@ -72,6 +72,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
    */
   @Override
   public FloatBean selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
@@ -96,6 +97,8 @@ public class FloatDaoImpl extends Dao implements FloatDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       FloatBean resultBean=null;
 
@@ -114,6 +117,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -142,6 +146,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
    */
   @Override
   public FloatBean selectOne(float[] value, Float[] value2) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -168,6 +173,8 @@ public class FloatDaoImpl extends Dao implements FloatDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       FloatBean resultBean=null;
 
@@ -186,6 +193,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -215,6 +223,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
    */
   @Override
   public void selectOne(float[] value, Float[] value2, OnReadBeanListener<FloatBean> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
@@ -241,6 +250,8 @@ public class FloatDaoImpl extends Dao implements FloatDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       FloatBean resultBean=new FloatBean();
       if (_cursor.moveToFirst()) {
 
@@ -252,7 +263,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.value=null;
           resultBean.value2=null;
 
@@ -265,6 +276,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -294,6 +306,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
    */
   @Override
   public void selectOne(float[] value, Float[] value2, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL4;
@@ -320,6 +333,8 @@ public class FloatDaoImpl extends Dao implements FloatDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -329,6 +344,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
@@ -357,6 +373,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
    */
   @Override
   public List<FloatBean> selectList(float[] value, Float[] value2) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL5;
@@ -383,6 +400,8 @@ public class FloatDaoImpl extends Dao implements FloatDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<FloatBean> resultList=new ArrayList<FloatBean>(_cursor.getCount());
       FloatBean resultBean=null;
@@ -407,6 +426,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -500,6 +520,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
    */
   @Override
   public long insert(long id, float[] value, Float[] value2) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO float_bean (id, value, value2) VALUES (?, ?, ?)";
@@ -549,6 +570,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -570,6 +592,7 @@ public class FloatDaoImpl extends Dao implements FloatDao {
    */
   @Override
   public long insert(FloatBean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO float_bean (value, value2) VALUES (?, ?)";
@@ -616,9 +639,11 @@ public class FloatDaoImpl extends Dao implements FloatDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

@@ -43,6 +43,7 @@ public class DaoUserImpl extends Dao implements DaoUser {
    */
   @Override
   public void insert(User bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO user (sorted_map, sorted_set, username) VALUES (?, ?, ?)";
@@ -90,7 +91,9 @@ public class DaoUserImpl extends Dao implements DaoUser {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

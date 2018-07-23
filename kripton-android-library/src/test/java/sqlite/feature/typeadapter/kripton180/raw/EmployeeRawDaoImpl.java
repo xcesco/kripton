@@ -99,6 +99,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    */
   @Override
   public Employee selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
@@ -124,6 +125,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -179,6 +182,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -217,6 +221,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    */
   @Override
   public Employee selectByIdJQL(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_J_Q_L_SQL2;
@@ -242,6 +247,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -297,6 +304,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -367,6 +375,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public Employee selectByAllWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_WITH_ADAPTER_SQL3;
@@ -402,6 +411,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -457,6 +468,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -527,6 +539,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public Employee selectByAll(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_SQL4;
@@ -562,6 +575,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -617,6 +632,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -688,6 +704,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public Employee selectByAllJQL(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_J_Q_L_SQL5;
@@ -724,6 +741,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -779,6 +798,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -850,6 +870,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public Employee selectByAllJQLWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_J_Q_L_WITH_ADAPTER_SQL6;
@@ -886,6 +907,8 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -941,6 +964,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -988,6 +1012,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public long insert(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1044,6 +1069,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1091,6 +1117,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public long insertWithAdapter(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertWithAdapterPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1147,6 +1174,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertWithAdapterPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

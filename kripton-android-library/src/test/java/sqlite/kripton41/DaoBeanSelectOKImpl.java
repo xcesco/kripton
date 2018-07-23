@@ -46,6 +46,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
    */
   @Override
   public Boolean selectDistance(long id, double value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_DISTANCE_SQL1;
@@ -72,6 +73,8 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Boolean result=null;
 
       if (_cursor.moveToFirst()) {
@@ -81,6 +84,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   public static void clearCompiledStatements() {

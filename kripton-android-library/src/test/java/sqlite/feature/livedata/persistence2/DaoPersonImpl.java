@@ -84,6 +84,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * @return collection of bean or empty collection.
    */
   protected List<Person> selectForLiveData(String name) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_SQL1;
@@ -109,6 +110,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -133,6 +136,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -161,6 +165,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public LiveData<List<Person>> select(final String name) {
+    // common part generation - BEGIN
+    // common part generation - END
     final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
       @Override
       protected List<Person> compute() {
@@ -268,6 +274,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * @return collection of bean or empty collection.
    */
   protected List<Person> selectAllForLiveData() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
@@ -292,6 +299,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -316,6 +325,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -337,6 +347,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public LiveData<List<Person>> selectAll() {
+    // common part generation - BEGIN
+    // common part generation - END
     final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
       @Override
       protected List<Person> compute() {
@@ -433,6 +445,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public void insert(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
@@ -479,9 +492,11 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     // support for livedata
     registryEvent(result>0?1:0);
+    // Specialized Insert - InsertType - END
   }
 
   /**

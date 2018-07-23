@@ -52,6 +52,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public Set<String> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
@@ -76,6 +77,8 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarListHelper - BEGIN
 
       LinkedHashSet<String> resultList=new LinkedHashSet<String>();
 
@@ -93,6 +96,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       return resultList;
     }
+    // Specialized part - SelectScalarListHelper - END
   }
 
   /**
@@ -109,6 +113,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public ArrayList<Date> selectAll2() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL2_SQL2;
@@ -133,6 +138,8 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarListHelper - BEGIN
 
       ArrayList<Date> resultList=new ArrayList<Date>(_cursor.getCount());
 
@@ -150,6 +157,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       return resultList;
     }
+    // Specialized part - SelectScalarListHelper - END
   }
 
   /**
