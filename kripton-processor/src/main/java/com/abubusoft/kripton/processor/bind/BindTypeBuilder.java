@@ -320,7 +320,7 @@ public abstract class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		if (!mutableObject) {
-			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance", true);
 		}
 
 		methodBuilder.addStatement("return instance");
@@ -565,7 +565,7 @@ public abstract class BindTypeBuilder {
 		methodBuilder.beginControlFlow("if (jacksonParser.currentToken() != $T.START_OBJECT)", JsonToken.class);
 		methodBuilder.addStatement("jacksonParser.skipChildren()");
 		if (!mutableObject) {
-			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance", true);
 		}
 		methodBuilder.addStatement("return instance");
 		methodBuilder.endControlFlow();
@@ -604,7 +604,7 @@ public abstract class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		if (!mutableObject) {
-			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance", true);
 		}
 		methodBuilder.addStatement("return instance");
 
@@ -647,7 +647,7 @@ public abstract class BindTypeBuilder {
 		methodBuilder.beginControlFlow("if (jacksonParser.getCurrentToken() != $T.START_OBJECT)", JsonToken.class);
 		methodBuilder.addStatement("jacksonParser.skipChildren()");
 		if (!mutableObject) {
-			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance", true);
 		}
 		methodBuilder.addStatement("return instance");
 		methodBuilder.endControlFlow();
@@ -687,7 +687,7 @@ public abstract class BindTypeBuilder {
 		methodBuilder.endControlFlow();
 
 		if (!mutableObject) {
-			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance");
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "instance", true);
 		}
 		methodBuilder.addStatement("return instance");
 

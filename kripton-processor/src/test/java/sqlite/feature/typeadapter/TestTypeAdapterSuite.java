@@ -40,6 +40,7 @@ import sqlite.feature.typeadapter.update.err2.TestTypeAdapterUpdateErr2;
 		TestTypeAdapterInsertErr1.class,
 		TestTypeAdapterInsertErr2.class,
 		TestBitmapTypeAdapter.class, 
+		TestTypeAdapterErr1.class, 
 		
 		TestKripton180Bean.class,
 		TestKripton180Raw.class

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -54,8 +55,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.
-	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
+	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder. SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
 	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
@@ -66,11 +66,11 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 
 		ParameterizedTypeName returnListName = (ParameterizedTypeName) returnTypeName;
 
-		TypeName collectionClass;
+		ClassName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
-		ClassName listClazzName = returnListName.rawType;
+		ClassName returnRawListClazzName = returnListName.rawType;
 
-		collectionClass = defineCollection(listClazzName);
+		collectionClass = defineCollection(returnRawListClazzName);
 
 		methodBuilder.addCode("\n");
 		if (TypeUtility.isTypeEquals(collectionClass, TypeUtility.typeName(ArrayList.class))) {
@@ -80,7 +80,14 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass,
 					entityClass);
 		}
-		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
+		methodBuilder.addStatement("$T resultBean=null", entityClass);
+		// immutable management
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addCode("\n");
+			methodBuilder.addComment("initialize temporary variable for immutable POJO");
+			ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
+		}
+
 		methodBuilder.addCode("\n");
 		methodBuilder.beginControlFlow("if (_cursor.moveToFirst())");
 
@@ -102,7 +109,14 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		methodBuilder.addCode("\n");
 
 		methodBuilder.beginControlFlow("do\n");
-		methodBuilder.addCode("resultBean=new $T();\n\n", entityClass);
+
+		// immutable management
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addComment("reset temporary variable for immutable POJO");
+			ImmutableUtility.generateImmutableVariableReset(entity, methodBuilder);
+		} else {
+			methodBuilder.addCode("resultBean=new $T();\n\n", entityClass);
+		}
 
 		// generate mapping
 		int i = 0;
@@ -126,13 +140,28 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 
 		methodBuilder.addCode("\n");
 
+		// immutable management
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addComment("define immutable POJO");
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "resultBean", false);
+		} 
+
 		methodBuilder.addCode("resultList.add(resultBean);\n");
 		methodBuilder.endControlFlow("while (_cursor.moveToNext())");
 
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addCode("\n");
-		methodBuilder.addCode("return resultList;\n");
+		
+		// return list or immutable list
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addCode("return ");
+			ImmutableUtility.generateImmutableCollectionIfPossible(entity,  methodBuilder, "resultList", ParameterizedTypeName.get(returnRawListClazzName, entityClass));	
+			methodBuilder.addCode(";\n");
+		} else {
+			methodBuilder.addCode("return resultList;\n");
+		}
+		
 
 		// close try { open cursor
 		methodBuilder.endControlFlow();
@@ -145,7 +174,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 	 *            the list clazz name
 	 * @return the type name
 	 */
-	static TypeName defineCollection(ClassName listClazzName) {
+	static ClassName defineCollection(ClassName listClazzName) {
 		try {
 			Class<?> clazz = Class.forName(listClazzName.toString());
 
@@ -158,7 +187,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 				clazz = LinkedHashSet.class;
 			}
 
-			return typeName(clazz);
+			return ClassName.get(clazz);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -24,7 +24,6 @@ import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
@@ -352,7 +351,6 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		String preparedJql = getJQLDeclared();
 
 		this.jql = JQLBuilder.buildJQL(this, preparedJql);
-		// TODO WORK HERE
 
 		// live data support
 		this.liveDataEnabled = SQLiteModelMethod.isLiveData(this);

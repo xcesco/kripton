@@ -25,7 +25,6 @@ import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.MethodSpec.Builder;
 
 /**
  * The Class ModelClass.

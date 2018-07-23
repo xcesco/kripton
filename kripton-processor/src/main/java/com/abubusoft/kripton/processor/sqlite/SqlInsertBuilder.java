@@ -159,7 +159,9 @@ public abstract class SqlInsertBuilder {
 		// "INSERT-FROM-SELECT SQL can not be used with method sign");
 
 		// generate inner code
+		methodBuilder.addComment("// Specialized Insert - $L - BEGIN", insertResultType.getClass().getSimpleName());
 		insertResultType.generate(classBuilder, methodBuilder, method, returnType);
+		methodBuilder.addComment("// Specialized Insert - $L - END", insertResultType.getClass().getSimpleName());
 
 		MethodSpec methodSpec = methodBuilder.build();
 		classBuilder.addMethod(methodSpec);

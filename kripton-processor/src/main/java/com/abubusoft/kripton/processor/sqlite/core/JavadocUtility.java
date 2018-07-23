@@ -209,7 +209,12 @@ public abstract class JavadocUtility {
 			methodBuilder.addJavadoc("@return cursor. Closing the cursor is delegated to the calling code.\n");
 			break;
 		case LIST_BEAN:
-			methodBuilder.addJavadoc("@return collection of bean or empty collection.\n");
+			if (entity.isImmutablePojo()) {
+				methodBuilder.addJavadoc("@return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.\n");
+			} else {
+				methodBuilder.addJavadoc("@return collection of bean or empty collection.\n");	
+			}
+			
 			break;
 		case LIST_SCALAR:
 			methodBuilder.addJavadoc("@return collection of single value extracted by query.\n");

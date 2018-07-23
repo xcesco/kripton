@@ -62,7 +62,6 @@ import com.squareup.javapoet.TypeSpec;
 
 import android.database.Cursor;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractSelectCodeGenerator.
  */
@@ -197,9 +196,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.
-	 * SelectCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder,
-	 * boolean, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
+	 * @see com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility. SelectCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, boolean,
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
 	 */
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {
@@ -211,7 +209,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		MethodSpec.Builder methodBuilder = generateMethodBuilder(method);
 
 		generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields());
+		methodBuilder.addComment("Specialized part - $L - BEGIN", this.getClass().getSimpleName());
 		generateSpecializedPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields());
+		methodBuilder.addComment("Specialized part - $L - END", this.getClass().getSimpleName());
 
 		classBuilder.addMethod(methodBuilder.build());
 	}
@@ -463,6 +463,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		JavadocUtility.generateJavaDocForSelect(methodBuilder, paramNames, method, annotation, fieldList, selectType,
 				javadocParts);
 
+		methodBuilder.addComment("common part generation - BEGIN");
+
 		if (generationType.generateMethodContent) {
 			SplittedSql splittedSql = SqlSelectBuilder.generateSQL(method, methodBuilder, false);
 
@@ -501,27 +503,27 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 					if (method.jql.spreadParams.contains(method.findParameterAliasByName(methodParam))) {
 						// paramTypeName = paramTypeNames.get(i);
-						String sizeMethod="";
-						String elementMethod="";
+						String sizeMethod = "";
+						String elementMethod = "";
 						TypeName paramCollTypeName = paramTypeNames.get(i);
 						if (paramCollTypeName instanceof ArrayTypeName) {
-							sizeMethod="length";
-							elementMethod="[_i]";
+							sizeMethod = "length";
+							elementMethod = "[_i]";
 							paramTypeName = ((ArrayTypeName) paramCollTypeName).componentType;
 						} else if (paramCollTypeName instanceof ParameterizedTypeName) {
-							sizeMethod="size()";
-							elementMethod=".get(_i)";
+							sizeMethod = "size()";
+							elementMethod = ".get(_i)";
 							paramTypeName = ((ParameterizedTypeName) paramCollTypeName).typeArguments.get(0);
 						} else {
 							paramTypeName = TypeName.get(String.class);
 						}
-						
 
 						methodBuilder.beginControlFlow("if ($L!=null)", methodParam);
 						methodBuilder.addComment("$L is managed as spread param", methodParam);
 						methodBuilder.beginControlFlow("for (int _i=0; _i<$L.$L;_i++)", methodParam, sizeMethod);
 						methodBuilder.addCode(" _contentValues.addWhereArgs(");
-						generateRawWhereArg(method, methodBuilder, paramTypeName, TypeUtility.isNullable(paramTypeName), methodParam, methodParam+elementMethod);
+						generateRawWhereArg(method, methodBuilder, paramTypeName, TypeUtility.isNullable(paramTypeName),
+								methodParam, methodParam + elementMethod);
 						methodBuilder.addCode(");\n");
 						methodBuilder.endControlFlow();
 						methodBuilder.endControlFlow();
@@ -627,8 +629,10 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			}
 		}
 
+		methodBuilder.addComment("common part generation - END");
+
 	}
-	
+
 	private void generateRawWhereArg(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName paramTypeName,
 			boolean nullable, String item) {
 		generateRawWhereArg(method, methodBuilder, paramTypeName, nullable, item, item);
@@ -640,9 +644,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 * @param paramTypeName
 	 * @param nullable
 	 * @param methodItem
-	 * 		is the name of method's parameter
+	 *            is the name of method's parameter
 	 * @param item
-	 * 		is the name of used parameter
+	 *            is the name of used parameter
 	 */
 	private void generateRawWhereArg(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName paramTypeName,
 			boolean nullable, String methodItem, String item) {
@@ -653,7 +657,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		// check for string conversion
 		TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
 
-		SQLTransformer.javaMethodParam2WhereConditions(methodBuilder, method, methodItem , item, paramTypeName);
+		SQLTransformer.javaMethodParam2WhereConditions(methodBuilder, method, methodItem, item, paramTypeName);
 
 		// check for string conversion
 		TypeUtility.endStringConversion(methodBuilder, paramTypeName);
@@ -742,8 +746,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.
-	 * SelectCodeGenerator#setSelectResultTye(com.abubusoft.kripton.processor.
+	 * @see com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility. SelectCodeGenerator#setSelectResultTye(com.abubusoft.kripton.processor.
 	 * sqlite.SelectBuilderUtility.SelectType)
 	 */
 	@Override
@@ -752,8 +755,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	}
 
 	/**
-	 * Check if there are unused method parameters. In this case an exception
-	 * was throws.
+	 * Check if there are unused method parameters. In this case an exception was throws.
 	 *
 	 * @param method
 	 *            the method

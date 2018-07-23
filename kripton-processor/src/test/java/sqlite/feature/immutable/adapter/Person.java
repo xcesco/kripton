@@ -15,86 +15,45 @@
  *******************************************************************************/
 package sqlite.feature.immutable.adapter;
 
-import java.util.Date;
+import java.sql.Date;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.annotation.BindAdapter;
 import com.abubusoft.kripton.annotation.BindType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */
 @BindType
 public class Person {
 
-	/** The id. */
-	private long id;
-
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	/** The name. */
-	private String name;
-
-	/**
-	 * Gets the name.
-	 *
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name.
-	 *
-	 * @param name the new name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * Gets the surname.
-	 *
-	 * @return the surname
-	 */
-	public String getSurname() {
-		return surname;
-	}
-
-	/**
-	 * Sets the surname.
-	 *
-	 * @param surname the new surname
-	 */
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	/** The surname. */
-	private String surname;
-
 	/** The birth date. */
 	@BindSqlColumn("birth")
 	@BindAdapter(adapter = DateAdapter.class)
 	private Date birthDate;
+ 
+	/** The id. */
+	private long id;
+
+	/** The name. */
+	private String name;
+
+	/** The surname. */
+	private String surname;
+
+	/**
+	 * @param id
+	 * @param name
+	 * @param surname
+	 * @param birthDate
+	 */
+	public Person(long id, String name, String surname, Date birthDate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.birthDate = birthDate;
+	}
 
 	/**
 	 * Gets the birth date.
@@ -105,12 +64,18 @@ public class Person {
 		return birthDate;
 	}
 
-	/**
-	 * Sets the birth date.
-	 *
-	 * @param birthDate the new birth date
-	 */
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+
+
+	public long getId() {
+		return id;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
 }

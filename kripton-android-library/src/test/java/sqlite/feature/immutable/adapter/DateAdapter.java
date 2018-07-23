@@ -15,45 +15,30 @@
  *******************************************************************************/
 package sqlite.feature.immutable.adapter;
 
-import java.util.Date;
-import com.abubusoft.kripton.android.SqlTypeAdapter;
+import java.sql.Date;
 
-// TODO: Auto-generated Javadoc
+import com.abubusoft.kripton.android.SqlTypeAdapter;
+import com.abubusoft.kripton.common.DateUtils;
+
 /**
  * The Class DateAdapter.
  */
-public class DateAdapter implements SqlTypeAdapter<Date, Long> {
+public class DateAdapter implements SqlTypeAdapter<Date, String> {
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.TypeAdapter#toJava(java.lang.Object)
-	 */
 	@Override
-	public Date toJava(Long dataValue) {
-		if (dataValue==null) return null;
-		
-		return new Date(dataValue);
+	public Date toJava(String dataValue) {
+		return new java.sql.Date(DateUtils.read(dataValue).getTime());
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.TypeAdapter#toData(java.lang.Object)
-	 */
 	@Override
-	public Long toData(Date javaValue) {
-		if (javaValue!=null) return javaValue.getTime();
-		
-		return null;
+	public String toData(Date javaValue) {
+		return DateUtils.writeShort(javaValue);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.android.SqlTypeAdapter#toString(java.lang.Object)
-	 */
 	@Override
 	public String toString(Date javaValue) {
-		if (javaValue==null) return null;
-		
-		return String.valueOf(toData(javaValue));
+		return DateUtils.writeShort(javaValue);
 	}
-	
 
 
 }

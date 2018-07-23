@@ -22,6 +22,8 @@ import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.TypeName;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -56,6 +58,22 @@ public class TypeAdapterHelper {
 		}
 
 		AssertKripton.fail("In '%s', class '%s' can not be used as type adapter", element, adapterClazz);
+		return null;
+	}
+	
+	/**
+	 * Give a param with type adapter, obtain type used to convert param
+	 */
+	public static String detectSourceType(SQLiteModelMethod method, TypeName adapterTypeName) {
+		TypeElement a = BaseProcessor.elementUtils.getTypeElement(adapterTypeName.toString());
+		for (Element i : BaseProcessor.elementUtils.getAllMembers(a)) {
+			if (i.getKind() == ElementKind.METHOD && "toJava".equals(i.getSimpleName().toString())) {
+				ExecutableElement m = (ExecutableElement) i;
+				return TypeUtility.typeName(m.getReturnType()).toString();
+			}
+		}
+
+		AssertKripton.fail("In method '%s#%s', class '%s' can not be used as type adapter", method.getParent(), method.getName(), adapterTypeName.toString());
 		return null;
 	}
 

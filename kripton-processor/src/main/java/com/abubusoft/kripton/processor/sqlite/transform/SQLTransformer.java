@@ -17,6 +17,7 @@ package com.abubusoft.kripton.processor.sqlite.transform;
 
 import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 
+import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -32,9 +33,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.lang.model.type.TypeMirror;
 
 import com.abubusoft.kripton.android.ColumnAffinityType;
+import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.ModelProperty;
+import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
+import com.abubusoft.kripton.processor.core.ModelProperty.TypeAdapter;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -173,6 +180,37 @@ public abstract class SQLTransformer {
 		transform.generateWriteParam2ContentValues(methodBuilder, method, paramName, paramType, property);
 
 	}
+	
+	/**
+	 * Check type adapter.
+	 * @param annotation 
+	 *
+	 * @param entity the entity
+	 * @param propertyType the property type
+	 * @param typeAdapter the type adapter
+	 * @param annotation the annotation
+	 */
+	private static void checkTypeAdapterForParam( SQLiteModelMethod method,
+			String methodParamName, Class<? extends Annotation> annotation) {
+		
+		TypeName adapterType = method.getAdapterForParam(methodParamName);
+		TypeName paramType=method.findParameterType(methodParamName);
+		
+		TypeName sourceType = TypeUtility.typeName(TypeAdapterHelper.detectSourceType(method, adapterType));
+		TypeName uboxSourceType=sourceType;
+		
+		if (TypeUtility.isTypeWrappedPrimitive(sourceType)) {
+			uboxSourceType=sourceType.unbox();
+		}
+		
+		boolean expr=uboxSourceType.toString().equals(paramType.toString()) || sourceType.toString().equals(paramType.toString());
+		
+		
+		AssertKripton.fail(!expr,
+				"In DAO '%s', method '%s' has parameter '%s' uses @%s that manages type '%s' instead of '%s'", method.getParent().getName(), method.getName(),
+				methodParamName, annotation.getSimpleName(),sourceType, paramType);
+
+	}
 
 	/**
 	 * Used to convert a generic parameter to where conditions.
@@ -191,6 +229,9 @@ public abstract class SQLTransformer {
 	public static void javaMethodParam2WhereConditions(MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
 			String methodParamName, String paramName, TypeName paramType) {
 		if (method.hasAdapterForParam(methodParamName)) {
+			
+			checkTypeAdapterForParam(method, methodParamName, BindSqlParam.class);
+			
 			methodBuilder.addCode(
 					AbstractSQLTransform.PRE_TYPE_ADAPTER_TO_STRING + "$L" + AbstractSQLTransform.POST_TYPE_ADAPTER,
 					SQLTypeAdapterUtils.class, method.getAdapterForParam(methodParamName), paramName);

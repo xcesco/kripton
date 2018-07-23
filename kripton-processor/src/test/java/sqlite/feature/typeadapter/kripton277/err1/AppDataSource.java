@@ -13,29 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.contentprovider.base;
+package sqlite.feature.typeadapter.kripton277.err1;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import sqlite.AbstractBindSQLiteProcessorTest;
-
-// TODO: Auto-generated Javadoc
 /**
- * The Class ContentProviderCompilerTest.
+ * The Interface Example01DataSource.
  */
-@RunWith(JUnit4.class)
-public class ContentProviderCompilerTest extends AbstractBindSQLiteProcessorTest {
-
-	/**
-	 * Test 01.
-	 *
-	 * @throws Throwable the throwable
-	 */
-	@Test
-	public void test01() throws Throwable {
-		buildDataSourceProcessorTest(Artist.class, ArtistDao.class, Album.class, AlbumDao.class, ArtistsDataSource.class, BaseDao.class, Entity.class);
-	}
+@BindDataSource(daoSet=PersonDAO.class, fileName = "example.db", rx=true)
+public interface AppDataSource {
 
 }

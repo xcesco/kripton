@@ -11,6 +11,7 @@ import com.abubusoft.kripton.xml.XmlPullParser;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import java.sql.Date;
 
 /**
  * This class is binder map for Person
@@ -30,7 +31,7 @@ public class PersonBindMap extends AbstractMapper<Person> {
     if (object.getBirthDate()!=null)  {
       fieldCount++;
       // using type adapter sqlite.feature.immutable.adapter.DateAdapter
-      jacksonSerializer.writeNumberField("birthDate", TypeAdapterUtils.toData(DateAdapter.class, object.getBirthDate()));
+      jacksonSerializer.writeStringField("birthDate", TypeAdapterUtils.toData(DateAdapter.class, object.getBirthDate()));
     }
 
     // field id (mapped with "id")
@@ -63,8 +64,9 @@ public class PersonBindMap extends AbstractMapper<Person> {
 
     // field birthDate (mapped with "birthDate")
     if (object.getBirthDate()!=null)  {
+      fieldCount++;
       // using type adapter sqlite.feature.immutable.adapter.DateAdapter
-      jacksonSerializer.writeStringField("birthDate", PrimitiveUtils.writeLong(TypeAdapterUtils.toData(DateAdapter.class, object.getBirthDate())));
+      jacksonSerializer.writeStringField("birthDate", TypeAdapterUtils.toData(DateAdapter.class, object.getBirthDate()));
     }
 
     // field id (mapped with "id")
@@ -99,11 +101,11 @@ public class PersonBindMap extends AbstractMapper<Person> {
     // Persisted fields:
 
     // field birthDate (mapped with "birthDate")
-    // field trasformation java.lang.Long sqlite.feature.immutable.adapter.DateAdapter 
-    if (object.getBirthDate()!=null)  {
+    // field trasformation java.lang.String sqlite.feature.immutable.adapter.DateAdapter 
+    if (object.getBirthDate()!=null) {
       // using type adapter sqlite.feature.immutable.adapter.DateAdapter
       xmlSerializer.writeStartElement("birthDate");
-      xmlSerializer.writeLong(TypeAdapterUtils.toData(DateAdapter.class, object.getBirthDate()));
+      xmlSerializer.writeCharacters(StringEscapeUtils.escapeXml10(TypeAdapterUtils.toData(DateAdapter.class, object.getBirthDate())));
       xmlSerializer.writeEndElement();
     }
 
@@ -136,13 +138,19 @@ public class PersonBindMap extends AbstractMapper<Person> {
    */
   @Override
   public Person parseOnJackson(JsonParser jacksonParser) throws Exception {
-    Person instance = new Person();
+    // immutable object: initialize temporary variables for properties
+    long __id=0;
+    String __name=null;
+    String __surname=null;
+    Date __birthDate=null;
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
     }
     if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
+      // immutable object: inizialize object
+      Person instance=new Person(__id,__name,__surname,__birthDate);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -155,29 +163,31 @@ public class PersonBindMap extends AbstractMapper<Person> {
             // field birthDate (mapped with "birthDate")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               // using type adapter sqlite.feature.immutable.adapter.DateAdapter
-              instance.setBirthDate(TypeAdapterUtils.toJava(DateAdapter.class, jacksonParser.getLongValue()));
+              __birthDate=TypeAdapterUtils.toJava(DateAdapter.class, jacksonParser.getText());
             }
           break;
           case "id":
             // field id (mapped with "id")
-            instance.setId(jacksonParser.getLongValue());
+            __id=jacksonParser.getLongValue();
           break;
           case "name":
             // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setName(jacksonParser.getText());
+              __name=jacksonParser.getText();
             }
           break;
           case "surname":
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setSurname(jacksonParser.getText());
+              __surname=jacksonParser.getText();
             }
           break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
+    // immutable object: inizialize object
+    Person instance=new Person(__id,__name,__surname,__birthDate);
     return instance;
   }
 
@@ -186,13 +196,19 @@ public class PersonBindMap extends AbstractMapper<Person> {
    */
   @Override
   public Person parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    Person instance = new Person();
+    // immutable object: initialize temporary variables for properties
+    long __id=0;
+    String __name=null;
+    String __surname=null;
+    Date __birthDate=null;
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
     }
     if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
+      // immutable object: inizialize object
+      Person instance=new Person(__id,__name,__surname,__birthDate);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -205,29 +221,31 @@ public class PersonBindMap extends AbstractMapper<Person> {
             // field birthDate (mapped with "birthDate")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
               // using type adapter sqlite.feature.immutable.adapter.DateAdapter
-              instance.setBirthDate(TypeAdapterUtils.toJava(DateAdapter.class, PrimitiveUtils.readLong(jacksonParser.getText(), null)));
+              __birthDate=TypeAdapterUtils.toJava(DateAdapter.class, jacksonParser.getText());
             }
           break;
           case "id":
             // field id (mapped with "id")
-            instance.setId(PrimitiveUtils.readLong(jacksonParser.getText(), 0L));
+            __id=PrimitiveUtils.readLong(jacksonParser.getText(), 0L);
           break;
           case "name":
             // field name (mapped with "name")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setName(jacksonParser.getText());
+              __name=jacksonParser.getText();
             }
           break;
           case "surname":
             // field surname (mapped with "surname")
             if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-              instance.setSurname(jacksonParser.getText());
+              __surname=jacksonParser.getText();
             }
           break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
+    // immutable object: inizialize object
+    Person instance=new Person(__id,__name,__surname,__birthDate);
     return instance;
   }
 
@@ -236,7 +254,11 @@ public class PersonBindMap extends AbstractMapper<Person> {
    */
   @Override
   public Person parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    Person instance = new Person();
+    // immutable object: initialize temporary variables for properties
+    long __id=0;
+    String __name=null;
+    String __surname=null;
+    Date __birthDate=null;
     int eventType = currentEventType;
     boolean read=true;
 
@@ -264,19 +286,19 @@ public class PersonBindMap extends AbstractMapper<Person> {
                 case "birthDate":
                   // property birthDate (mapped on "birthDate")
                   // using type adapter sqlite.feature.immutable.adapter.DateAdapter
-                  instance.setBirthDate(TypeAdapterUtils.toJava(DateAdapter.class, PrimitiveUtils.readLong(xmlParser.getElementAsLong(), null)));
+                  __birthDate=TypeAdapterUtils.toJava(DateAdapter.class, StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
                 break;
                 case "id":
                   // property id (mapped on "id")
-                  instance.setId(PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L));
+                  __id=PrimitiveUtils.readLong(xmlParser.getElementAsLong(), 0L);
                 break;
                 case "name":
                   // property name (mapped on "name")
-                  instance.setName(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                  __name=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 case "surname":
                   // property surname (mapped on "surname")
-                  instance.setSurname(StringEscapeUtils.unescapeXml(xmlParser.getElementText()));
+                  __surname=StringEscapeUtils.unescapeXml(xmlParser.getElementText());
                 break;
                 default:
                 break;
@@ -295,6 +317,8 @@ public class PersonBindMap extends AbstractMapper<Person> {
             break;
         }
       }
+      // immutable object: inizialize object
+      Person instance=new Person(__id,__name,__surname,__birthDate);
       return instance;
     }
   }

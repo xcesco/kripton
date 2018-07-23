@@ -15,25 +15,37 @@
  *******************************************************************************/
 package sqlite.feature.immutable.adapter;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlInsert;
+import com.abubusoft.kripton.android.annotation.BindSqlParam;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
+import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 
-// TODO: Auto-generated Javadoc
+import android.arch.lifecycle.LiveData;
+
 /**
  * The Interface PersonDAO.
  */
 @BindDao(Person.class)
 public interface PersonDAO {
 
-	/**
-	 * Select by birthday.
-	 *
-	 * @param birthDay the birth day
-	 * @return the list
-	 */
+	@BindSqlInsert
+	public Person insert(Person bean);
+	
+	@BindSqlSelect
+	public Person selectTheOne();
+
 	@BindSqlSelect(where="birthDate=${birthDay}")
-	public List<Person> selectByBirthday(Date birthDay);
+	public List<Person> selectByBirthday(@BindSqlParam(adapter=DateAdapter.class) Date birthDay);
+	
+	@BindSqlSelect(where="birthDate=${birthDay}")
+	LiveData<List<Person>> select(@BindSqlParam(adapter=DateAdapter.class) Date birthDay);
+	
+	@BindSqlSelect(where="birthDate=${birthDay}")
+	public void selectByBirthday(@BindSqlParam(adapter=DateAdapter.class) Date birthDay, OnReadBeanListener<Person> listener);
+	
+	
 }

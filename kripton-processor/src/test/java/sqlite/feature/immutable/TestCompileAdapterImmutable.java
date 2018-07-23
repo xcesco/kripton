@@ -25,7 +25,6 @@ import sqlite.feature.immutable.adapter.DateAdapter;
 import sqlite.feature.immutable.adapter.Person;
 import sqlite.feature.immutable.adapter.PersonDAO;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestAdapter01.
  */

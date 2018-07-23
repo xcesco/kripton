@@ -20,12 +20,12 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.processor.bind.model.BindEntity;
+import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 
 /**
  * @author xcesco
@@ -91,46 +91,102 @@ public abstract class ImmutableUtility {
 		}
 	}
 
-	public static void generateImmutableVariableInit(ModelClass<?> entity, Builder methodBuilder) {
-		methodBuilder.addComment("immutable object: inizialize temporary variables for properties");
-		for (Pair<String, TypeName> property : entity.getImmutableConstructors()) {
-			methodBuilder.addStatement("$T $L$L=$L", property.value1, IMMUTABLE_PREFIX, property.value0,
-					TypeUtility.getDefaultValue(property.value1));
-		}
-		methodBuilder.addCode("\n");
+	public static void generateImmutableVariableReset(ModelClass<?> entity, Builder methodBuilder) {
+		generateImmutableVariableInternal(entity, methodBuilder, false);
 	}
 
-	public static void generateImmutableEntityCreation(BindEntity entity, Builder methodBuilder, String instanceName) {
-		String separator = "";				
-		methodBuilder.addComment("immutable object: inizialize object");
-		methodBuilder.addCode("$T $L=new $T(", entity.getElement(), instanceName, entity.getElement());
+	public static void generateImmutableVariableInit(ModelClass<?> entity, Builder methodBuilder) {
+		generateImmutableVariableInternal(entity, methodBuilder, true);
+	}
+
+	/**
+	 * 
+	 * @param entity
+	 * @param methodBuilder
+	 * @param entityName
+	 */
+	public static void generateImmutableVariableCopyFromEntity(ModelClass<?> entity, Builder methodBuilder,
+			String entityName) {
+		methodBuilder.addComment(
+				"immutable object: initialize temporary variables for properties with entity propertiy values");
 		for (Pair<String, TypeName> property : entity.getImmutableConstructors()) {
-			if (TypeUtility.isList(property.value1)					
+			methodBuilder.addCode("$L$L=$L.$L;\n", IMMUTABLE_PREFIX, property.value0,
+					entityName, PropertyUtility.getter(entity.get(property.value0)));
+		}
+	}
+
+	private static void generateImmutableVariableInternal(ModelClass<?> entity, Builder methodBuilder,
+			boolean declare) {
+		methodBuilder.addComment("immutable object: initialize temporary variables for properties");
+		for (Pair<String, TypeName> property : entity.getImmutableConstructors()) {
+			if (declare) {
+				methodBuilder.addCode("$T ", property.value1);
+			}
+			methodBuilder.addCode("$L$L=$L;\n", IMMUTABLE_PREFIX, property.value0,
+					TypeUtility.getDefaultValue(property.value1));
+		}
+	}
+
+	/**
+	 * used for example for dao select result
+	 * 
+	 * @param entity
+	 * @param methodBuilder
+	 * @param name
+	 * @param typeName
+	 */
+	public static void generateImmutableCollectionIfPossible(ModelClass<?> entity, Builder methodBuilder, String name,
+			TypeName typeName) {
+		if (TypeUtility.isList(typeName)
+				&& ((ParameterizedTypeName) typeName).rawType.equals(ClassName.get(List.class))) {
+			methodBuilder.addCode("($L==null ? null : $T.unmodifiableList($L))", name, Collections.class, name);
+		} else if (TypeUtility.isSet(typeName)
+				&& ((ParameterizedTypeName) typeName).rawType.equals(ClassName.get(SortedSet.class))) {
+			methodBuilder.addCode("($L==null ? null : $T.unmodifiableSortedSet($L))", name, Collections.class, name);
+		} else if (TypeUtility.isSet(typeName)
+				&& ((ParameterizedTypeName) typeName).rawType.equals(ClassName.get(Set.class))) {
+			methodBuilder.addCode("($L==null ? null : $T.unmodifiableSet($L))", name, Collections.class, name);
+		} else if (TypeUtility.isMap(typeName)
+				&& ((ParameterizedTypeName) typeName).rawType.equals(ClassName.get(SortedMap.class))) {
+			methodBuilder.addCode("($L==null ? null : $T.unmodifiableSortedMap($L))", name, Collections.class, name);
+		} else if (TypeUtility.isMap(typeName)
+				&& ((ParameterizedTypeName) typeName).rawType.equals(ClassName.get(Map.class))) {
+			methodBuilder.addCode("($L==null ? null : $T.unmodifiableMap($L))", name, Collections.class, name);
+		} else {
+			methodBuilder.addCode(name);
+		}
+	}
+
+	public static void generateImmutableEntityCreation(ModelClass<?> entity, Builder methodBuilder, String instanceName,
+			boolean createInstance) {
+		String separator = "";
+		methodBuilder.addComment("immutable object: inizialize object");
+		if (createInstance) {
+			methodBuilder.addCode("$T ", entity.getElement());
+		}
+
+		methodBuilder.addCode("$L=new $T(", instanceName, entity.getElement());
+		for (Pair<String, TypeName> property : entity.getImmutableConstructors()) {
+			if (TypeUtility.isList(property.value1)
 					&& ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(List.class))) {
 				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableList($L))",
-						IMMUTABLE_PREFIX+property.value0,
-						Collections.class,
-						IMMUTABLE_PREFIX + property.value0);
-			} else if (TypeUtility.isSet(property.value1) && ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(SortedSet.class))) {
+						IMMUTABLE_PREFIX + property.value0, Collections.class, IMMUTABLE_PREFIX + property.value0);
+			} else if (TypeUtility.isSet(property.value1)
+					&& ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(SortedSet.class))) {
 				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableSortedSet($L))",
-						IMMUTABLE_PREFIX+property.value0,
-						Collections.class,
-						IMMUTABLE_PREFIX + property.value0);			
-			} else if (TypeUtility.isSet(property.value1) && ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(Set.class))) {
+						IMMUTABLE_PREFIX + property.value0, Collections.class, IMMUTABLE_PREFIX + property.value0);
+			} else if (TypeUtility.isSet(property.value1)
+					&& ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(Set.class))) {
 				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableSet($L))",
-						IMMUTABLE_PREFIX+property.value0,
-						Collections.class,
-						IMMUTABLE_PREFIX + property.value0);
-			} else if (TypeUtility.isMap(property.value1) && ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(SortedMap.class))) {
+						IMMUTABLE_PREFIX + property.value0, Collections.class, IMMUTABLE_PREFIX + property.value0);
+			} else if (TypeUtility.isMap(property.value1)
+					&& ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(SortedMap.class))) {
 				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableSortedMap($L))",
-						IMMUTABLE_PREFIX+property.value0,
-						Collections.class,
-						IMMUTABLE_PREFIX + property.value0);			
-			} else if (TypeUtility.isMap(property.value1) && ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(Map.class))) {
+						IMMUTABLE_PREFIX + property.value0, Collections.class, IMMUTABLE_PREFIX + property.value0);
+			} else if (TypeUtility.isMap(property.value1)
+					&& ((ParameterizedTypeName) property.value1).rawType.equals(ClassName.get(Map.class))) {
 				methodBuilder.addCode(separator + "($L==null ? null : $T.unmodifiableMap($L))",
-						IMMUTABLE_PREFIX+property.value0,
-						Collections.class,
-						IMMUTABLE_PREFIX + property.value0);
+						IMMUTABLE_PREFIX + property.value0, Collections.class, IMMUTABLE_PREFIX + property.value0);
 			} else {
 				methodBuilder.addCode(separator + IMMUTABLE_PREFIX + property.value0);
 			}

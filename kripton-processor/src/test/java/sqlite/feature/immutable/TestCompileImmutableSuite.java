@@ -27,7 +27,9 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestCompileAdapterImmutable.class		
+		TestCompileAdapterImmutable.class,
+		TestCompileContentProviderImmutable.class,
+		TestCompilePagedResultImmutable.class
 		 })
 //@formatter:on
 public class TestCompileImmutableSuite extends BaseProcessorTest {
