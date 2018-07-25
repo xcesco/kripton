@@ -145,7 +145,7 @@ public abstract class BindSharedPreferencesBuilder {
 		BindTypeContext context = new BindTypeContext(builder, TypeUtility.typeName(entity.getElement()),
 				Modifier.PRIVATE);
 
-		// @formatter:on
+		// @formatter:on	
 		builder.addJavadoc("This class is the shared preference binder defined for $T\n\n", entity.getElement());
 		JavadocUtility.generateJavadocGeneratedBy(builder);
 		builder.addJavadoc("@see $T\n", entity.getElement());

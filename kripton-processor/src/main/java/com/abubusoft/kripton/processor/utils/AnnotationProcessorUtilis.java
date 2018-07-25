@@ -27,7 +27,6 @@ import javax.tools.Diagnostic;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.processor.BaseProcessor;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AnnotationProcessorUtilis.
  */
@@ -63,7 +62,7 @@ public abstract class AnnotationProcessorUtilis {
 	 *
 	 * @param msg the msg
 	 */
-	private static void printMessage(String msg) 
+	public static void printMessage(String msg) 
 	{
 		if (BaseProcessor.JUNIT_TEST_MODE) {
 			logger.info(msg);

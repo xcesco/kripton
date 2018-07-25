@@ -37,6 +37,7 @@ import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
+import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.TypeName;
 
 /**
@@ -151,11 +152,18 @@ public abstract class PropertyUtility {
 		for (P p : propertyMap.values()) {
 			entity.add(p);
 		}
-
+		
+		int i=0;
+		AnnotationProcessorUtilis.printMessage(String.format((i++) + "entity %s ",entity.getName())); 
+		
 		// restore original methods and fields
 		list = new ArrayList<Element>(listA);
 		for (Element item : list) {
 			methodName = item.getSimpleName().toString();
+			
+			// cus
+			AnnotationProcessorUtilis.printMessage(String.format((i++) + "item %s type %s modifiers [%s] ", item.getSimpleName().toString(), item.getKind(), item.getModifiers())); 
+			
 			if (item.getKind() == ElementKind.METHOD && item.getModifiers().contains(Modifier.PUBLIC)) {
 				ExecutableElement method = (ExecutableElement) item;
 
@@ -313,7 +321,7 @@ public abstract class PropertyUtility {
 				return prefix+property.getName();
 			} else if (property.isFieldWithSetter()) {
 				return prefix+"set" + converterField2Method.convert(property.getName());
-			} else {
+			} else {				
 				throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
 						property.getName(), property.getParent().getElement().asType()));
 			}
@@ -361,7 +369,6 @@ public abstract class PropertyUtility {
 			else if (property.isFieldWithSetter()) {
 				return "set" + converterField2Method.convert(property.getName()) + "(" + value + ")";
 			} else {
-
 				throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
 						property.getName(), property.getParent().getElement().asType()));
 			}

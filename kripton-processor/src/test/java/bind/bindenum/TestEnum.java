@@ -39,6 +39,20 @@ public class TestEnum extends AbstractBindTypeProcessorTest {
 	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
+	public void testCompileRssFeed() throws IOException, InstantiationException, IllegalAccessException {
+		buildBindProcessorTest(RssFeed.class);
+	}
+	
+	
+	
+	/**
+	 * Test compile.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
+	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
 		buildBindProcessorTest(Bean.class, LogLevel.class);
 	}

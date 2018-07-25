@@ -22,7 +22,7 @@ import org.junit.Test;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 
 import bind.AbstractBindTypeProcessorTest;
-import bind.feature.kotlin.err2.RssFeed;
+import bind.feature.kotlin.err2.*;
 
 /**
  * The Class TestCompile72.
@@ -41,8 +41,8 @@ public class TestCompileKotlinErr2 extends AbstractBindTypeProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(KriptonProcessorException.class, "In bean 'bind.feature.kotlin.err2.RssFeed' property 'channels' can not use Object as parameter");
-		buildBindProcessorTest(RssFeed.class);
+		//this.expectedException(KriptonProcessorException.class, "In bean 'bind.feature.kotlin.err2.RssFeed' property 'channels' can not use Object as parameter");
+		buildBindProcessorTest(DaoRssFeed.class, AppDataSource.class, RssFeed.class);
 	}
 
 }

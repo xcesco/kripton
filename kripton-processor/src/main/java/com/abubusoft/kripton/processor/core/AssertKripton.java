@@ -412,5 +412,19 @@ public abstract class AssertKripton {
 		}
 		
 	}
+	
+	/**
+	 * When a pojo has a valid constructor
+	 * 
+	 * @param expression
+	 * @param entity
+	 */
+	public static void assertTrueOfInvalidConstructorProperty(boolean expression, ModelClass<?> entity, String fieldName) {
+		if (!expression) {
+			String msg = String.format("In class '%s' the constructor '%s' parameters has different type than associated property type.", entity.getElement().getQualifiedName(), fieldName);
+			throw (new InvalidDefinition(msg));
+		}
+		
+	}
 
 }

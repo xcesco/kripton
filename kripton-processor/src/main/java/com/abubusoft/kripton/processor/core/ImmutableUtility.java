@@ -22,6 +22,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
+import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -47,23 +48,29 @@ public abstract class ImmutableUtility {
 		ExecutableElement constructor;
 		List<List<Pair<String, TypeName>>> constructors = new ArrayList<>();
 
+		int i = 0;
+
+		AnnotationProcessorUtilis.printMessage((i++) + "**** " + entity.getName() + " BEGIN ****\n");
+
 		for (Element item : list) {
 			if (item.getKind() == ElementKind.CONSTRUCTOR && item.getModifiers().contains(Modifier.PUBLIC)) {
 				constructor = (ExecutableElement) item;
 
+				AnnotationProcessorUtilis.printMessage((i++) + "Contructor(\n");
+
 				ArrayList<Pair<String, TypeName>> params = new ArrayList<>();
 				for (VariableElement p : constructor.getParameters()) {
-					ModelProperty associatedProperty = entity.findPropertyByName(p.getSimpleName().toString());
-					TypeName associatedType= TypeName.get(p.asType());
-					if (associatedProperty!=null && TypeUtility.isCollection(associatedType)) {
-						associatedType=associatedProperty.getPropertyType().typeName;
-					}
-					
-					params.add(new Pair<String, TypeName>(p.getSimpleName().toString(),associatedType));
+					AnnotationProcessorUtilis.printMessage(
+							(i++) + p.getSimpleName().toString() + " [" + TypeName.get(p.asType()) + "]\n");
+										
+					params.add(new Pair<String, TypeName>(p.getSimpleName().toString(), TypeName.get(p.asType())));
 				}
+
+				AnnotationProcessorUtilis.printMessage((i++) + ")\n\n");
 
 				constructors.add(params);
 			}
+
 		}
 
 		// check if it has an empty constructor;
@@ -92,11 +99,37 @@ public abstract class ImmutableUtility {
 				if (immutableConstructor) {
 					entity.immutableConstructors = currentConstructor;
 				}
+			}
+		}
+
+		// check for immutable constructor
+		if (entity.immutableConstructors != null) {
+			for (Pair<String, TypeName> currentConstructor : entity.immutableConstructors) {
+				ModelProperty associatedProperty = entity.findPropertyByName(currentConstructor.value0);
+				TypeName associatedType = currentConstructor.value1;
+
+				AssertKripton.assertTrueOfInvalidConstructorProperty(
+						associatedProperty == null || TypeUtility
+								.isTypeEquals(associatedProperty.getPropertyType().getTypeName(), associatedType),
+						entity, currentConstructor.value0);
 
 			}
 		}
+
+		AnnotationProcessorUtilis.printMessage((i++) + "entity.emptyContructor=" + entity.emptyContructor + "\n");
+		AnnotationProcessorUtilis
+				.printMessage((i++) + "entity.immutableConstructors=" + entity.immutableConstructors + "\n");
+		AnnotationProcessorUtilis.printMessage((i++) + "entity.immutablePojo is " + entity.isImmutablePojo() + "\n");
+		AnnotationProcessorUtilis.printMessage((i++) + "entity.mutablePojo is " + entity.isMutablePojo() + "\n");
+				
+		for (ModelProperty p: entity.getCollection()) {
+			AnnotationProcessorUtilis.printMessage(String.format((i++) + "property %s [%s] public=%s getter=%s is=%s setter=%s  ", p.getName(), p.getPropertyType().typeName, p.isFieldWithGetter(), p.isFieldWithGetter(), p.isFieldWithIs(), p.isFieldWithSetter()));
+		}
+
+		AssertKripton.assertTrueOfInvalidConstructor(
+				entity.emptyContructor == true || entity.immutableConstructors != null, entity);
 		
-		AssertKripton.assertTrueOfInvalidConstructor(entity.emptyContructor==true || entity.immutableConstructors!=null, entity);
+		AnnotationProcessorUtilis.printMessage((i++) + "**** " + entity.getName() + " END ****\n");
 	}
 
 	public static void generateImmutableVariableReset(ModelClass<?> entity, Builder methodBuilder) {
@@ -118,8 +151,8 @@ public abstract class ImmutableUtility {
 		methodBuilder.addComment(
 				"immutable object: initialize temporary variables for properties with entity propertiy values");
 		for (Pair<String, TypeName> property : entity.getImmutableConstructors()) {
-			methodBuilder.addCode("$L$L=$L.$L;\n", IMMUTABLE_PREFIX, property.value0,
-					entityName, PropertyUtility.getter(entity.get(property.value0)));
+			methodBuilder.addCode("$L$L=$L.$L;\n", IMMUTABLE_PREFIX, property.value0, entityName,
+					PropertyUtility.getter(entity.get(property.value0)));
 		}
 	}
 
