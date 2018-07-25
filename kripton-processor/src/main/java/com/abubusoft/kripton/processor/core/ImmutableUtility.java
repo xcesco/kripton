@@ -53,7 +53,13 @@ public abstract class ImmutableUtility {
 
 				ArrayList<Pair<String, TypeName>> params = new ArrayList<>();
 				for (VariableElement p : constructor.getParameters()) {
-					params.add(new Pair<String, TypeName>(p.getSimpleName().toString(), TypeName.get(p.asType())));
+					ModelProperty associatedProperty = entity.findPropertyByName(p.getSimpleName().toString());
+					TypeName associatedType= TypeName.get(p.asType());
+					if (associatedProperty!=null && TypeUtility.isCollection(associatedType)) {
+						associatedType=associatedProperty.getPropertyType().typeName;
+					}
+					
+					params.add(new Pair<String, TypeName>(p.getSimpleName().toString(),associatedType));
 				}
 
 				constructors.add(params);
