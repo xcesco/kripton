@@ -252,8 +252,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
           if (!_cursor.isNull(index7)) { __pubDate=DateUtils.read(_cursor.getString(index7)); }
           if (!_cursor.isNull(index8)) { __rssFeedId=_cursor.getLong(index8); }
           if (!_cursor.isNull(index9)) { __title=_cursor.getString(index9); }
-          // sub query: __articles=this.daoFactory.getDaoArticle().selectByChannelUd(resultBean.getId())
-          __articles=this.daoFactory.getDaoArticle().selectByChannelUd(resultBean.getId());
+          // sub query: __articles=this.daoFactory.getDaoArticle().selectByChannelUd(__id)
+          __articles=this.daoFactory.getDaoArticle().selectByChannelUd(__id);
 
           // define immutable POJO
           // immutable object: inizialize object

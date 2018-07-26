@@ -184,8 +184,8 @@ public class DaoRssImpl extends Dao implements DaoRss {
         __id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { __uid=_cursor.getString(index1); }
         if (!_cursor.isNull(index2)) { __version=_cursor.getString(index2); }
-        // sub query: __channels=this.daoFactory.getDaoChannel().selectByRssFeedId(resultBean.getId())
-        __channels=this.daoFactory.getDaoChannel().selectByRssFeedId(resultBean.getId());
+        // sub query: __channels=this.daoFactory.getDaoChannel().selectByRssFeedId(__id)
+        __channels=this.daoFactory.getDaoChannel().selectByRssFeedId(__id);
 
       }
       // define immutable POJO
