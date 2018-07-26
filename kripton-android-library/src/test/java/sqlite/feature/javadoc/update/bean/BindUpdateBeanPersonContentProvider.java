@@ -32,6 +32,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/one/b/${bean.id}</pre></td><td>{@link UpdateBeanPersonDaoImpl#updateFromSelectJQL5ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindUpdateBeanPersonContentProvider extends ContentProvider {
   /**

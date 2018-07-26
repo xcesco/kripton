@@ -352,7 +352,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 														
 							// set sub method to invoke
 							childrenSelect.value2 = subMethod;
-
 							
 
 							final String defaultConditionToTest1 = relation.value1 + "=" + SqlAnalyzer.PARAM_PREFIX
@@ -470,22 +469,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					}
 				}
 
-			}
-
-			/*
-			 * for (SQLProperty property : entity.getCollection()) { property.
-			 * 
-			 * if (property.isForeignKey()) { SQLiteEntity reference =
-			 * schema.getEntity(property.parentClassName);
-			 * 
-			 * AssertKripton.asserTrueOrUnspecifiedBeanException(reference !=
-			 * null, schema, entity, property.parentClassName);
-			 * 
-			 * if (!entity.equals(reference)) {
-			 * entity.referedEntities.add(reference); } }
-			 * 
-			 * }
-			 */
+			}			
 		}
 	}
 

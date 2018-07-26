@@ -48,6 +48,8 @@ import com.abubusoft.kripton.android.KriptonLibrary;
  * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35.nolog/persons/test1/${bean.id}</pre></td><td>{@link Person2DAOImpl#deleteBean4ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindPerson2ContentProvider extends ContentProvider {
   /**

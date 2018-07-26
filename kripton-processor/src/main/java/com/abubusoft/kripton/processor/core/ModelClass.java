@@ -33,6 +33,33 @@ import com.squareup.javapoet.TypeName;
  */
 @BindType
 public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElement> implements ModelElement, ModelWithAnnotation {
+	
+
+	/** The full collection of properties, included the disable and other properties */
+	List<E> immutableCollection = new ArrayList<>();
+
+
+	public List<E> getImmutableCollection() {
+		return immutableCollection;
+	}
+
+
+	/**
+	 * Find property by name.
+	 *
+	 * @param name the name
+	 * @return the t
+	 */
+	public E findImmutablePropertyByName(String name) {
+		String lcName = name.toLowerCase();
+		for (E item : immutableCollection) {
+			if (item.getName().toLowerCase().equals(lcName)) {
+				return item;
+			}
+		}
+
+		return null;
+	}
 
 	/** The annotations. */
 	protected List<ModelAnnotation> annotations;

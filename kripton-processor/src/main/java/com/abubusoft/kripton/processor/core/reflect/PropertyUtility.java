@@ -32,6 +32,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.KriptonProcessor;
 import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
@@ -39,6 +40,7 @@ import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.Annotation
 import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.TypeName;
+import com.sun.source.util.TreePath;
 
 /**
  * The Class PropertyUtility.
@@ -153,16 +155,16 @@ public abstract class PropertyUtility {
 			entity.add(p);
 		}
 		
-		int i=0;
-		AnnotationProcessorUtilis.printMessage(String.format((i++) + "entity %s ",entity.getName())); 
-		
+//		int i=0;
+//		AnnotationProcessorUtilis.printMessage(String.format((i++) + "entity %s ",entity.getName())); 
+//		
 		// restore original methods and fields
 		list = new ArrayList<Element>(listA);
 		for (Element item : list) {
 			methodName = item.getSimpleName().toString();
 			
 			// cus
-			AnnotationProcessorUtilis.printMessage(String.format((i++) + "item %s type %s modifiers [%s] ", item.getSimpleName().toString(), item.getKind(), item.getModifiers())); 
+			//AnnotationProcessorUtilis.printMessage(String.format((i++) + "item %s type %s modifiers [%s] ", item.getSimpleName().toString(), item.getKind(), item.getModifiers())); 
 			
 			if (item.getKind() == ElementKind.METHOD && item.getModifiers().contains(Modifier.PUBLIC)) {
 				ExecutableElement method = (ExecutableElement) item;
@@ -210,6 +212,9 @@ public abstract class PropertyUtility {
 
 		if (listener != null) {
 			List<P> listPropertiesToFilter = new ArrayList<P>(entity.getCollection());
+			
+			// copy all properties (included the excluded one) into immutable collection
+			entity.getImmutableCollection().addAll(entity.getCollection());
 
 			for (P item : listPropertiesToFilter) {
 				if (!listener.onProperty(entity, item)) {
@@ -235,6 +240,10 @@ public abstract class PropertyUtility {
 				// insert only if it does not already exists
 				if (!propertyMap.containsKey(item.getSimpleName().toString())) {
 					field = factoryProperty.createProperty(entity, item);
+					
+					//TreePath treePath = KriptonProcessor.trees.getPath(item);
+					//AnnotationVisitor visitor = new AnnotationVisitor();
+					//TypeMirror recognizerType = visitor. (treePath, null);
 
 					// put properties in a map
 					propertyMap.put(field.getName(), field);

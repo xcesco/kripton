@@ -22,6 +22,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/surname</pre></td><td>{@link InsertRawPersonDaoImpl#insertOne2RawFieldName2ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindInsertRawPersonContentProvider extends ContentProvider {
   /**

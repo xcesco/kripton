@@ -113,6 +113,7 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 			i++;
 		}
 
+		// subqueries are executed after all
 		generateSubQueries(methodBuilder, method);
 
 		methodBuilder.addCode("\n");

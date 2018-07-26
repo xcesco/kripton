@@ -29,6 +29,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/all/${surname}</pre></td><td>{@link UpdateRawPersonDaoImpl#updateFromSelectJQL1ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindUpdateRawPersonContentProvider extends ContentProvider {
   /**

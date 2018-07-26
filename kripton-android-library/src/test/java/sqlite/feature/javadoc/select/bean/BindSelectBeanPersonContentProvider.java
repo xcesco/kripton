@@ -32,6 +32,8 @@ import com.abubusoft.kripton.android.KriptonLibrary;
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindSelectBeanPersonContentProvider extends ContentProvider {
   /**

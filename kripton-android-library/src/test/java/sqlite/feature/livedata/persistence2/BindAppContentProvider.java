@@ -41,6 +41,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://com.abubsoft.kripton/persons/${name}/name</pre></td><td>{@link DaoPersonImpl#deleteByName6ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindAppContentProvider extends ContentProvider {
   /**

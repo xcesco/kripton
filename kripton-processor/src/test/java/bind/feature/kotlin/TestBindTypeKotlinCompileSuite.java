@@ -19,13 +19,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import bind.AbstractBindTypeProcessorTest;
+import sqlite.feature.kotlin.TestCompileKotlinImmutable;
 
 /**
  * The Class Test72CompileSuite.
  */
 @RunWith(Suite.class)
 // @formatter:off
-@Suite.SuiteClasses({ TestCompileKotlin1.class, TestCompileKotlinErr1.class, TestCompileKotlinErr2.class  })
+@Suite.SuiteClasses({ TestCompileKotlin1.class, TestCompileKotlinErr1.class, TestCompileKotlinImmutable.class  })
 // @formatter:on
 public class TestBindTypeKotlinCompileSuite extends AbstractBindTypeProcessorTest {
 

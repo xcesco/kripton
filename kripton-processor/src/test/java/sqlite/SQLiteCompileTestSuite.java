@@ -40,6 +40,7 @@ import sqlite.feature.indexes.IndexTestSuite;
 import sqlite.feature.javadoc.TestJavadocFeatureSuite;
 import sqlite.feature.join.TestJoinFeatureSuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
+import sqlite.feature.kotlin.TestCompileKotlinImmutable;
 import sqlite.feature.livedata.TestLiveDataSuite;
 import sqlite.feature.livedatax.TestLiveDataXSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
@@ -123,6 +124,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestAdapterSuite.class,
 			
 			// bug-fix			
+			TestCompileKotlinImmutable.class,
 			Example01Suite.class,
 			Example02Suite.class,
 			TestCompile111.class,

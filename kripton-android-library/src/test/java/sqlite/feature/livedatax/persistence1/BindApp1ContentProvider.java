@@ -33,6 +33,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPerson1Impl#update3ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindApp1ContentProvider extends ContentProvider {
   /**

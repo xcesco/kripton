@@ -34,6 +34,7 @@ import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -92,11 +93,21 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		SQLiteEntity entity = daoDefinition.getEntity();
 		for (Triple<String, String, SQLiteModelMethod> item : method.childrenSelects) {
 			TypeName entityTypeName = TypeUtility.typeName(entity.getElement());
-			String idGetter = PropertyUtility.getter("resultBean", entityTypeName, entity.getPrimaryKey());
-			String setter = PropertyUtility.setter(entityTypeName, "resultBean",
-					entity.findRelationByParentProperty(item.value0).value0,
-					String.format("this.daoFactory.get%s().%s(%s)", item.value2.getParent().getName(),
-							item.value2.getName(), idGetter));
+
+			String setter;
+			if (entity.isImmutablePojo()) {
+				String idGetter = ImmutableUtility.IMMUTABLE_PREFIX + entity.getPrimaryKey().getName();
+				
+				setter=ImmutableUtility.IMMUTABLE_PREFIX+entity.findRelationByParentProperty(item.value0).value0.getName()+"="+String.format("this.daoFactory.get%s().%s(%s)", item.value2.getParent().getName(),
+						item.value2.getName(), idGetter);
+			} else {
+				String idGetter = PropertyUtility.getter("resultBean", entityTypeName, entity.getPrimaryKey());
+				setter = PropertyUtility.setter(entityTypeName, "resultBean",
+						entity.findRelationByParentProperty(item.value0).value0,
+						String.format("this.daoFactory.get%s().%s(%s)", item.value2.getParent().getName(),
+								item.value2.getName(), idGetter));
+			}
+
 			methodBuilder.addComment("sub query: $L", setter);
 			methodBuilder.addStatement("$L", setter);
 

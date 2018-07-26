@@ -44,6 +44,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://com.abubusoft.kripton.example/artists/${bean.id}</pre></td><td>{@link ArtistDaoImpl#delete4ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindArtistsContentProvider extends ContentProvider {
   /**

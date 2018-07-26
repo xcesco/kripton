@@ -49,6 +49,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.contentprovider.kripton35/persons/test1/${bean.id}</pre></td><td>{@link PersonDAOImpl#deleteBean4ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindPersonContentProvider extends ContentProvider {
   /**

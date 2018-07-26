@@ -39,6 +39,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#deleteById3ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindSampleContentProvider extends ContentProvider {
   /**

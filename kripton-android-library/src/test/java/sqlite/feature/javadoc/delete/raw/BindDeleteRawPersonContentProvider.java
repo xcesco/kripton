@@ -30,6 +30,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single2/${id}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteRawDynamic4ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindDeleteRawPersonContentProvider extends ContentProvider {
   /**
