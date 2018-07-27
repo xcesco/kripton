@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils;
 import com.abubusoft.benchmark.model.Friend;
 import com.abubusoft.benchmark.model.Response;
 import com.abubusoft.kripton.KriptonBinder;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 public class Main {
 
