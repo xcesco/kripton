@@ -57,7 +57,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestDynamicRuntimeSuite.class,
 	TestContentProviderRuntime.class,
 	TestSchemaRuntimeSuite.class,
-	TestGlobalTypeAdapterRuntimeSuite.class,
+	TestGlobalTypeAdapterRuntimeSuite.class,	
 	TestFeatureRelationRuntimeSuite.class,
 	
 	// unverified results	

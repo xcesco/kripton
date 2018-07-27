@@ -75,12 +75,14 @@ public abstract class ManagedPropertyPersistenceHelper {
 	public static void generateFieldPersistance(BindTypeContext context, List<? extends ManagedModelProperty> collection, PersistType persistType, boolean forceName, Modifier... modifiers) {
 
 		for (ManagedModelProperty property : collection) {
-			if (property.bindProperty != null) {
+			if (property.bindProperty != null && !property.hasTypeAdapter()) {
 				// if defined a forced typeName, we use it to define every json
 				// mapping, to allow comparison with parameters
 				if (forceName)
 					property.bindProperty.label = DEFAULT_FIELD_NAME;
 
+				BindTransformer.checkIfIsInUnsupportedPackage(property.bindProperty.getPropertyType().getTypeName());
+				
 				generateFieldSerialize(context, persistType, property.bindProperty, modifiers);
 				generateFieldParser(context, persistType, property.bindProperty, modifiers);
 			}

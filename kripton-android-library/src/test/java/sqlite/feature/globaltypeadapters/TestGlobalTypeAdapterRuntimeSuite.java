@@ -22,12 +22,11 @@ import org.junit.runners.Suite;
  * The Class TestGlobalTypeAdapterRuntimeSuite.
  */
 @RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestGlobalTypeAdapterRuntime.class		
-		 })
-//@formatter:on
-public class TestGlobalTypeAdapterRuntimeSuite  {
-	
+// @formatter:off
+@Suite.SuiteClasses({ TestGlobalTypeAdapterRuntime1.class, TestGlobalTypeAdapterRuntime2.class
+
+})
+// @formatter:on
+public class TestGlobalTypeAdapterRuntimeSuite {
+
 }

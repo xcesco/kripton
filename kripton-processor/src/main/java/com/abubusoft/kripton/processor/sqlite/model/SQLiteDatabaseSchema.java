@@ -48,7 +48,6 @@ import com.abubusoft.kripton.processor.sqlite.FindSqlTypeAdapterVisitor;
 import com.abubusoft.kripton.processor.sqlite.FindTasksVisitor;
 import com.squareup.javapoet.ClassName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SQLiteDatabaseSchema.
  */

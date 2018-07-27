@@ -21,11 +21,14 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.sql.Time;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -48,23 +51,25 @@ public abstract class BindTransformer {
 	/**
 	 * Get transformer for type.
 	 *
-	 * @param property the property
+	 * @param property
+	 *            the property
 	 * @return transform
 	 */
 	public static BindTransform lookup(BindProperty property) {
-		TypeName typeName=property.getPropertyType().getTypeName();
-		
+		TypeName typeName = property.getPropertyType().getTypeName();
+
 		if (property.hasTypeAdapter()) {
 			typeName = typeName(property.typeAdapter.dataType);
 		}
-		
+
 		return lookup(typeName);
 	}
 
 	/**
 	 * Checks if is binded object.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return true, if is binded object
 	 */
 	public static boolean isBindedObject(TypeName typeName) {
@@ -79,7 +84,8 @@ public abstract class BindTransformer {
 	/**
 	 * Checks if is binded object.
 	 *
-	 * @param property the property
+	 * @param property
+	 *            the property
 	 * @return true, if is binded object
 	 */
 	public static boolean isBindedObject(BindProperty property) {
@@ -91,10 +97,24 @@ public abstract class BindTransformer {
 		return false;
 	}
 
+	static final Set<String> unsupportedPackage = new HashSet<>(
+			Arrays.asList("java.", "javax.", "android.", "androidx."));
+
+	static boolean isInUnsupportedPackage(TypeName typeName) {
+		for (String item : unsupportedPackage) {
+			if (typeName.toString().startsWith(item)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	/**
 	 * Get transformer for type.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return transform
 	 */
 	public static BindTransform lookup(TypeName typeName) {
@@ -107,16 +127,27 @@ public abstract class BindTransformer {
 		transform = getTransform(typeName);
 
 		AssertKripton.assertTrueOrUnsupportedFieldTypeException(transform != null, typeName);
+		
 		// transform will be always valorized
 		cache.put(typeName, transform);
 
 		return transform;
 	}
+	
+	public static void checkIfIsInUnsupportedPackage(TypeName typeName) {
+		BindTransform transform = lookup(typeName);
+		
+		AssertKripton.assertTrueOrUnsupportedFieldTypeException(
+				!(transform.getClass().getName().equals(ObjectBindTransform.class.getName())
+						&& isInUnsupportedPackage(typeName)),
+				typeName);
+	}
 
 	/**
 	 * Gets the transform.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return the transform
 	 */
 	static BindTransform getTransform(TypeName typeName) {
@@ -133,7 +164,7 @@ public abstract class BindTransformer {
 				return new ArrayBindTransform(typeNameArray.componentType, typeNameArray.componentType.isPrimitive());
 			}
 		} else if (typeName instanceof ParameterizedTypeName) {
-			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;			
+			ParameterizedTypeName parameterizedTypeName = (ParameterizedTypeName) typeName;
 			if (TypeUtility.isList(parameterizedTypeName.rawType)) {
 				return new ListBindTransformation(parameterizedTypeName);
 			} else if (TypeUtility.isSet(parameterizedTypeName.rawType)) {
@@ -169,20 +200,22 @@ public abstract class BindTransformer {
 			return new EnumBindTransform(typeName);
 		}
 
+		// for default is treated as object
 		return new ObjectBindTransform();
 	}
 
 	/**
 	 * Gets the sql transform.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return the sql transform
 	 */
 	static BindTransform getSqlTransform(TypeName typeName) {
 		if (Time.class.getName().equals(typeName.toString())) {
 			return new SQLTimeBindTransform();
 		}
-		
+
 		if (java.sql.Date.class.getName().equals(typeName.toString())) {
 			return new SQLDateBindTransform();
 		}
@@ -193,7 +226,8 @@ public abstract class BindTransformer {
 	/**
 	 * Gets the net transform.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return the net transform
 	 */
 	static BindTransform getNetTransform(TypeName typeName) {
@@ -207,7 +241,8 @@ public abstract class BindTransformer {
 	/**
 	 * Gets the math transform.
 	 *
-	 * @param typeName the type name
+	 * @param typeName
+	 *            the type name
 	 * @return the math transform
 	 */
 	static BindTransform getMathTransform(TypeName typeName) {
@@ -223,7 +258,8 @@ public abstract class BindTransformer {
 	/**
 	 * Get Java primitive type Transformable.
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the primitive transform
 	 */
 	static BindTransform getPrimitiveTransform(TypeName type) {
@@ -258,7 +294,8 @@ public abstract class BindTransformer {
 	/**
 	 * Get Java primitive wrapping type Transformable.
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the language transform
 	 */
 	static BindTransform getLanguageTransform(TypeName type) {
@@ -297,7 +334,8 @@ public abstract class BindTransformer {
 	/**
 	 * Get java.util type Transformable
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the util transform
 	 */
 
@@ -322,7 +360,5 @@ public abstract class BindTransformer {
 		}
 		return null;
 	}
-	
-	
 
 }

@@ -27,7 +27,9 @@ import base.BaseProcessorTest;
 //@formatter:off
 @Suite.SuiteClasses(
 		{ 
-		TestGlobalSqlTypeAdapters.class
+		TestGlobalSqlTypeAdapters.class,
+		TestBitmapTypeAdapter.class,
+		TestBitmapErrTypeAdapter.class
 		 })
 //@formatter:on
 public class TestGlobalSqlTypeAdaptersSuite extends BaseProcessorTest {

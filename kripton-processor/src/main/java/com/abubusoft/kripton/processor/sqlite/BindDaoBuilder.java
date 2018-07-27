@@ -40,6 +40,7 @@ import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
+import com.abubusoft.kripton.processor.bind.transform.BindTransformer;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper;
 import com.abubusoft.kripton.processor.core.ManagedPropertyPersistenceHelper.PersistType;
@@ -273,6 +274,8 @@ public class BindDaoBuilder implements SQLiteModelElementVisitor {
 
 		// generate serializer params
 		for (Entry<TypeName, String> item : currentDaoDefinition.managedParams.entrySet()) {
+			BindTransformer.checkIfIsInUnsupportedPackage(item.getKey());
+			
 			ManagedPropertyPersistenceHelper.generateParamSerializer(context, item.getValue(), item.getKey(), PersistType.BYTE);
 			ManagedPropertyPersistenceHelper.generateParamParser(context, item.getValue(), item.getKey(), PersistType.BYTE);
 		}

@@ -28,13 +28,12 @@ import sqlite.feature.globaltypeadapters.model1.BindPerson1DaoFactory;
 import sqlite.feature.globaltypeadapters.model1.BindPerson1DataSource;
 import sqlite.feature.globaltypeadapters.model1.BindPerson1DataSource.Transaction;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestGlobalTypeAdapterRuntime.
  *
  * @author Francesco Benincasa (info@abubusoft.com)
  */
-public class TestGlobalTypeAdapterRuntime extends BaseAndroidTest {
+public class TestGlobalTypeAdapterRuntime1 extends BaseAndroidTest {
 
 	/**
 	 * Run.
