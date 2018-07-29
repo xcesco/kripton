@@ -33,12 +33,12 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   private final Security47 defaultBean;
 
   /**
-   * DeviceAccessTokenBindMap */
-  private DeviceAccessTokenBindMap deviceAccessTokenBindMap = BinderUtils.mapperFor(DeviceAccessToken.class);
-
-  /**
    * UserIdentityBindMap */
   private UserIdentityBindMap userIdentityBindMap = BinderUtils.mapperFor(UserIdentity.class);
+
+  /**
+   * DeviceAccessTokenBindMap */
+  private DeviceAccessTokenBindMap deviceAccessTokenBindMap = BinderUtils.mapperFor(DeviceAccessToken.class);
 
   /**
    * constructor
@@ -87,17 +87,17 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   public Security47 read() {
     Security47 bean=new Security47();
      {
+      String temp=prefs.getString("user_identity", null);
+      bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): defaultBean.userIdentity;
+    }
+
+    bean.deviceUid=prefs.getString("device_uid", defaultBean.deviceUid);
+     {
       String temp=prefs.getString("authorization_token", null);
       bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): defaultBean.authorizationToken;
     }
 
     bean.fcmId=prefs.getString("fcm_id", defaultBean.fcmId);
-    bean.deviceUid=prefs.getString("device_uid", defaultBean.deviceUid);
-     {
-      String temp=prefs.getString("user_identity", null);
-      bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): defaultBean.userIdentity;
-    }
-
 
     return bean;
   }
@@ -109,6 +109,15 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public void write(Security47 bean) {
     SharedPreferences.Editor editor=prefs.edit();
+    if (bean.userIdentity!=null)  {
+      String temp=serializeUserIdentity(bean.userIdentity);
+      editor.putString("user_identity",temp);
+    }  else  {
+      editor.remove("user_identity");
+    }
+
+    editor.putString("device_uid",bean.deviceUid);
+
     if (bean.authorizationToken!=null)  {
       String temp=serializeAuthorizationToken(bean.authorizationToken);
       editor.putString("authorization_token",temp);
@@ -118,18 +127,27 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
 
     editor.putString("fcm_id",bean.fcmId);
 
-    editor.putString("device_uid",bean.deviceUid);
-
-    if (bean.userIdentity!=null)  {
-      String temp=serializeUserIdentity(bean.userIdentity);
-      editor.putString("user_identity",temp);
-    }  else  {
-      editor.remove("user_identity");
-    }
-
 
     editor.commit();
   }
+
+  /**
+   * reads property <code>userIdentity</code> from shared pref with key <code>user_identity</code>
+   *
+   * @return property userIdentity value
+   */
+  public UserIdentity getUserIdentity() {
+    String temp=prefs.getString("user_identity", null);
+    return StringUtils.hasText(temp) ? parseUserIdentity(temp): defaultBean.userIdentity;
+  }
+
+  /**
+   * reads property <code>deviceUid</code> from shared pref with key <code>device_uid</code>
+   *
+   * @return property deviceUid value
+   */
+  public String getDeviceUid() {
+    return prefs.getString("device_uid", defaultBean.deviceUid);}
 
   /**
    * reads property <code>authorizationToken</code> from shared pref with key <code>authorization_token</code>
@@ -150,21 +168,47 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     return prefs.getString("fcm_id", defaultBean.fcmId);}
 
   /**
-   * reads property <code>deviceUid</code> from shared pref with key <code>device_uid</code>
-   *
-   * @return property deviceUid value
+   * for attribute userIdentity serialization
    */
-  public String getDeviceUid() {
-    return prefs.getString("device_uid", defaultBean.deviceUid);}
+  protected String serializeUserIdentity(UserIdentity value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      if (value!=null)  {
+        fieldCount++;
+        userIdentityBindMap.serializeOnJackson(value, jacksonSerializer);
+      }
+      jacksonSerializer.flush();
+      return stream.toString();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
 
   /**
-   * reads property <code>userIdentity</code> from shared pref with key <code>user_identity</code>
-   *
-   * @return property userIdentity value
+   * for attribute userIdentity parsing
    */
-  public UserIdentity getUserIdentity() {
-    String temp=prefs.getString("user_identity", null);
-    return StringUtils.hasText(temp) ? parseUserIdentity(temp): defaultBean.userIdentity;
+  protected UserIdentity parseUserIdentity(String input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      UserIdentity result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
+        result=userIdentityBindMap.parseOnJackson(jacksonParser);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
   }
 
   /**
@@ -212,50 +256,6 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
   }
 
   /**
-   * for attribute userIdentity serialization
-   */
-  protected String serializeUserIdentity(UserIdentity value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      if (value!=null)  {
-        fieldCount++;
-        userIdentityBindMap.serializeOnJackson(value, jacksonSerializer);
-      }
-      jacksonSerializer.flush();
-      return stream.toString();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for attribute userIdentity parsing
-   */
-  protected UserIdentity parseUserIdentity(String input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      UserIdentity result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        result=userIdentityBindMap.parseOnJackson(jacksonParser);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
    * get instance of shared preferences
    */
   public static synchronized BindSecurity47SharedPreferences getInstance() {
@@ -272,6 +272,45 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
    */
   public class BindEditor extends AbstractEditor {
     private BindEditor() {
+    }
+
+    /**
+     * modifier for property userIdentity
+     */
+    public BindEditor putUserIdentity(UserIdentity value) {
+      if (value!=null)  {
+        String temp=serializeUserIdentity(value);
+        editor.putString("user_identity",temp);
+      }  else  {
+        editor.remove("user_identity");
+      }
+
+      return this;
+    }
+
+    /**
+     * remove property userIdentity
+     */
+    public BindEditor removeUserIdentity() {
+      editor.remove("user_identity");
+      return this;
+    }
+
+    /**
+     * modifier for property deviceUid
+     */
+    public BindEditor putDeviceUid(String value) {
+      editor.putString("device_uid",value);
+
+      return this;
+    }
+
+    /**
+     * remove property deviceUid
+     */
+    public BindEditor removeDeviceUid() {
+      editor.remove("device_uid");
+      return this;
     }
 
     /**
@@ -310,45 +349,6 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeFcmId() {
       editor.remove("fcm_id");
-      return this;
-    }
-
-    /**
-     * modifier for property deviceUid
-     */
-    public BindEditor putDeviceUid(String value) {
-      editor.putString("device_uid",value);
-
-      return this;
-    }
-
-    /**
-     * remove property deviceUid
-     */
-    public BindEditor removeDeviceUid() {
-      editor.remove("device_uid");
-      return this;
-    }
-
-    /**
-     * modifier for property userIdentity
-     */
-    public BindEditor putUserIdentity(UserIdentity value) {
-      if (value!=null)  {
-        String temp=serializeUserIdentity(value);
-        editor.putString("user_identity",temp);
-      }  else  {
-        editor.remove("user_identity");
-      }
-
-      return this;
-    }
-
-    /**
-     * remove property userIdentity
-     */
-    public BindEditor removeUserIdentity() {
-      editor.remove("user_identity");
       return this;
     }
 

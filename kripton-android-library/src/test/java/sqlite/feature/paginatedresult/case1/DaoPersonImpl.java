@@ -4,7 +4,6 @@ import android.database.Cursor;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
-import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.common.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,32 +34,10 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
    * </dl>
    *
-   * @return paginated result.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
-  public PaginatedResult<Person> select() {
-    PaginatedResult0 paginatedResult=new PaginatedResult0();
-    // common part generation - BEGIN
-    // common part generation - END
-    return paginatedResult;
-  }
-
-  /**
-   * <h2>Select SQL:</h2>
-   *
-   * <pre>SELECT id, name FROM person ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
-   *
-   * <h2>Projected columns:</h2>
-   * <dl>
-   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
-   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
-   * </dl>
-   *
-   * @param paginatedResult
-   * 	handler of paginated result
-   * @return result list
-   */
-  private List<Person> select(PaginatedResult0 paginatedResult) {
+  public List<Person> selectAll() {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -78,11 +55,6 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     String _sqlLimitStatement=" LIMIT 10";
     _sqlBuilder.append(_sqlLimitStatement);
     // generation limit - END
-
-    // generation offset - BEGIN
-    String _sqlOffsetStatement=" OFFSET "+paginatedResult.firstRow();
-    _sqlBuilder.append(_sqlOffsetStatement);
-    // generation offset - END
 
     String _sql=_sqlBuilder.toString();
     // add where arguments
@@ -107,9 +79,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       }
       // log section END
       // common part generation - END
-      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+      // Specialized part - SelectBeanListHelper - BEGIN
 
-      List<Person> resultList=new ArrayList<Person>(_cursor.getCount());
+      ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
       // initialize temporary variable for immutable POJO
@@ -140,20 +112,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
       return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
-    // Specialized part II - SelectPaginatedResultHelper - END
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {
-  }
-
-  public class PaginatedResult0 extends PaginatedResult<Person> {
-    PaginatedResult0() {
-      this.pageSize=10;
-    }
-
-    public List<Person> execute() {
-      list=DaoPersonImpl.this.select(this);
-      return list;
-    }
   }
 }

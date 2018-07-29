@@ -60,7 +60,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new CityTable(), new PersonTable(), new PersonCityTable()};
+  static final SQLiteTable[] TABLES = {new PersonTable(), new CityTable(), new PersonCityTable()};
 
   /**
    * <p>dao instance</p>
@@ -249,16 +249,16 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
     // log section END
     // log section BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(CityTable.CREATE_TABLE_SQL);
-    // log section BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
     // log section END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+    }
+    // log section END
+    database.execSQL(CityTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonCityTable.CREATE_TABLE_SQL);
@@ -305,16 +305,16 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(CityTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(CityTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonCityTable.CREATE_TABLE_SQL);

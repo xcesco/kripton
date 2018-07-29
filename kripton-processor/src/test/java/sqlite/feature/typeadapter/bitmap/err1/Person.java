@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.typeadapter.bitmap;
+package sqlite.feature.typeadapter.bitmap.err1;
 
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
@@ -31,7 +31,7 @@ public class Person {
 	public long id;
 	
 	/** The image. */
-	@BindSqlAdapter(adapter = BitmapTypeAdapter.class)
+	//@BindSqlAdapter(adapter = BitmapTypeAdapter.class)
 	public Bitmap image;
 
 }

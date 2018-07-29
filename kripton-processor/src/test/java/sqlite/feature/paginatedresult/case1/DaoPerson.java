@@ -33,8 +33,8 @@ public interface DaoPerson {
 	 *
 	 * @return the paginated result
 	 */
-	@BindSqlSelect(orderBy="name", pageSize=10)
-	PaginatedResult<Person> select();
+	/*@BindSqlSelect(orderBy="name", pageSize=10)
+	PaginatedResult<Person> select();*/
 
 	@BindSqlSelect(orderBy="name", pageSize=10)
 	List<Person> selectAll();

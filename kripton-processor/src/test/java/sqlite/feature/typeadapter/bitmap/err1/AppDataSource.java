@@ -13,25 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.typeadapter.bitmap;
+package sqlite.feature.typeadapter.bitmap.err1;
 
-import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
-import com.abubusoft.kripton.android.annotation.BindSqlType;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
-import android.graphics.Bitmap;
-
-// TODO: Auto-generated Javadoc
 /**
- * The Class Person.
+ * The Interface AppDataSource.
  */
-@BindSqlType
-public class Person {
-	
-	/** The id. */
-	public long id;
-	
-	/** The image. */
-	@BindSqlAdapter(adapter = BitmapTypeAdapter.class)
-	public Bitmap image;
+@BindDataSource(fileName="person.db", version=1, daoSet = { DaoPerson.class })
+public interface AppDataSource {
 
 }

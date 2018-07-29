@@ -15,6 +15,8 @@
  *******************************************************************************/
 package sqlite.feature.paginatedresult.case1;
 
+import java.util.List;
+
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
@@ -31,8 +33,10 @@ public interface DaoPerson {
 	 *
 	 * @return the paginated result
 	 */
+	/*@BindSqlSelect(orderBy="name", pageSize=10)
+	PaginatedResult<Person> select();*/
+
 	@BindSqlSelect(orderBy="name", pageSize=10)
-	PaginatedResult<Person> select();
-		
+	List<Person> selectAll();
 		
 }

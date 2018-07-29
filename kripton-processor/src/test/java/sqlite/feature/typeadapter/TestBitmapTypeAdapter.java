@@ -13,13 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.typeadapter.bitmap;
+package sqlite.feature.typeadapter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.feature.typeadapter.bitmap.AppDataSource;
+import sqlite.feature.typeadapter.bitmap.BitmapTypeAdapter;
+import sqlite.feature.typeadapter.bitmap.DaoPerson;
+import sqlite.feature.typeadapter.bitmap.Person;
 
 // TODO: Auto-generated Javadoc
 /**
