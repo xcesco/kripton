@@ -72,7 +72,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new UserTable(), new PostTable(), new CommentTable(), new TodoTable()};
+  static final SQLiteTable[] TABLES = {new UserTable(), new CommentTable(), new TodoTable(), new PostTable()};
 
   /**
    * <p>dao instance</p>
@@ -260,7 +260,7 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       if (options.inMemory) {
         Logger.info("Create database in memory");
@@ -268,30 +268,30 @@ public class BindQuickStartDataSource extends AbstractDataSource implements Bind
         Logger.info("Create database '%s' version %s",this.name, this.version);
       }
     }
-    // log section END
-    // log section BEGIN
+    // log section create END
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(UserTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PostTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(PostTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",CommentTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(CommentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",TodoTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(TodoTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);

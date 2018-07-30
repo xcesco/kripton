@@ -54,7 +54,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable(), new ChildTable()};
+  static final SQLiteTable[] TABLES = {new ChildTable(), new PersonTable()};
 
   /**
    * <p>dao instance</p>
@@ -222,7 +222,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       if (options.inMemory) {
         Logger.info("Create database in memory");
@@ -230,18 +230,18 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
         Logger.info("Create database '%s' version %s",this.name, this.version);
       }
     }
-    // log section END
-    // log section BEGIN
+    // log section create END
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",ChildTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(ChildTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);

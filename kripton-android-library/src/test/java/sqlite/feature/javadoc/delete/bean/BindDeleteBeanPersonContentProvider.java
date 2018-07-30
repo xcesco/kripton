@@ -265,11 +265,11 @@ public class BindDeleteBeanPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
       }
     }
-    // log section BEGIN
+    // log section for content provider delete BEGIN
     if (dataSource.isLogEnabled()) {
       Logger.info("Changes are notified for URI %s", uri);
     }
-    // log section END
+    // log section for content provider delete END
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowDeleted;
   }

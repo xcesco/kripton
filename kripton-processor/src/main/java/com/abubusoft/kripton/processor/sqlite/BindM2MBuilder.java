@@ -47,6 +47,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
@@ -142,7 +143,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 *             the exception
 	 */
 	public static Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generate(Filer filer, M2MModel model)
-			throws Exception {
+			 {
 		entityResult.clear();
 		daoResult.clear();
 		BindM2MBuilder visitor = new BindM2MBuilder(filer);
@@ -166,7 +167,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 * @throws Exception
 	 *             the exception
 	 */
-	public void generate(M2MEntity entity) throws Exception {
+	public void generate(M2MEntity entity) {
 		generateEntity(entity);
 		generateDaoPart(entity);
 	}
@@ -179,7 +180,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	private void generateDaoPart(M2MEntity entity) throws IOException {
+	private void generateDaoPart(M2MEntity entity) {
 		String daoClassName = entity.daoName.simpleName();
 
 		String daoPackageName = entity.daoName.packageName();
@@ -209,7 +210,11 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		TypeSpec typeSpec = classBuilder.build();
 
-		JavaWriterHelper.writeJava2File(filer, daoPackageName, typeSpec);
+		try {
+			JavaWriterHelper.writeJava2File(filer, daoPackageName, typeSpec);
+		} catch (IOException e) {
+			throw new KriptonRuntimeException(e);
+		}
 
 		GeneratedTypeElement daoPartElement = new GeneratedTypeElement(daoPackageName, classBuilder.build(), null,
 				null);
@@ -430,7 +435,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	private void generateEntity(M2MEntity entity) throws IOException {
+	private void generateEntity(M2MEntity entity) {
 		entity.propertyPrimaryKey = TypeName.LONG;
 		entity.propertyKey1 = findPrimaryKeyFieldType(entity.entity1Name.toString());
 		entity.propertyKey2 = findPrimaryKeyFieldType(entity.entity2Name.toString());
@@ -571,7 +576,11 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		TypeSpec typeSpec = classBuilder.build();
 
-		JavaWriterHelper.writeJava2File(filer, entity.getPackageName(), typeSpec);
+		try {
+			JavaWriterHelper.writeJava2File(filer, entity.getPackageName(), typeSpec);
+		} catch (IOException e) {
+			throw new KriptonRuntimeException(e);
+		}
 
 		GeneratedTypeElement entityElement = new GeneratedTypeElement(entity.getPackageName(), classBuilder.build(),
 				tableName, fk1Name + ", " + fk2Name);

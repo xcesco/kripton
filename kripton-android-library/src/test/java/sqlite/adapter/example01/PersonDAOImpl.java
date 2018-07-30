@@ -57,7 +57,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // add where arguments
     _contentValues.addWhereArgs((birthDay==null?"":DateUtils.write(birthDay)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -69,7 +69,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

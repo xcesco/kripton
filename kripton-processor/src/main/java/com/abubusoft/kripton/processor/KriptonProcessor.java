@@ -37,9 +37,6 @@ import com.sun.source.util.Trees;
  */
 public class KriptonProcessor extends BaseProcessor {
 	
-	
-	public static boolean debugMode=false;
-	
 	@Override
 	public Set<String> getSupportedOptions() {
 		Set<String> options = new LinkedHashSet<String>();
@@ -103,8 +100,7 @@ public class KriptonProcessor extends BaseProcessor {
 		
 		KriptonProcessor.trees = Trees.instance(processingEnv);
 		
-		// add debug mode
-		KriptonProcessor.debugMode = "true".equals(processingEnv.getOptions().get(KriptonOptions.DEBUG));
+		KriptonOptions.init(this, processingEnv);
 
 		typeProcessor.init(processingEnv);
 		many2ManyProcessor.init(processingEnv);
@@ -122,7 +118,8 @@ public class KriptonProcessor extends BaseProcessor {
 		try {
 			count++;			
 			if (count ==1) {
-
+								
+						
 				many2ManyProcessor.clear();
 				typeProcessor.clear();
 				sharedPreferencesProcessor.clear();
@@ -142,25 +139,26 @@ public class KriptonProcessor extends BaseProcessor {
 				// dump(1, roundEnv);
 				dataSourceProcessor.analyzeRound(annotations, roundEnv);
 				dataSourceProcessor.process(annotations, roundEnv);
-				dataSourceProcessor.generatedClasses(roundEnv);
+				dataSourceProcessor.generateClasses(roundEnv);
 			} else if (count==2) {
 				dataSourceProcessor.analyzeSecondRound(annotations, roundEnv);
 				dataSourceProcessor.processSecondRound(annotations, roundEnv);
-				dataSourceProcessor.generatedClassesSecondRound(roundEnv);
+				dataSourceProcessor.generateClassesSecondRound(roundEnv);
 			}
 
-			return false;
+			return true;
 		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
 			error(null, e.getClass().getCanonicalName() + ": " + msg);
 			
-			if (DEBUG_MODE || KriptonProcessor.debugMode) {
+			if (DEBUG_MODE) {
 				logger.log(Level.SEVERE, msg);
 				e.printStackTrace();
 			}
 		}
 
-		return false;
+		return true;
 	}
+	
 
 }

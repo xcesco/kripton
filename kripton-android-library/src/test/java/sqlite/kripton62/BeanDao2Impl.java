@@ -91,7 +91,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     String _sql=SELECT_ONE_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -103,7 +103,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -191,7 +191,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -203,7 +203,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -306,7 +306,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -318,7 +318,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -378,7 +378,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -390,7 +390,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -724,7 +724,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     // add where arguments
     _contentValues.addWhereArgs((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -736,7 +736,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

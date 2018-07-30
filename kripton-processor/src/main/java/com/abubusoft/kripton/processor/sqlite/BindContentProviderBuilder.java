@@ -438,7 +438,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 			if (schema.generateLog) {
 				// generate log section - BEGIN
-				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.addComment("log section for content provider insert BEGIN");
 				methodBuilder.beginControlFlow("if (dataSource.isLogEnabled())");
 
 				methodBuilder.addStatement("$T.info(\"Element is created with URI '%s'\", _returnURL)", Logger.class);
@@ -446,7 +446,7 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 
 				// generate log section - END
 				methodBuilder.endControlFlow();
-				methodBuilder.addComment("log section END");
+				methodBuilder.addComment("log section for content provider insert END");
 			}
 			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
 			methodBuilder.addStatement("return _returnURL");
@@ -521,14 +521,14 @@ public class BindContentProviderBuilder extends AbstractBuilder {
 		if (hasOperation) {
 			if (schema.generateLog) {
 				// generate log section - BEGIN
-				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.addComment("log section for content provider delete BEGIN");
 				methodBuilder.beginControlFlow("if (dataSource.isLogEnabled())");
 
 				methodBuilder.addStatement("$T.info(\"Changes are notified for URI %s\", uri)", Logger.class);
 
 				// generate log section - END
 				methodBuilder.endControlFlow();
-				methodBuilder.addComment("log section END");
+				methodBuilder.addComment("log section for content provider delete END");
 			}
 			methodBuilder.addStatement("getContext().getContentResolver().notifyChange(uri, null)");
 		}

@@ -153,7 +153,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     String _sql=SELECT_ALL_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -165,7 +165,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

@@ -78,7 +78,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     String _sql=SELECT_ONE_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -90,7 +90,7 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -154,7 +154,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -166,7 +166,7 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -231,7 +231,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -243,7 +243,7 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -314,7 +314,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -326,7 +326,7 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -381,7 +381,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -393,7 +393,7 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -696,72 +696,6 @@ public class CharDaoImpl extends Dao implements CharDao {
   }
 
   /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(char[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        char item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          jacksonSerializer.writeNumber(item);
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private char[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      char[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Character> collection=new ArrayList<>();
-        Character item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=Character.valueOf((char)jacksonParser.getIntValue());
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asCharacterTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
    * for param serializer2 serialization
    */
   private byte[] serializer2(Character[] value) {
@@ -824,6 +758,72 @@ public class CharDaoImpl extends Dao implements CharDao {
           collection.add(item);
         }
         result=CollectionUtils.asCharacterArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer1 serialization
+   */
+  private byte[] serializer1(char[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        char item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser1 parsing
+   */
+  private char[] parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      char[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterTypeArray(collection);
       }
       return result;
     } catch(Exception e) {

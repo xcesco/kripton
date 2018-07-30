@@ -120,10 +120,12 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			Set<GeneratedTypeElement> generatedEntities) throws Exception {
 		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, schema);
 
-		for (SQLiteEntity item : schema.getEntities()) {
+		List<SQLiteEntity> orderedEntities = BindDataSourceBuilder.orderEntitiesList(schema);
+		
+		for (SQLiteEntity item : orderedEntities) {
 			visitor.visit(schema, item);
 		}
-
+		
 		// generate table for generated entity
 		for (GeneratedTypeElement genItem : generatedEntities) {
 			visitor.visit(schema, genItem);

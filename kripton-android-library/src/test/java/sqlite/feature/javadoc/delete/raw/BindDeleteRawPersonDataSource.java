@@ -203,7 +203,7 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       if (options.inMemory) {
         Logger.info("Create database in memory");
@@ -211,12 +211,12 @@ public class BindDeleteRawPersonDataSource extends AbstractDataSource implements
         Logger.info("Create database '%s' version %s",this.name, this.version);
       }
     }
-    // log section END
-    // log section BEGIN
+    // log section create END
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);

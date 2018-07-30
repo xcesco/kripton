@@ -28,7 +28,7 @@ import java.util.List;
  * @param <E>
  * 		item to order 
  */
-public abstract class EntityUtility<E> {
+public abstract class EntitySorter<E> {
 
 	/** The input. */
 	private List<E> input;
@@ -41,7 +41,7 @@ public abstract class EntityUtility<E> {
 	 *
 	 * @param input the input
 	 */
-	public EntityUtility(List<E> input) {
+	public EntitySorter(List<E> input) {
 		this.input = input;
 		this.output = new ArrayList<E>();
 	}

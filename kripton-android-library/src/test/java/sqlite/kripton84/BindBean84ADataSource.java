@@ -202,7 +202,7 @@ public class BindBean84ADataSource extends AbstractDataSource implements BindBea
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       if (options.inMemory) {
         Logger.info("Create database in memory");
@@ -210,12 +210,12 @@ public class BindBean84ADataSource extends AbstractDataSource implements BindBea
         Logger.info("Create database '%s' version %s",this.name, this.version);
       }
     }
-    // log section END
-    // log section BEGIN
+    // log section create END
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",Bean84ATable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(Bean84ATable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);

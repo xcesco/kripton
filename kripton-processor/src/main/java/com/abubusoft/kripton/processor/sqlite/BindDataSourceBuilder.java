@@ -51,16 +51,16 @@ import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
+import com.abubusoft.kripton.processor.KriptonOptions;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.exceptions.CircularRelationshipException;
-import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
+import com.abubusoft.kripton.processor.sqlite.core.EntitySorter;
 import com.abubusoft.kripton.processor.sqlite.core.JavadocUtility;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
@@ -163,10 +163,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// and now, write schema.create.v and schema.drop.v
 		String schemaCreation = defineFileName(schema);
 
-		String schemaLocation = schema.schemaLocationDirectory;
-		if (!StringUtils.hasText(schemaLocation)) {
-			schemaLocation = "schemas";
-		}
+		String schemaLocation=KriptonOptions.getSchemaLocation();
 
 		File schemaCreatePath = new File(schemaLocation).getAbsoluteFile();
 		File schemaCreateFile = new File(schemaLocation, schemaCreation).getAbsoluteFile();
@@ -337,7 +334,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		generateConstructor(schema);
 
 		// before use entities, order them with dependencies respect
-		List<SQLiteEntity> orderedEntities = generateOrderedEntitiesList(schema);
+		List<SQLiteEntity> orderedEntities = orderEntitiesList(schema);
 
 		// onCreate
 		boolean useForeignKey = generateOnCreate(schema, orderedEntities);
@@ -764,7 +761,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		methodBuilder.addCode("// generate tables\n");
 		if (schema.isLogEnabled()) {
 			// generate log section - BEGIN
-			methodBuilder.addComment("log section BEGIN");
+			methodBuilder.addComment("log section create BEGIN");
 			methodBuilder.beginControlFlow("if (this.logEnabled)");
 
 			methodBuilder.beginControlFlow("if (options.inMemory)");
@@ -776,12 +773,12 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 			// generate log section - END
 			methodBuilder.endControlFlow();
-			methodBuilder.addComment("log section END");
+			methodBuilder.addComment("log section create END");
 		}
 		for (SQLiteEntity item : orderedEntities) {
 			if (schema.isLogEnabled()) {
 				// generate log section - BEGIN
-				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.addComment("log section create BEGIN");
 				methodBuilder.beginControlFlow("if (this.logEnabled)");
 
 				methodBuilder.addStatement("$T.info(\"DDL: %s\",$T.CREATE_TABLE_SQL)", Logger.class,
@@ -789,7 +786,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 				// generate log section - END
 				methodBuilder.endControlFlow();
-				methodBuilder.addComment("log section END");
+				methodBuilder.addComment("log section create END");
 			}
 			methodBuilder.addStatement("database.execSQL($T.CREATE_TABLE_SQL)",
 					BindTableGenerator.tableClassName(null, item));
@@ -985,7 +982,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 	 *            the schema
 	 * @return the list
 	 */
-	private List<SQLiteEntity> generateOrderedEntitiesList(SQLiteDatabaseSchema schema) {
+	public static List<SQLiteEntity> orderEntitiesList(SQLiteDatabaseSchema schema) {
 		List<SQLiteEntity> entities = schema.getEntitiesAsList();
 		Collections.sort(entities, new Comparator<SQLiteEntity>() {
 
@@ -997,7 +994,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		List<SQLiteEntity> list = schema.getEntitiesAsList();
 
-		EntityUtility<SQLiteEntity> sorder = new EntityUtility<SQLiteEntity>(list) {
+		EntitySorter<SQLiteEntity> sorder = new EntitySorter<SQLiteEntity>(list) {
 
 			@Override
 			public Collection<SQLiteEntity> getDependencies(SQLiteEntity item) {
@@ -1010,7 +1007,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			}
 		};
 
-		return sorder.order();
+		return sorder.order();		
 	}
 
 	/**

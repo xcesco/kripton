@@ -76,7 +76,7 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -88,7 +88,7 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

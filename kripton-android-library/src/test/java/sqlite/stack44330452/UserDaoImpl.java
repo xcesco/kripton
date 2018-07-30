@@ -44,7 +44,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     String _sql=LOAD_USER_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -56,7 +56,7 @@ public class UserDaoImpl extends Dao implements UserDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

@@ -77,7 +77,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(param1));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -89,7 +89,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -146,7 +146,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     // add where arguments
     _contentValues.addWhereArgs((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -158,7 +158,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

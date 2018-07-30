@@ -72,7 +72,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -84,7 +84,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -139,7 +139,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -151,7 +151,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

@@ -83,7 +83,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -95,7 +95,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -188,7 +188,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(uid));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -200,7 +200,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -306,7 +306,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     _contentValues.addWhereArgs((param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -318,7 +318,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -646,142 +646,6 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * for param serializer4 serialization
-   */
-  private byte[] serializer4(char[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        char item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          jacksonSerializer.writeNumber(item);
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser4 parsing
-   */
-  private char[] parser4(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      char[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Character> collection=new ArrayList<>();
-        Character item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=Character.valueOf((char)jacksonParser.getIntValue());
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asCharacterTypeArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param serializer3 serialization
-   */
-  private byte[] serializer3(Character[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        Character item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            jacksonSerializer.writeNumber(item);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser3 parsing
-   */
-  private Character[] parser3(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Character[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Character> collection=new ArrayList<>();
-        Character item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=Character.valueOf((char)jacksonParser.getIntValue());
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asCharacterArray(collection);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
    * for param serializer1 serialization
    */
   private byte[] serializer1(List<String> value) {
@@ -923,6 +787,142 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
           jacksonParser.nextToken();
         }
         result=collection;
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer3 serialization
+   */
+  private byte[] serializer3(Character[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        Character item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeNumber(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser3 parsing
+   */
+  private Character[] parser3(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Character[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer4 serialization
+   */
+  private byte[] serializer4(char[] value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        int n=value.length;
+        char item;
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (int i=0; i<n; i++) {
+          item=value[i];
+          jacksonSerializer.writeNumber(item);
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser4 parsing
+   */
+  private char[] parser4(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      char[] result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        ArrayList<Character> collection=new ArrayList<>();
+        Character item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=Character.valueOf((char)jacksonParser.getIntValue());
+          }
+          collection.add(item);
+        }
+        result=CollectionUtils.asCharacterTypeArray(collection);
       }
       return result;
     } catch(Exception e) {

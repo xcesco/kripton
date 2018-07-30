@@ -106,7 +106,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -118,7 +118,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -228,7 +228,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -240,7 +240,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -370,7 +370,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, bean.fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, bean.fieldByteArray));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -382,7 +382,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -512,7 +512,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, bean.fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, bean.fieldByteArray));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -524,7 +524,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

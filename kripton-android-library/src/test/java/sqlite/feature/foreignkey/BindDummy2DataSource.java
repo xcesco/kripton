@@ -52,7 +52,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new BeanA_4Table(), new BeanA_3Table()};
+  static final SQLiteTable[] TABLES = {new BeanA_3Table(), new BeanA_4Table()};
 
   /**
    * <p>dao instance</p>
@@ -220,7 +220,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       if (options.inMemory) {
         Logger.info("Create database in memory");
@@ -228,18 +228,18 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
         Logger.info("Create database '%s' version %s",this.name, this.version);
       }
     }
-    // log section END
-    // log section BEGIN
+    // log section create END
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",BeanA_3Table.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(BeanA_3Table.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",BeanA_4Table.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(BeanA_4Table.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);

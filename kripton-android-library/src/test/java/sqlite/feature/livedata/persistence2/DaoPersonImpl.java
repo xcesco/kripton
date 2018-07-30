@@ -91,7 +91,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -103,7 +103,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -280,7 +280,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -292,7 +292,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

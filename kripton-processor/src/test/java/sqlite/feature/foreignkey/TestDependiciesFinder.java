@@ -21,7 +21,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import com.abubusoft.kripton.processor.sqlite.core.EntityUtility;
+import com.abubusoft.kripton.processor.sqlite.core.EntitySorter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -229,7 +229,7 @@ public class TestDependiciesFinder {
 	 */
 	public void check(List<Dummy> input) {
 		//System.out.println("Input: " + input);
-		EntityUtility<Dummy> sorder = new EntityUtility<TestDependiciesFinder.Dummy>(input) {
+		EntitySorter<Dummy> sorder = new EntitySorter<TestDependiciesFinder.Dummy>(input) {
 
 			@Override
 			public List<Dummy> getDependencies(Dummy item) {

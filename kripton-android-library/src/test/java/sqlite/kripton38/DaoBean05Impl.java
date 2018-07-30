@@ -108,7 +108,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -120,7 +120,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -191,7 +191,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
     _contentValues.addWhereArgs(bean.getText());
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -203,7 +203,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -272,7 +272,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -284,7 +284,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -354,7 +354,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs((text==null?"":text));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -366,7 +366,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -423,7 +423,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs((text==null?"":text));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -435,7 +435,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -490,7 +490,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -502,7 +502,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -557,7 +557,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -569,7 +569,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -648,7 +648,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -660,7 +660,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -715,7 +715,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -727,7 +727,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -1293,7 +1293,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -1305,7 +1305,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

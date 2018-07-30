@@ -590,7 +590,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 			if (daoDefinition.isLogEnabled()) {
 				// generate log section - BEGIN
-				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.addComment("log section for select BEGIN");
 				methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
 				// manage log
 				methodBuilder.addComment("manage log");
@@ -601,7 +601,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 				// generate log section - END
 				methodBuilder.endControlFlow();
-				methodBuilder.addComment("log section END");
+				methodBuilder.addComment("log section for select END");
 			}
 
 			if (generationType.generateCloseableCursor) {

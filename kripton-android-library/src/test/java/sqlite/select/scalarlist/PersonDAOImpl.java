@@ -58,7 +58,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -70,7 +70,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -119,7 +119,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     String _sql=SELECT_ALL2_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -131,7 +131,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -158,53 +158,6 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       return resultList;
     }
     // Specialized part - SelectScalarListHelper - END
-  }
-
-  /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(String value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        jacksonSerializer.writeStringField("element", value);
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private String parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      String result=null;
-      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
-        result=jacksonParser.getText();
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
   }
 
   /**
@@ -247,6 +200,53 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       Date result=null;
       if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
         result=DateUtils.read(jacksonParser.getText());
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer1 serialization
+   */
+  private byte[] serializer1(String value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        jacksonSerializer.writeStringField("element", value);
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser1 parsing
+   */
+  private String parser1(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      String result=null;
+      if (jacksonParser.currentToken()!=JsonToken.VALUE_NULL) {
+        result=jacksonParser.getText();
       }
       return result;
     } catch(Exception e) {

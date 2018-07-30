@@ -61,7 +61,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new RssFeedTable(), new ChannelTable(), new ArticleTable()};
+  static final SQLiteTable[] TABLES = {new ArticleTable(), new RssFeedTable(), new ChannelTable()};
 
   /**
    * <p>dao instance</p>
@@ -239,7 +239,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       if (options.inMemory) {
         Logger.info("Create database in memory");
@@ -247,24 +247,24 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
         Logger.info("Create database '%s' version %s",this.name, this.version);
       }
     }
-    // log section END
-    // log section BEGIN
+    // log section create END
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",RssFeedTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(RssFeedTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",ChannelTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(ChannelTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",ArticleTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(ArticleTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);

@@ -60,7 +60,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable(), new CityTable(), new PersonCityTable()};
+  static final SQLiteTable[] TABLES = {new CityTable(), new PersonTable(), new PersonCityTable()};
 
   /**
    * <p>dao instance</p>
@@ -238,7 +238,7 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       if (options.inMemory) {
         Logger.info("Create database in memory");
@@ -246,19 +246,19 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
         Logger.info("Create database '%s' version %s",this.name, this.version);
       }
     }
-    // log section END
-    // log section BEGIN
-    if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-    }
-    // log section END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create END
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(CityTable.CREATE_TABLE_SQL);
+    // log section create BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+    }
+    // log section create END
+    database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonCityTable.CREATE_TABLE_SQL);
@@ -305,16 +305,16 @@ public class BindPersonCirtyDataSource extends AbstractDataSource implements Bin
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",CityTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(CityTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonCityTable.CREATE_TABLE_SQL);

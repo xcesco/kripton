@@ -104,7 +104,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // add where arguments
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -116,7 +116,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -197,7 +197,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     // add where arguments
     _contentValues.addWhereArgs((dummy==null?"":dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -209,7 +209,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -473,7 +473,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     _contentValues.addWhereArgs(String.valueOf(bean.getId()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -485,7 +485,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -571,7 +571,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -583,7 +583,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -668,7 +668,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, bean.getPassword()));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, bean.type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -680,7 +680,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -757,7 +757,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -769,7 +769,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -854,7 +854,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(PasswordAdapterType.class, password));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(EnumAdapterType.class, type));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -866,7 +866,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

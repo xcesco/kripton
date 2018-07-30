@@ -54,7 +54,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs(String.valueOf(value));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -66,7 +66,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

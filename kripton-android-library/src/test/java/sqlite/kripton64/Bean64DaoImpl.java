@@ -4051,7 +4051,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4063,7 +4063,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -4238,7 +4238,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_ONE_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4250,7 +4250,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -4427,7 +4427,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4439,7 +4439,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -4616,7 +4616,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4628,7 +4628,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -4805,7 +4805,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueBoolType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4817,7 +4817,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -4994,7 +4994,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5006,7 +5006,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -5184,7 +5184,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5196,7 +5196,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -5419,7 +5419,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5431,7 +5431,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -5521,7 +5521,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5533,7 +5533,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -5710,7 +5710,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5722,7 +5722,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -5899,7 +5899,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5911,7 +5911,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -6088,7 +6088,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6100,7 +6100,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -6277,7 +6277,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueByteType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6289,7 +6289,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -6466,7 +6466,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6478,7 +6478,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -6655,7 +6655,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueChar==null?"":String.valueOf(valueChar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6667,7 +6667,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -6844,7 +6844,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueCharType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6856,7 +6856,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -7033,7 +7033,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7045,7 +7045,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -7222,7 +7222,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7234,7 +7234,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -7411,7 +7411,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7423,7 +7423,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -7600,7 +7600,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7612,7 +7612,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -7789,7 +7789,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueEnumType==null?"":EnumUtils.write(valueEnumType)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7801,7 +7801,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -7978,7 +7978,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7990,7 +7990,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -8167,7 +8167,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueFloatType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8179,7 +8179,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -8356,7 +8356,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8368,7 +8368,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -8545,7 +8545,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueIntType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8557,7 +8557,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -8734,7 +8734,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8746,7 +8746,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -8923,7 +8923,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueLocale==null?"":CalendarUtils.write(valueLocale)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8935,7 +8935,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -9112,7 +9112,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9124,7 +9124,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -9301,7 +9301,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueLongType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9313,7 +9313,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -9490,7 +9490,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueShort==null?"":String.valueOf(valueShort)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9502,7 +9502,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -9679,7 +9679,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueShortType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9691,7 +9691,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -9868,7 +9868,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueString==null?"":valueString));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9880,7 +9880,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10057,7 +10057,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10069,7 +10069,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10246,7 +10246,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10258,7 +10258,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10435,7 +10435,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // add where arguments
     _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10447,7 +10447,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10575,7 +10575,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_BOOL_SQL36;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10587,7 +10587,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10628,7 +10628,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_BOOL_TYPE_SQL37;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10640,7 +10640,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10681,7 +10681,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_BYTE_SQL38;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10693,7 +10693,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10734,7 +10734,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_BYTE_TYPE_SQL39;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10746,7 +10746,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10787,7 +10787,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_CHAR_SQL40;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10799,7 +10799,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10840,7 +10840,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_CHAR_TYPE_SQL41;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10852,7 +10852,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10893,7 +10893,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_DOUBLE_SQL42;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10905,7 +10905,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10946,7 +10946,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_DOUBLE_TYPE_SQL43;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10958,7 +10958,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -10999,7 +10999,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_FLOAT_SQL44;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11011,7 +11011,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -11052,7 +11052,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_FLOAT_TYPE_SQL45;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11064,7 +11064,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -11105,7 +11105,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_INT_SQL46;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11117,7 +11117,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -11158,7 +11158,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_INT_TYPE_SQL47;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11170,7 +11170,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -11211,7 +11211,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_LONG_SQL48;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11223,7 +11223,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -11264,7 +11264,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_LONG_TYPE_SQL49;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11276,7 +11276,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -11317,7 +11317,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_SHORT_SQL50;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11329,7 +11329,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -11370,7 +11370,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_SHORT_TYPE_SQL51;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11382,7 +11382,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -11423,7 +11423,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     String _sql=SELECT_VALUE_STRING_SQL52;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11435,7 +11435,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -13680,76 +13680,6 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   }
 
   /**
-   * for param serializer1 serialization
-   */
-  private byte[] serializer1(Bean64[] value) {
-    if (value==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
-      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
-      int fieldCount=0;
-      jacksonSerializer.writeStartObject();
-      if (value!=null)  {
-        int n=value.length;
-        Bean64 item;
-        // write wrapper tag
-        jacksonSerializer.writeFieldName("element");
-        jacksonSerializer.writeStartArray();
-        for (int i=0; i<n; i++) {
-          item=value[i];
-          if (item==null) {
-            jacksonSerializer.writeNull();
-          } else {
-            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
-          }
-        }
-        jacksonSerializer.writeEndArray();
-      }
-      jacksonSerializer.writeEndObject();
-      jacksonSerializer.flush();
-      return stream.toByteArray();
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
-   * for param parser1 parsing
-   */
-  private Bean64[] parser1(byte[] input) {
-    if (input==null) {
-      return null;
-    }
-    KriptonJsonContext context=KriptonBinder.jsonBind();
-    try (JacksonWrapperParser wrapper=context.createParser(input)) {
-      JsonParser jacksonParser=wrapper.jacksonParser;
-      // START_OBJECT
-      jacksonParser.nextToken();
-      // value of "element"
-      jacksonParser.nextValue();
-      Bean64[] result=null;
-      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        ArrayList<Bean64> collection=new ArrayList<>();
-        Bean64 item=null;
-        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
-          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
-            item=null;
-          } else {
-            item=bean64BindMap.parseOnJackson(jacksonParser);
-          }
-          collection.add(item);
-        }
-        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
-      }
-      return result;
-    } catch(Exception e) {
-      throw(new KriptonRuntimeException(e.getMessage()));
-    }
-  }
-
-  /**
    * for param serializer2 serialization
    */
   private byte[] serializer2(Long[] value) {
@@ -13820,9 +13750,9 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   }
 
   /**
-   * for param serializer5 serialization
+   * for param serializer1 serialization
    */
-  private byte[] serializer5(Set<String> value) {
+  private byte[] serializer1(Bean64[] value) {
     if (value==null) {
       return null;
     }
@@ -13832,14 +13762,17 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       int fieldCount=0;
       jacksonSerializer.writeStartObject();
       if (value!=null)  {
+        int n=value.length;
+        Bean64 item;
         // write wrapper tag
         jacksonSerializer.writeFieldName("element");
         jacksonSerializer.writeStartArray();
-        for (String item: value) {
+        for (int i=0; i<n; i++) {
+          item=value[i];
           if (item==null) {
             jacksonSerializer.writeNull();
           } else {
-            jacksonSerializer.writeString(item);
+            bean64BindMap.serializeOnJackson(item, jacksonSerializer);
           }
         }
         jacksonSerializer.writeEndArray();
@@ -13853,9 +13786,9 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
   }
 
   /**
-   * for param parser5 parsing
+   * for param parser1 parsing
    */
-  private Set<String> parser5(byte[] input) {
+  private Bean64[] parser1(byte[] input) {
     if (input==null) {
       return null;
     }
@@ -13866,19 +13799,19 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
       jacksonParser.nextToken();
       // value of "element"
       jacksonParser.nextValue();
-      Set<String> result=null;
+      Bean64[] result=null;
       if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
-        HashSet<String> collection=new HashSet<>();
-        String item=null;
+        ArrayList<Bean64> collection=new ArrayList<>();
+        Bean64 item=null;
         while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
           if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
             item=null;
           } else {
-            item=jacksonParser.getText();
+            item=bean64BindMap.parseOnJackson(jacksonParser);
           }
           collection.add(item);
         }
-        result=collection;
+        result=CollectionUtils.asArray(collection, new Bean64[collection.size()]);
       }
       return result;
     } catch(Exception e) {
@@ -14015,6 +13948,73 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
           collection.add(item);
         }
         result=CollectionUtils.asLongTypeArray(collection);
+      }
+      return result;
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param serializer5 serialization
+   */
+  private byte[] serializer5(Set<String> value) {
+    if (value==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (KriptonByteArrayOutputStream stream=new KriptonByteArrayOutputStream(); JacksonWrapperSerializer wrapper=context.createSerializer(stream)) {
+      JsonGenerator jacksonSerializer=wrapper.jacksonGenerator;
+      int fieldCount=0;
+      jacksonSerializer.writeStartObject();
+      if (value!=null)  {
+        // write wrapper tag
+        jacksonSerializer.writeFieldName("element");
+        jacksonSerializer.writeStartArray();
+        for (String item: value) {
+          if (item==null) {
+            jacksonSerializer.writeNull();
+          } else {
+            jacksonSerializer.writeString(item);
+          }
+        }
+        jacksonSerializer.writeEndArray();
+      }
+      jacksonSerializer.writeEndObject();
+      jacksonSerializer.flush();
+      return stream.toByteArray();
+    } catch(Exception e) {
+      throw(new KriptonRuntimeException(e.getMessage()));
+    }
+  }
+
+  /**
+   * for param parser5 parsing
+   */
+  private Set<String> parser5(byte[] input) {
+    if (input==null) {
+      return null;
+    }
+    KriptonJsonContext context=KriptonBinder.jsonBind();
+    try (JacksonWrapperParser wrapper=context.createParser(input)) {
+      JsonParser jacksonParser=wrapper.jacksonParser;
+      // START_OBJECT
+      jacksonParser.nextToken();
+      // value of "element"
+      jacksonParser.nextValue();
+      Set<String> result=null;
+      if (jacksonParser.currentToken()==JsonToken.START_ARRAY) {
+        HashSet<String> collection=new HashSet<>();
+        String item=null;
+        while (jacksonParser.nextToken() != JsonToken.END_ARRAY) {
+          if (jacksonParser.currentToken()==JsonToken.VALUE_NULL) {
+            item=null;
+          } else {
+            item=jacksonParser.getText();
+          }
+          collection.add(item);
+        }
+        result=collection;
       }
       return result;
     } catch(Exception e) {

@@ -63,7 +63,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     String _sql=SELECT_ALL_SQL5;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -75,7 +75,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -141,7 +141,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -153,7 +153,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -213,7 +213,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -225,7 +225,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -291,7 +291,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(cityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -303,7 +303,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

@@ -15,11 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Version.
  */
@@ -35,8 +33,8 @@ public abstract class Version {
 		try {
 			props.load(resourceAsStream);
 			VERSION = (String) props.get("version");
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Throwable e) {
+			//e.printStackTrace();
 		} finally {
 
 		}

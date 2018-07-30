@@ -153,8 +153,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	/** The generated entities. */
 	public Set<GeneratedTypeElement> generatedEntities;
 
-	private String schemaLocationDirectory;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -180,12 +178,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 
-		schemaLocationDirectory = processingEnv.getOptions().get(KriptonOptions.SCHEMA_LOCATION_OPTIONS);
-		KriptonLiveDataManager.init(processingEnv.getOptions().get(KriptonOptions.ANDROID_X_OPTIONS));
-	}
-
-	public String getSchemaLocationDirectory() {
-		return schemaLocationDirectory;
 	}
 
 	/*
@@ -966,8 +958,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @throws Exception
 	 *             the exception
 	 */
-	protected void generatedClasses(RoundEnvironment roundEnv) throws Exception {
+	protected void generateClasses(RoundEnvironment roundEnv) throws Exception {
 		for (SQLiteDatabaseSchema currentSchema : schemas) {
+			// first of all, order table look for its dependencies
 			BindTableGenerator.generate(elementUtils, filer, currentSchema, currentSchema.generatedEntities);
 			BindDaoBuilder.generate(elementUtils, filer, currentSchema);
 			if (currentSchema.generateCursor)
@@ -991,7 +984,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 * @throws Exception
 	 *             the exception
 	 */
-	protected void generatedClassesSecondRound(RoundEnvironment roundEnv) throws Exception {
+	protected void generateClassesSecondRound(RoundEnvironment roundEnv) throws Exception {
 		for (SQLiteDatabaseSchema currentSchema : schemas) {
 			BindDaoBuilder.generateSecondRound(elementUtils, filer, currentSchema);
 		}
@@ -1228,7 +1221,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		SQLiteDatabaseSchema schema = new SQLiteDatabaseSchema((TypeElement) databaseSchema, schemaFileName,
 				schemaVersion, generateSchema, generateLog, generateAsyncTask, generateCursorWrapper, generateRx,
 				daoIntoDataSource, configCursorFactory, configDatabaseErrorHandler, configDatabaseLifecycleHandler,
-				configInMemory, configLogEnabled, configPopulatorClass, getSchemaLocationDirectory());
+				configInMemory, configLogEnabled, configPopulatorClass);
 
 		// manage for content provider generation
 		BindContentProvider contentProviderAnnotation = databaseSchema.getAnnotation(BindContentProvider.class);

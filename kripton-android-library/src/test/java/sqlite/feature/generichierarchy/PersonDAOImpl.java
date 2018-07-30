@@ -70,7 +70,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -82,7 +82,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -333,7 +333,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     String _sql=SELECT_ONE_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -345,7 +345,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -409,7 +409,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     String _sql=SELECT_TWO_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -421,7 +421,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -502,7 +502,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -514,7 +514,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

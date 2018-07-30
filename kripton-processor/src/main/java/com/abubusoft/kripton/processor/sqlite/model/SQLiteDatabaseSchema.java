@@ -38,6 +38,7 @@ import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.processor.KriptonOptions;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelBucket;
@@ -212,7 +213,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 			boolean asyncTask, boolean generateCursor, boolean generateRx, List<String> daoIntoDataSource,
 			String configCursorFactoryClass, String configDatabaseErrorHandlerClass,
 			String configDatabaseLifecycleHandlerClass, boolean configInMemory, boolean configLogEnabled,
-			String configPopulatorClass, String schemaLocationDirectory) {
+			String configPopulatorClass) {
 		super(item.getSimpleName().toString(), item);
 
 		this.fileName = schemaFileName;
@@ -227,7 +228,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		this.contentProvider = null;
 		this.generatedEntities = new LinkedHashSet<GeneratedTypeElement>();
 		this.daoNameSet = daoIntoDataSource;
-		this.schemaLocationDirectory=schemaLocationDirectory;
+		this.schemaLocationDirectory=KriptonOptions.getSchemaLocation();
 
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
 		FindSqlTypeAdapterVisitor typeAdapterVisitors = new FindSqlTypeAdapterVisitor();

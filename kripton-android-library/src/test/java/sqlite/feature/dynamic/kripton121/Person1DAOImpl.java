@@ -77,7 +77,7 @@ public class Person1DAOImpl extends Dao implements Person1DAO {
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -89,7 +89,7 @@ public class Person1DAOImpl extends Dao implements Person1DAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {

@@ -68,7 +68,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new Seminar2StudentTable(), new ProfessorTable(), new StudentTable(), new SeminarTable()};
+  static final SQLiteTable[] TABLES = {new SeminarTable(), new StudentTable(), new Seminar2StudentTable(), new ProfessorTable()};
 
   /**
    * <p>dao instance</p>
@@ -256,7 +256,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   @Override
   public void onCreate(SQLiteDatabase database) {
     // generate tables
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       if (options.inMemory) {
         Logger.info("Create database in memory");
@@ -264,30 +264,30 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
         Logger.info("Create database '%s' version %s",this.name, this.version);
       }
     }
-    // log section END
-    // log section BEGIN
+    // log section create END
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",SeminarTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(SeminarTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",StudentTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(StudentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",Seminar2StudentTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(Seminar2StudentTable.CREATE_TABLE_SQL);
-    // log section BEGIN
+    // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",ProfessorTable.CREATE_TABLE_SQL);
     }
-    // log section END
+    // log section create END
     database.execSQL(ProfessorTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
