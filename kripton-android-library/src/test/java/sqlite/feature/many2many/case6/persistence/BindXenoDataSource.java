@@ -81,7 +81,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PrefixConfigTable(), new PersonTable(), new PhoneNumberTable(), new CountryTable(), new PersonPhoneTable()};
+  static final SQLiteTable[] TABLES = {new PersonPhoneTable(), new CountryTable(), new PersonTable(), new PhoneNumberTable(), new PrefixConfigTable()};
 
   /**
    * <p>dao instance</p>
@@ -290,10 +290,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section create END
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section create END
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
@@ -302,10 +302,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
     }
     // log section create END
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
@@ -314,10 +314,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(CountryTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
     }
     // log section create END
-    database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -358,10 +358,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
@@ -370,10 +370,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",CountryTable.CREATE_TABLE_SQL);
@@ -382,10 +382,10 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(CountryTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PersonPhoneTable.CREATE_TABLE_SQL);
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);

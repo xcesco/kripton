@@ -80,7 +80,7 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new CountryTable(), new PersonTable(), new PrefixConfigTable(), new PhoneNumberTable(), new PersonPhoneNumberTable()};
+  static final SQLiteTable[] TABLES = {new CountryTable(), new PersonTable(), new PhoneNumberTable(), new PrefixConfigTable(), new PersonPhoneNumberTable()};
 
   /**
    * <p>dao instance</p>
@@ -301,16 +301,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-    }
-    // log section create END
-    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-    // log section create BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
     }
     // log section create END
     database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+    // log section create BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+    }
+    // log section create END
+    database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
     // log section BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
@@ -369,16 +369,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PrefixConfigTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PrefixConfigTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneNumberTable.CREATE_TABLE_SQL);
