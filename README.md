@@ -7,7 +7,7 @@
 [![Project Stats](https://www.openhub.net/p/kripton-persistence-library/widgets/project_thin_badge.gif)](https://www.openhub.net/p/kripton-persistence-library)
 
 # Kripton Persistence Library
-Kripton is a java library, for Android and Java platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface.
+Kripton is a java library, for Android platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface.
 
 <img src="https://github.com/xcesco/wikis/blob/master/kripton/overview4.0.png">
 
