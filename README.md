@@ -39,6 +39,7 @@ public class User {
     public String username; 
 }
 ```
+
 To store or read an instance of `User` on a file, you can simply write:
 
 ```java
