@@ -623,10 +623,10 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
         if (!_cursor.isNull(index8)) { __thumbnail=ArticleTable.parseThumbnail(_cursor.getBlob(index8)); }
         if (!_cursor.isNull(index9)) { __title=_cursor.getString(index9); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new Article(__id,__title,__description,__link,__author,__guid,__comments,__channelId,__thumbnail,__read);
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new Article(__id,__title,__description,__link,__author,__guid,__comments,__channelId,__thumbnail,__read);
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END

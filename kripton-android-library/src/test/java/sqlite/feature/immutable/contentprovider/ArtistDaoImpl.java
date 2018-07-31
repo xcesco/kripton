@@ -119,10 +119,10 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
         __id=_cursor.getLong(index0);
         if (!_cursor.isNull(index1)) { __name=_cursor.getString(index1); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new Artist(__id,__name);
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new Artist(__id,__name);
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END

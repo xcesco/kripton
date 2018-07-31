@@ -119,10 +119,10 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
         if (!_cursor.isNull(index1)) { __personId=_cursor.getLong(index1); }
         if (!_cursor.isNull(index2)) { __phoneNumberId=_cursor.getLong(index2); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new PersonPhoneNumber(__id,__personId,__phoneNumberId);
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new PersonPhoneNumber(__id,__personId,__phoneNumberId);
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END

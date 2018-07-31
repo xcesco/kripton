@@ -214,10 +214,10 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         if (!_cursor.isNull(index2)) { __name=_cursor.getString(index2); }
         if (!_cursor.isNull(index3)) { __surname=_cursor.getString(index3); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new Person(__id,__name,__surname,__birthDate);
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new Person(__id,__name,__surname,__birthDate);
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END

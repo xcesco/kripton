@@ -115,10 +115,10 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
         if (!_cursor.isNull(index1)) { __deviceId=_cursor.getLong(index1); }
         if (!_cursor.isNull(index2)) { __userId=_cursor.getLong(index2); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new UserDevice(__id,__userId,__deviceId);
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new UserDevice(__id,__userId,__deviceId);
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END

@@ -124,10 +124,10 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
         if (!_cursor.isNull(index1)) { __artistId=_cursor.getLong(index1); }
         if (!_cursor.isNull(index2)) { __name=_cursor.getString(index2); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new Album(__id,__name,__artistId);
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new Album(__id,__name,__artistId);
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END

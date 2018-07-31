@@ -187,10 +187,10 @@ public class DaoRssImpl extends Dao implements DaoRss {
         // sub query: __channels=this.daoFactory.getDaoChannel().selectByRssFeedId(__id)
         __channels=this.daoFactory.getDaoChannel().selectByRssFeedId(__id);
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new RssFeed(__id,__uid,__version,(__channels==null ? null : Collections.unmodifiableList(__channels)));
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new RssFeed(__id,__uid,__version,(__channels==null ? null : Collections.unmodifiableList(__channels)));
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END

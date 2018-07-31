@@ -117,14 +117,14 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 		generateSubQueries(methodBuilder, method);
 
 		methodBuilder.addCode("\n");
-
-		methodBuilder.endControlFlow();
-
+		
 		// immutable management
 		if (entity.isImmutablePojo()) {
 			methodBuilder.addComment("define immutable POJO");
 			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "resultBean", false);
 		}
+
+		methodBuilder.endControlFlow();
 
 		methodBuilder.addCode("return resultBean;\n");
 		// close try { open cursor

@@ -115,10 +115,10 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
         if (!_cursor.isNull(index1)) { __cityId=_cursor.getLong(index1); }
         if (!_cursor.isNull(index2)) { __personId=_cursor.getLong(index2); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new PersonCity(__id,__personId,__cityId);
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new PersonCity(__id,__personId,__cityId);
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END

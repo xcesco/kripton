@@ -379,10 +379,10 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         if (!_cursor.isNull(index8)) { __rssFeedId=_cursor.getLong(index8); }
         if (!_cursor.isNull(index9)) { __title=_cursor.getString(index9); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new Channel(__id,__title,__link,__description,__language,__copyright,__pubDate,__lastBuildDate,__image,__rssFeedId,(__articles==null ? null : Collections.unmodifiableList(__articles)));
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new Channel(__id,__title,__link,__description,__language,__copyright,__pubDate,__lastBuildDate,__image,__rssFeedId,(__articles==null ? null : Collections.unmodifiableList(__articles)));
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END
@@ -491,10 +491,10 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
         if (!_cursor.isNull(index8)) { __rssFeedId=_cursor.getLong(index8); }
         if (!_cursor.isNull(index9)) { __title=_cursor.getString(index9); }
 
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new Channel(__id,__title,__link,__description,__language,__copyright,__pubDate,__lastBuildDate,__image,__rssFeedId,(__articles==null ? null : Collections.unmodifiableList(__articles)));
       }
-      // define immutable POJO
-      // immutable object: inizialize object
-      resultBean=new Channel(__id,__title,__link,__description,__language,__copyright,__pubDate,__lastBuildDate,__image,__rssFeedId,(__articles==null ? null : Collections.unmodifiableList(__articles)));
       return resultBean;
     }
     // Specialized part - SelectBeanHelper - END
