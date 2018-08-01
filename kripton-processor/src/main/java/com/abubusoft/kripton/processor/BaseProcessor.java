@@ -93,7 +93,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	public void error(Element e, String msg, Object... args) {
 		// this must be always enabled, due control annotation processor
 		// execution status (if display an error, compiler fails).
-		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
+		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);		
 	}
 
 	/**
@@ -171,7 +171,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 */
 	public static void info(String msg, Object... args) {
 		if (BaseProcessor.JUNIT_TEST_MODE) {
-			logger.info(msg);
+			logger.info(String.format(msg, args));
 		}
 
 		if (!BaseProcessor.JUNIT_TEST_MODE && BaseProcessor.DEBUG_MODE)
@@ -188,7 +188,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	
 		elementUtils = processingEnv.getElementUtils();
 		filer = processingEnv.getFiler();
-		messager = processingEnv.getMessager();
+		messager = processingEnv.getMessager();		
 		typeUtils = processingEnv.getTypeUtils();
 
 		// define methods to ignore

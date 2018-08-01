@@ -35,6 +35,7 @@ import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationExcept
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.MissedAnnotationOnClass;
+import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownParamUsedInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
@@ -424,6 +425,15 @@ public abstract class AssertKripton {
 			String msg = String.format("In class '%s' the constructor '%s' parameters has different type than associated property type.", entity.getElement().getQualifiedName(), fieldName);
 			throw (new InvalidDefinition(msg));
 		}
+		
+	}
+
+	public static void assertTrueOfInvalidWritable(boolean expression, ModelClass<?> entity) {
+		if (!expression) {
+			String msg = String.format("In class '%s' there are readonly properties and no valid constructor to define all properties.", entity.getElement().getQualifiedName());
+			throw (new PropertyVisibilityException(msg));
+		}
+		
 		
 	}
 

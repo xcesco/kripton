@@ -20,6 +20,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
+import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 
 import bind.AbstractBindTypeProcessorTest;
 import bind.feature.generichierarchy.kripton109.animations.Animation;
@@ -90,7 +91,7 @@ public class TestCompile109 extends AbstractBindTypeProcessorTest {
 	 */
 	@Test
 	public void testErr1CompileAnimations() throws IOException, InstantiationException, IllegalAccessException {
-		this.expectedException(KriptonProcessorException.class);
+		this.expectedException(KriptonProcessorException.class,"In type hierarchy of class 'bind.feature.generichierarchy.kripton109.animations.Err1TiledMapAnimation' there is a unresolved type variable named 'K'. Define it with @BindTypeVariables");
 		buildBindProcessorTest(Animation.class, KeyFrame.class, Err1TiledMapAnimation.class, Parallel2Animation.class, TextureAnimation.class, TextureKeyFrame.class, Translation.class,
 				TranslationFrame.class, Point3.class, Vector3.class, TextureRegion.class);
 	}

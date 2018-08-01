@@ -92,18 +92,13 @@ public class Point3BindMap extends AbstractMapper<Point3> {
    */
   @Override
   public Point3 parseOnJackson(JsonParser jacksonParser) throws Exception {
-    // immutable object: initialize temporary variables for properties
-    float __x=0.0f;
-    float __y=0.0f;
-    float __z=0.0f;
+    Point3 instance = new Point3();
     String fieldName;
     if (jacksonParser.currentToken() == null) {
       jacksonParser.nextToken();
     }
     if (jacksonParser.currentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
-      // immutable object: inizialize object
-      Point3 instance=new Point3(__x,__y,__z);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -114,22 +109,20 @@ public class Point3BindMap extends AbstractMapper<Point3> {
       switch (fieldName) {
           case "x":
             // field x (mapped with "x")
-            __x=jacksonParser.getFloatValue();
+            instance.x=jacksonParser.getFloatValue();
           break;
           case "y":
             // field y (mapped with "y")
-            __y=jacksonParser.getFloatValue();
+            instance.y=jacksonParser.getFloatValue();
           break;
           case "z":
             // field z (mapped with "z")
-            __z=jacksonParser.getFloatValue();
+            instance.z=jacksonParser.getFloatValue();
           break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
-    // immutable object: inizialize object
-    Point3 instance=new Point3(__x,__y,__z);
     return instance;
   }
 
@@ -138,18 +131,13 @@ public class Point3BindMap extends AbstractMapper<Point3> {
    */
   @Override
   public Point3 parseOnJacksonAsString(JsonParser jacksonParser) throws Exception {
-    // immutable object: initialize temporary variables for properties
-    float __x=0.0f;
-    float __y=0.0f;
-    float __z=0.0f;
+    Point3 instance = new Point3();
     String fieldName;
     if (jacksonParser.getCurrentToken() == null) {
       jacksonParser.nextToken();
     }
     if (jacksonParser.getCurrentToken() != JsonToken.START_OBJECT) {
       jacksonParser.skipChildren();
-      // immutable object: inizialize object
-      Point3 instance=new Point3(__x,__y,__z);
       return instance;
     }
     while (jacksonParser.nextToken() != JsonToken.END_OBJECT) {
@@ -160,22 +148,20 @@ public class Point3BindMap extends AbstractMapper<Point3> {
       switch (fieldName) {
           case "x":
             // field x (mapped with "x")
-            __x=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
+            instance.x=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
           break;
           case "y":
             // field y (mapped with "y")
-            __y=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
+            instance.y=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
           break;
           case "z":
             // field z (mapped with "z")
-            __z=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
+            instance.z=PrimitiveUtils.readFloat(jacksonParser.getText(), 0f);
           break;
           default:
             jacksonParser.skipChildren();
           break;}
     }
-    // immutable object: inizialize object
-    Point3 instance=new Point3(__x,__y,__z);
     return instance;
   }
 
@@ -184,10 +170,7 @@ public class Point3BindMap extends AbstractMapper<Point3> {
    */
   @Override
   public Point3 parseOnXml(XMLParser xmlParser, int currentEventType) throws Exception {
-    // immutable object: initialize temporary variables for properties
-    float __x=0.0f;
-    float __y=0.0f;
-    float __z=0.0f;
+    Point3 instance = new Point3();
     int eventType = currentEventType;
     boolean read=true;
 
@@ -207,15 +190,15 @@ public class Point3BindMap extends AbstractMapper<Point3> {
       switch(attributeName) {
           case "x":
             // field x (mapped by "x")
-            __x=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
+            instance.x=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
           break;
           case "y":
             // field y (mapped by "y")
-            __y=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
+            instance.y=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
           break;
           case "z":
             // field z (mapped by "z")
-            __z=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
+            instance.z=PrimitiveUtils.readFloat(xmlParser.getAttributeValue(attributeIndex), 0f);
           break;
           default:
           break;
@@ -248,8 +231,6 @@ public class Point3BindMap extends AbstractMapper<Point3> {
           break;
       }
     }
-    // immutable object: inizialize object
-    Point3 instance=new Point3(__x,__y,__z);
     return instance;
   }
 }

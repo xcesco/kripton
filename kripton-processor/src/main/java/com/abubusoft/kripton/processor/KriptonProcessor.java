@@ -36,11 +36,11 @@ import com.sun.source.util.Trees;
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonProcessor extends BaseProcessor {
-	
+
 	@Override
 	public Set<String> getSupportedOptions() {
 		Set<String> options = new LinkedHashSet<String>();
-		
+
 		options.add(KriptonOptions.DEBUG);
 		options.addAll(typeProcessor.getSupportedOptions());
 		options.addAll(sharedPreferencesProcessor.getSupportedOptions());
@@ -64,8 +64,9 @@ public class KriptonProcessor extends BaseProcessor {
 
 	public static Trees trees;
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.BaseProcessor#getSupportedAnnotationClasses()
 	 */
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
@@ -78,28 +79,29 @@ public class KriptonProcessor extends BaseProcessor {
 
 		return annotations;
 	}
-	
+
 	/**
 	 * Retrieve all supported annotation classes. Added for IntelliJ plugin
 	 * 
-	 * @return
-	 * 		set of all supported annotation classes
+	 * @return set of all supported annotation classes
 	 */
 	public static Set<Class<? extends Annotation>> getAllSupportedAnnotationClasses() {
-		KriptonProcessor processor=new KriptonProcessor();
+		KriptonProcessor processor = new KriptonProcessor();
 
 		return processor.getSupportedAnnotationClasses();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.BaseProcessor#init(javax.annotation.processing.ProcessingEnvironment)
 	 */
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
-		
+
 		KriptonProcessor.trees = Trees.instance(processingEnv);
-		
+
 		KriptonOptions.init(this, processingEnv);
 
 		typeProcessor.init(processingEnv);
@@ -110,16 +112,17 @@ public class KriptonProcessor extends BaseProcessor {
 		count = 0;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
 	 */
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
-			count++;			
-			if (count ==1) {
-								
-						
+			count++;
+			if (count == 1) {
+
 				many2ManyProcessor.clear();
 				typeProcessor.clear();
 				sharedPreferencesProcessor.clear();
@@ -140,7 +143,7 @@ public class KriptonProcessor extends BaseProcessor {
 				dataSourceProcessor.analyzeRound(annotations, roundEnv);
 				dataSourceProcessor.process(annotations, roundEnv);
 				dataSourceProcessor.generateClasses(roundEnv);
-			} else if (count==2) {
+			} else if (count == 2) {
 				dataSourceProcessor.analyzeSecondRound(annotations, roundEnv);
 				dataSourceProcessor.processSecondRound(annotations, roundEnv);
 				dataSourceProcessor.generateClassesSecondRound(roundEnv);
@@ -150,15 +153,21 @@ public class KriptonProcessor extends BaseProcessor {
 		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
 			error(null, e.getClass().getCanonicalName() + ": " + msg);
-			
+
 			if (DEBUG_MODE) {
-				logger.log(Level.SEVERE, msg);
-				e.printStackTrace();
+				if (JUNIT_TEST_MODE) {
+					logger.log(Level.SEVERE, msg);
+					//e.printStackTrace();
+				} else {
+					StackTraceElement[] stackTrace = e.getStackTrace();
+					for (StackTraceElement item : stackTrace) {
+						error(null, String.format("\tat %s.%s(%s:%s)", item.getClassName(), item.getMethodName(), item.getFileName(), item.getLineNumber()));
+					}					
+				}
 			}
+			return false;
 		}
 
-		return true;
 	}
-	
 
 }

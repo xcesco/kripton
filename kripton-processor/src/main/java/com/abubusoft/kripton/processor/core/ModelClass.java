@@ -84,13 +84,18 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 	protected TypeVariableResolver typeVariableResolver;
 
 	boolean emptyContructor;
+
+	/**
+	 * true if all property are writable
+	 */
+	boolean allPropertyWritable;
 	
 	public boolean isImmutablePojo() {
-		return immutableConstructors!=null;
+		return !isMutablePojo();
 	}
 
 	public boolean isMutablePojo() {
-		return emptyContructor && !isImmutablePojo();
+		return emptyContructor && allPropertyWritable;
 	}
 
 	/**

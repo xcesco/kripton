@@ -30,7 +30,7 @@ public abstract class KriptonOptions {
 
 		KriptonLiveDataManager.init(processingEnv.getOptions().get(KriptonOptions.ANDROID_X_OPTIONS));
 
-		if (KriptonProcessor.DEBUG_MODE) {
+		if (KriptonProcessor.DEBUG_MODE && !KriptonProcessor.JUNIT_TEST_MODE) {
 			KriptonProcessor.info("Kripton Persistence Library v. " + Version.getVersion());
 			{
 				String value = processingEnv.getOptions().get(KriptonOptions.ANDROID_X_OPTIONS);

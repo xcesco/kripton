@@ -21,6 +21,7 @@ package bind.feature.generichierarchy.kripton109.animations;
 import java.util.ArrayList;
 
 import com.abubusoft.kripton.annotation.Bind;
+import com.abubusoft.kripton.annotation.BindTypeVariables;
 
 // TODO: Auto-generated Javadoc
 /**
