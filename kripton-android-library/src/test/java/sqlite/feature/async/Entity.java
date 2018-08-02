@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.example01;
+package sqlite.feature.async;
 
-import com.abubusoft.kripton.annotation.BindType;
+import java.io.Serializable;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Enum DayType.
+ * The Class Entity.
  */
-@BindType
-public enum DayType {
+public abstract class Entity implements Serializable {
 
-	/** The monday. */
-	MONDAY,
-	
-	/** The saturday. */
-	SATURDAY;
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = -7911782943679996559L;
+
 }

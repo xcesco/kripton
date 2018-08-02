@@ -19,10 +19,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import sqlite.adapter.example01.TestAdapterSuite;
-import sqlite.example01.Example01Suite;
 import sqlite.example02.Example02Suite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
+import sqlite.feature.async.FeatureAsyncSuite;
 import sqlite.feature.asynctask.TestCompileMultithreadSuite;
 import sqlite.feature.childselect.TestChildSelectSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinityTestSuite;
@@ -122,10 +122,11 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestInSuite.class,
 			TestCompileImmutableSuite.class,
 			TestAdapterSuite.class,
+			FeatureAsyncSuite.class,
 			
 			// bug-fix			
 			TestCompileKotlinImmutable.class,
-			Example01Suite.class,
+			
 			Example02Suite.class,
 			TestCompile111.class,
 			TestStack44330452Suite.class,

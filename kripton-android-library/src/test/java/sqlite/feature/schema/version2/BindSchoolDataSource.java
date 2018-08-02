@@ -1,6 +1,7 @@
 package sqlite.feature.schema.version2;
 
 import android.database.sqlite.SQLiteDatabase;
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
@@ -12,6 +13,8 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 /**
  * <p>
@@ -68,7 +71,7 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new Seminar2StudentTable(), new ProfessorTable(), new StudentTable(), new SeminarTable()};
+  static final SQLiteTable[] TABLES = {new SeminarTable(), new StudentTable(), new Seminar2StudentTable(), new ProfessorTable()};
 
   /**
    * <p>dao instance</p>
@@ -124,9 +127,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    *
    * @param transaction
    * 	transaction to execute
+   * @return <code>true</code> if transaction successful finished
    */
-  public void execute(Transaction transaction) {
-    execute(transaction, onErrorListener);
+  public boolean execute(Transaction transaction) {
+    return execute(transaction, onErrorListener);
   }
 
   /**
@@ -136,8 +140,10 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
    * 	transaction to execute
    * @param onErrorListener
    * 	error listener
+   * @return <code>true</code> if transaction successful finished
    */
-  public void execute(Transaction transaction, AbstractDataSource.OnErrorListener onErrorListener) {
+  public boolean execute(Transaction transaction,
+      AbstractDataSource.OnErrorListener onErrorListener) {
     boolean needToOpened=!this.isOpenInWriteMode();
     boolean success=false;
     @SuppressWarnings("resource")
@@ -163,6 +169,76 @@ public class BindSchoolDataSource extends AbstractDataSource implements BindScho
       if (needToOpened) { close(); }
       if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
     }
+    return success;
+  }
+
+  /**
+   * <p>Executes a transaction in async mode. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
+   *
+   * @param transaction
+   * 	transaction to execute
+   * @param onErrorListener
+   * 	listener for errors
+   * @return <code>true</code> when transaction successful finished
+   */
+  public Future<Boolean> executeAsync(final Transaction transaction,
+      final AbstractDataSource.OnErrorListener onErrorListener) {
+    return KriptonLibrary.getExecutorService().submit(new Callable<Boolean>() {
+      @Override
+      public Boolean call() throws Exception {
+        return execute(transaction, onErrorListener);
+      }
+    });
+  }
+
+  /**
+   * <p>Executes a transaction in async mode. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
+   *
+   * @param transaction
+   * 	transaction to execute
+   * @return <code>true</code> when transaction successful finished
+   */
+  public Future<Boolean> executeAsync(final Transaction transaction) {
+    return KriptonLibrary.getExecutorService().submit(new Callable<Boolean>() {
+      @Override
+      public Boolean call() throws Exception {
+        return execute(transaction, onErrorListener);
+      }
+    });
+  }
+
+  /**
+   * <p>Executes a batch command in async mode. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
+   *
+   * @param commands
+   * 	commands to execute
+   * @param writeMode
+   * 	rue if you need to writeable connection
+   * @return <code>true</code> when transaction successful finished
+   */
+  public <T> Future<T> executeBatchAsync(final Batch<T> commands, final boolean writeMode) {
+    return KriptonLibrary.getExecutorService().submit(new Callable<T>() {
+      @Override
+      public T call() throws Exception {
+        return executeBatch(commands, writeMode);
+      }
+    });
+  }
+
+  /**
+   * <p>Executes a batch command in async mode. This method <strong>is thread safe</strong> to avoid concurrent problems. The drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>
+   *
+   * @param commands
+   * 	commands to execute
+   * @return <code>true</code> when transaction successful finished
+   */
+  public <T> Future<T> executeBatchAsync(final Batch<T> commands) {
+    return KriptonLibrary.getExecutorService().submit(new Callable<T>() {
+      @Override
+      public T call() throws Exception {
+        return executeBatch(commands, false);
+      }
+    });
   }
 
   /**

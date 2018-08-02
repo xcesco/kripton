@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.example01;
-
-import java.io.Serializable;
+/**
+ * 
+ */
+package sqlite.feature.async;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Entity.
+ * The Class UidEntity.
+ *
+ * @author Francesco Benincasa (info@abubusoft.com)
  */
-public abstract class Entity implements Serializable {
-
+public class UidEntity extends Entity {
+	
 	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -7911782943679996559L;
+	private static final long serialVersionUID = -5883323667838359782L;
 
+	/** The uid. */
+	protected String uid;
+
+	/**
+	 * Gets the uid.
+	 *
+	 * @return the uid
+	 */
+	public String getUid() {
+		return uid;
+	}
+
+	/**
+	 * Sets the uid.
+	 *
+	 * @param uid the new uid
+	 */
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 }

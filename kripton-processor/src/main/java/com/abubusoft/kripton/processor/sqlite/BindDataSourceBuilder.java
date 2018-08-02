@@ -29,12 +29,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 
+import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
@@ -54,6 +57,7 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
+import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.KriptonOptions;
 import com.abubusoft.kripton.processor.Version;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
@@ -163,7 +167,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 		// and now, write schema.create.v and schema.drop.v
 		String schemaCreation = defineFileName(schema);
 
-		String schemaLocation=KriptonOptions.getSchemaLocation();
+		String schemaLocation = KriptonOptions.getSchemaLocation();
 
 		File schemaCreatePath = new File(schemaLocation).getAbsoluteFile();
 		File schemaCreateFile = new File(schemaLocation, schemaCreation).getAbsoluteFile();
@@ -319,6 +323,13 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		// interface
 		generateMethodExecuteTransaction(daoFactoryName);
+		
+		generateMethodExecuteAsyncTransaction(daoFactoryName, true);
+		generateMethodExecuteAsyncTransaction(daoFactoryName, false);
+		
+		generateMethodAsyncBatch(daoFactoryName, true);
+		generateMethodAsyncBatch(daoFactoryName, false);
+
 		generateMethodExecuteBatch(daoFactoryName);
 
 		// generate instance
@@ -372,7 +383,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			Builder f = FieldSpec
 					.builder(ArrayTypeName.of(SQLiteTable.class), "TABLES", Modifier.FINAL, Modifier.STATIC)
 					.addJavadoc("List of tables compose datasource\n");
-			
+
 			com.squareup.javapoet.CodeBlock.Builder c = CodeBlock.builder();
 			String s = "";
 
@@ -1007,7 +1018,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			}
 		};
 
-		return sorder.order();		
+		return sorder.order();
 	}
 
 	/**
@@ -1322,6 +1333,85 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			// @formatter:on
 		}
 	}
+	
+	private void generateMethodAsyncBatch(String daoFactory, boolean withErrorListener) {
+		// create interface
+		String transationExecutorName = "Batch";
+		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("executeBatchAsync").addModifiers(Modifier.PUBLIC)
+				.addTypeVariable(TypeVariableName.get("T"))
+				.returns(ParameterizedTypeName.get(ClassName.get(Future.class), TypeVariableName.get("T")))
+				.addParameter(ParameterizedTypeName.get(className(transationExecutorName), TypeVariableName.get("T")), "commands", Modifier.FINAL);
+		
+			if (withErrorListener) {
+				executeMethod.addParameter(Boolean.TYPE, "writeMode", Modifier.FINAL);
+			}		
+		
+			ParameterizedTypeName futureType = ParameterizedTypeName.get(ClassName.get(Callable.class), TypeVariableName.get("T"));
+			TypeSpec innerBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(futureType)
+					.addMethod(MethodSpec.methodBuilder("call")
+							.addModifiers(Modifier.PUBLIC)
+							.addAnnotation(Override.class)
+							.returns(TypeVariableName.get("T"))
+								.addException(Exception.class)
+								.addStatement(withErrorListener ? "return executeBatch(commands, writeMode)": "return executeBatch(commands, false)")
+								.build())
+					.build();
+
+			executeMethod.addStatement("return $T.getExecutorService().submit($L)", KriptonLibrary.class, innerBuilder);
+		
+
+		{			
+			// generate javadoc
+			executeMethod.addJavadoc(
+					"<p>Executes a batch command in async mode. This method <strong>is thread safe</strong> to avoid concurrent problems. The "
+							+ "drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>\n");
+			executeMethod.addJavadoc("\n");
+			executeMethod.addJavadoc("@param commands\n\tcommands to execute\n");
+			if (withErrorListener) {
+				executeMethod.addJavadoc("@param writeMode\n\true if you need to writeable connection\n");
+			}
+			executeMethod.addJavadoc("@return <code>true</code> when transaction successful finished\n");
+
+			classBuilder.addMethod(executeMethod.build());
+		}		
+	}
+
+	private void generateMethodExecuteAsyncTransaction(String daoFactory, boolean withErrorListener) {
+		// create interface
+		String transationExecutorName = "Transaction";
+		MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("executeAsync").addModifiers(Modifier.PUBLIC)
+				.returns(ParameterizedTypeName.get(Future.class, Boolean.class)).addParameter(className(transationExecutorName), "transaction", Modifier.FINAL);
+		
+			if (withErrorListener) {
+				executeMethod.addParameter(AbstractDataSource.OnErrorListener.class, "onErrorListener", Modifier.FINAL);
+			}
+		
+		
+			ParameterizedTypeName futureType = ParameterizedTypeName.get(Callable.class, Boolean.class);
+			TypeSpec innerBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(futureType)
+					.addMethod(MethodSpec.methodBuilder("call").addModifiers(Modifier.PUBLIC).addAnnotation(Override.class).returns(Boolean.class)
+							.addException(Exception.class).addStatement("return execute(transaction, onErrorListener)").build())
+					.build();
+
+			executeMethod.addStatement("return $T.getExecutorService().submit($L)", KriptonLibrary.class, innerBuilder);
+		
+
+		{
+			
+			// generate javadoc
+			executeMethod.addJavadoc(
+					"<p>Executes a transaction in async mode. This method <strong>is thread safe</strong> to avoid concurrent problems. The "
+							+ "drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>\n");
+			executeMethod.addJavadoc("\n");
+			executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
+			if (withErrorListener) {
+				executeMethod.addJavadoc("@param onErrorListener\n\tlistener for errors\n");
+			}
+			executeMethod.addJavadoc("@return <code>true</code> when transaction successful finished\n");
+
+			classBuilder.addMethod(executeMethod.build());
+		}		
+	}
 
 	/**
 	 * <p>
@@ -1351,22 +1441,23 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 
 		{
 			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
-					.addParameter(className(transationExecutorName), "transaction");
+					.returns(Boolean.TYPE).addParameter(className(transationExecutorName), "transaction");
 			// generate javadoc
 			executeMethod.addJavadoc(
 					"<p>Executes a transaction. This method <strong>is thread safe</strong> to avoid concurrent problems. The "
 							+ "drawback is only one transaction at time can be executed. The database will be open in write mode. This method uses default error listener to intercept errors.</p>\n");
 			executeMethod.addJavadoc("\n");
 			executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
+			executeMethod.addJavadoc("@return <code>true</code> if transaction successful finished\n");
 
-			executeMethod.addStatement("execute(transaction, onErrorListener)");
+			executeMethod.addStatement("return execute(transaction, onErrorListener)");
 
 			classBuilder.addMethod(executeMethod.build());
 		}
 
 		{
 			MethodSpec.Builder executeMethod = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
-					.addParameter(className(transationExecutorName), "transaction")
+					.addParameter(className(transationExecutorName), "transaction").returns(Boolean.TYPE)
 					.addParameter(className(OnErrorListener.class), "onErrorListener");
 
 			executeMethod.addStatement("boolean needToOpened=!this.isOpenInWriteMode()");
@@ -1409,6 +1500,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			executeMethod.addCode(
 					"if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }\n");
 			executeMethod.endControlFlow();
+			executeMethod.addStatement("return success");
 
 			// generate javadoc
 			executeMethod.addJavadoc(
@@ -1417,6 +1509,7 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			executeMethod.addJavadoc("\n");
 			executeMethod.addJavadoc("@param transaction\n\ttransaction to execute\n");
 			executeMethod.addJavadoc("@param onErrorListener\n\terror listener\n");
+			executeMethod.addJavadoc("@return <code>true</code> if transaction successful finished\n");
 
 			classBuilder.addMethod(executeMethod.build());
 		}

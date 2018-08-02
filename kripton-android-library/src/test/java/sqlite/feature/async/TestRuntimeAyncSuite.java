@@ -13,36 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.example02;
+package sqlite.feature.async;
 
-import java.util.Date;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import com.abubusoft.kripton.android.annotation.BindSqlColumn;
-import com.abubusoft.kripton.android.annotation.BindSqlType;
-import com.abubusoft.kripton.annotation.BindType;
+import base.BaseAndroidTest;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Person.
+ * The Class TestRuntimeMultithreadSuite.
  */
-@BindType
-@BindSqlType()
-public class Person {
-  
-  /** The id. */
-  public long id;
-  
-  
-  /** The name. */
-  @BindSqlColumn
-  public String name;
-  
-  /** The surname. */
-  public String surname;
-  
-  /** The birth city. */
-  public String birthCity;
-  
-  /** The birth day. */
-  public Date birthDay;
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestRuntimeAsync.class
+		
+		 })
+//@formatter:on
+public class TestRuntimeAyncSuite extends BaseAndroidTest {
+
 }

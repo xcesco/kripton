@@ -13,26 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.example01;
+package sqlite.feature.async;
 
-import com.abubusoft.kripton.android.annotation.BindDao;
-import com.abubusoft.kripton.android.annotation.BindSqlDelete;
-
+import com.abubusoft.kripton.annotation.BindType;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface DaoBase.
+ * The Enum DayType.
  */
-@BindDao(ChannelMessage.class)
-public interface DaoBase {
-	
-	/**
-	 * Delete by id.
-	 *
-	 * @param id the id
-	 * @return the int
-	 */
-	@BindSqlDelete(where="id=${id}")
-	int deleteById(long id);
+@BindType
+public enum DayType {
 
+	/** The monday. */
+	MONDAY,
+	
+	/** The saturday. */
+	SATURDAY;
 }

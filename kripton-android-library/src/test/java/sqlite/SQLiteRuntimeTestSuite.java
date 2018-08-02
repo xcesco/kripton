@@ -18,6 +18,7 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import sqlite.feature.async.TestRuntimeAyncSuite;
 import sqlite.feature.asynctask.TestRuntimeMultithreadSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinitySuite;
 import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
@@ -59,6 +60,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestSchemaRuntimeSuite.class,
 	TestGlobalTypeAdapterRuntimeSuite.class,	
 	TestFeatureRelationRuntimeSuite.class,
+	TestRuntimeAyncSuite.class,
 	
 	// unverified results	
 	TestForeignKeyRuntimeSuite.class,

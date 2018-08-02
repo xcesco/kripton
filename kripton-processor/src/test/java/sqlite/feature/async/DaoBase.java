@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+package sqlite.feature.async;
+
+import com.abubusoft.kripton.android.annotation.BindDao;
+import com.abubusoft.kripton.android.annotation.BindSqlDelete;
+
+
+// TODO: Auto-generated Javadoc
 /**
- * 
+ * The Interface DaoBase.
  */
-/**
- * @author Francesco Benincasa (info@abubusoft.com)
- *
- */
-package sqlite.example01;
+@BindDao(ChannelMessage.class)
+public interface DaoBase {
+	
+	/**
+	 * Delete by id.
+	 *
+	 * @param id the id
+	 * @return the int
+	 */
+	@BindSqlDelete(where="id=${id}")
+	int deleteById(long id);
+
+}

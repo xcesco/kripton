@@ -13,23 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.example01;
+package sqlite.feature.async;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.io.Serializable;
 
-import base.BaseProcessorTest;
-
+// TODO: Auto-generated Javadoc
 /**
- * The Class Example01Suite.
+ * The Class Entity.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		Example01Test.class
-		 })
-//@formatter:on
-public class Example01Suite extends BaseProcessorTest {
+public abstract class Entity implements Serializable {
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = -7911782943679996559L;
 
 }

@@ -13,41 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-/**
- * 
- */
-package sqlite.example01;
+package sqlite.feature.async;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import sqlite.AbstractBindSQLiteProcessorTest;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class UidEntity.
- *
- * @author Francesco Benincasa (info@abubusoft.com)
+ * The Class Example01Test.
  */
-public class UidEntity extends Entity {
-	
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = -5883323667838359782L;
-
-	/** The uid. */
-	protected String uid;
+@RunWith(JUnit4.class)
+public class FeatureAsyncTest extends AbstractBindSQLiteProcessorTest {
 
 	/**
-	 * Gets the uid.
+	 * No @BindType is put in bean definition.
 	 *
-	 * @return the uid
+	 * @throws Throwable the throwable
 	 */
-	public String getUid() {
-		return uid;
-	}
-
-	/**
-	 * Sets the uid.
-	 *
-	 * @param uid the new uid
-	 */
-	public void setUid(String uid) {
-		this.uid = uid;
+	@Test
+	public void test01() throws Throwable {
+		buildDataSourceProcessorTest(Dummy01DataSource.class, DaoChannel.class, Channel.class, UidEntity.class, Entity.class);
 	}
 }

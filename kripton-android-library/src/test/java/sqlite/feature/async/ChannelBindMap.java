@@ -1,4 +1,4 @@
-package sqlite.example01;
+package sqlite.feature.async;
 
 import com.abubusoft.kripton.AbstractMapper;
 import com.abubusoft.kripton.annotation.BindMap;

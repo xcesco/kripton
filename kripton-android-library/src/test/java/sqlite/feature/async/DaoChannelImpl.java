@@ -1,4 +1,4 @@
-package sqlite.example01;
+package sqlite.feature.async;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
