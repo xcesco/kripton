@@ -64,7 +64,7 @@ public class BindRssDataSource extends AbstractDataSource implements BindRssDaoF
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new ArticleTable(), new RssFeedTable(), new ChannelTable()};
+  static final SQLiteTable[] TABLES = {new RssFeedTable(), new ChannelTable(), new ArticleTable()};
 
   /**
    * <p>dao instance</p>

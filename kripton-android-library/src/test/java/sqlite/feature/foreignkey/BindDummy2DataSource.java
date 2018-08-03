@@ -55,7 +55,7 @@ public class BindDummy2DataSource extends AbstractDataSource implements BindDumm
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new BeanA_3Table(), new BeanA_4Table()};
+  static final SQLiteTable[] TABLES = {new BeanA_4Table(), new BeanA_3Table()};
 
   /**
    * <p>dao instance</p>
