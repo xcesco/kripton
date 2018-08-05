@@ -27,7 +27,7 @@ import sqlite.feature.asynctask.TestCompileMultithreadSuite;
 import sqlite.feature.childselect.TestChildSelectSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinityTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
-import sqlite.feature.datasourceoptions.FeatureDataSourceOptionsTest;
+import sqlite.feature.datasourceoptions.TestDataSourceOptionSuite;
 import sqlite.feature.dynamic.TestDynamicSuite;
 import sqlite.feature.foreignkey.TestForeignKeySuite;
 import sqlite.feature.foreignkeyaction.TestForeignKeyActionSuite;
@@ -121,6 +121,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestChildSelectSuite.class,
 			TestInSuite.class,
 			TestCompileImmutableSuite.class,
+			TestDataSourceOptionSuite.class,
 			TestAdapterSuite.class,
 			FeatureAsyncSuite.class,
 			
@@ -163,7 +164,6 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestStack44633883Suite.class,
 			TestStack45184504Suite.class,	
 			Test205Suite.class,
-			FeatureDataSourceOptionsTest.class,
 			TestLiveDataXSuite.class,
 			
 			TestSamplesSuite.class,

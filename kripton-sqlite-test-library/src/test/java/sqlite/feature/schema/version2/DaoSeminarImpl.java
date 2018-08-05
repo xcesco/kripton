@@ -26,14 +26,14 @@ public class DaoSeminarImpl extends Dao implements DaoSeminar {
 
   /**
    * <p>SQL insert:</p>
-   * <pre>INSERT INTO seminar (name, location) VALUES (${name}, ${location})</pre>
+   * <pre>INSERT INTO seminar (location, name) VALUES (:location, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
-   * 	<dt>name</dt><dd>is mapped to <strong>${bean.name}</strong></dd>
-   * 	<dt>location</dt><dd>is mapped to <strong>${bean.location}</strong></dd>
+   * 	<dt>location</dt><dd>is mapped to <strong>:bean.location</strong></dd>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
    *
    * @param bean
@@ -43,14 +43,15 @@ public class DaoSeminarImpl extends Dao implements DaoSeminar {
    */
   @Override
   public long insert(Seminar bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO seminar (name, location) VALUES (?, ?)";
+      String _sql="INSERT INTO seminar (location, name) VALUES (?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("name", bean.name);
     _contentValues.put("location", bean.location);
+    _contentValues.put("name", bean.name);
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -89,9 +90,11 @@ public class DaoSeminarImpl extends Dao implements DaoSeminar {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

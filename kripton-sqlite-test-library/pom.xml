@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abubusoft</groupId>
 	<artifactId>kripton-sqlite-test-library</artifactId>
-	<version>4.1.0-rc.9</version>
+	<version>4.1.0-rc.11</version>
 
 	<name>Kripton SQLite Test Library</name>
 	<description>Kripton SQLite Test Library</description>
@@ -27,7 +27,7 @@
 
 
 		<kripton.debug>false</kripton.debug>
-		<antlr.version>4.7</antlr.version>
+		<antlr.version>4.7.1</antlr.version>
 
 		<!-- plugins version -->
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
@@ -171,6 +171,22 @@
 						<version>${antlr.version}</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.21.0</version>
+				<configuration>
+					<argLine>-Xmx128m</argLine>
+					<systemPropertyVariables>
+						<kripton.debug>${kripton.debug}</kripton.debug>
+					</systemPropertyVariables>
+					<includes>
+						<include>all/*TestSuite.java</include>
+					</includes>
+
+				</configuration>
 			</plugin>
 		</plugins>
 

@@ -693,14 +693,15 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 			methodBuilder.addComment("run populator only a time");
 			methodBuilder.addStatement("instance.justCreated=false");
 
-			methodBuilder.beginControlFlow("try");
-			methodBuilder.addStatement("$T currentDb=instance.openWritableDatabase()", SQLiteDatabase.class);
+			// populator manage its connection
+			//methodBuilder.beginControlFlow("try");
+			//methodBuilder.addStatement("$T currentDb=instance.openWritableDatabase()", SQLiteDatabase.class);
 			methodBuilder.addComment("run populator");
-			methodBuilder.addStatement("options.populator.execute(currentDb)");
+			methodBuilder.addStatement("options.populator.execute()");
 
-			methodBuilder.nextControlFlow("finally");
-			methodBuilder.addStatement("instance.close()");
-			methodBuilder.endControlFlow();
+			//methodBuilder.nextControlFlow("finally");
+			//methodBuilder.addStatement("instance.close()");
+			//methodBuilder.endControlFlow();
 
 			methodBuilder.endControlFlow();
 		}

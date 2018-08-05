@@ -70,7 +70,8 @@ public class TestSchemaUpdater extends BaseAndroidTest {
 	@Test
 	public void testUpdateWithFile() throws FileNotFoundException {
 		SQLiteTestDatabase.builder(1, new FileInputStream("schemas/school_schema_1.sql"))
-				.addVersionUpdateTask(2, new FileInputStream("schemas/school_update_1_2.sql")).build()
+				.addVersionUpdateTask(2, new FileInputStream("schemas/school_update_1_2.sql"))
+				.build()
 				.updateAndVerify(2, new FileInputStream("schemas/school_schema_2.sql"));
 
 		log("finish");

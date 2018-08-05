@@ -375,13 +375,8 @@ public class BindSchoolLunchDataSource extends AbstractDataSource implements Bin
             if (options.populator!=null && instance.justCreated) {
               // run populator only a time
               instance.justCreated=false;
-              try {
-                SQLiteDatabase currentDb=instance.openWritableDatabase();
-                // run populator
-                options.populator.execute(currentDb);
-              } finally {
-                instance.close();
-              }
+              // run populator
+              options.populator.execute();
             }
           } catch(Throwable e) {
             Logger.error(e.getMessage());

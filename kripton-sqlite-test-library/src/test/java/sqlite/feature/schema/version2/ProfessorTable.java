@@ -20,9 +20,9 @@ public class ProfessorTable implements SQLiteTable {
    * DDL to create table professor
    * </p>
    *
-   * <pre>CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT, surname TEXT NOT NULL); CREATE INDEX idx_professor_0 on professor (surname);</pre>
+   * <pre>CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_date TEXT, name TEXT, surname TEXT NOT NULL); CREATE INDEX idx_professor_0 on professor (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, birth_date TEXT, surname TEXT NOT NULL); CREATE INDEX idx_professor_0 on professor (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_date TEXT, name TEXT, surname TEXT NOT NULL); CREATE INDEX idx_professor_0 on professor (surname);";
 
   /**
    * <p>
@@ -41,18 +41,18 @@ public class ProfessorTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
-   *
-   *  @see Professor#name
-   */
-  public static final String COLUMN_NAME = "name";
-
-  /**
    * Entity's property <code>birthDate</code> is associated to table column <code>birth_date</code>. This costant represents column name.
    *
    *  @see Professor#birthDate
    */
   public static final String COLUMN_BIRTH_DATE = "birth_date";
+
+  /**
+   * Entity's property <code>name</code> is associated to table column <code>name</code>. This costant represents column name.
+   *
+   *  @see Professor#name
+   */
+  public static final String COLUMN_NAME = "name";
 
   /**
    * Entity's property <code>surname</code> is associated to table column <code>surname</code>. This costant represents column name.
@@ -64,7 +64,7 @@ public class ProfessorTable implements SQLiteTable {
   /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_NAME, COLUMN_BIRTH_DATE, COLUMN_SURNAME};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_BIRTH_DATE, COLUMN_NAME, COLUMN_SURNAME};
 
   /**
    * Columns array
