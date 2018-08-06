@@ -54,48 +54,65 @@ public class TestRuntimeAsync extends BaseAndroidTest {
 		
 		BindDummy01DataSource ds=BindDummy01DataSource.getInstance();
 		
+		/*
+		Future<List<Channel>> r0 = ds.executeBatchAsync(new Batch<List<Channel> >() {
+
+			@Override
+			public List<Channel> onExecute(BindDummy01DaoFactory daoFactory) {
+				log("read 0 start");
+				try {
+					Thread.sleep(20000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				log("read 0 end");
+				return daoFactory.getDaoChannel().selectAll();
+			}
+			
+		});		
+		
+		Thread.sleep(10);
+		*/
 		ds.execute(new Transaction() {
 			
 			@Override
 			public TransactionResult onExecute(BindDummy01DaoFactory daoFactory) {
+				log("Write start");
+				try {
+					log("Write SLEEP");
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+				
 				Channel bean = new Channel();
 				bean.setName("dummy");
 				daoFactory.getDaoChannel().insertBean1(bean);
+				log("Write end");
 				return TransactionResult.COMMIT;
 			}
 		});
-		
-		/*
-		Future<Boolean> result = ds.executeAsync(new Transaction() {
-			
-			@Override
-			public TransactionResult onExecute(BindDummy01DaoFactory daoFactory) {
-				try {
-					log("Wait 4 sec");
-					Thread.sleep(4000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				Channel bean = new Channel();
-				bean.setName("dummy");
-				daoFactory.getDaoChannel().insertBean1(bean);
-				return TransactionResult.COMMIT;
-			}
-		});*/
-		
+						
 		final List<Integer> operations=new ArrayList<>();
 		
 		Future<List<Channel>> r1 = ds.executeBatchAsync(new Batch<List<Channel> >() {
 
 			@Override
 			public List<Channel> onExecute(BindDummy01DaoFactory daoFactory) {
+				log("read 1 start");
 				try {
-					Thread.sleep(400);
+					Thread.sleep(40);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				operations.add(1);
-				return daoFactory.getDaoChannel().selectAll();
+				
+				List<Channel> list = daoFactory.getDaoChannel().selectAll();
+				
+				log("read 1 end");
+				
+				return list;
 			}
 			
 		});		
@@ -105,13 +122,19 @@ public class TestRuntimeAsync extends BaseAndroidTest {
 
 			@Override
 			public List<Channel> onExecute(BindDummy01DaoFactory daoFactory) {
+				log("read 2 start");
 				try {
-					Thread.sleep(10);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				operations.add(2);
-				return daoFactory.getDaoChannel().selectAll();
+				
+				List<Channel> list = daoFactory.getDaoChannel().selectAll();
+				
+				log("read 2 end");
+				
+				return list;
 			}
 			
 		});		

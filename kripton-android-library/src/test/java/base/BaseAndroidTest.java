@@ -29,6 +29,7 @@ import org.robolectric.shadows.ShadowLog;
 import org.robolectric.shadows.ShadowLooper;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.content.Context;
@@ -111,7 +112,7 @@ public abstract class BaseAndroidTest {
 	 */
 	public void log(String format, Object ...objects)
 	{
-		System.out.println(String.format(format, objects));
+		Logger.info(String.format(format, objects));		
 	}
 
 }

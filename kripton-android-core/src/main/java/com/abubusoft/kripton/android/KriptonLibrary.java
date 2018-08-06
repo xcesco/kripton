@@ -53,7 +53,7 @@ public class KriptonLibrary {
 	private static ExecutorService executerService;
 
 	/** The Constant THREAD_POOL_SIZE_DEFAULT. */
-	public static final int THREAD_POOL_SIZE_DEFAULT = 2;
+	public static final int THREAD_POOL_SIZE_DEFAULT = 3;
 
 	/**
 	 * Method to invoke during application initialization.
