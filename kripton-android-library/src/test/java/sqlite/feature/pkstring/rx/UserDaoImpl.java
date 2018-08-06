@@ -1,20 +1,29 @@
 package sqlite.feature.pkstring.rx;
 
+import android.arch.lifecycle.LiveData;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import com.abubusoft.kripton.android.Logger;
+import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
+import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import io.reactivex.subjects.PublishSubject;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * <p>
@@ -35,6 +44,8 @@ public class UserDaoImpl extends Dao implements UserDao {
   private static final Set<String> insertUser1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "userid");
 
   private static SQLiteStatement deleteAllUsersPreparedStatement2;
+
+  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
@@ -138,6 +149,153 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>userid</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>username</dt><dd>is associated to bean's property <strong>userName</strong></dd>
+   * </dl>
+   *
+   * @return paginated result.
+   */
+  protected PaginatedResult<User> selectPagedForLiveData() {
+    PaginatedResult0 paginatedResult=new PaginatedResult0();
+    // common part generation - BEGIN
+    // common part generation - END
+    return paginatedResult;
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>userid</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>username</dt><dd>is associated to bean's property <strong>userName</strong></dd>
+   * </dl>
+   *
+   * @param paginatedResult
+   * 	handler of paginated result
+   * @return result list
+   */
+  private List<User> selectPaged(PaginatedResult0 paginatedResult) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    StringBuilder _sqlBuilder=sqlBuilder();
+    _sqlBuilder.append("SELECT userid, username FROM users");
+    // generation CODE_001 -- BEGIN
+    // generation CODE_001 -- END
+    String _sqlWhereStatement="";
+    // generation limit - BEGIN
+    String _sqlLimitStatement=" LIMIT 20";
+    _sqlBuilder.append(_sqlLimitStatement);
+    // generation limit - END
+
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+paginatedResult.firstRow();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
+    String _sql=_sqlBuilder.toString();
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
+
+      List<User> resultList=new ArrayList<User>(_cursor.getCount());
+      User resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      String __id=null;
+      String __userName=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("userid");
+        int index1=_cursor.getColumnIndex("username");
+
+        do
+         {
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=null;
+          __userName=null;
+          __id=_cursor.getString(index0);
+          if (!_cursor.isNull(index1)) { __userName=_cursor.getString(index1); }
+
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new User(__id,__userName);
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
+    }
+    // Specialized part II - SelectPaginatedResultHelper - END
+  }
+
+  /**
+   * <h2>Live data</h2>
+   * <p>This method open a connection internally.</p>
+   *
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>userid</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>username</dt><dd>is associated to bean's property <strong>userName</strong></dd>
+   * </dl>
+   *
+   * @return paginated result.
+   */
+  @Override
+  public LiveData<PaginatedResult<User>> selectPaged() {
+    // common part generation - BEGIN
+    // common part generation - END
+    final KriptonComputableLiveData<PaginatedResult<User>> builder=new KriptonComputableLiveData<PaginatedResult<User>>() {
+      @Override
+      protected PaginatedResult<User> compute() {
+        return BindUserDataSource.getInstance().executeBatch(new BindUserDataSource.Batch<PaginatedResult<User>>() {
+          @Override
+          public PaginatedResult<User> onExecute(BindUserDaoFactory daoFactory) {
+            return daoFactory.getUserDao().selectPagedForLiveData();
+          }
+        });
+      }
+    };
+    registryLiveData(builder);
+    return builder.getLiveData();
+  }
+
+  /**
    * <p>SQL insert:</p>
    * <pre>INSERT OR REPLACE INTO users (userid, username) VALUES (:user.id, :user.userName)</pre>
    *
@@ -206,6 +364,8 @@ public class UserDaoImpl extends Dao implements UserDao {
       // rx management 
       subject.onNext(SQLiteEvent.createInsertWithUid(user.getId()));
     }
+    // support for livedata
+    registryEvent(result>0?1:0);
     // Specialized Insert - InsertType - END
   }
 
@@ -255,6 +415,8 @@ public class UserDaoImpl extends Dao implements UserDao {
       // rx management 
       subject.onNext(SQLiteEvent.createInsertWithUid(contentValues.getAsString("userid")));
     }
+    // support for livedata
+    registryEvent(result>0?1:0);
     return result;
   }
 
@@ -324,6 +486,8 @@ public class UserDaoImpl extends Dao implements UserDao {
       // rx management 
       subject.onNext(SQLiteEvent.createInsertWithUid(id));
     }
+    // support for livedata
+    registryEvent(result>0?1:0);
     // Specialized Insert - InsertType - END
   }
 
@@ -373,6 +537,8 @@ public class UserDaoImpl extends Dao implements UserDao {
       // rx management 
       subject.onNext(SQLiteEvent.createInsertWithUid(contentValues.getAsString("userid")));
     }
+    // support for livedata
+    registryEvent(result>0?1:0);
     return result;
   }
 
@@ -416,6 +582,35 @@ public class UserDaoImpl extends Dao implements UserDao {
       // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
+    // support for livedata
+    registryEvent(result);
+  }
+
+  protected void registryEvent(int affectedRows) {
+    if (affectedRows==0) {
+      return;
+    }
+    if (_context.isInSession()) {
+      _context.registrySQLEvent(BindUserDataSource.USER_DAO_UID);
+    } else {
+      invalidateLiveData();
+    }
+  }
+
+  protected void registryLiveData(KriptonComputableLiveData<?> value) {
+    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
+  }
+
+  /**
+   * <p>Invalidate livedata.</p>
+   *
+   */
+  public void invalidateLiveData() {
+    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
+      if (item.get()!=null) {
+        item.get().invalidate();
+      }
+    }
   }
 
   public PublishSubject<SQLiteEvent> getSubject() {
@@ -434,6 +629,17 @@ public class UserDaoImpl extends Dao implements UserDao {
     if (deleteAllUsersPreparedStatement2!=null) {
       deleteAllUsersPreparedStatement2.close();
       deleteAllUsersPreparedStatement2=null;
+    }
+  }
+
+  public class PaginatedResult0 extends PaginatedResult<User> {
+    PaginatedResult0() {
+      this.pageSize=20;
+    }
+
+    public List<User> execute() {
+      list=UserDaoImpl.this.selectPaged(this);
+      return list;
     }
   }
 }

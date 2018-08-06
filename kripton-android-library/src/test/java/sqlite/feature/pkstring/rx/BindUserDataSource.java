@@ -29,6 +29,7 @@ import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
@@ -804,12 +805,21 @@ public class BindUserDataSource extends AbstractDataSource implements BindUserDa
     }
 
     protected void onSessionOpened() {
+      // support for live data
+      _context.onSessionOpened();
     }
 
     protected void onSessionClear() {
+      // support for live data
+      _context.onSessionOpened();
     }
 
     protected void onSessionClosed() {
+      // support for live data
+      Set<Integer> daosWithEvents=_context.onSessionClosed();
+      if (_userDao!=null && daosWithEvents.contains(USER_DAO_UID)) {
+        _userDao.invalidateLiveData();
+      }
     }
 
     public DataSourceSingleThread bindToThread() {

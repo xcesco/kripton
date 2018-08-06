@@ -151,7 +151,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			// support for livedata
 			if (daoDefinition.hasLiveData()) {
 				methodBuilder.addComment("support for livedata");
-				methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result)");
+				methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result>0?1:0)");
 			}
 
 			// define return value

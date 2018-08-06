@@ -96,8 +96,18 @@ public abstract class PaginatedResult<E> {
 			firstRow=0;
 			return false;
 		}
+				
 		
 		return execute().size()>0;
+	}
+	
+	/**
+	 * Get current Page
+	 * @return
+	 * 		0-based number of current page
+	 */
+	public int getCurrentPage() {
+		return firstRow/pageSize;
 	}
 
 	/**
