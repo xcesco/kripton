@@ -113,7 +113,8 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     if (result>0) {
-      subject.onNext(SQLiteEvent.createInsert(result));
+      // rx management 
+      subject.onNext(SQLiteEvent.createInsertWithId(result));
     }
 
     return (int)result;
@@ -241,6 +242,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
@@ -288,6 +290,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
@@ -430,6 +433,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement3, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createUpdate(result));
     }
     return result;

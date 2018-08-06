@@ -60,7 +60,7 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindDummy01DataSource(DataSourceOptions options) {
-    super("app.db", 1, options);
+    super("dummy", 1, options);
   }
 
   @Override
@@ -234,8 +234,8 @@ public class BindDummy01DataSource extends AbstractDataSource implements BindDum
       synchronized(mutex) {
         result=instance;
         if (result==null) {
-          DataSourceOptions options=DataSourceOptions.builder()        		  
-          	.inMemory(false)
+          DataSourceOptions options=DataSourceOptions.builder()
+          	.inMemory(true)
           	.log(true)
           	.build();
           instance=result=new BindDummy01DataSource(options);

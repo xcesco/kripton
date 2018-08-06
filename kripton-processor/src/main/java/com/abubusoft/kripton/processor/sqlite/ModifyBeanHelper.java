@@ -179,9 +179,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (method.getParent().getParent().generateRx) {
 			if (updateMode) {
-				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.UPDATE);
+				GenericSQLHelper.generateSubjectNext(method.getParent().getEntity(), methodBuilder, SubjectType.UPDATE, "result");
 			} else {
-				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.DELETE);
+				GenericSQLHelper.generateSubjectNext(method.getParent().getEntity(), methodBuilder, SubjectType.DELETE, "result");
 			}
 		}
 

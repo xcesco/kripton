@@ -231,7 +231,8 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     if (result>0) {
-      subject.onNext(SQLiteEvent.createInsert(result));
+      // rx management 
+      subject.onNext(SQLiteEvent.createInsertWithId(result));
     }
     // support for livedata
     registryEvent(result>0?1:0);
@@ -299,6 +300,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createUpdate(result));
     }
     // support for livedata

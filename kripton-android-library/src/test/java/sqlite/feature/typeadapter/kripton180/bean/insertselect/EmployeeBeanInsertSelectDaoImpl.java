@@ -111,7 +111,8 @@ public class EmployeeBeanInsertSelectDaoImpl extends Dao implements EmployeeBean
     // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
     if (result>0) {
-      subject.onNext(SQLiteEvent.createInsert(result));
+      // rx management 
+      subject.onNext(SQLiteEvent.createInsertWithId(result));
     }
     // Specialized Insert - InsertType - END
   }

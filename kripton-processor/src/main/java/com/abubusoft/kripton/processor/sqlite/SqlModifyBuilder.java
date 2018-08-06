@@ -471,7 +471,7 @@ public abstract class SqlModifyBuilder {
 					daoDefinition.getEntity().getTableName());
 
 			if (method.getParent().getParent().generateRx) {
-				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.DELETE);
+				GenericSQLHelper.generateSubjectNext(entity, methodBuilder, SubjectType.DELETE, "result");
 			}
 			break;
 		case UPDATE_BEAN:
@@ -489,7 +489,7 @@ public abstract class SqlModifyBuilder {
 			}
 
 			if (method.getParent().getParent().generateRx) {
-				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.UPDATE);
+				GenericSQLHelper.generateSubjectNext(entity, methodBuilder, SubjectType.UPDATE, "result");
 			}
 
 			break;

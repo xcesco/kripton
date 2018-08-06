@@ -21,11 +21,13 @@ import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 
+import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
@@ -98,14 +100,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 								
 				// check same type
 				TypeUtility.checkTypeCompatibility(method, item, property);
-				// check nullabliity
-//				nullable = TypeUtility.isNullable(method, item, property) && !property.hasTypeAdapter();
-//
-//				if (nullable) {
-//					// it use raw method param's typeName
-//					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
-//				}
-				
+											
 				if (method.isLogEnabled()) {
 					methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
 				} else {
@@ -132,7 +127,25 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}			
 			
 			if (daoDefinition.getParent().generateRx) {
-				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);				
+				
+				// rx management
+				String rxIdGetter=null;
+				if (entity.getPrimaryKey().columnType==ColumnType.PRIMARY_KEY) {
+					rxIdGetter="result";
+				} else {
+					// unmanaged pk
+					for (Pair<String, TypeName> item : fieldsToUpdate) {
+						String propertyName = method.findParameterAliasByName(item.value0);
+						
+						SQLProperty property = entity.get(propertyName);
+											
+						if (property.isPrimaryKey()) {
+							rxIdGetter=item.value0;
+						}
+					}
+				}												
+				
+				GenericSQLHelper.generateSubjectNext(entity, methodBuilder, SubjectType.INSERT, rxIdGetter);				
 			}
 			
 			// support for livedata

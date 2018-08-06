@@ -40,33 +40,34 @@ import com.squareup.javapoet.TypeName;
  * The Class GenericSQLHelper.
  */
 public abstract class GenericSQLHelper {
-	
+
 	/**
 	 * The Enum SubjectType.
 	 */
 	public enum SubjectType {
-		
+
 		/** The insert. */
 		INSERT("Insert"),
-		
+
 		/** The update. */
 		UPDATE("Update"),
-		
+
 		/** The delete. */
 		DELETE("Delete");
-		
+
 		/**
 		 * Instantiates a new subject type.
 		 *
-		 * @param value the value
+		 * @param value
+		 *            the value
 		 */
 		private SubjectType(String value) {
-			this.value=value;
+			this.value = value;
 		}
-		
+
 		/** The value. */
 		private String value;
-		
+
 		/**
 		 * Value.
 		 *
@@ -76,50 +77,68 @@ public abstract class GenericSQLHelper {
 			return value;
 		}
 	}
-	
+
 	/**
 	 * Generate subject next.
+	 * 
+	 * @param entity
 	 *
-	 * @param methodBuilder the method builder
-	 * @param subjectType the subject type
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param subjectType
+	 *            the subject type
+	 * @param value
 	 */
-	public static void generateSubjectNext(MethodSpec.Builder methodBuilder, SubjectType subjectType) {
+	public static void generateSubjectNext(SQLiteEntity entity, MethodSpec.Builder methodBuilder,
+			SubjectType subjectType, String value) {
+		String subInsertType = "";
+		if (subjectType == SubjectType.INSERT) {
+			if (entity.getPrimaryKey().isType(String.class)) {
+				subInsertType = "WithUid";
+			} else {
+				subInsertType = "WithId";
+			}
+		}
+
 		methodBuilder.beginControlFlow("if (result>0)");
-		methodBuilder.addStatement("subject.onNext($T.create$L(result))", SQLiteEvent.class, subjectType.value());
+		methodBuilder.addComment("rx management ");
+		methodBuilder.addStatement("subject.onNext($T.create$L$L($L))", SQLiteEvent.class, subjectType.value(),
+				subInsertType, value);
 		methodBuilder.endControlFlow();
 	}
-	
+
 	/**
 	 * Generate generic exec SQL.
 	 *
-	 * @param methodBuilder the method builder
-	 * @param method the method
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param method
+	 *            the method
 	 */
 	public static void generateGenericExecSQL(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method) {
-		final SQLiteDaoDefinition daoDefinition = method.getParent();		
+		final SQLiteDaoDefinition daoDefinition = method.getParent();
 
 		boolean nullable;
 		final List<String> paramsList = new ArrayList<String>();
-		final List<String> contentValueList = new ArrayList<String>();		
-		final One<Boolean> columnsToUpdate=new One<Boolean>(true);
-		
-		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {					
-			
+		final List<String> contentValueList = new ArrayList<String>();
+		final One<Boolean> columnsToUpdate = new One<Boolean>(true);
+
+		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
+
 			@Override
 			public void onWhereStatementBegin(Where_stmtContext ctx) {
 				super.onWhereStatementBegin(ctx);
-				
-				columnsToUpdate.value0=false;
+
+				columnsToUpdate.value0 = false;
 			}
-			
+
 			@Override
 			public void onWhereStatementEnd(Where_stmtContext ctx) {
 				super.onWhereStatementEnd(ctx);
-				
-				columnsToUpdate.value0=true;
+
+				columnsToUpdate.value0 = true;
 			}
-					
-						
+
 			@Override
 			public String onColumnName(String columnName) {
 				String resolvedName = currentSchema.findColumnNameByPropertyName(method, columnName);
@@ -130,9 +149,9 @@ public abstract class GenericSQLHelper {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName,boolean inStatement) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				String propertyName = method.findParameterAliasByName(bindParameterName);
-				
+
 				if (columnsToUpdate.value0) {
 					contentValueList.add(propertyName);
 				} else {
@@ -142,51 +161,51 @@ public abstract class GenericSQLHelper {
 			}
 		});
 
-				
 		// update/insert columns
 		final SQLiteEntity entity = daoDefinition.getEntity();
 		for (String item : contentValueList) {
 			// ASSERT: property is always in entity
 			String propertyName = method.findParameterNameByAlias(item);
-			TypeName paramType = method.findParameterTypeByAliasOrName(item);			
-			
+			TypeName paramType = method.findParameterTypeByAliasOrName(item);
+
 			SQLProperty property = entity.get(item);
-								
+
 			if (propertyName == null)
 				throw (new PropertyNotFoundException(method, propertyName, paramType));
-							
+
 			Pair<String, TypeName> methodParam = new Pair<String, TypeName>(propertyName, paramType);
-			
+
 			// check same type
 			TypeUtility.checkTypeCompatibility(method, methodParam, property);
 			// check nullabliity
-//			nullable = TypeUtility.isNullable(method, methodParam, property);
-//
-//			if (nullable) {
-//				// it use raw method param's typeName
-//				methodBuilder.beginControlFlow("if ($L!=null)", methodParam.value0);
-//			}
-			
+			// nullable = TypeUtility.isNullable(method, methodParam, property);
+			//
+			// if (nullable) {
+			// // it use raw method param's typeName
+			// methodBuilder.beginControlFlow("if ($L!=null)", methodParam.value0);
+			// }
+
 			if (method.isLogEnabled()) {
 				methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
 			} else {
 				methodBuilder.addCode("_contentValues.put(");
 			}
-			
+
 			// it does not need to be converted in string
-			SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, methodParam.value0, methodParam.value1, property);
+			SQLTransformer.javaMethodParam2ContentValues(methodBuilder, method, methodParam.value0, methodParam.value1,
+					property);
 			methodBuilder.addCode(");\n");
-//			if (nullable) {
-//				methodBuilder.nextControlFlow("else");					
-//				
-//				if (method.isLogEnabled()) {
-//					methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
-//				} else {
-//					methodBuilder.addStatement("_contentValues.putNull()");
-//				}
-//				
-//				methodBuilder.endControlFlow();
-//			}
+			// if (nullable) {
+			// methodBuilder.nextControlFlow("else");
+			//
+			// if (method.isLogEnabled()) {
+			// methodBuilder.addStatement("_contentValues.putNull($S)", property.columnName);
+			// } else {
+			// methodBuilder.addStatement("_contentValues.putNull()");
+			// }
+			//
+			// methodBuilder.endControlFlow();
+			// }
 
 		}
 
@@ -202,8 +221,8 @@ public abstract class GenericSQLHelper {
 
 				paramType = method.findParameterTypeByAliasOrName(item);
 				realName = method.findParameterNameByAlias(item);
-				
-				AssertKripton.assertTrueOrUnknownPropertyInJQLException(paramType!=null, method, item);
+
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(paramType != null, method, item);
 
 				// code for query arguments
 				nullable = TypeUtility.isNullable(paramType);
@@ -229,8 +248,8 @@ public abstract class GenericSQLHelper {
 
 		// log for where parames
 		SqlBuilderHelper.generateLog(method, methodBuilder);
-		
-		// log		
+
+		// log
 		methodBuilder.addCode("\n");
 		methodBuilder.addStatement("database().execSQL($S, _contentValues.whereArgsAsArray())", sql);
 	}

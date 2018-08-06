@@ -133,7 +133,8 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // immutable object: inizialize object
     bean=new Person(__id,__name,__surname,__birthDate);
     if (result>0) {
-      subject.onNext(SQLiteEvent.createInsert(result));
+      // rx management 
+      subject.onNext(SQLiteEvent.createInsertWithId(result));
     }
     // support for livedata
     registryEvent(result>0?1:0);

@@ -351,6 +351,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement0, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result;
@@ -399,6 +400,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByPersonIdPreparedStatement1, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result;
@@ -447,6 +449,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByPhoneNumberIdPreparedStatement2, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result;
@@ -519,7 +522,8 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
     if (result>0) {
-      subject.onNext(SQLiteEvent.createInsert(result));
+      // rx management 
+      subject.onNext(SQLiteEvent.createInsertWithId(result));
     }
 
     return (int)result;
