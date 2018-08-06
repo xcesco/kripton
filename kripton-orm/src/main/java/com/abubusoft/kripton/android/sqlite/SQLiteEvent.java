@@ -34,47 +34,102 @@ public class SQLiteEvent {
 	/**
 	 * Instantiates a new SQ lite event.
 	 *
-	 * @param operationType the operation type
-	 * @param value the value
+	 * @param operationType
+	 *            the operation type
+	 * @param value
+	 *            the value
 	 */
-	public SQLiteEvent(SqlModificationType operationType, long value) {
+	private SQLiteEvent(SqlModificationType operationType, Long updatedRows, Long lastInsertedId,
+			String lastInsertedUid) {
 		this.operationType = operationType;
-		this.value = value;
+		this.updatedRows = updatedRows;
+		this.lastInsertedId = lastInsertedId;
+		this.lastInsertedUid = lastInsertedUid;
 	}
 
 	/** The operation type. */
 	public final SqlModificationType operationType;
+
+	/**
+	 * updated rows
+	 */
+	public final Long updatedRows;
+
+	/**
+	 * last inserted id
+	 */
+	public final Long lastInsertedId;
+
+	/**
+	 * last inserted uid
+	 */
+	public final String lastInsertedUid;
+
+	public boolean hasLastInsertedUid() {
+		return lastInsertedUid != null;
+	}
+
+	public boolean hasLastInsertedId() {
+		return lastInsertedId != null;
+	}
+
+	public boolean hasUpdatedRows() {
+		return updatedRows != null;
+	}
 	
-	/** The value. */
-	public final long value;
+	public String getLastInsertedUid() {
+		return lastInsertedUid;
+	}
+
+	public long getLastInsertedId() {
+		return lastInsertedId;
+	}
+
+	public Long getUpdatedRows() {
+		return updatedRows;
+	}
 
 	/**
 	 * Creates the insert.
 	 *
-	 * @param result the result
+	 * @param result
+	 *            the result
 	 * @return the SQ lite event
 	 */
-	public static SQLiteEvent createInsert(long result) {
-		return new SQLiteEvent(SqlModificationType.INSERT, result);
+	public static SQLiteEvent createInsertWithUid(String result) {
+		return new SQLiteEvent(SqlModificationType.INSERT, null, null, result);
+	}
+	
+	/**
+	 * Creates the insert.
+	 *
+	 * @param result
+	 *            the result
+	 * @return the SQ lite event
+	 */
+	public static SQLiteEvent createInsertWithId(Long result) {
+		return new SQLiteEvent(SqlModificationType.INSERT, null, result, null);
 	}
 
 	/**
 	 * Creates the update.
 	 *
-	 * @param result the result
+	 * @param result
+	 *            the result
 	 * @return the SQ lite event
 	 */
 	public static SQLiteEvent createUpdate(long result) {
-		return new SQLiteEvent(SqlModificationType.UPDATE, result);
+		return new SQLiteEvent(SqlModificationType.UPDATE, result, null, null);
 	}
 
 	/**
 	 * Creates the delete.
 	 *
-	 * @param result the result
+	 * @param result
+	 *            the result
 	 * @return the SQ lite event
 	 */
 	public static SQLiteEvent createDelete(long result) {
-		return new SQLiteEvent(SqlModificationType.DELETE, result);
+		return new SQLiteEvent(SqlModificationType.DELETE, result, null, null);
 	}
 }
