@@ -685,6 +685,18 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				public String getContextDescription() {
 					return "While table definition generation for entity " + entity.getName();
 				}
+
+				@Override
+				public String getName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getParentName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
 			}, createIndex, new JQLReplacerListenerImpl(null) {
 
 				@Override

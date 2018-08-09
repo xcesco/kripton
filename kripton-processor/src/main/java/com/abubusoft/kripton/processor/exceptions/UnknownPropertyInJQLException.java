@@ -17,8 +17,10 @@ package com.abubusoft.kripton.processor.exceptions;
 
 import java.lang.annotation.Annotation;
 
+import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 // TODO: Auto-generated Javadoc
@@ -36,7 +38,7 @@ public class UnknownPropertyInJQLException extends KriptonProcessorException {
 	 * @param method the method
 	 * @param propertyName the property name
 	 */
-	public UnknownPropertyInJQLException(SQLiteModelMethod method, String propertyName) {
+	public UnknownPropertyInJQLException(JQLContext method, String propertyName) {
 		this(method, null, propertyName);
 	}
 	
@@ -47,8 +49,8 @@ public class UnknownPropertyInJQLException extends KriptonProcessorException {
 	 * @param className the class name
 	 * @param propertyName the property name
 	 */
-	public UnknownPropertyInJQLException(SQLiteModelMethod method, String className, String propertyName) {		
-		super(String.format("In DAO '%s' in method '%s', unknown property '%s' is used", method.getParent().getName(), method.getName(), (StringUtils.hasText(className) ? className + "." : "")+propertyName));		
+	public UnknownPropertyInJQLException(JQLContext method, String className, String propertyName) {		
+		super(String.format("In DAO '%s' in method '%s', unknown property '%s' is used", method.getParentName(), method.getName(), (StringUtils.hasText(className) ? className + "." : "")+propertyName));		
 	}
 	
 	/**

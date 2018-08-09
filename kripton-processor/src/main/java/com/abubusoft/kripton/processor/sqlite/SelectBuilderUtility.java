@@ -237,7 +237,7 @@ public abstract class SelectBuilderUtility {
 					// scalar list
 					selectResultType = SelectBuilderUtility.SelectType.LIST_SCALAR;
 				} else {
-					AssertKripton.failWithInvalidMethodSignException(true, method, "%s is invalid return type", method.getReturnClass());
+					AssertKripton.failWithInvalidMethodSignException(true, method, "%s is an invalid return type", method.getReturnClass());
 				}
 
 			}

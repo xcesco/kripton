@@ -27,4 +27,8 @@ public interface JQLContext {
 	 * @return the context description
 	 */
 	String getContextDescription();
+	
+	String getName();
+	
+	String getParentName();
 }

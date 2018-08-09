@@ -55,6 +55,18 @@ public class TestUriChecker extends BaseProcessorTest {
 			return "test context";
 		}
 
+		@Override
+		public String getName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getParentName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	};
 
 	/**

@@ -20,6 +20,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.abubusoft.kripton.android.sqlite.NoResultType;
+
 /**
  * <p>
  * Allows to query a database table. When you define the query through
@@ -492,5 +494,12 @@ public @interface BindSqlSelect {
 	 * 
 	 */
 	BindSqlChildSelect[] childrenSelects() default {};
+	
+	/**
+	 * Define bean result type. It can not be used with <code>childrenSelect</code>.
+	 * 
+	 * @return
+	 */
+	Class<?> resultType() default NoResultType.class;
 
 }

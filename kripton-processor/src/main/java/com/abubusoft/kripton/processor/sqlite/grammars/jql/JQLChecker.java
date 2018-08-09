@@ -67,6 +67,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_name
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_in_clauseContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 /**
  * The Class JQLChecker.
@@ -238,7 +239,10 @@ public class JQLChecker {
 
 					String jqlColumnName = ctx.expr().column_fully_qualified_name().column_simple_name().getText();
 					builder.column(jqlColumnName);
-					builder.property(entity.findPropertyByName(jqlColumnName));
+					
+					SQLProperty property=entity.findPropertyByName(jqlColumnName);
+					AssertKripton.assertTrueOrUnknownPropertyInJQLException(property!=null, jqlContext, jqlColumnName);
+					builder.property(property);
 
 					builder.type(ProjectionType.COLUMN);
 				} else {

@@ -43,6 +43,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynam
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 import base.BaseProcessorTest;
 
@@ -58,6 +59,18 @@ public class TestJqlChecker extends BaseProcessorTest {
 		@Override
 		public String getContextDescription() {
 			return "test context";
+		}
+
+		@Override
+		public String getName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getParentName() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	};
 
@@ -102,6 +115,18 @@ public class TestJqlChecker extends BaseProcessorTest {
 			@Override
 			public String getContextDescription() {
 				return "test context";
+			}
+
+			@Override
+			public String getName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		}, jql.value);
 		log("replaced " + jsqChecker.replace(dummyContext, jql, new JQLReplacerListenerImpl(null) {
@@ -183,6 +208,18 @@ public class TestJqlChecker extends BaseProcessorTest {
 			public String getContextDescription() {
 				return "test context";
 			}
+
+			@Override
+			public String getName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		}, jql);
 
 		// check bind parameters
@@ -214,6 +251,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		// updateTime=${bean.updateTime}";
 		JQL jql = new JQL();
 		jql.value = sql;
+				
 
 		JQLChecker checker = JQLChecker.getInstance();
 
@@ -307,6 +345,18 @@ public class TestJqlChecker extends BaseProcessorTest {
 			@Override
 			public String getContextDescription() {
 				return "test context";
+			}
+
+			@Override
+			public String getName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		}, jql);
 
@@ -462,6 +512,18 @@ public class TestJqlChecker extends BaseProcessorTest {
 				public String getContextDescription() {
 					return "Test context";
 				}
+
+				@Override
+				public String getName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getParentName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
 			}, where.value0);
 
 			for (JQLPlaceHolder item : list) {
@@ -473,6 +535,18 @@ public class TestJqlChecker extends BaseProcessorTest {
 				@Override
 				public String getContextDescription() {
 					return "Test context";
+				}
+
+				@Override
+				public String getName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getParentName() {
+					// TODO Auto-generated method stub
+					return null;
 				}
 			}, where.value0, new JQLReplacerListenerImpl(null) {
 

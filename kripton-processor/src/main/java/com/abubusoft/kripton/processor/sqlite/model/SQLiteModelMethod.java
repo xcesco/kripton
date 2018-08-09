@@ -967,4 +967,9 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return this.jql.spreadParams.contains(methodParamName);
 	}
 
+	@Override
+	public String getParentName() {
+		return getParent().getName();
+	}
+
 }
