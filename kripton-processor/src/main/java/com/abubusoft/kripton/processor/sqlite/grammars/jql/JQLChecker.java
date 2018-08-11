@@ -67,7 +67,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Table_name
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_in_clauseContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 /**
  * The Class JQLChecker.

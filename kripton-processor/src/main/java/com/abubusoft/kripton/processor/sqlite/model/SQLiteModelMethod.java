@@ -73,6 +73,17 @@ import com.squareup.javapoet.TypeName;
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement, JQLContext {
 
 	/**
+	 * Entity associated to method. For insert/modify/update must be the same of
+	 * the dao definition For select statement it can be another (it must be
+	 * annotated with @BindSqlType)
+	 */
+	private SQLiteEntity entity;
+
+	public SQLiteEntity getEntity() {
+		return entity;
+	}
+
+	/**
 	 * The Interface OnFoundDynamicParameter.
 	 */
 	interface OnFoundDynamicParameter {
@@ -358,6 +369,14 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) getReturnClass();
 			this.liveDataReturnClass = returnParameterizedTypeName;
 			setReturnClass(returnParameterizedTypeName.typeArguments.get(0));
+		}
+
+		// manage entity
+		if (this.jql.operationType == JQLType.SELECT) {
+
+		} else {
+			// this is not a select
+			this.entity = getParent().getEntity();
 		}
 
 		// content provider generation

@@ -359,6 +359,27 @@ public abstract class SqlBuilderHelper {
 	public static boolean hasParameterOfType(ModelMethod method, TypeName parameter) {
 		return SqlBuilderHelper.countParameterOfType(method, parameter) > 0;
 	}
+	
+	public interface OnParameterListener {
+		boolean onParameter(Pair<String, TypeName> item);
+	}
+	
+	/**
+	 * Iterate for each method's parameter
+	 *
+	 * @param method
+	 * @param listener
+	 * @return
+	 */
+	public static Pair<String, TypeName> searchInEachParameter(ModelMethod method, OnParameterListener listener) {
+		for (Pair<String, TypeName> item : method.getParameters()) {			
+			if (listener.onParameter(item)) {
+				return item;
+			}
+		}
+
+		return null;
+	}
 
 	/**
 	 * Count parameter of type.
