@@ -14,6 +14,7 @@ import com.abubusoft.kripton.common.Triple;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -28,6 +29,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class LoanDaoImpl extends Dao implements LoanDao {
   private static final String FIND_ALL_LOANS_SQL10 = "SELECT id, book_id, end_time, start_time, user_id FROM loan";
+
+  private static final String FIND_ALL_WITH_USER_AND_BOOK_SQL11 = "SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id ";
+
+  private static final String FIND_LOANS_BY_NAME_AFTER_SQL12 = "SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
 
   private static SQLiteStatement insertLoanPreparedStatement0;
 
@@ -144,6 +149,255 @@ public class LoanDaoImpl extends Dao implements LoanDao {
           @Override
           public List<Loan> onExecute(BindAppDaoFactory daoFactory) {
             return daoFactory.getLoanDao().findAllLoansForLiveData();
+          }
+        });
+      }
+    };
+    registryLiveData(builder);
+    return builder.getLiveData();
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>start_time</dt><dd>is associated to bean's property <strong>startTime</strong></dd>
+   * 	<dt>end_time</dt><dd>is associated to bean's property <strong>endTime</strong></dd>
+   * </dl>
+   *
+   * @return collection of bean or empty collection.
+   */
+  protected List<LoanWithUserAndBook> findAllWithUserAndBookForLiveData() {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    // query SQL is statically defined
+    String _sql=FIND_ALL_WITH_USER_AND_BOOK_SQL11;
+    // add where arguments
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
+
+      ArrayList<LoanWithUserAndBook> resultList=new ArrayList<LoanWithUserAndBook>(_cursor.getCount());
+      LoanWithUserAndBook resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("title");
+        int index2=_cursor.getColumnIndex("name");
+        int index3=_cursor.getColumnIndex("start_time");
+        int index4=_cursor.getColumnIndex("end_time");
+
+        do
+         {
+          resultBean=new LoanWithUserAndBook();
+
+          resultBean.id=_cursor.getString(index0);
+          if (!_cursor.isNull(index1)) { resultBean.bookTitle=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.userName=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.startTime=DateUtils.read(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.endTime=DateUtils.read(_cursor.getString(index4)); }
+
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+    // Specialized part - SelectBeanListHelper - END
+  }
+
+  /**
+   * <h2>Live data</h2>
+   * <p>This method open a connection internally.</p>
+   *
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>start_time</dt><dd>is associated to bean's property <strong>startTime</strong></dd>
+   * 	<dt>end_time</dt><dd>is associated to bean's property <strong>endTime</strong></dd>
+   * </dl>
+   *
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public LiveData<List<LoanWithUserAndBook>> findAllWithUserAndBook() {
+    // common part generation - BEGIN
+    // common part generation - END
+    final KriptonComputableLiveData<List<LoanWithUserAndBook>> builder=new KriptonComputableLiveData<List<LoanWithUserAndBook>>() {
+      @Override
+      protected List<LoanWithUserAndBook> compute() {
+        return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<LoanWithUserAndBook>>() {
+          @Override
+          public List<LoanWithUserAndBook> onExecute(BindAppDaoFactory daoFactory) {
+            return daoFactory.getLoanDao().findAllWithUserAndBookForLiveData();
+          }
+        });
+      }
+    };
+    registryLiveData(builder);
+    return builder.getLiveData();
+  }
+
+  /**
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>start_time</dt><dd>is associated to bean's property <strong>startTime</strong></dd>
+   * 	<dt>end_time</dt><dd>is associated to bean's property <strong>endTime</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>:userName</dt><dd>is binded to method's parameter <strong>userName</strong></dd>
+   * 	<dt>:after</dt><dd>is binded to method's parameter <strong>after</strong></dd>
+   * </dl>
+   *
+   * @param userName
+   * 	is binded to <code>:userName</code>
+   * @param after
+   * 	is binded to <code>:after</code>
+   * @return collection of bean or empty collection.
+   */
+  protected List<LoanWithUserAndBook> findLoansByNameAfterForLiveData(String userName, Date after) {
+    // common part generation - BEGIN
+    KriptonContentValues _contentValues=contentValues();
+    // query SQL is statically defined
+    String _sql=FIND_LOANS_BY_NAME_AFTER_SQL12;
+    // add where arguments
+    _contentValues.addWhereArgs((userName==null?"":userName));
+    _contentValues.addWhereArgs((after==null?"":DateUtils.write(after)));
+    String[] _sqlArgs=_contentValues.whereArgsAsArray();
+    // log section for select BEGIN
+    if (_context.isLogEnabled()) {
+      // manage log
+      Logger.info(_sql);
+
+      // log for where parameters -- BEGIN
+      int _whereParamCounter=0;
+      for (String _whereParamItem: _contentValues.whereArgs()) {
+        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+      }
+      // log for where parameters -- END
+    }
+    // log section for select END
+    try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        Logger.info("Rows found: %s",_cursor.getCount());
+      }
+      // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
+
+      ArrayList<LoanWithUserAndBook> resultList=new ArrayList<LoanWithUserAndBook>(_cursor.getCount());
+      LoanWithUserAndBook resultBean=null;
+
+      if (_cursor.moveToFirst()) {
+
+        int index0=_cursor.getColumnIndex("id");
+        int index1=_cursor.getColumnIndex("title");
+        int index2=_cursor.getColumnIndex("name");
+        int index3=_cursor.getColumnIndex("start_time");
+        int index4=_cursor.getColumnIndex("end_time");
+
+        do
+         {
+          resultBean=new LoanWithUserAndBook();
+
+          resultBean.id=_cursor.getString(index0);
+          if (!_cursor.isNull(index1)) { resultBean.bookTitle=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.userName=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.startTime=DateUtils.read(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.endTime=DateUtils.read(_cursor.getString(index4)); }
+
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
+      }
+
+      return resultList;
+    }
+    // Specialized part - SelectBeanListHelper - END
+  }
+
+  /**
+   * <h2>Live data</h2>
+   * <p>This method open a connection internally.</p>
+   *
+   * <h2>Select SQL:</h2>
+   *
+   * <pre>SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
+   *
+   * <h2>Projected columns:</h2>
+   * <dl>
+   * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
+   * 	<dt>title</dt><dd>is associated to bean's property <strong>title</strong></dd>
+   * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
+   * 	<dt>start_time</dt><dd>is associated to bean's property <strong>startTime</strong></dd>
+   * 	<dt>end_time</dt><dd>is associated to bean's property <strong>endTime</strong></dd>
+   * </dl>
+   *
+   * <h2>Query's parameters:</h2>
+   * <dl>
+   * 	<dt>:userName</dt><dd>is binded to method's parameter <strong>userName</strong></dd>
+   * 	<dt>:after</dt><dd>is binded to method's parameter <strong>after</strong></dd>
+   * </dl>
+   *
+   * @param userName
+   * 	is binded to <code>:userName</code>
+   * @param after
+   * 	is binded to <code>:after</code>
+   * @return collection of bean or empty collection.
+   */
+  @Override
+  public LiveData<List<LoanWithUserAndBook>> findLoansByNameAfter(final String userName,
+      final Date after) {
+    // common part generation - BEGIN
+    // common part generation - END
+    final KriptonComputableLiveData<List<LoanWithUserAndBook>> builder=new KriptonComputableLiveData<List<LoanWithUserAndBook>>() {
+      @Override
+      protected List<LoanWithUserAndBook> compute() {
+        return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<LoanWithUserAndBook>>() {
+          @Override
+          public List<LoanWithUserAndBook> onExecute(BindAppDaoFactory daoFactory) {
+            return daoFactory.getLoanDao().findLoansByNameAfterForLiveData(userName, after);
           }
         });
       }

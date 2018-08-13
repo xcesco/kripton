@@ -88,9 +88,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 * @param methodBuilder
 	 * @param method
 	 */
-	protected void generateSubQueries(Builder methodBuilder, SQLiteModelMethod method) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+	protected void generateSubQueries(Builder methodBuilder, SQLiteModelMethod method) {		
+		SQLiteEntity entity = method.getEntity();
 		for (Triple<String, String, SQLiteModelMethod> item : method.childrenSelects) {
 			TypeName entityTypeName = TypeUtility.typeName(entity.getElement());
 
@@ -211,10 +210,9 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
 	 */
 	@Override
-	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
+	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {		
 		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value,
-				daoDefinition.getEntity());
+				method.getEntity());
 
 		// generate method code
 		MethodSpec.Builder methodBuilder = generateMethodBuilder(method);
@@ -239,7 +237,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	public void generateLiveData(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
 		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value,
-				daoDefinition.getEntity());
+				method.getEntity());
 
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName().replaceAll(LIVE_DATA_PREFIX, ""))
@@ -338,8 +336,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
 			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields,
 			GenerationType generationType, TypeName forcedReturnType, JavadocPart... javadocParts) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition=method.getParent();
+		SQLiteEntity entity = method.getEntity();
 
 		// if true, field must be associate to ben attributes
 		// TypeName returnType = method.getReturnClass();

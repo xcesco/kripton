@@ -45,15 +45,18 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.escape.StringEscapeUtils;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
+import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.Finder;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelMethod;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.IncompatibleAnnotationException;
 import com.abubusoft.kripton.processor.sqlite.FindSqlChildSelectVisitor;
+import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLBuilder;
@@ -73,9 +76,7 @@ import com.squareup.javapoet.TypeName;
 public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement, JQLContext {
 
 	/**
-	 * Entity associated to method. For insert/modify/update must be the same of
-	 * the dao definition For select statement it can be another (it must be
-	 * annotated with @BindSqlType)
+	 * Entity associated to method. For insert/modify/update must be the same of the dao definition For select statement it can be another (it must be annotated with @BindSqlType)
 	 */
 	private SQLiteEntity entity;
 
@@ -99,32 +100,28 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/**
 	 * <p>
-	 * It is the typeName of parameter used to dynamic order by condition
-	 * (defined at runtime).
+	 * It is the typeName of parameter used to dynamic order by condition (defined at runtime).
 	 * </p>
 	 */
 	public String dynamicOrderByParameterName;
 
 	/**
 	 * <p>
-	 * It is the typeName of parameter used to dynamic where condition (defined
-	 * at runtime).
+	 * It is the typeName of parameter used to dynamic where condition (defined at runtime).
 	 * </p>
 	 */
 	public String dynamicWhereParameterName;
 
 	/**
 	 * <p>
-	 * It's the name of the parameter used to define arguments for dynamic where
-	 * statement. It can be used only on String[] parameter type.
+	 * It's the name of the parameter used to define arguments for dynamic where statement. It can be used only on String[] parameter type.
 	 * </p>
 	 */
 	public String dynamicWhereArgsParameterName;
 
 	/**
 	 * <p>
-	 * It is the typeName of parameter used to dynamic page size (defined at
-	 * runtime).
+	 * It is the typeName of parameter used to dynamic page size (defined at runtime).
 	 * </p>
 	 */
 	public String dynamicPageSizeName;
@@ -177,8 +174,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 	/**
 	 * <p>
-	 * It's the uri with place holder replaced with <code>#</code> or
-	 * <code>*</code>. An example:
+	 * It's the uri with place holder replaced with <code>#</code> or <code>*</code>. An example:
 	 * </p>
 	 * 
 	 * <pre>
@@ -221,7 +217,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @return return true if is use a bean (that this dao manage) as parameter.
 	 */
 	public boolean hasBeanAsParameter() {
-		TypeName entityTypeName = TypeUtility.typeName(this.getParent().getEntity().getElement());
+		TypeName entityTypeName = TypeUtility.typeName(this.getEntity().getElement());
 
 		for (Pair<String, TypeName> item : this.parameters) {
 			if (item.value1.equals(entityTypeName)) {
@@ -358,12 +354,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 				});
 
-		// check if we have jql annotation attribute
-		String preparedJql = getJQLDeclared();
-
-		this.jql = JQLBuilder.buildJQL(this, preparedJql);
-
-		// live data support
+		// live data support BEFORE RETURN TYPE
 		this.liveDataEnabled = SQLiteModelMethod.isLiveData(this);
 		if (liveDataEnabled) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) getReturnClass();
@@ -371,13 +362,26 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 			setReturnClass(returnParameterizedTypeName.typeArguments.get(0));
 		}
 
-		// manage entity
-		if (this.jql.operationType == JQLType.SELECT) {
+		// detect entity, before other things like jql
+		if (element.getAnnotation(BindSqlSelect.class) != null) {
+			// try to detect if
+			TypeName returnType = SelectBuilderUtility.extractReturnType(this);
 
+			if (returnType == null) {
+				this.entity = getParent().getEntity();
+			} else {
+				this.entity = BindDataSourceSubProcessor.getInstance().createSQLEntity(parent.getParent(),
+						parent.getElement(), returnType.toString());
+			}
 		} else {
 			// this is not a select
 			this.entity = getParent().getEntity();
 		}
+
+		// check if we have jql annotation attribute
+		String preparedJql = getJQLDeclared();
+
+		this.jql = JQLBuilder.buildJQL(this, preparedJql);
 
 		// content provider generation
 		BindContentProviderEntry annotation = element.getAnnotation(BindContentProviderEntry.class);
@@ -401,7 +405,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 
 			parent.contentProviderCounter++;
 
-			final SQLiteEntity entity = this.getParent().getEntity();
+			final SQLiteEntity entity = this.getEntity();
 
 			String contentProviderUri = contentProviderUri();
 
@@ -616,9 +620,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept(
-	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
+	 * @see com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElement#accept( com.abubusoft.kripton.processor.sqlite.model.SQLiteModelElementVisitor)
 	 */
 	@Override
 	public void accept(SQLiteModelElementVisitor visitor) throws Exception {
@@ -640,9 +642,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * Look for a method parameter which is annotated with an annotationClass
-	 * annotation. When it is found, a client action is required through
-	 * listener.
+	 * Look for a method parameter which is annotated with an annotationClass annotation. When it is found, a client action is required through listener.
 	 *
 	 * @param <A>
 	 *            the generic type
@@ -683,9 +683,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * Look for a method parameter which is annotated with an annotationClass
-	 * annotation. When it is found, a client action is required through
-	 * listener.
+	 * Look for a method parameter which is annotated with an annotationClass annotation. When it is found, a client action is required through listener.
 	 *
 	 * @param <A>
 	 *            the generic type
@@ -726,8 +724,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	}
 
 	/**
-	 * Retrieve for a method's parameter its alias, used to work with queries.
-	 * If no alias is present, typeName will be used.
+	 * Retrieve for a method's parameter its alias, used to work with queries. If no alias is present, typeName will be used.
 	 *
 	 * @param name
 	 *            the name
@@ -905,8 +902,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext#
-	 * getContextDescription()
+	 * @see com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext# getContextDescription()
 	 */
 	@Override
 	public String getContextDescription() {
@@ -937,7 +933,7 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 * @return the string
 	 */
 	public String findEntityProperty() {
-		SQLiteEntity entity = getParent().getEntity();
+		SQLiteEntity entity = getEntity();
 
 		for (Pair<String, TypeName> item : this.parameters) {
 			if (item.value1.equals(TypeUtility.typeName(entity.getElement()))) {
@@ -989,6 +985,11 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	@Override
 	public String getParentName() {
 		return getParent().getName();
+	}
+
+	@Override
+	public Finder<SQLProperty> findEntityByName(String entityName) {
+		return getParent().getParent().getEntityBySimpleName(entityName);
 	}
 
 }

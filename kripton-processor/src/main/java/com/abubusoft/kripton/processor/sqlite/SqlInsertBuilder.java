@@ -31,7 +31,6 @@ import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
-import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -40,15 +39,14 @@ import com.abubusoft.kripton.processor.sqlite.GenericSQLHelper.SubjectType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.sun.tools.doclets.internal.toolkit.taglets.PropertyGetterTaglet;
 
 import android.content.ContentValues;
 import android.net.Uri;
@@ -185,7 +183,7 @@ public abstract class SqlInsertBuilder {
 	 */
 	public static InsertType detectInsertType(SQLiteModelMethod method) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+		SQLiteEntity entity = method.getEntity();
 
 		InsertType insertResultType = null;
 
@@ -243,7 +241,7 @@ public abstract class SqlInsertBuilder {
 	 */
 	private static void generateInsertForContentProvider(TypeSpec.Builder classBuilder, final SQLiteModelMethod method, InsertType insertResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
-		final SQLiteEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = method.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
@@ -327,7 +325,7 @@ public abstract class SqlInsertBuilder {
 		}
 
 		methodBuilder.addComment("insert operation");
-		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)", conflictString1, daoDefinition.getEntity().getTableName(), conflictString2);
+		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)", conflictString1, entity.getTableName(), conflictString2);
 		if (method.getParent().getParent().generateRx) {
 			SQLProperty primaryKey=entity.getPrimaryKey();
 			if (primaryKey.columnType==ColumnType.PRIMARY_KEY) {

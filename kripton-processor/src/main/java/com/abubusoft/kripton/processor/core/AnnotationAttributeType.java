@@ -105,8 +105,6 @@ public enum AnnotationAttributeType {
 
 	/** The raw fields. */
 	RAW_FIELDS("rawFields"),
-	/** The result type. */
-	RESULT_TYPE("resultType"),
 
 	/** The name. */
 	NAME("name"),

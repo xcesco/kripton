@@ -27,9 +27,8 @@ import com.abubusoft.kripton.processor.exceptions.PropertyNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
@@ -116,7 +115,6 @@ public abstract class GenericSQLHelper {
 	 *            the method
 	 */
 	public static void generateGenericExecSQL(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method) {
-		final SQLiteDaoDefinition daoDefinition = method.getParent();
 
 		boolean nullable;
 		final List<String> paramsList = new ArrayList<String>();
@@ -162,7 +160,7 @@ public abstract class GenericSQLHelper {
 		});
 
 		// update/insert columns
-		final SQLiteEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = method.getEntity();
 		for (String item : contentValueList) {
 			// ASSERT: property is always in entity
 			String propertyName = method.findParameterNameByAlias(item);

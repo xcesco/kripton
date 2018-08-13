@@ -15,6 +15,9 @@
  ******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
+import com.abubusoft.kripton.processor.core.Finder;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface JQLContext.
@@ -31,4 +34,6 @@ public interface JQLContext {
 	String getName();
 	
 	String getParentName();
+
+	Finder<SQLProperty> findEntityByName(String entityName);
 }

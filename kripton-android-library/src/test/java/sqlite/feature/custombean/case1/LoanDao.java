@@ -17,6 +17,7 @@
 package sqlite.feature.custombean.case1;
 
 
+import java.util.Date;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
@@ -31,22 +32,22 @@ public interface LoanDao {
 
     @BindSqlSelect
     LiveData<List<Loan>> findAllLoans();
-/*
-    @BindSqlSelect(jql="SELECT Loan.id, Book.title, User.name, Loan.startTime, Loan.endTime From Loan " +
-        "INNER JOIN Book ON Loan.book_id = Book.id " +
-        "INNER JOIN User ON Loan.user_id = User.id ")
+
+    @BindSqlSelect(jql="SELECT Loan.id, Book.title as bookTitle, User.name as userName, Loan.startTime, Loan.endTime From Loan " +
+        "INNER JOIN Book ON Loan.bookId = Book.id " +
+        "INNER JOIN User ON Loan.userId = User.id ", resultType=LoanWithUserAndBook.class)
     LiveData<List<LoanWithUserAndBook>> findAllWithUserAndBook();
-*/
-/*
-    @BindSqlSelect(jql="SELECT Loan.id, Book.title as title, User.name as name, Loan.startTime, Loan.endTime " +
+
+
+    @BindSqlSelect(jql="SELECT Loan.id, Book.title as bookTitle, User.name as userName, Loan.startTime, Loan.endTime " +
             "FROM Book " +
-            "INNER JOIN Loan ON Loan.book_id = Book.id " +
+            "INNER JOIN Loan ON Loan.bookId = Book.id " +
             "INNER JOIN User on User.id = Loan.userId " +
             "WHERE User.name LIKE :userName " +
             "AND Loan.endTime > :after "
     )
     LiveData<List<LoanWithUserAndBook>> findLoansByNameAfter(String userName, Date after);
-*/
+
     @BindSqlInsert
     void insertLoan(Loan loan);
 

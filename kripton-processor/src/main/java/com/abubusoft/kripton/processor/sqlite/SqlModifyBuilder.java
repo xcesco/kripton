@@ -224,7 +224,7 @@ public abstract class SqlModifyBuilder {
 	public static ModifyType detectModifyType(SQLiteModelMethod method, JQLType jqlType) {
 		// Elements elementUtils = BaseProcessor.elementUtils;
 		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+		SQLiteEntity entity = method.getEntity();
 
 		ModifyType updateResultType = null;
 
@@ -305,7 +305,7 @@ public abstract class SqlModifyBuilder {
 	private static void generateModifierForContentProvider(Elements elementUtils, Builder builder,
 			final SQLiteModelMethod method, ModifyType updateResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
-		final SQLiteEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = method.getEntity();
 
 		final Set<String> columns = new LinkedHashSet<>();
 
@@ -468,7 +468,7 @@ public abstract class SqlModifyBuilder {
 		case DELETE_RAW:
 			methodBuilder.addStatement(
 					"int result = database().delete($S, _sqlWhereStatement, _contentValues.whereArgsAsArray())",
-					daoDefinition.getEntity().getTableName());
+					entity.getTableName());
 
 			if (method.getParent().getParent().generateRx) {
 				GenericSQLHelper.generateSubjectNext(entity, methodBuilder, SubjectType.DELETE, "result");
@@ -479,12 +479,12 @@ public abstract class SqlModifyBuilder {
 			if (method.jql.conflictAlgorithmType == ConflictAlgorithmType.NONE) {
 				methodBuilder.addStatement(
 						"int result = database().update($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray())",
-						daoDefinition.getEntity().getTableName());
+						entity.getTableName());
 			} else {
 				methodBuilder.addCode("// conflict algorithm $L\n", method.jql.conflictAlgorithmType);
 				methodBuilder.addStatement(
 						"int result = database().updateWithOnConflict($S, _contentValues.values(), _sqlWhereStatement, _contentValues.whereArgsAsArray()), $L)",
-						daoDefinition.getEntity().getTableName(),
+						entity.getTableName(),
 						method.jql.conflictAlgorithmType.getConflictAlgorithm());
 			}
 

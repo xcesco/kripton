@@ -21,7 +21,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.abubusoft.kripton.common.Pair;
-import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;

@@ -147,8 +147,7 @@ public abstract class JQLBuilder {
 	 *            the prepared jql
 	 * @return the jql
 	 */
-	public static JQL buildJQL(SQLiteModelMethod method, String preparedJql) {
-		final SQLiteDaoDefinition dao = method.getParent();
+	public static JQL buildJQL(final SQLiteModelMethod method, String preparedJql) {		
 		Map<JQLDynamicStatementType, String> dynamicReplace = new HashMap<>();
 		final JQL result = new JQL();
 
@@ -157,7 +156,7 @@ public abstract class JQLBuilder {
 
 			@Override
 			public void onMethodParameter(VariableElement item) {
-				if (dao.getEntity().getElement().asType().equals(item.asType())) {
+				if (method.getEntity().getElement().asType().equals(item.asType())) {
 					result.paramBean = item.getSimpleName().toString();
 				}
 			}
@@ -363,7 +362,7 @@ public abstract class JQLBuilder {
 					annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY));
 
 			//
-			if (method.getParent().getEntity().getPrimaryKey().columnType == ColumnType.PRIMARY_KEY_UNMANGED) {
+			if (method.getEntity().getPrimaryKey().columnType == ColumnType.PRIMARY_KEY_UNMANGED) {
 				includePrimaryKey.value0 = true;
 			}
 
@@ -837,7 +836,7 @@ public abstract class JQLBuilder {
 	private static <A extends Annotation> LinkedHashSet<String> extractFieldsFromAnnotation(
 			final SQLiteModelMethod method, Class<A> annotationClazz, final boolean includePrimaryKey) {
 		final SQLiteDaoDefinition dao = method.getParent();
-		final SQLiteEntity entity = method.getParent().getEntity();
+		final SQLiteEntity entity = method.getEntity();
 
 		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(), annotationClazz,
 				AnnotationAttributeType.FIELDS);
@@ -850,7 +849,7 @@ public abstract class JQLBuilder {
 
 		// extract properties from managed bean
 		final Set<String> allFields = new LinkedHashSet<>();
-		forEachFields(dao, new OnPropertyListener() {
+		forEachFields(method, new OnPropertyListener() {
 
 			@Override
 			public void onProperty(SQLProperty item) {
@@ -1123,8 +1122,8 @@ public abstract class JQLBuilder {
 	 * @param listener
 	 *            the listener
 	 */
-	private static void forEachFields(SQLiteDaoDefinition dao, OnPropertyListener listener) {
-		for (SQLProperty item : dao.getEntity().getCollection()) {
+	private static void forEachFields(SQLiteModelMethod method, OnPropertyListener listener) {
+		for (SQLProperty item : method.getEntity().getCollection()) {
 			listener.onProperty(item);
 		}
 	}

@@ -232,17 +232,20 @@ public class JQLChecker {
 				} else if (ctx.table_name()!=null){					
 					builder.table(ctx.expr().table_name().getText());					
 				} else if (ctx.expr().column_fully_qualified_name()!=null && ctx.expr().column_fully_qualified_name().column_simple_name() != null) {
+					Finder<SQLProperty> currentEntity = entity;
 					if (ctx.expr().column_fully_qualified_name().table_simple_name() != null) {
-						builder.table(ctx.expr().column_fully_qualified_name().table_simple_name().getText());
+						String entityName=ctx.expr().column_fully_qualified_name().table_simple_name().getText();
+						builder.table(entityName);
+						currentEntity=jqlContext.findEntityByName(entityName);
 					}
-
+										
 					String jqlColumnName = ctx.expr().column_fully_qualified_name().column_simple_name().getText();
 					builder.column(jqlColumnName);
 					
-					SQLProperty property=entity.findPropertyByName(jqlColumnName);
+					SQLProperty property=currentEntity.findPropertyByName(jqlColumnName);
 					AssertKripton.assertTrueOrUnknownPropertyInJQLException(property!=null, jqlContext, jqlColumnName);
+					
 					builder.property(property);
-
 					builder.type(ProjectionType.COLUMN);
 				} else {
 					builder.type(ProjectionType.COMPLEX);
@@ -250,7 +253,16 @@ public class JQLChecker {
 				}
 
 				if (ctx.column_alias() != null) {
-					builder.alias(ctx.column_alias().getText());
+					String columnAlias=ctx.column_alias().getText();
+					
+					SQLProperty property=entity.findPropertyByName(columnAlias);
+					AssertKripton.assertTrueOrUnknownPropertyInJQLException(property!=null, jqlContext, columnAlias);
+					
+					builder.property(property);
+					builder.type(ProjectionType.COLUMN);
+					
+					
+					builder.alias(columnAlias);
 				}
 				result.add(builder.build());
 

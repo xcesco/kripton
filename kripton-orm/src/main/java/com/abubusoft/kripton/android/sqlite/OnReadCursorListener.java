@@ -20,7 +20,6 @@ package com.abubusoft.kripton.android.sqlite;
 
 import android.database.Cursor;
 
-// TODO: Auto-generated Javadoc
 /**
  * <p>Listener for query with raw result.</p>
  * 

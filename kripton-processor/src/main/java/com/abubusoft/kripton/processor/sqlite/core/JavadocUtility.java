@@ -78,15 +78,14 @@ public abstract class JavadocUtility {
 	 */
 	public static void generateJavaDocForSelect(MethodSpec.Builder methodBuilder, List<String> sqlParams, final SQLiteModelMethod method, ModelAnnotation annotation, Set<JQLProjection> fieldList,
 			SelectType selectResultType, JavadocPart... javadocParts) {
-		final SQLiteDaoDefinition daoDefinition = method.getParent();
-		final SQLiteEntity entity = daoDefinition.getEntity();
-		TypeName beanTypeName = TypeName.get(daoDefinition.getEntity().getElement().asType());
+		final SQLiteEntity entity = method.getEntity();
+		TypeName beanTypeName = TypeName.get(entity.getElement().asType());
 				
 		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 	
 			@Override
 			public String onColumnName(String columnName) {				
-				SQLProperty tempProperty = daoDefinition.getEntity().get(columnName);
+				SQLProperty tempProperty = entity.get(columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 
 				return tempProperty.columnName;

@@ -40,10 +40,9 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerIm
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
-import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -108,12 +107,11 @@ public abstract class SqlBuilderHelper {
 	 *            the listener
 	 */
 	static void forEachColumnInContentValue(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, String columnSetString, boolean generateColumnNameCheck, OnColumnListener listener) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
 		methodBuilder.beginControlFlow("for (String columnName:$L)", columnSetString);
 		if (generateColumnNameCheck) {
 			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName + "ColumnSet");
 			methodBuilder.addStatement("throw new $T(String.format(\"For URI '$L', column '%s' does not exists in table '%s' or can not be defined in this $L operation\", columnName, $S ))",
-					KriptonRuntimeException.class, method.contentProviderUriTemplate, method.jql.operationType, daoDefinition.getEntity().getTableName());
+					KriptonRuntimeException.class, method.contentProviderUriTemplate, method.jql.operationType, method.getEntity().getTableName());
 			methodBuilder.endControlFlow();
 		}
 		if (listener != null)
@@ -718,7 +716,7 @@ public abstract class SqlBuilderHelper {
 
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = method.getParent().getEntity().get(columnName);
+				SQLProperty tempProperty = method.getEntity().get(columnName);
 
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 

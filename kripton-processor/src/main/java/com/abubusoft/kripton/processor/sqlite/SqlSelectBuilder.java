@@ -136,7 +136,7 @@ public abstract class SqlSelectBuilder {
 	 */
 	private static void generateSelectForContentProvider(Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
-		final SQLiteEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = method.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);

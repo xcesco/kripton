@@ -121,6 +121,12 @@ import com.squareup.javapoet.TypeName;
  * The Class BindDataSourceSubProcessor.
  */
 public class BindDataSourceSubProcessor extends BaseProcessor {
+	
+	private static BindDataSourceSubProcessor instance;
+
+	public static BindDataSourceSubProcessor getInstance() {
+		return instance;
+	}
 
 	public Set<String> getSupportedOptions() {
 		HashSet<String> result = new HashSet<>();
@@ -178,6 +184,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 
+		instance=this;
 	}
 
 	/*
@@ -205,7 +212,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 */
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		for (Element dataSource : dataSets) {
+		for (TypeElement dataSource : dataSets) {
 			SQLiteDatabaseSchema currentSchema = createDataSource(dataSource);
 
 			// Analyze beans BEFORE daos, because beans are needed for DAO
@@ -691,7 +698,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 *            the dao name
 	 * @return true, if successful
 	 */
-	private boolean createSQLEntityFromDao(final SQLiteDatabaseSchema schema, Element dataSource, String daoName) {
+	private boolean createSQLEntityFromDao(final SQLiteDatabaseSchema schema, TypeElement dataSource, String daoName) {
 		TypeElement daoElement = globalDaoElements.get(daoName);
 
 		if (daoElement == null) {
@@ -699,28 +706,38 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					dataSource.toString(), daoName);
 			throw (new InvalidNameException(msg));
 		}
+	
+		String entityClassName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class,
+				AnnotationAttributeType.VALUE);		
+				
+		final SQLiteEntity currentEntity = createSQLEntity(schema, daoElement, entityClassName);
 
-		ModelProperty property;
-		String beanName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class,
-				AnnotationAttributeType.VALUE);
-
-		if (!StringUtils.hasText(beanName)) {
-			return false;
+		if (!schema.contains(currentEntity.getName())) {
+			schema.addEntity(currentEntity);
 		}
 
-		final TypeElement beanElement = globalBeanElements.get(beanName);
-		// this.isGeneratedEntity(beanName);
+		return true;
+	}
 
-		AssertKripton.asserTrueOrMissedAnnotationOnClassException(beanElement != null, daoElement, beanName);
-
+	/**
+	 * @param schema
+	 * @param dataSource
+	 * @param daoElement 
+	 * @param beanElement
+	 * @return
+	 */
+	public SQLiteEntity createSQLEntity(final SQLiteDatabaseSchema schema,/* Element dataSource,*/
+			TypeElement daoElement, String beanClassName) {		
+		
+		final TypeElement beanElement = globalBeanElements.get(beanClassName);		
+		AssertKripton.asserTrueOrMissedAnnotationOnClassException(beanElement != null, daoElement, beanClassName);
+		
+		ModelProperty property;
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
 		// assert: bean is present
 		final SQLiteEntity currentEntity = new SQLiteEntity(schema, bindEntity);
-		if (schema.contains(currentEntity.getName())) {
-			// bean already defined in datasource
-			return true;
-		}
+		
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class,
 				AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
@@ -880,7 +897,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 		if (currentEntity.getCollection().size() == 0) {
 			String msg = String.format("Class '%s', used in %s database definition, has no property!",
-					currentEntity.getName(), dataSource.getSimpleName().toString());
+					currentEntity.getName(), schema.getElement().getSimpleName().toString());
 			throw (new PropertyNotFoundException(msg));
 		}
 
@@ -921,13 +938,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				break;
 			}
 		}
+				
 		
 		ImmutableUtility.buildConstructors(elementUtils, currentEntity);
-
-		// add entity to schema after properties definition!
-		schema.addEntity(currentEntity);
-
-		return true;
+		return currentEntity;
 	}
 
 	/**

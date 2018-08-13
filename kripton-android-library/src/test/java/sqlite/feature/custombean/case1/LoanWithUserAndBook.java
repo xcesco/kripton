@@ -19,7 +19,9 @@ package sqlite.feature.custombean.case1;
 import java.util.Date;
 
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
+@BindSqlType
 public class LoanWithUserAndBook {
     public String id;
 

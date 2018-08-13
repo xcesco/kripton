@@ -67,6 +67,12 @@ public class TestUriChecker extends BaseProcessorTest {
 			return null;
 		}
 
+		@Override
+		public Finder<SQLProperty> findEntityByName(String entityName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	};
 
 	/**

@@ -49,9 +49,8 @@ public abstract class CodeBuilderUtility {
 	 * @param annotationClazz the annotation clazz
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> extractUsedProperties(Builder methodBuilder, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+	public static List<SQLProperty> extractUsedProperties(Builder methodBuilder, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {		
+		SQLiteEntity entity = method.getEntity();
 		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();
 
 		Set<String> foundColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
@@ -83,7 +82,7 @@ public abstract class CodeBuilderUtility {
 			Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
 		// all check is already done
 
-		SQLiteEntity entity = method.getParent().getEntity();
+		SQLiteEntity entity = method.getEntity();
 
 		String entityName = method.getParameters().get(0).value0;
 		TypeName entityClassName = typeName(entity.getElement());

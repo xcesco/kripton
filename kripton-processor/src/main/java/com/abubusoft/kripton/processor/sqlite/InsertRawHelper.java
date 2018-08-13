@@ -58,7 +58,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
-		final SQLiteEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = method.getEntity();
 
 		//boolean nullable;
 
@@ -179,8 +179,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 * @return string sql
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType) {
-		final SQLiteDaoDefinition daoDefinition = method.getParent();
-		final SQLiteEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = method.getEntity();
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();

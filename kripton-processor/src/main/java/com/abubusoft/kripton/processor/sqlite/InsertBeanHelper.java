@@ -67,8 +67,8 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields,
 			SQLiteModelMethod method, TypeName returnType) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+		SQLiteDaoDefinition daoDefinition=method.getParent();
+		SQLiteEntity entity = method.getEntity();
 
 		// name of the entity param
 		String entityParamName = method.getParameters().get(0).value0;

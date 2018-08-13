@@ -179,9 +179,9 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 
 		if (method.getParent().getParent().generateRx) {
 			if (updateMode) {
-				GenericSQLHelper.generateSubjectNext(method.getParent().getEntity(), methodBuilder, SubjectType.UPDATE, "result");
+				GenericSQLHelper.generateSubjectNext(method.getEntity(), methodBuilder, SubjectType.UPDATE, "result");
 			} else {
-				GenericSQLHelper.generateSubjectNext(method.getParent().getEntity(), methodBuilder, SubjectType.DELETE, "result");
+				GenericSQLHelper.generateSubjectNext(method.getEntity(), methodBuilder, SubjectType.DELETE, "result");
 			}
 		}
 
@@ -195,8 +195,7 @@ public class ModifyBeanHelper implements ModifyCodeGenerator {
 	 * @param analyzer the analyzer
 	 */
 	public void generateWhereCondition(MethodSpec.Builder methodBuilder, SQLiteModelMethod method, SqlAnalyzer analyzer) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+		SQLiteEntity entity = method.getEntity();
 
 		String beanParamName = method.getParameters().get(0).value0;
 		SQLProperty property;

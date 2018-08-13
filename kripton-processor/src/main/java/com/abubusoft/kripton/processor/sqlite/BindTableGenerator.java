@@ -697,6 +697,12 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					// TODO Auto-generated method stub
 					return null;
 				}
+
+				@Override
+				public Finder<SQLProperty> findEntityByName(String entityName) {
+					// TODO Auto-generated method stub
+					return null;
+				}
 			}, createIndex, new JQLReplacerListenerImpl(null) {
 
 				@Override

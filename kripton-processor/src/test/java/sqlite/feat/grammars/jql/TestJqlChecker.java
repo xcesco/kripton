@@ -43,7 +43,6 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynam
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 
 import base.BaseProcessorTest;
 
@@ -69,6 +68,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 		@Override
 		public String getParentName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Finder<SQLProperty> findEntityByName(String entityName) {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -125,6 +130,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 			@Override
 			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Finder<SQLProperty> findEntityByName(String entityName) {
 				// TODO Auto-generated method stub
 				return null;
 			}
@@ -217,6 +228,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 			@Override
 			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Finder<SQLProperty> findEntityByName(String entityName) {
 				// TODO Auto-generated method stub
 				return null;
 			}
@@ -355,6 +372,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 			@Override
 			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Finder<SQLProperty> findEntityByName(String entityName) {
 				// TODO Auto-generated method stub
 				return null;
 			}
@@ -524,6 +547,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 					// TODO Auto-generated method stub
 					return null;
 				}
+
+				@Override
+				public Finder<SQLProperty> findEntityByName(String entityName) {
+					// TODO Auto-generated method stub
+					return null;
+				}
 			}, where.value0);
 
 			for (JQLPlaceHolder item : list) {
@@ -545,6 +574,12 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 				@Override
 				public String getParentName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public Finder<SQLProperty> findEntityByName(String entityName) {
 					// TODO Auto-generated method stub
 					return null;
 				}

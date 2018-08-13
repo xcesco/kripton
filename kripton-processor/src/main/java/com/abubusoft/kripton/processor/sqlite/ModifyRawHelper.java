@@ -62,7 +62,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean updateMode, SQLiteModelMethod method, TypeName returnType) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+		SQLiteEntity entity = method.getEntity();
 
 		// separate params used for update bean and params used in
 		// whereCondition

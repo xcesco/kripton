@@ -28,7 +28,6 @@ import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -53,9 +52,8 @@ public class SelectBeanListenerHelper extends AbstractSelectCodeGenerator {
 	 */
 	@Override
 	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
-			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
+		SQLiteEntity entity = method.getEntity();
 
 		ParameterizedTypeName listenerType = ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class),
 				TypeName.get(entity.getElement().asType()));

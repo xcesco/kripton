@@ -64,7 +64,7 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 		if (method != null) {
 			this.currentDaoDefinition = method.getParent();
 			this.currentSchema = this.currentDaoDefinition.getParent();
-			this.currentEntity = currentDaoDefinition.getEntity();
+			this.currentEntity = method.getEntity();
 		}
 	}
 
@@ -202,7 +202,7 @@ public class JQLReplacerListenerImpl implements JQLReplacerListener {
 	 * @return resolved name ex: "person.birth_date"
 	 */
 	public static String resolveFullyQualifiedColumnName(SQLiteDatabaseSchema schema, SQLiteModelMethod method, String className, String columnName) {
-		Finder<SQLProperty> currentEntity = method.getParent().getEntity();
+		Finder<SQLProperty> currentEntity = method.getEntity();
 		if (StringUtils.hasText(className)) {
 			currentEntity = schema.getEntityBySimpleName(className);
 			AssertKripton.assertTrueOrUnknownClassInJQLException(currentEntity != null, method, className);
