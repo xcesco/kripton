@@ -65,6 +65,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    * <pre>SELECT id, title FROM book WHERE id = :id</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -133,6 +136,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -211,6 +217,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -249,6 +258,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -331,6 +343,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -373,6 +388,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -448,6 +466,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE :userId </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -526,6 +547,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE :userId </pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -564,6 +588,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE :userId AND loan.end_time > :after </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -646,6 +673,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id LIKE :userId AND loan.end_time > :after </pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -687,6 +717,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id LIKE book.id WHERE loan.user_id = :userId </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -763,6 +796,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    * <pre>SELECT id, title FROM book</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -832,6 +868,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    *
    * <pre>SELECT id, title FROM book</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -863,6 +902,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, title FROM book</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
    *
    * <h2>Projected columns:</h2>
    * <dl>

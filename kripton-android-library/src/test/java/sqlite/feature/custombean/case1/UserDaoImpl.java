@@ -52,6 +52,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT id, age, last_name, name FROM user</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -124,6 +127,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, age, last_name, name FROM user WHERE id = :id</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -199,6 +205,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, age, last_name, name FROM user WHERE name = :firstName and last_name = :lastName</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -552,6 +561,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT id, age, last_name, name FROM user WHERE age = :age</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -632,6 +644,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, age, last_name, name FROM user WHERE age < :age</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
    *
    * <h2>Projected columns:</h2>
    * <dl>

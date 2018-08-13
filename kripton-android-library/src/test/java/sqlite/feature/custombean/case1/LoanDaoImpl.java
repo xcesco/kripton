@@ -49,6 +49,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    *
    * <pre>SELECT id, book_id, end_time, start_time, user_id FROM loan</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Loan}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -127,6 +130,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    *
    * <pre>SELECT id, book_id, end_time, start_time, user_id FROM loan</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Loan}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -161,6 +167,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link LoanWithUserAndBook}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -240,6 +249,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    *
    * <pre>SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link LoanWithUserAndBook}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -274,6 +286,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link LoanWithUserAndBook}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -364,6 +379,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT loan.id, book.title as bookTitle, user.name as userName, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link LoanWithUserAndBook}
    *
    * <h2>Projected columns:</h2>
    * <dl>

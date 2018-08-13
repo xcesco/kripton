@@ -98,6 +98,13 @@ public abstract class JavadocUtility {
 		methodBuilder.addJavadoc("<h2>Select SQL:</h2>\n\n", annotation.getSimpleName());
 		methodBuilder.addJavadoc("<pre>$L</pre>", sql);
 		methodBuilder.addJavadoc("\n\n");
+		
+		// check for entities
+		{
+			methodBuilder.addJavadoc("<h2>Mapped class:</h2>\n");
+			methodBuilder.addJavadoc("{@link $T}", method.getEntity().getElement());
+			methodBuilder.addJavadoc("\n\n");
+		}
 
 		// there will be alway some projected column
 		{
