@@ -26,15 +26,13 @@ import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.TypeName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CodeBuilderUtility.
  */
@@ -44,12 +42,15 @@ public abstract class CodeBuilderUtility {
 	 * Generate code necessary to put bean properties in content values map.
 	 * Return primary key
 	 *
-	 * @param methodBuilder            used to code generation
-	 * @param method the method
-	 * @param annotationClazz the annotation clazz
+	 * @param methodBuilder
+	 *            used to code generation
+	 * @param method
+	 *            the method
+	 * @param annotationClazz
+	 *            the annotation clazz
 	 * @return primary key.
 	 */
-	public static List<SQLProperty> extractUsedProperties(Builder methodBuilder, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {		
+	public static List<SQLProperty> extractUsedProperties(Builder methodBuilder, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {
 		SQLiteEntity entity = method.getEntity();
 		List<SQLProperty> listPropertyInContentValue = new ArrayList<SQLProperty>();
 
@@ -72,21 +73,26 @@ public abstract class CodeBuilderUtility {
 	/**
 	 * Generate content values from entity.
 	 *
-	 * @param elementUtils the element utils
-	 * @param method the method
-	 * @param annotationClazz the annotation clazz
-	 * @param methodBuilder the method builder
-	 * @param alreadyUsedBeanPropertiesNames the already used bean properties names
+	 * @param elementUtils
+	 *            the element utils
+	 * @param method
+	 *            the method
+	 * @param annotationClazz
+	 *            the annotation clazz
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param alreadyUsedBeanPropertiesNames
+	 *            the already used bean properties names
 	 */
-	public static void generateContentValuesFromEntity(Elements elementUtils, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz,
-			Builder methodBuilder, List<String> alreadyUsedBeanPropertiesNames) {
+	public static void generateContentValuesFromEntity(Elements elementUtils, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+			List<String> alreadyUsedBeanPropertiesNames) {
 		// all check is already done
 
 		SQLiteEntity entity = method.getEntity();
 
 		String entityName = method.getParameters().get(0).value0;
 		TypeName entityClassName = typeName(entity.getElement());
-		
+
 		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(entityName), method, "method's parameter '%s' can not use a type adapter", entityName);
 
 		Set<String> updateColumns = JQLChecker.getInstance().extractColumnsToInsertOrUpdate(method, method.jql.value, entity);
@@ -95,9 +101,10 @@ public abstract class CodeBuilderUtility {
 			item = entity.get(columnName);
 			AssertKripton.assertTrueOrUnknownPropertyInJQLException(item != null, method, columnName);
 
-//			if (TypeUtility.isNullable(item) && !item.hasTypeAdapter()) {
-//				methodBuilder.beginControlFlow("if ($L!=null)", getter(entityName, entityClassName, item));
-//			}
+			// if (TypeUtility.isNullable(item) && !item.hasTypeAdapter()) {
+			// methodBuilder.beginControlFlow("if ($L!=null)",
+			// getter(entityName, entityClassName, item));
+			// }
 
 			// add property to list of used properties
 			if (method.isLogEnabled()) {
@@ -108,18 +115,19 @@ public abstract class CodeBuilderUtility {
 			SQLTransformer.javaProperty2ContentValues(methodBuilder, entityClassName, entityName, item);
 			methodBuilder.addCode(");\n");
 
-//			if (TypeUtility.isNullable(item) && !item.hasTypeAdapter()) {
-//				methodBuilder.nextControlFlow("else");
-//				
-//				if (method.isLogEnabled()) {
-//					methodBuilder.addCode("_contentValues.putNull($S);\n", item.columnName);
-//				} else {
-//					methodBuilder.addCode("_contentValues.putNull();\n");
-//				}
-//				
-//				
-//				methodBuilder.endControlFlow();
-//			}
+			// if (TypeUtility.isNullable(item) && !item.hasTypeAdapter()) {
+			// methodBuilder.nextControlFlow("else");
+			//
+			// if (method.isLogEnabled()) {
+			// methodBuilder.addCode("_contentValues.putNull($S);\n",
+			// item.columnName);
+			// } else {
+			// methodBuilder.addCode("_contentValues.putNull();\n");
+			// }
+			//
+			//
+			// methodBuilder.endControlFlow();
+			// }
 		}
 
 		methodBuilder.addCode("\n");

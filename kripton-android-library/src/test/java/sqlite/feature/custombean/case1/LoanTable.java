@@ -20,18 +20,18 @@ public class LoanTable implements SQLiteTable {
    * DDL to create table loan
    * </p>
    *
-   * <pre>CREATE TABLE loan (id TEXT PRIMARY KEY, book_id TEXT, end_time TEXT, start_time TEXT, user_id TEXT, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE loan (id TEXT PRIMARY KEY NOT NULL, book_id TEXT, end_time TEXT, start_time TEXT, user_id TEXT, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id)); CREATE UNIQUE INDEX idx_loan_0 on loan (book_id, user_id);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE loan (id TEXT PRIMARY KEY, book_id TEXT, end_time TEXT, start_time TEXT, user_id TEXT, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE loan (id TEXT PRIMARY KEY NOT NULL, book_id TEXT, end_time TEXT, start_time TEXT, user_id TEXT, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id)); CREATE UNIQUE INDEX idx_loan_0 on loan (book_id, user_id);";
 
   /**
    * <p>
    * DDL to drop table loan
    * </p>
    *
-   * <pre>DROP TABLE IF EXISTS loan;</pre>
+   * <pre> DROP INDEX IF EXISTS idx_loan_1;DROP TABLE IF EXISTS loan;</pre>
    */
-  public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS loan;";
+  public static final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_loan_1;DROP TABLE IF EXISTS loan;";
 
   /**
    * Entity's property <code>id</code> is associated to table column <code>id</code>. This costant represents column name.

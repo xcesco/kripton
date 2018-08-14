@@ -969,7 +969,7 @@ public class BookDaoImpl extends Dao implements BookDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO book (id, title) VALUES (:book.id, :book.title)</pre>
    *
    * <p><code>book.id</code> is automatically updated because it is the primary key</p>
@@ -1039,10 +1039,10 @@ public class BookDaoImpl extends Dao implements BookDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE OR REPLACE book SET title=:title</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>title</dt><dd>is mapped to <strong>:book.title</strong></dd>
    * </dl>
@@ -1098,10 +1098,7 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM book</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    */
   @Override

@@ -21,11 +21,11 @@ import java.util.List;
  *  @see UserTable
  */
 public class UserDaoImpl extends Dao implements UserDao {
-  private static final String LOAD_ALL_USERS_SQL13 = "SELECT id, age, last_name, name FROM user";
+  private static final String LOAD_ALL_USERS_SQL12 = "SELECT id, age, last_name, name FROM user";
 
-  private static final String LOAD_USER_BY_ID_SQL14 = "SELECT id, age, last_name, name FROM user WHERE id = ?";
+  private static final String LOAD_USER_BY_ID_SQL13 = "SELECT id, age, last_name, name FROM user WHERE id = ?";
 
-  private static final String FIND_USER_BY_NAME_AND_LAST_NAME_SQL15 = "SELECT id, age, last_name, name FROM user WHERE name = ? and last_name = ?";
+  private static final String FIND_USER_BY_NAME_AND_LAST_NAME_SQL14 = "SELECT id, age, last_name, name FROM user WHERE name = ? and last_name = ?";
 
   private static SQLiteStatement insertUserPreparedStatement0;
 
@@ -37,9 +37,9 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   private static SQLiteStatement deleteUsersPreparedStatement4;
 
-  private static final String FIND_USERS_YOUNGER_THAN_SQL16 = "SELECT id, age, last_name, name FROM user WHERE age = ?";
+  private static final String FIND_USERS_YOUNGER_THAN_SQL15 = "SELECT id, age, last_name, name FROM user WHERE age = ?";
 
-  private static final String FIND_USERS_YOUNGER_THAN_SOLUTION_SQL17 = "SELECT id, age, last_name, name FROM user WHERE age < ?";
+  private static final String FIND_USERS_YOUNGER_THAN_SOLUTION_SQL16 = "SELECT id, age, last_name, name FROM user WHERE age < ?";
 
   private static SQLiteStatement deleteAllPreparedStatement5;
 
@@ -70,7 +70,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LOAD_ALL_USERS_SQL13;
+    String _sql=LOAD_ALL_USERS_SQL12;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -153,7 +153,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LOAD_USER_BY_ID_SQL14;
+    String _sql=LOAD_USER_BY_ID_SQL13;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -234,7 +234,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_USER_BY_NAME_AND_LAST_NAME_SQL15;
+    String _sql=FIND_USER_BY_NAME_AND_LAST_NAME_SQL14;
     // add where arguments
     _contentValues.addWhereArgs((firstName==null?"":firstName));
     _contentValues.addWhereArgs((lastName==null?"":lastName));
@@ -290,7 +290,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO user (id, age, last_name, name) VALUES (:user.id, :user.age, :user.lastName, :user.name)</pre>
    *
    * <p><code>user.id</code> is automatically updated because it is the primary key</p>
@@ -400,7 +400,6 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user WHERE name like :badName OR last_name like :badName</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:badName</dt><dd>is mapped to method's parameter <strong>badName</strong></dd>
@@ -444,7 +443,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO user (id, age, last_name, name) VALUES (:users.id, :users.age, :users.lastName, :users.name)</pre>
    *
    * <p><code>users.id</code> is automatically updated because it is the primary key</p>
@@ -586,7 +585,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_USERS_YOUNGER_THAN_SQL16;
+    String _sql=FIND_USERS_YOUNGER_THAN_SQL15;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(age));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -670,7 +669,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_USERS_YOUNGER_THAN_SOLUTION_SQL17;
+    String _sql=FIND_USERS_YOUNGER_THAN_SOLUTION_SQL16;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(age));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -728,10 +727,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    */
   @Override

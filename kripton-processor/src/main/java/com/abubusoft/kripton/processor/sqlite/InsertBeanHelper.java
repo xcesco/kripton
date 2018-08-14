@@ -41,9 +41,9 @@ import com.abubusoft.kripton.processor.sqlite.GenericSQLHelper.SubjectType;
 import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerator;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -61,13 +61,15 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder. InsertCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder,
-	 * boolean, com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeName)
+	 * @see com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.
+	 * InsertCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder,
+	 * com.squareup.javapoet.MethodSpec.Builder, boolean,
+	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod,
+	 * com.squareup.javapoet.TypeName)
 	 */
 	@Override
-	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields,
-			SQLiteModelMethod method, TypeName returnType) {
-		SQLiteDaoDefinition daoDefinition=method.getParent();
+	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType) {
+		SQLiteDaoDefinition daoDefinition = method.getParent();
 		SQLiteEntity entity = method.getEntity();
 
 		// name of the entity param
@@ -80,22 +82,18 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate()", KriptonContentValues.class);
 		} else {
 			String psName = method.buildPreparedStatementName();
-			classBuilder.addField(FieldSpec
-					.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
+			classBuilder.addField(FieldSpec.builder(TypeName.get(SQLiteStatement.class), psName, Modifier.PRIVATE, Modifier.STATIC).build());
 
 			methodBuilder.beginControlFlow("if ($L==null)", psName);
 			SqlBuilderHelper.generateSQLForStaticQuery(method, methodBuilder);
 			methodBuilder.addStatement("$L = $T.compile(_context, _sql)", psName, KriptonDatabaseWrapper.class);
 			methodBuilder.endControlFlow();
-			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class,
-					psName);
+			methodBuilder.addStatement("$T _contentValues=contentValuesForUpdate($L)", KriptonContentValues.class, psName);
 		}
 
-		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method,
-				BindSqlInsert.class);
-					
-		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class,
-				methodBuilder, null);
+		List<SQLProperty> listUsedProperty = CodeBuilderUtility.extractUsedProperties(methodBuilder, method, BindSqlInsert.class);
+
+		CodeBuilderUtility.generateContentValuesFromEntity(BaseProcessor.elementUtils, method, BindSqlInsert.class, methodBuilder, null);
 
 		SQLProperty primaryKey = entity.getPrimaryKey();
 
@@ -109,60 +107,56 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			// does not memorize compiled statement, it can vary every time
 			// generate SQL for insert
 			SqlBuilderHelper.generateSQLForInsertDynamic(method, methodBuilder);
-			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)",
-					KriptonDatabaseWrapper.class);
+			methodBuilder.addStatement("long result = $T.insert(_context, _sql, _contentValues)", KriptonDatabaseWrapper.class);
 		} else {
 			String psName = method.buildPreparedStatementName();
-			methodBuilder.addStatement("long result = $T.insert($L, _contentValues)", KriptonDatabaseWrapper.class,
-					psName);
+			methodBuilder.addStatement("long result = $T.insert($L, _contentValues)", KriptonDatabaseWrapper.class, psName);
 		}
-		
-		// if we are in mutable POJO work to set only id, for immutable object, we need to fix all fields.
+
+		// if we are in mutable POJO work to set only id, for immutable object,
+		// we need to fix all fields.
 		if (entity.isImmutablePojo()) {
 			// only if we need to return an entity
 			if (TypeUtility.isEquals(returnType, entity)) {
 				methodBuilder.addComment("immutable POJO - create a copy with new id");
 				ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
 				ImmutableUtility.generateImmutableVariableCopyFromEntity(entity, methodBuilder, entityParamName);
-				// if pk is managed and autogenerated we have to overload its value with one obtained with execution of the query
-				if (primaryKey != null && !primaryKey.isType(String.class)
-						&& primaryKey.columnType != ColumnType.PRIMARY_KEY_UNMANGED) {
-					methodBuilder.addCode("$L$L=result;\n", ImmutableUtility.IMMUTABLE_PREFIX, primaryKey.getName());										
-				}				
+				// if pk is managed and autogenerated we have to overload its
+				// value with one obtained with execution of the query
+				if (primaryKey != null && !primaryKey.isType(String.class) && primaryKey.columnType != ColumnType.PRIMARY_KEY_UNMANGED) {
+					methodBuilder.addCode("$L$L=result;\n", ImmutableUtility.IMMUTABLE_PREFIX, primaryKey.getName());
+				}
 				ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, entityParamName, false);
 			}
 		} else {
-			if (primaryKey != null && !primaryKey.isType(String.class)
-					&& primaryKey.columnType != ColumnType.PRIMARY_KEY_UNMANGED) {
+			if (primaryKey != null && !primaryKey.isType(String.class) && primaryKey.columnType != ColumnType.PRIMARY_KEY_UNMANGED) {
 				// if PK string, can not overwrite id (with a long)
 				// same thing if column type is UNMANAGED (user manage PK)
-				methodBuilder.addComment(
-						"if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)");
+				methodBuilder.addComment("if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)");
 				if (primaryKey.isPublicField()) {
 					methodBuilder.addCode("$L.$L=result;\n", entityParamName, primaryKey.getName());
 				} else {
-					methodBuilder.addCode("$L(result);\n",
-							PropertyUtility.setter(typeName(entity.getElement()),entityParamName,  primaryKey));
+					methodBuilder.addCode("$L(result);\n", PropertyUtility.setter(typeName(entity.getElement()), entityParamName, primaryKey));
 				}
 
 			}
 		}
-		
+
 		if (method.getParent().getParent().generateRx) {
 			// rx management
-			String rxIdGetter=null;
-			if (entity.getPrimaryKey().columnType==ColumnType.PRIMARY_KEY) {
-				rxIdGetter="result";
+			String rxIdGetter = null;
+			if (entity.getPrimaryKey().columnType == ColumnType.PRIMARY_KEY) {
+				rxIdGetter = "result";
 			} else {
 				// unmanaged pk
-				for (SQLProperty item: listUsedProperty) {
+				for (SQLProperty item : listUsedProperty) {
 					if (item.isPrimaryKey()) {
-						rxIdGetter=entityParamName+"."+PropertyUtility.getter(item);
+						rxIdGetter = entityParamName + "." + PropertyUtility.getter(item);
 						break;
 					}
-				}	
-			}								
-			
+				}
+			}
+
 			GenericSQLHelper.generateSubjectNext(entity, methodBuilder, SubjectType.INSERT, rxIdGetter);
 		}
 
@@ -211,8 +205,7 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 	 * @param primaryKey
 	 *            the primary key
 	 */
-	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType,
-			List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
+	public void generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType, List<SQLProperty> listUsedProperty, ModelProperty primaryKey) {
 		// transform JQL to SQL
 		String sqlInsert = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
@@ -239,11 +232,9 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 		{
 			String beanNameParameter = method.findParameterAliasByName(method.getParameters().get(0).value0);
 
-			methodBuilder.addJavadoc("<p>SQL insert:</p>\n");
+			methodBuilder.addJavadoc("<h2>SQL insert</h2>\n");
 			methodBuilder.addJavadoc("<pre>$L</pre>\n\n", sqlInsert);
-			methodBuilder.addJavadoc(
-					"<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n",
-					beanNameParameter, primaryKey.getName());
+			methodBuilder.addJavadoc("<p><code>$L.$L</code> is automatically updated because it is the primary key</p>\n", beanNameParameter, primaryKey.getName());
 			methodBuilder.addJavadoc("\n");
 
 			// list of inserted fields
@@ -251,17 +242,15 @@ public class InsertBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addJavadoc("<dl>\n");
 			for (SQLProperty property : listUsedProperty) {
 				methodBuilder.addJavadoc("\t<dt>$L</dt>", property.columnName);
-				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n",
-						SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(method.getParameters().get(0).value0)
-								+ "." + method.findParameterNameByAlias(property.getName()) + SqlAnalyzer.PARAM_SUFFIX);
+				methodBuilder.addJavadoc("<dd>is mapped to <strong>$L</strong></dd>\n", SqlAnalyzer.PARAM_PREFIX + method.findParameterAliasByName(method.getParameters().get(0).value0) + "."
+						+ method.findParameterNameByAlias(property.getName()) + SqlAnalyzer.PARAM_SUFFIX);
 			}
 			methodBuilder.addJavadoc("</dl>\n\n");
 
 			// update bean have only one parameter: the bean to update
 			for (Pair<String, TypeName> param : method.getParameters()) {
 				methodBuilder.addJavadoc("@param $L", param.value0);
-				methodBuilder.addJavadoc("\n\tis mapped to parameter <strong>$L</strong>\n",
-						method.findParameterAliasByName(param.value0));
+				methodBuilder.addJavadoc("\n\tis mapped to parameter <strong>$L</strong>\n", method.findParameterAliasByName(param.value0));
 			}
 
 			InsertRawHelper.generateJavaDocReturnType(methodBuilder, returnType);

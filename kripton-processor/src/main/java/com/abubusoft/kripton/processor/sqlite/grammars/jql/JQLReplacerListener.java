@@ -36,7 +36,7 @@ public interface JQLReplacerListener {
 	 * @param bindParameterName
 	 *            the bind parameter name
 	 * @param inStatement
-	 *			if true, bind param name is in a IN ( .. ) clause 
+	 *            if true, bind param name is in a IN ( .. ) clause
 	 * @return <code>null</code> to avoid replacement.
 	 */
 	String onBindParameter(String bindParameterName, boolean inStatement);
@@ -136,4 +136,13 @@ public interface JQLReplacerListener {
 	 *            the ctx
 	 */
 	void onColumnValueSetEnd(Column_value_setContext ctx);
+
+	/**
+	 * on column alias, on projection
+	 * 
+	 * @param text
+	 * 
+	 * @return
+	 */
+	String onColumnAlias(String text);
 }

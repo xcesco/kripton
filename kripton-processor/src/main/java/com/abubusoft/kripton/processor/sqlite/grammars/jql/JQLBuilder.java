@@ -147,7 +147,7 @@ public abstract class JQLBuilder {
 	 *            the prepared jql
 	 * @return the jql
 	 */
-	public static JQL buildJQL(final SQLiteModelMethod method, String preparedJql) {		
+	public static JQL buildJQL(final SQLiteModelMethod method, String preparedJql) {
 		Map<JQLDynamicStatementType, String> dynamicReplace = new HashMap<>();
 		final JQL result = new JQL();
 
@@ -170,7 +170,7 @@ public abstract class JQLBuilder {
 
 		if (method.hasAnnotation(BindSqlSelect.class)) {
 			checkFieldsDefinitions(method, BindSqlSelect.class);
-			return buildJQLSelect(method, result, dynamicReplace, preparedJql);			
+			return buildJQLSelect(method, result, dynamicReplace, preparedJql);
 		} else if (method.hasAnnotation(BindSqlInsert.class)) {
 			checkFieldsDefinitions(method, BindSqlInsert.class);
 			return buildJQLInsert(method, result, preparedJql);
@@ -193,15 +193,12 @@ public abstract class JQLBuilder {
 	 *            the annotation
 	 */
 	private static void checkFieldsDefinitions(SQLiteModelMethod method, Class<? extends Annotation> annotation) {
-		List<String> includedFields = AnnotationUtility.extractAsStringArray(method.getElement(), annotation,
-				AnnotationAttributeType.FIELDS);
-		List<String> excludedFields = AnnotationUtility.extractAsStringArray(method.getElement(), annotation,
-				AnnotationAttributeType.EXCLUDED_FIELDS);
+		List<String> includedFields = AnnotationUtility.extractAsStringArray(method.getElement(), annotation, AnnotationAttributeType.FIELDS);
+		List<String> excludedFields = AnnotationUtility.extractAsStringArray(method.getElement(), annotation, AnnotationAttributeType.EXCLUDED_FIELDS);
 
 		// both elements can not be defined
 		if (includedFields.size() > 0 && excludedFields.size() > 0) {
-			throw (new IncompatibleAttributesInAnnotationException(method.getParent(), method,
-					method.getAnnotation(annotation), AnnotationAttributeType.FIELDS,
+			throw (new IncompatibleAttributesInAnnotationException(method.getParent(), method, method.getAnnotation(annotation), AnnotationAttributeType.FIELDS,
 					AnnotationAttributeType.EXCLUDED_FIELDS));
 		}
 	}
@@ -221,8 +218,7 @@ public abstract class JQLBuilder {
 	 *            the prepared jql
 	 * @return the jql
 	 */
-	private static JQL buildJQLDelete(SQLiteModelMethod method, final JQL result,
-			final Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
+	private static JQL buildJQLDelete(SQLiteModelMethod method, final JQL result, final Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final SQLiteDaoDefinition dao = method.getParent();
 
 		if (StringUtils.hasText(preparedJql)) {
@@ -238,8 +234,7 @@ public abstract class JQLBuilder {
 
 				@Override
 				public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-					JQLDynamicStatementType dynamicType = JQLDynamicStatementType
-							.valueOf(ctx.bind_parameter_name().getText().toUpperCase());
+					JQLDynamicStatementType dynamicType = JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText().toUpperCase());
 
 					int start = ctx.getStart().getStartIndex() - 1;
 					int stop = ctx.getStop().getStopIndex() + 1;
@@ -251,16 +246,15 @@ public abstract class JQLBuilder {
 			});
 
 			// where management
-			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql,
-					new JQLReplaceVariableStatementListenerImpl() {
+			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
-						@Override
-						public String onWhere(String statement) {
-							result.annotatedWhere = true;
-							result.staticWhereConditions = true;
-							return null;
-						}
-					});
+				@Override
+				public String onWhere(String statement) {
+					result.annotatedWhere = true;
+					result.staticWhereConditions = true;
+					return null;
+				}
+			});
 
 		} else {
 			StringBuilder builder = new StringBuilder();
@@ -347,8 +341,7 @@ public abstract class JQLBuilder {
 			});
 
 			if (result.containsSelectOperation) {
-				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID),
-						method, "defined JQL requires that method's return type is void");
+				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID), method, "defined JQL requires that method's return type is void");
 			}
 
 			// ASSERT: a INSERT-SELECT SQL can not contains parameters on values
@@ -358,8 +351,7 @@ public abstract class JQLBuilder {
 			// to
 			final Class<? extends Annotation> annotation = BindSqlInsert.class;
 			final SQLiteDaoDefinition dao = method.getParent();
-			final One<Boolean> includePrimaryKey = new One<>(AnnotationUtility.extractAsBoolean(method.getElement(),
-					annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY));
+			final One<Boolean> includePrimaryKey = new One<>(AnnotationUtility.extractAsBoolean(method.getElement(), annotation, AnnotationAttributeType.INCLUDE_PRIMARY_KEY));
 
 			//
 			if (method.getEntity().getPrimaryKey().columnType == ColumnType.PRIMARY_KEY_UNMANGED) {
@@ -376,11 +368,9 @@ public abstract class JQLBuilder {
 				fields = extractFieldsFromMethodParameters(method, annotation);
 			}
 
-			AssertKripton.assertTrueOrInvalidMethodSignException(fields.size() > 0, method,
-					"no field is included in this query");
+			AssertKripton.assertTrueOrInvalidMethodSignException(fields.size() > 0, method, "no field is included in this query");
 
-			result.conflictAlgorithmType = ConflictAlgorithmType.valueOf(AnnotationUtility.extractAsEnumerationValue(
-					method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
+			result.conflictAlgorithmType = ConflictAlgorithmType.valueOf(AnnotationUtility.extractAsEnumerationValue(method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
 
 			StringBuilder builder = new StringBuilder();
 			builder.append(INSERT_KEYWORD);
@@ -435,16 +425,13 @@ public abstract class JQLBuilder {
 	 *            the annotation clazz
 	 * @return the sets the
 	 */
-	private static Set<String> extractFieldsFromMethodParameters(SQLiteModelMethod method,
-			Class<? extends Annotation> annotationClazz) {
-		String annotatedWhere = AnnotationUtility.extractAsString(method.getElement(), annotationClazz,
-				AnnotationAttributeType.WHERE);
+	private static Set<String> extractFieldsFromMethodParameters(SQLiteModelMethod method, Class<? extends Annotation> annotationClazz) {
+		String annotatedWhere = AnnotationUtility.extractAsString(method.getElement(), annotationClazz, AnnotationAttributeType.WHERE);
 		Set<String> annotatedFieldValues = new LinkedHashSet<>();
 
 		Set<JQLPlaceHolder> parametersUsedInWhereConditions = new LinkedHashSet<>();
 		if (StringUtils.hasText(annotatedWhere)) {
-			parametersUsedInWhereConditions = JQLChecker.getInstance().extractPlaceHoldersFromVariableStatementAsSet(
-					method, JQLKeywords.WHERE_KEYWORD + " " + annotatedWhere);
+			parametersUsedInWhereConditions = JQLChecker.getInstance().extractPlaceHoldersFromVariableStatementAsSet(method, JQLKeywords.WHERE_KEYWORD + " " + annotatedWhere);
 		}
 
 		for (Pair<String, TypeName> param : method.getParameters()) {
@@ -482,8 +469,7 @@ public abstract class JQLBuilder {
 	 *            the prepared jql
 	 * @return the jql
 	 */
-	private static JQL buildJQLSelect(final SQLiteModelMethod method, final JQL result,
-			final Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
+	private static JQL buildJQLSelect(final SQLiteModelMethod method, final JQL result, final Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlSelect.class;
 		final SQLiteDaoDefinition dao = method.getParent();
 
@@ -495,8 +481,7 @@ public abstract class JQLBuilder {
 
 				@Override
 				public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-					JQLDynamicStatementType dynamicType = JQLDynamicStatementType
-							.valueOf(ctx.bind_parameter_name().getText().toUpperCase());
+					JQLDynamicStatementType dynamicType = JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText().toUpperCase());
 
 					int start = ctx.getStart().getStartIndex() - 1;
 					int stop = ctx.getStop().getStopIndex() + 1;
@@ -507,48 +492,47 @@ public abstract class JQLBuilder {
 				}
 			});
 
-			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql,
-					new JQLReplaceVariableStatementListenerImpl() {
+			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
-						@Override
-						public String onWhere(String statement) {
-							result.annotatedWhere = true;
-							result.staticWhereConditions = true;
-							return null;
-						}
+				@Override
+				public String onWhere(String statement) {
+					result.annotatedWhere = true;
+					result.staticWhereConditions = true;
+					return null;
+				}
 
-						@Override
-						public String onOrderBy(String statement) {
-							result.annotatedOrderBy = true;
-							result.staticOrderBy = true;
-							return null;
-						}
+				@Override
+				public String onOrderBy(String statement) {
+					result.annotatedOrderBy = true;
+					result.staticOrderBy = true;
+					return null;
+				}
 
-						@Override
-						public String onOffset(String statement) {
-							result.annotatedOffset = true;
-							return null;
-						}
+				@Override
+				public String onOffset(String statement) {
+					result.annotatedOffset = true;
+					return null;
+				}
 
-						@Override
-						public String onLimit(String statement) {
-							result.annotatedLimit = true;
-							return null;
-						}
+				@Override
+				public String onLimit(String statement) {
+					result.annotatedLimit = true;
+					return null;
+				}
 
-						@Override
-						public String onHaving(String statement) {
-							result.annotatedHaving = true;
-							return null;
-						}
+				@Override
+				public String onHaving(String statement) {
+					result.annotatedHaving = true;
+					return null;
+				}
 
-						@Override
-						public String onGroup(String statement) {
-							result.annotatedGroupBy = true;
-							return null;
-						}
+				@Override
+				public String onGroup(String statement) {
+					result.annotatedGroupBy = true;
+					return null;
+				}
 
-					});
+			});
 
 			forEachParameter(method, new OnMethodParameterListener() {
 
@@ -562,11 +546,8 @@ public abstract class JQLBuilder {
 						// CONSTRAINT: @BindSqlOrderBy can be used only on
 						// String
 						// parameter type
-						AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
-								TypeUtility.isEquals(TypeUtility.typeName(String.class),
-										TypeUtility.typeName(methodParam)),
-								method.getParent().getElement(), method.getElement(), methodParam,
-								BindSqlDynamicOrderBy.class);
+						AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(methodParam)),
+								method.getParent().getElement(), method.getElement(), methodParam, BindSqlDynamicOrderBy.class);
 					}
 
 				}
@@ -579,12 +560,9 @@ public abstract class JQLBuilder {
 			// define field list
 			final Set<String> fields = extractFieldsFromAnnotation(method, BindSqlSelect.class, true);
 
-			boolean distinct = AnnotationUtility.extractAsBoolean(method.getElement(), annotation,
-					AnnotationAttributeType.DISTINCT);
-			String annotatedGroupBy = AnnotationUtility.extractAsString(method.getElement(), annotation,
-					AnnotationAttributeType.GROUP_BY);
-			String annotatedHaving = AnnotationUtility.extractAsString(method.getElement(), annotation,
-					AnnotationAttributeType.HAVING);
+			boolean distinct = AnnotationUtility.extractAsBoolean(method.getElement(), annotation, AnnotationAttributeType.DISTINCT);
+			String annotatedGroupBy = AnnotationUtility.extractAsString(method.getElement(), annotation, AnnotationAttributeType.GROUP_BY);
+			String annotatedHaving = AnnotationUtility.extractAsString(method.getElement(), annotation, AnnotationAttributeType.HAVING);
 
 			StringBuilder builder = new StringBuilder();
 			builder.append(SELECT_KEYWORD + " ");
@@ -631,31 +609,29 @@ public abstract class JQLBuilder {
 
 		}
 
-		result.value = JQLChecker.getInstance().replace(method, result.value,
-				new JQLReplacerListenerImpl(method, true) {
+		result.value = JQLChecker.getInstance().replace(method, result.value, new JQLReplacerListenerImpl(method, true) {
 
-					@Override
-					public String onBindParameter(String bindParameterName, boolean inStatement) {
-						if (inStatement) {							
-							TypeName typeName = method.findParameterType(method.findParameterNameByAlias(bindParameterName));
-							
-							AssertKripton.assertTrueOrInvalidMethodSignException(typeName!=null && (TypeUtility.isArray(typeName) || TypeUtility.isCollection(typeName)),
-									method, "'in' condition need an array or collection parameter");
-							
-							
-							String dynamicSpread = bindParameterName;
+			@Override
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
+				if (inStatement) {
+					TypeName typeName = method.findParameterType(method.findParameterNameByAlias(bindParameterName));
 
-							dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_SPREAD, dynamicSpread);
-							result.spreadParams.add(dynamicSpread);
+					AssertKripton.assertTrueOrInvalidMethodSignException(typeName != null && (TypeUtility.isArray(typeName) || TypeUtility.isCollection(typeName)), method,
+							"'in' condition need an array or collection parameter");
 
-							// return
-							// "#{"+JQLDynamicStatementType.DYNAMIC_SPREAD+"}";
-							return null;
-						}
+					String dynamicSpread = bindParameterName;
 
-						return null;
-					}
-				});
+					dynamicReplace.put(JQLDynamicStatementType.DYNAMIC_SPREAD, dynamicSpread);
+					result.spreadParams.add(dynamicSpread);
+
+					// return
+					// "#{"+JQLDynamicStatementType.DYNAMIC_SPREAD+"}";
+					return null;
+				}
+
+				return null;
+			}
+		});
 
 		result.operationType = JQLType.SELECT;
 		result.dynamicReplace = dynamicReplace;
@@ -679,8 +655,7 @@ public abstract class JQLBuilder {
 	 *            the prepared jql
 	 * @return the jql
 	 */
-	private static JQL buildJQLUpdate(final SQLiteModelMethod method, final JQL result,
-			final Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
+	private static JQL buildJQLUpdate(final SQLiteModelMethod method, final JQL result, final Map<JQLDynamicStatementType, String> dynamicReplace, String preparedJql) {
 		final Class<? extends Annotation> annotation = BindSqlUpdate.class;
 
 		// extract some informaction from method and bean
@@ -732,8 +707,7 @@ public abstract class JQLBuilder {
 
 				@Override
 				public void enterBind_dynamic_sql(Bind_dynamic_sqlContext ctx) {
-					JQLDynamicStatementType dynamicType = JQLDynamicStatementType
-							.valueOf(ctx.bind_parameter_name().getText().toUpperCase());
+					JQLDynamicStatementType dynamicType = JQLDynamicStatementType.valueOf(ctx.bind_parameter_name().getText().toUpperCase());
 
 					int start = ctx.getStart().getStartIndex() - 1;
 					int stop = ctx.getStop().getStopIndex() + 1;
@@ -757,21 +731,19 @@ public abstract class JQLBuilder {
 
 			});
 
-			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql,
-					new JQLReplaceVariableStatementListenerImpl() {
+			JQLChecker.getInstance().replaceVariableStatements(method, preparedJql, new JQLReplaceVariableStatementListenerImpl() {
 
-						@Override
-						public String onWhere(String statement) {
-							result.annotatedWhere = true;
-							result.staticWhereConditions = true;
-							return null;
-						}
+				@Override
+				public String onWhere(String statement) {
+					result.annotatedWhere = true;
+					result.staticWhereConditions = true;
+					return null;
+				}
 
-					});
+			});
 
 			if (result.containsSelectOperation) {
-				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID),
-						method, "defined JQL requires that method's return type is void");
+				AssertKripton.assertTrueOrInvalidMethodSignException(method.getReturnClass().equals(TypeName.VOID), method, "defined JQL requires that method's return type is void");
 			}
 		} else {
 			final SQLiteDaoDefinition dao = method.getParent();
@@ -783,11 +755,9 @@ public abstract class JQLBuilder {
 				fields = extractFieldsFromMethodParameters(method, annotation);
 			}
 
-			AssertKripton.assertTrueOrInvalidMethodSignException(fields.size() > 0, method,
-					"no field was specified for update");
+			AssertKripton.assertTrueOrInvalidMethodSignException(fields.size() > 0, method, "no field was specified for update");
 
-			result.conflictAlgorithmType = ConflictAlgorithmType.valueOf(AnnotationUtility.extractAsEnumerationValue(
-					method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
+			result.conflictAlgorithmType = ConflictAlgorithmType.valueOf(AnnotationUtility.extractAsEnumerationValue(method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));
 
 			StringBuilder builder = new StringBuilder();
 			builder.append(UPDATE_KEYWORD);
@@ -833,15 +803,11 @@ public abstract class JQLBuilder {
 	 *            the include primary key
 	 * @return the linked hash set
 	 */
-	private static <A extends Annotation> LinkedHashSet<String> extractFieldsFromAnnotation(
-			final SQLiteModelMethod method, Class<A> annotationClazz, final boolean includePrimaryKey) {
-		final SQLiteDaoDefinition dao = method.getParent();
+	private static <A extends Annotation> LinkedHashSet<String> extractFieldsFromAnnotation(final SQLiteModelMethod method, Class<A> annotationClazz, final boolean includePrimaryKey) {
 		final SQLiteEntity entity = method.getEntity();
 
-		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(), annotationClazz,
-				AnnotationAttributeType.FIELDS);
-		List<String> annotatedExcludedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(),
-				annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS);
+		List<String> annotatedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(), annotationClazz, AnnotationAttributeType.FIELDS);
+		List<String> annotatedExcludedFieldValues = AnnotationUtility.extractAsStringArray(method.getElement(), annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS);
 		CollectionUtils.trim(annotatedFieldValues);
 		CollectionUtils.trim(annotatedExcludedFieldValues);
 
@@ -872,8 +838,7 @@ public abstract class JQLBuilder {
 		} else if (annotatedExcludedFieldValues.size() > 0) {
 			for (String fieldName : annotatedExcludedFieldValues) {
 				if (!entity.contains(fieldName)) {
-					AssertKripton.failUnknownPropertyInJQLException(method, annotationClazz,
-							AnnotationAttributeType.EXCLUDED_FIELDS, fieldName);
+					AssertKripton.failUnknownPropertyInJQLException(method, annotationClazz, AnnotationAttributeType.EXCLUDED_FIELDS, fieldName);
 				}
 			}
 
@@ -920,12 +885,10 @@ public abstract class JQLBuilder {
 	 *            the dynamic replace
 	 * @return the string
 	 */
-	private static <L extends Annotation> String defineLimitStatement(final SQLiteModelMethod method, final JQL result,
-			Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
+	private static <L extends Annotation> String defineLimitStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
 
-		int pageSize = AnnotationUtility.extractAsInt(method.getElement(), annotation,
-				AnnotationAttributeType.PAGE_SIZE);
+		int pageSize = AnnotationUtility.extractAsInt(method.getElement(), annotation, AnnotationAttributeType.PAGE_SIZE);
 		if (pageSize > 0) {
 			result.annotatedPageSize = true;
 		}
@@ -941,9 +904,8 @@ public abstract class JQLBuilder {
 
 					// CONSTRAINT: @BindSqlWhereArgs can be used only on
 					// String[] parameter type
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
-							TypeUtility.isEquals(TypeName.INT, TypeUtility.typeName(methodParam)),
-							method.getParent().getElement(), method.getElement(), methodParam, BindSqlPageSize.class);
+					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeName.INT, TypeUtility.typeName(methodParam)), method.getParent().getElement(),
+							method.getElement(), methodParam, BindSqlPageSize.class);
 				}
 
 			}
@@ -986,12 +948,10 @@ public abstract class JQLBuilder {
 	 *            the dynamic replace
 	 * @return the string
 	 */
-	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method,
-			final JQL result, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
+	private static <L extends Annotation> String defineOrderByStatement(final SQLiteModelMethod method, final JQL result, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
 
-		String orderBy = AnnotationUtility.extractAsString(method.getElement(), annotation,
-				AnnotationAttributeType.ORDER_BY);
+		String orderBy = AnnotationUtility.extractAsString(method.getElement(), annotation, AnnotationAttributeType.ORDER_BY);
 
 		if (StringUtils.hasText(orderBy)) {
 			result.annotatedOrderBy = true;
@@ -1009,10 +969,8 @@ public abstract class JQLBuilder {
 
 					// CONSTRAINT: @BindSqlOrderBy can be used only on String
 					// parameter type
-					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(
-							TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(methodParam)),
-							method.getParent().getElement(), method.getElement(), methodParam,
-							BindSqlDynamicOrderBy.class);
+					AssertKripton.assertTrueOrInvalidTypeForAnnotationMethodParameterException(TypeUtility.isEquals(TypeUtility.typeName(String.class), TypeUtility.typeName(methodParam)),
+							method.getParent().getElement(), method.getElement(), methodParam, BindSqlDynamicOrderBy.class);
 				}
 
 			}
@@ -1061,12 +1019,10 @@ public abstract class JQLBuilder {
 	 *            the dynamic replace
 	 * @return the string
 	 */
-	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql,
-			Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
+	private static <L extends Annotation> String defineWhereStatement(final SQLiteModelMethod method, final JQL jql, Class<L> annotation, Map<JQLDynamicStatementType, String> dynamicReplace) {
 		StringBuilder builder = new StringBuilder();
 
-		String where = AnnotationUtility.extractAsString(method.getElement(), annotation,
-				AnnotationAttributeType.WHERE);
+		String where = AnnotationUtility.extractAsString(method.getElement(), annotation, AnnotationAttributeType.WHERE);
 		if (StringUtils.hasText(where))
 			jql.annotatedWhere = true;
 

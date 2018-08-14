@@ -85,8 +85,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	public static final String SUFFIX = "Table";
 
 	/** The column name to upper case converter. */
-	private Converter<String, String> columnNameToUpperCaseConverter = CaseFormat.LOWER_CAMEL
-			.converterTo(CaseFormat.UPPER_UNDERSCORE);
+	private Converter<String, String> columnNameToUpperCaseConverter = CaseFormat.LOWER_CAMEL.converterTo(CaseFormat.UPPER_UNDERSCORE);
 
 	/**
 	 * Instantiates a new bind table generator.
@@ -116,16 +115,15 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 * @throws Exception
 	 *             the exception
 	 */
-	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema,
-			Set<GeneratedTypeElement> generatedEntities) throws Exception {
+	public static void generate(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema, Set<GeneratedTypeElement> generatedEntities) throws Exception {
 		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, schema);
 
 		List<SQLiteEntity> orderedEntities = BindDataSourceBuilder.orderEntitiesList(schema);
-		
+
 		for (SQLiteEntity item : orderedEntities) {
 			visitor.visit(schema, item);
 		}
-		
+
 		// generate table for generated entity
 		for (GeneratedTypeElement genItem : generatedEntities) {
 			visitor.visit(schema, genItem);
@@ -152,16 +150,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
-		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC)
-				.addSuperinterface(SQLiteTable.class);		
+		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC).addSuperinterface(SQLiteTable.class);
 
-		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName),
-				Modifier.STATIC, Modifier.PRIVATE);
+		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName), Modifier.STATIC, Modifier.PRIVATE);
 
 		// javadoc for class
 		classBuilder.addJavadoc("<p>");
-		classBuilder.addJavadoc("\nEntity <code>$L</code> is associated to table <code>$L</code>\n",
-				entity.getSimpleName(), entity.getTableName());
+		classBuilder.addJavadoc("\nEntity <code>$L</code> is associated to table <code>$L</code>\n", entity.getSimpleName(), entity.getTableName());
 		classBuilder.addJavadoc("This class represents table associated to entity.\n");
 		classBuilder.addJavadoc("</p>\n");
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
@@ -197,7 +192,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			bufferTable.append(item.columnName);
 
 			// every column is a long
-			if (item.getPropertyType()==null) {
+			if (item.getPropertyType() == null) {
 				bufferTable.append(" " + SQLTransformer.lookup(TypeName.LONG).getColumnTypeAsString());
 			} else {
 				bufferTable.append(" " + SQLTransformer.lookup(item.getPropertyType().getTypeName()).getColumnTypeAsString());
@@ -205,19 +200,17 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			switch (item.columnType) {
 			case PRIMARY_KEY:
-				bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
+				bufferTable.append(" PRIMARY KEY AUTOINCREMENT NOT NULL");
 				break;
 			case PRIMARY_KEY_UNMANGED:
-				bufferTable.append(" PRIMARY KEY");
+				bufferTable.append(" PRIMARY KEY NOT NULL");
 				break;
 			case UNIQUE:
 				bufferTable.append(" UNIQUE");
 				break;
 			case INDEXED:
-				bufferIndexesCreate.append(String.format(" CREATE INDEX idx_%s_%s ON %s(%s);", entity.getTableName(),
-						item.columnName, entity.getTableName(), item.columnName));
-				bufferIndexesDrop.append(
-						String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
+				bufferIndexesCreate.append(String.format(" CREATE INDEX idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
+				bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
 				break;
 			case STANDARD:
 				break;
@@ -253,8 +246,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					}
 				}
 
-				bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.getTableName()
-						+ "(" + reference.getPrimaryKey().columnName + ")");
+				bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.getTableName() + "(" + reference.getPrimaryKey().columnName + ")");
 
 				if (item.onDeleteAction != ForeignKeyAction.NO_ACTION) {
 					bufferForeignKey.append(" ON DELETE " + item.onDeleteAction.toString().replaceAll("_", " "));
@@ -286,7 +278,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		// add single column indexes (NOT UNIQUE)
 		{
-			Pair<String, String> multiIndexes = buldIndexes(entity, false, indexCounter);
+			Pair<String, String> multiIndexes = buildIndexes(entity, false, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
 				bufferIndexesDrop.append(multiIndexes.value1 + ";");
@@ -333,8 +325,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			item.accept(this);
 		}
 
-		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE,
-				true, Modifier.STATIC, Modifier.PUBLIC);
+		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
 
 		model.sqlForCreate.add(bufferTable.toString());
 		model.sqlForDrop.add(bufferDropTable.toString());
@@ -390,12 +381,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		FindIndexesVisitor indexVisitor = new FindIndexesVisitor();
 		List<? extends AnnotationMirror> annotationMirrors = entity.getElement().getAnnotationMirrors();
 		for (AnnotationMirror annotationMirror : annotationMirrors) {
-			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror
-					.getElementValues();
+			Map<? extends ExecutableElement, ? extends AnnotationValue> elementValues = annotationMirror.getElementValues();
 
 			if (BindSqlType.class.getName().equals(annotationMirror.getAnnotationType().toString())) {
-				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues
-						.entrySet()) {
+				for (Map.Entry<? extends ExecutableElement, ? extends AnnotationValue> entry : elementValues.entrySet()) {
 					// The 'entry.getKey()' here is the annotation attribute
 					// name.
 					String key = entry.getKey().getSimpleName().toString();
@@ -408,16 +397,13 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		String packageName = pkg.isUnnamed() ? null : pkg.getQualifiedName().toString();
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
-		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC)
-				.addSuperinterface(SQLiteTable.class);
+		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC).addSuperinterface(SQLiteTable.class);
 
-		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName),
-				Modifier.STATIC, Modifier.PRIVATE);
+		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName), Modifier.STATIC, Modifier.PRIVATE);
 
 		// javadoc for class
 		classBuilder.addJavadoc("<p>");
-		classBuilder.addJavadoc("\nEntity <code>$L</code> is associated to table <code>$L</code>\n",
-				entity.getSimpleName(), entity.getTableName());
+		classBuilder.addJavadoc("\nEntity <code>$L</code> is associated to table <code>$L</code>\n", entity.getSimpleName(), entity.getTableName());
 		classBuilder.addJavadoc("This class represents table associated to entity.\n");
 		classBuilder.addJavadoc("</p>\n");
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
@@ -456,19 +442,18 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			switch (item.columnType) {
 			case PRIMARY_KEY:
 			case PRIMARY_KEY_UNMANGED:
-				bufferTable.append(" PRIMARY KEY");	
-				if (!item.isType(String.class) && item.columnType==ColumnType.PRIMARY_KEY) {
+				bufferTable.append(" PRIMARY KEY");
+				if (!item.isType(String.class) && item.columnType == ColumnType.PRIMARY_KEY) {
 					bufferTable.append(" AUTOINCREMENT");
-				} 														
+				}
+				bufferTable.append(" NOT NULL");
 				break;
 			case UNIQUE:
 				bufferTable.append(" UNIQUE");
 				break;
 			case INDEXED:
-				bufferIndexesCreate.append(String.format(" CREATE INDEX idx_%s_%s ON %s(%s);", entity.getTableName(),
-						item.columnName, entity.getTableName(), item.columnName));
-				bufferIndexesDrop.append(
-						String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
+				bufferIndexesCreate.append(String.format(" CREATE INDEX idx_%s_%s ON %s(%s);", entity.getTableName(), item.columnName, entity.getTableName(), item.columnName));
+				bufferIndexesDrop.append(String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
 				break;
 			case STANDARD:
 				break;
@@ -510,8 +495,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					throw new InvalidForeignKeyTypeException(item);
 				}
 
-				bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.getTableName()
-						+ "(" + reference.getPrimaryKey().columnName + ")");
+				bufferForeignKey.append(", FOREIGN KEY(" + item.columnName + ") REFERENCES " + reference.getTableName() + "(" + reference.getPrimaryKey().columnName + ")");
 
 				if (item.onDeleteAction != ForeignKeyAction.NO_ACTION) {
 					bufferForeignKey.append(" ON DELETE " + item.onDeleteAction.toString().replaceAll("_", " "));
@@ -543,8 +527,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		// add multicolumn indexes (UNIQUE)
 		{
-			Pair<String, String> multiIndexes = buldIndexes(entity, indexVisitor.getUniqueIndexes(), true,
-					indexCounter);
+			Pair<String, String> multiIndexes = buldIndexes(entity, indexVisitor.getUniqueIndexes(), true, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
 				bufferIndexesDrop.append(multiIndexes.value1 + ";");
@@ -553,8 +536,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		// add multicolumn indexes (NOT UNIQUE)
 		{
-			Pair<String, String> multiIndexes = buldIndexes(entity, indexVisitor.getNotUniqueIndexes(), false,
-					indexCounter);
+			Pair<String, String> multiIndexes = buldIndexes(entity, indexVisitor.getNotUniqueIndexes(), false, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
 				bufferIndexesDrop.append(multiIndexes.value1 + ";");
@@ -601,8 +583,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			item.accept(this);
 		}
 
-		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE,
-				true, Modifier.STATIC, Modifier.PUBLIC);
+		ManagedPropertyPersistenceHelper.generateFieldPersistance(context, entity.getCollection(), PersistType.BYTE, true, Modifier.STATIC, Modifier.PUBLIC);
 
 		model.sqlForCreate.add(bufferTable.toString());
 		model.sqlForDrop.add(bufferDropTable.toString());
@@ -622,8 +603,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 */
 	private void generateColumnsArray(Finder<SQLProperty> entity) {
 		// generate columns array
-		Builder sp = FieldSpec.builder(ArrayTypeName.of(String.class), "COLUMNS", Modifier.STATIC, Modifier.PRIVATE,
-				Modifier.FINAL);
+		Builder sp = FieldSpec.builder(ArrayTypeName.of(String.class), "COLUMNS", Modifier.STATIC, Modifier.PRIVATE, Modifier.FINAL);
 		String s = "";
 		StringBuilder buffer = new StringBuilder();
 		for (SQLProperty property : entity.getCollection()) {
@@ -631,13 +611,11 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			s = ", ";
 		}
 		classBuilder.addField(sp.addJavadoc("Columns array\n").initializer("{" + buffer.toString() + "}").build());
-		classBuilder.addMethod(MethodSpec.methodBuilder("columns").addModifiers(Modifier.PUBLIC)
-				.addJavadoc("Columns array\n").addAnnotation(Override.class).returns(ArrayTypeName.of(String.class))
+		classBuilder.addMethod(MethodSpec.methodBuilder("columns").addModifiers(Modifier.PUBLIC).addJavadoc("Columns array\n").addAnnotation(Override.class).returns(ArrayTypeName.of(String.class))
 				.addStatement("return COLUMNS").build());
 
-		classBuilder.addMethod(MethodSpec.methodBuilder("name").addModifiers(Modifier.PUBLIC).addJavadoc("table name\n")
-				.addAnnotation(Override.class).returns(TypeName.get(String.class)).addStatement("return TABLE_NAME")
-				.build());
+		classBuilder.addMethod(MethodSpec.methodBuilder("name").addModifiers(Modifier.PUBLIC).addJavadoc("table name\n").addAnnotation(Override.class).returns(TypeName.get(String.class))
+				.addStatement("return TABLE_NAME").build());
 	}
 
 	/**
@@ -652,8 +630,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 *            the counter
 	 * @return the pair
 	 */
-	public static Pair<String, String> buldIndexes(final SQLiteEntity entity,
-			ArrayList<Pair<List<String>, Boolean>> indexList, boolean unique, int counter) {
+	public static Pair<String, String> buldIndexes(final SQLiteEntity entity, ArrayList<Pair<List<String>, Boolean>> indexList, boolean unique, int counter) {
 		Pair<String, String> result = new Pair<>();
 		result.value0 = "";
 		result.value1 = "";
@@ -668,14 +645,12 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		} else {
 			uniqueString = "";
 		}
-		
 
 		List<String> listCreateIndex = new ArrayList<>();
-		List<String> listDropIndex = new ArrayList<>();				
-		
+		List<String> listDropIndex = new ArrayList<>();
+
 		for (Pair<List<String>, Boolean> index : indexList) {
-			String createIndex = String.format(" CREATE %sINDEX idx_%s_%s on %s (%s)", uniqueString,
-					entity.getTableName(), counter++, entity.getTableName(), StringUtils.join(index.value0,", "));
+			String createIndex = String.format(" CREATE %sINDEX idx_%s_%s on %s (%s)", uniqueString, entity.getTableName(), counter++, entity.getTableName(), StringUtils.join(index.value0, ", "));
 			String dropIndex = String.format(" DROP INDEX IF EXISTS idx_%s_%s", entity.getTableName(), counter);
 
 			final One<Integer> fieldCounter = new One<Integer>(0);
@@ -710,8 +685,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					fieldCounter.value0++;
 					SQLProperty property = entity.findPropertyByName(columnName);
 
-					AssertKripton.assertTrue(property != null, "class '%s' in @%s(indexes) use unknown property '%s'",
-							entity.getName(), BindSqlType.class.getSimpleName(), columnName);
+					AssertKripton.assertTrue(property != null, "class '%s' in @%s(indexes) use unknown property '%s'", entity.getName(), BindSqlType.class.getSimpleName(), columnName);
 					return property.columnName;
 				}
 
@@ -722,9 +696,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				}
 			});
 
-			AssertKripton.assertTrue(fieldCounter.value0 > 0,
-					"class '%s' have @%s(indexes) with no well formed indexes", entity.getName(),
-					BindSqlType.class.getSimpleName());
+			AssertKripton.assertTrue(fieldCounter.value0 > 0, "class '%s' have @%s(indexes) with no well formed indexes", entity.getName(), BindSqlType.class.getSimpleName());
 
 			listCreateIndex.add(createIndex);
 			listDropIndex.add(dropIndex);
@@ -747,7 +719,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 *            the counter
 	 * @return the pair
 	 */
-	public static Pair<String, String> buldIndexes(final GeneratedTypeElement entity, boolean unique, int counter) {
+	public static Pair<String, String> buildIndexes(final GeneratedTypeElement entity, boolean unique, int counter) {
 		Pair<String, String> result = new Pair<>();
 		result.value0 = "";
 		result.value1 = "";
@@ -755,7 +727,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		List<String> indexes = entity.index;
 		String uniqueString;
 
-		uniqueString = "UNIQUE ";		
+		uniqueString = "UNIQUE ";
 
 		if (indexes == null || indexes.size() == 0)
 			return result;
@@ -763,8 +735,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		List<String> listCreateIndex = new ArrayList<>();
 		List<String> listDropIndex = new ArrayList<>();
 		for (String index : indexes) {
-			String createIndex = String.format(" CREATE %sINDEX idx_%s_%s on %s (%s)", uniqueString,
-					entity.getTableName(), counter++, entity.getTableName(), index);
+			String createIndex = String.format(" CREATE %sINDEX idx_%s_%s on %s (%s)", uniqueString, entity.getTableName(), counter++, entity.getTableName(), index);
 			String dropIndex = String.format(" DROP INDEX IF EXISTS idx_%s_%s", entity.getTableName(), counter);
 
 			listCreateIndex.add(createIndex);

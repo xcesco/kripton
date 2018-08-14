@@ -16,27 +16,29 @@
 
 package sqlite.feature.custombean.case1;
 
-import android.support.annotation.NonNull;
+import java.util.Date;
 
+import com.abubusoft.kripton.android.ColumnType;
+import com.abubusoft.kripton.android.annotation.BindIndex;
 import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
-import java.util.Date;
+import android.support.annotation.NonNull;
 
-@BindSqlType
+@BindSqlType(indexes = { @BindIndex(value = { "bookId", "userId" }, unique = true) })
 public class Loan {
-    // Fields can be public or private with getters and setters.
-    @NonNull
-    public String id;
+	// Fields can be public or private with getters and setters.
+	@NonNull
+	@BindSqlColumn(nullable = false, columnType = ColumnType.PRIMARY_KEY)
+	public String id;
 
-    public Date startTime;
+	public Date startTime;
 
-    public Date endTime;
+	public Date endTime;
 
+	@BindSqlColumn(parentEntity = Book.class)
+	public String bookId;
 
-    @BindSqlColumn(parentEntity = Book.class)
-    public String bookId;
-
-    @BindSqlColumn(parentEntity = User.class)
-    public String userId;
+	@BindSqlColumn(parentEntity = User.class)
+	public String userId;
 }

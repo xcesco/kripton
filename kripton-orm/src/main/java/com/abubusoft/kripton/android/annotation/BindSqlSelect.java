@@ -20,8 +20,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.abubusoft.kripton.android.sqlite.NoResultType;
-
 /**
  * <p>
  * Allows to query a database table. When you define the query through
@@ -174,12 +172,8 @@ import com.abubusoft.kripton.android.sqlite.NoResultType;
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(
- * 				StringUtils.formatSQL(
- * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
- * 				(Object[]) args);
- * 		Cursor cursor = database().rawQuery(
- * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
+ * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
  * 		LinkedList&lt;Person&gt; resultList = new LinkedList&lt;Person&gt;();
@@ -225,13 +219,8 @@ import com.abubusoft.kripton.android.sqlite.NoResultType;
  * 		// build where condition
  * 		String[] args = { (name == null ? null : name) };
  * 
- * 		Logger.info(
- * 				StringUtils.formatSQL(
- * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name"),
- * 				(Object[]) args);
- * 		Cursor cursor = database().rawQuery(
- * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name",
- * 				args);
+ * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like '%s' || \'%%\' ORDER BY name"), (Object[]) args);
+ * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE name like ? || \'%%\' ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
  * 		HashSet&lt;Person&gt; resultList = new HashSet&lt;Person&gt;();
@@ -277,12 +266,8 @@ import com.abubusoft.kripton.android.sqlite.NoResultType;
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(
- * 				StringUtils.formatSQL(
- * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
- * 				(Object[]) args);
- * 		Cursor cursor = database().rawQuery(
- * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
+ * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 		Person resultBean = new Person();
  * 		try {
@@ -335,12 +320,8 @@ import com.abubusoft.kripton.android.sqlite.NoResultType;
  * 		// build where condition
  * 		String[] args = {};
  * 
- * 		Logger.info(
- * 				StringUtils.formatSQL(
- * 						"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"),
- * 				(Object[]) args);
- * 		Cursor cursor = database().rawQuery(
- * 				"SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
+ * 		Logger.info(StringUtils.formatSQL("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name"), (Object[]) args);
+ * 		Cursor cursor = database().rawQuery("SELECT id, name, surname, birth_city, birth_day FROM person WHERE 1=1 ORDER BY name", args);
  * 		Logger.info("Rows found: %s", cursor.getCount());
  * 
  * 		try {
@@ -486,20 +467,12 @@ public @interface BindSqlSelect {
 
 	/**
 	 * <p>
-	 * Used to specify which queries need to be invoked to fill fields that represent relation
-	 * with other entities.
+	 * Used to specify which queries need to be invoked to fill fields that
+	 * represent relation with other entities.
 	 * </p>
 	 * 
 	 * @return set of selects used to fill fields defined as relation
 	 * 
 	 */
 	BindSqlChildSelect[] childrenSelects() default {};
-	
-	/**
-	 * Define bean result type. It can not be used with <code>childrenSelect</code>.
-	 * 
-	 * @return
-	 */
-	Class<?> resultType() default NoResultType.class;
-
 }

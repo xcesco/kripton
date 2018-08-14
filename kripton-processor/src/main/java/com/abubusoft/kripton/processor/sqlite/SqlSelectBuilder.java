@@ -60,8 +60,10 @@ public abstract class SqlSelectBuilder {
 	/**
 	 * Gets the name parameter of type.
 	 *
-	 * @param method the method
-	 * @param parameter the parameter
+	 * @param method
+	 *            the method
+	 * @param parameter
+	 *            the parameter
 	 * @return the name parameter of type
 	 */
 	public static String getNameParameterOfType(ModelMethod method, TypeName parameter) {
@@ -77,16 +79,19 @@ public abstract class SqlSelectBuilder {
 	/**
 	 * Generate select.
 	 *
-	 * @param builder the builder
-	 * @param method the method
-	 * @throws ClassNotFoundException the class not found exception
+	 * @param builder
+	 *            the builder
+	 * @param method
+	 *            the method
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
 	 */
-	public static void generateSelect(Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {		
+	public static void generateSelect(Builder builder, SQLiteModelMethod method) throws ClassNotFoundException {
 		SelectType selectResultType = SelectBuilderUtility.detectSelectType(method);
-		
+
 		// generate select method
 		selectResultType.generate(builder, method);
-		
+
 		if (method.hasLiveData()) {
 			// generate
 			selectResultType.generateLiveData(builder, method);
@@ -102,25 +107,25 @@ public abstract class SqlSelectBuilder {
 	 * The Class SplittedSql.
 	 */
 	public static class SplittedSql {
-		
+
 		/** The sql where statement. */
 		public String sqlWhereStatement;
-		
+
 		/** The sql order by statement. */
 		public String sqlOrderByStatement;
-		
+
 		/** The sql offset statement. */
 		public String sqlOffsetStatement;
-		
+
 		/** The sql limit statement. */
 		public String sqlLimitStatement;
-		
+
 		/** The sql having statement. */
 		public String sqlHavingStatement;
-		
+
 		/** The sql group statement. */
 		public String sqlGroupStatement;
-		
+
 		/** The sql basic. */
 		public String sqlBasic;
 	}
@@ -130,9 +135,12 @@ public abstract class SqlSelectBuilder {
 	 * Generate select used in content provider class.
 	 * </p>
 	 *
-	 * @param builder the builder
-	 * @param method the method
-	 * @param selectResultType the select result type
+	 * @param builder
+	 *            the builder
+	 * @param method
+	 *            the method
+	 * @param selectResultType
+	 *            the select result type
 	 */
 	private static void generateSelectForContentProvider(Builder builder, final SQLiteModelMethod method, SelectType selectResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
@@ -140,8 +148,10 @@ public abstract class SqlSelectBuilder {
 		final Set<String> columns = new LinkedHashSet<>();
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
-		if (!method.getParent().hasSamePackageOfSchema()) {methodBuilder.addModifiers(Modifier.PUBLIC); }
-		
+		if (!method.getParent().hasSamePackageOfSchema()) {
+			methodBuilder.addModifiers(Modifier.PUBLIC);
+		}
+
 		// params
 		methodBuilder.addParameter(ParameterSpec.builder(Uri.class, "uri").build());
 		methodBuilder.addParameter(ParameterSpec.builder(ArrayTypeName.of(String.class), "projection").build());
@@ -166,7 +176,11 @@ public abstract class SqlSelectBuilder {
 		Set<JQLProjection> projectedColumns = jqlChecker.extractProjections(method, method.jql.value, entity);
 		for (JQLProjection item : projectedColumns) {
 			if (item.type == ProjectionType.COLUMN) {
-				columns.add(entity.get(item.column.trim()).columnName);
+				if (item.alias != null) {
+					columns.add(entity.get(item.alias.trim()).columnName);
+				} else {
+					columns.add(entity.get(item.column.trim()).columnName);
+				}
 			} else {
 				columns.add(item.expression.trim());
 			}
@@ -267,9 +281,12 @@ public abstract class SqlSelectBuilder {
 	/**
 	 * Generate dynamic part of query.
 	 *
-	 * @param method the method
-	 * @param methodBuilder the method builder
-	 * @param splittedSql the splitted sql
+	 * @param method
+	 *            the method
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param splittedSql
+	 *            the splitted sql
 	 */
 	public static void generateDynamicPartOfQuery(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, SplittedSql splittedSql) {
 		final JQL jql = method.jql;
@@ -317,7 +334,7 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addCode("\n");
 		}
 
-		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET) && SelectBuilderUtility.detectSelectType(method)==SelectType.PAGED_RESULT) {
+		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET) && SelectBuilderUtility.detectSelectType(method) == SelectType.PAGED_RESULT) {
 			methodBuilder.addComment("generation offset - BEGIN");
 			if (jql.annotatedPageSize) {
 				methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+paginatedResult.firstRow()", SqlUtils.class);
@@ -334,9 +351,12 @@ public abstract class SqlSelectBuilder {
 	/**
 	 * Generate SQL.
 	 *
-	 * @param method the method
-	 * @param methodBuilder the method builder
-	 * @param replaceProjectedColumns the replace projected columns
+	 * @param method
+	 *            the method
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param replaceProjectedColumns
+	 *            the replace projected columns
 	 * @return the splitted sql
 	 */
 	static SplittedSql generateSQL(final SQLiteModelMethod method, MethodSpec.Builder methodBuilder, final boolean replaceProjectedColumns) {
@@ -400,8 +420,10 @@ public abstract class SqlSelectBuilder {
 	/**
 	 * Convert JQL 2 SQL.
 	 *
-	 * @param method the method
-	 * @param replaceWithQuestion the replace with question
+	 * @param method
+	 *            the method
+	 * @param replaceWithQuestion
+	 *            the replace with question
 	 * @return the string
 	 */
 	public static String convertJQL2SQL(final SQLiteModelMethod method, final boolean replaceWithQuestion) {
@@ -424,6 +446,15 @@ public abstract class SqlSelectBuilder {
 
 				return tempProperty.columnName;
 			}
+
+			@Override
+			public String onColumnAlias(String alias) {
+				SQLProperty tempProperty = currentEntity.get(alias);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, alias);
+
+				return tempProperty.columnName;
+			}
+
 		});
 		return sql;
 	}

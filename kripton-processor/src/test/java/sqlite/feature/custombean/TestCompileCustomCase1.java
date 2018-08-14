@@ -29,7 +29,6 @@ import sqlite.feature.custombean.case1.LoanWithUserAndBook;
 import sqlite.feature.custombean.case1.User;
 import sqlite.feature.custombean.case1.UserDao;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestCompileKripton213.
  */
@@ -44,8 +43,7 @@ public class TestCompileCustomCase1 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void testCompile() throws Throwable {
-		buildDataSourceProcessorTest(AppDataSource.class, Book.class, BookDao.class, Loan.class, LoanDao.class,
-				LoanWithUserAndBook.class, User.class, UserDao.class);
+		buildDataSourceProcessorTest(AppDataSource.class, Book.class, BookDao.class, Loan.class, LoanDao.class, LoanWithUserAndBook.class, User.class, UserDao.class);
 	}
 
 }

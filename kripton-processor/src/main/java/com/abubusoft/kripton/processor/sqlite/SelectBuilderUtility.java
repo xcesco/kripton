@@ -28,7 +28,6 @@ import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.KriptonClassNotFoundException;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
@@ -40,7 +39,6 @@ import com.squareup.javapoet.TypeSpec.Builder;
 
 import android.database.Cursor;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SelectBuilderUtility.
  *
@@ -192,36 +190,33 @@ public abstract class SelectBuilderUtility {
 		SQLiteEntity daoEntity = method.getParent().getEntity();
 		// if true, field must be associate to ben attributes
 		TypeName returnTypeName = method.getReturnClass();
-		
-		TypeName result=null;
+
+		TypeName result = null;
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
 
 			// case OnReadBeanListener
-			Pair<String, TypeName> foundElement = SqlBuilderHelper.searchInEachParameter(method,
-					new SqlBuilderHelper.OnParameterListener() {
+			Pair<String, TypeName> foundElement = SqlBuilderHelper.searchInEachParameter(method, new SqlBuilderHelper.OnParameterListener() {
 
-						@Override
-						public boolean onParameter(Pair<String, TypeName> item) {
-							return (item.value1 instanceof ParameterizedTypeName && TypeUtility.isEquals(
-									((ParameterizedTypeName) item.value1).rawType, OnReadBeanListener.class.getName()));
-						}
-					});
+				@Override
+				public boolean onParameter(Pair<String, TypeName> item) {
+					return (item.value1 instanceof ParameterizedTypeName && TypeUtility.isEquals(((ParameterizedTypeName) item.value1).rawType, OnReadBeanListener.class.getName()));
+				}
+			});
 
 			if (foundElement != null) {
-				result=foundElement.value1;
+				result = foundElement.value1;
 			}
 		} else if (TypeUtility.isTypeIncludedIn(returnTypeName, Cursor.class)) {
 			// return Cursor (no listener)
-			result=null;
+			result = null;
 		} else if (returnTypeName instanceof ParameterizedTypeName) {
 			ParameterizedTypeName returnParameterizedTypeName = (ParameterizedTypeName) returnTypeName;
 			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
 
 			// return List (no listener)
-			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1,
-					method, "return type %s is not supported", returnTypeName);
+			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1, method, "return type %s is not supported", returnTypeName);
 			TypeName elementName = returnParameterizedTypeName.typeArguments.get(0);
 
 			Class<?> wrapperClazz = null;
@@ -234,31 +229,29 @@ public abstract class SelectBuilderUtility {
 			if (PaginatedResult.class.isAssignableFrom(wrapperClazz) || Collection.class.isAssignableFrom(wrapperClazz)) {
 				if (SQLTransformer.isSupportedJDKType(elementName) || TypeUtility.isByteArray(elementName)) {
 					// scalar list
-					result=null;
+					result = null;
 				} else {
-					result=elementName;
+					result = elementName;
 				}
-							
+
 			} else {
-				result=null;				
+				result = null;
 			}
-			
 
 		} else if (TypeUtility.isEquals(returnTypeName, daoEntity)) {
-			// return one element (no listener)			
-			result=null;
+			// return one element (no listener)
+			result = null;
 		} else if (SQLTransformer.isSupportedJDKType(returnTypeName) || TypeUtility.isByteArray(returnTypeName)) {
 			// return single value string, int, long, short, double, float,
 			// String (no listener)
-			result=null;			
+			result = null;
 		}
 
-				
-		if (result==null || TypeUtility.isEquals(result, daoEntity)) {
+		if (result == null || TypeUtility.isEquals(result, daoEntity)) {
 			return null;
 		} else {
 			return result;
-		}		
+		}
 	}
 
 	/**
@@ -270,25 +263,22 @@ public abstract class SelectBuilderUtility {
 	 */
 	public static SelectType detectSelectType(final SQLiteModelMethod method) {
 		SQLiteEntity entity = method.getEntity();
- 
+
 		SelectBuilderUtility.SelectType selectResultType = null;
 
 		// if true, field must be associate to ben attributes
 		TypeName returnTypeName = method.getReturnClass();
 
-		ParameterizedTypeName readBeanListener = ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class),
-				ClassName.get(entity.getElement()));
+		ParameterizedTypeName readBeanListener = ParameterizedTypeName.get(ClassName.get(OnReadBeanListener.class), ClassName.get(entity.getElement()));
 		ClassName readCursorListener = ClassName.get(OnReadCursorListener.class);
 
 		ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 		int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
 
-		AssertKripton.failWithInvalidMethodSignException(pageSize < 0, method,
-				"@%s#%s must be set with positive number", BindSqlSelect.class.getSimpleName(),
+		AssertKripton.failWithInvalidMethodSignException(pageSize < 0, method, "@%s#%s must be set with positive number", BindSqlSelect.class.getSimpleName(),
 				AnnotationAttributeType.PAGE_SIZE.getValue());
-		AssertKripton.failWithInvalidMethodSignException(pageSize > 0 && method.hasDynamicPageSizeConditions(), method,
-				"can not define @%s#%s and mark a method parameter with @%s ", BindSqlSelect.class.getSimpleName(),
-				BindSqlPageSize.class.getSimpleName(), AnnotationAttributeType.PAGE_SIZE.getValue());
+		AssertKripton.failWithInvalidMethodSignException(pageSize > 0 && method.hasDynamicPageSizeConditions(), method, "can not define @%s#%s and mark a method parameter with @%s ",
+				BindSqlSelect.class.getSimpleName(), BindSqlPageSize.class.getSimpleName(), AnnotationAttributeType.PAGE_SIZE.getValue());
 
 		if (TypeUtility.isTypeIncludedIn(returnTypeName, Void.class, Void.TYPE)) {
 			// return VOID (in the parameters must be a listener)
@@ -305,8 +295,7 @@ public abstract class SelectBuilderUtility {
 			ClassName returnParameterizedClassName = returnParameterizedTypeName.rawType;
 
 			// return List (no listener)
-			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1,
-					method, "return type %s is not supported", returnTypeName);
+			AssertKripton.assertTrueOrInvalidMethodSignException(returnParameterizedTypeName.typeArguments.size() == 1, method, "return type %s is not supported", returnTypeName);
 			TypeName elementName = returnParameterizedTypeName.typeArguments.get(0);
 
 			Class<?> wrapperClazz = null;
@@ -319,15 +308,11 @@ public abstract class SelectBuilderUtility {
 			if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
 				// method must have pageSize, statically or dynamically
 				// defined
-				AssertKripton.assertTrueOrInvalidMethodSignException(
-						method.hasDynamicPageSizeConditions() || pageSize > 0, method,
-						"use of PaginatedResult requires 'pageSize' attribute or a @%s annotated parameter",
-						returnTypeName, BindSqlPageSize.class.getSimpleName());
+				AssertKripton.assertTrueOrInvalidMethodSignException(method.hasDynamicPageSizeConditions() || pageSize > 0, method,
+						"use of PaginatedResult requires 'pageSize' attribute or a @%s annotated parameter", returnTypeName, BindSqlPageSize.class.getSimpleName());
 
 				// paged result
-				AssertKripton.assertTrueOrInvalidMethodSignException(
-						TypeUtility.isEquals(elementName, entity.getName().toString()), method,
-						"return type %s is not supported", returnTypeName);
+				AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(elementName, entity.getName().toString()), method, "return type %s is not supported", returnTypeName);
 				selectResultType = SelectBuilderUtility.SelectType.PAGED_RESULT;
 				// set typeName of paginatedResult
 				method.paginatedResultName = "paginatedResult";
@@ -339,8 +324,7 @@ public abstract class SelectBuilderUtility {
 					// scalar list
 					selectResultType = SelectBuilderUtility.SelectType.LIST_SCALAR;
 				} else {
-					AssertKripton.failWithInvalidMethodSignException(true, method, "%s is an invalid return type",
-							method.getReturnClass());
+					AssertKripton.failWithInvalidMethodSignException(true, method, "%s is an invalid return type", method.getReturnClass());
 				}
 
 			}
@@ -353,8 +337,7 @@ public abstract class SelectBuilderUtility {
 			selectResultType = SelectBuilderUtility.SelectType.SCALAR;
 		}
 
-		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method,
-				"'%s' as return type is not supported", returnTypeName);
+		AssertKripton.assertTrueOrInvalidMethodSignException(selectResultType != null, method, "'%s' as return type is not supported", returnTypeName);
 
 		return selectResultType;
 	}

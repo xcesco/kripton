@@ -20,9 +20,9 @@ public class BookTable implements SQLiteTable {
    * DDL to create table book
    * </p>
    *
-   * <pre>CREATE TABLE book (id TEXT PRIMARY KEY, title TEXT);</pre>
+   * <pre>CREATE TABLE book (id TEXT PRIMARY KEY NOT NULL, title TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE book (id TEXT PRIMARY KEY, title TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE book (id TEXT PRIMARY KEY NOT NULL, title TEXT);";
 
   /**
    * <p>
