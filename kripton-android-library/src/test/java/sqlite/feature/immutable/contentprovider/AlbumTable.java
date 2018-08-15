@@ -20,9 +20,9 @@ public class AlbumTable implements SQLiteTable {
    * DDL to create table album
    * </p>
    *
-   * <pre>CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, artist_id INTEGER, name TEXT, FOREIGN KEY(artist_id) REFERENCES artist(id) ON UPDATE CASCADE);</pre>
+   * <pre>CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, artist_id INTEGER, name TEXT, FOREIGN KEY(artist_id) REFERENCES artist(id) ON UPDATE CASCADE);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT, artist_id INTEGER, name TEXT, FOREIGN KEY(artist_id) REFERENCES artist(id) ON UPDATE CASCADE);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE album (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, artist_id INTEGER, name TEXT, FOREIGN KEY(artist_id) REFERENCES artist(id) ON UPDATE CASCADE);";
 
   /**
    * <p>

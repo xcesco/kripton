@@ -75,6 +75,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=${dummyTest}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Contact}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -167,6 +170,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE surname=${dummy}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Contact}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -303,7 +309,6 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM contact WHERE password=:password and type=:type</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:password</dt><dd>is mapped to method's parameter <strong>password</strong></dd>
@@ -392,7 +397,6 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM contact WHERE id=:id and type=:type</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -441,6 +445,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=${bean.id}  and type=${bean.type}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Contact}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -536,6 +543,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE id=${bean.id} and password=${bean.password} and type=${bean.type}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Contact}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -639,6 +649,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <pre>SELECT birth_day, password, type FROM contact WHERE id=${bean.id} and password=${bean.password} and type=${bean.type}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Contact}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>birth_day</dt><dd>is associated to bean's property <strong>birthDay</strong></dd>
@@ -723,6 +736,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT * FROM contact WHERE password=${password} and type=${type}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Contact}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -821,6 +837,9 @@ public class ContactDaoImpl extends Dao implements ContactDao {
    *
    * <pre>SELECT id, birth_day, password, surname, type, update_date, update_time FROM contact WHERE password=${password} and type=${type}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Contact}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -914,10 +933,10 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE contact SET id=:id, type=:type WHERE id=${bean.id}  and password=${bean.password} and type=${bean.type}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
    * 	<dt>type</dt><dd>is mapped to <strong>:bean.type</strong></dd>
@@ -1125,10 +1144,10 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE contact SET birth_day=:birthDay, password=:password, type=:type WHERE type=${bean.type}  and type=${bean.password}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
    * 	<dt>password</dt><dd>is mapped to <strong>:bean.password</strong></dd>
@@ -1342,7 +1361,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO contact (id, type) VALUES (:bean.id, :bean.type)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -1415,7 +1434,7 @@ public class ContactDaoImpl extends Dao implements ContactDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO contact (password, type, id) VALUES (:bean.password, :bean.type, :bean.id)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

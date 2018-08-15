@@ -45,6 +45,9 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    *
    * <pre>SELECT id, city_id, person_id FROM city_person WHERE id=:id</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link CityPerson}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -128,6 +131,9 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, city_id, person_id FROM city_person WHERE city_id=:cityId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CityPerson}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -219,6 +225,9 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    *
    * <pre>SELECT id, city_id, person_id FROM city_person WHERE person_id=:personId</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link CityPerson}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -308,7 +317,6 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM city_person WHERE id=:id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -352,7 +360,6 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM city_person WHERE city_id=:cityId</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -398,7 +405,6 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM city_person WHERE person_id=:personId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:personId</dt><dd>is mapped to method's parameter <strong>personId</strong></dd>
@@ -440,7 +446,7 @@ public class City2PersonDaoImpl extends Dao implements GeneratedCity2PersonDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO city_person (city_id, person_id) VALUES (:bean.cityId, :bean.personId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

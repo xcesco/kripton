@@ -38,6 +38,9 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    *
    * <pre>SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link SchoolLunch}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>lunch_id</dt><dd>is associated to bean's property <strong>lunchId</strong></dd>
@@ -111,6 +114,9 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    *
    * <pre>SELECT lunch_id, contains_meat, fresh, fruits FROM SchoolLunches</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link SchoolLunch}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>lunch_id</dt><dd>is associated to bean's property <strong>lunchId</strong></dd>
@@ -180,7 +186,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (:schoolLunches.containsMeat, :schoolLunches.fresh, :schoolLunches.fruits)</pre>
    *
    * <p><code>schoolLunches.lunchId</code> is automatically updated because it is the primary key</p>
@@ -255,10 +261,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM SchoolLunches</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    */
   @Override

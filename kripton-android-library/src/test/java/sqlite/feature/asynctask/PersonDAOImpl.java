@@ -33,7 +33,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (:bean.birthCity, :bean.birthDay, :bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -107,7 +107,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (:bean.birthCity, :bean.birthDay, :bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -185,6 +185,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -254,6 +257,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>

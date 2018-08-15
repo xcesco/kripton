@@ -25,7 +25,7 @@ public class PKDaoImpl extends Dao implements PKDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO p_k_bean (id, description) VALUES (:bean.id, :bean.description)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

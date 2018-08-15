@@ -40,6 +40,9 @@ public class CityDaoImpl extends Dao implements CityDao {
    *
    * <pre>SELECT id, name FROM cities</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link City}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -103,7 +106,7 @@ public class CityDaoImpl extends Dao implements CityDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO cities (id, name) VALUES (:id, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -178,6 +181,9 @@ public class CityDaoImpl extends Dao implements CityDao {
    *
    * <pre>SELECT id, name FROM cities WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link City}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -245,7 +251,6 @@ public class CityDaoImpl extends Dao implements CityDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM cities WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

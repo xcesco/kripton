@@ -25,7 +25,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO message (content, receiver_id, sender_id) VALUES (:content, :receiverId, :senderId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

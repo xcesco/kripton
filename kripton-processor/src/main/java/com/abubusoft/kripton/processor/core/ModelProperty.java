@@ -173,7 +173,7 @@ public class ModelProperty extends ModelEntity<Element> implements ModelElement,
 		this.parent = new WeakReference<ModelEntity>(entity);
 
 		if (element != null) {			
-			TypeName temp1=TypeName.get(element.asType());
+			TypeName temp1=TypeName.get(element.asType());			
 			LiteralType temp2 = LiteralType.of(element.asType().toString());
 			AssertKripton.fail((temp1 instanceof ClassName) && temp2.isCollection(), "In bean '%s' property '%s' can not use Object as parameter", entity.getElement().asType().toString() ,element.getSimpleName().toString()); 
 			

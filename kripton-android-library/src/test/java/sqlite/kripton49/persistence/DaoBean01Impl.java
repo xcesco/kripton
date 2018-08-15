@@ -43,6 +43,9 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    *
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean01Entity}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -111,6 +114,9 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean01Entity}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -251,7 +257,6 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean01 WHERE id=:id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -360,7 +365,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean01 (text) VALUES (:bean.text)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

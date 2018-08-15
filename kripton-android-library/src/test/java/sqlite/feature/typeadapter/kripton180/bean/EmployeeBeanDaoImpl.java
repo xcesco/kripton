@@ -68,6 +68,9 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${bean.id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -190,6 +193,9 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${bean.id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -311,6 +317,9 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -454,6 +463,9 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -592,7 +604,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (:bean.address, :bean.birthDate, :bean.fieldBoolean, :bean.fieldByte, :bean.fieldByteArray, :bean.fieldCharacter, :bean.fieldDouble, :bean.fieldFloat, :bean.fieldInteger, :bean.fieldLong, :bean.fieldShort, :bean.fieldString, :bean.firstName, :bean.hireDate, :bean.lastName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -691,7 +703,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (:bean.fieldBoolean, :bean.fieldByte, :bean.fieldCharacter, :bean.fieldShort, :bean.fieldInteger, :bean.fieldLong, :bean.fieldFloat, :bean.fieldDouble, :bean.fieldString, :bean.fieldByteArray)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -780,10 +792,10 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE employees SET address=:address, birth_date=:birthDate, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_byte_array=:fieldByteArray, field_character=:fieldCharacter, field_double=:fieldDouble, field_float=:fieldFloat, field_integer=:fieldInteger, field_long=:fieldLong, field_short=:fieldShort, field_string=:fieldString, first_name=:firstName, hire_date=:hireDate, last_name=:lastName WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
@@ -889,10 +901,10 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE employees SET address=:address, birth_date=:birthDate, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_byte_array=:fieldByteArray, field_character=:fieldCharacter, field_double=:fieldDouble, field_float=:fieldFloat, field_integer=:fieldInteger, field_long=:fieldLong, field_short=:fieldShort, field_string=:fieldString, first_name=:firstName, hire_date=:hireDate, last_name=:lastName WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
@@ -980,10 +992,10 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
@@ -1069,10 +1081,10 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>

@@ -25,7 +25,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO students (surname) VALUES (:student.surname)</pre>
    *
    * <p><code>student.id</code> is automatically updated because it is the primary key</p>
@@ -93,7 +93,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO students (surname) SELECT surname FROM students WHERE surname=:bean.surname</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

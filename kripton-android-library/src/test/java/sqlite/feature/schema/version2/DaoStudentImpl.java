@@ -25,7 +25,7 @@ public class DaoStudentImpl extends Dao implements DaoStudent {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO student (location, name) VALUES (:location, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

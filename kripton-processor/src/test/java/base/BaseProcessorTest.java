@@ -101,7 +101,7 @@ public class BaseProcessorTest {
 		Iterator<?> i2 = collection2.iterator();
 
 		while (i1.hasNext()) {
-			ReflectionAssert.assertReflectionEquals(i1.next(), i2.next(), ReflectionComparatorMode.LENIENT_ORDER);
+			ReflectionAssert.assertReflectionEquals(i2.next(), i1.next(), ReflectionComparatorMode.LENIENT_ORDER);
 		}
 	}
 

@@ -29,6 +29,9 @@ public class DaoSongImpl extends Dao implements DaoSong {
    *
    * <pre>SELECT id, album_id, name FROM song</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Song}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>

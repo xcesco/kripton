@@ -34,7 +34,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO user (id, address, company, email, name, phone, username, website) VALUES (:bean.id, :bean.address, :bean.company, :bean.email, :bean.name, :bean.phone, :bean.username, :bean.website)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -120,6 +120,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT id, address, company, email, name, phone, username, website FROM user ORDER BY username asc</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -204,6 +207,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, address, company, email, name, phone, username, website FROM user WHERE id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
    *
    * <h2>Projected columns:</h2>
    * <dl>

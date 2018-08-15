@@ -20,9 +20,9 @@ public class PersonPhoneTable implements SQLiteTable {
    * DDL to create table person_phone
    * </p>
    *
-   * <pre>CREATE TABLE person_phone (id INTEGER PRIMARY KEY AUTOINCREMENT, buy_date TEXT, person_id INTEGER, phone_number_id INTEGER, FOREIGN KEY(person_id) REFERENCES person(id), FOREIGN KEY(phone_number_id) REFERENCES phone_number(id));</pre>
+   * <pre>CREATE TABLE person_phone (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, buy_date TEXT, person_id INTEGER, phone_number_id INTEGER, FOREIGN KEY(person_id) REFERENCES person(id), FOREIGN KEY(phone_number_id) REFERENCES phone_number(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_phone (id INTEGER PRIMARY KEY AUTOINCREMENT, buy_date TEXT, person_id INTEGER, phone_number_id INTEGER, FOREIGN KEY(person_id) REFERENCES person(id), FOREIGN KEY(phone_number_id) REFERENCES phone_number(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_phone (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, buy_date TEXT, person_id INTEGER, phone_number_id INTEGER, FOREIGN KEY(person_id) REFERENCES person(id), FOREIGN KEY(phone_number_id) REFERENCES phone_number(id));";
 
   /**
    * <p>

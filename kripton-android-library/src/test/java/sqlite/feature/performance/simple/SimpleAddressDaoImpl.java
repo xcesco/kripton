@@ -34,6 +34,9 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    *
    * <pre>SELECT id, address, city, name, phone, state FROM simple_address_item WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link SimpleAddressItem}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -96,10 +99,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM simple_address_item</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    */
   @Override
@@ -120,6 +120,9 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, address, city, name, phone, state FROM simple_address_item</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link SimpleAddressItem}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -178,7 +181,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO simple_address_item (address, city, name, phone, state) VALUES (:bean.address, :bean.city, :bean.name, :bean.phone, :bean.state)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

@@ -20,9 +20,9 @@ public class SimpleAddressItemTable implements SQLiteTable {
    * DDL to create table simple_address_item
    * </p>
    *
-   * <pre>CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, city TEXT, name TEXT, phone INTEGER, state TEXT);</pre>
+   * <pre>CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, address TEXT, city TEXT, name TEXT, phone INTEGER, state TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, city TEXT, name TEXT, phone INTEGER, state TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE simple_address_item (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, address TEXT, city TEXT, name TEXT, phone INTEGER, state TEXT);";
 
   /**
    * <p>

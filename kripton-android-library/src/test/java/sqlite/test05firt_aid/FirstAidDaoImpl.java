@@ -36,6 +36,9 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
    *
    * <pre>SELECT id, address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients FROM first_aid ORDER BY description</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link FirstAid}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -162,10 +165,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM first_aid WHERE 1=1</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    *
    * @return number of deleted records
@@ -200,7 +200,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO first_aid (address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients) VALUES (:bean.address, :bean.address2, :bean.city, :bean.description, :bean.greenAverageWaitingTime, :bean.greenVisitingPatients, :bean.greenWaitingPatients, :bean.info, :bean.latitude, :bean.longitude, :bean.phone, :bean.redAverageWaitingTime, :bean.redWaitingPatients, :bean.totalPatientCount, :bean.uid, :bean.whiteAverageWaitingTime, :bean.whiteVisitingPatients, :bean.whiteWaitingPatients, :bean.yellowAverageWaitingTime, :bean.yellowVisitingPatients, :bean.yellowWaitingPatients)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

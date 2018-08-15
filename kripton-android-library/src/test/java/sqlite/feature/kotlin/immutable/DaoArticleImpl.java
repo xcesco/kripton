@@ -44,7 +44,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO articles (author, channel_id, comments, description, guid, link, read, thumbnail, title) VALUES (:author, :channelId, :comments, :description, :guid, :link, :read, :thumbnail, :title)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -203,6 +203,9 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    *
    * <pre>SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE #{DYNAMIC_WHERE}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Article}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -342,6 +345,9 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    *
    * <pre>SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE #{DYNAMIC_WHERE}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Article}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -388,6 +394,9 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE channel_id=${channelId}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Article}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -513,6 +522,9 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE channel_id=${channelId} AND guid=${guid}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Article}
    *
    * <h2>Projected columns:</h2>
    * <dl>

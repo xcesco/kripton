@@ -32,7 +32,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO user (user_name) VALUES (:user.userName)</pre>
    *
    * <p><code>user.id</code> is automatically updated because it is the primary key</p>
@@ -104,6 +104,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT id, user_name FROM user</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -170,6 +173,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, user_name FROM user WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
    *
    * <h2>Projected columns:</h2>
    * <dl>

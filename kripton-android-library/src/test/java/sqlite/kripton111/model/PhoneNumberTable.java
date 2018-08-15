@@ -20,9 +20,9 @@ public class PhoneNumberTable implements SQLiteTable {
    * DDL to create table phone_number
    * </p>
    *
-   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);</pre>
+   * <pre>CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, action_type TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT, action_type TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE phone_number (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, action_type TEXT, contact_id TEXT, contact_name TEXT, country_code TEXT, number TEXT); CREATE INDEX idx_phone_number_0 on phone_number (action_type);";
 
   /**
    * <p>

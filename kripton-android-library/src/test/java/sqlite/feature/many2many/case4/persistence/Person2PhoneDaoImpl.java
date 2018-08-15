@@ -45,6 +45,9 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    *
    * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=:id</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PersonPhoneNumber}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -128,6 +131,9 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=:personId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonPhoneNumber}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -219,6 +225,9 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    *
    * <pre>SELECT id, person_id, phone_number_id FROM person_phone_number WHERE phone_number_id=:phoneNumberId</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PersonPhoneNumber}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -308,7 +317,6 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone_number WHERE id=:id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -352,7 +360,6 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone_number WHERE person_id=:personId</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -398,7 +405,6 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone_number WHERE phone_number_id=:phoneNumberId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:phoneNumberId</dt><dd>is mapped to method's parameter <strong>phoneNumberId</strong></dd>
@@ -440,7 +446,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person_phone_number (person_id, phone_number_id) VALUES (:bean.personId, :bean.phoneNumberId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

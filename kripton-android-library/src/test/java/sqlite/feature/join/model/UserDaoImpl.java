@@ -25,7 +25,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO user (age, last_name, name) VALUES (:age, :lastName, :name)</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>

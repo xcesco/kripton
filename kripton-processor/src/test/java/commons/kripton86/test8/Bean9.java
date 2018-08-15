@@ -29,10 +29,7 @@ public class Bean9 {
 	/** The id. */
 	@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
 	public long id;
-	
-	/** The ida. */
-	@BindSqlColumn(columnType = ColumnType.PRIMARY_KEY)
-	public long ida;
+		
 	
 	/** The test. */
 	public String test;

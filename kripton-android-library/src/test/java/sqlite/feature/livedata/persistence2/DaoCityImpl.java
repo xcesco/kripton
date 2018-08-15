@@ -29,6 +29,9 @@ public class DaoCityImpl extends Dao implements DaoCity {
    *
    * <pre>SELECT id FROM city</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link City}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>

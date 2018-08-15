@@ -40,6 +40,9 @@ public class TrackDaoImpl extends Dao implements TrackDao {
    *
    * <pre>SELECT id, album_id FROM track WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Track}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -109,6 +112,9 @@ public class TrackDaoImpl extends Dao implements TrackDao {
    *
    * <pre>SELECT id, album_id FROM track</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Track}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -172,10 +178,10 @@ public class TrackDaoImpl extends Dao implements TrackDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE track SET album_id=:albumId WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>album_id</dt><dd>is mapped to <strong>:bean.albumId</strong></dd>
    * </dl>
@@ -235,7 +241,7 @@ public class TrackDaoImpl extends Dao implements TrackDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO track (album_id) VALUES (:albumId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -308,7 +314,6 @@ public class TrackDaoImpl extends Dao implements TrackDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM track WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

@@ -24,10 +24,10 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, surname=:surname, birth_city=:birthCity, birth_day=:birthDay WHERE id = ${bean.id} #{DYNAMIC_WHERE}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>

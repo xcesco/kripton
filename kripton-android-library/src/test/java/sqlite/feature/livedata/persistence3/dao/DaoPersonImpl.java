@@ -70,6 +70,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -149,6 +152,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -267,6 +273,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <pre>SELECT id, name, surname FROM person</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -338,6 +347,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, surname FROM person</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -431,7 +443,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -549,10 +561,10 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, surname=:surname WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
@@ -946,7 +958,6 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE name=:name</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

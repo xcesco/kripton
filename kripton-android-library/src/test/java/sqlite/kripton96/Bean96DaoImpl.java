@@ -32,6 +32,9 @@ public class Bean96DaoImpl extends Dao implements Bean96Dao {
    *
    * <pre>SELECT id, name, surname FROM bean96 WHERE name like ${name} || '%'</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean96}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -100,7 +103,7 @@ public class Bean96DaoImpl extends Dao implements Bean96Dao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean96 (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

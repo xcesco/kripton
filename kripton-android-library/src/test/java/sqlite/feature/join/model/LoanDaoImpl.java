@@ -26,7 +26,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO loan (book_id, end_time, start_time, user_id) VALUES (:bookId, :endTime, :startTime, :userId)</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>

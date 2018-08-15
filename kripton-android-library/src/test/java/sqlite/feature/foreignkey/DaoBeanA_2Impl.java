@@ -40,6 +40,9 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
    *
    * <pre>SELECT id, value_string2 FROM bean_a_2</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link BeanA_2}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -106,6 +109,9 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_string2 FROM bean_a_2 WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link BeanA_2}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -182,6 +188,9 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
    *
    * <pre>SELECT id FROM bean_a_2 WHERE value_string2=${dummy}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link BeanA_2}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -250,7 +259,7 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean_a_2 (value_string2) VALUES (:bean.valueString2)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -321,10 +330,10 @@ public class DaoBeanA_2Impl extends Dao implements DaoBeanA_2 {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean_a_2 SET value_string2=:valueString2 WHERE value_string2=${bean.valueString2}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>value_string2</dt><dd>is mapped to <strong>:bean.valueString2</strong></dd>
    * </dl>

@@ -20,9 +20,9 @@ public class MessageEntityTable implements SQLiteTable {
    * DDL to create table message
    * </p>
    *
-   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, channel_uid TEXT, face_uid TEXT, owner_type TEXT, owner_uid TEXT, text TEXT, update_time INTEGER);</pre>
+   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, channel_id INTEGER, channel_uid TEXT, face_uid TEXT, owner_type TEXT, owner_uid TEXT, text TEXT, update_time INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, channel_id INTEGER, channel_uid TEXT, face_uid TEXT, owner_type TEXT, owner_uid TEXT, text TEXT, update_time INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, channel_id INTEGER, channel_uid TEXT, face_uid TEXT, owner_type TEXT, owner_uid TEXT, text TEXT, update_time INTEGER);";
 
   /**
    * <p>

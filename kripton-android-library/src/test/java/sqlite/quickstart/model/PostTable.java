@@ -20,9 +20,9 @@ public class PostTable implements SQLiteTable {
    * DDL to create table post
    * </p>
    *
-   * <pre>CREATE TABLE post (id INTEGER PRIMARY KEY AUTOINCREMENT, body TEXT, title TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE post (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, body TEXT, title TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE post (id INTEGER PRIMARY KEY AUTOINCREMENT, body TEXT, title TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE post (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, body TEXT, title TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));";
 
   /**
    * <p>

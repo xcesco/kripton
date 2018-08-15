@@ -33,6 +33,9 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    *
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean01}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>

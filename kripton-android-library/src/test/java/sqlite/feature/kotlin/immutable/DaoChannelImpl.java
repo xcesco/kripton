@@ -47,7 +47,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO channels (copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title) VALUES (:copyright, :description, :image, :language, :lastBuildDate, :link, :pubDate, :rssFeedId, :title)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -137,6 +137,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels WHERE rss_feed_id=${rssFeedId}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -272,6 +275,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <pre>SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels WHERE rss_feed_id=${rssFeedId}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -393,6 +399,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <pre>SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -507,6 +516,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>

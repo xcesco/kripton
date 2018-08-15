@@ -26,11 +26,6 @@ import com.abubusoft.kripton.android.KriptonLibrary;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${id}</pre></td><td>{@link SelectRawPersonDaoImpl#selectWithJQL7ForContentProvider}</td></tr>
  * </table>
  *
- * <h2>Supported insert operations</h2>
- * <table>
- * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * </table>
- *
  *
  *
  */
@@ -321,23 +316,9 @@ public class BindSelectRawPersonContentProvider extends ContentProvider {
     return returnCursor;
   }
 
-  /**
-   *
-   * <h2>Supported insert operations</h2>
-   * <table>
-   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * </table>
-   *
-   */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
-    long _id=-1;
-    Uri _returnURL=null;
-    switch (sURIMatcher.match(uri)) {
-      default: {
-        throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
-      }
-    }
+    throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
   }
 
   @Override

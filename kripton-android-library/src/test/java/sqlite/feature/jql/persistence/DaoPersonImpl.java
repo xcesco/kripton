@@ -35,6 +35,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <pre>SELECT _id, image, name FROM person</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -101,7 +104,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (image, name) VALUES (:image, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

@@ -43,7 +43,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO song (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -113,7 +113,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO song (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -185,7 +185,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO song (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -456,10 +456,10 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE song SET name=:name, year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
@@ -518,10 +518,10 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE song SET name=:name, year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
@@ -583,10 +583,10 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE song SET name=:name, year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>

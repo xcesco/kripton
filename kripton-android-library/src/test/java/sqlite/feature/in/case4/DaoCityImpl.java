@@ -31,7 +31,7 @@ public class DaoCityImpl extends Dao implements DaoCity {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO city (date, name) VALUES (:bean.date, :bean.name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -107,6 +107,9 @@ public class DaoCityImpl extends Dao implements DaoCity {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, date, name FROM city WHERE date in (:{dates})</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link City}
    *
    * <h2>Projected columns:</h2>
    * <dl>

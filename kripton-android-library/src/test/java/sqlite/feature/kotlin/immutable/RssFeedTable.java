@@ -20,9 +20,9 @@ public class RssFeedTable implements SQLiteTable {
    * DDL to create table rss_feed
    * </p>
    *
-   * <pre>CREATE TABLE rss_feed (id INTEGER PRIMARY KEY AUTOINCREMENT, uid TEXT UNIQUE, version TEXT);</pre>
+   * <pre>CREATE TABLE rss_feed (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uid TEXT UNIQUE, version TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE rss_feed (id INTEGER PRIMARY KEY AUTOINCREMENT, uid TEXT UNIQUE, version TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE rss_feed (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, uid TEXT UNIQUE, version TEXT);";
 
   /**
    * <p>

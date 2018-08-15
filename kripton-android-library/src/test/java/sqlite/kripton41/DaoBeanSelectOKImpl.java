@@ -27,6 +27,9 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
    *
    * <pre>SELECT count(*) FROM bean01 WHERE id=${id} and value=${value}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean01}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>

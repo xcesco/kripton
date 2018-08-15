@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, image BLOB, name TEXT NOT NULL);</pre>
+   * <pre>CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, image BLOB, name TEXT NOT NULL);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT, image BLOB, name TEXT NOT NULL);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, image BLOB, name TEXT NOT NULL);";
 
   /**
    * <p>

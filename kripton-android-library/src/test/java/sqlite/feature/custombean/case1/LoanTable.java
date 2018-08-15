@@ -20,9 +20,9 @@ public class LoanTable implements SQLiteTable {
    * DDL to create table loan
    * </p>
    *
-   * <pre>CREATE TABLE loan (id TEXT PRIMARY KEY NOT NULL, book_id TEXT, end_time TEXT, start_time TEXT, user_id TEXT, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id)); CREATE UNIQUE INDEX idx_loan_0 on loan (book_id, user_id);</pre>
+   * <pre>CREATE TABLE loan (id TEXT PRIMARY KEY NOT NULL, book_id TEXT, end_time TEXT, start_time TEXT, user_id TEXT, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id), UNIQUE (book_id, user_id)); CREATE UNIQUE INDEX idx_loan_0 on loan (book_id, user_id);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE loan (id TEXT PRIMARY KEY NOT NULL, book_id TEXT, end_time TEXT, start_time TEXT, user_id TEXT, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id)); CREATE UNIQUE INDEX idx_loan_0 on loan (book_id, user_id);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE loan (id TEXT PRIMARY KEY NOT NULL, book_id TEXT, end_time TEXT, start_time TEXT, user_id TEXT, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id), UNIQUE (book_id, user_id)); CREATE UNIQUE INDEX idx_loan_0 on loan (book_id, user_id);";
 
   /**
    * <p>

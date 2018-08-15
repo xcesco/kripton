@@ -40,6 +40,9 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
    *
    * <pre>SELECT pk, bean_a2_id, value_string FROM bean_a_4</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link BeanA_4}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -109,6 +112,9 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_a2_id, value_string FROM bean_a_4 WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link BeanA_4}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -188,6 +194,9 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
    *
    * <pre>SELECT pk FROM bean_a_4 WHERE value_string=${dummy}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link BeanA_4}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -256,7 +265,7 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean_a_4 (bean_a2_id, value_string) VALUES (:bean.beanA2Id, :bean.valueString)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -329,10 +338,10 @@ public class DaoBeanA_4Impl extends Dao implements DaoBeanA_4 {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean_a_4 SET bean_a2_id=:beanA2Id, value_string=:valueString WHERE value_string=${bean.valueString}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>bean_a2_id</dt><dd>is mapped to <strong>:bean.beanA2Id</strong></dd>
    * 	<dt>value_string</dt><dd>is mapped to <strong>:bean.valueString</strong></dd>

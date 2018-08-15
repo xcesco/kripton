@@ -55,6 +55,9 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    *
    * <pre>SELECT count(*) FROM cheeses</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Cheese}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
@@ -104,7 +107,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO cheeses (name) VALUES (:cheese.name)</pre>
    *
    * <p><code>cheese.id</code> is automatically updated because it is the primary key</p>
@@ -222,6 +225,9 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name FROM cheeses</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Cheese}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -352,6 +358,9 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name FROM cheeses WHERE id=:{id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Cheese}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -498,7 +507,6 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM cheeses WHERE id=:id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -600,10 +608,10 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE cheeses SET name=:name WHERE id=${cheese.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:cheese.name</strong></dd>
    * </dl>

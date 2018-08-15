@@ -46,6 +46,9 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    *
    * <pre>SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ${name} || '%'</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean93}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -121,6 +124,9 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    *
    * <pre>SELECT id, name, surname, type_name FROM bean93</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean93}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -190,7 +196,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean93 (name, surname, type_name) VALUES (:bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -265,7 +271,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR ABORT INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -342,7 +348,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR FAIL INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -419,7 +425,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -496,7 +502,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -573,7 +579,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR ROLLBACK INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

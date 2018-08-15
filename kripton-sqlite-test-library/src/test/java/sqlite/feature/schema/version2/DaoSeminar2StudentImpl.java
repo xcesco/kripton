@@ -25,7 +25,7 @@ public class DaoSeminar2StudentImpl extends Dao implements DaoSeminar2Student {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO seminar_2_student (seminar_id, student_id) VALUES (:seminarId, :studentId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

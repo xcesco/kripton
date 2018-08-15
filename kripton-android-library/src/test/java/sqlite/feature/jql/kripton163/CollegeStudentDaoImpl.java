@@ -31,6 +31,9 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    *
    * <pre>select * from students where first_name like ${firstName} || '%' </pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link CollegeStudent}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -108,6 +111,9 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, first_name, surname FROM students WHERE first_name like ${firstName} || '%' </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CollegeStudent}
    *
    * <h2>Projected columns:</h2>
    * <dl>

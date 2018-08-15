@@ -32,7 +32,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO song (name, album_id) VALUES (:name, :albumId)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
@@ -104,6 +104,9 @@ public class DaoSongImpl extends Dao implements DaoSong {
    *
    * <pre>SELECT name, album_id FROM song</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Song}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -170,6 +173,9 @@ public class DaoSongImpl extends Dao implements DaoSong {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT name, album_id FROM song WHERE album_id=${albumId}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Song}
    *
    * <h2>Projected columns:</h2>
    * <dl>

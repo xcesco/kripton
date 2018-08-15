@@ -29,6 +29,9 @@ public class Person1DAOImpl extends Dao implements Person1DAO {
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>

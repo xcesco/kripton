@@ -20,9 +20,9 @@ public class UserTable implements SQLiteTable {
    * DDL to create table user
    * </p>
    *
-   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, age INTEGER, last_name TEXT, name TEXT);</pre>
+   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, age INTEGER, last_name TEXT, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, age INTEGER, last_name TEXT, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, age INTEGER, last_name TEXT, name TEXT);";
 
   /**
    * <p>

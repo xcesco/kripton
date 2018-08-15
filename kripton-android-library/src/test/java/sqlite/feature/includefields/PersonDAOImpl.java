@@ -47,6 +47,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <pre>SELECT name, id FROM person WHERE type_name=${bean.name} ORDER BY name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -122,6 +125,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <pre>SELECT birth_city, birth_day, surname, type_name FROM person ORDER BY name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>birth_city</dt><dd>is associated to bean's property <strong>birthCity</strong></dd>
@@ -191,7 +197,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, id) VALUES (:bean.name, :bean.id)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -261,7 +267,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (birth_city, birth_day, surname, type_name) VALUES (:bean.birthCity, :bean.birthDay, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -335,10 +341,10 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, id=:id</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
@@ -391,10 +397,10 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET birth_city=:birthCity, birth_day=:birthDay, surname=:surname, type_name=:typeName</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>

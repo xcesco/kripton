@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, name_temp TEXT, surname TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, name_temp TEXT, surname TEXT, type_name TEXT, UNIQUE (type_name, date)); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, name_temp TEXT, surname TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, name_temp TEXT, surname TEXT, type_name TEXT, UNIQUE (type_name, date)); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);";
 
   /**
    * <p>

@@ -43,10 +43,10 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_dynam
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Bind_parameterContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_nameContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.squareup.javapoet.TypeName;
 
 import base.BaseProcessorTest;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestJqlChecker.
  */
@@ -140,6 +140,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 				return null;
 			}
 		}, jql.value);
+		
 		log("replaced " + jsqChecker.replace(dummyContext, jql, new JQLReplacerListenerImpl(null) {
 
 			@Override
@@ -172,13 +173,16 @@ public class TestJqlChecker extends BaseProcessorTest {
 		String sql = "select count(*) as pippo ,fieldName1, composed.fieldName2 from table where id = ${bean.id}";
 		JQL jql = new JQL();
 		jql.value = sql;
-
-		JQLChecker.getInstance().extractProjections(dummyContext, jql.value, new Finder<SQLProperty>() {
+		
+		final Finder<SQLProperty> finder = new Finder<SQLProperty>() {
 
 			@Override
-			public String getSimpleName() {
-				// TODO Auto-generated method stub
-				return null;
+			public SQLProperty findPropertyByName(String name) {
+				// SQLEntity entity=new SQLEntity(null, null);
+				// entity.
+				SQLProperty properties = new SQLProperty(name, null, TypeName.get(String.class));
+				properties.columnName = name;
+				return properties;
 			}
 
 			@Override
@@ -188,9 +192,8 @@ public class TestJqlChecker extends BaseProcessorTest {
 			}
 
 			@Override
-			public SQLProperty findPropertyByName(String name) {
-				// TODO Auto-generated method stub
-				return null;
+			public String getSimpleName() {
+				return "table";
 			}
 
 			@Override
@@ -198,7 +201,37 @@ public class TestJqlChecker extends BaseProcessorTest {
 				// TODO Auto-generated method stub
 				return null;
 			}
-		});
+
+		};
+		
+		/** The dummy context. */
+		JQLContext dummyContext = new JQLContext() {
+
+			@Override
+			public String getContextDescription() {
+				return "test context";
+			}
+
+			@Override
+			public String getName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Finder<SQLProperty> findEntityByName(String entityName) {
+				return finder;
+			}
+
+		};
+
+		JQLChecker.getInstance().extractProjections(dummyContext, jql.value, finder);
 	}
 
 	/**
@@ -275,7 +308,7 @@ public class TestJqlChecker extends BaseProcessorTest {
 		// verify sql
 		checker.verify(dummyContext, jql);
 
-		Finder<SQLProperty> entityMock = new Finder<SQLProperty>() {
+		final Finder<SQLProperty> entityMock = new Finder<SQLProperty>() {
 
 			@Override
 			public String getSimpleName() {
@@ -291,8 +324,9 @@ public class TestJqlChecker extends BaseProcessorTest {
 
 			@Override
 			public SQLProperty findPropertyByName(String name) {
-				// TODO Auto-generated method stub
-				return null;
+				SQLProperty property = new SQLProperty(name, null, TypeName.get(String.class));
+				
+				return property;
 			}
 
 			@Override
@@ -301,8 +335,39 @@ public class TestJqlChecker extends BaseProcessorTest {
 				return null;
 			}
 		};
+		
+		/** The dummy context. */
+		JQLContext dummyContext = new JQLContext() {
+			@Override
+			public String getContextDescription() {
+				return "test context";
+			}
+
+			@Override
+			public String getName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Finder<SQLProperty> findEntityByName(String entityName) {
+				return entityMock;
+			}
+		};
+		
 		// check projections
 		Set<JQLProjection> projections = checker.extractProjections(dummyContext, jql.value, entityMock);
+		// remove all properties
+		for (JQLProjection p: projections) {
+			p.property=null;
+		}
+		
 		{
 			LinkedHashSet<JQLProjection> aspected = new LinkedHashSet<>();
 			aspected.add(JQLProjection.ProjectionBuilder.create().type(ProjectionType.COMPLEX).expression("count(*)").alias("alias1").build());

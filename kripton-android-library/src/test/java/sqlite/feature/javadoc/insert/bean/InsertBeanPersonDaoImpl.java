@@ -41,7 +41,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (person_name, person_surname, student) VALUES (:bean.personName, :bean.personSurname, :bean.student)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -160,7 +160,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO person (person_name) VALUES (:bean.personName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -276,7 +276,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO person (person_surname, student) VALUES (:bean.personSurname, :bean.student)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -394,7 +394,7 @@ public class InsertBeanPersonDaoImpl extends Dao implements InsertBeanPersonDao 
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO person (person_name) SELECT person_name FROM person WHERE person_name=:bean.personName</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

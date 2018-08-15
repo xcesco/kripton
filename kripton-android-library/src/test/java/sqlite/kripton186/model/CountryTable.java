@@ -32,9 +32,9 @@ public class CountryTable implements SQLiteTable {
    * DDL to create table country
    * </p>
    *
-   * <pre>CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT, translated_name BLOB);</pre>
+   * <pre>CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT, translated_name BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT, translated_name BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT, translated_name BLOB);";
 
   /**
    * <p>

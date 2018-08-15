@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.custombean.case1;
+package sqlite.feature.custombean;
 
 import static org.junit.Assert.assertTrue;
 
@@ -32,9 +32,16 @@ import org.robolectric.annotation.Config;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
+import sqlite.feature.custombean.case1.BindAppDaoFactory;
+import sqlite.feature.custombean.case1.BindAppDataSource;
+import sqlite.feature.custombean.case1.Book;
+import sqlite.feature.custombean.case1.Loan;
+import sqlite.feature.custombean.case1.LoanWithUserAndBook;
+import sqlite.feature.custombean.case1.User;
 import sqlite.feature.custombean.case1.BindAppDataSource.Transaction;
 
 /**
@@ -55,21 +62,6 @@ public class TestCustomBeanRuntime extends BaseAndroidTest {
 	public void testCompile() throws InterruptedException {
 		BindAppDataSource dataSource = BindAppDataSource.getInstance();
 
-		dataSource.getLoanDao().findAllWithUserAndBook().observeForever(new Observer<List<LoanWithUserAndBook>>() {
-
-			@Override
-			public void onChanged(List<LoanWithUserAndBook> t) {
-				if (t.size() > 0) {
-					LoanWithUserAndBook bean = t.get(0);
-					log("Found %s elements", t.size());
-					assertTrue(bean.bookTitle != null);
-					assertTrue(bean.userName != null);
-					assertTrue(bean.startTime != null);
-					assertTrue(bean.id != null);
-				}
-			}
-		});
-
 		dataSource.execute(new Transaction() {
 
 			@Override
@@ -79,7 +71,7 @@ public class TestCustomBeanRuntime extends BaseAndroidTest {
 				Book book = createBook(daoFactory);
 
 				insertLoan(daoFactory, user, book);
-				insertLoan(daoFactory, user, book);
+				// insertLoan(daoFactory, user, book);
 				return TransactionResult.COMMIT;
 			}
 
@@ -110,6 +102,20 @@ public class TestCustomBeanRuntime extends BaseAndroidTest {
 				daoFactory.getUserDao().insertUser(user);
 
 				return user;
+			}
+		});
+
+		dataSource.getLoanDao().findAllWithUserAndBook().observeForever(new Observer<List<LoanWithUserAndBook>>() {
+
+			@Override
+			public void onChanged(List<LoanWithUserAndBook> t) {
+				assertTrue(t.size() == 1);
+				LoanWithUserAndBook bean = t.get(0);
+				log("Found %s elements", t.size());
+				assertTrue(bean.bookTitle != null);
+				assertTrue(bean.userName != null);
+				assertTrue(bean.startTime != null);
+				assertTrue(bean.id != null);
 			}
 		});
 

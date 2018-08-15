@@ -48,6 +48,9 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    *
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -128,6 +131,9 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    *
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -164,7 +170,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -240,10 +246,10 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, surname=:surname WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>

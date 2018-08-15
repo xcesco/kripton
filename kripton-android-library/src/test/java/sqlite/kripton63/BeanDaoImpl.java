@@ -82,6 +82,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -148,6 +151,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -232,6 +238,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -296,6 +305,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -374,10 +386,10 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean63 SET value=:value, value_map_enum_byte=:valueMapEnumByte, value_map_string_byte=:valueMapStringByte WHERE id=${value.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>value</dt><dd>is mapped to <strong>:value.value</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>:value.valueMapEnumByte</strong></dd>
@@ -441,7 +453,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean63 (value, value_map_enum_byte, value_map_string_byte) VALUES (:bean.value, :bean.valueMapEnumByte, :bean.valueMapStringByte)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -587,6 +599,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapStringByte}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -660,7 +675,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean63 WHERE value=:valueMapStringByte</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -839,6 +853,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -914,6 +931,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -969,6 +989,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1054,6 +1077,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1118,7 +1144,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean63 WHERE value=:valueMapEnumByte</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1230,6 +1255,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_map_enum_byte FROM bean63</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
@@ -1293,6 +1321,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_map_enum_byte FROM bean63</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>

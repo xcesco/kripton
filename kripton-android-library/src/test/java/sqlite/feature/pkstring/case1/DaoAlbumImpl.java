@@ -50,7 +50,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
@@ -118,7 +118,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
@@ -188,7 +188,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
@@ -457,10 +457,10 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE album SET year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
@@ -517,10 +517,10 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE album SET year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
@@ -580,10 +580,10 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE album SET year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
@@ -646,6 +646,9 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT name, year FROM album WHERE name=:name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -721,6 +724,9 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT name, year FROM album WHERE name=:bean.name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
    *
    * <h2>Projected columns:</h2>
    * <dl>

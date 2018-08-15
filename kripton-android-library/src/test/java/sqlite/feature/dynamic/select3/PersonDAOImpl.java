@@ -35,6 +35,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <pre>select * from person where name like :dummy || '%' #{DYNAMIC_WHERE}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -138,6 +141,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <h2>Select SQL:</h2>
    *
    * <pre>select * from person where name like :dummy || '%' #{DYNAMIC_WHERE} #{DYNAMIC_ORDER_BY}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>

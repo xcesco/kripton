@@ -40,7 +40,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO country (area, calling_code, code, name, region, translated_name) VALUES (:area, :callingCode, :code, :name, :region, :translatedName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -125,6 +125,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -208,7 +211,6 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM country WHERE id = :id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -253,6 +255,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country ORDER BY name asc</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -335,6 +340,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE calling_code = ${callingCode}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -419,6 +427,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE code = ${code}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
    *
    * <h2>Projected columns:</h2>
    * <dl>

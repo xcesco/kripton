@@ -363,7 +363,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_big_decimal=:valueBigDecimal</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueBigDecimal</dt><dd>is mapped to method's parameter <strong>valueBigDecimal</strong></dd>
@@ -407,7 +406,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_big_decimal=:valueBigDecimal</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -453,7 +451,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_bool_type=:valueBoolType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueBoolType</dt><dd>is mapped to method's parameter <strong>valueBoolType</strong></dd>
@@ -497,7 +494,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_bool=:valueBool</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -543,7 +539,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_bean_array=:valueBeanArray</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueBeanArray</dt><dd>is mapped to method's parameter <strong>valueBeanArray</strong></dd>
@@ -587,7 +582,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long_array=:valueLongArray</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -633,7 +627,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long_type_array=:valueLongTypeArray</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueLongTypeArray</dt><dd>is mapped to method's parameter <strong>valueLongTypeArray</strong></dd>
@@ -677,7 +670,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_byte=:valueByte</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -723,7 +715,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_byte_type=:valueByteType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueByteType</dt><dd>is mapped to method's parameter <strong>valueByteType</strong></dd>
@@ -767,7 +758,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_calendar=:valueCalendar</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -813,7 +803,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_char_type=:valueChar</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueChar</dt><dd>is mapped to method's parameter <strong>valueChar</strong></dd>
@@ -857,7 +846,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_char_type=:valueCharType</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -903,7 +891,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_currency=:valueCurrency</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueCurrency</dt><dd>is mapped to method's parameter <strong>valueCurrency</strong></dd>
@@ -947,7 +934,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_date=:valueDate</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -993,7 +979,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_double=:valueDouble</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueDouble</dt><dd>is mapped to method's parameter <strong>valueDouble</strong></dd>
@@ -1037,7 +1022,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_double_type=:valueDoubleType</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1083,7 +1067,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_enum_type=:valueEnumType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueEnumType</dt><dd>is mapped to method's parameter <strong>valueEnumType</strong></dd>
@@ -1127,7 +1110,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_float=:valueFloat</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1173,7 +1155,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_float_type=:valueFloatType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueFloatType</dt><dd>is mapped to method's parameter <strong>valueFloatType</strong></dd>
@@ -1217,7 +1198,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_int=:valueInt</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1263,7 +1243,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_int_type=:valueIntType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueIntType</dt><dd>is mapped to method's parameter <strong>valueIntType</strong></dd>
@@ -1307,7 +1286,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long_list=:valueLongList</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1353,7 +1331,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_locale=:valueLocale</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueLocale</dt><dd>is mapped to method's parameter <strong>valueLocale</strong></dd>
@@ -1397,7 +1374,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long=:valueLong</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1443,7 +1419,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long_type=:valueLongType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueLongType</dt><dd>is mapped to method's parameter <strong>valueLongType</strong></dd>
@@ -1487,7 +1462,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_short=:valueShort</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1533,7 +1507,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_short_type=:valueShortType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueShortType</dt><dd>is mapped to method's parameter <strong>valueShortType</strong></dd>
@@ -1577,7 +1550,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_string=:valueString</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1623,7 +1595,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_time=:valueTime</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueTime</dt><dd>is mapped to method's parameter <strong>valueTime</strong></dd>
@@ -1667,7 +1638,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_time_zone=:valueTimeZone</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1713,7 +1683,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_url=:valueUrl</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueUrl</dt><dd>is mapped to method's parameter <strong>valueUrl</strong></dd>
@@ -1755,7 +1724,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean (value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url) VALUES (:bean.valueBeanArray, :bean.valueBigDecimal, :bean.valueBigInteger, :bean.valueBool, :bean.valueBoolType, :bean.valueByte, :bean.valueByteArray, :bean.valueByteType, :bean.valueCalendar, :bean.valueChar, :bean.valueCharArray, :bean.valueCharList, :bean.valueCharType, :bean.valueCharTypeArray, :bean.valueCurrency, :bean.valueDate, :bean.valueDouble, :bean.valueDoubleType, :bean.valueEnumType, :bean.valueFloat, :bean.valueFloatType, :bean.valueInt, :bean.valueIntType, :bean.valueLinkedMapStringBean, :bean.valueLocale, :bean.valueLong, :bean.valueLongArray, :bean.valueLongList, :bean.valueLongType, :bean.valueLongTypeArray, :bean.valueMapStringBean, :bean.valueSetString, :bean.valueShort, :bean.valueShortType, :bean.valueStrinList, :bean.valueString, :bean.valueStringArray, :bean.valueTime, :bean.valueTimeList, :bean.valueTimeZone, :bean.valueUrl)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -3987,6 +3956,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -4182,6 +4154,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -4362,6 +4337,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_big_decimal=${valueBigDecimal}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4552,6 +4530,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_big_decimal=${valueBigDecimal}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -4740,6 +4721,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_bool_type=${valueBoolType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4930,6 +4914,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_bool=${valueBool}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -5118,6 +5105,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5354,6 +5344,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -5456,6 +5449,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_bean_array=${valueBeanArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5646,6 +5642,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long_array=${valueLongArray}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -5834,6 +5833,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long_type_array=${valueLongTypeArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6024,6 +6026,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_byte=${valueByte}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -6212,6 +6217,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_byte_type=${valueByteType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6402,6 +6410,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_calendar=${valueCalendar}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -6590,6 +6601,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_char_type=${valueChar}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6780,6 +6794,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_char_type=${valueCharType}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -6968,6 +6985,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_currency=${valueCurrency}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7158,6 +7178,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_date=${valueDate}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -7346,6 +7369,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_double=${valueDouble}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7536,6 +7562,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_double_type=${valueDoubleType}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -7724,6 +7753,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_enum_type=${valueEnumType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7914,6 +7946,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_float=${valueFloat}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -8102,6 +8137,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_float_type=${valueFloatType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8292,6 +8330,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_int=${valueInt}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -8480,6 +8521,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_int_type=${valueIntType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8670,6 +8714,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long_list=${valueLongList}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -8858,6 +8905,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_locale=${valueLocale}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9048,6 +9098,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long=${valueLong}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -9236,6 +9289,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long_type=${valueLongType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9426,6 +9482,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_short=${valueShort}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -9614,6 +9673,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_short_type=${valueShortType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9804,6 +9866,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_string=${valueString}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -9992,6 +10057,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_time=${valueTime}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10182,6 +10250,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_time_zone=${valueTimeZone}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -10370,6 +10441,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_url=${valueUrl}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10560,6 +10634,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_bool FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_bool</dt><dd>is associated to bean's property <strong>valueBool</strong></dd>
@@ -10612,6 +10689,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_bool_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10666,6 +10746,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_byte FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_byte</dt><dd>is associated to bean's property <strong>valueByte</strong></dd>
@@ -10718,6 +10801,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_byte_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10772,6 +10858,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_char FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_char</dt><dd>is associated to bean's property <strong>valueChar</strong></dd>
@@ -10824,6 +10913,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_char_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10878,6 +10970,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_double FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_double</dt><dd>is associated to bean's property <strong>valueDouble</strong></dd>
@@ -10930,6 +11025,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_double_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10984,6 +11082,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_float FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_float</dt><dd>is associated to bean's property <strong>valueFloat</strong></dd>
@@ -11036,6 +11137,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_float_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11090,6 +11194,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_int FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_int</dt><dd>is associated to bean's property <strong>valueInt</strong></dd>
@@ -11142,6 +11249,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_int_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11196,6 +11306,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_long FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_long</dt><dd>is associated to bean's property <strong>valueLong</strong></dd>
@@ -11248,6 +11361,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_long_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11302,6 +11418,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_short FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_short</dt><dd>is associated to bean's property <strong>valueShort</strong></dd>
@@ -11354,6 +11473,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_short_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11408,6 +11530,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_string FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_string</dt><dd>is associated to bean's property <strong>valueString</strong></dd>
@@ -11457,10 +11582,10 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean SET value_bean_array=:valueBeanArray, value_big_decimal=:valueBigDecimal, value_big_integer=:valueBigInteger, value_bool=:valueBool, value_bool_type=:valueBoolType, value_byte=:valueByte, value_byte_array=:valueByteArray, value_byte_type=:valueByteType, value_calendar=:valueCalendar, value_char=:valueChar, value_char_array=:valueCharArray, value_char_list=:valueCharList, value_char_type=:valueCharType, value_char_type_array=:valueCharTypeArray, value_currency=:valueCurrency, value_date=:valueDate, value_double=:valueDouble, value_double_type=:valueDoubleType, value_enum_type=:valueEnumType, value_float=:valueFloat, value_float_type=:valueFloatType, value_int=:valueInt, value_int_type=:valueIntType, value_linked_map_string_bean=:valueLinkedMapStringBean, value_locale=:valueLocale, value_long=:valueLong, value_long_array=:valueLongArray, value_long_list=:valueLongList, value_long_type=:valueLongType, value_long_type_array=:valueLongTypeArray, value_map_string_bean=:valueMapStringBean, value_set_string=:valueSetString, value_short=:valueShort, value_short_type=:valueShortType, value_strin_list=:valueStrinList, value_string=:valueString, value_string_array=:valueStringArray, value_time=:valueTime, value_time_list=:valueTimeList, value_time_zone=:valueTimeZone, value_url=:valueUrl WHERE id=${value.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>value_bean_array</dt><dd>is mapped to <strong>:value.valueBeanArray</strong></dd>
    * 	<dt>value_big_decimal</dt><dd>is mapped to <strong>:value.valueBigDecimal</strong></dd>

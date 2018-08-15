@@ -29,6 +29,9 @@ public class PetDaoImpl extends Dao implements PetDao {
    *
    * <pre>SELECT id, name, user_id FROM pet</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Pet}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>

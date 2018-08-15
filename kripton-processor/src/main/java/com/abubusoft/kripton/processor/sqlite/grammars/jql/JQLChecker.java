@@ -268,22 +268,29 @@ public class JQLChecker {
 
 					builder.property(property);
 					builder.type(ProjectionType.COLUMN);
+					
+					if (ctx.column_alias() != null) {
+						String columnAlias = ctx.column_alias().getText();
+
+						SQLProperty property1 = entity.findPropertyByName(columnAlias);
+						AssertKripton.assertTrueOrUnknownPropertyInJQLException(property1 != null, jqlContext, columnAlias);
+
+						builder.property(property1);
+						//builder.type(ProjectionType.COLUMN);
+
+						builder.alias(columnAlias);
+					}					
 				} else {
 					builder.type(ProjectionType.COMPLEX);
 					builder.expression(ctx.expr().getText());
+					
+					if (ctx.column_alias() != null) {
+						String columnAlias = ctx.column_alias().getText();
+						
+						builder.alias(columnAlias);
+					}
 				}
 
-				if (ctx.column_alias() != null) {
-					String columnAlias = ctx.column_alias().getText();
-
-					SQLProperty property = entity.findPropertyByName(columnAlias);
-					AssertKripton.assertTrueOrUnknownPropertyInJQLException(property != null, jqlContext, columnAlias);
-
-					builder.property(property);
-					builder.type(ProjectionType.COLUMN);
-
-					builder.alias(columnAlias);
-				}
 				result.add(builder.build());
 
 			}

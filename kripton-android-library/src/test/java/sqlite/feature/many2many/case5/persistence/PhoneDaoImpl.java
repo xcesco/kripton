@@ -41,7 +41,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO phone_number (action, contact_id, contact_name, country_code, number) VALUES (:action, :contactId, :contactName, :countryCode, :number)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -124,6 +124,9 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    *
    * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PhoneNumber}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -203,7 +206,6 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM phone_number WHERE id = :id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -294,6 +296,9 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    *
    * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number WHERE number = ${number}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PhoneNumber}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -374,6 +379,9 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number ORDER BY contact_name, number</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PhoneNumber}
    *
    * <h2>Projected columns:</h2>
    * <dl>

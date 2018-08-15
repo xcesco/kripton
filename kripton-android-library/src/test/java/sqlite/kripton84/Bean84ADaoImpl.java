@@ -57,6 +57,9 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    *
    * <pre>SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84A}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -153,6 +156,9 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84A}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -258,6 +264,9 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a WHERE column_list_string=${param1} and column_map_integer_string=${param2} and column_array_char=${param3}  and column_array_char_type=${param4}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84A}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -373,7 +382,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean84_a (column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string) VALUES (:bean.columnArrayByteType, :bean.columnArrayChar, :bean.columnArrayCharType, :bean.columnBean, :bean.columnListString, :bean.columnMapIntegerString, :bean.param1, :bean.param2, :bean.param3, :bean.param4, :bean.valueString)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -531,10 +540,10 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean84_a SET column_array_byte_type=:columnArrayByteType, column_array_char=:columnArrayChar, column_array_char_type=:columnArrayCharType, column_bean=:columnBean, column_list_string=:columnListString, column_map_integer_string=:columnMapIntegerString, param1=:param1, param2=:param2, param3=:param3, param4=:param4, value_string=:valueString</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>column_array_byte_type</dt><dd>is mapped to <strong>:bean.columnArrayByteType</strong></dd>
    * 	<dt>column_array_char</dt><dd>is mapped to <strong>:bean.columnArrayChar</strong></dd>

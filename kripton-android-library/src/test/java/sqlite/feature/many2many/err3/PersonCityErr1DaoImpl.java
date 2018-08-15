@@ -44,6 +44,9 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    *
    * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCityErr3}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -121,6 +124,9 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE person_id=:personId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCityErr3}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -200,6 +206,9 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    *
    * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE city_id=:cityId</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCityErr3}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -277,7 +286,6 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city_err3 WHERE id=:id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -321,7 +329,6 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city_err3 WHERE person_id=:personId</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -367,7 +374,6 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city_err3 WHERE city_id=:cityId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:cityId</dt><dd>is mapped to method's parameter <strong>cityId</strong></dd>
@@ -409,7 +415,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person_city_err3 (city_id, person_id) VALUES (:cityId, :personId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

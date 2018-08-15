@@ -61,6 +61,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -196,6 +199,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT count(*) FROM person WHERE id=${love.id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -334,6 +340,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -486,6 +495,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT person_name FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -649,6 +661,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -838,6 +853,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1019,6 +1037,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1211,6 +1232,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>select * from person where id=${bean.id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1362,6 +1386,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    * <h2>Select SQL:</h2>
    *
    * <pre>select * from person where id=${bean.id} and id in (select id from person)</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>

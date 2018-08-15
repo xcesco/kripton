@@ -22,7 +22,6 @@ import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import sqlite.feature.paginatedresult.error4.Err4Person;
 import sqlite.feature.paginatedresult.model.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface Err5PersonDAO.
  */

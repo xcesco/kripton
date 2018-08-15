@@ -45,6 +45,9 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * <pre>SELECT id, device_id, user_id FROM user_device WHERE id=:id</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link UserDevice}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -128,6 +131,9 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, device_id, user_id FROM user_device WHERE user_id=:userId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link UserDevice}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -219,6 +225,9 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * <pre>SELECT id, device_id, user_id FROM user_device WHERE device_id=:deviceId</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link UserDevice}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -308,7 +317,6 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE id=:id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -352,7 +360,6 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE user_id=:userId</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -398,7 +405,6 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE device_id=:deviceId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:deviceId</dt><dd>is mapped to method's parameter <strong>deviceId</strong></dd>
@@ -440,7 +446,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO user_device (device_id, user_id) VALUES (:bean.deviceId, :bean.userId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

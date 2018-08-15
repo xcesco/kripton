@@ -25,7 +25,7 @@ public class DaoSeminarImpl extends Dao implements DaoSeminar {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO seminar (location, name) VALUES (:location, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

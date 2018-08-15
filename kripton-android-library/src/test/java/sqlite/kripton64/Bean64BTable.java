@@ -34,9 +34,9 @@ public class Bean64BTable implements SQLiteTable {
    * DDL to create table bean64_b
    * </p>
    *
-   * <pre>CREATE TABLE bean64_b (id INTEGER PRIMARY KEY AUTOINCREMENT, value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT);</pre>
+   * <pre>CREATE TABLE bean64_b (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_b (id INTEGER PRIMARY KEY AUTOINCREMENT, value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean64_b (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, value_map_string_bean BLOB, value_set_string BLOB, value_string TEXT);";
 
   /**
    * <p>

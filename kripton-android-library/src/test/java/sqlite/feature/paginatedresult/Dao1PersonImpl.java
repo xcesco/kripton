@@ -40,6 +40,9 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -63,6 +66,9 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -238,6 +244,9 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -313,10 +322,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    *
    * @return number of deleted records

@@ -25,7 +25,7 @@ public class DaoUserImpl extends Dao implements DaoUser {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO user (sorted_map, sorted_set, username) VALUES (:sortedMap, :sortedSet, :username)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

@@ -992,4 +992,12 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 		return getParent().getParent().getEntityBySimpleName(entityName);
 	}
 
+	/**
+	 * return true if method is select type and it projects on a different bean than the one managed by dao
+	 * @return
+	 */
+	public boolean hasCustomProjection() {
+		return JQLType.SELECT==jql.operationType && !this.getEntity().equals(this.getParent().getEntity());
+	}
+
 }

@@ -58,6 +58,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT userid, username FROM users WHERE userid=:id LIMIT 1 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>userid</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -153,6 +156,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>userid</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -162,7 +168,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * @return paginated result.
    */
   protected PaginatedResult<User> selectPagedForLiveData() {
-    PaginatedResult0 paginatedResult=new PaginatedResult0();
+    PaginatedResult7 paginatedResult=new PaginatedResult7();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -172,6 +178,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -183,7 +192,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * 	handler of paginated result
    * @return result list
    */
-  private List<User> selectPaged(PaginatedResult0 paginatedResult) {
+  private List<User> selectPaged(PaginatedResult7 paginatedResult) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
@@ -268,6 +277,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT userid, username FROM users LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>userid</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -296,7 +308,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO users (userid, username) VALUES (:user.id, :user.userName)</pre>
    *
    * <p><code>user.id</code> is automatically updated because it is the primary key</p>
@@ -546,10 +558,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM users</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    */
   @Override
@@ -632,8 +641,8 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
   }
 
-  public class PaginatedResult0 extends PaginatedResult<User> {
-    PaginatedResult0() {
+  public class PaginatedResult7 extends PaginatedResult<User> {
+    PaginatedResult7() {
       this.pageSize=20;
     }
 

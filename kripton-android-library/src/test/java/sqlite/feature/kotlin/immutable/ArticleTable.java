@@ -30,9 +30,9 @@ public class ArticleTable implements SQLiteTable {
    * DDL to create table articles
    * </p>
    *
-   * <pre>CREATE TABLE articles (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, channel_id INTEGER, comments TEXT, description TEXT, guid TEXT UNIQUE NOT NULL, link TEXT, read INTEGER, thumbnail BLOB, title TEXT, FOREIGN KEY(channel_id) REFERENCES channels(id));</pre>
+   * <pre>CREATE TABLE articles (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author TEXT, channel_id INTEGER, comments TEXT, description TEXT, guid TEXT UNIQUE NOT NULL, link TEXT, read INTEGER, thumbnail BLOB, title TEXT, FOREIGN KEY(channel_id) REFERENCES channels(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE articles (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, channel_id INTEGER, comments TEXT, description TEXT, guid TEXT UNIQUE NOT NULL, link TEXT, read INTEGER, thumbnail BLOB, title TEXT, FOREIGN KEY(channel_id) REFERENCES channels(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE articles (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author TEXT, channel_id INTEGER, comments TEXT, description TEXT, guid TEXT UNIQUE NOT NULL, link TEXT, read INTEGER, thumbnail BLOB, title TEXT, FOREIGN KEY(channel_id) REFERENCES channels(id));";
 
   /**
    * <p>
@@ -156,11 +156,11 @@ public class ArticleTable implements SQLiteTable {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
       jacksonParser.nextToken();
-      Thumbnail __thumbnail=null;
+      Thumbnail result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        __thumbnail=thumbnailBindMap.parseOnJackson(jacksonParser);
+        result=thumbnailBindMap.parseOnJackson(jacksonParser);
       }
-      return __thumbnail;
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

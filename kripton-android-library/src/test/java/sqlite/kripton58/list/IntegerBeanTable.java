@@ -32,9 +32,9 @@ public class IntegerBeanTable implements SQLiteTable {
    * DDL to create table integer_bean
    * </p>
    *
-   * <pre>CREATE TABLE integer_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);</pre>
+   * <pre>CREATE TABLE integer_bean (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, value BLOB, value2 BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE integer_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, value BLOB, value2 BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE integer_bean (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, value BLOB, value2 BLOB);";
 
   /**
    * <p>

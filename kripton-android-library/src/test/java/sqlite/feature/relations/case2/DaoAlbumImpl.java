@@ -29,6 +29,9 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    *
    * <pre>SELECT id, name FROM album</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>

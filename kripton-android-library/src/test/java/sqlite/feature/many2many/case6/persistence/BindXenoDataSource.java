@@ -366,16 +366,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
     // log section create END
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-    }
-    // log section create END
-    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-    // log section create BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
     }
     // log section create END
     database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    // log section create BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+    }
+    // log section create END
+    database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);
@@ -434,16 +434,16 @@ public class BindXenoDataSource extends AbstractDataSource implements BindXenoDa
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",PhoneNumberTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(PhoneNumberTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",PersonPhoneTable.CREATE_TABLE_SQL);

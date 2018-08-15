@@ -60,6 +60,9 @@ public class ShortDaoImpl extends Dao implements ShortDao {
    *
    * <pre>SELECT id, value, value2 FROM short_bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link ShortBean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -123,6 +126,9 @@ public class ShortDaoImpl extends Dao implements ShortDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM short_bean WHERE value=${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link ShortBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -195,6 +201,9 @@ public class ShortDaoImpl extends Dao implements ShortDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM short_bean WHERE value=${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link ShortBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -275,6 +284,9 @@ public class ShortDaoImpl extends Dao implements ShortDao {
    *
    * <pre>SELECT id, value, value2 FROM short_bean WHERE value=${value}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link ShortBean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -338,6 +350,9 @@ public class ShortDaoImpl extends Dao implements ShortDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM short_bean WHERE value=${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link ShortBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -553,7 +568,7 @@ public class ShortDaoImpl extends Dao implements ShortDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO short_bean (value, value2) VALUES (:bean.value, :bean.value2)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -628,7 +643,6 @@ public class ShortDaoImpl extends Dao implements ShortDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM short_bean WHERE value=:paramValue</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

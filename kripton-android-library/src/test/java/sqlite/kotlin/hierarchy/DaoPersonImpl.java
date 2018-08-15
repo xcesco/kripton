@@ -29,6 +29,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <pre>SELECT id, name FROM person WHERE name=:name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>

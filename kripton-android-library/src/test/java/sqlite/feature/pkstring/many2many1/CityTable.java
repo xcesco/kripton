@@ -20,9 +20,9 @@ public class CityTable implements SQLiteTable {
    * DDL to create table cities
    * </p>
    *
-   * <pre>CREATE TABLE cities (id TEXT PRIMARY KEY, name TEXT);</pre>
+   * <pre>CREATE TABLE cities (id TEXT PRIMARY KEY NOT NULL, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE cities (id TEXT PRIMARY KEY, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE cities (id TEXT PRIMARY KEY NOT NULL, name TEXT);";
 
   /**
    * <p>

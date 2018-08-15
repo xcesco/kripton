@@ -61,6 +61,9 @@ public class CharDaoImpl extends Dao implements CharDao {
    *
    * <pre>SELECT id, value, value2 FROM char_bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -124,6 +127,9 @@ public class CharDaoImpl extends Dao implements CharDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM char_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -200,6 +206,9 @@ public class CharDaoImpl extends Dao implements CharDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM char_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -284,6 +293,9 @@ public class CharDaoImpl extends Dao implements CharDao {
    *
    * <pre>SELECT id, value, value2 FROM char_bean WHERE value=${value} and value2=${value2}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -351,6 +363,9 @@ public class CharDaoImpl extends Dao implements CharDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM char_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -574,7 +589,7 @@ public class CharDaoImpl extends Dao implements CharDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO char_bean (value, value2) VALUES (:bean.value, :bean.value2)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -649,7 +664,6 @@ public class CharDaoImpl extends Dao implements CharDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM char_bean WHERE value=:value and value2=:value2</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

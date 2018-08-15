@@ -32,6 +32,9 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
    *
    * <pre>SELECT id, name, surname FROM bean205 WHERE name like ${name} || '%'</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean205}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -100,7 +103,7 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean205 (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

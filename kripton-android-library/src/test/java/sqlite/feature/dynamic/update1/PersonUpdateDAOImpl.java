@@ -39,6 +39,9 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like :nameTemp || '%' </pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -121,7 +124,6 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = :nameValue #{DYNAMIC_WHERE}</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -318,10 +320,10 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET birth_city=:birthCity, birth_day=:birthDay, name=:name, surname=:surname WHERE id = ${bean.id} #{DYNAMIC_WHERE}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>
@@ -403,6 +405,9 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>

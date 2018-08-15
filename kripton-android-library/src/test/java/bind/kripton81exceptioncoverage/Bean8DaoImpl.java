@@ -29,6 +29,9 @@ public class Bean8DaoImpl extends Dao implements Bean8Dao {
    *
    * <pre>SELECT id, ignore2 FROM bean8</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean8}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>

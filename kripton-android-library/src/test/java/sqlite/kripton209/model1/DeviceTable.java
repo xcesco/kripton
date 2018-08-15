@@ -20,9 +20,9 @@ public class DeviceTable implements SQLiteTable {
    * DDL to create table device
    * </p>
    *
-   * <pre>CREATE TABLE device (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);</pre>
+   * <pre>CREATE TABLE device (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE device (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE device (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);";
 
   /**
    * <p>

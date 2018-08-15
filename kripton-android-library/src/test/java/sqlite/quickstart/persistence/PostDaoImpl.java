@@ -33,7 +33,7 @@ public class PostDaoImpl extends Dao implements PostDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO post (id, body, title, user_id) VALUES (:bean.id, :bean.body, :bean.title, :bean.userId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -110,6 +110,9 @@ public class PostDaoImpl extends Dao implements PostDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, body, title, user_id FROM post WHERE user_id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Post}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -191,6 +194,9 @@ public class PostDaoImpl extends Dao implements PostDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, body, title, user_id FROM post WHERE id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Post}
    *
    * <h2>Projected columns:</h2>
    * <dl>

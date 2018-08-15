@@ -20,9 +20,9 @@ public class ArtistTable implements SQLiteTable {
    * DDL to create table artist
    * </p>
    *
-   * <pre>CREATE TABLE artist (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);</pre>
+   * <pre>CREATE TABLE artist (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE artist (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE artist (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT);";
 
   /**
    * <p>

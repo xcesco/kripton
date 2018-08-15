@@ -16,6 +16,7 @@
 
 package sqlite.feature.custombean.case1;
 
+import java.util.Date;
 import java.util.List;
 
 import com.abubusoft.kripton.android.annotation.BindContentProviderEntry;
@@ -36,20 +37,18 @@ public interface LoanDao {
 	LiveData<List<Loan>> findAllLoans();
 
 	@BindContentProviderEntry(path = "loadLoanAndBook")
-	@BindSqlSelect(jql = "SELECT Loan.id, Book.title as bookTitle, User.name as userName, Loan.startTime, Loan.endTime From Loan " + "INNER JOIN Book ON Loan.bookId = Book.id "
+	@BindSqlSelect(jql = "SELECT Loan.id as id, Book.title as bookTitle, User.name as userName, Loan.startTime, Loan.endTime From Loan " + "INNER JOIN Book ON Loan.bookId = Book.id "
 			+ "INNER JOIN User ON Loan.userId = User.id ")
 	LiveData<List<LoanWithUserAndBook>> findAllWithUserAndBook();
 
-	// @BindSqlSelect(jql="SELECT Loan.id, Book.title as bookTitle, User.name as
-	// userName, Loan.startTime, Loan.endTime " +
-	// "FROM Book " +
-	// "INNER JOIN Loan ON Loan.bookId = Book.id " +
-	// "INNER JOIN User on User.id = Loan.userId " +
-	// "WHERE User.name LIKE :userName " +
-	// "AND Loan.endTime > :after "
-	// )
-	// LiveData<List<LoanWithUserAndBook>> findLoansByNameAfter(String userName,
-	// Date after);
+	@BindSqlSelect(jql="SELECT Loan.id as id, Book.title as bookTitle, User.name as userName, Loan.startTime, Loan.endTime " +
+	 "FROM Book " +
+	 "INNER JOIN Loan ON Loan.bookId = Book.id " +
+	 "INNER JOIN User on User.id = Loan.userId " +
+	 "WHERE User.name LIKE :userName " +
+	 "AND Loan.endTime > :after "
+	 )
+	 LiveData<LoanWithUserAndBook> findLoansByNameAfter(String userName, Date after);
 
 	@BindSqlInsert
 	void insertLoan(Loan loan);

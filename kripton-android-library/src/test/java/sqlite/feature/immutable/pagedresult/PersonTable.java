@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (pk TEXT PRIMARY KEY, birth_city TEXT, birth_day TEXT, name TEXT, surname TEXT); CREATE INDEX idx_person_name ON person(name);</pre>
+   * <pre>CREATE TABLE person (pk TEXT PRIMARY KEY NOT NULL, birth_city TEXT, birth_day TEXT, name TEXT, surname TEXT); CREATE INDEX idx_person_name ON person(name);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (pk TEXT PRIMARY KEY, birth_city TEXT, birth_day TEXT, name TEXT, surname TEXT); CREATE INDEX idx_person_name ON person(name);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (pk TEXT PRIMARY KEY NOT NULL, birth_city TEXT, birth_day TEXT, name TEXT, surname TEXT); CREATE INDEX idx_person_name ON person(name);";
 
   /**
    * <p>

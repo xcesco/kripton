@@ -65,6 +65,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -155,6 +158,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -271,6 +277,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -343,6 +352,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -445,10 +457,10 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean SET value=:value, value_bean_set=:valueBeanSet, value_big_decimal_set=:valueBigDecimalSet, value_byte_set=:valueByteSet, value_character_set=:valueCharacterSet, value_double_set=:valueDoubleSet, value_enum_type_set=:valueEnumTypeSet, value_float_set=:valueFloatSet, value_integer_set=:valueIntegerSet, value_short_set=:valueShortSet, value_string_set=:valueStringSet WHERE id=${value.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>value</dt><dd>is mapped to <strong>:value.value</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is mapped to <strong>:value.valueBeanSet</strong></dd>
@@ -528,7 +540,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean (value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set) VALUES (:bean.value, :bean.valueBeanSet, :bean.valueBigDecimalSet, :bean.valueByteSet, :bean.valueCharacterSet, :bean.valueDoubleSet, :bean.valueEnumTypeSet, :bean.valueFloatSet, :bean.valueIntegerSet, :bean.valueShortSet, :bean.valueStringSet)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -690,6 +702,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean WHERE value=${valueBigDecimalSet}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -787,7 +802,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value=:valueBigDecimalSet</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

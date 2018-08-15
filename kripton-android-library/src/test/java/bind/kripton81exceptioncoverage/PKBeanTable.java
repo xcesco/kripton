@@ -20,9 +20,9 @@ public class PKBeanTable implements SQLiteTable {
    * DDL to create table p_k_bean
    * </p>
    *
-   * <pre>CREATE TABLE p_k_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT);</pre>
+   * <pre>CREATE TABLE p_k_bean (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, description TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE p_k_bean (id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE p_k_bean (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, description TEXT);";
 
   /**
    * <p>

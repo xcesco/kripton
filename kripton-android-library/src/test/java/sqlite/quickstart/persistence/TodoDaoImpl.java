@@ -33,7 +33,7 @@ public class TodoDaoImpl extends Dao implements TodoDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO todo (id, completed, title, user_id) VALUES (:bean.id, :bean.completed, :bean.title, :bean.userId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -110,6 +110,9 @@ public class TodoDaoImpl extends Dao implements TodoDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, completed, title, user_id FROM todo WHERE user_id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Todo}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -191,6 +194,9 @@ public class TodoDaoImpl extends Dao implements TodoDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, completed, title, user_id FROM todo WHERE id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Todo}
    *
    * <h2>Projected columns:</h2>
    * <dl>

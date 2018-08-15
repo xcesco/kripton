@@ -30,7 +30,7 @@ public class BookDaoImpl extends Dao implements BookDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO book (title) VALUES (:title)</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>
@@ -101,6 +101,9 @@ public class BookDaoImpl extends Dao implements BookDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT * FROM book INNER JOIN loan ON loan.book_id == book.id WHERE loan.user_id == ${userId} </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Book}
    *
    * <h2>Projected columns:</h2>
    * <dl>

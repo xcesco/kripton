@@ -38,7 +38,7 @@ public class CityDAOImpl extends Dao implements CityDAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO city (name) VALUES (:bean.name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -153,6 +153,9 @@ public class CityDAOImpl extends Dao implements CityDAO {
    * <h2>Select SQL:</h2>
    *
    * <pre>select * from city where id = (select id from person where id=${personId} )</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link City}
    *
    * <h2>Projected columns:</h2>
    * <dl>

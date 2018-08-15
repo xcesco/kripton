@@ -42,6 +42,9 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    *
    * <pre>SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE channel_id = ${channelId}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link MessageEntity}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -137,10 +140,10 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE message SET channel_id=:channelId, channel_uid=:channelUid, face_uid=:faceUid, owner_type=:ownerType, owner_uid=:ownerUid, text=:text, type=:type, uid=:uid, update_time=:updateTime WHERE id = ${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>channel_id</dt><dd>is mapped to <strong>:bean.channelId</strong></dd>
    * 	<dt>channel_uid</dt><dd>is mapped to <strong>:bean.channelUid</strong></dd>
@@ -216,7 +219,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (:bean.channelId, :bean.channelUid, :bean.faceUid, :bean.ownerType, :bean.ownerUid, :bean.text, :bean.type, :bean.uid, :bean.updateTime)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -303,6 +306,9 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE uid = ${uid}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link MessageEntity}
    *
    * <h2>Projected columns:</h2>
    * <dl>

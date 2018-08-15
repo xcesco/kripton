@@ -36,6 +36,9 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
    *
    * <pre>SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_b</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean64B}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -108,6 +111,9 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_map_string_bean, value_set_string, value_string FROM bean64_b WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean64B}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -186,7 +192,7 @@ public class Bean64BDaoImpl extends Dao implements Bean64BDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean64_b (value_map_string_bean, value_set_string, value_string) VALUES (:bean.valueMapStringBean, :bean.valueSetString, :bean.valueString)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

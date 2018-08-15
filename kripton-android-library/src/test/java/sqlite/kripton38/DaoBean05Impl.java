@@ -80,6 +80,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -160,6 +163,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${bean.pk} and text=${bean.text}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -243,6 +249,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -331,6 +340,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <pre>SELECT pk FROM ws_bean WHERE text = ${text}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -400,6 +412,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <pre>SELECT count(*) FROM ws_bean WHERE text = ${text}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
@@ -460,6 +475,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -527,6 +545,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -619,6 +640,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -685,6 +709,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -848,7 +875,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO ws_bean (bean_type, content, creation_time, number, text) VALUES (:bean.beanType, :bean.content, :bean.creationTime, :bean.number, :bean.text)</pre>
    *
    * <p><code>bean.pk</code> is automatically updated because it is the primary key</p>
@@ -924,10 +951,10 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE ws_bean SET bean_type=:beanType, content=:content, creation_time=:creationTime, number=:number, text=:text WHERE pk=${bean.pk} and text=${bean.text} and creation_time=${bean.creationTime}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>bean_type</dt><dd>is mapped to <strong>:bean.beanType</strong></dd>
    * 	<dt>content</dt><dd>is mapped to <strong>:bean.content</strong></dd>
@@ -1127,7 +1154,6 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM ws_bean WHERE pk=:uid and creation_time=:valido and creation_time=:validoIn</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:uid</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
@@ -1179,7 +1205,6 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM ws_bean WHERE pk=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1269,6 +1294,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT content FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>

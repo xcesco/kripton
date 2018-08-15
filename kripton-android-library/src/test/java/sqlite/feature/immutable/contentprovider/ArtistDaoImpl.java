@@ -54,6 +54,9 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    *
    * <pre>SELECT id, name FROM artist WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Artist}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -210,6 +213,9 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    *
    * <pre>SELECT id, name FROM artist</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Artist}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -346,7 +352,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO artist (name) VALUES (:name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -468,10 +474,10 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE artist SET name=:name WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>

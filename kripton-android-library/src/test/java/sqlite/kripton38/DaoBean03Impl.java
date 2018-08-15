@@ -31,6 +31,9 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
    *
    * <pre>SELECT id, text FROM bean03 WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean03}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -98,7 +101,6 @@ public class DaoBean03Impl extends Dao implements DaoBean03 {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean03 WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

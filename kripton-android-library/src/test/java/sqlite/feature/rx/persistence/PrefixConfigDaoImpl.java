@@ -41,7 +41,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (:defaultCountry, :dialogTimeout, :dualBillingPrefix, :enabled)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -126,6 +126,9 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    *
    * <pre>SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PrefixConfig}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -202,7 +205,6 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM prefix_config WHERE id = :id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -301,6 +303,9 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    *
    * <pre>SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PrefixConfig}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -367,10 +372,10 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE prefix_config SET default_country=:defaultCountry, dialog_timeout=:dialogTimeout, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled WHERE id = ${bean.id} </pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>default_country</dt><dd>is mapped to <strong>:bean.defaultCountry</strong></dd>
    * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>:bean.dialogTimeout</strong></dd>

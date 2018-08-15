@@ -20,9 +20,9 @@ public class ArticleTable implements SQLiteTable {
    * DDL to create table article
    * </p>
    *
-   * <pre>CREATE TABLE article (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, channel_id INTEGER, comments TEXT, description TEXT, guid TEXT, link TEXT, title TEXT, FOREIGN KEY(channel_id) REFERENCES channel(id));</pre>
+   * <pre>CREATE TABLE article (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author TEXT, channel_id INTEGER, comments TEXT, description TEXT, guid TEXT, link TEXT, title TEXT, FOREIGN KEY(channel_id) REFERENCES channel(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE article (id INTEGER PRIMARY KEY AUTOINCREMENT, author TEXT, channel_id INTEGER, comments TEXT, description TEXT, guid TEXT, link TEXT, title TEXT, FOREIGN KEY(channel_id) REFERENCES channel(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE article (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, author TEXT, channel_id INTEGER, comments TEXT, description TEXT, guid TEXT, link TEXT, title TEXT, FOREIGN KEY(channel_id) REFERENCES channel(id));";
 
   /**
    * <p>

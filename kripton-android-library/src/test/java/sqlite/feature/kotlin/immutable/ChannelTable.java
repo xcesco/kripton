@@ -30,9 +30,9 @@ public class ChannelTable implements SQLiteTable {
    * DDL to create table channels
    * </p>
    *
-   * <pre>CREATE TABLE channels (id INTEGER PRIMARY KEY AUTOINCREMENT, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT UNIQUE, pub_date TEXT, rss_feed_id INTEGER, title TEXT, FOREIGN KEY(rss_feed_id) REFERENCES rss_feed(id));</pre>
+   * <pre>CREATE TABLE channels (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT UNIQUE, pub_date TEXT, rss_feed_id INTEGER, title TEXT, FOREIGN KEY(rss_feed_id) REFERENCES rss_feed(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE channels (id INTEGER PRIMARY KEY AUTOINCREMENT, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT UNIQUE, pub_date TEXT, rss_feed_id INTEGER, title TEXT, FOREIGN KEY(rss_feed_id) REFERENCES rss_feed(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE channels (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT UNIQUE, pub_date TEXT, rss_feed_id INTEGER, title TEXT, FOREIGN KEY(rss_feed_id) REFERENCES rss_feed(id));";
 
   /**
    * <p>
@@ -156,11 +156,11 @@ public class ChannelTable implements SQLiteTable {
       JsonParser jacksonParser=wrapper.jacksonParser;
       // START_OBJECT
       jacksonParser.nextToken();
-      Image __image=null;
+      Image result=null;
       if (jacksonParser.currentToken()==JsonToken.START_OBJECT) {
-        __image=imageBindMap.parseOnJackson(jacksonParser);
+        result=imageBindMap.parseOnJackson(jacksonParser);
       }
-      return __image;
+      return result;
     } catch(Exception e) {
       throw(new KriptonRuntimeException(e.getMessage()));
     }

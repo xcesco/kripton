@@ -32,7 +32,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO device (name) VALUES (:device.name)</pre>
    *
    * <p><code>device.id</code> is automatically updated because it is the primary key</p>
@@ -104,6 +104,9 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    *
    * <pre>SELECT id, name FROM device</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Device}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -170,6 +173,9 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>select * from device inner join user_device on device.id = user_device.device_id  where user_device.user_id = ${userId}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Device}
    *
    * <h2>Projected columns:</h2>
    * <dl>

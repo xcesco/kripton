@@ -35,9 +35,9 @@ public class Bean84ATable implements SQLiteTable {
    * DDL to create table bean84_a
    * </p>
    *
-   * <pre>CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, column_array_byte_type BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_list_string BLOB, column_map_integer_string BLOB, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, value_string TEXT);</pre>
+   * <pre>CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, column_array_byte_type BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_list_string BLOB, column_map_integer_string BLOB, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, value_string TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT, column_array_byte_type BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_list_string BLOB, column_map_integer_string BLOB, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, value_string TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean84_a (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, column_array_byte_type BLOB, column_array_char BLOB, column_array_char_type BLOB, column_bean BLOB, column_list_string BLOB, column_map_integer_string BLOB, param1 TEXT, param2 TEXT, param3 TEXT, param4 TEXT, value_string TEXT);";
 
   /**
    * <p>

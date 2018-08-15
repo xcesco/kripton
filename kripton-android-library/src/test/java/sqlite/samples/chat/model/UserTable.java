@@ -34,9 +34,9 @@ public class UserTable implements SQLiteTable {
    * DDL to create table user
    * </p>
    *
-   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, sorted_map BLOB, sorted_set BLOB, username TEXT);</pre>
+   * <pre>CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, sorted_map BLOB, sorted_set BLOB, username TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, sorted_map BLOB, sorted_set BLOB, username TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, sorted_map BLOB, sorted_set BLOB, username TEXT);";
 
   /**
    * <p>

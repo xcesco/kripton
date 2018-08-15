@@ -68,6 +68,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value2 FROM bean_bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link BeanBean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -131,6 +134,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link BeanBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -207,6 +213,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link BeanBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -292,6 +301,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value} and value2=${value2}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link BeanBean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -359,6 +371,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM bean_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link BeanBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -582,7 +597,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean_bean (value, value2) VALUES (:bean.value, :bean.value2)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -657,7 +672,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean_bean WHERE value=:value and value2=:value2</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

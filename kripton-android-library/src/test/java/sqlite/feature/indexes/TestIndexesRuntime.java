@@ -24,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import base.BaseAndroidTest;
+import sqlite.feature.indexes.BindPersonDataSource.Batch;
 
 /**
  * The Class TestIndexesRuntime.
@@ -37,32 +38,34 @@ public class TestIndexesRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunSqlite1() {	
-		final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, name_temp TEXT, surname TEXT, type_name TEXT); CREATE INDEX idx_person_name ON person(name); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);";		                                
+		final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, name_temp TEXT, surname TEXT, type_name TEXT, UNIQUE (type_name, date)); CREATE UNIQUE INDEX idx_person_0 on person (type_name, date); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_0 on person (birth_city, birth_day); CREATE INDEX idx_person_1 on person (surname);";				                               
 		final String DROP_TABLE_SQL = " DROP INDEX IF EXISTS idx_person_name; DROP INDEX IF EXISTS idx_person_1; DROP INDEX IF EXISTS idx_person_1; DROP INDEX IF EXISTS idx_person_2;DROP TABLE IF EXISTS person;";
 
 		Assert.assertTrue(CREATE_TABLE_SQL.equals(PersonTable.CREATE_TABLE_SQL));
 		Assert.assertTrue(DROP_TABLE_SQL.equals(PersonTable.DROP_TABLE_SQL));
 		
-		
-		BindPersonDataSource dataSource=BindPersonDataSource.getInstance();
-		
-		dataSource.open();
-		
-		for (int i=0;i<10;i++)
-		{
-			dataSource.getPersonDAO().insertOne("name"+i, "surname"+i, "city"+i, new Date());
-		}
-		
-		{
-			List<Person> list=dataSource.getPersonDAO().selectOne("nam", "1=1", "name asc", new Date());
-			assertTrue(list.get(0).typeName.equals("name0"));
-		}
-		
-		{
-			List<Person> list=dataSource.getPersonDAO().selectOne("name", "type_name like 'name%'",  "type_name desc", new Date());
-			assertTrue(list.get(0).typeName.equals("name9"));
-		}
-		dataSource.close();
+		BindPersonDataSource.getInstance().executeBatch(new Batch<Void>() {
+
+			@Override
+			public Void onExecute(BindPersonDaoFactory daoFactory) {
+				for (int i=0;i<10;i++)
+				{
+					daoFactory.getPersonDAO().insertOne("name"+i, "surname"+i, "city"+i, new Date());
+				}
+				
+				{
+					List<Person> list=daoFactory.getPersonDAO().selectOne("nam", "1=1", "name asc", new Date());
+					assertTrue(list.get(0).typeName.equals("name0"));
+				}
+				
+				{
+					List<Person> list=daoFactory.getPersonDAO().selectOne("name", "type_name like 'name%'",  "type_name desc", new Date());
+					assertTrue(list.get(0).typeName.equals("name9"));
+				}
+				return null;
+			}
+		});
+				
 	}
 
 }

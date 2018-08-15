@@ -33,7 +33,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO comment (id, body, email, name, post_id) VALUES (:bean.id, :bean.body, :bean.email, :bean.name, :bean.postId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -112,6 +112,9 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, body, email, name, post_id FROM comment WHERE post_id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Comment}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -196,6 +199,9 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, body, email, name, post_id FROM comment WHERE id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Comment}
    *
    * <h2>Projected columns:</h2>
    * <dl>

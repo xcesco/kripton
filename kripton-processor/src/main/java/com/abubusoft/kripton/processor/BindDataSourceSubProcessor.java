@@ -59,6 +59,7 @@ import com.abubusoft.kripton.android.sqlite.NoDatabaseLifecycleHandler;
 import com.abubusoft.kripton.android.sqlite.NoPopulator;
 import com.abubusoft.kripton.annotation.BindDisabled;
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
@@ -102,6 +103,7 @@ import com.abubusoft.kripton.processor.sqlite.SelectBuilderUtility.SelectType;
 import com.abubusoft.kripton.processor.sqlite.SqlAnalyzer;
 import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQL.JQLDeclarationType;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlBaseListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmt_clausesContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
@@ -121,7 +123,7 @@ import com.squareup.javapoet.TypeName;
  * The Class BindDataSourceSubProcessor.
  */
 public class BindDataSourceSubProcessor extends BaseProcessor {
-	
+
 	private static BindDataSourceSubProcessor instance;
 
 	public static BindDataSourceSubProcessor getInstance() {
@@ -162,8 +164,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.BaseProcessor#
-	 * getSupportedAnnotationClasses()
+	 * @see com.abubusoft.kripton.processor.BaseProcessor# getSupportedAnnotationClasses()
 	 */
 	@Override
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
@@ -184,7 +185,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
 
-		instance=this;
+		instance = this;
 	}
 
 	/*
@@ -207,8 +208,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set,
-	 * javax.annotation.processing.RoundEnvironment)
+	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
 	 */
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
@@ -242,6 +242,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 			// Relation must be done AFTER foreign key building!!!
 			analyzeRelations(currentSchema);
 
+			// Analyze custom bean
+			analyzeCustomBeanForSelect(currentSchema);
+
 			String msg;
 			if (currentSchema.getCollection().size() == 0) {
 				msg = String.format("No DAO definition with @%s annotation was found for class %s with @%s annotation",
@@ -268,6 +271,27 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		} // end foreach dataSource
 
 		return true;
+	}
+
+	/**
+	 * for each method with custom bean, check if:
+	 * <ul>
+	 * <li>bean is not included in schema</li>
+	 * <li>method must have declared with explicit JQL</li>
+	 * </ul>
+	 * 
+	 * @param currentSchema
+	 */
+	private void analyzeCustomBeanForSelect(SQLiteDatabaseSchema schema) {
+		for (SQLiteDaoDefinition dao:schema.getCollection()) {
+			for (SQLiteModelMethod method: dao.getCollection()) {
+				if (method.hasCustomProjection()) {
+					SQLiteEntity entity = method.getEntity();
+					AssertKripton.assertTrueOrInvalidMethodSignException(schema.getEntity(entity.getName())==null, method, "'%s' must be read with its DAO", entity.getSimpleName());
+					AssertKripton.assertTrueOrInvalidMethodSignException(method.jql.declarationType==JQLDeclarationType.JQL_EXPLICIT, method, "select with custom projection must be declared with explicit JQL");										
+				}
+			}
+		}
 	}
 
 	/**
@@ -326,8 +350,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									BindSqlChildSelect.class.getSimpleName(), AnnotationAttributeType.FIELD.getValue(),
 									childrenSelect.value0, AnnotationAttributeType.METHOD.getValue(),
 									childrenSelect.value1);
-																		
-														
+
 							final SQLiteDaoDefinition childDaoDefinition = schema
 									.findDaoDefinitionForEntity(relation.value2);
 							AssertKripton.assertTrueOrInvalidMethodSignException(childDaoDefinition != null, method,
@@ -340,18 +363,17 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 									" method '%s#%s', referred by @%s annotation, does not exists",
 									childDaoDefinition.getElement().getSimpleName().toString(), childrenSelect.value1,
 									BindSqlChildSelect.class.getSimpleName());
-							
+
 							AssertKripton.assertTrueOrInvalidMethodSignException(subMethod.getParameters().size() == 1,
-									method, " method '%s#%s', referred by annotation @%s(%s='%s', %s='%s'), can have only one parameter",
+									method,
+									" method '%s#%s', referred by annotation @%s(%s='%s', %s='%s'), can have only one parameter",
 									childDaoDefinition.getTypeName(), subMethod.getName(),
-									BindSqlChildSelect.class.getSimpleName(),
-									AnnotationAttributeType.FIELD.getValue(), childrenSelect.value0, 
-									AnnotationAttributeType.METHOD.getValue(), childrenSelect.value1);
-														
-														
+									BindSqlChildSelect.class.getSimpleName(), AnnotationAttributeType.FIELD.getValue(),
+									childrenSelect.value0, AnnotationAttributeType.METHOD.getValue(),
+									childrenSelect.value1);
+
 							// set sub method to invoke
 							childrenSelect.value2 = subMethod;
-							
 
 							final String defaultConditionToTest1 = relation.value1 + "=" + SqlAnalyzer.PARAM_PREFIX
 									+ subMethod.findParameterAliasByName(subMethod.getParameters().get(0).value0)
@@ -396,14 +418,16 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								}
 
 							});
-							
-							AssertKripton.assertTrueOrInvalidMethodSignException(TypeUtility.isEquals(subMethod.getParameters().get(0).value1,entity.getPrimaryKey().getPropertyType().getTypeName()), method,
+
+							AssertKripton.assertTrueOrInvalidMethodSignException(
+									TypeUtility.isEquals(subMethod.getParameters().get(0).value1,
+											entity.getPrimaryKey().getPropertyType().getTypeName()),
+									method,
 									" method '%s#%s' referred by annotation @%s(%s='%s', %s='%s') has invalid parameter type ",
 									childDaoDefinition.getTypeName(), subMethod.getName(),
-									BindSqlChildSelect.class.getSimpleName(), 
-									AnnotationAttributeType.FIELD.getValue(), childrenSelect.value0, 
-									AnnotationAttributeType.METHOD.getValue(), childrenSelect.value1);		
-
+									BindSqlChildSelect.class.getSimpleName(), AnnotationAttributeType.FIELD.getValue(),
+									childrenSelect.value0, AnnotationAttributeType.METHOD.getValue(),
+									childrenSelect.value1);
 
 							TypeName parentFieldTypeName = relation.value0.getPropertyType().getTypeName();
 							AssertKripton.assertTrueOrInvalidMethodSignException(
@@ -468,7 +492,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 					}
 				}
 
-			}			
+			}
 		}
 	}
 
@@ -477,7 +501,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		// ASSERT: check valid type
 		AssertKripton.assertTrueOfInvalidDefinition(referredEntity != null, item.value0,
 				String.format("invalid type for @%s annotated element", BindSqlRelation.class.getSimpleName()));
-				
+
 		// ASSERT: check if child entity has field
 		List<SQLProperty> foreignKeyPropertyList = referredEntity.getForeignKeysToEntity(entity, item.value1);
 		AssertKripton.assertTrueOfInvalidDefinition(foreignKeyPropertyList.size() == 1, item.value0,
@@ -489,13 +513,15 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		if (!StringUtils.hasText(item.value1)) {
 			item.value1 = foreignKeyPropertyList.get(0).getName();
 		}
-		
+
 		SQLProperty foreignKey = referredEntity.get(item.value1);
 		AssertKripton.assertTrueOfInvalidDefinition(
-				TypeUtility.isEquals(entity.getPrimaryKey().getPropertyType().getTypeName(), foreignKey.getPropertyType().getTypeName()),
+				TypeUtility.isEquals(entity.getPrimaryKey().getPropertyType().getTypeName(),
+						foreignKey.getPropertyType().getTypeName()),
 				item.value0,
-				String.format("%s#%s is a foreign key to %s#%s: they have to be same type", referredEntity.getName(), foreignKey.getName() ,entity.getName(), entity.getPrimaryKey().getName()));
-				
+				String.format("%s#%s is a foreign key to %s#%s: they have to be same type", referredEntity.getName(),
+						foreignKey.getName(), entity.getName(), entity.getPrimaryKey().getName()));
+
 	}
 
 	/**
@@ -702,14 +728,19 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		TypeElement daoElement = globalDaoElements.get(daoName);
 
 		if (daoElement == null) {
-			String msg = String.format("Data source %s references a DAO %s without @BindDao annotation",
-					dataSource.toString(), daoName);
+			String msg = String.format("Data source %s references a DAO %s without @%s annotation",
+					dataSource.toString(), daoName, BindDao.class.getSimpleName());
 			throw (new InvalidNameException(msg));
 		}
-	
+
 		String entityClassName = AnnotationUtility.extractAsClassName(daoElement, BindDao.class,
-				AnnotationAttributeType.VALUE);		
-				
+				AnnotationAttributeType.VALUE);
+		
+		// if there is no entity, exit now
+		if (!StringUtils.hasText(entityClassName)) {
+			return false;
+		}
+
 		final SQLiteEntity currentEntity = createSQLEntity(schema, daoElement, entityClassName);
 
 		if (!schema.contains(currentEntity.getName())) {
@@ -722,22 +753,21 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	/**
 	 * @param schema
 	 * @param dataSource
-	 * @param daoElement 
+	 * @param daoElement
 	 * @param beanElement
 	 * @return
 	 */
-	public SQLiteEntity createSQLEntity(final SQLiteDatabaseSchema schema,/* Element dataSource,*/
-			TypeElement daoElement, String beanClassName) {		
-		
-		final TypeElement beanElement = globalBeanElements.get(beanClassName);		
+	public SQLiteEntity createSQLEntity(final SQLiteDatabaseSchema schema, /* Element dataSource, */
+			TypeElement daoElement, String beanClassName) {
+
+		final TypeElement beanElement = globalBeanElements.get(beanClassName);
 		AssertKripton.asserTrueOrMissedAnnotationOnClassException(beanElement != null, daoElement, beanClassName);
-		
+
 		ModelProperty property;
 		// create equivalent entity in the domain of bind processor
 		final BindEntity bindEntity = BindEntityBuilder.parse(null, beanElement);
 		// assert: bean is present
 		final SQLiteEntity currentEntity = new SQLiteEntity(schema, bindEntity);
-		
 
 		final boolean bindAllFields = AnnotationUtility.getAnnotationAttributeAsBoolean(currentEntity, BindType.class,
 				AnnotationAttributeType.ALL_FIELDS, Boolean.TRUE);
@@ -801,7 +831,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 												annotationBindColumn, AnnotationAttributeType.COLUMN_AFFINITY));
 
 								property.columnType = columnType;
-								property.setPrimaryKey((columnType == ColumnType.PRIMARY_KEY) || (columnType == ColumnType.PRIMARY_KEY_UNMANGED));
+								property.setPrimaryKey((columnType == ColumnType.PRIMARY_KEY)
+										|| (columnType == ColumnType.PRIMARY_KEY_UNMANGED));
 
 								String parentClassName = annotationBindColumn
 										.getAttributeAsClassName(AnnotationAttributeType.PARENT_ENTITY);
@@ -883,12 +914,13 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		SQLProperty primaryKey = currentEntity.getPrimaryKey();
 		if (primaryKey != null) {
 			primaryKey.setPrimaryKey(true);
-			
-			if (!(primaryKey.columnType==ColumnType.PRIMARY_KEY || primaryKey.columnType==ColumnType.PRIMARY_KEY_UNMANGED)) {
+
+			if (!(primaryKey.columnType == ColumnType.PRIMARY_KEY
+					|| primaryKey.columnType == ColumnType.PRIMARY_KEY_UNMANGED)) {
 				primaryKey.columnType = ColumnType.PRIMARY_KEY;
 			}
 			primaryKey.setNullable(false);
-			
+
 			// if PK is String is mandatory that is UNMANAGED
 			if (TypeUtility.isString(primaryKey.getPropertyType().getTypeName())) {
 				primaryKey.columnType = ColumnType.PRIMARY_KEY_UNMANGED;
@@ -938,8 +970,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				break;
 			}
 		}
-				
-		
+
 		ImmutableUtility.buildConstructors(elementUtils, currentEntity);
 		return currentEntity;
 	}
@@ -1070,12 +1101,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 		schema.add(currentDaoDefinition);
 
 		fillMethods(currentDaoDefinition, daoElement);
-		/*
-		 * if (generatedDaoPart != null) {
-		 * currentDaoDefinition.addImplementedInterface(TypeUtility.typeName(
-		 * generatedDaoPart)); fillMethods(currentDaoDefinition,
-		 * generatedDaoPart); }
-		 */
 
 		// get @annotation associated to many 2 many relationship
 		BindDaoMany2Many daoMany2Many = daoElement.getAnnotation(BindDaoMany2Many.class);
@@ -1095,6 +1120,8 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 *            the dao element
 	 */
 	private void fillMethods(final SQLiteDaoDefinition currentDaoDefinition, Element daoElement) {
+		final One<Boolean> methodWithAnnotation=new One<Boolean>(false);
+		
 		// create method for dao
 		SqlBuilderHelper.forEachMethods((TypeElement) daoElement, new MethodFoundListener() {
 
@@ -1103,6 +1130,7 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 				if (excludedMethods.contains(element.getSimpleName().toString()))
 					return;
 
+				methodWithAnnotation.value0=false;
 				final List<ModelAnnotation> annotationList = new ArrayList<>();
 
 				// optional annotations
@@ -1122,6 +1150,10 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 								|| annotationClassName.equals(BindContentProviderEntry.class.getCanonicalName()))
 						// @formatter:on
 						{
+							if (!annotationClassName.equals(BindContentProviderEntry.class.getCanonicalName())) {
+								methodWithAnnotation.value0=true;	
+							}
+							
 							ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
 							annotationList.add(annotation);
 						}
@@ -1129,14 +1161,18 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 					}
 				});
-
-				// AssertKripton. assertTrue(annotationList.size()==1, "Dao
-				// definition '%s' has method '%s' that is not correctly
-				// annotated", currentDaoDefinition.getName(),
-				// element.getSimpleName());
+										
 				annotationList.addAll(supportAnnotationList);
 				final SQLiteModelMethod currentMethod = new SQLiteModelMethod(currentDaoDefinition, element,
 						annotationList);
+				
+				AssertKripton.assertTrueOrInvalidMethodSignException(methodWithAnnotation.value0,  currentMethod, "method must be annotated with @%s, @%s, @%s or @%s",
+						BindSqlSelect.class.getSimpleName(),
+						BindSqlInsert.class.getSimpleName(),
+						BindSqlUpdate.class.getSimpleName(),
+						BindSqlDelete.class.getSimpleName());
+						// annotated", currentDaoDefinition.getName(),
+						// element.getSimpleName());
 
 				addWithCheckMethod(currentDaoDefinition, currentMethod);
 			}
@@ -1258,9 +1294,9 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 	 *            the dao element
 	 * @return the m 2 M entity
 	 */
-//	public static M2MEntity generateEntityFromDao(TypeElement daoElement) {
-//		return M2MEntity.extractEntityManagedByDAO(daoElement);
-//	}
+	// public static M2MEntity generateEntityFromDao(TypeElement daoElement) {
+	// return M2MEntity.extractEntityManagedByDAO(daoElement);
+	// }
 
 	/**
 	 * dao or entity can be null.

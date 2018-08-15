@@ -22,6 +22,8 @@ import sqlite.feature.async.TestRuntimeAyncSuite;
 import sqlite.feature.asynctask.TestRuntimeMultithreadSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinitySuite;
 import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
+import sqlite.feature.custombean.TestCustomBeanRuntime;
+import sqlite.feature.custombean.TestCustomBeanRuntimeSuite;
 import sqlite.feature.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feature.foreignkey.TestForeignKeyRuntimeSuite;
 import sqlite.feature.globaltypeadapters.TestGlobalTypeAdapterRuntimeSuite;
@@ -61,6 +63,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestGlobalTypeAdapterRuntimeSuite.class,	
 	TestFeatureRelationRuntimeSuite.class,
 	TestRuntimeAyncSuite.class,
+	TestCustomBeanRuntimeSuite.class,
 	
 	// unverified results	
 	TestForeignKeyRuntimeSuite.class,
@@ -68,7 +71,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestIndexesRuntimeSuite.class,
 	TestRuntimeMany2ManySuite.class,
 	TestColumnAffinitySuite.class,
-	TestFeatureInRuntimeSuite.class,
+	TestFeatureInRuntimeSuite.class,	
 	
 	Test64RuntimeSuite.class,
 	Test84RuntimeSuite.class,

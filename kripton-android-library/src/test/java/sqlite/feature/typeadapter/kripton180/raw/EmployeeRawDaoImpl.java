@@ -68,6 +68,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -190,6 +193,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -311,6 +317,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -476,6 +485,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -639,6 +651,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -805,6 +820,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1391,7 +1409,6 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=:id and field_boolean=:fieldBoolean and field_byte=:fieldByte and field_character=:fieldCharacter and field_short=:fieldShort and field_integer=:fieldInteger and field_long=:fieldLong and field_float=:fieldFloat and field_double=:fieldDouble and field_string=:fieldString and field_byte_array=:fieldByteArray</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -1478,7 +1495,6 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=:id and field_boolean=:fieldBoolean and field_byte=:fieldByte and field_character=:fieldCharacter and field_short=:fieldShort and field_integer=:fieldInteger and field_long=:fieldLong and field_float=:fieldFloat and field_double=:fieldDouble and field_string=:fieldString and field_byte_array=:fieldByteArray</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -1564,7 +1580,6 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=:id and field_boolean=:fieldBoolean and field_byte=:fieldByte and field_character=:fieldCharacter and field_short=:fieldShort and field_integer=:fieldInteger and field_long=:fieldLong and field_float=:fieldFloat and field_double=:fieldDouble and field_string=:fieldString and field_byte_array=:fieldByteArray</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

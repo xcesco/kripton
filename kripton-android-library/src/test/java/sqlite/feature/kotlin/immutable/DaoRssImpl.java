@@ -33,7 +33,7 @@ public class DaoRssImpl extends Dao implements DaoRss {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO rss_feed (uid, version) VALUES (:uid, :version)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -107,6 +107,9 @@ public class DaoRssImpl extends Dao implements DaoRss {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, uid, version FROM rss_feed WHERE uid=${uid}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link RssFeed}
    *
    * <h2>Projected columns:</h2>
    * <dl>

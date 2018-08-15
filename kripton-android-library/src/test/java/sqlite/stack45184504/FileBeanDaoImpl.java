@@ -32,7 +32,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO files (content, content_type, name) VALUES (:bean.content, :bean.contentType, :bean.name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -185,6 +185,9 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, content, content_type, name FROM files WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link FileBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>

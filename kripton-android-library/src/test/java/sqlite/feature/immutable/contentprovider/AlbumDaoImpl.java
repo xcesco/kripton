@@ -54,6 +54,9 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    *
    * <pre>SELECT id, artist_id, name FROM album WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -215,6 +218,9 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    *
    * <pre>SELECT id, artist_id, name FROM album</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -356,7 +362,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (artist_id, name) VALUES (:artistId, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -482,10 +488,10 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE album SET artist_id=:artistId, name=:name WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>artist_id</dt><dd>is mapped to <strong>:bean.artistId</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>

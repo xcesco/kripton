@@ -47,6 +47,9 @@ public class DaoChildImpl extends Dao implements DaoChild {
    *
    * <pre>SELECT _id, name, parent_id FROM child</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Child}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -113,7 +116,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO child (name, parent_id) VALUES (:name, :parentId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -188,6 +191,9 @@ public class DaoChildImpl extends Dao implements DaoChild {
    * <h2>Select SQL:</h2>
    *
    * <pre>select * from child where parent_id in (select _id from person where _id=${parentId})</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Child}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -267,6 +273,9 @@ public class DaoChildImpl extends Dao implements DaoChild {
    *
    * <pre>select count(*) from child where parent_id in (select _id from person where _id=${parentId})</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Child}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
@@ -327,6 +336,9 @@ public class DaoChildImpl extends Dao implements DaoChild {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT _id, name, parent_id FROM child WHERE parent_id=${parentId}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Child}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -462,7 +474,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>insert into child (name, parent_id) values (:bean.name, :bean.parentId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>

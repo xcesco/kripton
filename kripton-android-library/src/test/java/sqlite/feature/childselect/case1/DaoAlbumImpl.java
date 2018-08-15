@@ -33,7 +33,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (name) VALUES (:name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -104,6 +104,9 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name FROM album</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
    *
    * <h2>Projected columns:</h2>
    * <dl>

@@ -25,7 +25,6 @@ public class PersonUpdateDAOImpl extends Dao implements PersonUpdateDAO {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = :id #{DYNAMIC_WHERE}</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>

@@ -31,6 +31,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <pre>SELECT type_name FROM person ORDER BY type_name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link sqlite.select.Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
@@ -83,6 +86,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT birth_day FROM person ORDER BY type_name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link sqlite.select.Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>

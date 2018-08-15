@@ -54,9 +54,7 @@ public class UpdateRawPersonDaoImpl extends Dao implements UpdateRawPersonDao {
    * 	<li>person_name</li>
    * </ul>
    *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    * @param personName
    * 	is used as updated field <strong>personName</strong>

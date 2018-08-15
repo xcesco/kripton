@@ -68,7 +68,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, city, name, surname, value) VALUES (:bean.birthCity, :bean.birthDay, :bean.city, :bean.name, :bean.surname, :bean.value)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -238,7 +238,6 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = :id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -320,7 +319,6 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = :id #{DYNAMIC_WHERE}</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -912,10 +910,10 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET alias_parent_id=:parentId, birth_city=:birthCity, birth_day=:birthDay, city=:city, name=:name, surname=:surname, value=:value WHERE id=${person.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>alias_parent_id</dt><dd>is mapped to <strong>:person.parentId</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>:person.birthCity</strong></dd>
@@ -1035,6 +1033,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id, #{DYNAMIC_ORDER_BY}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1223,6 +1224,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc, #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1400,6 +1404,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1571,6 +1578,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1689,6 +1699,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>

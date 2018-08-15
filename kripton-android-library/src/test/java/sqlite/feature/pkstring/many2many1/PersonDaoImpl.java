@@ -38,6 +38,9 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    *
    * <pre>SELECT id, name FROM persons</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -101,7 +104,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO persons (name) VALUES (:name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -176,6 +179,9 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    *
    * <pre>SELECT id, name FROM persons WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -243,7 +249,6 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM persons WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

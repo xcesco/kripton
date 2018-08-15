@@ -190,7 +190,6 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM channel WHERE owner_uid=:ownerUid and id=:id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:ownerUid</dt><dd>is mapped to method's parameter <strong>b</strong></dd>
@@ -238,7 +237,6 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM channel WHERE owner_uid=:ownerUid and id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -498,7 +496,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (:bean.name, :bean.ownerUid, :bean.uid, :bean.updateTime)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -575,7 +573,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO channel (name, owner_uid, uid, update_time) VALUES (:bean.name, :bean.ownerUid, :bean.uid, :bean.updateTime)</pre>
    *
    * <p><code>arg.id</code> is automatically updated because it is the primary key</p>
@@ -912,10 +910,10 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE channel SET name=:name, owner_uid=:ownerUid, uid=:uid, update_time=:updateTime WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
@@ -981,10 +979,10 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE channel SET name=:name, owner_uid=:ownerUid, uid=:uid, update_time=:updateTime WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
@@ -1050,10 +1048,10 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE channel SET name=:name, owner_uid=:ownerUid, uid=:uid, update_time=:updateTime WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>owner_uid</dt><dd>is mapped to <strong>:bean.ownerUid</strong></dd>
@@ -1122,6 +1120,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1198,6 +1199,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1283,6 +1287,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1339,6 +1346,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1427,6 +1437,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1492,6 +1505,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, owner_uid, uid, update_time FROM channel WHERE update_time=${a}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1577,6 +1593,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <pre>SELECT count(*) FROM channel WHERE update_time=${bean.updateTime}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
@@ -1637,6 +1656,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1713,6 +1735,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -1775,6 +1800,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -1827,6 +1855,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1893,6 +1924,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1966,6 +2000,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>update_time</dt><dd>is associated to bean's property <strong>updateTime</strong></dd>
@@ -2037,6 +2074,9 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT update_time FROM channel WHERE update_time=${bean.updateTime}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Channel}
    *
    * <h2>Projected columns:</h2>
    * <dl>

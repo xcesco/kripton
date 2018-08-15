@@ -53,6 +53,9 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    *
    * <pre>SELECT id, column_bean FROM bean84_b WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84B}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -122,6 +125,9 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    *
    * <pre>SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ${param1}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84B}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -187,7 +193,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean84_b (column_bean) VALUES (:bean.columnBean)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -258,10 +264,10 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean84_b SET column_bean=:columnBean</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>column_bean</dt><dd>is mapped to <strong>:bean.columnBean</strong></dd>
    * </dl>

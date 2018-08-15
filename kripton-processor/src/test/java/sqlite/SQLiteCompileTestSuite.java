@@ -27,6 +27,7 @@ import sqlite.feature.asynctask.TestCompileMultithreadSuite;
 import sqlite.feature.childselect.TestChildSelectSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinityTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
+import sqlite.feature.custombean.TestCustomBeanSuite;
 import sqlite.feature.datasourceoptions.TestDataSourceOptionSuite;
 import sqlite.feature.dynamic.TestDynamicSuite;
 import sqlite.feature.foreignkey.TestForeignKeySuite;
@@ -102,6 +103,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestContentProviderSuite.class,
 			TestPaginatedResultSuite.class,
 			TestCompileMultithreadSuite.class,
+			TestCustomBeanSuite.class, 
 			TestGenericHierarchySuite.class,
 			TestJavadocFeatureSuite.class,
 			TestDynamicSuite.class,

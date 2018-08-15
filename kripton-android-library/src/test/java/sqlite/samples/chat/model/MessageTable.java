@@ -20,9 +20,9 @@ public class MessageTable implements SQLiteTable {
    * DDL to create table message
    * </p>
    *
-   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT, receiver_id INTEGER, sender_id INTEGER, FOREIGN KEY(receiver_id) REFERENCES user(id), FOREIGN KEY(sender_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, content TEXT, receiver_id INTEGER, sender_id INTEGER, FOREIGN KEY(receiver_id) REFERENCES user(id), FOREIGN KEY(sender_id) REFERENCES user(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT, receiver_id INTEGER, sender_id INTEGER, FOREIGN KEY(receiver_id) REFERENCES user(id), FOREIGN KEY(sender_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE message (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, content TEXT, receiver_id INTEGER, sender_id INTEGER, FOREIGN KEY(receiver_id) REFERENCES user(id), FOREIGN KEY(sender_id) REFERENCES user(id));";
 
   /**
    * <p>
