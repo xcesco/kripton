@@ -7,7 +7,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlDelete;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
-import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResult;
 
 import android.arch.lifecycle.LiveData;
 
@@ -25,7 +25,7 @@ public interface UserDao {
     User getUser(String id);
     
     @BindSqlSelect(pageSize=20)
-    LiveData<PaginatedResult<User>> selectPaged(); 
+    LiveData<PagedResult<User>> selectPaged(); 
 
     /**
      * Insert a user in the database. If the user already exists, replace it.

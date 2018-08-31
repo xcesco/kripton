@@ -21,7 +21,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlPageSize;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.OnReadBeanListener;
 import com.abubusoft.kripton.android.sqlite.OnReadCursorListener;
-import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResult;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
@@ -228,7 +228,7 @@ public abstract class SelectBuilderUtility {
 				e.printStackTrace();
 				throw (new KriptonClassNotFoundException(e));
 			}
-			if (PaginatedResult.class.isAssignableFrom(wrapperClazz)
+			if (PagedResult.class.isAssignableFrom(wrapperClazz)
 					|| Collection.class.isAssignableFrom(wrapperClazz)) {
 				if (SQLTransformer.isSupportedJDKType(elementName) || TypeUtility.isByteArray(elementName)) {
 					// scalar list
@@ -314,7 +314,7 @@ public abstract class SelectBuilderUtility {
 				e.printStackTrace();
 				throw (new KriptonClassNotFoundException(e));
 			}
-			if (PaginatedResult.class.isAssignableFrom(wrapperClazz)) {
+			if (PagedResult.class.isAssignableFrom(wrapperClazz)) {
 				// method must have pageSize, statically or dynamically
 				// defined
 				AssertKripton.assertTrueOrInvalidMethodSignException(

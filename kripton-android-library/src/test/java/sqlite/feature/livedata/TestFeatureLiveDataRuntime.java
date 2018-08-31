@@ -20,23 +20,26 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ContentProviderController;
+
+import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.ContentValues;
 import android.content.pm.ProviderInfo;
+import android.database.ContentObserver;
 import android.net.Uri;
+import android.os.Handler;
 import base.BaseAndroidTest;
 import sqlite.feature.livedata.data.Person;
 import sqlite.feature.livedata.data.PersonTable;
 import sqlite.feature.livedata.persistence1.BindApp1ContentProvider;
 import sqlite.feature.livedata.persistence1.BindApp1DataSource;
-// TODO: Auto-generated Javadoc
-//import sqlite.feature.livedata.persistence1.BindApp1ContentProvider;
-//import sqlite.feature.livedata.persistence1.BindApp1DataSource;
 
 /**
  * The Class TestFeatureLiveDataRuntime.
@@ -44,6 +47,10 @@ import sqlite.feature.livedata.persistence1.BindApp1DataSource;
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class TestFeatureLiveDataRuntime extends BaseAndroidTest {
+	
+	@Rule
+	public TestRule rule = new KriptonInstantTaskExecutorRule();
+
 
 	/**
 	 * Setup content provider.
@@ -57,14 +64,6 @@ public class TestFeatureLiveDataRuntime extends BaseAndroidTest {
 		controller.create(info);
 	}
 
-	/**
-	 * Test run insert.
-	 */
-	@Test
-	public void testRunInsert() {
-		insertRows(10);
-		
-	}
 
 	/**
 	 * Insert rows.
@@ -85,9 +84,6 @@ public class TestFeatureLiveDataRuntime extends BaseAndroidTest {
 	}
 	
 
-	/** The live data. */
-	LiveData<List<Person>> liveData;
-	
 	/**
 	 * Test run JQL 1.
 	 *
@@ -95,7 +91,7 @@ public class TestFeatureLiveDataRuntime extends BaseAndroidTest {
 	 */
 	@Test
 	public void testRunJQL1() throws InterruptedException {
-		liveData = BindApp1DataSource.getInstance().getDaoPerson1().selectAll();
+		LiveData<List<Person>> liveData = BindApp1DataSource.getInstance().getDaoPerson1().selectAll();
 		
 		liveData.observeForever(new Observer<List<Person>>() {
 			
@@ -106,9 +102,35 @@ public class TestFeatureLiveDataRuntime extends BaseAndroidTest {
 			}
 		});
 		
-		insertRows(10);	
+		// https://www.adityathakker.com/android-content-observer-react-on-content-change/
+		MyObserver myObserver = new MyObserver(new Handler());		
+		getApplicationContext().getContentResolver().registerContentObserver(BindApp1ContentProvider.URI_PERSON_SELECT_ALL, true, myObserver);
 		
-		//Thread.sleep(2000);
+		
+		insertRows(10);
+		
+		
+		Thread.sleep(2000);
+	}
+	
+	public class MyObserver extends ContentObserver {
+		public MyObserver(Handler handler) {
+	        	super(handler);
+	    	}
+
+		@Override
+		public void onChange(boolean selfChange) {
+			this.onChange(selfChange,null);
+		}
+
+		@Override
+		public void onChange(boolean selfChange, Uri uri) {
+			//Write your code here
+			//Whatever is written here will be 
+			//executed whenever a change is made
+			log("--> observed changes for person. Now thera are %s", uri.toString());
+		}
+
 	}
 
 }

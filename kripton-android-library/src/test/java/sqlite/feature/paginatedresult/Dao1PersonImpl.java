@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResult;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -55,7 +55,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    * @return paginated result.
    */
   @Override
-  public PaginatedResult<Person> select() {
+  public PagedResult<Person> select() {
     final PaginatedResult2 paginatedResult=new PaginatedResult2();
     // common part generation - BEGIN
     // common part generation - END
@@ -367,7 +367,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
     }
   }
 
-  public class PaginatedResult2 extends PaginatedResult<Person> {
+  public class PaginatedResult2 extends PagedResult<Person> {
     PaginatedResult2() {
       this.pageSize=10;
     }

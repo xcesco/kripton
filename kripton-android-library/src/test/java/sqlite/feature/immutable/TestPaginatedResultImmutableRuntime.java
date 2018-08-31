@@ -26,7 +26,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResult;
 
 import base.BaseAndroidTest;
 import sqlite.feature.immutable.pagedresult.BindAppDataSource;
@@ -54,7 +54,7 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 				dao.insertOne(UUID.randomUUID().toString(), String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
 
-			PaginatedResult<Person> result = dao.select();
+			PagedResult<Person> result = dao.select();
 
 			int i = 0;
 
@@ -88,7 +88,7 @@ public class TestPaginatedResultImmutableRuntime extends BaseAndroidTest {
 				dao.insertOne(UUID.randomUUID().toString(), String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
 
-			PaginatedResult<Person> result = dao.select();
+			PagedResult<Person> result = dao.select();
 
 			{
 				int i = 5;

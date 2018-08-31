@@ -9,7 +9,7 @@ import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResult;
 import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -45,7 +45,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname FROM person WHERE name=${name} LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   * <pre>SELECT id, name, surname FROM person WHERE name like ${name} || '%' LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
    * <h2>Mapped class:</h2>
    * {@link Person}
@@ -79,7 +79,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // manage WHERE arguments -- BEGIN
 
     // manage WHERE statement
-    String _sqlWhereStatement=" WHERE name=?";
+    String _sqlWhereStatement=" WHERE name like ? || '%'";
     _sqlBuilder.append(_sqlWhereStatement);
 
     // manage WHERE arguments -- END
@@ -146,7 +146,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT id, name, surname FROM person WHERE name=${name} LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   * <pre>SELECT id, name, surname FROM person WHERE name like ${name} || '%' LIMIT 20 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
    * <h2>Mapped class:</h2>
    * {@link Person}
@@ -373,7 +373,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
   }
 
-  public class PaginatedResult0 extends PaginatedResult<Person> {
+  public class PaginatedResult0 extends PagedResult<Person> {
     String name;
 
     PaginatedResult0(String name) {
@@ -382,8 +382,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
 
     public List<Person> execute() {
-      list=DaoPersonImpl.this.selectPaged(name, this);
-      return list;
+      return null;
     }
 
     public List<Person> execute(BindAppDaoFactory daoFactory) {

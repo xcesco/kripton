@@ -33,12 +33,12 @@ import com.abubusoft.kripton.android.PageRequest;
  * @param <E>
  *            the element type
  */
-public abstract class PaginatedResult<E> implements PageRequest {
+public abstract class PagedResult<E> implements PageRequest {
 
 	/**
 	 * Instantiates a new paginated result.
 	 */
-	protected PaginatedResult() {
+	protected PagedResult() {
 	}
 
 	/** The first row. */

@@ -40,7 +40,7 @@ public interface DaoPerson {
 	// List<Person> select(String name);
 	// LiveData<List<Person>> select(String name);
 
-	@BindSqlSelect(where = "name=${name}", pageSize = 20)
+	@BindSqlSelect(where = "name like ${name} || '%'", pageSize = 20)
 	PagedLiveData<List<Person>> selectPaged(String name);
 
 	// @BindSqlSelect(where = "name=${name}", pageSize = 20)

@@ -30,8 +30,8 @@ public class KriptonLiveDataManager {
 				instance.liveDataClazz = com.abubusoft.kripton.androidx.livedata.KriptonXLiveData.class;
 				instance.mutableLiveDataClazz = androidx.lifecycle.MutableLiveData.class;
 
-				instance.pagedLiveDataClazz = com.abubusoft.kripton.android.livedata.PagedLiveData.class;
-				instance.pagedLiveDataHandlerClazz = com.abubusoft.kripton.android.livedata.KriptonPagedLiveDataHandlerImpl.class;
+				instance.pagedLiveDataClazz = com.abubusoft.kripton.androidx.livedata.PagedLiveData.class;
+				instance.pagedLiveDataHandlerClazz = com.abubusoft.kripton.androidx.livedata.KriptonXPagedLiveDataHandlerImpl.class;
 
 				instance.liveDataClazzSet.add(androidx.lifecycle.LiveData.class.getName());
 			} else {
