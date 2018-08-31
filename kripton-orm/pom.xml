@@ -8,7 +8,7 @@
 		<version>5.0.0-rc.2</version>
 		<relativePath>../kripton-parent/pom.xml</relativePath>
 	</parent>
-
+ 
 	<artifactId>kripton-orm</artifactId>
 
 	<name>Kripton ORM</name>
