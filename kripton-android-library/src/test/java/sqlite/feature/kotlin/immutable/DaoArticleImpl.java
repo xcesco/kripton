@@ -3,8 +3,9 @@ package sqlite.feature.kotlin.immutable;
 import android.arch.lifecycle.MutableLiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
+import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -37,7 +38,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
 
   private static final String SELECT_BY_GUID_SQL3 = "SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE channel_id=? AND guid=?";
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public DaoArticleImpl(BindRssDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -375,7 +376,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
   public MutableLiveData<List<Article>> selectByChannel(final String where) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<List<Article>> builder=new KriptonComputableLiveData<List<Article>>() {
+    final KriptonLiveDataHandlerImpl<List<Article>> builder=new KriptonLiveDataHandlerImpl<List<Article>>() {
       @Override
       protected List<Article> compute() {
         return BindRssDataSource.getInstance().executeBatch(new BindRssDataSource.Batch<List<Article>>() {
@@ -655,8 +656,8 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     }
   }
 
-  protected void registryLiveData(KriptonComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -664,7 +665,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

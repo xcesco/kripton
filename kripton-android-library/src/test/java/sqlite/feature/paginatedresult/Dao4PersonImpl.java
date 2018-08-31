@@ -71,7 +71,7 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
    */
   @Override
   public PaginatedResult<Person> select(long value, int pageSize) {
-    PaginatedResult5 paginatedResult=new PaginatedResult5(value, pageSize);
+    final PaginatedResult5 paginatedResult=new PaginatedResult5(value, pageSize);
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -415,6 +415,10 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
     public List<Person> execute() {
       list=Dao4PersonImpl.this.select(value, this.pageSize, this);
       return list;
+    }
+
+    public List<Person> execute(BindPerson4DaoFactory daoFactory) {
+      return daoFactory.getDao4Person().select(value, this.pageSize, this);
     }
   }
 }

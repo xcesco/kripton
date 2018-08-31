@@ -26,9 +26,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
 		{ 
 			TestCustomBeanRuntime.class,
+			TestCustomBeanRuntime2.class,
 			TestCustomBeanRuntimeErr1.class
 		 })
 //@formatter:on
-public class TestCustomBeanRuntimeSuite  {
-	
+public class TestCustomBeanRuntimeSuite {
+
 }

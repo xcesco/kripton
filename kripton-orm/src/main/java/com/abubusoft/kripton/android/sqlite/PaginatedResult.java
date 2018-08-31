@@ -15,7 +15,10 @@
  *******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.abubusoft.kripton.android.PageRequest;
 
 /**
  * <p>
@@ -27,20 +30,16 @@ import java.util.List;
  * </p>
  *
  * @author Francesco Benincasa (info@abubusoft.com)
- * @param <E> the element type
+ * @param <E>
+ *            the element type
  */
-public abstract class PaginatedResult<E> {
-	
+public abstract class PaginatedResult<E> implements PageRequest {
+
 	/**
 	 * Instantiates a new paginated result.
 	 */
-	protected PaginatedResult()
-	{
-		initialized=false;
+	protected PaginatedResult() {
 	}
-	
-	/** The initialized. */
-	protected boolean initialized;
 
 	/** The first row. */
 	protected int firstRow;
@@ -50,13 +49,6 @@ public abstract class PaginatedResult<E> {
 
 	/** The page size. */
 	protected int pageSize;
-
-	/**
-	 * Execute.
-	 *
-	 * @return the list
-	 */
-	public abstract List<E> execute();
 
 	/**
 	 * First row.
@@ -72,42 +64,48 @@ public abstract class PaginatedResult<E> {
 	 *
 	 * @return true, if successful
 	 */
-	public boolean nextPage() {
-		if (initialized)
-		{
-			firstRow += pageSize;
-		} else {
-			initialized=true;	
-		}
-		
-		return execute().size()>0;
+	@Override
+	public void nextPage() {
+		firstRow += pageSize;
+
+		execute();
+	}
+
+	@Override
+	public void firstPage() {
+		setPage(0);
+
+		execute();
 	}
 
 	/**
 	 * Goto page.
 	 *
-	 * @param page the page
+	 * @param page
+	 *            the page
 	 * @return true, if successful
 	 */
-	public boolean gotoPage(int page) {
-		firstRow = pageSize * page ;
-		
-		if (firstRow<0) {
-			firstRow=0;
-			return false;
+	@Override
+	public void setPage(int page) {
+		firstRow = pageSize * page;
+
+		if (firstRow < 0) {
+			firstRow = 0;
+			list = new ArrayList<>();
+		} else {
+			execute();
 		}
-				
-		
-		return execute().size()>0;
+
 	}
-	
+
 	/**
 	 * Get current Page
-	 * @return
-	 * 		0-based number of current page
+	 * 
+	 * @return 0-based number of current page
 	 */
-	public int getCurrentPage() {
-		return firstRow/pageSize;
+	@Override
+	public int getPage() {
+		return firstRow / pageSize;
 	}
 
 	/**
@@ -115,23 +113,24 @@ public abstract class PaginatedResult<E> {
 	 *
 	 * @return true, if successful
 	 */
-	public boolean previousPage() {
+	@Override
+	public void previousPage() {
 		firstRow -= pageSize;
 
-		if (firstRow < -1)
-			firstRow = -1;
-		
-		return execute().size()>0;
+		if (firstRow < 0) {
+			firstRow = 0;
+		} else {
+			execute();
+		}
 	}
-	
+
 	/**
 	 * Checks for next.
 	 *
 	 * @return true, if successful
 	 */
-	public boolean hasNext()
-	{
-		return list.size()>0;
+	public boolean hasNext() {
+		return list.size() > 0;
 	}
 
 	/**
@@ -139,16 +138,24 @@ public abstract class PaginatedResult<E> {
 	 *
 	 * @return the list
 	 */
-	public List<E> list() {
+	public List<E> getList() {
 		return list;
 	}
+
+	/**
+	 * execute method
+	 * 
+	 * @return result
+	 */
+	public abstract List<E> execute();
 
 	/**
 	 * Page size.
 	 *
 	 * @return the int
 	 */
-	public int pageSize() {
+	@Override
+	public int getPageSize() {
 		return pageSize;
 	}
 }

@@ -130,7 +130,7 @@ public abstract class JavadocUtility {
 			for (JQLProjection column : projectedColumns) {
 				// KRIPTON_DEBUG field info only it exists
 				if (column.alias != null) {
-					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.column);
+					methodBuilder.addJavadoc("\t<dt>$L</dt>", column.property.columnName);
 					// SQLProperty attribute = fieldList.value1.get(i);
 					methodBuilder.addJavadoc("<dd>is associated to bean's property <strong>$L</strong></dd>", column.alias);
 				} else if (column.column != null) {

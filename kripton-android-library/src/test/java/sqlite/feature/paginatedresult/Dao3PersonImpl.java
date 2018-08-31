@@ -63,7 +63,7 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
    */
   @Override
   public PaginatedResult<Person> select(long value) {
-    PaginatedResult4 paginatedResult=new PaginatedResult4(value);
+    final PaginatedResult4 paginatedResult=new PaginatedResult4(value);
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -400,6 +400,10 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
     public List<Person> execute() {
       list=Dao3PersonImpl.this.select(value, this);
       return list;
+    }
+
+    public List<Person> execute(BindPerson3DaoFactory daoFactory) {
+      return daoFactory.getDao3Person().select(value, this);
     }
   }
 }

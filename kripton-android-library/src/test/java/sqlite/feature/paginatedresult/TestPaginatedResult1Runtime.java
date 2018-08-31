@@ -30,7 +30,6 @@ import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 import base.BaseAndroidTest;
 import sqlite.feature.paginatedresult.model.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestPaginatedResult1Runtime.
  *
@@ -44,10 +43,10 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 	 * Test run.
 	 */
 	@Test
-	public void testRun() {				
+	public void testRun() {
 		try (BindPerson1DataSource dataSource = BindPerson1DataSource.open(); Dao1PersonImpl dao = dataSource.getDao1Person()) {
 			dao.deleteAll();
-			
+
 			for (int i = 0; i < 100; i++) {
 				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
@@ -55,18 +54,19 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 			PaginatedResult<Person> result = dao.select();
 
 			int i = 0;
-
-			while (result.nextPage()) {
+			result.firstPage();
+			while (result.hasNext()) {
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
-				for (Person item : result.list()) {
+				for (Person item : result.getList()) {
 					Logger.info(item.toString());
 				}
 
-				assertTrue(result.list().get(0).name.equals(String.format("name%03d", i * 10)));
+				assertTrue(result.getList().get(0).name.equals(String.format("name%03d", i * 10)));
 
 				i++;
+				result.nextPage();
 			}
 		}
 
@@ -79,7 +79,7 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 	public void testGotoPage() {
 		try (BindPerson1DataSource dataSource = BindPerson1DataSource.open(); Dao1PersonImpl dao = dataSource.getDao1Person()) {
 			dao.deleteAll();
-			
+
 			for (int i = 0; i < 100; i++) {
 				dao.insertOne(String.format("name%03d", i), String.format("surname%03d", i), String.format("birthCity%03d", i), new Date());
 			}
@@ -88,42 +88,44 @@ public class TestPaginatedResult1Runtime extends BaseAndroidTest {
 
 			{
 				int i = 5;
-				result.gotoPage(i);
+				result.setPage(i);
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
-				for (Person item : result.list()) {
+				for (Person item : result.getList()) {
 					Logger.info(item.toString());
 				}
-				assertTrue(result.list().get(0).name.equals(String.format("name%03d", i * 10)));
+				assertTrue(result.getList().get(0).name.equals(String.format("name%03d", i * 10)));
 			}
 
 			{
 				int i = 11;
-				result.gotoPage(i);
+				result.setPage(i);
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
-				for (Person item : result.list()) {
+				for (Person item : result.getList()) {
 					Logger.info(item.toString());
 				}
-				assertTrue(result.list().size()==0);
+				assertTrue(result.getList().size() == 0);
 				assertTrue(!result.hasNext());
-				//assertTrue(result.list().get(0).name.equals(String.format("name%03d", i * 10)));
+				// assertTrue(result.list().get(0).name.equals(String.format("name%03d",
+				// i * 10)));
 			}
-			
+
 			{
 				int i = -111;
-				result.gotoPage(i);
+				result.setPage(i);
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
-				for (Person item : result.list()) {
+				for (Person item : result.getList()) {
 					Logger.info(item.toString());
 				}
-				assertTrue(result.list().size()==0);
+				assertTrue(result.getList().size() == 0);
 				assertTrue(!result.hasNext());
-				//assertTrue(result.list().get(0).name.equals(String.format("name%03d", i * 10)));
+				// assertTrue(result.list().get(0).name.equals(String.format("name%03d",
+				// i * 10)));
 			}
 
 		}

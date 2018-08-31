@@ -5,8 +5,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
+import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -48,7 +49,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
 
   private static final Set<String> update3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public DaoPerson1Impl(BindApp1DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -165,7 +166,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
   public LiveData<List<Person>> select(final String name) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
+    final KriptonLiveDataHandlerImpl<List<Person>> builder=new KriptonLiveDataHandlerImpl<List<Person>>() {
       @Override
       protected List<Person> compute() {
         return BindApp1DataSource.getInstance().executeBatch(new BindApp1DataSource.Batch<List<Person>>() {
@@ -353,7 +354,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
   public LiveData<List<Person>> selectAll() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
+    final KriptonLiveDataHandlerImpl<List<Person>> builder=new KriptonLiveDataHandlerImpl<List<Person>>() {
       @Override
       protected List<Person> compute() {
         return BindApp1DataSource.getInstance().executeBatch(new BindApp1DataSource.Batch<List<Person>>() {
@@ -705,8 +706,8 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     }
   }
 
-  protected void registryLiveData(KriptonComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -714,7 +715,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

@@ -48,7 +48,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SelectPaginatedResultHelper.
  *
@@ -57,56 +56,44 @@ import com.squareup.javapoet.TypeSpec;
  *            the generic type
  * @since 29/01/2017
  */
-public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCodeGenerator {
+public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generate(com.squareup.javapoet.TypeSpec.Builder, boolean,
+	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#
+	 * generate(com.squareup.javapoet.TypeSpec.Builder, boolean,
 	 * com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod)
 	 */
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {
-		//SQLiteDaoDefinition daoDefinition = method.getParent();
+		// SQLiteDaoDefinition daoDefinition = method.getParent();
 		String pagedResultName = buildSpecializedPagedResultClass(classBuilder, method);
 
-		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value,
-				method.getEntity());
+		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, method.getEntity());
 
 		{
 			MethodSpec.Builder methodBuilder = generateMethodBuilder(method);
 
 			// create PaginatedResult
+			createPagedResult(method, pagedResultName, methodBuilder);
 
-			String separator = "";
-			methodBuilder.addCode("$L paginatedResult=new $L(", pagedResultName, pagedResultName);
-			for (Pair<String, TypeName> item : method.getParameters()) {
-				// field
-				methodBuilder.addCode(separator + "$L", item.value0);
-				separator = ", ";
-			}
-			methodBuilder.addCode(");\n");
-
-			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(),
-					GenerationType.NO_CONTENT, null);
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT, null);
 			methodBuilder.addStatement("return paginatedResult");
 
-			classBuilder.addMethod(methodBuilder.build());
+			if (!method.isPagedLiveData()) {
+				classBuilder.addMethod(methodBuilder.build());
+			}
 		}
 
 		// generate paged result method
 		{
-			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName())
-					.addModifiers(Modifier.PRIVATE);
-			generateMethodSignature(method, methodBuilder,
-					TypeUtility.parameterizedTypeName(TypeUtility.className(List.class),
-							TypeUtility.typeName(method.getEntity().getElement())),
+			MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addModifiers(Modifier.PRIVATE);
+			generateMethodSignature(method, methodBuilder, TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), TypeUtility.typeName(method.getEntity().getElement())),
 					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
 
-			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(),
-					GenerationType.NO_METHOD_SIGN, null,
-					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"),
-					JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
+			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_METHOD_SIGN, null,
+					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"), JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
 
 			methodBuilder.addComment("Specialized part II - $L - BEGIN", this.getClass().getSimpleName());
 			generateSpecializedPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields());
@@ -117,28 +104,39 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 
 	}
 
+	public static void createPagedResult(SQLiteModelMethod method, String pagedResultName, MethodSpec.Builder methodBuilder) {
+		String separator = "";
+		methodBuilder.addCode("final $L paginatedResult=new $L(", pagedResultName, pagedResultName);
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			// field
+			methodBuilder.addCode(separator + "$L", item.value0);
+			separator = ", ";
+		}
+		methodBuilder.addCode(");\n");
+	}
+
 	/** Used to generate specialized Paged Result classes;. */
 	static int pagedResultCounter;
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generateSpecializedPart(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod,
-	 * com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
+	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#
+	 * generateSpecializedPart(com.abubusoft.kripton.processor.sqlite.model.
+	 * SQLiteModelMethod, com.squareup.javapoet.TypeSpec.Builder,
+	 * com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
 	 */
 	@Override
-	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
-			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
-		SQLiteEntity entity =method.getEntity();
-		
-		// get return type (in this case is always a list)		
+	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
+		SQLiteEntity entity = method.getEntity();
+
+		// get return type (in this case is always a list)
 		ClassName returnRawListClazzName = ClassName.get(List.class);
 
 		TypeName entityClass = typeName(entity.getElement());
 
 		methodBuilder.addCode("\n");
-		methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(_cursor.getCount())", List.class, entityClass,
-				ArrayList.class, entityClass);
+		methodBuilder.addStatement("$T<$T> resultList=new $T<$T>(_cursor.getCount())", List.class, entityClass, ArrayList.class, entityClass);
 
 		methodBuilder.addStatement("$T resultBean=null", entityClass);
 		// immutable management
@@ -160,8 +158,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 
 				methodBuilder.addStatement("int index$L=_cursor.getColumnIndex($S)", (i++), item.columnName);
 				if (item.hasTypeAdapter()) {
-					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)",
-							item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
+					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
 							item.typeAdapter.getAdapterTypeName());
 				}
 			}
@@ -186,8 +183,7 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!_cursor.isNull(index$L)) { ", i);
 			}
-			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor",
-					"index" + i + "");
+			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor", "index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");
@@ -214,13 +210,12 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		// return list or immutable list
 		if (entity.isImmutablePojo()) {
 			methodBuilder.addCode("return ");
-			ImmutableUtility.generateImmutableCollectionIfPossible(entity,  methodBuilder, "resultList", ParameterizedTypeName.get(returnRawListClazzName, entityClass));	
+			ImmutableUtility.generateImmutableCollectionIfPossible(entity, methodBuilder, "resultList", ParameterizedTypeName.get(returnRawListClazzName, entityClass));
 			methodBuilder.addCode(";\n");
 		} else {
 			methodBuilder.addCode("return resultList;\n");
 		}
 
-		
 		methodBuilder.endControlFlow();
 	}
 
@@ -233,22 +228,28 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 	 *            the method
 	 * @return name of generated class
 	 */
-	private static String buildSpecializedPagedResultClass(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
-		//TypeName entityTypeName = TypeUtility.typeName(method.getParent().getEntityClassName());
+	public static String buildSpecializedPagedResultClass(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
+		// TypeName entityTypeName =
+		// TypeUtility.typeName(method.getParent().getEntityClassName());
 		TypeName entityTypeName = TypeUtility.typeName(method.getEntity().getName());
 
 		String pagedResultName = "PaginatedResult" + (pagedResultCounter++);
 
-		TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(pagedResultName).addModifiers(Modifier.PUBLIC).superclass(
-				TypeUtility.parameterizedTypeName(TypeUtility.className(PaginatedResult.class), entityTypeName));
+		TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(pagedResultName).addModifiers(Modifier.PUBLIC)
+				.superclass(TypeUtility.parameterizedTypeName(TypeUtility.className(PaginatedResult.class), entityTypeName));
 
 		// add fields and define constructor
 		MethodSpec.Builder setupBuilder = MethodSpec.constructorBuilder();
 
 		MethodSpec.Builder executeBuilder = MethodSpec.methodBuilder("execute").addModifiers(Modifier.PUBLIC)
 				.returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
-		executeBuilder.addCode("list=$T.this.$L(",
-				TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
+
+		ClassName daoFactoryClassName = BindDaoFactoryBuilder.generateDaoFactoryClassName(method.getParent().getParent());
+		MethodSpec.Builder executeWithDaoFactortBuilder = MethodSpec.methodBuilder("execute").addParameter(daoFactoryClassName, "daoFactory").addModifiers(Modifier.PUBLIC)
+				.returns(TypeUtility.parameterizedTypeName(TypeUtility.className(List.class), entityTypeName));
+		executeWithDaoFactortBuilder.addCode("return daoFactory.get$L().$L(", method.getParentName(), method.getName());
+
+		executeBuilder.addCode("list=$T.this.$L(", TypeUtility.typeName(method.getParent().getElement(), BindDaoBuilder.SUFFIX), method.getName());
 
 		// we have always a first parameter
 		String separator = "";
@@ -269,8 +270,10 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 			// execute
 			if (method.dynamicPageSizeName != null && method.dynamicPageSizeName.equals(item.value0)) {
 				executeBuilder.addCode(separator + "this.pageSize");
+				executeWithDaoFactortBuilder.addCode(separator + "this.pageSize");
 			} else {
 				executeBuilder.addCode(separator + item.value0);
+				executeWithDaoFactortBuilder.addCode(separator + item.value0);
 			}
 			separator = ", ";
 		}
@@ -286,11 +289,24 @@ public class SelectPaginatedResultHelper<ElementUtils> extends AbstractSelectCod
 		executeBuilder.addCode(separator + "this);\n");
 		executeBuilder.addStatement("return list");
 
+		executeWithDaoFactortBuilder.addCode(separator + "this);\n");
+
 		typeBuilder.addMethod(executeBuilder.build());
+		typeBuilder.addMethod(executeWithDaoFactortBuilder.build());
 
 		classBuilder.addType(typeBuilder.build());
 
 		return pagedResultName;
+	}
+
+	/**
+	 * 
+	 * Return the simple current paged result inner class name.
+	 * 
+	 * @return
+	 */
+	public static String getCurrentPagedResultClass() {
+		return "PaginatedResult" + (pagedResultCounter - 1);
 	}
 
 }

@@ -3,23 +3,20 @@ package sqlite.feature.custombean.case1;
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
-import android.net.Uri;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
+import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -34,19 +31,15 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class LoanDaoImpl extends Dao implements LoanDao {
   private static final String FIND_ALL_LOANS_SQL10 = "SELECT id, book_id, end_time, start_time, user_id FROM loan";
 
-  private static final Set<String> findAllLoans0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "book_id", "end_time", "start_time", "user_id");
+  private static final String FIND_ALL_WITH_USER_AND_BOOK_SQL11 = "SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id ";
 
-  private static final String FIND_ALL_WITH_USER_AND_BOOK_SQL11 = "SELECT loan.id as id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id ";
-
-  private static final Set<String> findAllWithUserAndBook1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "title", "name", "start_time", "end_time");
-
-  private static final String FIND_LOANS_BY_NAME_AFTER_SQL12 = "SELECT loan.id as id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
+  private static final String FIND_LOANS_BY_NAME_AFTER_SQL12 = "SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
 
   private static SQLiteStatement insertLoanPreparedStatement0;
 
   private static SQLiteStatement deleteAllPreparedStatement1;
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public LoanDaoImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -156,7 +149,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
   public LiveData<List<Loan>> findAllLoans() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<List<Loan>> builder=new KriptonComputableLiveData<List<Loan>>() {
+    final KriptonLiveDataHandlerImpl<List<Loan>> builder=new KriptonLiveDataHandlerImpl<List<Loan>>() {
       @Override
       protected List<Loan> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<Loan>>() {
@@ -172,72 +165,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
   }
 
   /**
-   * <h1>Content provider URI (SELECT operation):</h1>
-   * <pre>content://sqlite.feature.custombean.case1/loan/loadAll</pre>
-   *
-   * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, bookId, endTime, startTime, userId FROM Loan</pre>
-   *
-   * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT id, book_id, end_time, start_time, user_id FROM loan</pre>
-   *
-   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   *
-   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
-   *
-   * @param uri "content://sqlite.feature.custombean.case1/loan/loadAll"
-   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @return number of effected rows
-   */
-  Cursor findAllLoans0ForContentProvider(Uri uri, String[] projection, String selection,
-      String[] selectionArgs, String sortOrder) {
-    Logger.info("Execute SELECT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=sqlBuilder();
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    StringBuilder _projectionBuffer=new StringBuilder();
-    _sqlBuilder.append("SELECT %s FROM loan");
-    String _sqlWhereStatement="";
-
-    // manage projected columns
-    String _columnSeparator="";
-    if (projection!=null && projection.length>0) {
-      for (String columnName:projection) {
-        if (!findAllLoans0ForContentProviderColumnSet.contains(columnName)) {
-          throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.custombean.case1/loan/loadAll', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "loan" ));
-        }
-        _projectionBuffer.append(_columnSeparator + columnName);
-        _columnSeparator=", ";
-      }
-    } else {
-      for (String column: findAllLoans0ForContentProviderColumnSet) {
-        _projectionBuffer.append(_columnSeparator + column);
-        _columnSeparator=", ";
-      }
-    }
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
-
-    // manage log
-    Logger.info(_sql);
-
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
-    }
-    // log for where parameters -- END
-
-    // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
-    return _result;
-  }
-
-  /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT loan.id as id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
+   * <pre>SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
    *
    * <h2>Mapped class:</h2>
    * {@link LoanWithUserAndBook}
@@ -318,7 +248,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    *
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT loan.id as id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
+   * <pre>SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
    *
    * <h2>Mapped class:</h2>
    * {@link LoanWithUserAndBook}
@@ -338,7 +268,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
   public LiveData<List<LoanWithUserAndBook>> findAllWithUserAndBook() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<List<LoanWithUserAndBook>> builder=new KriptonComputableLiveData<List<LoanWithUserAndBook>>() {
+    final KriptonLiveDataHandlerImpl<List<LoanWithUserAndBook>> builder=new KriptonLiveDataHandlerImpl<List<LoanWithUserAndBook>>() {
       @Override
       protected List<LoanWithUserAndBook> compute() {
         return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<LoanWithUserAndBook>>() {
@@ -354,72 +284,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
   }
 
   /**
-   * <h1>Content provider URI (SELECT operation):</h1>
-   * <pre>content://sqlite.feature.custombean.case1/loan/loadLoanAndBook</pre>
-   *
-   * <h2>JQL SELECT for Content Provider</h2>
-   * <pre>SELECT Loan.id as id, Book.title as bookTitle, User.name as userName, Loan.startTime, Loan.endTime From Loan INNER JOIN Book ON Loan.bookId = Book.id INNER JOIN User ON Loan.userId = User.id </pre>
-   *
-   * <h2>SQL SELECT for Content Provider</h2>
-   * <pre>SELECT loan.id as id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id </pre>
-   *
-   * <p><strong>Dynamic where statement is ignored, due no param with @BindSqlDynamicWhere was added.</strong></p>
-   *
-   * <p><strong>In URI, * is replaced with [*] for javadoc rapresentation</strong></p>
-   *
-   * @param uri "content://sqlite.feature.custombean.case1/loan/loadLoanAndBook"
-   * @param selection dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @param selectionArgs arguments of dynamic part of <code>where</code> statement <b>NOT USED</b>
-   * @return number of effected rows
-   */
-  Cursor findAllWithUserAndBook1ForContentProvider(Uri uri, String[] projection, String selection,
-      String[] selectionArgs, String sortOrder) {
-    Logger.info("Execute SELECT for URI %s", uri.toString());
-    KriptonContentValues _contentValues=contentValues();
-    StringBuilder _sqlBuilder=sqlBuilder();
-    // generation CODE_001 -- BEGIN
-    // generation CODE_001 -- END
-    StringBuilder _projectionBuffer=new StringBuilder();
-    _sqlBuilder.append("SELECT %s From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id ");
-    String _sqlWhereStatement="";
-
-    // manage projected columns
-    String _columnSeparator="";
-    if (projection!=null && projection.length>0) {
-      for (String columnName:projection) {
-        if (!findAllWithUserAndBook1ForContentProviderColumnSet.contains(columnName)) {
-          throw new KriptonRuntimeException(String.format("For URI 'content://sqlite.feature.custombean.case1/loan/loadLoanAndBook', column '%s' does not exists in table '%s' or can not be defined in this SELECT operation", columnName, "loan_with_user_and_book" ));
-        }
-        _projectionBuffer.append(_columnSeparator + columnName);
-        _columnSeparator=", ";
-      }
-    } else {
-      for (String column: findAllWithUserAndBook1ForContentProviderColumnSet) {
-        _projectionBuffer.append(_columnSeparator + column);
-        _columnSeparator=", ";
-      }
-    }
-    String _sql=String.format(_sqlBuilder.toString(), _projectionBuffer.toString());
-
-    // manage log
-    Logger.info(_sql);
-
-    // log for where parameters -- BEGIN
-    int _whereParamCounter=0;
-    for (String _whereParamItem: _contentValues.whereArgs()) {
-      Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
-    }
-    // log for where parameters -- END
-
-    // execute query
-    Cursor _result = database().rawQuery(_sql, _contentValues.whereArgsAsArray());
-    return _result;
-  }
-
-  /**
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT loan.id as id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
+   * <pre>SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
    *
    * <h2>Mapped class:</h2>
    * {@link LoanWithUserAndBook}
@@ -443,9 +310,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    * 	is binded to <code>:userName</code>
    * @param after
    * 	is binded to <code>:after</code>
-   * @return selected bean or <code>null</code>.
+   * @return collection of bean or empty collection.
    */
-  protected LoanWithUserAndBook findLoansByNameAfterForLiveData(String userName, Date after) {
+  protected List<LoanWithUserAndBook> findLoansByNameAfterForLiveData(String userName, Date after) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
@@ -474,8 +341,9 @@ public class LoanDaoImpl extends Dao implements LoanDao {
       }
       // log section END
       // common part generation - END
-      // Specialized part - SelectBeanHelper - BEGIN
+      // Specialized part - SelectBeanListHelper - BEGIN
 
+      ArrayList<LoanWithUserAndBook> resultList=new ArrayList<LoanWithUserAndBook>(_cursor.getCount());
       LoanWithUserAndBook resultBean=null;
 
       if (_cursor.moveToFirst()) {
@@ -486,18 +354,23 @@ public class LoanDaoImpl extends Dao implements LoanDao {
         int index3=_cursor.getColumnIndex("start_time");
         int index4=_cursor.getColumnIndex("end_time");
 
-        resultBean=new LoanWithUserAndBook();
+        do
+         {
+          resultBean=new LoanWithUserAndBook();
 
-        resultBean.id=_cursor.getString(index0);
-        if (!_cursor.isNull(index1)) { resultBean.bookTitle=_cursor.getString(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.userName=_cursor.getString(index2); }
-        if (!_cursor.isNull(index3)) { resultBean.startTime=DateUtils.read(_cursor.getString(index3)); }
-        if (!_cursor.isNull(index4)) { resultBean.endTime=DateUtils.read(_cursor.getString(index4)); }
+          resultBean.id=_cursor.getString(index0);
+          if (!_cursor.isNull(index1)) { resultBean.bookTitle=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { resultBean.userName=_cursor.getString(index2); }
+          if (!_cursor.isNull(index3)) { resultBean.startTime=DateUtils.read(_cursor.getString(index3)); }
+          if (!_cursor.isNull(index4)) { resultBean.endTime=DateUtils.read(_cursor.getString(index4)); }
 
+          resultList.add(resultBean);
+        } while (_cursor.moveToNext());
       }
-      return resultBean;
+
+      return resultList;
     }
-    // Specialized part - SelectBeanHelper - END
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -506,7 +379,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    *
    * <h2>Select SQL:</h2>
    *
-   * <pre>SELECT loan.id as id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
+   * <pre>SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE :userName AND loan.end_time > :after </pre>
    *
    * <h2>Mapped class:</h2>
    * {@link LoanWithUserAndBook}
@@ -530,19 +403,19 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    * 	is binded to <code>:userName</code>
    * @param after
    * 	is binded to <code>:after</code>
-   * @return selected bean or <code>null</code>.
+   * @return collection of bean or empty collection.
    */
   @Override
-  public LiveData<LoanWithUserAndBook> findLoansByNameAfter(final String userName,
+  public LiveData<List<LoanWithUserAndBook>> findLoansByNameAfter(final String userName,
       final Date after) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<LoanWithUserAndBook> builder=new KriptonComputableLiveData<LoanWithUserAndBook>() {
+    final KriptonLiveDataHandlerImpl<List<LoanWithUserAndBook>> builder=new KriptonLiveDataHandlerImpl<List<LoanWithUserAndBook>>() {
       @Override
-      protected LoanWithUserAndBook compute() {
-        return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<LoanWithUserAndBook>() {
+      protected List<LoanWithUserAndBook> compute() {
+        return BindAppDataSource.getInstance().executeBatch(new BindAppDataSource.Batch<List<LoanWithUserAndBook>>() {
           @Override
-          public LoanWithUserAndBook onExecute(BindAppDaoFactory daoFactory) {
+          public List<LoanWithUserAndBook> onExecute(BindAppDaoFactory daoFactory) {
             return daoFactory.getLoanDao().findLoansByNameAfterForLiveData(userName, after);
           }
         });
@@ -676,8 +549,8 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     }
   }
 
-  protected void registryLiveData(KriptonComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -685,7 +558,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

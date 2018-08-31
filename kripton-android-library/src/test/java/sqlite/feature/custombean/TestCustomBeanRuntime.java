@@ -32,17 +32,16 @@ import org.robolectric.annotation.Config;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.executor.KriptonInstantTaskExecutorRule;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
-import com.abubusoft.kripton.exception.KriptonRuntimeException;
 
 import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
 import sqlite.feature.custombean.case1.BindAppDaoFactory;
 import sqlite.feature.custombean.case1.BindAppDataSource;
+import sqlite.feature.custombean.case1.BindAppDataSource.Transaction;
 import sqlite.feature.custombean.case1.Book;
 import sqlite.feature.custombean.case1.Loan;
 import sqlite.feature.custombean.case1.LoanWithUserAndBook;
 import sqlite.feature.custombean.case1.User;
-import sqlite.feature.custombean.case1.BindAppDataSource.Transaction;
 
 /**
  * The Class TestContentProviderRuntime.

@@ -3,8 +3,9 @@ package sqlite.feature.kotlin.immutable;
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
+import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -37,7 +38,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
 
   private static final String SELECT_ONE_SQL6 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels";
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   private BindRssDaoFactory daoFactory;
 
@@ -540,7 +541,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
   public LiveData<Channel> selectOne() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<Channel> builder=new KriptonComputableLiveData<Channel>() {
+    final KriptonLiveDataHandlerImpl<Channel> builder=new KriptonLiveDataHandlerImpl<Channel>() {
       @Override
       protected Channel compute() {
         return BindRssDataSource.getInstance().executeBatch(new BindRssDataSource.Batch<Channel>() {
@@ -566,8 +567,8 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     }
   }
 
-  protected void registryLiveData(KriptonComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -575,7 +576,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

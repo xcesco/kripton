@@ -3,8 +3,9 @@ package sqlite.feature.livedata.persistence0;
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
+import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -35,7 +36,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
 
   private static SQLiteStatement updatePreparedStatement1;
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
@@ -154,7 +155,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
   public LiveData<List<Person>> select(final String name) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
+    final KriptonLiveDataHandlerImpl<List<Person>> builder=new KriptonLiveDataHandlerImpl<List<Person>>() {
       @Override
       protected List<Person> compute() {
         return BindApp0DataSource.getInstance().executeBatch(new BindApp0DataSource.Batch<List<Person>>() {
@@ -324,8 +325,8 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     }
   }
 
-  protected void registryLiveData(KriptonComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -333,7 +334,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

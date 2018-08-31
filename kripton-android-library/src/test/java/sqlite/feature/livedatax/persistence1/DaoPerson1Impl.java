@@ -5,11 +5,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import androidx.lifecycle.LiveData;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.androidx.livedata.KriptonXComputableLiveData;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -48,7 +49,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
 
   private static final Set<String> update3ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "name", "surname");
 
-  static Collection<WeakReference<KriptonXComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonXComputableLiveData<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   public DaoPerson1Impl(BindApp1DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -165,7 +166,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
   public LiveData<List<Person>> select(final String name) {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonXComputableLiveData<List<Person>> builder=new KriptonXComputableLiveData<List<Person>>() {
+    final KriptonXLiveDataHandlerImpl<List<Person>> builder=new KriptonXLiveDataHandlerImpl<List<Person>>() {
       @Override
       protected List<Person> compute() {
         return BindApp1DataSource.getInstance().executeBatch(new BindApp1DataSource.Batch<List<Person>>() {
@@ -353,7 +354,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
   public LiveData<List<Person>> selectAll() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonXComputableLiveData<List<Person>> builder=new KriptonXComputableLiveData<List<Person>>() {
+    final KriptonXLiveDataHandlerImpl<List<Person>> builder=new KriptonXLiveDataHandlerImpl<List<Person>>() {
       @Override
       protected List<Person> compute() {
         return BindApp1DataSource.getInstance().executeBatch(new BindApp1DataSource.Batch<List<Person>>() {
@@ -705,8 +706,8 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     }
   }
 
-  protected void registryLiveData(KriptonXComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<KriptonXComputableLiveData<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -714,7 +715,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonXComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

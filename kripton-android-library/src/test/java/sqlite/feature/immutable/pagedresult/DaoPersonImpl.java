@@ -56,7 +56,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public PaginatedResult<Person> select() {
-    PaginatedResult6 paginatedResult=new PaginatedResult6();
+    final PaginatedResult6 paginatedResult=new PaginatedResult6();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -180,16 +180,19 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (name, surname, birth_city, birth_day) VALUES (:name, :surname, :birthCity, :birthDay)</pre>
+   * <pre>INSERT INTO person (pk, name, surname, birth_city, birth_day) VALUES (:pk, :name, :surname, :birthCity, :birthDay)</pre>
    *
    * <h2>Inserted columns:</strong></h2>
    * <dl>
+   * 	<dt>pk</dt><dd>is binded to query's parameter <strong>:pk</strong> and method's parameter <strong>pk</strong></dd>
    * 	<dt>name</dt><dd>is binded to query's parameter <strong>:name</strong> and method's parameter <strong>name</strong></dd>
    * 	<dt>surname</dt><dd>is binded to query's parameter <strong>:surname</strong> and method's parameter <strong>surname</strong></dd>
    * 	<dt>birthCity</dt><dd>is binded to query's parameter <strong>:birthCity</strong> and method's parameter <strong>birthCity</strong></dd>
    * 	<dt>birthDay</dt><dd>is binded to query's parameter <strong>:birthDay</strong> and method's parameter <strong>birthDay</strong></dd>
    * </dl>
    *
+   * @param pk
+   * 	is binded to column value <strong>pk</strong>
    * @param name
    * 	is binded to column value <strong>name</strong>
    * @param surname
@@ -201,15 +204,16 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    */
   @Override
-  public void insertOne(String name, String surname, String birthCity, Date birthDay) {
+  public void insertOne(String pk, String name, String surname, String birthCity, Date birthDay) {
     // Specialized Insert - InsertType - BEGIN
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
+      String _sql="INSERT INTO person (pk, name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?, ?)";
       insertOnePreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertOnePreparedStatement0);
 
+    _contentValues.put("pk", pk);
     _contentValues.put("name", name);
     _contentValues.put("surname", surname);
     _contentValues.put("birth_city", birthCity);
@@ -407,6 +411,10 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     public List<Person> execute() {
       list=DaoPersonImpl.this.select(this);
       return list;
+    }
+
+    public List<Person> execute(BindAppDaoFactory daoFactory) {
+      return daoFactory.getDaoPerson().select(this);
     }
   }
 }

@@ -49,16 +49,16 @@ import com.squareup.javapoet.TypeSpec;
  *            the generic type
  * @since 17/mag/2016
  */
-public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenerator {
+public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder. SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
+	 * @see com.abubusoft.kripton.processor.sqlite.SQLiteSelectBuilder.
+	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
-			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
+	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		SQLiteEntity entity = method.getEntity();
 		TypeName returnTypeName = method.getReturnClass();
 
@@ -72,11 +72,9 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 
 		methodBuilder.addCode("\n");
 		if (TypeUtility.isTypeEquals(collectionClass, TypeUtility.typeName(ArrayList.class))) {
-			methodBuilder.addCode("$T<$T> resultList=new $T<$T>(_cursor.getCount());\n", collectionClass, entityClass,
-					collectionClass, entityClass);
+			methodBuilder.addCode("$T<$T> resultList=new $T<$T>(_cursor.getCount());\n", collectionClass, entityClass, collectionClass, entityClass);
 		} else {
-			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass,
-					entityClass);
+			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass, entityClass);
 		}
 		methodBuilder.addStatement("$T resultBean=null", entityClass);
 		// immutable management
@@ -98,8 +96,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 
 				methodBuilder.addStatement("int index$L=_cursor.getColumnIndex($S)", (i++), item.columnName);
 				if (item.hasTypeAdapter()) {
-					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)",
-							item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
+					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
 							item.typeAdapter.getAdapterTypeName());
 				}
 			}
@@ -123,8 +120,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!_cursor.isNull(index$L)) { ", i);
 			}
-			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor",
-					"index" + i + "");
+			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor", "index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");
@@ -142,7 +138,7 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		if (entity.isImmutablePojo()) {
 			methodBuilder.addComment("define immutable POJO");
 			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "resultBean", false);
-		} 
+		}
 
 		methodBuilder.addCode("resultList.add(resultBean);\n");
 		methodBuilder.endControlFlow("while (_cursor.moveToNext())");
@@ -150,16 +146,15 @@ public class SelectBeanListHelper<ElementUtils> extends AbstractSelectCodeGenera
 		methodBuilder.endControlFlow();
 
 		methodBuilder.addCode("\n");
-		
+
 		// return list or immutable list
 		if (entity.isImmutablePojo()) {
 			methodBuilder.addCode("return ");
-			ImmutableUtility.generateImmutableCollectionIfPossible(entity,  methodBuilder, "resultList", ParameterizedTypeName.get(returnRawListClazzName, entityClass));	
+			ImmutableUtility.generateImmutableCollectionIfPossible(entity, methodBuilder, "resultList", ParameterizedTypeName.get(returnRawListClazzName, entityClass));
 			methodBuilder.addCode(";\n");
 		} else {
 			methodBuilder.addCode("return resultList;\n");
 		}
-		
 
 		// close try { open cursor
 		methodBuilder.endControlFlow();

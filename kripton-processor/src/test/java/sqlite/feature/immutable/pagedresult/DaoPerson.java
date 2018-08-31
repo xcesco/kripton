@@ -24,23 +24,22 @@ import com.abubusoft.kripton.android.annotation.BindSqlInsert;
 import com.abubusoft.kripton.android.annotation.BindSqlSelect;
 import com.abubusoft.kripton.android.sqlite.PaginatedResult;
 
-
 /**
  * The Interface Dao1Person.
  */
 @BindDao(Person.class)
 public interface DaoPerson {
-	
-	@BindSqlSelect(orderBy="name", pageSize=10)
-	PaginatedResult<Person> select();
-		
-	@BindSqlInsert
-	void insertOne(String name, String surname, String birthCity, Date birthDay);
 
-	@BindSqlSelect(orderBy="name")
+	@BindSqlSelect(orderBy = "name", pageSize = 10)
+	PaginatedResult<Person> select();
+
+	@BindSqlInsert
+	void insertOne(String pk, String name, String surname, String birthCity, Date birthDay);
+
+	@BindSqlSelect(orderBy = "name")
 	List<Person> selectAll();
-	
+
 	@BindSqlDelete
 	int deleteAll();
-		
+
 }

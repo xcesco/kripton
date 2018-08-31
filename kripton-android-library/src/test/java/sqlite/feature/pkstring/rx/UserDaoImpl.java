@@ -5,8 +5,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
+import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -45,7 +46,7 @@ public class UserDaoImpl extends Dao implements UserDao {
 
   private static SQLiteStatement deleteAllUsersPreparedStatement2;
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
@@ -168,7 +169,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    * @return paginated result.
    */
   protected PaginatedResult<User> selectPagedForLiveData() {
-    PaginatedResult7 paginatedResult=new PaginatedResult7();
+    final PaginatedResult7 paginatedResult=new PaginatedResult7();
     // common part generation - BEGIN
     // common part generation - END
     return paginatedResult;
@@ -292,7 +293,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   public LiveData<PaginatedResult<User>> selectPaged() {
     // common part generation - BEGIN
     // common part generation - END
-    final KriptonComputableLiveData<PaginatedResult<User>> builder=new KriptonComputableLiveData<PaginatedResult<User>>() {
+    final KriptonLiveDataHandlerImpl<PaginatedResult<User>> builder=new KriptonLiveDataHandlerImpl<PaginatedResult<User>>() {
       @Override
       protected PaginatedResult<User> compute() {
         return BindUserDataSource.getInstance().executeBatch(new BindUserDataSource.Batch<PaginatedResult<User>>() {
@@ -606,8 +607,8 @@ public class UserDaoImpl extends Dao implements UserDao {
     }
   }
 
-  protected void registryLiveData(KriptonComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -615,7 +616,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }
@@ -649,6 +650,10 @@ public class UserDaoImpl extends Dao implements UserDao {
     public List<User> execute() {
       list=UserDaoImpl.this.selectPaged(this);
       return list;
+    }
+
+    public List<User> execute(BindUserDaoFactory daoFactory) {
+      return daoFactory.getUserDao().selectPaged(this);
     }
   }
 }
