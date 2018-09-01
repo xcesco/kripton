@@ -15,7 +15,9 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite.grammars.jql;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.abubusoft.kripton.android.sqlite.ConflictAlgorithmType;
 
@@ -52,7 +54,11 @@ public class JQL {
 		/** The dynamic page size. */
 		DYNAMIC_PAGE_SIZE,
 		/** The dynamic page offset. */
-		DYNAMIC_PAGE_OFFSET
+		DYNAMIC_PAGE_OFFSET,
+		/**
+		 * States for query parameters that are used as arrays
+		 */
+		DYNAMIC_SPREAD
 	}
 
 	/**
@@ -123,6 +129,8 @@ public class JQL {
 
 	/** The dynamic replace. */
 	public Map<JQLDynamicStatementType, String> dynamicReplace;
+	
+	public Set<String> spreadParams=new HashSet<String>();
 
 	/** The static order by. */
 	boolean staticOrderBy;
@@ -213,6 +221,16 @@ public class JQL {
 	 */
 	public boolean isDynamicWhereConditions() {
 		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_WHERE);
+	}
+	
+	/**
+	 * if <code>true</code> states that JQL has dynamic arguments managed with spread operator.
+	 * 
+	 * @return if <code>true</code> states that JQL has a dynamic parameter managed with spread operator
+	 *         
+	 */
+	public boolean isDynamicSpreadConditions() {
+		return dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_SPREAD);
 	}
 
 	/**

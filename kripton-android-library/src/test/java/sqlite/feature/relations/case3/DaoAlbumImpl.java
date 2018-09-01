@@ -33,7 +33,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (name) VALUES (:name)</pre>
    *
    * <p><code>arg0.id</code> is automatically updated because it is the primary key</p>
@@ -49,6 +49,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public void insert(Album arg0) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (name) VALUES (?)";
@@ -94,13 +95,18 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     arg0.setId(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name FROM album</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -117,12 +123,13 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public List<Album> selectAlbums() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALBUMS_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -134,13 +141,15 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Album> resultList=new ArrayList<Album>(_cursor.getCount());
       Album resultBean=null;
@@ -165,6 +174,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

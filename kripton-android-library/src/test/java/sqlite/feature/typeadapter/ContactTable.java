@@ -20,9 +20,9 @@ public class ContactTable implements SQLiteTable {
    * DDL to create table contact
    * </p>
    *
-   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER, password BLOB, surname TEXT, type INTEGER, update_date TEXT, update_time TEXT);</pre>
+   * <pre>CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, birth_day INTEGER, password BLOB, surname TEXT, type INTEGER, update_date TEXT, update_time TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT, birth_day INTEGER, password BLOB, surname TEXT, type INTEGER, update_date TEXT, update_time TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE contact (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, birth_day INTEGER, password BLOB, surname TEXT, type INTEGER, update_date TEXT, update_time TEXT);";
 
   /**
    * <p>

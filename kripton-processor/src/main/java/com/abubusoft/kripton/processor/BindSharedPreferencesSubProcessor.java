@@ -40,6 +40,7 @@ import com.abubusoft.kripton.processor.bind.model.BindEntity;
 import com.abubusoft.kripton.processor.bind.model.BindProperty;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -198,6 +199,8 @@ public class BindSharedPreferencesSubProcessor extends BaseProcessor {
 			}
 
 		});
+		
+		ImmutableUtility.buildConstructors(elementUtils, currentEntity);
 
 		model.entityAdd(currentEntity);
 		return result;

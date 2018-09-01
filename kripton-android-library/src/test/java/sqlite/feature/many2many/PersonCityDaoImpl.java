@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,6 +45,9 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    *
    * <pre>SELECT id, city_id, person_id FROM person_city WHERE id=:id</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCity}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -62,13 +66,14 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    */
   @Override
   public PersonCity selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -80,15 +85,23 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PersonCity resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      long __personId=0;
+      long __cityId=0;
 
       if (_cursor.moveToFirst()) {
 
@@ -96,21 +109,31 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
         int index1=_cursor.getColumnIndex("city_id");
         int index2=_cursor.getColumnIndex("person_id");
 
-        resultBean=new PersonCity();
+        // reset temporary variable for immutable POJO
+        // immutable object: initialize temporary variables for properties
+        __id=0;
+        __personId=0;
+        __cityId=0;
+        __id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { __cityId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { __personId=_cursor.getLong(index2); }
 
-        resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
-
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new PersonCity(__id,__personId,__cityId);
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, city_id, person_id FROM person_city WHERE person_id=:personId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCity}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -126,17 +149,18 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    *
    * @param personId
    * 	is binded to <code>:personId</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<PersonCity> selectByPersonId(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PERSON_ID_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -148,16 +172,24 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCity> resultList=new ArrayList<PersonCity>(_cursor.getCount());
       PersonCity resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      long __personId=0;
+      long __cityId=0;
 
       if (_cursor.moveToFirst()) {
 
@@ -167,24 +199,34 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
 
         do
          {
-          resultBean=new PersonCity();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __personId=0;
+          __cityId=0;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { __personId=_cursor.getLong(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new PersonCity(__id,__personId,__cityId);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, city_id, person_id FROM person_city WHERE city_id=:cityId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCity}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -200,17 +242,18 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    *
    * @param cityId
    * 	is binded to <code>:cityId</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<PersonCity> selectByCityId(long cityId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CITY_ID_SQL7;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(cityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -222,16 +265,24 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCity> resultList=new ArrayList<PersonCity>(_cursor.getCount());
       PersonCity resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      long __personId=0;
+      long __cityId=0;
 
       if (_cursor.moveToFirst()) {
 
@@ -241,24 +292,30 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
 
         do
          {
-          resultBean=new PersonCity();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __personId=0;
+          __cityId=0;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __cityId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { __personId=_cursor.getLong(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.cityId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.personId=_cursor.getLong(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new PersonCity(__id,__personId,__cityId);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -304,7 +361,6 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city WHERE person_id=:personId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:personId</dt><dd>is mapped to method's parameter <strong>personId</strong></dd>
@@ -349,7 +405,6 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city WHERE city_id=:cityId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:cityId</dt><dd>is mapped to method's parameter <strong>cityId</strong></dd>
@@ -391,7 +446,7 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person_city (city_id, person_id) VALUES (:bean.cityId, :bean.personId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -409,14 +464,15 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
    */
   @Override
   public int insert(PersonCity bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person_city (city_id, person_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
-    _contentValues.put("city_id", bean.cityId);
-    _contentValues.put("person_id", bean.personId);
+    _contentValues.put("city_id", bean.getCityId());
+    _contentValues.put("person_id", bean.getPersonId());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -455,9 +511,9 @@ public class PersonCityDaoImpl extends Dao implements GeneratedPersonCityDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
-    bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

@@ -277,20 +277,20 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public AppPreferences read() {
     AppPreferences bean=new AppPreferences();
-    bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)bean.valueBoolean);
-    bean.valueInt=(int)prefs.getInt("value_int", (int)bean.valueInt);
-    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
-    bean.valueLong=prefs.getLong("value_long", (bean.valueLong==null?0L:bean.valueLong));
-    bean.setDescription(prefs.getString("description", bean.getDescription()));
-    bean.name=prefs.getString("name", bean.name);
+    bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
+    bean.valueInt=(int)prefs.getInt("value_int", (int)defaultBean.valueInt);
+    bean.valueFloat=prefs.getFloat("value_float", defaultBean.valueFloat);
+    bean.valueLong=prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
+    bean.setDescription(prefs.getString("description", defaultBean.getDescription()));
+    bean.name=prefs.getString("name", defaultBean.name);
      {
       String temp=prefs.getString("string_array", null);
-      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): bean.getStringArray());
+      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray());
     }
 
      {
       String temp=prefs.getString("string_list", null);
-      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): bean.stringList;
+      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
     }
 
 

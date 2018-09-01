@@ -27,6 +27,9 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
    *
    * <pre>SELECT count(*) FROM bean01 WHERE id=${id} and value=${value}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean01}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
@@ -46,6 +49,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
    */
   @Override
   public Boolean selectDistance(long id, double value) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_DISTANCE_SQL1;
@@ -53,7 +57,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs(String.valueOf(value));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -65,13 +69,15 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Boolean result=null;
 
       if (_cursor.moveToFirst()) {
@@ -81,6 +87,7 @@ public class DaoBeanSelectOKImpl extends Dao implements DaoBeanSelectOK {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   public static void clearCompiledStatements() {

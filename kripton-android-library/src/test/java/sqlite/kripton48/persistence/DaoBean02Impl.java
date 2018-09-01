@@ -32,6 +32,9 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    *
    * <pre>SELECT id, text FROM bean02 WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean02}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -49,13 +52,14 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    */
   @Override
   public Bean02 selectOne(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -67,13 +71,15 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean02 resultBean=null;
 
@@ -90,12 +96,12 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean02 WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

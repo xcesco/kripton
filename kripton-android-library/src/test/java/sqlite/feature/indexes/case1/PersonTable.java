@@ -20,9 +20,9 @@ public class PersonTable implements SQLiteTable {
    * DDL to create table person
    * </p>
    *
-   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_name TEXT UNIQUE, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, surname TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); CREATE INDEX idx_person_1 on person (surname);</pre>
+   * <pre>CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, alias_name TEXT UNIQUE, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, surname TEXT, UNIQUE (name, surname, date)); CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); CREATE INDEX idx_person_1 on person (surname);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT, alias_name TEXT UNIQUE, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, surname TEXT); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); CREATE INDEX idx_person_1 on person (surname);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, alias_name TEXT UNIQUE, birth_city TEXT, birth_day TEXT, date TEXT, name TEXT, surname TEXT, UNIQUE (name, surname, date)); CREATE UNIQUE INDEX idx_person_0 on person (name, surname, date desc); CREATE INDEX idx_person_name ON person(name); CREATE INDEX idx_person_surname ON person(surname); CREATE INDEX idx_person_0 on person (birth_city, birth_day desc); CREATE INDEX idx_person_1 on person (surname);";
 
   /**
    * <p>

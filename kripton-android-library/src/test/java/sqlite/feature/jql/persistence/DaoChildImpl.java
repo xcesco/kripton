@@ -47,6 +47,9 @@ public class DaoChildImpl extends Dao implements DaoChild {
    *
    * <pre>SELECT _id, name, parent_id FROM child</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Child}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>_id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -58,12 +61,13 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public List<Child> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -75,13 +79,15 @@ public class DaoChildImpl extends Dao implements DaoChild {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
@@ -106,10 +112,11 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO child (name, parent_id) VALUES (:name, :parentId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -126,6 +133,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public Child insertBean(Child bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO child (name, parent_id) VALUES (?, ?)";
@@ -172,15 +180,20 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return bean;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>select * from child where parent_id in (select _id from person where _id=${parentId})</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Child}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -200,13 +213,14 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public List<Child> selectByParent(long parentId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PARENT_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -218,13 +232,15 @@ public class DaoChildImpl extends Dao implements DaoChild {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
@@ -249,12 +265,16 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>select count(*) from child where parent_id in (select _id from person where _id=${parentId})</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Child}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -272,13 +292,14 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public int selectByParent2(long parentId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PARENT2_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -290,13 +311,15 @@ public class DaoChildImpl extends Dao implements DaoChild {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       int result=0;
 
       if (_cursor.moveToFirst()) {
@@ -306,12 +329,16 @@ public class DaoChildImpl extends Dao implements DaoChild {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT _id, name, parent_id FROM child WHERE parent_id=${parentId}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Child}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -331,13 +358,14 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public List<Child> selectByParentId(long parentId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PARENT_ID_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(parentId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -349,13 +377,15 @@ public class DaoChildImpl extends Dao implements DaoChild {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Child> resultList=new ArrayList<Child>(_cursor.getCount());
       Child resultBean=null;
@@ -380,6 +410,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -403,6 +434,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public void insertByCopy(long parentId, long aliasParentId, long parent) {
+    // Specialized Insert - InsertType - BEGIN
     KriptonContentValues _contentValues=contentValuesForUpdate();
     // build where condition
     _contentValues.addWhereArgs(String.valueOf(parentId));
@@ -438,10 +470,11 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // log section END
 
     database().execSQL("insert into child (name, parent_id) select name, parent_id from child where _id=? or _id=? or _id=?", _contentValues.whereArgsAsArray());
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>insert into child (name, parent_id) values (:bean.name, :bean.parentId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -458,6 +491,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public void insertByCopy3(Child bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertByCopy3PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="insert into child (name, parent_id) values (?, ?)";
@@ -504,7 +538,9 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertByCopy3PreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -526,6 +562,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
    */
   @Override
   public int insertByCopy(long parentId, String name) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertByCopyPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO child (parent_id, name) VALUES (?, ?)";
@@ -574,6 +611,7 @@ public class DaoChildImpl extends Dao implements DaoChild {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertByCopyPreparedStatement2, _contentValues);
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**

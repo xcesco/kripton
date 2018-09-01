@@ -35,6 +35,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <pre>select * from person where name like :dummy || '%' #{DYNAMIC_WHERE}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -62,6 +65,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public List<Person> select(String dummy, String where) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("select * from person");
@@ -81,7 +85,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // add where arguments
     _contentValues.addWhereArgs((dummy==null?"":dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -93,13 +97,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -128,12 +134,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>select * from person where name like :dummy || '%' #{DYNAMIC_WHERE} #{DYNAMIC_ORDER_BY}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -167,6 +177,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public List<Person> select(String dummy, String where, String[] dynParam, String order) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("select * from person");
@@ -199,7 +210,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // add where arguments
     _contentValues.addWhereArgs((dummy==null?"":dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -211,13 +222,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -246,6 +259,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -272,6 +286,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public void insert(String name, String surname, String birthCity, Date birthDay) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
@@ -321,6 +336,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

@@ -68,7 +68,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR FAIL INTO person (birth_city, birth_day, city, name, surname, value) VALUES (:bean.birthCity, :bean.birthDay, :bean.city, :bean.name, :bean.surname, :bean.value)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -89,6 +89,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    */
   @Override
   public void insertBean(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR FAIL INTO person (birth_city, birth_day, city, name, surname, value) VALUES (?, ?, ?, ?, ?, ?)";
@@ -104,7 +105,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -166,6 +169,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    */
   @Override
   public void insertName(String tempName) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertNamePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name) VALUES (?)";
@@ -177,6 +181,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertNamePreparedStatement1, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -232,7 +237,6 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = :id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -315,7 +319,6 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = :id #{DYNAMIC_WHERE}</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -907,10 +910,10 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET alias_parent_id=:parentId, birth_city=:birthCity, birth_day=:birthDay, city=:city, name=:name, surname=:surname, value=:value WHERE id=${person.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>alias_parent_id</dt><dd>is mapped to <strong>:person.parentId</strong></dd>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>:person.birthCity</strong></dd>
@@ -1031,6 +1034,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person WHERE name like ${nameTemp} || '%' GROUP BY id HAVING id=2 ORDER BY id, #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1061,6 +1067,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    */
   @Override
   public List<Person> selectOne(String nameValue, String orderBy) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person");
@@ -1093,6 +1100,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -1127,6 +1136,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1214,6 +1224,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name asc, #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1242,6 +1255,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    */
   @Override
   public List<Person> selectAll(String where, String[] args, String order) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person");
@@ -1274,6 +1288,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -1308,6 +1324,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1387,6 +1404,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person WHERE name like ${data.name} || '%' ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1417,6 +1437,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    */
   @Override
   public List<Person> selectOne(Person bean, String orderBy) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person");
@@ -1441,6 +1462,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     _contentValues.addWhereArgs(bean.getName());
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -1475,6 +1498,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1554,6 +1578,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1570,12 +1597,15 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    */
   @Override
   public List<Person> selectBean() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -1610,6 +1640,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -1669,6 +1700,9 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    *
    * <pre>SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person WHERE #{DYNAMIC_WHERE} ORDER BY name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1693,6 +1727,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
    */
   @Override
   public void selectCursorListener(OnReadCursorListener cursorListener, String where) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, alias_parent_id, birth_city, birth_day, city, name, surname, value FROM person");
@@ -1718,6 +1753,8 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -1727,6 +1764,7 @@ public class Person2DAOImpl extends Dao implements Person2DAO {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   public static void clearCompiledStatements() {

@@ -18,15 +18,20 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import sqlite.feature.async.TestRuntimeAyncSuite;
 import sqlite.feature.asynctask.TestRuntimeMultithreadSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinitySuite;
 import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
+import sqlite.feature.custombean.TestCustomBeanRuntimeSuite;
 import sqlite.feature.dynamic.TestDynamicRuntimeSuite;
 import sqlite.feature.foreignkey.TestForeignKeyRuntimeSuite;
 import sqlite.feature.globaltypeadapters.TestGlobalTypeAdapterRuntimeSuite;
+import sqlite.feature.immutable.TestImmutableRuntimeSuite;
+import sqlite.feature.in.TestFeatureInRuntimeSuite;
 import sqlite.feature.includefields.TestIncludeFieldsRuntimeSuite;
 import sqlite.feature.indexes.TestIndexesRuntimeSuite;
 import sqlite.feature.jql.TestFeatJQLRuntimeSuite;
+import sqlite.feature.livedata.TestRuntimeLiveDataSuite;
 import sqlite.feature.many2many.TestRuntimeMany2ManySuite;
 import sqlite.feature.paginatedresult.TestPaginatedResultRuntimeSuite;
 import sqlite.feature.pkstring.TestPkStringSuite;
@@ -56,8 +61,12 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestDynamicRuntimeSuite.class,
 	TestContentProviderRuntime.class,
 	TestSchemaRuntimeSuite.class,
-	TestGlobalTypeAdapterRuntimeSuite.class,
+	TestGlobalTypeAdapterRuntimeSuite.class,	
 	TestFeatureRelationRuntimeSuite.class,
+	TestRuntimeAyncSuite.class,
+	TestCustomBeanRuntimeSuite.class,
+	TestImmutableRuntimeSuite.class,
+	TestRuntimeLiveDataSuite.class,
 	
 	// unverified results	
 	TestForeignKeyRuntimeSuite.class,
@@ -65,6 +74,7 @@ import sqlite.stack45184504.TestStack45184504RuntimeSuite;
 	TestIndexesRuntimeSuite.class,
 	TestRuntimeMany2ManySuite.class,
 	TestColumnAffinitySuite.class,
+	TestFeatureInRuntimeSuite.class,	
 	
 	Test64RuntimeSuite.class,
 	Test84RuntimeSuite.class,

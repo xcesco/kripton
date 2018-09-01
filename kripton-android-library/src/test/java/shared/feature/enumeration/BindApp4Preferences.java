@@ -89,62 +89,62 @@ public class BindApp4Preferences extends AbstractSharedPreference {
     App4Preferences bean=new App4Preferences();
      {
       String temp=prefs.getString("value_double", null);
-      bean.valueDouble=(StringUtils.hasText(temp)) ? Double.valueOf(temp): bean.valueDouble;
+      bean.valueDouble=(StringUtils.hasText(temp)) ? Double.valueOf(temp): defaultBean.valueDouble;
     }
 
      {
       String temp=prefs.getString("value_double2", null);
-      bean.valueDouble2=(StringUtils.hasText(temp)) ? Double.valueOf(temp): bean.valueDouble2;
+      bean.valueDouble2=(StringUtils.hasText(temp)) ? Double.valueOf(temp): defaultBean.valueDouble2;
     }
 
      {
       String temp=prefs.getString("value_date", null);
-      bean.valueDate=(StringUtils.hasText(temp)) ? DateUtils.read(temp): bean.valueDate;}
+      bean.valueDate=(StringUtils.hasText(temp)) ? DateUtils.read(temp): defaultBean.valueDate;}
 
      {
       String temp=prefs.getString("value_url", null);
-      bean.valueUrl=(StringUtils.hasText(temp)) ? UrlUtils.read(temp): bean.valueUrl;}
+      bean.valueUrl=(StringUtils.hasText(temp)) ? UrlUtils.read(temp): defaultBean.valueUrl;}
 
-    bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)bean.valueBoolean);
-    bean.valueChar=(char)prefs.getInt("value_char", (char)bean.valueChar);
-    bean.valueInt=(int)prefs.getInt("value_int", (int)bean.valueInt);
+    bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
+    bean.valueChar=(char)prefs.getInt("value_char", (char)defaultBean.valueChar);
+    bean.valueInt=(int)prefs.getInt("value_int", (int)defaultBean.valueInt);
      {
       Set<String> temp=prefs.getStringSet("set_string", defaultBean.setString);
       bean.setString=temp;
     }
 
-    bean.valueShort2=(short)prefs.getInt("value_short2", (short)(bean.valueShort2==null?(short)0:bean.valueShort2));
-    bean.valueChar2=(char)prefs.getInt("value_char2", (char)(bean.valueChar2==null?(char)0:bean.valueChar2));
-    bean.valueShort=(short)prefs.getInt("value_short", (short)bean.valueShort);
+    bean.valueShort2=(short)prefs.getInt("value_short2", (short)(defaultBean.valueShort2==null?(short)0:defaultBean.valueShort2));
+    bean.valueChar2=(char)prefs.getInt("value_char2", (char)(defaultBean.valueChar2==null?(char)0:defaultBean.valueChar2));
+    bean.valueShort=(short)prefs.getInt("value_short", (short)defaultBean.valueShort);
      {
       String temp=prefs.getString("value1", null);
-      bean.value1=(StringUtils.hasText(temp)) ? ValueType.valueOf(temp): bean.value1;
+      bean.value1=(StringUtils.hasText(temp)) ? ValueType.valueOf(temp): defaultBean.value1;
     }
 
      {
       String temp=prefs.getString("value2", null);
-      bean.setValue2((StringUtils.hasText(temp)) ? ValueType.valueOf(temp): bean.getValue2());
+      bean.setValue2((StringUtils.hasText(temp)) ? ValueType.valueOf(temp): defaultBean.getValue2());
     }
 
-    bean.valueBoolean2=(boolean)prefs.getBoolean("value_boolean2", (boolean)(bean.valueBoolean2==null?false:bean.valueBoolean2));
+    bean.valueBoolean2=(boolean)prefs.getBoolean("value_boolean2", (boolean)(defaultBean.valueBoolean2==null?false:defaultBean.valueBoolean2));
      {
       String temp=prefs.getString("value_big_decimal", "0");
-      bean.valueBigDecimal=(StringUtils.hasText(temp)) ? new BigDecimal(temp): bean.valueBigDecimal;
+      bean.valueBigDecimal=(StringUtils.hasText(temp)) ? new BigDecimal(temp): defaultBean.valueBigDecimal;
     }
 
-    bean.valueFloat2=prefs.getFloat("value_float2", (bean.valueFloat2==null?0F:bean.valueFloat2));
-    bean.valueInt2=(int)prefs.getInt("value_int2", (int)(bean.valueInt2==null?0:bean.valueInt2));
-    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
-    bean.valueLong2=prefs.getLong("value_long2", (bean.valueLong2==null?0L:bean.valueLong2));
-    bean.valueLong=prefs.getLong("value_long", bean.valueLong);
-    bean.valueString=prefs.getString("value_string", bean.valueString);
+    bean.valueFloat2=prefs.getFloat("value_float2", (defaultBean.valueFloat2==null?0F:defaultBean.valueFloat2));
+    bean.valueInt2=(int)prefs.getInt("value_int2", (int)(defaultBean.valueInt2==null?0:defaultBean.valueInt2));
+    bean.valueFloat=prefs.getFloat("value_float", defaultBean.valueFloat);
+    bean.valueLong2=prefs.getLong("value_long2", (defaultBean.valueLong2==null?0L:defaultBean.valueLong2));
+    bean.valueLong=prefs.getLong("value_long", defaultBean.valueLong);
+    bean.valueString=prefs.getString("value_string", defaultBean.valueString);
      {
       String temp=prefs.getString("value_locale", null);
-      bean.valueLocale=(StringUtils.hasText(temp)) ? LocaleUtils.read(temp): bean.valueLocale;}
+      bean.valueLocale=(StringUtils.hasText(temp)) ? LocaleUtils.read(temp): defaultBean.valueLocale;}
 
      {
       String temp=prefs.getString("list_string", null);
-      bean.listString=StringUtils.hasText(temp) ? parseListString(temp): bean.listString;
+      bean.listString=StringUtils.hasText(temp) ? parseListString(temp): defaultBean.listString;
     }
 
 

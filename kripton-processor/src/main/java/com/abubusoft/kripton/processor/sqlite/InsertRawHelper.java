@@ -21,6 +21,7 @@ import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 
+import com.abubusoft.kripton.android.ColumnType;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.One;
@@ -34,9 +35,9 @@ import com.abubusoft.kripton.processor.sqlite.SqlInsertBuilder.InsertCodeGenerat
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_value_setContext;
+import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
-import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.FieldSpec;
@@ -57,7 +58,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, final SQLiteModelMethod method, TypeName returnType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
-		final SQLiteEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = method.getEntity();
 
 		//boolean nullable;
 
@@ -98,14 +99,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 								
 				// check same type
 				TypeUtility.checkTypeCompatibility(method, item, property);
-				// check nullabliity
-//				nullable = TypeUtility.isNullable(method, item, property) && !property.hasTypeAdapter();
-//
-//				if (nullable) {
-//					// it use raw method param's typeName
-//					methodBuilder.beginControlFlow("if ($L!=null)", item.value0);
-//				}
-				
+											
 				if (method.isLogEnabled()) {
 					methodBuilder.addCode("_contentValues.put($S, ", property.columnName);
 				} else {
@@ -132,13 +126,31 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}			
 			
 			if (daoDefinition.getParent().generateRx) {
-				GenericSQLHelper.generateSubjectNext(methodBuilder, SubjectType.INSERT);				
+				
+				// rx management
+				String rxIdGetter=null;
+				if (entity.getPrimaryKey().columnType==ColumnType.PRIMARY_KEY) {
+					rxIdGetter="result";
+				} else {
+					// unmanaged pk
+					for (Pair<String, TypeName> item : fieldsToUpdate) {
+						String propertyName = method.findParameterAliasByName(item.value0);
+						
+						SQLProperty property = entity.get(propertyName);
+											
+						if (property.isPrimaryKey()) {
+							rxIdGetter=item.value0;
+						}
+					}
+				}												
+				
+				GenericSQLHelper.generateSubjectNext(entity, methodBuilder, SubjectType.INSERT, rxIdGetter);				
 			}
 			
 			// support for livedata
 			if (daoDefinition.hasLiveData()) {
 				methodBuilder.addComment("support for livedata");
-				methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result)");
+				methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT+"(result>0?1:0)");
 			}
 
 			// define return value
@@ -167,8 +179,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 	 * @return string sql
 	 */
 	public String generateJavaDoc(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, TypeName returnType) {
-		final SQLiteDaoDefinition daoDefinition = method.getParent();
-		final SQLiteEntity entity = daoDefinition.getEntity();
+		final SQLiteEntity entity = method.getEntity();
 		final One<Boolean> inColumnValues = new One<Boolean>(false);
 		final List<Pair<String, TypeName>> methodParamsUsedAsColumnValue = new ArrayList<>();
 		final List<Pair<String, TypeName>> methodParamsUsedAsParameter = new ArrayList<>();
@@ -198,7 +209,7 @@ public class InsertRawHelper implements InsertCodeGenerator {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				String resolvedParamName = method.findParameterNameByAlias(bindParameterName);
 
 				if (inColumnValues.value0) {

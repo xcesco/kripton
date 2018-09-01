@@ -26,7 +26,7 @@ public class DaoProfessorImpl extends Dao implements DaoProfessor {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO professor (birth_date, name, surname) VALUES (:birthDate, :name, :surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -45,6 +45,7 @@ public class DaoProfessorImpl extends Dao implements DaoProfessor {
    */
   @Override
   public long insert(Professor bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO professor (birth_date, name, surname) VALUES (?, ?, ?)";
@@ -92,9 +93,11 @@ public class DaoProfessorImpl extends Dao implements DaoProfessor {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

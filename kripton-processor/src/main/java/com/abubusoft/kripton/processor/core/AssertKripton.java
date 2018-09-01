@@ -35,10 +35,12 @@ import com.abubusoft.kripton.processor.exceptions.InvalidTypeForAnnotationExcept
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.abubusoft.kripton.processor.exceptions.MethodWithoutSupportedAnnotationException;
 import com.abubusoft.kripton.processor.exceptions.MissedAnnotationOnClass;
+import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 import com.abubusoft.kripton.processor.exceptions.UnknownClassInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownParamUsedInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 import com.abubusoft.kripton.processor.exceptions.UnsupportedFieldTypeException;
+import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLContext;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
@@ -216,7 +218,7 @@ public abstract class AssertKripton {
 	 * @param method the method
 	 * @param columnName the column name
 	 */
-	public static void assertTrueOrUnknownPropertyInJQLException(boolean expression, SQLiteModelMethod method, String columnName) {
+	public static void assertTrueOrUnknownPropertyInJQLException(boolean expression, JQLContext method, String columnName) {
 		if (!expression) {
 			throw (new UnknownPropertyInJQLException(method, columnName));
 		}
@@ -397,6 +399,43 @@ public abstract class AssertKripton {
 			String msg = String.format("In data source '%s', there are two or more global type adapter that cover type '%s': '%s' and '%s'", sqLiteDatabaseSchema.getElement().getQualifiedName(), TypeAdapterHelper.detectSourceType(typeAdapter),  typeAdapter, typeAdapter2);
 			throw (new InvalidDefinition(msg));
 		}
+	}
+
+	/**
+	 * When a pojo has a valid constructor
+	 * 
+	 * @param expression
+	 * @param entity
+	 */
+	public static void assertTrueOfInvalidConstructor(boolean expression, ModelClass<?> entity) {
+		if (!expression) {
+			String msg = String.format("Class '%s' has no constructor without parameters (to be a mutable class) or with all parameters (to be an immutable class).", entity.getElement().getQualifiedName());
+			throw (new InvalidDefinition(msg));
+		}
+		
+	}
+	
+	/**
+	 * When a pojo has a valid constructor
+	 * 
+	 * @param expression
+	 * @param entity
+	 */
+	public static void assertTrueOfInvalidConstructorProperty(boolean expression, ModelClass<?> entity, String fieldName) {
+		if (!expression) {
+			String msg = String.format("In class '%s' the constructor '%s' parameters has different type than associated property type.", entity.getElement().getQualifiedName(), fieldName);
+			throw (new InvalidDefinition(msg));
+		}
+		
+	}
+
+	public static void assertTrueOfInvalidWritable(boolean expression, ModelClass<?> entity) {
+		if (!expression) {
+			String msg = String.format("In class '%s' there are readonly properties and no valid constructor to define all properties.", entity.getElement().getQualifiedName());
+			throw (new PropertyVisibilityException(msg));
+		}
+		
+		
 	}
 
 }

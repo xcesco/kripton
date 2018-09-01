@@ -68,6 +68,9 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${bean.id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -99,13 +102,14 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public Employee selectById(Employee bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -117,13 +121,15 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -179,12 +185,16 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${bean.id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -217,13 +227,14 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public Employee selectByIdJQL(Employee bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_J_Q_L_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -235,13 +246,15 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -297,12 +310,16 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -345,6 +362,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public Employee selectByAll(Employee bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_SQL3;
@@ -361,7 +379,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, bean.fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, bean.fieldByteArray));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -373,13 +391,15 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -435,12 +455,16 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -483,6 +507,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public Employee selectByAllJQL(Employee bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_J_Q_L_SQL4;
@@ -499,7 +524,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, bean.fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, bean.fieldByteArray));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -511,13 +536,15 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -573,10 +600,11 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (:bean.address, :bean.birthDate, :bean.fieldBoolean, :bean.fieldByte, :bean.fieldByteArray, :bean.fieldCharacter, :bean.fieldDouble, :bean.fieldFloat, :bean.fieldInteger, :bean.fieldLong, :bean.fieldShort, :bean.fieldString, :bean.firstName, :bean.hireDate, :bean.lastName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -607,6 +635,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public long insert(Employee bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -666,13 +695,15 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (:bean.fieldBoolean, :bean.fieldByte, :bean.fieldCharacter, :bean.fieldShort, :bean.fieldInteger, :bean.fieldLong, :bean.fieldFloat, :bean.fieldDouble, :bean.fieldString, :bean.fieldByteArray)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -698,6 +729,7 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
    */
   @Override
   public long insertJQL(Employee bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertJQLPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -752,16 +784,18 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertJQLPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE employees SET address=:address, birth_date=:birthDate, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_byte_array=:fieldByteArray, field_character=:fieldCharacter, field_double=:fieldDouble, field_float=:fieldFloat, field_integer=:fieldInteger, field_long=:fieldLong, field_short=:fieldShort, field_string=:fieldString, first_name=:firstName, hire_date=:hireDate, last_name=:lastName WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
@@ -867,10 +901,10 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE employees SET address=:address, birth_date=:birthDate, field_boolean=:fieldBoolean, field_byte=:fieldByte, field_byte_array=:fieldByteArray, field_character=:fieldCharacter, field_double=:fieldDouble, field_float=:fieldFloat, field_integer=:fieldInteger, field_long=:fieldLong, field_short=:fieldShort, field_string=:fieldString, first_name=:firstName, hire_date=:hireDate, last_name=:lastName WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
@@ -958,10 +992,10 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=${bean.id} and field_byte=${bean.fieldByte} and field_character=${bean.fieldCharacter} and field_short=${bean.fieldShort} and field_integer=${bean.fieldInteger} and field_long=${bean.fieldLong} and field_float=${bean.fieldFloat} and field_double=${bean.fieldDouble} and field_string=${bean.fieldString} and field_byte_array=${bean.fieldByteArray}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>
@@ -1047,10 +1081,10 @@ public class EmployeeBeanDaoImpl extends Dao implements EmployeeBeanDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE employees SET last_name=:lastName, first_name=:firstName, birth_date=:birthDate, hire_date=:hireDate, address=:address WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>address</dt><dd>is mapped to <strong>:bean.address</strong></dd>
    * 	<dt>birth_date</dt><dd>is mapped to <strong>:bean.birthDate</strong></dd>

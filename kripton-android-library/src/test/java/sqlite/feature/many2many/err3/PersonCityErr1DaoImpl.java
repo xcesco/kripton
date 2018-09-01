@@ -44,6 +44,9 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    *
    * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCityErr3}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -62,13 +65,14 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    */
   @Override
   public List<PersonCityErr3> selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -80,13 +84,15 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityErr3> resultList=new ArrayList<PersonCityErr3>(_cursor.getCount());
       PersonCityErr3 resultBean=null;
@@ -111,12 +117,16 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE person_id=:personId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCityErr3}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -136,13 +146,14 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    */
   @Override
   public List<PersonCityErr3> selectByPersonId(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PERSON_ID_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -154,13 +165,15 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityErr3> resultList=new ArrayList<PersonCityErr3>(_cursor.getCount());
       PersonCityErr3 resultBean=null;
@@ -185,12 +198,16 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, city_id, person_id FROM person_city_err3 WHERE city_id=:cityId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonCityErr3}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -210,13 +227,14 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    */
   @Override
   public List<PersonCityErr3> selectByCityId(long cityId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CITY_ID_SQL7;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(cityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -228,13 +246,15 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonCityErr3> resultList=new ArrayList<PersonCityErr3>(_cursor.getCount());
       PersonCityErr3 resultBean=null;
@@ -259,12 +279,12 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city_err3 WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -310,7 +330,6 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city_err3 WHERE person_id=:personId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:personId</dt><dd>is mapped to method's parameter <strong>personId</strong></dd>
@@ -355,7 +374,6 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_city_err3 WHERE city_id=:cityId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:cityId</dt><dd>is mapped to method's parameter <strong>cityId</strong></dd>
@@ -397,7 +415,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person_city_err3 (city_id, person_id) VALUES (:cityId, :personId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -415,6 +433,7 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
    */
   @Override
   public int insert(PersonCityErr3 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person_city_err3 (city_id, person_id) VALUES (?, ?)";
@@ -461,9 +480,11 @@ public class PersonCityErr1DaoImpl extends Dao implements GeneratedPersonCityErr
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

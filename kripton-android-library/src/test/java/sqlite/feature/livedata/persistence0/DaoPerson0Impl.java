@@ -3,8 +3,9 @@ package sqlite.feature.livedata.persistence0;
 import android.arch.lifecycle.LiveData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.livedata.KriptonComputableLiveData;
+import com.abubusoft.kripton.android.livedata.KriptonLiveDataHandlerImpl;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
@@ -35,7 +36,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
 
   private static SQLiteStatement updatePreparedStatement1;
 
-  static Collection<WeakReference<KriptonComputableLiveData<?>>> liveDatas = new CopyOnWriteArraySet<WeakReference<KriptonComputableLiveData<?>>>();
+  static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
   private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
@@ -47,6 +48,9 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -65,13 +69,14 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    * @return collection of bean or empty collection.
    */
   protected List<Person> selectForLiveData(String name) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -83,13 +88,15 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -114,6 +121,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -123,6 +131,9 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, surname FROM person WHERE name=${name}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -142,7 +153,9 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    */
   @Override
   public LiveData<List<Person>> select(final String name) {
-    final KriptonComputableLiveData<List<Person>> builder=new KriptonComputableLiveData<List<Person>>() {
+    // common part generation - BEGIN
+    // common part generation - END
+    final KriptonLiveDataHandlerImpl<List<Person>> builder=new KriptonLiveDataHandlerImpl<List<Person>>() {
       @Override
       protected List<Person> compute() {
         return BindApp0DataSource.getInstance().executeBatch(new BindApp0DataSource.Batch<List<Person>>() {
@@ -158,7 +171,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -175,6 +188,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    */
   @Override
   public void insert(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
@@ -221,19 +235,22 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
-    if (result>0) {
-      subject.onNext(SQLiteEvent.createInsert(result));
-    }
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    if (result>0) {
+      // rx management 
+      subject.onNext(SQLiteEvent.createInsertWithId(result));
+    }
     // support for livedata
     registryEvent(result>0?1:0);
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, surname=:surname WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
@@ -290,6 +307,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createUpdate(result));
     }
     // support for livedata
@@ -307,8 +325,8 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     }
   }
 
-  protected void registryLiveData(KriptonComputableLiveData<?> value) {
-    liveDatas.add(new WeakReference<KriptonComputableLiveData<?>>(value));
+  protected void registryLiveData(LiveDataHandler value) {
+    liveDatas.add(new WeakReference<LiveDataHandler>(value));
   }
 
   /**
@@ -316,7 +334,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
    *
    */
   public void invalidateLiveData() {
-    for (WeakReference<KriptonComputableLiveData<?>> item: liveDatas) {
+    for (WeakReference<LiveDataHandler> item: liveDatas) {
       if (item.get()!=null) {
         item.get().invalidate();
       }

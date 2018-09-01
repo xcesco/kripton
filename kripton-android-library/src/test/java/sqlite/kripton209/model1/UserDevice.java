@@ -20,7 +20,7 @@ public class UserDevice {
   @BindSqlColumn(
       columnType = ColumnType.PRIMARY_KEY
   )
-  public long id;
+  private long id;
 
   /**
    * Foreign key to User model class
@@ -29,7 +29,7 @@ public class UserDevice {
       parentEntity = User.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public Long userId;
+  private Long userId;
 
   /**
    * Foreign key to Device model class
@@ -38,5 +38,23 @@ public class UserDevice {
       parentEntity = Device.class,
       onDelete = ForeignKeyAction.CASCADE
   )
-  public Long deviceId;
+  private Long deviceId;
+
+  public UserDevice(long id, Long userId, Long deviceId) {
+    this.id=id;
+    this.userId=userId;
+    this.deviceId=deviceId;
+  }
+
+  public long getId() {
+    return this.id;
+  }
+
+  public Long getUserId() {
+    return this.userId;
+  }
+
+  public Long getDeviceId() {
+    return this.deviceId;
+  }
 }

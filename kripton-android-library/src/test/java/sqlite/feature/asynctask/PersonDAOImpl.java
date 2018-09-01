@@ -33,7 +33,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (:bean.birthCity, :bean.birthDay, :bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -52,6 +52,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public void insertThread1(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertThread1PreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (birth_city, birth_day, name, surname) VALUES (?, ?, ?, ?)";
@@ -100,11 +101,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertThread1PreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (birth_city, birth_day, name, surname) VALUES (:bean.birthCity, :bean.birthDay, :bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -123,6 +126,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public void insertThread2(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertThread2PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (birth_city, birth_day, name, surname) VALUES (?, ?, ?, ?)";
@@ -171,13 +175,18 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertThread2PreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -192,12 +201,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public Person selectThread1() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_THREAD1_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -209,13 +219,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -238,12 +250,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -258,12 +274,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public Person selectThread2() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_THREAD2_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -275,13 +292,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -304,6 +323,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   public static void clearCompiledStatements() {

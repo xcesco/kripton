@@ -35,23 +35,25 @@ public class GeneratedTypeElement implements Finder<SQLProperty> {
 
 	/** The package name. */
 	public String packageName;
-	
+
 	/** The type spec. */
 	public TypeSpec typeSpec;
-	
+
 	/** The table name. */
 	protected String tableName;
-	
+
 	/** The refered entities. */
-	public Set<SQLiteEntity> referedEntities=new HashSet<>();
-	
+	public Set<SQLiteEntity> referedEntities = new HashSet<>();
+
 	/** The index. */
-	public List<String> index=new ArrayList<>();
-	
+	public List<String> index = new ArrayList<>();
+
 	/** The properties. */
-	public List<SQLProperty> properties=new ArrayList<SQLProperty>();
-	
-	/* (non-Javadoc)
+	public List<SQLProperty> properties = new ArrayList<SQLProperty>();
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.core.Finder#getTableName()
 	 */
 	public String getTableName() {
@@ -61,21 +63,25 @@ public class GeneratedTypeElement implements Finder<SQLProperty> {
 	/**
 	 * Instantiates a new generated type element.
 	 *
-	 * @param packageName the package name
-	 * @param typeSpec the type spec
-	 * @param tableName the table name
-	 * @param index the index
+	 * @param packageName
+	 *            the package name
+	 * @param typeSpec
+	 *            the type spec
+	 * @param tableName
+	 *            the table name
+	 * @param index
+	 *            the index
 	 */
 	public GeneratedTypeElement(String packageName, TypeSpec typeSpec, String tableName, String index) {
 		this.packageName = packageName;
 		this.typeSpec = typeSpec;
-		this.tableName=tableName;
-		
+		this.tableName = tableName;
+
 		if (StringUtils.hasText(index)) {
 			this.index.add(index);
 		}
-	}	
-	
+	}
+
 	/**
 	 * Gets the qualified name.
 	 *
@@ -83,12 +89,12 @@ public class GeneratedTypeElement implements Finder<SQLProperty> {
 	 */
 	public String getQualifiedName() {
 		if (StringUtils.hasText(packageName)) {
-			return packageName+"."+typeSpec.name;
+			return packageName + "." + typeSpec.name;
 		}
-						
+
 		return typeSpec.name;
 	}
-	
+
 	/**
 	 * Gets the name.
 	 *
@@ -98,20 +104,24 @@ public class GeneratedTypeElement implements Finder<SQLProperty> {
 		return getQualifiedName();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.core.Finder#getSimpleName()
 	 */
 	public String getSimpleName() {
 		return typeSpec.name;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.core.Finder#getCollection()
 	 */
 	public List<SQLProperty> getCollection() {
 		return properties;
 	}
-	
+
 	/**
 	 * Gets the class name.
 	 *
@@ -121,8 +131,12 @@ public class GeneratedTypeElement implements Finder<SQLProperty> {
 		return TypeUtility.className(getQualifiedName());
 	}
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.core.Finder#findPropertyByName(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.abubusoft.kripton.processor.core.Finder#findPropertyByName(java.lang.
+	 * String)
 	 */
 	@Override
 	public SQLProperty findPropertyByName(String name) {
@@ -135,5 +149,6 @@ public class GeneratedTypeElement implements Finder<SQLProperty> {
 
 		return null;
 	}
+
 
 }

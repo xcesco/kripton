@@ -20,9 +20,9 @@ public class Bean01Table implements SQLiteTable {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, value REAL);</pre>
+   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, text TEXT, value REAL);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, value REAL);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, text TEXT, value REAL);";
 
   /**
    * <p>

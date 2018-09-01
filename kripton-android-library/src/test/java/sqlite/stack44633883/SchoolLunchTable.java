@@ -30,9 +30,9 @@ public class SchoolLunchTable implements SQLiteTable {
    * DDL to create table SchoolLunches
    * </p>
    *
-   * <pre>CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, contains_meat INTEGER, fresh INTEGER, fruits BLOB);</pre>
+   * <pre>CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, contains_meat INTEGER, fresh INTEGER, fruits BLOB);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT, contains_meat INTEGER, fresh INTEGER, fruits BLOB);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE SchoolLunches (lunch_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, contains_meat INTEGER, fresh INTEGER, fruits BLOB);";
 
   /**
    * <p>

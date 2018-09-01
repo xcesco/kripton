@@ -43,6 +43,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <pre>SELECT type_name FROM person ORDER BY type_name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link sqlite.select.Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>type_name</dt><dd>is associated to bean's property <strong>typeName</strong></dd>
@@ -52,12 +55,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public Set<String> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -69,13 +73,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarListHelper - BEGIN
 
       LinkedHashSet<String> resultList=new LinkedHashSet<String>();
 
@@ -93,12 +99,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       return resultList;
     }
+    // Specialized part - SelectScalarListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT birth_day FROM person ORDER BY type_name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link sqlite.select.Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -109,12 +119,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public ArrayList<Date> selectAll2() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL2_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -126,13 +137,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarListHelper - BEGIN
 
       ArrayList<Date> resultList=new ArrayList<Date>(_cursor.getCount());
 
@@ -150,6 +163,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       return resultList;
     }
+    // Specialized part - SelectScalarListHelper - END
   }
 
   /**

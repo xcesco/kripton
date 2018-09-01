@@ -15,7 +15,6 @@
  ******************************************************************************/
 package sqlite.feature.typeadapter.bitmap;
 
-import com.abubusoft.kripton.android.annotation.BindSqlColumn;
 import com.abubusoft.kripton.android.annotation.BindSqlAdapter;
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 

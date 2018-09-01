@@ -73,11 +73,11 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 		}
 
 		if (isStringSet) {
-			methodBuilder.addStatement("$T<String> temp=$L.getStringSet($S, "+tempPreDefaultValue+"defaultBean."+getter(property)+tempPostDefaultValue+")", Set.class, preferenceName,
+			methodBuilder.addStatement("$T<String> temp=$L.getStringSet($S, "+tempPreDefaultValue+DEFAULT_BEAN_NAME+"."+getter(property)+tempPostDefaultValue+")", Set.class, preferenceName,
 					property.getPreferenceKey());
 			if (readAll) {
 				methodBuilder.addCode(
-						"$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
+						setter(beanClass, beanName, property) + (!property.isPublicField() && beanName!=null ? "(" : "="));
 			} 
 			
 			switch (readType) {
@@ -117,7 +117,7 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 					property.getPreferenceKey());
 			if (readAll) {
 				methodBuilder.addCode(
-						"$L." + setter(beanClass, property) + (!property.isPublicField() ? "(" : "=") + "", beanName);
+						setter(beanClass, beanName, property) + (!property.isPublicField() ? "(" : "=") + "");
 			} 
 			
 			switch (readType) {
@@ -133,10 +133,10 @@ public class SetPrefsTransformation extends AbstractGeneratedPrefsTransform {
 
 			methodBuilder.addCode("$T.hasText(temp) ? ", StringUtils.class);
 			methodBuilder.addCode("parse$L(temp)", formatter.convert(property.getName()));
-			methodBuilder.addCode(": $L",getter(beanName, beanClass, property));
+			methodBuilder.addCode(": $L",getter(DEFAULT_BEAN_NAME, beanClass, property));
 
 			if (readAll) {
-				methodBuilder.addCode((!property.isPublicField() ? ")" : ""));
+				methodBuilder.addCode(!property.isPublicField() && beanName!=null ? ")" : "");
 			}
 
 			methodBuilder.addCode(";\n");

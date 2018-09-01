@@ -89,44 +89,44 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
     Bean bean=new Bean();
      {
       String temp=prefs.getString("value_float_set", null);
-      bean.valueFloatSet=StringUtils.hasText(temp) ? parseValueFloatSet(temp): bean.valueFloatSet;
+      bean.valueFloatSet=StringUtils.hasText(temp) ? parseValueFloatSet(temp): defaultBean.valueFloatSet;
     }
 
-    bean.id=prefs.getLong("id", bean.id);
+    bean.id=prefs.getLong("id", defaultBean.id);
      {
       String temp=prefs.getString("value_enum_type_set", null);
-      bean.valueEnumTypeSet=StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): bean.valueEnumTypeSet;
+      bean.valueEnumTypeSet=StringUtils.hasText(temp) ? parseValueEnumTypeSet(temp): defaultBean.valueEnumTypeSet;
     }
 
      {
       String temp=prefs.getString("value_double_set", null);
-      bean.valueDoubleSet=StringUtils.hasText(temp) ? parseValueDoubleSet(temp): bean.valueDoubleSet;
+      bean.valueDoubleSet=StringUtils.hasText(temp) ? parseValueDoubleSet(temp): defaultBean.valueDoubleSet;
     }
 
-    bean.value=prefs.getString("value", bean.value);
+    bean.value=prefs.getString("value", defaultBean.value);
      {
       String temp=prefs.getString("value_character_set", null);
-      bean.valueCharacterSet=StringUtils.hasText(temp) ? parseValueCharacterSet(temp): bean.valueCharacterSet;
+      bean.valueCharacterSet=StringUtils.hasText(temp) ? parseValueCharacterSet(temp): defaultBean.valueCharacterSet;
     }
 
      {
       String temp=prefs.getString("value_bean_set", null);
-      bean.valueBeanSet=StringUtils.hasText(temp) ? parseValueBeanSet(temp): bean.valueBeanSet;
+      bean.valueBeanSet=StringUtils.hasText(temp) ? parseValueBeanSet(temp): defaultBean.valueBeanSet;
     }
 
      {
       String temp=prefs.getString("value_integer_set", null);
-      bean.valueIntegerSet=StringUtils.hasText(temp) ? parseValueIntegerSet(temp): bean.valueIntegerSet;
+      bean.valueIntegerSet=StringUtils.hasText(temp) ? parseValueIntegerSet(temp): defaultBean.valueIntegerSet;
     }
 
      {
       String temp=prefs.getString("value_short_set", null);
-      bean.valueShortSet=StringUtils.hasText(temp) ? parseValueShortSet(temp): bean.valueShortSet;
+      bean.valueShortSet=StringUtils.hasText(temp) ? parseValueShortSet(temp): defaultBean.valueShortSet;
     }
 
      {
       String temp=prefs.getString("value_big_decimal_set", null);
-      bean.valueBigDecimalSet=StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): bean.valueBigDecimalSet;
+      bean.valueBigDecimalSet=StringUtils.hasText(temp) ? parseValueBigDecimalSet(temp): defaultBean.valueBigDecimalSet;
     }
 
      {
@@ -136,7 +136,7 @@ public class BindBeanSharedPreferences extends AbstractSharedPreference {
 
      {
       String temp=prefs.getString("value_byte_set", null);
-      bean.valueByteSet=StringUtils.hasText(temp) ? parseValueByteSet(temp): bean.valueByteSet;
+      bean.valueByteSet=StringUtils.hasText(temp) ? parseValueByteSet(temp): defaultBean.valueByteSet;
     }
 
 

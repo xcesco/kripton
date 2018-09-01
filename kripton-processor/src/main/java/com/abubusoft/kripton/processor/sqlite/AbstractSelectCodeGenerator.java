@@ -34,6 +34,7 @@ import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.KriptonLiveDataManager;
 import com.abubusoft.kripton.processor.core.AssertKripton;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.reflect.PropertyUtility;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
@@ -50,6 +51,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
+import com.squareup.javapoet.ArrayTypeName;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -61,7 +63,6 @@ import com.squareup.javapoet.TypeSpec;
 
 import android.database.Cursor;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractSelectCodeGenerator.
  */
@@ -88,13 +89,22 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 * @param method
 	 */
 	protected void generateSubQueries(Builder methodBuilder, SQLiteModelMethod method) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+		SQLiteEntity entity = method.getEntity();
 		for (Triple<String, String, SQLiteModelMethod> item : method.childrenSelects) {
 			TypeName entityTypeName = TypeUtility.typeName(entity.getElement());
-			String idGetter = PropertyUtility.getter("resultBean", entityTypeName, entity.getPrimaryKey());
-			String setter = PropertyUtility.setter(entityTypeName, "resultBean", entity.findRelationByParentProperty(item.value0).value0,
-					String.format("this.daoFactory.get%s().%s(%s)", item.value2.getParent().getName(), item.value2.getName(), idGetter));
+
+			String setter;
+			if (entity.isImmutablePojo()) {
+				String idGetter = ImmutableUtility.IMMUTABLE_PREFIX + entity.getPrimaryKey().getName();
+
+				setter = ImmutableUtility.IMMUTABLE_PREFIX + entity.findRelationByParentProperty(item.value0).value0.getName() + "="
+						+ String.format("this.daoFactory.get%s().%s(%s)", item.value2.getParent().getName(), item.value2.getName(), idGetter);
+			} else {
+				String idGetter = PropertyUtility.getter("resultBean", entityTypeName, entity.getPrimaryKey());
+				setter = PropertyUtility.setter(entityTypeName, "resultBean", entity.findRelationByParentProperty(item.value0).value0,
+						String.format("this.daoFactory.get%s().%s(%s)", item.value2.getParent().getName(), item.value2.getName(), idGetter));
+			}
+
 			methodBuilder.addComment("sub query: $L", setter);
 			methodBuilder.addStatement("$L", setter);
 
@@ -200,16 +210,22 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	 */
 	@Override
 	public void generate(TypeSpec.Builder classBuilder, boolean mapFields, SQLiteModelMethod method) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
-		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, daoDefinition.getEntity());
+		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, method.getEntity());
 
 		// generate method code
 		MethodSpec.Builder methodBuilder = generateMethodBuilder(method);
 
 		generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields());
+		methodBuilder.addComment("Specialized part - $L - BEGIN", this.getClass().getSimpleName());
 		generateSpecializedPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields());
+		methodBuilder.addComment("Specialized part - $L - END", this.getClass().getSimpleName());
 
-		classBuilder.addMethod(methodBuilder.build());
+		if (!method.isPagedLiveData()) {
+			// method ForLiveData do not have to be generated for paged live
+			// data
+			classBuilder.addMethod(methodBuilder.build());
+		}
+
 	}
 
 	/**
@@ -223,7 +239,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	@Override
 	public void generateLiveData(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
-		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, daoDefinition.getEntity());
+		Set<JQLProjection> fieldList = JQLChecker.getInstance().extractProjections(method, method.jql.value, method.getEntity());
 
 		// generate method code
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName().replaceAll(LIVE_DATA_PREFIX, "")).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
@@ -232,6 +248,15 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		methodBuilder.addJavadoc("<p>This method open a connection internally.</p>\n\n");
 
 		generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(), GenerationType.NO_CONTENT, method.liveDataReturnClass);
+
+		boolean pagedLiveData = method.isPagedLiveData();
+
+		if (pagedLiveData) {
+			SelectType.PAGED_RESULT.generate(classBuilder, method);
+
+			String pageResultName = SelectPaginatedResultHelper.getCurrentPagedResultClass();
+			SelectPaginatedResultHelper.createPagedResult(method, pageResultName, methodBuilder);
+		}
 
 		ClassName dataSourceClazz = BindDataSourceBuilder.generateDataSourceName(daoDefinition.getParent());
 		ClassName daoFactoryClazz = TypeUtility.className(BindDaoFactoryBuilder.generateDaoFactoryName(daoDefinition.getParent()));
@@ -246,17 +271,38 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			separator = ", ";
 		}
 
-		TypeSpec batchBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(batchClazz, method.getReturnClass()))
-				.addMethod(MethodSpec.methodBuilder("onExecute").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(ParameterSpec.builder(daoFactoryClazz, "daoFactory").build())
-						.returns(method.getReturnClass()).addStatement("return daoFactory.get$L().$L($L)", daoDefinition.getName(), method.getName() + LIVE_DATA_PREFIX, buffer.toString()).build())
-				.build();
+		Class<?> handlerClass = KriptonLiveDataManager.getInstance().getLiveDataHandlerClazz();
+		if (pagedLiveData) {
+			handlerClass = KriptonLiveDataManager.getInstance().getPagedLiveDataHandlerClazz();
 
-		TypeSpec liveDataBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), method.getReturnClass()))
-				.addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class).addModifiers(Modifier.PROTECTED).returns(method.getReturnClass())
-						.addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build())
-				.build();
+			TypeSpec batchBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(batchClazz, method.getReturnClass()))
+					.addMethod(
+							MethodSpec.methodBuilder("onExecute").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC).addParameter(ParameterSpec.builder(daoFactoryClazz, "daoFactory").build())
+									.returns(method.getReturnClass()).addStatement("return paginatedResult.execute(daoFactory)").build())
+					.build();
 
-		methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(KriptonLiveDataManager.getInstance().getComputableLiveDataClazz()), method.getReturnClass()), liveDataBuilder);
+			// return
+			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder("paginatedResult")
+					.addSuperinterface(ParameterizedTypeName.get(ClassName.get(handlerClass), method.getReturnClass())).addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class)
+							.addModifiers(Modifier.PROTECTED).returns(method.getReturnClass()).addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build());
+			TypeSpec liveDataBuilder = liveDataBuilderBuilder.build();
+
+			methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(handlerClass), method.getReturnClass()), liveDataBuilder);
+		} else {
+			TypeSpec batchBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(batchClazz, method.getReturnClass()))
+					.addMethod(MethodSpec.methodBuilder("onExecute").addAnnotation(Override.class).addModifiers(Modifier.PUBLIC)
+							.addParameter(ParameterSpec.builder(daoFactoryClazz, "daoFactory").build()).returns(method.getReturnClass())
+							.addStatement("return daoFactory.get$L().$L($L)", daoDefinition.getName(), method.getName() + LIVE_DATA_PREFIX, buffer.toString()).build())
+					.build();
+
+			TypeSpec.Builder liveDataBuilderBuilder = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(ClassName.get(handlerClass), method.getReturnClass()))
+					.addMethod(MethodSpec.methodBuilder("compute").addAnnotation(Override.class).addModifiers(Modifier.PROTECTED).returns(method.getReturnClass())
+							.addStatement("return $T.getInstance().executeBatch($L)", dataSourceClazz, batchBuilder).build());
+			TypeSpec liveDataBuilder = liveDataBuilderBuilder.build();
+
+			methodBuilder.addStatement("final $T builder=$L", ParameterizedTypeName.get(ClassName.get(handlerClass), method.getReturnClass()), liveDataBuilder);
+		}
+
 		methodBuilder.addStatement("registryLiveData(builder)");
 		methodBuilder.addStatement("return builder.getLiveData()");
 
@@ -304,7 +350,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields,
 			GenerationType generationType, TypeName forcedReturnType, JavadocPart... javadocParts) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
-		SQLiteEntity entity = daoDefinition.getEntity();
+		SQLiteEntity entity = method.getEntity();
 
 		// if true, field must be associate to ben attributes
 		// TypeName returnType = method.getReturnClass();
@@ -429,6 +475,8 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 		// generate javadoc
 		JavadocUtility.generateJavaDocForSelect(methodBuilder, paramNames, method, annotation, fieldList, selectType, javadocParts);
 
+		methodBuilder.addComment("common part generation - BEGIN");
+
 		if (generationType.generateMethodContent) {
 			SplittedSql splittedSql = SqlSelectBuilder.generateSQL(method, methodBuilder, false);
 
@@ -458,67 +506,79 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 				boolean rawParameters;
 
 				String beanName = null;
-
 				beanName = method.findEntityProperty();
 
-				for (String item : paramGetters) {
+				for (String methodParam : paramGetters) {
 					rawParameters = paramNames.get(i).indexOf(".") == -1;
 
-					methodBuilder.addCode("_contentValues.addWhereArgs(");
-					logArgsBuffer.append(separator + "%s");
-
-					paramTypeName = paramTypeNames.get(i);
-
-					// code for query arguments
-					nullable = TypeUtility.isNullable(paramTypeName);
-
-					if (rawParameters) {
-						if (nullable && !method.hasAdapterForParam(item)) {
-							methodBuilder.addCode("($L==null?\"\":", item);
+					if (method.jql.spreadParams.contains(method.findParameterAliasByName(methodParam))) {
+						// paramTypeName = paramTypeNames.get(i);
+						String sizeMethod = "";
+						String elementMethod = "";
+						TypeName paramCollTypeName = paramTypeNames.get(i);
+						if (paramCollTypeName instanceof ArrayTypeName) {
+							sizeMethod = "length";
+							elementMethod = "[_i]";
+							paramTypeName = ((ArrayTypeName) paramCollTypeName).componentType;
+						} else if (paramCollTypeName instanceof ParameterizedTypeName) {
+							sizeMethod = "size()";
+							elementMethod = ".get(_i)";
+							paramTypeName = ((ParameterizedTypeName) paramCollTypeName).typeArguments.get(0);
+						} else {
+							paramTypeName = TypeName.get(String.class);
 						}
 
-						// check for string conversion
-						TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
-
-						SQLTransformer.javaMethodParam2WhereConditions(methodBuilder, method, item, paramTypeName);
-
-						// check for string conversion
-						TypeUtility.endStringConversion(methodBuilder, paramTypeName);
-
-						if (nullable && !method.hasAdapterForParam(item)) {
-							methodBuilder.addCode(")");
-						}
+						methodBuilder.beginControlFlow("if ($L!=null)", methodParam);
+						methodBuilder.addComment("$L is managed as spread param", methodParam);
+						methodBuilder.beginControlFlow("for (int _i=0; _i<$L.$L;_i++)", methodParam, sizeMethod);
+						methodBuilder.addCode(" _contentValues.addWhereArgs(");
+						generateRawWhereArg(method, methodBuilder, paramTypeName, TypeUtility.isNullable(paramTypeName), methodParam, methodParam + elementMethod);
+						methodBuilder.addCode(");\n");
+						methodBuilder.endControlFlow();
+						methodBuilder.endControlFlow();
 					} else {
+						paramTypeName = paramTypeNames.get(i);
 
-						// eventually we take associated property
-						SQLProperty property = usedBeanPropertyNames.get(i) == null ? null : entity.get(usedBeanPropertyNames.get(i));
+						methodBuilder.addCode("_contentValues.addWhereArgs(");
+						logArgsBuffer.append(separator + "%s");
 
-						if (nullable && !(property != null) && !method.hasAdapterForParam(item)) {
-							methodBuilder.addCode("($L==null?\"\":", item);
+						// code for query arguments
+						nullable = TypeUtility.isNullable(paramTypeName);
+
+						if (rawParameters) {
+							generateRawWhereArg(method, methodBuilder, paramTypeName, nullable, methodParam);
+						} else {
+
+							// eventually we take associated property
+							SQLProperty property = usedBeanPropertyNames.get(i) == null ? null : entity.get(usedBeanPropertyNames.get(i));
+
+							if (nullable && !(property != null) && !method.hasAdapterForParam(methodParam)) {
+								methodBuilder.addCode("($L==null?\"\":", methodParam);
+							}
+
+							// check for string conversion
+							TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
+
+							// if (property != null) {
+							// SQLTransformer.javaProperty2WhereCondition(methodBuilder,
+							// method, item, paramTypeName, property);
+							// } else {
+							SQLTransformer.javaProperty2WhereCondition(methodBuilder, method, beanName, paramTypeName, property);
+							// }
+
+							// check for string conversion
+							TypeUtility.endStringConversion(methodBuilder, paramTypeName);
+
+							if (nullable && !(property != null) && !method.hasAdapterForParam(methodParam)) {
+								methodBuilder.addCode(")");
+							}
 						}
-
-						// check for string conversion
-						TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
-
-						// if (property != null) {
-						// SQLTransformer.javaProperty2WhereCondition(methodBuilder,
-						// method, item, paramTypeName, property);
-						// } else {
-						SQLTransformer.javaProperty2WhereCondition(methodBuilder, method, beanName, paramTypeName, property);
-						// }
-
-						// check for string conversion
-						TypeUtility.endStringConversion(methodBuilder, paramTypeName);
-
-						if (nullable && !(property != null) && !method.hasAdapterForParam(item)) {
-							methodBuilder.addCode(")");
-						}
+						methodBuilder.addCode(");\n");
 					}
 
 					separator = ", ";
 					i++;
 
-					methodBuilder.addCode(");\n");
 				}
 			}
 
@@ -526,7 +586,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 			if (daoDefinition.isLogEnabled()) {
 				// generate log section - BEGIN
-				methodBuilder.addComment("log section BEGIN");
+				methodBuilder.addComment("log section for select BEGIN");
 				methodBuilder.beginControlFlow("if (_context.isLogEnabled())");
 				// manage log
 				methodBuilder.addComment("manage log");
@@ -537,7 +597,7 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 
 				// generate log section - END
 				methodBuilder.endControlFlow();
-				methodBuilder.addComment("log section END");
+				methodBuilder.addComment("log section for select END");
 			}
 
 			if (generationType.generateCloseableCursor) {
@@ -575,6 +635,40 @@ public abstract class AbstractSelectCodeGenerator implements SelectCodeGenerator
 			}
 		}
 
+		methodBuilder.addComment("common part generation - END");
+
+	}
+
+	private void generateRawWhereArg(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName paramTypeName, boolean nullable, String item) {
+		generateRawWhereArg(method, methodBuilder, paramTypeName, nullable, item, item);
+	}
+
+	/**
+	 * @param method
+	 * @param methodBuilder
+	 * @param paramTypeName
+	 * @param nullable
+	 * @param methodItem
+	 *            is the name of method's parameter
+	 * @param item
+	 *            is the name of used parameter
+	 */
+	private void generateRawWhereArg(SQLiteModelMethod method, MethodSpec.Builder methodBuilder, TypeName paramTypeName, boolean nullable, String methodItem, String item) {
+		if (nullable && !method.hasAdapterForParam(methodItem)) {
+			methodBuilder.addCode("($L==null?\"\":", item);
+		}
+
+		// check for string conversion
+		TypeUtility.beginStringConversion(methodBuilder, paramTypeName);
+
+		SQLTransformer.javaMethodParam2WhereConditions(methodBuilder, method, methodItem, item, paramTypeName);
+
+		// check for string conversion
+		TypeUtility.endStringConversion(methodBuilder, paramTypeName);
+
+		if (nullable && !method.hasAdapterForParam(methodItem)) {
+			methodBuilder.addCode(")");
+		}
 	}
 
 	/**

@@ -57,6 +57,9 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    *
    * <pre>SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84A}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -77,12 +80,13 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -94,13 +98,15 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
@@ -143,12 +149,16 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84A}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -177,13 +187,14 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    */
   @Override
   public List<Bean84A> selectById(long uid) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(uid));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -195,13 +206,15 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
@@ -244,12 +257,16 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string FROM bean84_a WHERE column_list_string=${param1} and column_map_integer_string=${param2} and column_array_char=${param3}  and column_array_char_type=${param4}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84A}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -288,6 +305,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
   @Override
   public List<Bean84A> selectWhere(List<String> param1, Map<Integer, String> param2,
       Character[] param3, char[] param4) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_WHERE_SQL3;
@@ -297,7 +315,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     _contentValues.addWhereArgs((param3==null?"":new String(serializer3(param3),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((param4==null?"":new String(serializer4(param4),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -309,13 +327,15 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean84A> resultList=new ArrayList<Bean84A>(_cursor.getCount());
       Bean84A resultBean=null;
@@ -358,10 +378,11 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean84_a (column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string) VALUES (:bean.columnArrayByteType, :bean.columnArrayChar, :bean.columnArrayCharType, :bean.columnBean, :bean.columnListString, :bean.columnMapIntegerString, :bean.param1, :bean.param2, :bean.param3, :bean.param4, :bean.valueString)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -388,6 +409,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    */
   @Override
   public boolean insertAll(Bean84A bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertAllPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean84_a (column_array_byte_type, column_array_char, column_array_char_type, column_bean, column_list_string, column_map_integer_string, param1, param2, param3, param4, value_string) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -443,9 +465,11 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -464,6 +488,7 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
    */
   @Override
   public boolean insert(List<String> param1) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean84_a (column_list_string) VALUES (?)";
@@ -511,13 +536,14 @@ public class Bean84ADaoImpl extends Dao implements Bean84ADao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean84_a SET column_array_byte_type=:columnArrayByteType, column_array_char=:columnArrayChar, column_array_char_type=:columnArrayCharType, column_bean=:columnBean, column_list_string=:columnListString, column_map_integer_string=:columnMapIntegerString, param1=:param1, param2=:param2, param3=:param3, param4=:param4, value_string=:valueString</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>column_array_byte_type</dt><dd>is mapped to <strong>:bean.columnArrayByteType</strong></dd>
    * 	<dt>column_array_char</dt><dd>is mapped to <strong>:bean.columnArrayChar</strong></dd>

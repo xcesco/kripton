@@ -17,6 +17,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.annotation.BindSqlDynamicWhere;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
+import com.abubusoft.kripton.android.sqlite.SpreadUtils;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
@@ -39,8 +40,8 @@ import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerIm
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Column_name_setContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.jsql.JqlParser.Where_stmtContext;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
@@ -106,12 +107,11 @@ public abstract class SqlBuilderHelper {
 	 *            the listener
 	 */
 	static void forEachColumnInContentValue(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, String columnSetString, boolean generateColumnNameCheck, OnColumnListener listener) {
-		SQLiteDaoDefinition daoDefinition = method.getParent();
 		methodBuilder.beginControlFlow("for (String columnName:$L)", columnSetString);
 		if (generateColumnNameCheck) {
 			methodBuilder.beginControlFlow("if (!$L.contains(columnName))", method.contentProviderMethodName + "ColumnSet");
 			methodBuilder.addStatement("throw new $T(String.format(\"For URI '$L', column '%s' does not exists in table '%s' or can not be defined in this $L operation\", columnName, $S ))",
-					KriptonRuntimeException.class, method.contentProviderUriTemplate, method.jql.operationType, daoDefinition.getEntity().getTableName());
+					KriptonRuntimeException.class, method.contentProviderUriTemplate, method.jql.operationType, method.getEntity().getTableName());
 			methodBuilder.endControlFlow();
 		}
 		if (listener != null)
@@ -172,12 +172,20 @@ public abstract class SqlBuilderHelper {
 		methodBuilder.addJavadoc("<h2>JQL $L for Content Provider</h2>\n", operation);
 		methodBuilder.addJavadoc("<pre>$L</pre>\n\n", method.jql.value);
 		methodBuilder.addJavadoc("<h2>SQL $L for Content Provider</h2>\n", operation);
-		String sql = JQLChecker.getInstance().replace(method, method.jql, new com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLReplacerListenerImpl(method) {
+		String sql = JQLChecker.getInstance().replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
 			public String onColumnName(String columnName) {
 				SQLProperty tempProperty = currentEntity.get(columnName);
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
+
+				return tempProperty.columnName;
+			}
+
+			@Override
+			public String onColumnAlias(String alias) {
+				SQLProperty tempProperty = currentEntity.findPropertyByName(alias);
+				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, alias);
 
 				return tempProperty.columnName;
 			}
@@ -188,7 +196,8 @@ public abstract class SqlBuilderHelper {
 		if (method.contentProviderUriVariables.size() > 0) {
 			methodBuilder.addJavadoc("<h3>Path variables defined:</h3>\n<ul>\n");
 			for (ContentUriPlaceHolder variable : method.contentProviderUriVariables) {
-				methodBuilder.addJavadoc("<li><strong>"+SqlAnalyzer.PARAM_PREFIX+"$L"+SqlAnalyzer.PARAM_SUFFIX+"</strong> at path segment $L</li>\n", variable.value, variable.pathSegmentIndex);
+				methodBuilder.addJavadoc("<li><strong>" + SqlAnalyzer.PARAM_PREFIX + "$L" + SqlAnalyzer.PARAM_SUFFIX + "</strong> at path segment $L</li>\n", variable.value,
+						variable.pathSegmentIndex);
 			}
 			methodBuilder.addJavadoc("</ul>\n\n");
 		}
@@ -250,7 +259,8 @@ public abstract class SqlBuilderHelper {
 	 * 
 	 * <h2>post conditions</h2>
 	 * <p>
-	 * created variables are:</p>
+	 * created variables are:
+	 * </p>
 	 * <ul>
 	 * <li>_whereParamCounter</li>
 	 * </ul>
@@ -358,6 +368,27 @@ public abstract class SqlBuilderHelper {
 		return SqlBuilderHelper.countParameterOfType(method, parameter) > 0;
 	}
 
+	public interface OnParameterListener {
+		boolean onParameter(Pair<String, TypeName> item);
+	}
+
+	/**
+	 * Iterate for each method's parameter
+	 *
+	 * @param method
+	 * @param listener
+	 * @return
+	 */
+	public static Pair<String, TypeName> searchInEachParameter(ModelMethod method, OnParameterListener listener) {
+		for (Pair<String, TypeName> item : method.getParameters()) {
+			if (listener.onParameter(item)) {
+				return item;
+			}
+		}
+
+		return null;
+	}
+
 	/**
 	 * Count parameter of type.
 	 *
@@ -404,10 +435,10 @@ public abstract class SqlBuilderHelper {
 	 * @param sqlWhereParamsAlreadyDefined
 	 *            the sql where params already defined
 	 */
-	public static void generateWhereCondition(MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, boolean sqlWhereParamsAlreadyDefined) {
+	public static void generateWhereCondition(final MethodSpec.Builder methodBuilder, final SQLiteModelMethod method, boolean sqlWhereParamsAlreadyDefined) {
 		final JQL jql = method.jql;
 		final JQLChecker jqlChecker = JQLChecker.getInstance();
-	
+
 		if (jql.isWhereConditions()) {
 			// parameters extracted from query
 			final One<String> whereStatement = new One<>();
@@ -430,6 +461,8 @@ public abstract class SqlBuilderHelper {
 
 			});
 
+			final StringBuilder dynamicCodeBlock = new StringBuilder();
+
 			methodBuilder.addCode("\n// manage WHERE arguments -- BEGIN\n");
 			String sqlWhere = jqlChecker.replaceFromVariableStatement(method, whereStatement.value0, new JQLReplacerListenerImpl(method) {
 
@@ -443,13 +476,19 @@ public abstract class SqlBuilderHelper {
 
 				@Override
 				public String onDynamicSQL(JQLDynamicStatementType dynamicStatement) {
-					method.jql.dynamicReplace.put(dynamicStatement, "#{"+dynamicStatement+"}");
+					method.jql.dynamicReplace.put(dynamicStatement, "#{" + dynamicStatement + "}");
 					return "";
 				}
 
 				@Override
-				public String onBindParameter(String bindParameterName) {
-					return "?";
+				public String onBindParameter(String bindParameterName, boolean inStatement) {
+					if (!inStatement) {
+						return "?";
+					} else {
+						methodBuilder.addComment("need to use $T operations", SpreadUtils.class);
+						dynamicCodeBlock.append((dynamicCodeBlock.length() > 0 ? "," : "") + String.format("SpreadUtils.generateQuestion(%s)", method.findParameterNameByAlias(bindParameterName)));
+						return "%s";
+					}
 				}
 			});
 
@@ -458,15 +497,23 @@ public abstract class SqlBuilderHelper {
 			String valueToReplace = jql.dynamicReplace.get(JQLDynamicStatementType.DYNAMIC_WHERE);
 
 			if (method.jql.operationType == JQLType.SELECT) {
+
+				String prefix = "";
+				String suffix = "";
 				// we have to include WHERE keywords
+				if (jql.isDynamicSpreadConditions()) {
+					prefix = "String.format(";
+					suffix = String.format(",%s)", dynamicCodeBlock.toString());
+				}
+
 				if (jql.isStaticWhereConditions() && !jql.isDynamicWhereConditions()) {
 					// case static statement and NO dynamic
-
-					methodBuilder.addStatement("String _sqlWhereStatement=$S", value);
+					methodBuilder.addStatement("String _sqlWhereStatement=" + prefix + "$S" + suffix, value);
 				} else if (jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
-					methodBuilder.addStatement("String _sqlWhereStatement=$S+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class, "_sqlDynamicWhere",
-							method.dynamicWherePrepend);
+					methodBuilder.addStatement("String _sqlWhereStatement=" + prefix + "$S" + suffix + "+$T.ifNotEmptyAppend($L,\" $L \")", value.replace(valueToReplace, ""), StringUtils.class,
+							"_sqlDynamicWhere", method.dynamicWherePrepend);
 				} else if (!jql.isStaticWhereConditions() && jql.isDynamicWhereConditions()) {
+					// in this case no spread is managed
 					methodBuilder.addStatement("String _sqlWhereStatement=$T.ifNotEmptyAppend($L, \" $L \")", StringUtils.class, "_sqlDynamicWhere", JQLKeywords.WHERE_KEYWORD);
 				}
 			} else {
@@ -536,7 +583,7 @@ public abstract class SqlBuilderHelper {
 			String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 				@Override
-				public String onBindParameter(String bindParameterName) {
+				public String onBindParameter(String bindParameterName, boolean inStatement) {
 					if (inWhere.value0) {
 						return "?";
 					}
@@ -625,7 +672,7 @@ public abstract class SqlBuilderHelper {
 		String sql = checker.replace(method, method.jql, new JQLReplacerListenerImpl(method) {
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				return "?";
 			}
 		});
@@ -679,7 +726,7 @@ public abstract class SqlBuilderHelper {
 
 			@Override
 			public String onColumnName(String columnName) {
-				SQLProperty tempProperty = method.getParent().getEntity().get(columnName);
+				SQLProperty tempProperty = method.getEntity().get(columnName);
 
 				AssertKripton.assertTrueOrUnknownPropertyInJQLException(tempProperty != null, method, columnName);
 
@@ -687,7 +734,7 @@ public abstract class SqlBuilderHelper {
 			}
 
 			@Override
-			public String onBindParameter(String bindParameterName) {
+			public String onBindParameter(String bindParameterName, boolean inStatement) {
 				return "?";
 			}
 		});

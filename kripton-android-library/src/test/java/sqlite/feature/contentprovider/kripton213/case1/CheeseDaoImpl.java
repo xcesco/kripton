@@ -55,6 +55,9 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    *
    * <pre>SELECT count(*) FROM cheeses</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Cheese}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
@@ -64,12 +67,13 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   @Override
   public int count() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=COUNT_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -81,13 +85,15 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       int result=0;
 
       if (_cursor.moveToFirst()) {
@@ -97,10 +103,11 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO cheeses (name) VALUES (:cheese.name)</pre>
    *
    * <p><code>cheese.id</code> is automatically updated because it is the primary key</p>
@@ -117,6 +124,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   @Override
   public long insert(Cheese cheese) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO cheeses (name) VALUES (?)";
@@ -162,9 +170,11 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     cheese.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -216,6 +226,9 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    *
    * <pre>SELECT id, name FROM cheeses</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Cheese}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -226,12 +239,13 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   @Override
   public List<Cheese> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -243,13 +257,15 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Cheese> resultList=new ArrayList<Cheese>(_cursor.getCount());
       Cheese resultBean=null;
@@ -272,6 +288,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -342,6 +359,9 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    *
    * <pre>SELECT id, name FROM cheeses WHERE id=:{id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Cheese}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -359,13 +379,14 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
    */
   @Override
   public Cheese selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -377,13 +398,15 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Cheese resultBean=null;
 
@@ -400,6 +423,7 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -482,7 +506,6 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM cheeses WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -585,10 +608,10 @@ public class CheeseDaoImpl extends Dao implements CheeseDao {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE cheeses SET name=:name WHERE id=${cheese.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:cheese.name</strong></dd>
    * </dl>

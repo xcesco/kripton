@@ -18,6 +18,7 @@ package shared;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import shared.feature.immutable.livedata.TesLiveDataCase1Runtime;
 import shared.feature.livedata.TestSharedLiveDataSuite;
 import shared.feature.rx.TestSharedRxSuite;
 import shared.feature.typeadapter.TestTypeAdapterCase2Runtime;
@@ -35,7 +36,9 @@ import shared.kripton47.Test47Suite;
 	
 	TestTypeAdapterCase2Runtime.class,
 	TestSharedRxSuite.class,
-	TestSharedLiveDataSuite.class
+	TestSharedLiveDataSuite.class,
+	
+	TesLiveDataCase1Runtime.class
 	 })
 // @formatter:on
 public class SharedRuntimeTestSuite {

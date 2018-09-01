@@ -25,6 +25,7 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.processor.core.AnnotationAttributeType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.ModelAnnotation;
+import com.abubusoft.kripton.processor.core.ModelEntity;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.ModelType;
 import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
@@ -61,6 +62,8 @@ public class BindProperty extends ModelProperty {
 		/** The in collection. */
 		protected boolean inCollection;
 
+		private ModelEntity parent;
+
 		/**
 		 * In collection.
 		 *
@@ -80,10 +83,11 @@ public class BindProperty extends ModelProperty {
 		 * @param property the property
 		 */
 		public BindPropertyBuilder(TypeName rawTypeName, BindProperty property) {
-			this.rawTypeName = rawTypeName;
+			this.rawTypeName = rawTypeName;			
 
 			if (property != null) {
 				this.parentProperty = property;
+				this.parent=property.getParent();
 				this.nullable = property.nullable;
 				this.xmlType = property.xmlInfo.xmlType;
 				this.label = property.label;

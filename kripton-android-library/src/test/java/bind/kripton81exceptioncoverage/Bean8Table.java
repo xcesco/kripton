@@ -20,9 +20,9 @@ public class Bean8Table implements SQLiteTable {
    * DDL to create table bean8
    * </p>
    *
-   * <pre>CREATE TABLE bean8 (id INTEGER PRIMARY KEY AUTOINCREMENT, ignore2 TEXT);</pre>
+   * <pre>CREATE TABLE bean8 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ignore2 TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean8 (id INTEGER PRIMARY KEY AUTOINCREMENT, ignore2 TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean8 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ignore2 TEXT);";
 
   /**
    * <p>

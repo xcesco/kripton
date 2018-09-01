@@ -32,9 +32,8 @@ import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.exceptions.PropertyInAnnotationNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLChecker.JQLParameterName;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.TypeName;
 
@@ -143,8 +142,7 @@ public class SqlAnalyzer {
 	 * @param sqlStatement the sql statement
 	 */
 	public void execute(Elements elementUtils, SQLiteModelMethod method, String sqlStatement) {
-		SQLiteDaoDefinition daoDefinition=method.getParent();
-		SQLiteEntity entity=daoDefinition.getEntity();
+		SQLiteEntity entity=method.getEntity();
 		
 		usedMethodParameters=new HashSet<String>();		
 		

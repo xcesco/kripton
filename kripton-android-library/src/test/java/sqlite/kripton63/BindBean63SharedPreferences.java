@@ -79,18 +79,18 @@ public class BindBean63SharedPreferences extends AbstractSharedPreference {
    */
   public Bean63 read() {
     Bean63 bean=new Bean63();
-    bean.id=prefs.getLong("id", bean.id);
+    bean.id=prefs.getLong("id", defaultBean.id);
      {
       String temp=prefs.getString("value_map_enum_byte", null);
-      bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): bean.valueMapEnumByte;
+      bean.valueMapEnumByte=StringUtils.hasText(temp) ? parseValueMapEnumByte(temp): defaultBean.valueMapEnumByte;
     }
 
      {
       String temp=prefs.getString("value_map_string_byte", null);
-      bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): bean.valueMapStringByte;
+      bean.valueMapStringByte=StringUtils.hasText(temp) ? parseValueMapStringByte(temp): defaultBean.valueMapStringByte;
     }
 
-    bean.value=prefs.getString("value", bean.value);
+    bean.value=prefs.getString("value", defaultBean.value);
 
     return bean;
   }

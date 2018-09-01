@@ -35,7 +35,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean01 (bean_list, lista, message_date, message_text, value) VALUES (:bean.beanList, :bean.lista, :bean.messageDate, :bean.messageText, :bean.value)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -56,6 +56,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    */
   @Override
   public long insert(Bean01 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (bean_list, lista, message_date, message_text, value) VALUES (?, ?, ?, ?, ?)";
@@ -105,9 +106,11 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -129,6 +132,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
    */
   @Override
   public long insert(long value, long messageDate) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (value, message_date) VALUES (?, ?)";
@@ -177,12 +181,12 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean01 WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -334,10 +338,10 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean01 SET bean_list=:beanList, lista=:lista, message_date=:messageDate, message_text=:messageText, value=:value WHERE value=${bean.value}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>bean_list</dt><dd>is mapped to <strong>:bean.beanList</strong></dd>
    * 	<dt>lista</dt><dd>is mapped to <strong>:bean.lista</strong></dd>

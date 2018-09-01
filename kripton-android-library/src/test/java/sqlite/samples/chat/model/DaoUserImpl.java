@@ -25,13 +25,15 @@ public class DaoUserImpl extends Dao implements DaoUser {
   }
 
   /**
-   * <p>SQL insert:</p>
-   * <pre>INSERT INTO user (username) VALUES (:username)</pre>
+   * <h2>SQL insert</h2>
+   * <pre>INSERT INTO user (sorted_map, sorted_set, username) VALUES (:sortedMap, :sortedSet, :username)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
    * <p><strong>Inserted columns:</strong></p>
    * <dl>
+   * 	<dt>sorted_map</dt><dd>is mapped to <strong>:bean.sortedMap</strong></dd>
+   * 	<dt>sorted_set</dt><dd>is mapped to <strong>:bean.sortedSet</strong></dd>
    * 	<dt>username</dt><dd>is mapped to <strong>:bean.username</strong></dd>
    * </dl>
    *
@@ -41,12 +43,15 @@ public class DaoUserImpl extends Dao implements DaoUser {
    */
   @Override
   public void insert(User bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
-      String _sql="INSERT INTO user (username) VALUES (?)";
+      String _sql="INSERT INTO user (sorted_map, sorted_set, username) VALUES (?, ?, ?)";
       insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
+    _contentValues.put("sorted_map", UserTable.serializeSortedMap(bean.sortedMap));
+    _contentValues.put("sorted_set", UserTable.serializeSortedSet(bean.sortedSet));
     _contentValues.put("username", bean.username);
 
     // log section BEGIN
@@ -86,7 +91,9 @@ public class DaoUserImpl extends Dao implements DaoUser {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

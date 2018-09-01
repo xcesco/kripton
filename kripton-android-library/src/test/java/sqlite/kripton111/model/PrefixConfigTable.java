@@ -20,9 +20,9 @@ public class PrefixConfigTable implements SQLiteTable {
    * DDL to create table prefix_config
    * </p>
    *
-   * <pre>CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT, default_country TEXT, dialog_timeout INTEGER, dual_billing_prefix TEXT, enabled INTEGER);</pre>
+   * <pre>CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, default_country TEXT, dialog_timeout INTEGER, dual_billing_prefix TEXT, enabled INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT, default_country TEXT, dialog_timeout INTEGER, dual_billing_prefix TEXT, enabled INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE prefix_config (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, default_country TEXT, dialog_timeout INTEGER, dual_billing_prefix TEXT, enabled INTEGER);";
 
   /**
    * <p>

@@ -104,131 +104,131 @@ public class BindBean2SharedPreferences extends AbstractSharedPreference {
     Bean2 bean=new Bean2();
      {
       String temp=prefs.getString("value_bean_array", null);
-      bean.setValueBeanArray(StringUtils.hasText(temp) ? parseValueBeanArray(temp): bean.getValueBeanArray());
+      bean.setValueBeanArray(StringUtils.hasText(temp) ? parseValueBeanArray(temp): defaultBean.getValueBeanArray());
     }
 
      {
       String temp=prefs.getString("value_url", null);
-      bean.setValueUrl((StringUtils.hasText(temp)) ? UrlUtils.read(temp): bean.getValueUrl());}
+      bean.setValueUrl((StringUtils.hasText(temp)) ? UrlUtils.read(temp): defaultBean.getValueUrl());}
 
-    bean.setValueByte((byte)prefs.getInt("value_byte", (byte)(bean.getValueByte()==null?(byte)0:bean.getValueByte())));
-    bean.setValueInt((int)prefs.getInt("value_int", (int)(bean.getValueInt()==null?0:bean.getValueInt())));
+    bean.setValueByte((byte)prefs.getInt("value_byte", (byte)(defaultBean.getValueByte()==null?(byte)0:defaultBean.getValueByte())));
+    bean.setValueInt((int)prefs.getInt("value_int", (int)(defaultBean.getValueInt()==null?0:defaultBean.getValueInt())));
      {
       String temp=prefs.getString("value_strin_list", null);
-      bean.setValueStrinList(StringUtils.hasText(temp) ? parseValueStrinList(temp): bean.getValueStrinList());
+      bean.setValueStrinList(StringUtils.hasText(temp) ? parseValueStrinList(temp): defaultBean.getValueStrinList());
     }
 
-    bean.setValueShortType((short)prefs.getInt("value_short_type", (short)bean.getValueShortType()));
-    bean.setValueIntType((int)prefs.getInt("value_int_type", (int)bean.getValueIntType()));
-    bean.setValueBool((boolean)prefs.getBoolean("value_bool", (boolean)(bean.getValueBool()==null?false:bean.getValueBool())));
+    bean.setValueShortType((short)prefs.getInt("value_short_type", (short)defaultBean.getValueShortType()));
+    bean.setValueIntType((int)prefs.getInt("value_int_type", (int)defaultBean.getValueIntType()));
+    bean.setValueBool((boolean)prefs.getBoolean("value_bool", (boolean)(defaultBean.getValueBool()==null?false:defaultBean.getValueBool())));
      {
       String temp=prefs.getString("value_calendar", null);
-      bean.setValueCalendar((StringUtils.hasText(temp)) ? CalendarUtils.read(temp): bean.getValueCalendar());}
+      bean.setValueCalendar((StringUtils.hasText(temp)) ? CalendarUtils.read(temp): defaultBean.getValueCalendar());}
 
-    bean.setValueShort((short)prefs.getInt("value_short", (short)(bean.getValueShort()==null?(short)0:bean.getValueShort())));
-    bean.setId(prefs.getLong("id", bean.getId()));
+    bean.setValueShort((short)prefs.getInt("value_short", (short)(defaultBean.getValueShort()==null?(short)0:defaultBean.getValueShort())));
+    bean.setId(prefs.getLong("id", defaultBean.getId()));
      {
       String temp=prefs.getString("value_big_decimal", "0");
-      bean.setValueBigDecimal((StringUtils.hasText(temp)) ? new BigDecimal(temp): bean.getValueBigDecimal());
+      bean.setValueBigDecimal((StringUtils.hasText(temp)) ? new BigDecimal(temp): defaultBean.getValueBigDecimal());
     }
 
-    bean.setValueFloat(prefs.getFloat("value_float", (bean.getValueFloat()==null?0F:bean.getValueFloat())));
-    bean.setValueLong(prefs.getLong("value_long", (bean.getValueLong()==null?0L:bean.getValueLong())));
+    bean.setValueFloat(prefs.getFloat("value_float", (defaultBean.getValueFloat()==null?0F:defaultBean.getValueFloat())));
+    bean.setValueLong(prefs.getLong("value_long", (defaultBean.getValueLong()==null?0L:defaultBean.getValueLong())));
      {
       String temp=prefs.getString("value_char_type_array", null);
-      bean.setValueCharTypeArray(StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): bean.getValueCharTypeArray());
+      bean.setValueCharTypeArray(StringUtils.hasText(temp) ? parseValueCharTypeArray(temp): defaultBean.getValueCharTypeArray());
     }
 
      {
       String temp=prefs.getString("value_long_type_array", null);
-      bean.setValueLongTypeArray(StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): bean.getValueLongTypeArray());
+      bean.setValueLongTypeArray(StringUtils.hasText(temp) ? parseValueLongTypeArray(temp): defaultBean.getValueLongTypeArray());
     }
 
      {
       String temp=prefs.getString("value_long_list", null);
-      bean.setValueLongList(StringUtils.hasText(temp) ? parseValueLongList(temp): bean.getValueLongList());
+      bean.setValueLongList(StringUtils.hasText(temp) ? parseValueLongList(temp): defaultBean.getValueLongList());
     }
 
      {
       String temp=prefs.getString("value_big_integer", "0");
-      bean.setValueBigInteger((StringUtils.hasText(temp)) ? new BigInteger(temp): bean.getValueBigInteger());
+      bean.setValueBigInteger((StringUtils.hasText(temp)) ? new BigInteger(temp): defaultBean.getValueBigInteger());
     }
 
-    bean.setValueByteType((byte)prefs.getInt("value_byte_type", (byte)bean.getValueByteType()));
+    bean.setValueByteType((byte)prefs.getInt("value_byte_type", (byte)defaultBean.getValueByteType()));
      {
       String temp=prefs.getString("value_currency", null);
-      bean.setValueCurrency((StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): bean.getValueCurrency());}
+      bean.setValueCurrency((StringUtils.hasText(temp)) ? CurrencyUtils.read(temp): defaultBean.getValueCurrency());}
 
      {
       String temp=prefs.getString("value_double", null);
-      bean.setValueDouble((StringUtils.hasText(temp)) ? Double.valueOf(temp): bean.getValueDouble());
+      bean.setValueDouble((StringUtils.hasText(temp)) ? Double.valueOf(temp): defaultBean.getValueDouble());
     }
 
      {
       String temp=prefs.getString("value_byte_array", null);
-      bean.setValueByteArray(StringUtils.hasText(temp) ? parseValueByteArray(temp): bean.getValueByteArray());
+      bean.setValueByteArray(StringUtils.hasText(temp) ? parseValueByteArray(temp): defaultBean.getValueByteArray());
     }
 
      {
       String temp=prefs.getString("value_string_array", null);
-      bean.setValueStringArray(StringUtils.hasText(temp) ? parseValueStringArray(temp): bean.getValueStringArray());
+      bean.setValueStringArray(StringUtils.hasText(temp) ? parseValueStringArray(temp): defaultBean.getValueStringArray());
     }
 
      {
       String temp=prefs.getString("value_date", null);
-      bean.setValueDate((StringUtils.hasText(temp)) ? DateUtils.read(temp): bean.getValueDate());}
+      bean.setValueDate((StringUtils.hasText(temp)) ? DateUtils.read(temp): defaultBean.getValueDate());}
 
-    bean.setValueChar((char)prefs.getInt("value_char", (char)(bean.getValueChar()==null?(char)0:bean.getValueChar())));
-    bean.setValueFloatType(prefs.getFloat("value_float_type", bean.getValueFloatType()));
+    bean.setValueChar((char)prefs.getInt("value_char", (char)(defaultBean.getValueChar()==null?(char)0:defaultBean.getValueChar())));
+    bean.setValueFloatType(prefs.getFloat("value_float_type", defaultBean.getValueFloatType()));
      {
       String temp=prefs.getString("value_time_zone", null);
-      bean.setValueTimeZone((StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): bean.getValueTimeZone());}
+      bean.setValueTimeZone((StringUtils.hasText(temp)) ? TimeZoneUtils.read(temp): defaultBean.getValueTimeZone());}
 
-    bean.setValueLongType(prefs.getLong("value_long_type", bean.getValueLongType()));
-    bean.setValueCharType((char)prefs.getInt("value_char_type", (char)bean.getValueCharType()));
+    bean.setValueLongType(prefs.getLong("value_long_type", defaultBean.getValueLongType()));
+    bean.setValueCharType((char)prefs.getInt("value_char_type", (char)defaultBean.getValueCharType()));
      {
       String temp=prefs.getString("value_char_list", null);
-      bean.setValueCharList(StringUtils.hasText(temp) ? parseValueCharList(temp): bean.getValueCharList());
+      bean.setValueCharList(StringUtils.hasText(temp) ? parseValueCharList(temp): defaultBean.getValueCharList());
     }
 
      {
       String temp=prefs.getString("value_time_list", null);
-      bean.setValueTimeList(StringUtils.hasText(temp) ? parseValueTimeList(temp): bean.getValueTimeList());
+      bean.setValueTimeList(StringUtils.hasText(temp) ? parseValueTimeList(temp): defaultBean.getValueTimeList());
     }
 
      {
       String temp=prefs.getString("value_time", null);
-      bean.setValueTime((StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): bean.getValueTime());}
+      bean.setValueTime((StringUtils.hasText(temp)) ? SQLTimeUtils.read(temp): defaultBean.getValueTime());}
 
      {
       String temp=prefs.getString("value_bean", null);
-      bean.setValueBean(StringUtils.hasText(temp) ? parseValueBean(temp): bean.getValueBean());
+      bean.setValueBean(StringUtils.hasText(temp) ? parseValueBean(temp): defaultBean.getValueBean());
     }
 
-    bean.setValueBoolType((boolean)prefs.getBoolean("value_bool_type", (boolean)bean.isValueBoolType()));
-    bean.setValueString(prefs.getString("value_string", bean.getValueString()));
+    bean.setValueBoolType((boolean)prefs.getBoolean("value_bool_type", (boolean)defaultBean.isValueBoolType()));
+    bean.setValueString(prefs.getString("value_string", defaultBean.getValueString()));
      {
       String temp=prefs.getString("value_enum_type", null);
-      bean.setValueEnumType((StringUtils.hasText(temp)) ? EnumType.valueOf(temp): bean.getValueEnumType());
+      bean.setValueEnumType((StringUtils.hasText(temp)) ? EnumType.valueOf(temp): defaultBean.getValueEnumType());
     }
 
      {
       String temp=prefs.getString("value_locale", null);
-      bean.setValueLocale((StringUtils.hasText(temp)) ? LocaleUtils.read(temp): bean.getValueLocale());}
+      bean.setValueLocale((StringUtils.hasText(temp)) ? LocaleUtils.read(temp): defaultBean.getValueLocale());}
 
      {
       String temp=prefs.getString("value_double_type", null);
-      bean.setValueDoubleType((StringUtils.hasText(temp)) ? Double.valueOf(temp): bean.getValueDoubleType());
+      bean.setValueDoubleType((StringUtils.hasText(temp)) ? Double.valueOf(temp): defaultBean.getValueDoubleType());
     }
 
      {
       String temp=prefs.getString("value_char_array", null);
-      bean.setValueCharArray(StringUtils.hasText(temp) ? parseValueCharArray(temp): bean.getValueCharArray());
+      bean.setValueCharArray(StringUtils.hasText(temp) ? parseValueCharArray(temp): defaultBean.getValueCharArray());
     }
 
      {
       String temp=prefs.getString("value_long_array", null);
-      bean.setValueLongArray(StringUtils.hasText(temp) ? parseValueLongArray(temp): bean.getValueLongArray());
+      bean.setValueLongArray(StringUtils.hasText(temp) ? parseValueLongArray(temp): defaultBean.getValueLongArray());
     }
 
 

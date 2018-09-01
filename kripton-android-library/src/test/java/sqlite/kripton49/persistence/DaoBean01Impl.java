@@ -43,6 +43,9 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    *
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean01Entity}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -60,13 +63,14 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    */
   @Override
   public Bean01Entity selectOne(Long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -78,13 +82,15 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean01Entity resultBean=null;
 
@@ -101,12 +107,16 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, text FROM bean01 WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean01Entity}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -125,13 +135,14 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    */
   @Override
   public List<Bean01Entity> selectById(Long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -143,13 +154,15 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean01Entity> resultList=new ArrayList<Bean01Entity>(_cursor.getCount());
       Bean01Entity resultBean=null;
@@ -172,6 +185,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -243,7 +257,6 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean01 WHERE id=:id</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -300,6 +313,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    */
   @Override
   public long insertOne(Long id) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOnePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (id) VALUES (?)";
@@ -347,10 +361,11 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement2, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean01 (text) VALUES (:bean.text)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -367,6 +382,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    */
   @Override
   public long insertOne(Bean01Entity bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOnePreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (text) VALUES (?)";
@@ -412,9 +428,11 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement3, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

@@ -20,9 +20,9 @@ public class SeminarTable implements SQLiteTable {
    * DDL to create table seminar
    * </p>
    *
-   * <pre>CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT, location TEXT, name TEXT);</pre>
+   * <pre>CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, location TEXT, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT, location TEXT, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, location TEXT, name TEXT);";
 
   /**
    * <p>

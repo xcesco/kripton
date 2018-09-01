@@ -20,9 +20,9 @@ public class FileBeanTable implements SQLiteTable {
    * DDL to create table files
    * </p>
    *
-   * <pre>CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT, content BLOB, content_type TEXT, name TEXT);</pre>
+   * <pre>CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, content BLOB, content_type TEXT, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT, content BLOB, content_type TEXT, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE files (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, content BLOB, content_type TEXT, name TEXT);";
 
   /**
    * <p>

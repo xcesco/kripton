@@ -20,9 +20,9 @@ public class SongTable implements SQLiteTable {
    * DDL to create table song
    * </p>
    *
-   * <pre>CREATE TABLE song (id INTEGER PRIMARY KEY AUTOINCREMENT, album_id INTEGER, name TEXT, FOREIGN KEY(album_id) REFERENCES album(id));</pre>
+   * <pre>CREATE TABLE song (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, album_id INTEGER, name TEXT, FOREIGN KEY(album_id) REFERENCES album(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE song (id INTEGER PRIMARY KEY AUTOINCREMENT, album_id INTEGER, name TEXT, FOREIGN KEY(album_id) REFERENCES album(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE song (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, album_id INTEGER, name TEXT, FOREIGN KEY(album_id) REFERENCES album(id));";
 
   /**
    * <p>

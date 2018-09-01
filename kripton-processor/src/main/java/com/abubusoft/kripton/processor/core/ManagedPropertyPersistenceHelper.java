@@ -75,12 +75,14 @@ public abstract class ManagedPropertyPersistenceHelper {
 	public static void generateFieldPersistance(BindTypeContext context, List<? extends ManagedModelProperty> collection, PersistType persistType, boolean forceName, Modifier... modifiers) {
 
 		for (ManagedModelProperty property : collection) {
-			if (property.bindProperty != null) {
+			if (property.bindProperty != null && !property.hasTypeAdapter()) {
 				// if defined a forced typeName, we use it to define every json
 				// mapping, to allow comparison with parameters
 				if (forceName)
 					property.bindProperty.label = DEFAULT_FIELD_NAME;
 
+				BindTransformer.checkIfIsInUnsupportedPackage(property.bindProperty.getPropertyType().getTypeName());
+				
 				generateFieldSerialize(context, persistType, property.bindProperty, modifiers);
 				generateFieldParser(context, persistType, property.bindProperty, modifiers);
 			}
@@ -208,11 +210,19 @@ public abstract class ManagedPropertyPersistenceHelper {
 			String parserName = "jacksonParser";
 			BindTransform bindTransform = BindTransformer.lookup(property);
 
-			methodBuilder.addStatement("$T result=null", property.getPropertyType().getTypeName());
-
+			if (property.getParent()==null || ((ModelClass<?>)property.getParent()).isMutablePojo()) {
+				methodBuilder.addStatement("$T result=null", property.getPropertyType().getTypeName());
+			} else {
+				methodBuilder.addStatement("$T $L=null", property.getPropertyType().getTypeName(), ImmutableUtility.IMMUTABLE_PREFIX+property.getName());	
+			}
+			
 			bindTransform.generateParseOnJackson(context, methodBuilder, parserName, null, "result", property);
 
-			methodBuilder.addStatement("return result");
+			if (property.getParent()==null || ((ModelClass<?>)property.getParent()).isMutablePojo()) {
+				methodBuilder.addStatement("return result");				
+			} else {
+				methodBuilder.addStatement("return $L", ImmutableUtility.IMMUTABLE_PREFIX+property.getName());				
+			}
 
 			methodBuilder.nextControlFlow("catch($T e)", Exception.class);
 			methodBuilder.addStatement("throw(new $T(e.getMessage()))", KriptonRuntimeException.class);

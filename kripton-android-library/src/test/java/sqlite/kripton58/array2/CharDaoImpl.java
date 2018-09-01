@@ -61,6 +61,9 @@ public class CharDaoImpl extends Dao implements CharDao {
    *
    * <pre>SELECT id, value, value2 FROM char_bean</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -72,12 +75,13 @@ public class CharDaoImpl extends Dao implements CharDao {
    */
   @Override
   public CharBean selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -89,13 +93,15 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       CharBean resultBean=null;
 
@@ -114,12 +120,16 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM char_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -142,6 +152,7 @@ public class CharDaoImpl extends Dao implements CharDao {
    */
   @Override
   public CharBean selectOne(char[] value, Character[] value2) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -149,7 +160,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -161,13 +172,15 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       CharBean resultBean=null;
 
@@ -186,12 +199,16 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM char_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -215,6 +232,7 @@ public class CharDaoImpl extends Dao implements CharDao {
    */
   @Override
   public void selectOne(char[] value, Character[] value2, OnReadBeanListener<CharBean> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
@@ -222,7 +240,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -234,13 +252,15 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       CharBean resultBean=new CharBean();
       if (_cursor.moveToFirst()) {
 
@@ -252,7 +272,7 @@ public class CharDaoImpl extends Dao implements CharDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.setValue(null);
           resultBean.setValue2(null);
 
@@ -265,12 +285,16 @@ public class CharDaoImpl extends Dao implements CharDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM char_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -294,6 +318,7 @@ public class CharDaoImpl extends Dao implements CharDao {
    */
   @Override
   public void selectOne(char[] value, Character[] value2, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL4;
@@ -301,7 +326,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -313,13 +338,15 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -329,12 +356,16 @@ public class CharDaoImpl extends Dao implements CharDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value2 FROM char_bean WHERE value=${value} and value2=${value2}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CharBean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -357,6 +388,7 @@ public class CharDaoImpl extends Dao implements CharDao {
    */
   @Override
   public List<CharBean> selectList(char[] value, Character[] value2) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL5;
@@ -364,7 +396,7 @@ public class CharDaoImpl extends Dao implements CharDao {
     _contentValues.addWhereArgs((value==null?"":new String(serializer1(value),StandardCharsets.UTF_8)));
     _contentValues.addWhereArgs((value2==null?"":new String(serializer2(value2),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -376,13 +408,15 @@ public class CharDaoImpl extends Dao implements CharDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<CharBean> resultList=new ArrayList<CharBean>(_cursor.getCount());
       CharBean resultBean=null;
@@ -407,6 +441,7 @@ public class CharDaoImpl extends Dao implements CharDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -500,6 +535,7 @@ public class CharDaoImpl extends Dao implements CharDao {
    */
   @Override
   public long insert(long id, char[] value, Character[] value2) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO char_bean (id, value, value2) VALUES (?, ?, ?)";
@@ -549,10 +585,11 @@ public class CharDaoImpl extends Dao implements CharDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO char_bean (value, value2) VALUES (:bean.value, :bean.value2)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -570,6 +607,7 @@ public class CharDaoImpl extends Dao implements CharDao {
    */
   @Override
   public long insert(CharBean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO char_bean (value, value2) VALUES (?, ?)";
@@ -616,15 +654,16 @@ public class CharDaoImpl extends Dao implements CharDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM char_bean WHERE value=:value and value2=:value2</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

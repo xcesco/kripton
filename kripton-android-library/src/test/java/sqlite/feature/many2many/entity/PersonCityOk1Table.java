@@ -20,9 +20,9 @@ public class PersonCityOk1Table implements SQLiteTable {
    * DDL to create table person_city_ok1
    * </p>
    *
-   * <pre>CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, city_id INTEGER, person_id INTEGER, FOREIGN KEY(city_id) REFERENCES cities(id), FOREIGN KEY(person_id) REFERENCES persons(id));</pre>
+   * <pre>CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, city_id INTEGER, person_id INTEGER, FOREIGN KEY(city_id) REFERENCES cities(id), FOREIGN KEY(person_id) REFERENCES persons(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT, city_id INTEGER, person_id INTEGER, FOREIGN KEY(city_id) REFERENCES cities(id), FOREIGN KEY(person_id) REFERENCES persons(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city_ok1 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, city_id INTEGER, person_id INTEGER, FOREIGN KEY(city_id) REFERENCES cities(id), FOREIGN KEY(person_id) REFERENCES persons(id));";
 
   /**
    * <p>

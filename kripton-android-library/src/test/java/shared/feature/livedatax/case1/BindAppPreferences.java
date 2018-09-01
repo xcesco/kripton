@@ -6,8 +6,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.abubusoft.kripton.KriptonBinder;
 import com.abubusoft.kripton.KriptonJsonContext;
 import com.abubusoft.kripton.android.KriptonLibrary;
+import com.abubusoft.kripton.android.LiveDataHandler;
 import com.abubusoft.kripton.android.sharedprefs.AbstractSharedPreference;
-import com.abubusoft.kripton.androidx.livedata.KriptonXComputableLiveData;
+import com.abubusoft.kripton.androidx.livedata.KriptonXLiveDataHandlerImpl;
 import com.abubusoft.kripton.common.CollectionUtils;
 import com.abubusoft.kripton.common.KriptonByteArrayOutputStream;
 import com.abubusoft.kripton.common.Pair;
@@ -40,7 +41,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
   private final AppPreferences defaultBean;
 
   @SuppressWarnings("rawtypes")
-  private List<Pair<String, WeakReference<KriptonXComputableLiveData>>> liveDatas = new CopyOnWriteArrayList<Pair<String, WeakReference<KriptonXComputableLiveData>>>();
+  private List<Pair<String, WeakReference<LiveDataHandler>>> liveDatas = new CopyOnWriteArrayList<Pair<String, WeakReference<LiveDataHandler>>>();
 
   /**
    * Listener used to propagate shared prefs changes through RX
@@ -145,13 +146,13 @@ public class BindAppPreferences extends AbstractSharedPreference {
   }
 
   @SuppressWarnings("rawtypes")
-  protected void registryLiveData(String key, KriptonXComputableLiveData<?> value) {
-    liveDatas.add(new Pair<String , WeakReference<KriptonXComputableLiveData>>(key, new WeakReference<KriptonXComputableLiveData>(value)));
+  protected void registryLiveData(String key, LiveDataHandler value) {
+    liveDatas.add(new Pair<String , WeakReference<LiveDataHandler>>(key, new WeakReference<LiveDataHandler>(value)));
   }
 
   @SuppressWarnings("rawtypes")
   protected void updateLiveData(String key, Object value) {
-    for (Pair<String, WeakReference<KriptonXComputableLiveData>> item : liveDatas) {
+    for (Pair<String, WeakReference<LiveDataHandler>> item : liveDatas) {
       if (item.value0.equals(key) && item.value1.get() != null) {
         item.value1.get().invalidate();
       }
@@ -165,7 +166,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>valueBoolean</code> property
    */
   public MutableLiveData<Boolean> getValueBooleanAsLiveData() {
-    KriptonXComputableLiveData<Boolean> liveData=new KriptonXComputableLiveData<Boolean>() {
+    KriptonXLiveDataHandlerImpl<Boolean> liveData=new KriptonXLiveDataHandlerImpl<Boolean>() {
       @Override
       protected Boolean compute() {
         BindAppPreferences.this.refresh();
@@ -183,7 +184,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>valueInt</code> property
    */
   public MutableLiveData<Integer> getValueIntAsLiveData() {
-    KriptonXComputableLiveData<Integer> liveData=new KriptonXComputableLiveData<Integer>() {
+    KriptonXLiveDataHandlerImpl<Integer> liveData=new KriptonXLiveDataHandlerImpl<Integer>() {
       @Override
       protected Integer compute() {
         BindAppPreferences.this.refresh();
@@ -201,7 +202,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>valueFloat</code> property
    */
   public MutableLiveData<Float> getValueFloatAsLiveData() {
-    KriptonXComputableLiveData<Float> liveData=new KriptonXComputableLiveData<Float>() {
+    KriptonXLiveDataHandlerImpl<Float> liveData=new KriptonXLiveDataHandlerImpl<Float>() {
       @Override
       protected Float compute() {
         BindAppPreferences.this.refresh();
@@ -219,7 +220,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>valueLong</code> property
    */
   public MutableLiveData<Long> getValueLongAsLiveData() {
-    KriptonXComputableLiveData<Long> liveData=new KriptonXComputableLiveData<Long>() {
+    KriptonXLiveDataHandlerImpl<Long> liveData=new KriptonXLiveDataHandlerImpl<Long>() {
       @Override
       protected Long compute() {
         BindAppPreferences.this.refresh();
@@ -237,7 +238,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>description</code> property
    */
   public MutableLiveData<String> getDescriptionAsLiveData() {
-    KriptonXComputableLiveData<String> liveData=new KriptonXComputableLiveData<String>() {
+    KriptonXLiveDataHandlerImpl<String> liveData=new KriptonXLiveDataHandlerImpl<String>() {
       @Override
       protected String compute() {
         BindAppPreferences.this.refresh();
@@ -255,7 +256,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>name</code> property
    */
   public MutableLiveData<String> getNameAsLiveData() {
-    KriptonXComputableLiveData<String> liveData=new KriptonXComputableLiveData<String>() {
+    KriptonXLiveDataHandlerImpl<String> liveData=new KriptonXLiveDataHandlerImpl<String>() {
       @Override
       protected String compute() {
         BindAppPreferences.this.refresh();
@@ -273,7 +274,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>stringArray</code> property
    */
   public MutableLiveData<String[]> getStringArrayAsLiveData() {
-    KriptonXComputableLiveData<String[]> liveData=new KriptonXComputableLiveData<String[]>() {
+    KriptonXLiveDataHandlerImpl<String[]> liveData=new KriptonXLiveDataHandlerImpl<String[]>() {
       @Override
       protected String[] compute() {
         BindAppPreferences.this.refresh();
@@ -291,7 +292,7 @@ public class BindAppPreferences extends AbstractSharedPreference {
    * an LiveData to <code>stringList</code> property
    */
   public MutableLiveData<List<String>> getStringListAsLiveData() {
-    KriptonXComputableLiveData<List<String>> liveData=new KriptonXComputableLiveData<List<String>>() {
+    KriptonXLiveDataHandlerImpl<List<String>> liveData=new KriptonXLiveDataHandlerImpl<List<String>>() {
       @Override
       protected List<String> compute() {
         BindAppPreferences.this.refresh();
@@ -317,20 +318,20 @@ public class BindAppPreferences extends AbstractSharedPreference {
    */
   public AppPreferences read() {
     AppPreferences bean=new AppPreferences();
-    bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)bean.valueBoolean);
-    bean.valueInt=(int)prefs.getInt("value_int", (int)bean.valueInt);
-    bean.valueFloat=prefs.getFloat("value_float", bean.valueFloat);
-    bean.valueLong=prefs.getLong("value_long", (bean.valueLong==null?0L:bean.valueLong));
-    bean.setDescription(prefs.getString("description", bean.getDescription()));
-    bean.name=prefs.getString("name", bean.name);
+    bean.valueBoolean=(boolean)prefs.getBoolean("value_boolean", (boolean)defaultBean.valueBoolean);
+    bean.valueInt=(int)prefs.getInt("value_int", (int)defaultBean.valueInt);
+    bean.valueFloat=prefs.getFloat("value_float", defaultBean.valueFloat);
+    bean.valueLong=prefs.getLong("value_long", (defaultBean.valueLong==null?0L:defaultBean.valueLong));
+    bean.setDescription(prefs.getString("description", defaultBean.getDescription()));
+    bean.name=prefs.getString("name", defaultBean.name);
      {
       String temp=prefs.getString("string_array", null);
-      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): bean.getStringArray());
+      bean.setStringArray(StringUtils.hasText(temp) ? parseStringArray(temp): defaultBean.getStringArray());
     }
 
      {
       String temp=prefs.getString("string_list", null);
-      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): bean.stringList;
+      bean.stringList=StringUtils.hasText(temp) ? parseStringList(temp): defaultBean.stringList;
     }
 
 

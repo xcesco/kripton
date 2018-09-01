@@ -22,6 +22,8 @@ import bind.bindenum.TestEnumSuite;
 import bind.directmap.TestDirectMapSuite;
 import bind.feature.generichierarchy.TestGenericHierarchySuite;
 import bind.feature.generichierarchy.kripton109.Test109CompileSuite;
+import bind.feature.immutable.TestImmutableCompileSuite;
+import bind.feature.kotlin.TestBindTypeKotlinCompileSuite;
 import bind.feature.namespace.CompileNamespaceTestSuite;
 import bind.feature.typeadapter.kripton87.Test87CompileSuite;
 import bind.kripton110.TestCompile110;
@@ -37,6 +39,7 @@ import bind.kripton77.Test77;
 import bind.kripton78.Test78CompileSuite;
 import bind.kripton80contextcollection.Test80CompileSuite;
 import bind.kripton81morecoveragetests.Test81CompileSuite;
+import bind.retrofit.film.model.TestFilmCompile;
 import bind.rss.TestRSSCompile;
 
 /**
@@ -46,6 +49,10 @@ import bind.rss.TestRSSCompile;
 //@formatter:off
 @Suite.SuiteClasses(
 		{
+			// feature
+			TestImmutableCompileSuite.class, 
+			TestBindTypeKotlinCompileSuite.class, 
+			
 		Test42CompileSuite.class,
 		Test70CompileSuite.class,
 		Test71CompileSuite.class,
@@ -65,6 +72,7 @@ import bind.rss.TestRSSCompile;
 		TestDirectMapSuite.class,
 		Test109CompileSuite.class,
 		TestCompile110.class,
+		TestFilmCompile.class, 
 		
 		// features
 		CompileNamespaceTestSuite.class,

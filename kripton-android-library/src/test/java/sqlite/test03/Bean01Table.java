@@ -32,9 +32,9 @@ public class Bean01Table implements SQLiteTable {
    * DDL to create table bean01
    * </p>
    *
-   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_list BLOB, lista BLOB, message_date INTEGER, message_text TEXT NOT NULL, value INTEGER);</pre>
+   * <pre>CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, bean_list BLOB, lista BLOB, message_date INTEGER, message_text TEXT NOT NULL, value INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT, bean_list BLOB, lista BLOB, message_date INTEGER, message_text TEXT NOT NULL, value INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE bean01 (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, bean_list BLOB, lista BLOB, message_date INTEGER, message_text TEXT NOT NULL, value INTEGER);";
 
   /**
    * <p>

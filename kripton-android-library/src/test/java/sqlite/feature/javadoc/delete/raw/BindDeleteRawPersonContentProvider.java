@@ -14,11 +14,6 @@ import com.abubusoft.kripton.android.Logger;
  * <h2>Content provider authority:</h2>
  * <pre>sqlite.feature.javadoc.bean</pre>
  *
- * <h2>Supported insert operations</h2>
- * <table>
- * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * </table>
- *
  * <h2>Supported delete operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
@@ -29,6 +24,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single/${id}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteRaw3ForContentProvider}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/single2/${id}</pre></td><td>{@link DeleteRawPersonDaoImpl#deleteRawDynamic4ForContentProvider}</td></tr>
  * </table>
+ *
+ *
  *
  */
 public class BindDeleteRawPersonContentProvider extends ContentProvider {
@@ -204,23 +201,9 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
     throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
   }
 
-  /**
-   *
-   * <h2>Supported insert operations</h2>
-   * <table>
-   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * </table>
-   *
-   */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
-    long _id=-1;
-    Uri _returnURL=null;
-    switch (sURIMatcher.match(uri)) {
-      default: {
-        throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
-      }
-    }
+    throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
   }
 
   @Override
@@ -281,11 +264,11 @@ public class BindDeleteRawPersonContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
       }
     }
-    // log section BEGIN
+    // log section for content provider delete BEGIN
     if (dataSource.isLogEnabled()) {
       Logger.info("Changes are notified for URI %s", uri);
     }
-    // log section END
+    // log section for content provider delete END
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowDeleted;
   }

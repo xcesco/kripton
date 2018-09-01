@@ -57,9 +57,7 @@ public class TestPkString1Runtime extends BaseAndroidTest {
 				
 				daoFactory.getPersonDao().insert(person);
 				
-				PersonCity m2m=new PersonCity();
-				m2m.personId=person.id;
-				m2m.cityId=city.id;
+				PersonCity m2m=new PersonCity(0,person.id, city.id );				
 				
 				daoFactory.getPersonCityDao().insert(m2m);
 				

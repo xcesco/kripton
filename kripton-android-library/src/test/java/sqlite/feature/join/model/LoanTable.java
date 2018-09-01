@@ -20,9 +20,9 @@ public class LoanTable implements SQLiteTable {
    * DDL to create table loan
    * </p>
    *
-   * <pre>CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, book_id INTEGER, end_time TEXT, start_time TEXT, user_id INTEGER, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, book_id INTEGER, end_time TEXT, start_time TEXT, user_id INTEGER, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT, book_id INTEGER, end_time TEXT, start_time TEXT, user_id INTEGER, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE loan (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, book_id INTEGER, end_time TEXT, start_time TEXT, user_id INTEGER, FOREIGN KEY(book_id) REFERENCES book(id), FOREIGN KEY(user_id) REFERENCES user(id));";
 
   /**
    * <p>

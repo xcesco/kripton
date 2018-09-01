@@ -34,6 +34,9 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    *
    * <pre>SELECT id, address, city, name, phone, state FROM simple_address_item WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link SimpleAddressItem}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -55,6 +58,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    */
   @Override
   public SimpleAddressItem selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
@@ -62,6 +66,8 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       SimpleAddressItem resultBean=null;
 
@@ -86,16 +92,14 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM simple_address_item</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    */
   @Override
@@ -117,6 +121,9 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    *
    * <pre>SELECT id, address, city, name, phone, state FROM simple_address_item</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link SimpleAddressItem}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -131,12 +138,15 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    */
   @Override
   public ArrayList<SimpleAddressItem> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<SimpleAddressItem> resultList=new ArrayList<SimpleAddressItem>(_cursor.getCount());
       SimpleAddressItem resultBean=null;
@@ -167,10 +177,11 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO simple_address_item (address, city, name, phone, state) VALUES (:bean.address, :bean.city, :bean.name, :bean.phone, :bean.state)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -190,6 +201,7 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
    */
   @Override
   public void insert(SimpleAddressItem bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO simple_address_item (address, city, name, phone, state) VALUES (?, ?, ?, ?, ?)";
@@ -204,7 +216,9 @@ public class SimpleAddressDaoImpl extends Dao implements SimpleAddressDao {
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

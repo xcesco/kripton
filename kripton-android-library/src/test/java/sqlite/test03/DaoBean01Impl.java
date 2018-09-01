@@ -29,6 +29,9 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    *
    * <pre>SELECT id, bean_list, lista, message_date, message_text, value FROM bean01 WHERE 1=1</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean01}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -43,12 +46,13 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
    */
   @Override
   public List<Bean01> listAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=LIST_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -60,13 +64,15 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean01> resultList=new ArrayList<Bean01>(_cursor.getCount());
       Bean01 resultBean=null;
@@ -97,6 +103,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

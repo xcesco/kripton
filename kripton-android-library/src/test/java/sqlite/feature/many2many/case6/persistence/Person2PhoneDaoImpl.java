@@ -49,6 +49,9 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    *
    * <pre>SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE buy_date>${since}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PersonPhone}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -68,13 +71,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public List<PersonPhone> selectByDate(Date since) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_DATE_SQL11;
     // add where arguments
     _contentValues.addWhereArgs((since==null?"":SQLDateUtils.write(since)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -86,13 +90,15 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonPhone> resultList=new ArrayList<PersonPhone>(_cursor.getCount());
       PersonPhone resultBean=null;
@@ -119,12 +125,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE id=:id</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonPhone}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -145,13 +155,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public PersonPhone selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL12;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -163,13 +174,15 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PersonPhone resultBean=null;
 
@@ -190,12 +203,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE person_id=:personId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonPhone}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -216,13 +233,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public List<PersonPhone> selectByPersonId(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PERSON_ID_SQL13;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -234,13 +252,15 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonPhone> resultList=new ArrayList<PersonPhone>(_cursor.getCount());
       PersonPhone resultBean=null;
@@ -267,12 +287,16 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE phone_number_id=:phoneNumberId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PersonPhone}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -293,13 +317,14 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public List<PersonPhone> selectByPhoneNumberId(long phoneNumberId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_PHONE_NUMBER_ID_SQL14;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -311,13 +336,15 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PersonPhone> resultList=new ArrayList<PersonPhone>(_cursor.getCount());
       PersonPhone resultBean=null;
@@ -344,12 +371,12 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -395,7 +422,6 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone WHERE person_id=:personId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:personId</dt><dd>is mapped to method's parameter <strong>personId</strong></dd>
@@ -440,7 +466,6 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person_phone WHERE phone_number_id=:phoneNumberId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:phoneNumberId</dt><dd>is mapped to method's parameter <strong>phoneNumberId</strong></dd>
@@ -482,7 +507,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person_phone (buy_date, person_id, phone_number_id) VALUES (:buyDate, :personId, :phoneNumberId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -501,6 +526,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
    */
   @Override
   public int insert(PersonPhone bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person_phone (buy_date, person_id, phone_number_id) VALUES (?, ?, ?)";
@@ -548,9 +574,11 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

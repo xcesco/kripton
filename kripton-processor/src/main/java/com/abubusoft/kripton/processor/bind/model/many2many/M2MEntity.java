@@ -36,6 +36,11 @@ import com.squareup.javapoet.TypeName;
  */
 public class M2MEntity extends M2MBase {
 	
+	/**
+	 * object must be immutable
+	 */
+	public boolean immutable;
+	
 	public TypeName propertyPrimaryKey;
 
 	public TypeName propertyKey1;
@@ -95,7 +100,7 @@ public class M2MEntity extends M2MBase {
 	 * @param needToCreate the need to create
 	 * @param generatedMethods the generated methods
 	 */
-	public M2MEntity(TypeElement daoElement, String packageName, String entityName, ClassName daoClazzName, ClassName entity1ClazzName, ClassName entity2ClazzName, String idName, String tableName, boolean needToCreate, boolean generatedMethods) {
+	public M2MEntity(TypeElement daoElement, String packageName, String entityName, ClassName daoClazzName, ClassName entity1ClazzName, ClassName entity2ClazzName, String idName, String tableName, boolean needToCreate, boolean generatedMethods, boolean immutable) {
 		this.packageName = packageName;
 		this.entity1Name = entity1ClazzName;
 		this.entity2Name = entity2ClazzName;
@@ -106,6 +111,7 @@ public class M2MEntity extends M2MBase {
 		this.needToCreate = needToCreate;
 		this.daoElement=daoElement;
 		this.generateMethods=generatedMethods;
+		this.immutable=immutable;
 	}
 
 	/**
@@ -146,6 +152,7 @@ public class M2MEntity extends M2MBase {
 		String packageName = null;
 		boolean needToCreate = true;
 		boolean generatedMethods=true;
+		boolean immutable=true;
 		
 		
 		if (daoElement.getAnnotation(BindDaoMany2Many.class) != null) {
@@ -153,6 +160,8 @@ public class M2MEntity extends M2MBase {
 			entity2 = TypeUtility.className(AnnotationUtility.extractAsClassName(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ENTITY_2));
 			prefixId = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.ID_NAME);
 			tableName = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.TABLE_NAME);
+			tableName = AnnotationUtility.extractAsString(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.TABLE_NAME);
+			immutable = AnnotationUtility.extractAsBoolean(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.IMMUTABLE);
 			
 			generatedMethods=AnnotationUtility.extractAsBoolean(daoElement, BindDaoMany2Many.class, AnnotationAttributeType.METHODS);
 			
@@ -177,7 +186,7 @@ public class M2MEntity extends M2MBase {
 			needToCreate = false;
 		}
 
-		M2MEntity entity = new M2MEntity(daoElement, packageName, entityName, TypeUtility.className(daoElement.asType().toString()), entity1, entity2, prefixId, tableName, needToCreate, generatedMethods);
+		M2MEntity entity = new M2MEntity(daoElement, packageName, entityName, TypeUtility.className(daoElement.asType().toString()), entity1, entity2, prefixId, tableName, needToCreate, generatedMethods, immutable);
 
 		return entity;
 	}

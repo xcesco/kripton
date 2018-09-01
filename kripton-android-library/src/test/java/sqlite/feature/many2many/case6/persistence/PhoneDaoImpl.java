@@ -41,7 +41,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO phone_number (action, contact_id, contact_name, country_code, number) VALUES (:action, :contactId, :contactName, :countryCode, :number)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -62,6 +62,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    */
   @Override
   public int insert(PhoneNumber bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO phone_number (action, contact_id, contact_name, country_code, number) VALUES (?, ?, ?, ?, ?)";
@@ -111,15 +112,20 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PhoneNumber}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -142,13 +148,14 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    */
   @Override
   public PhoneNumber selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -160,13 +167,15 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PhoneNumber resultBean=null;
 
@@ -191,12 +200,12 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM phone_number WHERE id = :id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -287,6 +296,9 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    *
    * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number WHERE number = ${number}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PhoneNumber}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -308,13 +320,14 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    */
   @Override
   public PhoneNumber selectByNumber(String number) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_NUMBER_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((number==null?"":number));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -326,13 +339,15 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PhoneNumber resultBean=null;
 
@@ -357,12 +372,16 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, action, contact_id, contact_name, country_code, number FROM phone_number ORDER BY contact_name, number</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PhoneNumber}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -378,12 +397,13 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
    */
   @Override
   public List<PhoneNumber> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -395,13 +415,15 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<PhoneNumber> resultList=new ArrayList<PhoneNumber>(_cursor.getCount());
       PhoneNumber resultBean=null;
@@ -432,6 +454,7 @@ public class PhoneDaoImpl extends Dao implements PhoneDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

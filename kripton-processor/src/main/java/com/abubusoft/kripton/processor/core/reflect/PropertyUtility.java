@@ -32,6 +32,7 @@ import javax.lang.model.util.Elements;
 import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.core.ModelClass;
 import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFilter;
@@ -145,15 +146,23 @@ public abstract class PropertyUtility {
 		Converter<String, String> converter = CaseFormat.UPPER_CAMEL.converterTo(CaseFormat.LOWER_CAMEL);
 		int status = 0;
 
-		// define property for the entity (must be done before working with methods, due to parameters resolver)
+		// define property for the entity (must be done before working with
+		// methods, due to parameters resolver)
 		for (P p : propertyMap.values()) {
 			entity.add(p);
 		}
-
+		
+//		int i=0;
+//		AnnotationProcessorUtilis.printMessage(String.format((i++) + "entity %s ",entity.getName())); 
+//		
 		// restore original methods and fields
 		list = new ArrayList<Element>(listA);
 		for (Element item : list) {
 			methodName = item.getSimpleName().toString();
+			
+			// cus
+			//AnnotationProcessorUtilis.printMessage(String.format((i++) + "item %s type %s modifiers [%s] ", item.getSimpleName().toString(), item.getKind(), item.getModifiers())); 
+			
 			if (item.getKind() == ElementKind.METHOD && item.getModifiers().contains(Modifier.PUBLIC)) {
 				ExecutableElement method = (ExecutableElement) item;
 
@@ -200,6 +209,9 @@ public abstract class PropertyUtility {
 
 		if (listener != null) {
 			List<P> listPropertiesToFilter = new ArrayList<P>(entity.getCollection());
+			
+			// copy all properties (included the excluded one) into immutable collection
+			entity.getImmutableCollection().addAll(entity.getCollection());
 
 			for (P item : listPropertiesToFilter) {
 				if (!listener.onProperty(entity, item)) {
@@ -225,6 +237,10 @@ public abstract class PropertyUtility {
 				// insert only if it does not already exists
 				if (!propertyMap.containsKey(item.getSimpleName().toString())) {
 					field = factoryProperty.createProperty(entity, item);
+					
+					//TreePath treePath = KriptonProcessor.trees.getPath(item);
+					//AnnotationVisitor visitor = new AnnotationVisitor();
+					//TypeMirror recognizerType = visitor. (treePath, null);
 
 					// put properties in a map
 					propertyMap.put(field.getName(), field);
@@ -241,7 +257,8 @@ public abstract class PropertyUtility {
 	 * @return true, if successful
 	 */
 	static boolean modifierIsAcceptable(Element item) {
-		Object[] values = { Modifier.NATIVE, Modifier.STATIC, Modifier.FINAL, Modifier.ABSTRACT };
+		// kotlin define properties as final
+		Object[] values = { Modifier.NATIVE, Modifier.STATIC, /* Modifier.FINAL, */  Modifier.ABSTRACT };
 
 		for (Object i : values) {
 			if (item.getModifiers().contains(i))
@@ -298,14 +315,22 @@ public abstract class PropertyUtility {
 	 *            the property
 	 * @return the string
 	 */
-	public static String setter(TypeName beanClass, ModelProperty property) {
-		if (property.isPublicField()) {
-			return property.getName();
-		} else if (property.isFieldWithSetter()) {
-			return "set" + converterField2Method.convert(property.getName());
+	public static String setter(TypeName beanClass, String beanName, ModelProperty property) {		
+		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName();
 		} else {
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
-					property.getName(), property.getParent().getElement().asType()));
+			String prefix=""; 
+			if (beanName!=null) {
+				prefix=beanName+".";
+			}
+			if (property.isPublicField()) {
+				return prefix+property.getName();
+			} else if (property.isFieldWithSetter()) {
+				return prefix+"set" + converterField2Method.convert(property.getName());
+			} else {				
+				throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
+						property.getName(), property.getParent().getElement().asType()));
+			}
 		}
 	}
 
@@ -323,7 +348,11 @@ public abstract class PropertyUtility {
 	 * @return the string
 	 */
 	public static String setter(TypeName beanClass, String beanName, ModelProperty property, String value) {
-		return beanName + (beanClass != null ? "." + setter(property, value) : "=" + value);
+		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName() + "=" + value;
+		} else {
+			return beanName + (beanClass != null ? "." + setter(property, value) : "=" + value);
+		}
 	}
 
 	/**
@@ -338,14 +367,19 @@ public abstract class PropertyUtility {
 	 * @return the string
 	 */
 	private static String setter(ModelProperty property, String value) {
-		if (property.isPublicField())
-			return property.getName() + "=" + value;
-		else if (property.isFieldWithSetter()) {
-			return "set" + converterField2Method.convert(property.getName()) + "(" + value + ")";
+		if (property.getParent()!=null && ((ModelClass<?>) property.getParent()).isImmutablePojo()) {
+			return ImmutableUtility.IMMUTABLE_PREFIX + property.getName() + "=" + value;
 		} else {
-			throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
-					property.getName(), property.getParent().getElement().asType()));
+			if (property.isPublicField())
+				return property.getName() + "=" + value;
+			else if (property.isFieldWithSetter()) {
+				return "set" + converterField2Method.convert(property.getName()) + "(" + value + ")";
+			} else {
+				throw new PropertyVisibilityException(String.format("property '%s' of class '%s' can not be modify",
+						property.getName(), property.getParent().getElement().asType()));
+			}
 		}
+
 	}
 
 }

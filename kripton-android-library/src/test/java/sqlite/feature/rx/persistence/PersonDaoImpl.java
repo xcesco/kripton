@@ -37,7 +37,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO person (age, name) VALUES (:age, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -55,6 +55,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    */
   @Override
   public int insert(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO person (age, name) VALUES (?, ?)";
@@ -101,18 +102,24 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
-    if (result>0) {
-      subject.onNext(SQLiteEvent.createInsert(result));
-    }
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    if (result>0) {
+      // rx management 
+      subject.onNext(SQLiteEvent.createInsertWithId(result));
+    }
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, age, name FROM person WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -132,13 +139,14 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    */
   @Override
   public Person selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL11;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -150,13 +158,15 @@ public class PersonDaoImpl extends Dao implements PersonDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -175,12 +185,12 @@ public class PersonDaoImpl extends Dao implements PersonDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person WHERE id = :id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -220,6 +230,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
@@ -267,6 +278,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;

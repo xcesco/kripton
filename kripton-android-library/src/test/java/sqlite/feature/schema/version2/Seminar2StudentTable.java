@@ -20,9 +20,9 @@ public class Seminar2StudentTable implements SQLiteTable {
    * DDL to create table seminar_2_student
    * </p>
    *
-   * <pre>CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, seminar_id INTEGER, student_id INTEGER, FOREIGN KEY(seminar_id) REFERENCES seminar(id), FOREIGN KEY(student_id) REFERENCES student(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc,  seminar_id desc);</pre>
+   * <pre>CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, seminar_id INTEGER, student_id INTEGER, FOREIGN KEY(seminar_id) REFERENCES seminar(id), FOREIGN KEY(student_id) REFERENCES student(id), UNIQUE (student_id, seminar_id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc,  seminar_id desc);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, seminar_id INTEGER, student_id INTEGER, FOREIGN KEY(seminar_id) REFERENCES seminar(id), FOREIGN KEY(student_id) REFERENCES student(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc,  seminar_id desc);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, seminar_id INTEGER, student_id INTEGER, FOREIGN KEY(seminar_id) REFERENCES seminar(id), FOREIGN KEY(student_id) REFERENCES student(id), UNIQUE (student_id, seminar_id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc,  seminar_id desc);";
 
   /**
    * <p>

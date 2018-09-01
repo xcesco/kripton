@@ -1,6 +1,6 @@
 language: java
 jdk: oraclejdk8
-sudo: false # faster builds
+sudo: true 
 
 script:
   -  mvn -Dkripton.debug=false cobertura:cobertura

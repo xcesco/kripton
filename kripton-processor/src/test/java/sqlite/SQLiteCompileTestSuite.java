@@ -18,25 +18,30 @@ package sqlite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import sqlite.example01.Example01Suite;
+import sqlite.adapter.example01.TestAdapterSuite;
 import sqlite.example02.Example02Suite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
+import sqlite.feature.async.FeatureAsyncSuite;
 import sqlite.feature.asynctask.TestCompileMultithreadSuite;
 import sqlite.feature.childselect.TestChildSelectSuite;
 import sqlite.feature.columnaffinity.TestColumnAffinityTestSuite;
 import sqlite.feature.contentprovider.TestContentProviderSuite;
-import sqlite.feature.datasourceoptions.FeatureDataSourceOptionsTest;
+import sqlite.feature.custombean.TestCustomBeanSuite;
+import sqlite.feature.datasourceoptions.TestDataSourceOptionSuite;
 import sqlite.feature.dynamic.TestDynamicSuite;
 import sqlite.feature.foreignkey.TestForeignKeySuite;
 import sqlite.feature.foreignkeyaction.TestForeignKeyActionSuite;
 import sqlite.feature.generichierarchy.TestGenericHierarchySuite;
 import sqlite.feature.globaltypeadapters.TestGlobalSqlTypeAdaptersSuite;
+import sqlite.feature.immutable.TestCompileImmutableSuite;
+import sqlite.feature.in.TestInSuite;
 import sqlite.feature.includefields.IncludeFieldsTestSuite;
 import sqlite.feature.indexes.IndexTestSuite;
 import sqlite.feature.javadoc.TestJavadocFeatureSuite;
 import sqlite.feature.join.TestJoinFeatureSuite;
 import sqlite.feature.jql.TestJQLFeatureSuite;
+import sqlite.feature.kotlin.TestCompileKotlinImmutable;
 import sqlite.feature.livedata.TestLiveDataSuite;
 import sqlite.feature.livedatax.TestLiveDataXSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
@@ -98,6 +103,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestContentProviderSuite.class,
 			TestPaginatedResultSuite.class,
 			TestCompileMultithreadSuite.class,
+			TestCustomBeanSuite.class, 
 			TestGenericHierarchySuite.class,
 			TestJavadocFeatureSuite.class,
 			TestDynamicSuite.class,
@@ -115,9 +121,15 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestRelationSuite.class,
 			TestColumnAffinityTestSuite.class,
 			TestChildSelectSuite.class,
+			TestInSuite.class,
+			TestCompileImmutableSuite.class,
+			TestDataSourceOptionSuite.class,
+			TestAdapterSuite.class,
+			FeatureAsyncSuite.class,
 			
 			// bug-fix			
-			Example01Suite.class,
+			TestCompileKotlinImmutable.class,
+			
 			Example02Suite.class,
 			TestCompile111.class,
 			TestStack44330452Suite.class,
@@ -154,7 +166,6 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestStack44633883Suite.class,
 			TestStack45184504Suite.class,	
 			Test205Suite.class,
-			FeatureDataSourceOptionsTest.class,
 			TestLiveDataXSuite.class,
 			
 			TestSamplesSuite.class,

@@ -20,9 +20,9 @@ public class TodoTable implements SQLiteTable {
    * DDL to create table todo
    * </p>
    *
-   * <pre>CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, completed INTEGER, title TEXT, user_id INTEGER);</pre>
+   * <pre>CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, completed INTEGER, title TEXT, user_id INTEGER);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, completed INTEGER, title TEXT, user_id INTEGER);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, completed INTEGER, title TEXT, user_id INTEGER);";
 
   /**
    * <p>

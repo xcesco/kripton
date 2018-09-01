@@ -36,6 +36,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT id, user_name FROM user</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -46,12 +49,13 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   @Override
   public List<User> getAllUsers() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_ALL_USERS_SQL3;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -63,13 +67,15 @@ public class UserDaoImpl extends Dao implements UserDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<User> resultList=new ArrayList<User>(_cursor.getCount());
       User resultBean=null;
@@ -92,12 +98,16 @@ public class UserDaoImpl extends Dao implements UserDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, user_name FROM user WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link User}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -116,13 +126,14 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   @Override
   public User getUserById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_USER_BY_ID_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -134,13 +145,15 @@ public class UserDaoImpl extends Dao implements UserDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       User resultBean=null;
 
@@ -157,10 +170,11 @@ public class UserDaoImpl extends Dao implements UserDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO user (user_name) VALUES (:user.userName)</pre>
    *
    * <p><code>user.id</code> is automatically updated because it is the primary key</p>
@@ -176,6 +190,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   @Override
   public void insert(User user) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO user (user_name) VALUES (?)";
@@ -221,7 +236,9 @@ public class UserDaoImpl extends Dao implements UserDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     user.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

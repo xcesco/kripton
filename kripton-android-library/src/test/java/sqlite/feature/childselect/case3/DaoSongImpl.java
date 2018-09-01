@@ -33,7 +33,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO song (album_id, name) VALUES (:albumId, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -50,6 +50,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public void insert(Song bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (album_id, name) VALUES (?, ?)";
@@ -96,13 +97,18 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, album_id, name FROM song</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Song}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -115,12 +121,13 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public List<Song> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -132,13 +139,15 @@ public class DaoSongImpl extends Dao implements DaoSong {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Song> resultList=new ArrayList<Song>(_cursor.getCount());
       Song resultBean=null;
@@ -163,12 +172,16 @@ public class DaoSongImpl extends Dao implements DaoSong {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, album_id, name FROM song WHERE album_id=${albumId}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Song}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -188,13 +201,14 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public HashSet<Song> selectByAlbumId(long dummy) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALBUM_ID_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(dummy));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -206,13 +220,15 @@ public class DaoSongImpl extends Dao implements DaoSong {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       HashSet<Song> resultList=new HashSet<Song>();
       Song resultBean=null;
@@ -237,6 +253,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

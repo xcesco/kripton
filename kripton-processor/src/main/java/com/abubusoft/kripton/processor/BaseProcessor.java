@@ -37,7 +37,6 @@ import javax.tools.Diagnostic;
 
 import com.abubusoft.kripton.annotation.BindType;
 import com.abubusoft.kripton.processor.core.AssertKripton;
-import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -54,9 +53,9 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	/** if true we are in a test. */
 	public static boolean JUNIT_TEST_MODE = false;
 	
-	/** logger. */
-	protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+	/** The logger. */
+	protected static Logger logger = Logger.getGlobal();
+
 	/** The count. */
 	protected int count;
 	
@@ -70,7 +69,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	protected final Map<String, TypeElement> globalBeanElements = new HashMap<String, TypeElement>();
 
 	/** The messager. */
-	protected Messager messager;
+	protected static Messager messager;
 
 	/** The type utils. */
 	protected Types typeUtils;
@@ -94,7 +93,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	public void error(Element e, String msg, Object... args) {
 		// this must be always enabled, due control annotation processor
 		// execution status (if display an error, compiler fails).
-		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);
+		messager.printMessage(Diagnostic.Kind.ERROR, String.format(msg, args), e);		
 	}
 
 	/**
@@ -170,8 +169,14 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	 * @param msg the msg
 	 * @param args the args
 	 */
-	public void info(String msg, Object... args) {
-		messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
+	public static void info(String msg, Object... args) {
+		if (BaseProcessor.JUNIT_TEST_MODE) {
+			logger.info(String.format(msg, args));
+		}
+
+		if (!BaseProcessor.JUNIT_TEST_MODE && BaseProcessor.DEBUG_MODE)
+			messager.printMessage(Diagnostic.Kind.NOTE, String.format(msg, args));
+		
 	}
 
 	/* (non-Javadoc)
@@ -180,12 +185,10 @@ public abstract class BaseProcessor extends AbstractProcessor {
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
-
-		AnnotationProcessorUtilis.init(processingEnv.getMessager());
-
+	
 		elementUtils = processingEnv.getElementUtils();
 		filer = processingEnv.getFiler();
-		messager = processingEnv.getMessager();
+		messager = processingEnv.getMessager();		
 		typeUtils = processingEnv.getTypeUtils();
 
 		// define methods to ignore

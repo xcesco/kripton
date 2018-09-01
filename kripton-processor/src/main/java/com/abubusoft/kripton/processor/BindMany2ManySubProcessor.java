@@ -21,7 +21,6 @@ package com.abubusoft.kripton.processor;
 import java.lang.annotation.Annotation;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.logging.Level;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
@@ -42,16 +41,18 @@ import com.abubusoft.kripton.processor.sqlite.BindM2MBuilder;
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class BindMany2ManySubProcessor extends BaseProcessor {
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.BaseProcessor#clear()
 	 */
-	public void clear() {		
+	public void clear() {
 		super.clear();
-		
-		result=null;
-		model=null;		
-	}	
+
+		result = null;
+		model = null;
+	}
 
 	/** The model. */
 	private M2MModel model;
@@ -59,8 +60,11 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 	/** The result. */
 	public Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> result;
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.BaseProcessor#getSupportedAnnotationClasses()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.BaseProcessor#
+	 * getSupportedAnnotationClasses()
 	 */
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
 		Set<Class<? extends Annotation>> annotations = new LinkedHashSet<Class<? extends Annotation>>();
@@ -70,43 +74,35 @@ public class BindMany2ManySubProcessor extends BaseProcessor {
 		return annotations;
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set,
+	 * javax.annotation.processing.RoundEnvironment)
 	 */
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-		try {
-			model = new M2MModel();
+		model = new M2MModel();
 
-			for (Element daoItem : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
-				if (daoItem.getKind() != ElementKind.INTERFACE) {
-					String msg = String.format("%s %s, only interface can be annotated with @%s annotation", daoItem.getKind(), daoItem, BindDaoMany2Many.class.getSimpleName());
-					throw (new InvalidKindForAnnotationException(msg));
-				}
-
-				M2MEntity entity = M2MEntity.extractEntityManagedByDAO((TypeElement) daoItem);
-
-				model.entityAdd(entity);
+		for (Element daoItem : roundEnv.getElementsAnnotatedWith(BindDaoMany2Many.class)) {
+			if (daoItem.getKind() != ElementKind.INTERFACE) {
+				String msg = String.format("%s %s, only interface can be annotated with @%s annotation",
+						daoItem.getKind(), daoItem, BindDaoMany2Many.class.getSimpleName());
+				throw (new InvalidKindForAnnotationException(msg));
 			}
 
-			result = BindM2MBuilder.generate(filer, model);
+			M2MEntity entity = M2MEntity.extractEntityManagedByDAO((TypeElement) daoItem);
 
-		} catch (Exception e) {
-			String msg = e.getMessage();
-			error(null, msg);
-
-			if (DEBUG_MODE) {
-				logger.log(Level.SEVERE, msg);
-				e.printStackTrace();
-			}
+			model.entityAdd(entity);
 		}
+
+		result = BindM2MBuilder.generate(filer, model);
 
 		return true;
 	}
-	
-	public void generateClasses() {
-		
-	}
 
+	public void generateClasses() {
+
+	}
 
 }

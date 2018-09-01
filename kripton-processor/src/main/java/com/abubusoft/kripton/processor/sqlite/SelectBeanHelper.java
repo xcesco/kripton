@@ -23,17 +23,16 @@ import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
 import java.util.Set;
 
 import com.abubusoft.kripton.common.SQLTypeAdapterUtils;
+import com.abubusoft.kripton.processor.core.ImmutableUtility;
 import com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLProjection;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
-import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.abubusoft.kripton.processor.sqlite.transform.SQLTransformer;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SelectBeanHelper.
  *
@@ -42,23 +41,33 @@ import com.squareup.javapoet.TypeSpec;
  */
 public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 
-	/* (non-Javadoc)
-	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generateSpecializedPart(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generateSpecializedPart(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod,
+	 * com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
 	 */
 	@Override
-	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder,  Set<JQLProjection> fieldList, boolean mapFields) {
-		SQLiteDaoDefinition daoDefinition=method.getParent();
-		SQLiteEntity entity=daoDefinition.getEntity();
-		
-		//List<SQLProperty> fields = fieldList.value1;
+	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
+			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
+		SQLiteEntity entity = method.getEntity();
 
-		//TypeName collectionClass;
+		// List<SQLProperty> fields = fieldList.value1;
+
+		// TypeName collectionClass;
 		TypeName entityClass = typeName(entity.getElement());
-		
-		methodBuilder.addCode("\n");		
-		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
+
 		methodBuilder.addCode("\n");
-						
+		methodBuilder.addCode("$T resultBean=null;\n", entityClass);
+		// immutable management
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addCode("\n");
+			methodBuilder.addComment("initialize temporary variable for immutable POJO");
+			ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
+		}
+
+		methodBuilder.addCode("\n");
+
 		methodBuilder.beginControlFlow("if (_cursor.moveToFirst())");
 
 		// generate index from columns
@@ -66,21 +75,29 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 		{
 			int i = 0;
 			for (JQLProjection a : fieldList) {
-				SQLProperty item=a.property;
-				methodBuilder.addStatement("int index$L=_cursor.getColumnIndex($S)", (i++), item.columnName);				
+				SQLProperty item = a.property;
+				methodBuilder.addStatement("int index$L=_cursor.getColumnIndex($S)", (i++), item.columnName);
 				if (item.hasTypeAdapter()) {
-					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class, item.typeAdapter.getAdapterTypeName());
+					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)",
+							item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
+							item.typeAdapter.getAdapterTypeName());
 				}
 			}
 		}
 		methodBuilder.addCode("\n");
 
-		methodBuilder.addCode("resultBean=new $T();\n\n", entityClass);
+		// immutable management
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addComment("reset temporary variable for immutable POJO");
+			ImmutableUtility.generateImmutableVariableReset(entity, methodBuilder);
+		} else {
+			methodBuilder.addCode("resultBean=new $T();\n\n", entityClass);
+		}
 
 		// generate mapping
 		int i = 0;
 		for (JQLProjection a : fieldList) {
-			SQLProperty item=a.property;
+			SQLProperty item = a.property;
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!_cursor.isNull(index$L)) { ", i);
 			}
@@ -93,18 +110,24 @@ public class SelectBeanHelper extends AbstractSelectCodeGenerator {
 
 			i++;
 		}
-		
+
+		// subqueries are executed after all
 		generateSubQueries(methodBuilder, method);
-		
+
 		methodBuilder.addCode("\n");
+		
+		// immutable management
+		if (entity.isImmutablePojo()) {
+			methodBuilder.addComment("define immutable POJO");
+			ImmutableUtility.generateImmutableEntityCreation(entity, methodBuilder, "resultBean", false);
+		}
 
 		methodBuilder.endControlFlow();
-		
+
 		methodBuilder.addCode("return resultBean;\n");
-		// close try { open cursor 
-		methodBuilder.endControlFlow();		
+		// close try { open cursor
+		methodBuilder.endControlFlow();
+
 	}
-
-
 
 }

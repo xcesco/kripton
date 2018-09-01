@@ -29,6 +29,9 @@ public class UserDaoImpl extends Dao implements UserDao {
    *
    * <pre>SELECT id FROM user</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link User}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -38,12 +41,13 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   @Override
   public List<User> loadUser() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=LOAD_USER_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -55,13 +59,15 @@ public class UserDaoImpl extends Dao implements UserDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<User> resultList=new ArrayList<User>(_cursor.getCount());
       User resultBean=null;
@@ -82,6 +88,7 @@ public class UserDaoImpl extends Dao implements UserDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

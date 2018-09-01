@@ -57,6 +57,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
@@ -106,12 +107,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -126,12 +131,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public List<Person> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -143,13 +149,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -178,12 +186,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person WHERE name like :nameTemp || '%' #{DYNAMIC_WHERE} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -215,6 +227,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public List<Person> selectOne(String nameValue, String where, String orderBy) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, birth_city, birth_day, name, surname FROM person");
@@ -240,7 +253,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // add where arguments
     _contentValues.addWhereArgs((nameValue==null?"":nameValue));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -252,13 +265,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -287,12 +302,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name, #{DYNAMIC_ORDER_BY}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -315,6 +334,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public void selectBeanListener(OnReadBeanListener<Person> beanListener, String orderBy) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, birth_city, birth_day, name, surname FROM person");
@@ -330,7 +350,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -342,13 +362,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Person resultBean=new Person();
       if (_cursor.moveToFirst()) {
 
@@ -362,7 +384,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.birthCity=null;
           resultBean.birthDay=null;
           resultBean.name=null;
@@ -379,6 +401,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   public static void clearCompiledStatements() {

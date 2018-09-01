@@ -70,10 +70,10 @@ public class TestRuntimeMany2Many extends BaseAndroidTest {
 			long m2mId;
 			{
 				// m2m
-				PersonCity bean=new PersonCity();
+				PersonCity bean=new PersonCity(0, persons.get(0).id, cities.get(0).id);
 				//bean.cityId=cities.get(0).id;
 				//bean.personId=persons.get(0).id;				
-				//m2mId=m2mDao.insert(bean);
+				m2mId=m2mDao.insert(bean);
 			}
 			
 			// delete

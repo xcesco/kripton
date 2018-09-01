@@ -82,6 +82,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -94,12 +97,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean63 selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -111,13 +115,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean63 resultBean=null;
 
@@ -138,12 +144,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -165,13 +175,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean63> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -183,13 +194,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean63 resultBean=new Bean63();
       if (_cursor.moveToFirst()) {
 
@@ -202,7 +215,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.value=null;
           resultBean.valueMapEnumByte=null;
           resultBean.valueMapStringByte=null;
@@ -217,12 +230,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -244,13 +261,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -262,13 +280,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -278,12 +298,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -304,13 +328,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public List<Bean63> selectList(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -322,13 +347,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean63> resultList=new ArrayList<Bean63>(_cursor.getCount());
       Bean63 resultBean=null;
@@ -355,13 +382,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean63 SET value=:value, value_map_enum_byte=:valueMapEnumByte, value_map_string_byte=:valueMapStringByte WHERE id=${value.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>value</dt><dd>is mapped to <strong>:value.value</strong></dd>
    * 	<dt>value_map_enum_byte</dt><dd>is mapped to <strong>:value.valueMapEnumByte</strong></dd>
@@ -425,7 +453,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean63 (value, value_map_enum_byte, value_map_string_byte) VALUES (:bean.value, :bean.valueMapEnumByte, :bean.valueMapStringByte)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -444,6 +472,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(Bean63 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value, value_map_enum_byte, value_map_string_byte) VALUES (?, ?, ?)";
@@ -491,9 +520,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -512,6 +543,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(Map<String, Byte> valueMapStringByte) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value_map_string_byte) VALUES (?)";
@@ -559,12 +591,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapStringByte}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -585,13 +621,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean63 selectOne(Map<String, Byte> valueMapStringByte) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL5;
     // add where arguments
     _contentValues.addWhereArgs((valueMapStringByte==null?"":new String(serializer1(valueMapStringByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -603,13 +640,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean63 resultBean=null;
 
@@ -630,12 +669,12 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean63 WHERE value=:valueMapStringByte</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -758,6 +797,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(HashMap<EnumType, Byte> valueMapEnumByte) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean63 (value_map_enum_byte) VALUES (?)";
@@ -805,12 +845,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement5, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -831,13 +875,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean63 selectOne(HashMap<EnumType, Byte> valueMapEnumByte) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL6;
     // add where arguments
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -849,13 +894,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean63 resultBean=null;
 
@@ -876,12 +923,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -902,13 +953,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Cursor selectCursorOne(HashMap<EnumType, Byte> valueMapEnumByte) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_CURSOR_ONE_SQL7;
     // add where arguments
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -920,20 +972,26 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     Cursor _cursor = database().rawQuery(_sql, _sqlArgs);
     // log section BEGIN
     if (_context.isLogEnabled()) {
       Logger.info("Rows found: %s",_cursor.getCount());
     }
     // log section END
+    // common part generation - END
+    // Specialized part - SelectRawHelper - BEGIN
     return _cursor;
+    // Specialized part - SelectRawHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -956,13 +1014,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   @Override
   public void selectListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
       OnReadBeanListener<Bean63> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LISTENER_ONE_SQL8;
     // add where arguments
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -974,13 +1033,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean63 resultBean=new Bean63();
       if (_cursor.moveToFirst()) {
 
@@ -993,7 +1054,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.value=null;
           resultBean.valueMapEnumByte=null;
           resultBean.valueMapStringByte=null;
@@ -1008,12 +1069,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_map_enum_byte, value_map_string_byte FROM bean63 WHERE value=${valueMapEnumByte}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1036,13 +1101,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   @Override
   public void selectCursorListenerOne(HashMap<EnumType, Byte> valueMapEnumByte,
       OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_CURSOR_LISTENER_ONE_SQL9;
     // add where arguments
     _contentValues.addWhereArgs((valueMapEnumByte==null?"":new String(serializer2(valueMapEnumByte),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -1054,13 +1120,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -1070,12 +1138,12 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean63 WHERE value=:valueMapEnumByte</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1187,6 +1255,9 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    *
    * <pre>SELECT value_map_enum_byte FROM bean63</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>value_map_enum_byte</dt><dd>is associated to bean's property <strong>valueMapEnumByte</strong></dd>
@@ -1196,12 +1267,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public List<Bean63> selectMapEnumByteOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_MAP_ENUM_BYTE_ONE_SQL10;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -1213,13 +1285,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean63> resultList=new ArrayList<Bean63>(_cursor.getCount());
       Bean63 resultBean=null;
@@ -1240,12 +1314,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_map_enum_byte FROM bean63</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean63}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -1256,12 +1334,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public List<String> selectMapEnumByteOneString() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_MAP_ENUM_BYTE_ONE_STRING_SQL11;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -1273,13 +1352,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarListHelper - BEGIN
 
       ArrayList<String> resultList=new ArrayList<String>(_cursor.getCount());
 
@@ -1297,6 +1378,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultList;
     }
+    // Specialized part - SelectScalarListHelper - END
   }
 
   /**

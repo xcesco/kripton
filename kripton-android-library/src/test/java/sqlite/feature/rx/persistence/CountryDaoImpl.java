@@ -49,7 +49,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO country (area, calling_code, code, name, region, translated_name) VALUES (:area, :callingCode, :code, :name, :region, :translatedName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -71,6 +71,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public int insert(Country bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO country (area, calling_code, code, name, region, translated_name) VALUES (?, ?, ?, ?, ?, ?)";
@@ -121,18 +122,24 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
-    if (result>0) {
-      subject.onNext(SQLiteEvent.createInsert(result));
-    }
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    if (result>0) {
+      // rx management 
+      subject.onNext(SQLiteEvent.createInsertWithId(result));
+    }
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -156,13 +163,14 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public Country selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -174,13 +182,15 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Country resultBean=null;
 
@@ -207,12 +217,12 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM country WHERE id = :id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -252,6 +262,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(deleteByIdPreparedStatement1, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
@@ -299,6 +310,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updateByIdPreparedStatement2, _contentValues);
     if (result>0) {
+      // rx management 
       subject.onNext(SQLiteEvent.createDelete(result));
     }
     return result!=0;
@@ -308,6 +320,9 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country ORDER BY name asc</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -324,12 +339,13 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public List<Country> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL7;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -341,13 +357,15 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Country> resultList=new ArrayList<Country>(_cursor.getCount());
       Country resultBean=null;
@@ -380,12 +398,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country ORDER BY name asc</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -403,12 +425,13 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public void selectAll(OnReadBeanListener<Country> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL8;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -420,13 +443,15 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Country resultBean=new Country();
       if (_cursor.moveToFirst()) {
 
@@ -442,11 +467,11 @@ public class CountryDaoImpl extends Dao implements CountryDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.area=0L;
-          // callingCode does not need reset
-          // code does not need reset
-          // name does not need reset
+          // callingCode does not need reset (it will be taken from db)
+          // code does not need reset (it will be taken from db)
+          // name does not need reset (it will be taken from db)
           resultBean.region=null;
           resultBean.translatedName=null;
 
@@ -463,12 +488,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE calling_code = ${callingCode}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -492,13 +521,14 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public Country selectByCallingCode(String callingCode) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CALLING_CODE_SQL9;
     // add where arguments
     _contentValues.addWhereArgs((callingCode==null?"":callingCode));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -510,13 +540,15 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Country resultBean=null;
 
@@ -543,12 +575,16 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE code = ${code}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Country}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -572,13 +608,14 @@ public class CountryDaoImpl extends Dao implements CountryDao {
    */
   @Override
   public Country selectByCountry(String code) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_COUNTRY_SQL10;
     // add where arguments
     _contentValues.addWhereArgs((code==null?"":code));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -590,13 +627,15 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Country resultBean=null;
 
@@ -623,6 +662,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   public PublishSubject<SQLiteEvent> getSubject() {

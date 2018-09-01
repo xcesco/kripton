@@ -46,6 +46,9 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    *
    * <pre>SELECT id, name, surname, type_name FROM bean93 WHERE type_name like ${name} || '%'</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean93}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -65,13 +68,14 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   @Override
   public Bean93 selectByBean(String name) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_BEAN_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -83,13 +87,15 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean93 resultBean=null;
 
@@ -110,12 +116,16 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, surname, type_name FROM bean93</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean93}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -129,12 +139,13 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   @Override
   public List<Bean93> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -146,13 +157,15 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean93> resultList=new ArrayList<Bean93>(_cursor.getCount());
       Bean93 resultBean=null;
@@ -179,10 +192,11 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean93 (name, surname, type_name) VALUES (:bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -201,6 +215,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   @Override
   public boolean insertDefault(Bean93 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertDefaultPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean93 (name, surname, type_name) VALUES (?, ?, ?)";
@@ -248,13 +263,15 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertDefaultPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR ABORT INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -274,6 +291,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   @Override
   public boolean insertAbort(Bean93 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertAbortPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT OR ABORT INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
@@ -322,13 +340,15 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertAbortPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR FAIL INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -348,6 +368,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   @Override
   public boolean insertFail(Bean93 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertFailPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT OR FAIL INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
@@ -396,13 +417,15 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertFailPreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR IGNORE INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -422,6 +445,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   @Override
   public boolean insertIgnore(Bean93 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertIgnorePreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT OR IGNORE INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
@@ -470,13 +494,15 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertIgnorePreparedStatement3, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -496,6 +522,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   @Override
   public boolean insertReplace(Bean93 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertReplacePreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
@@ -544,13 +571,15 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertReplacePreparedStatement4, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR ROLLBACK INTO bean93 (id, name, surname, type_name) VALUES (:bean.id, :bean.name, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -570,6 +599,7 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
    */
   @Override
   public boolean insertRollback(Bean93 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertRollbackPreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT OR ROLLBACK INTO bean93 (id, name, surname, type_name) VALUES (?, ?, ?, ?)";
@@ -618,9 +648,11 @@ public class Bean93DaoImpl extends Dao implements Bean93Dao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertRollbackPreparedStatement5, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

@@ -20,9 +20,9 @@ public class CollegeStudentTable implements SQLiteTable {
    * DDL to create table students
    * </p>
    *
-   * <pre>CREATE TABLE students (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, surname TEXT);</pre>
+   * <pre>CREATE TABLE students (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, first_name TEXT, surname TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE students (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, surname TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE students (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, first_name TEXT, surname TEXT);";
 
   /**
    * <p>

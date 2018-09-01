@@ -33,7 +33,7 @@ public class TodoDaoImpl extends Dao implements TodoDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO todo (id, completed, title, user_id) VALUES (:bean.id, :bean.completed, :bean.title, :bean.userId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -52,6 +52,7 @@ public class TodoDaoImpl extends Dao implements TodoDao {
    */
   @Override
   public void insert(Todo bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO todo (id, completed, title, user_id) VALUES (?, ?, ?, ?)";
@@ -100,13 +101,18 @@ public class TodoDaoImpl extends Dao implements TodoDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, completed, title, user_id FROM todo WHERE user_id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Todo}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -127,13 +133,14 @@ public class TodoDaoImpl extends Dao implements TodoDao {
    */
   @Override
   public List<Todo> selectByUserId(long userId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_USER_ID_SQL7;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -145,13 +152,15 @@ public class TodoDaoImpl extends Dao implements TodoDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Todo> resultList=new ArrayList<Todo>(_cursor.getCount());
       Todo resultBean=null;
@@ -178,12 +187,16 @@ public class TodoDaoImpl extends Dao implements TodoDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, completed, title, user_id FROM todo WHERE id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Todo}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -204,13 +217,14 @@ public class TodoDaoImpl extends Dao implements TodoDao {
    */
   @Override
   public Todo selectOneByUserId(long userId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BY_USER_ID_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(userId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -222,13 +236,15 @@ public class TodoDaoImpl extends Dao implements TodoDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Todo resultBean=null;
 
@@ -249,6 +265,7 @@ public class TodoDaoImpl extends Dao implements TodoDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   public static void clearCompiledStatements() {

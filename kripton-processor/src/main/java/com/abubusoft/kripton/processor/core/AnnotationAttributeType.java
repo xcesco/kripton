@@ -105,8 +105,6 @@ public enum AnnotationAttributeType {
 
 	/** The raw fields. */
 	RAW_FIELDS("rawFields"),
-	/** The result type. */
-	RESULT_TYPE("resultType"),
 
 	/** The name. */
 	NAME("name"),
@@ -160,13 +158,15 @@ public enum AnnotationAttributeType {
 
 	/** The in memory. */
 	IN_MEMORY("inMemory"),
+	
+	IMMUTABLE("immutable"),
 
 	/** The entity 1. */
 	ENTITY_1("entity1"),
 
 	/** The entity 2. */
 	ENTITY_2("entity2"),
-
+	
 	/** The table name. */
 	TABLE_NAME("tableName"),
 

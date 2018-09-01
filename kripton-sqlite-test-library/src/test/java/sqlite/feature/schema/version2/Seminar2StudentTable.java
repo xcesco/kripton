@@ -20,9 +20,9 @@ public class Seminar2StudentTable implements SQLiteTable {
    * DDL to create table seminar_2_student
    * </p>
    *
-   * <pre>CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id) REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES seminar(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc,  seminar_id desc);</pre>
+   * <pre>CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, seminar_id INTEGER, student_id INTEGER, FOREIGN KEY(seminar_id) REFERENCES seminar(id), FOREIGN KEY(student_id) REFERENCES student(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc,  seminar_id desc);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id INTEGER, seminar_id INTEGER, FOREIGN KEY(student_id) REFERENCES student(id), FOREIGN KEY(seminar_id) REFERENCES seminar(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc,  seminar_id desc);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE seminar_2_student (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, seminar_id INTEGER, student_id INTEGER, FOREIGN KEY(seminar_id) REFERENCES seminar(id), FOREIGN KEY(student_id) REFERENCES student(id)); CREATE UNIQUE INDEX idx_seminar_2_student_0 on seminar_2_student (student_id asc,  seminar_id desc);";
 
   /**
    * <p>
@@ -41,13 +41,6 @@ public class Seminar2StudentTable implements SQLiteTable {
   public static final String COLUMN_ID = "id";
 
   /**
-   * Entity's property <code>studentId</code> is associated to table column <code>student_id</code>. This costant represents column name.
-   *
-   *  @see Seminar2Student#studentId
-   */
-  public static final String COLUMN_STUDENT_ID = "student_id";
-
-  /**
    * Entity's property <code>seminarId</code> is associated to table column <code>seminar_id</code>. This costant represents column name.
    *
    *  @see Seminar2Student#seminarId
@@ -55,9 +48,16 @@ public class Seminar2StudentTable implements SQLiteTable {
   public static final String COLUMN_SEMINAR_ID = "seminar_id";
 
   /**
+   * Entity's property <code>studentId</code> is associated to table column <code>student_id</code>. This costant represents column name.
+   *
+   *  @see Seminar2Student#studentId
+   */
+  public static final String COLUMN_STUDENT_ID = "student_id";
+
+  /**
    * Columns array
    */
-  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_STUDENT_ID, COLUMN_SEMINAR_ID};
+  private static final String[] COLUMNS = {COLUMN_ID, COLUMN_SEMINAR_ID, COLUMN_STUDENT_ID};
 
   /**
    * Columns array

@@ -20,9 +20,9 @@ public class PetTable implements SQLiteTable {
    * DDL to create table pet
    * </p>
    *
-   * <pre>CREATE TABLE pet (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));</pre>
+   * <pre>CREATE TABLE pet (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE pet (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE pet (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, user_id INTEGER, FOREIGN KEY(user_id) REFERENCES user(id));";
 
   /**
    * <p>

@@ -68,6 +68,9 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -99,13 +102,14 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    */
   @Override
   public Employee selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -117,13 +121,15 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -179,12 +185,16 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -217,13 +227,14 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    */
   @Override
   public Employee selectByIdJQL(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_J_Q_L_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -235,13 +246,15 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -297,12 +310,16 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -367,6 +384,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public Employee selectByAllWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_WITH_ADAPTER_SQL3;
@@ -383,7 +401,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     _contentValues.addWhereArgs((fieldString==null?"":fieldString));
     _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -395,13 +413,15 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -457,12 +477,16 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -527,6 +551,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public Employee selectByAll(long id, String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_SQL4;
@@ -543,7 +568,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -555,13 +580,15 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -617,12 +644,16 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -688,6 +719,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public Employee selectByAllJQL(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_J_Q_L_SQL5;
@@ -705,7 +737,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     _contentValues.addWhereArgs((fieldString==null?"":fieldString));
     _contentValues.addWhereArgs((fieldByteArray==null?"":fieldByteArray));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -717,13 +749,15 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -779,12 +813,16 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=${id} and field_boolean=${fieldBoolean} and field_byte=${fieldByte} and field_byte=${fieldByte} and field_character=${fieldCharacter} and field_short=${fieldShort} and field_integer=${fieldInteger} and field_long=${fieldLong} and field_float=${fieldFloat} and field_double=${fieldDouble} and field_string=${fieldString} and field_byte_array=${fieldByteArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Employee}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -850,6 +888,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public Employee selectByAllJQLWithAdapter(long id, String fieldBoolean, String fieldByte,
       String fieldCharacter, String fieldShort, String fieldInteger, String fieldLong,
       String fieldFloat, String fieldDouble, String fieldString, String fieldByteArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ALL_J_Q_L_WITH_ADAPTER_SQL6;
@@ -867,7 +906,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterString.class, fieldString));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterByteArray.class, fieldByteArray));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -879,13 +918,15 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Employee resultBean=null;
 
@@ -941,6 +982,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -988,6 +1030,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public long insert(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1044,6 +1087,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1091,6 +1135,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   public long insertWithAdapter(String fieldBoolean, String fieldByte, String fieldCharacter,
       String fieldShort, String fieldInteger, String fieldLong, String fieldFloat,
       String fieldDouble, String fieldString, String fieldByteArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertWithAdapterPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO employees (field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1147,6 +1192,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertWithAdapterPreparedStatement1, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1363,7 +1409,6 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=:id and field_boolean=:fieldBoolean and field_byte=:fieldByte and field_character=:fieldCharacter and field_short=:fieldShort and field_integer=:fieldInteger and field_long=:fieldLong and field_float=:fieldFloat and field_double=:fieldDouble and field_string=:fieldString and field_byte_array=:fieldByteArray</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -1450,7 +1495,6 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=:id and field_boolean=:fieldBoolean and field_byte=:fieldByte and field_character=:fieldCharacter and field_short=:fieldShort and field_integer=:fieldInteger and field_long=:fieldLong and field_float=:fieldFloat and field_double=:fieldDouble and field_string=:fieldString and field_byte_array=:fieldByteArray</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:id</dt><dd>is mapped to method's parameter <strong>id</strong></dd>
@@ -1536,7 +1580,6 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM employees WHERE id=:id and field_boolean=:fieldBoolean and field_byte=:fieldByte and field_character=:fieldCharacter and field_short=:fieldShort and field_integer=:fieldInteger and field_long=:fieldLong and field_float=:fieldFloat and field_double=:fieldDouble and field_string=:fieldString and field_byte_array=:fieldByteArray</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

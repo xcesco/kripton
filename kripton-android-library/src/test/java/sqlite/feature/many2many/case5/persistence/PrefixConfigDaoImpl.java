@@ -37,7 +37,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (:defaultCountry, :dialogTimeout, :dualBillingPrefix, :enabled)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -57,6 +57,7 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    */
   @Override
   public int insert(PrefixConfig bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT OR REPLACE INTO prefix_config (default_country, dialog_timeout, dual_billing_prefix, enabled) VALUES (?, ?, ?, ?)";
@@ -105,15 +106,20 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link PrefixConfig}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -135,13 +141,14 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    */
   @Override
   public PrefixConfig selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -153,13 +160,15 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PrefixConfig resultBean=null;
 
@@ -182,12 +191,12 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM prefix_config WHERE id = :id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -278,6 +287,9 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    *
    * <pre>SELECT id, default_country, dialog_timeout, dual_billing_prefix, enabled FROM prefix_config</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link PrefixConfig}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -291,12 +303,13 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
    */
   @Override
   public PrefixConfig selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL5;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -308,13 +321,15 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       PrefixConfig resultBean=null;
 
@@ -337,13 +352,14 @@ public class PrefixConfigDaoImpl extends Dao implements PrefixConfigDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE prefix_config SET default_country=:defaultCountry, dialog_timeout=:dialogTimeout, dual_billing_prefix=:dualBillingPrefix, enabled=:enabled WHERE id = ${bean.id} </pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>default_country</dt><dd>is mapped to <strong>:bean.defaultCountry</strong></dd>
    * 	<dt>dialog_timeout</dt><dd>is mapped to <strong>:bean.dialogTimeout</strong></dd>

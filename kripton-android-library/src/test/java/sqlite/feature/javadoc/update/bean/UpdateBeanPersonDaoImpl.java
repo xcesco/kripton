@@ -53,10 +53,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
@@ -179,10 +179,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
@@ -325,10 +325,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
@@ -487,10 +487,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
@@ -670,10 +670,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_surname=:personSurname, student = :student</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
    * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
@@ -791,10 +791,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName, student = (select student from person where id=0)</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>student</dt><dd>is mapped to <strong>:bean.student</strong></dd>
    * </dl>
@@ -853,10 +853,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personname where student = (select student from person where id=${bean.id})</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * </dl>
@@ -995,10 +995,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>
@@ -1157,10 +1157,10 @@ public class UpdateBeanPersonDaoImpl extends Dao implements UpdateBeanPersonDao 
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET person_name=:personName, person_surname=:personSurname, student=:student WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>person_name</dt><dd>is mapped to <strong>:bean.personName</strong></dd>
    * 	<dt>person_surname</dt><dd>is mapped to <strong>:bean.personSurname</strong></dd>

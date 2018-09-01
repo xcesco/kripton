@@ -377,7 +377,7 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	}
 
 	public String getTableName() {
-		return this.getEntity().getTableName();
+		return getEntity().getTableName();
 	}
 
 }

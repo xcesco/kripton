@@ -33,7 +33,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO comment (id, body, email, name, post_id) VALUES (:bean.id, :bean.body, :bean.email, :bean.name, :bean.postId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -53,6 +53,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    */
   @Override
   public void insert(Comment bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO comment (id, body, email, name, post_id) VALUES (?, ?, ?, ?, ?)";
@@ -102,13 +103,18 @@ public class CommentDaoImpl extends Dao implements CommentDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, body, email, name, post_id FROM comment WHERE post_id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Comment}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -130,13 +136,14 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    */
   @Override
   public List<Comment> selectByPostId(long postId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_POST_ID_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(postId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -148,13 +155,15 @@ public class CommentDaoImpl extends Dao implements CommentDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Comment> resultList=new ArrayList<Comment>(_cursor.getCount());
       Comment resultBean=null;
@@ -183,12 +192,16 @@ public class CommentDaoImpl extends Dao implements CommentDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, body, email, name, post_id FROM comment WHERE id = ${value}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Comment}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -210,13 +223,14 @@ public class CommentDaoImpl extends Dao implements CommentDao {
    */
   @Override
   public Comment selectOneByPostId(long postId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BY_POST_ID_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(postId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -228,13 +242,15 @@ public class CommentDaoImpl extends Dao implements CommentDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Comment resultBean=null;
 
@@ -257,6 +273,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   public static void clearCompiledStatements() {

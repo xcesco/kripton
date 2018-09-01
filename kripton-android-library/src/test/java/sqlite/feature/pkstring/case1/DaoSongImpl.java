@@ -43,7 +43,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO song (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -60,6 +60,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public void insert(Song bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (name, year) VALUES (?, ?)";
@@ -106,11 +107,13 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO song (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -127,6 +130,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public String insert1(Song bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert1PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (name, year) VALUES (?, ?)";
@@ -173,13 +177,15 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert1PreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return String.valueOf(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO song (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -197,6 +203,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public long insert2(Song bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert2PreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (name, year) VALUES (?, ?)";
@@ -243,9 +250,11 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert2PreparedStatement2, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -263,6 +272,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public void insert3(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert3PreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (year) VALUES (?)";
@@ -309,6 +319,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert3PreparedStatement3, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -326,6 +337,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public String insert4(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert4PreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (year) VALUES (?)";
@@ -373,6 +385,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert4PreparedStatement4, _contentValues);
     return String.valueOf(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -391,6 +404,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public long insert5(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert5PreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO song (year) VALUES (?)";
@@ -438,13 +452,14 @@ public class DaoSongImpl extends Dao implements DaoSong {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert5PreparedStatement5, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE song SET name=:name, year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
@@ -503,10 +518,10 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE song SET name=:name, year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
@@ -568,10 +583,10 @@ public class DaoSongImpl extends Dao implements DaoSong {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE song SET name=:name, year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>

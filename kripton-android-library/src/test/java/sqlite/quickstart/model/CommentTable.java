@@ -20,9 +20,9 @@ public class CommentTable implements SQLiteTable {
    * DDL to create table comment
    * </p>
    *
-   * <pre>CREATE TABLE comment (id INTEGER PRIMARY KEY AUTOINCREMENT, body TEXT, email TEXT, name TEXT, post_id INTEGER, FOREIGN KEY(post_id) REFERENCES post(id));</pre>
+   * <pre>CREATE TABLE comment (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, body TEXT, email TEXT, name TEXT, post_id INTEGER, FOREIGN KEY(post_id) REFERENCES post(id));</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE comment (id INTEGER PRIMARY KEY AUTOINCREMENT, body TEXT, email TEXT, name TEXT, post_id INTEGER, FOREIGN KEY(post_id) REFERENCES post(id));";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE comment (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, body TEXT, email TEXT, name TEXT, post_id INTEGER, FOREIGN KEY(post_id) REFERENCES post(id));";
 
   /**
    * <p>

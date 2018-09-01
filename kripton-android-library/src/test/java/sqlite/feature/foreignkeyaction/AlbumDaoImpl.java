@@ -40,6 +40,9 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    *
    * <pre>SELECT id, artist_id, name FROM album WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -58,13 +61,14 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    */
   @Override
   public Album selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -76,13 +80,15 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Album resultBean=null;
 
@@ -101,12 +107,16 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, artist_id, name FROM album</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -119,12 +129,13 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    */
   @Override
   public List<Album> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL4;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -136,13 +147,15 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Album> resultList=new ArrayList<Album>(_cursor.getCount());
       Album resultBean=null;
@@ -167,13 +180,14 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE album SET artist_id=:artistId, name=:name WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>artist_id</dt><dd>is mapped to <strong>:bean.artistId</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
@@ -235,7 +249,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (artist_id, name) VALUES (:artistId, :name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -253,6 +267,7 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
    */
   @Override
   public long insert(Album bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (artist_id, name) VALUES (?, ?)";
@@ -299,15 +314,16 @@ public class AlbumDaoImpl extends Dao implements AlbumDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM album WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

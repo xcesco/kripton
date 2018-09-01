@@ -26,7 +26,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
 		{ 
 		TestPkString1Runtime.class,
-		TestPkStringRelationRuntime.class
+		TestPkStringRelationRuntime.class,
+		TestPkStringRxRuntime.class
 		 })
 //@formatter:on
 public class TestPkStringSuite {

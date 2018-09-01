@@ -38,6 +38,9 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    *
    * <pre>SELECT * FROM SchoolLunches ORDER BY fruits COLLATE LOCALIZED</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link SchoolLunch}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>lunch_id</dt><dd>is associated to bean's property <strong>lunchId</strong></dd>
@@ -50,12 +53,13 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    */
   @Override
   public List<SchoolLunch> get1() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET1_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -67,13 +71,15 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<SchoolLunch> resultList=new ArrayList<SchoolLunch>(_cursor.getCount());
       SchoolLunch resultBean=null;
@@ -100,12 +106,16 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT lunch_id, contains_meat, fresh, fruits FROM SchoolLunches</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link SchoolLunch}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -119,12 +129,13 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    */
   @Override
   public List<SchoolLunch> getAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -136,13 +147,15 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<SchoolLunch> resultList=new ArrayList<SchoolLunch>(_cursor.getCount());
       SchoolLunch resultBean=null;
@@ -169,10 +182,11 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (:schoolLunches.containsMeat, :schoolLunches.fresh, :schoolLunches.fruits)</pre>
    *
    * <p><code>schoolLunches.lunchId</code> is automatically updated because it is the primary key</p>
@@ -190,6 +204,7 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
    */
   @Override
   public void insertAll(SchoolLunch schoolLunches) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertAllPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO SchoolLunches (contains_meat, fresh, fruits) VALUES (?, ?, ?)";
@@ -237,17 +252,16 @@ public class SchoolLunchDAOImpl extends Dao implements SchoolLunchDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     schoolLunches.setLunchId(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM SchoolLunches</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    */
   @Override

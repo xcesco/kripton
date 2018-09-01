@@ -17,7 +17,7 @@ package sqlite.feature.rx;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import java.util.List; 
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,33 +84,11 @@ public class TestRx extends BaseAndroidTest {
 			@Override
 			public void accept(SQLiteEvent t) throws Exception {
 				log("---->  MAP " + Thread.currentThread().getName());
-				log("S1 ---------------------- receive country %s %s", t.operationType, t.value);
+				log("S1 ---------------------- receive country %s", t.toString());
 
 			}
 		});
-		/*
-		 * ds.execute(new ObservableTransaction<Country>() {
-		 * 
-		 * @Override public TransactionResult onExecute(BindXenoDaoFactory
-		 * daoFactory, ObservableEmitter<Country> emitter) { log("onExecute " +
-		 * Thread.currentThread().getName()); CountryDaoImpl dao =
-		 * daoFactory.getCountryDao();
-		 * 
-		 * List<Country> list = dao.selectAll();
-		 * 
-		 * for (Country item : list) { emitter.onNext(item); }
-		 * 
-		 * return TransactionResult.COMMIT; }
-		 * }).subscribeOn(Schedulers.computation()).observeOn(Schedulers.io()).
-		 * subscribe(new Consumer<Country>() {
-		 * 
-		 * @Override public void accept(Country t) throws Exception {
-		 * log("accept " + Thread.currentThread().getName()); log(" country " +
-		 * t.name);
-		 * 
-		 * } });
-		 */
-
+		
 		ds.executeBatch(new BindXenoDataSource.Batch<Void>() {
 
 			@Override

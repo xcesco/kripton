@@ -272,23 +272,22 @@ public class SQLiteTestDatabase {
 				}
 			}
 		};
+		
+		sqlite.getWritableDatabase();
+		
 
-		try {
-			SQLiteDatabase currentDatabase = sqlite.getWritableDatabase();
-			if (this.populator != null) {
-				this.populator.execute(currentDatabase);
-			}
-		} finally {
-			sqlite.close();
+		if (this.populator != null) {
+			this.populator.execute();
 		}
+		
+		sqlite.close();
 
 		return this;
 	}
 
 	/**
-	 * Allow to update database version to <i>version</i>. This method allows to
-	 * specify the destination version schema and compare it with schema
-	 * resulting by version update applied.
+	 * Allows to update database version to <i>version</i>. This method allows to specify the destination version schema and compare it with schema resulting by version update
+	 * applied.
 	 *
 	 * @param version
 	 *            the version
@@ -296,7 +295,7 @@ public class SQLiteTestDatabase {
 	 *            the schema definition input stream
 	 * @return the SQ lite update test database
 	 */
-	public SQLiteTestDatabase updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {
+	public SQLiteTestDatabase updateAndVerify(int version, final InputStream schemaDefinitionInputStream) {		
 		sqlite = new SQLiteOpenHelper(context, TEST_DATABASE, factory, version, errorHandler) {
 
 			@Override
@@ -336,9 +335,8 @@ public class SQLiteTestDatabase {
 	}
 
 	/**
-	 * Allow to update database version to <i>version</i>. This method allows to
-	 * specify the destination version schema and compare it with schema
-	 * resulting by version update applied.
+	 * Allow to update database version to <i>version</i>. This method allows to specify the destination version schema and compare it with schema resulting by version update
+	 * applied.
 	 *
 	 * @param version
 	 *            the version

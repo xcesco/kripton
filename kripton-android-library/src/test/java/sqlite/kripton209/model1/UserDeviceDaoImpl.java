@@ -9,6 +9,7 @@ import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,6 +45,9 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * <pre>SELECT id, device_id, user_id FROM user_device WHERE id=:id</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link UserDevice}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -62,13 +66,14 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    */
   @Override
   public UserDevice selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -80,15 +85,23 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       UserDevice resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      Long __userId=null;
+      Long __deviceId=null;
 
       if (_cursor.moveToFirst()) {
 
@@ -96,21 +109,31 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
         int index1=_cursor.getColumnIndex("device_id");
         int index2=_cursor.getColumnIndex("user_id");
 
-        resultBean=new UserDevice();
+        // reset temporary variable for immutable POJO
+        // immutable object: initialize temporary variables for properties
+        __id=0;
+        __userId=null;
+        __deviceId=null;
+        __id=_cursor.getLong(index0);
+        if (!_cursor.isNull(index1)) { __deviceId=_cursor.getLong(index1); }
+        if (!_cursor.isNull(index2)) { __userId=_cursor.getLong(index2); }
 
-        resultBean.id=_cursor.getLong(index0);
-        if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
-        if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
-
+        // define immutable POJO
+        // immutable object: inizialize object
+        resultBean=new UserDevice(__id,__userId,__deviceId);
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, device_id, user_id FROM user_device WHERE user_id=:userId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link UserDevice}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -126,17 +149,18 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * @param userId
    * 	is binded to <code>:userId</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<UserDevice> selectByUserId(Long userId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_USER_ID_SQL6;
     // add where arguments
     _contentValues.addWhereArgs((userId==null?"":String.valueOf(userId)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -148,16 +172,24 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<UserDevice> resultList=new ArrayList<UserDevice>(_cursor.getCount());
       UserDevice resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      Long __userId=null;
+      Long __deviceId=null;
 
       if (_cursor.moveToFirst()) {
 
@@ -167,24 +199,34 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
         do
          {
-          resultBean=new UserDevice();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __userId=null;
+          __deviceId=null;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __deviceId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { __userId=_cursor.getLong(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new UserDevice(__id,__userId,__deviceId);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, device_id, user_id FROM user_device WHERE device_id=:deviceId</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link UserDevice}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -200,17 +242,18 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    *
    * @param deviceId
    * 	is binded to <code>:deviceId</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<UserDevice> selectByDeviceId(Long deviceId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_DEVICE_ID_SQL7;
     // add where arguments
     _contentValues.addWhereArgs((deviceId==null?"":String.valueOf(deviceId)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -222,16 +265,24 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<UserDevice> resultList=new ArrayList<UserDevice>(_cursor.getCount());
       UserDevice resultBean=null;
+
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      Long __userId=null;
+      Long __deviceId=null;
 
       if (_cursor.moveToFirst()) {
 
@@ -241,24 +292,30 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
 
         do
          {
-          resultBean=new UserDevice();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __userId=null;
+          __deviceId=null;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __deviceId=_cursor.getLong(index1); }
+          if (!_cursor.isNull(index2)) { __userId=_cursor.getLong(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.deviceId=_cursor.getLong(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.userId=_cursor.getLong(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new UserDevice(__id,__userId,__deviceId);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -304,7 +361,6 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE user_id=:userId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:userId</dt><dd>is mapped to method's parameter <strong>userId</strong></dd>
@@ -349,7 +405,6 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM user_device WHERE device_id=:deviceId</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:deviceId</dt><dd>is mapped to method's parameter <strong>deviceId</strong></dd>
@@ -391,7 +446,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO user_device (device_id, user_id) VALUES (:bean.deviceId, :bean.userId)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -409,14 +464,15 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
    */
   @Override
   public int insert(UserDevice bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO user_device (device_id, user_id) VALUES (?, ?)";
       insertPreparedStatement3 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
     KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement3);
-    _contentValues.put("device_id", bean.deviceId);
-    _contentValues.put("user_id", bean.userId);
+    _contentValues.put("device_id", bean.getDeviceId());
+    _contentValues.put("user_id", bean.getUserId());
 
     // log section BEGIN
     if (_context.isLogEnabled()) {
@@ -455,9 +511,9 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement3, _contentValues);
-    bean.id=result;
 
     return (int)result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

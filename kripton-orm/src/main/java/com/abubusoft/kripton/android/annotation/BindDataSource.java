@@ -442,10 +442,15 @@ public @interface BindDataSource {
 	boolean rx() default false;
 
 	/**
+	 * <p>
 	 * Global sql type adapters. These adapter are applied to every property
-	 * that adapter supports.
+	 * that adapter supports. This adapters are not applied to parameter of raw
+	 * methods (ones that not use a bean as parameter).
+	 * </p>
 	 * 
-	 * <strong>This adapters is ovverride by specific type adapter</strong>
+	 * <p>
+	 * <strong>This adapters is ovverride by specific type adapter.</strong>
+	 * </p>
 	 *
 	 * @return the bind sql adapter[]
 	 */

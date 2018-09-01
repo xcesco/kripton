@@ -25,7 +25,7 @@ public class UserDaoImpl extends Dao implements UserDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO user (age, last_name, name) VALUES (:age, :lastName, :name)</pre>
    *
    * <p><code>entity.id</code> is automatically updated because it is the primary key</p>
@@ -43,6 +43,7 @@ public class UserDaoImpl extends Dao implements UserDao {
    */
   @Override
   public void insert(User entity) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO user (age, last_name, name) VALUES (?, ?, ?)";
@@ -90,7 +91,9 @@ public class UserDaoImpl extends Dao implements UserDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     entity.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

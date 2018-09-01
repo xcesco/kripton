@@ -191,5 +191,5 @@ public class SQLiteEntity extends ModelClass<SQLProperty> implements Finder<SQLP
 		}
 		return result;
 	}
-
+	
 }

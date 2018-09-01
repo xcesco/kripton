@@ -19,7 +19,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import base.BaseProcessorTest;
-import sqlite.feature.typeadapter.bitmap.TestBitmapTypeAdapter;
 import sqlite.feature.typeadapter.insert.err1.TestTypeAdapterInsertErr1;
 import sqlite.feature.typeadapter.insert.err2.TestTypeAdapterInsertErr2;
 import sqlite.feature.typeadapter.kripton180.bean.TestKripton180Bean;
@@ -39,7 +38,10 @@ import sqlite.feature.typeadapter.update.err2.TestTypeAdapterUpdateErr2;
 		TestTypeAdapterUpdateErr2.class,
 		TestTypeAdapterInsertErr1.class,
 		TestTypeAdapterInsertErr2.class,
-		TestBitmapTypeAdapter.class, 
+		TestBitmapTypeAdapter.class,
+		TestBitmapTypeAdapterErr1.class,
+		TestBitmapTypeAdapterErr2.class, 
+		TestTypeAdapterErr1.class, 
 		
 		TestKripton180Bean.class,
 		TestKripton180Raw.class

@@ -14,11 +14,6 @@ import com.abubusoft.kripton.android.Logger;
  * <h2>Content provider authority:</h2>
  * <pre>sqlite.feature.javadoc.bean</pre>
  *
- * <h2>Supported insert operations</h2>
- * <table>
- * <tr><th>URI</th><th>DAO.METHOD</th></tr>
- * </table>
- *
  * <h2>Supported update operations</h2>
  * <table>
  * <tr><th>URI</th><th>DAO.METHOD</th></tr>
@@ -28,6 +23,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/${personSurname}</pre></td><td>{@link UpdateRawPersonDaoImpl#updateAllBeansJQL0ForContentProvider}</td></tr>
  * <tr><td><pre>content://sqlite.feature.javadoc.bean/persons/jql/all/${surname}</pre></td><td>{@link UpdateRawPersonDaoImpl#updateFromSelectJQL1ForContentProvider}</td></tr>
  * </table>
+ *
+ *
  *
  */
 public class BindUpdateRawPersonContentProvider extends ContentProvider {
@@ -192,23 +189,9 @@ public class BindUpdateRawPersonContentProvider extends ContentProvider {
     throw new IllegalArgumentException("Unknown URI for SELECT operation: " + uri);
   }
 
-  /**
-   *
-   * <h2>Supported insert operations</h2>
-   * <table>
-   * <tr><th>URI</th><th>DAO.METHOD</th></tr>
-   * </table>
-   *
-   */
   @Override
   public Uri insert(Uri uri, ContentValues contentValues) {
-    long _id=-1;
-    Uri _returnURL=null;
-    switch (sURIMatcher.match(uri)) {
-      default: {
-        throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
-      }
-    }
+    throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
   }
 
   /**

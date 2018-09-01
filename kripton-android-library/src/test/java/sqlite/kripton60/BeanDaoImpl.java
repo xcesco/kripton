@@ -363,7 +363,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_big_decimal=:valueBigDecimal</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueBigDecimal</dt><dd>is mapped to method's parameter <strong>valueBigDecimal</strong></dd>
@@ -407,7 +406,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_big_decimal=:valueBigDecimal</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -453,7 +451,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_bool_type=:valueBoolType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueBoolType</dt><dd>is mapped to method's parameter <strong>valueBoolType</strong></dd>
@@ -497,7 +494,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_bool=:valueBool</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -543,7 +539,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_bean_array=:valueBeanArray</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueBeanArray</dt><dd>is mapped to method's parameter <strong>valueBeanArray</strong></dd>
@@ -587,7 +582,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long_array=:valueLongArray</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -633,7 +627,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long_type_array=:valueLongTypeArray</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueLongTypeArray</dt><dd>is mapped to method's parameter <strong>valueLongTypeArray</strong></dd>
@@ -677,7 +670,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_byte=:valueByte</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -723,7 +715,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_byte_type=:valueByteType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueByteType</dt><dd>is mapped to method's parameter <strong>valueByteType</strong></dd>
@@ -767,7 +758,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_calendar=:valueCalendar</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -813,7 +803,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_char_type=:valueChar</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueChar</dt><dd>is mapped to method's parameter <strong>valueChar</strong></dd>
@@ -857,7 +846,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_char_type=:valueCharType</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -903,7 +891,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_currency=:valueCurrency</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueCurrency</dt><dd>is mapped to method's parameter <strong>valueCurrency</strong></dd>
@@ -947,7 +934,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_date=:valueDate</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -993,7 +979,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_double=:valueDouble</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueDouble</dt><dd>is mapped to method's parameter <strong>valueDouble</strong></dd>
@@ -1037,7 +1022,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_double_type=:valueDoubleType</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1083,7 +1067,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_enum_type=:valueEnumType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueEnumType</dt><dd>is mapped to method's parameter <strong>valueEnumType</strong></dd>
@@ -1127,7 +1110,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_float=:valueFloat</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1173,7 +1155,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_float_type=:valueFloatType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueFloatType</dt><dd>is mapped to method's parameter <strong>valueFloatType</strong></dd>
@@ -1217,7 +1198,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_int=:valueInt</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1263,7 +1243,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_int_type=:valueIntType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueIntType</dt><dd>is mapped to method's parameter <strong>valueIntType</strong></dd>
@@ -1307,7 +1286,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long_list=:valueLongList</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1353,7 +1331,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_locale=:valueLocale</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueLocale</dt><dd>is mapped to method's parameter <strong>valueLocale</strong></dd>
@@ -1397,7 +1374,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long=:valueLong</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1443,7 +1419,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_long_type=:valueLongType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueLongType</dt><dd>is mapped to method's parameter <strong>valueLongType</strong></dd>
@@ -1487,7 +1462,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_short=:valueShort</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1533,7 +1507,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_short_type=:valueShortType</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueShortType</dt><dd>is mapped to method's parameter <strong>valueShortType</strong></dd>
@@ -1577,7 +1550,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_string=:valueString</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1623,7 +1595,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_time=:valueTime</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueTime</dt><dd>is mapped to method's parameter <strong>valueTime</strong></dd>
@@ -1667,7 +1638,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_time_zone=:valueTimeZone</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1713,7 +1683,6 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean WHERE value_url=:valueUrl</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:valueUrl</dt><dd>is mapped to method's parameter <strong>valueUrl</strong></dd>
@@ -1755,7 +1724,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean (value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url) VALUES (:bean.valueBeanArray, :bean.valueBigDecimal, :bean.valueBigInteger, :bean.valueBool, :bean.valueBoolType, :bean.valueByte, :bean.valueByteArray, :bean.valueByteType, :bean.valueCalendar, :bean.valueChar, :bean.valueCharArray, :bean.valueCharList, :bean.valueCharType, :bean.valueCharTypeArray, :bean.valueCurrency, :bean.valueDate, :bean.valueDouble, :bean.valueDoubleType, :bean.valueEnumType, :bean.valueFloat, :bean.valueFloatType, :bean.valueInt, :bean.valueIntType, :bean.valueLinkedMapStringBean, :bean.valueLocale, :bean.valueLong, :bean.valueLongArray, :bean.valueLongList, :bean.valueLongType, :bean.valueLongTypeArray, :bean.valueMapStringBean, :bean.valueSetString, :bean.valueShort, :bean.valueShortType, :bean.valueStrinList, :bean.valueString, :bean.valueStringArray, :bean.valueTime, :bean.valueTimeList, :bean.valueTimeZone, :bean.valueUrl)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -1812,6 +1781,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(Bean bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement31==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -1897,9 +1867,11 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement31, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1918,6 +1890,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(BigDecimal valueBigDecimal) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement32==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_big_decimal) VALUES (?)";
@@ -1965,6 +1938,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement32, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -1983,6 +1957,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(BigInteger valueBigInteger) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement33==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_big_integer) VALUES (?)";
@@ -2030,6 +2005,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement33, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2048,6 +2024,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(boolean valueBoolType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement34==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_bool_type) VALUES (?)";
@@ -2095,6 +2072,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement34, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2113,6 +2091,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insert(Boolean valueBool) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement35==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_bool) VALUES (?)";
@@ -2160,6 +2139,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement35, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2178,6 +2158,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertArrayBeanType(Bean[] valueBeanArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertArrayBeanTypePreparedStatement36==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_bean_array) VALUES (?)";
@@ -2225,6 +2206,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertArrayBeanTypePreparedStatement36, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2243,6 +2225,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertArrayLong(Long[] valueLongArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertArrayLongPreparedStatement37==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long_array) VALUES (?)";
@@ -2290,6 +2273,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertArrayLongPreparedStatement37, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2308,6 +2292,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertArrayLongType(long[] valueLongTypeArray) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertArrayLongTypePreparedStatement38==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long_type_array) VALUES (?)";
@@ -2355,6 +2340,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertArrayLongTypePreparedStatement38, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2373,6 +2359,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertByte(Byte valueByte) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBytePreparedStatement39==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_byte) VALUES (?)";
@@ -2420,6 +2407,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBytePreparedStatement39, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2438,6 +2426,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertByteType(byte valueByteType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertByteTypePreparedStatement40==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_byte_type) VALUES (?)";
@@ -2485,6 +2474,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertByteTypePreparedStatement40, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2503,6 +2493,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertCalendar(Calendar valueCalendar) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCalendarPreparedStatement41==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_calendar) VALUES (?)";
@@ -2550,6 +2541,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCalendarPreparedStatement41, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2568,6 +2560,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertChar(Character valueChar) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCharPreparedStatement42==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_char) VALUES (?)";
@@ -2615,6 +2608,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCharPreparedStatement42, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2633,6 +2627,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertCharType(char valueCharType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCharTypePreparedStatement43==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_char_type) VALUES (?)";
@@ -2680,6 +2675,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCharTypePreparedStatement43, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2698,6 +2694,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertCurrency(Currency valueCurrency) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertCurrencyPreparedStatement44==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_currency) VALUES (?)";
@@ -2745,6 +2742,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertCurrencyPreparedStatement44, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2763,6 +2761,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertDate(Date valueDate) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertDatePreparedStatement45==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_date) VALUES (?)";
@@ -2810,6 +2809,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertDatePreparedStatement45, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2828,6 +2828,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertDouble(Double valueDouble) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertDoublePreparedStatement46==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_double) VALUES (?)";
@@ -2875,6 +2876,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertDoublePreparedStatement46, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2893,6 +2895,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertDoubleType(double valueDoubleType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertDoubleTypePreparedStatement47==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_double_type) VALUES (?)";
@@ -2940,6 +2943,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertDoubleTypePreparedStatement47, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -2958,6 +2962,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertEnumType(EnumType valueEnumType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertEnumTypePreparedStatement48==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_enum_type) VALUES (?)";
@@ -3005,6 +3010,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertEnumTypePreparedStatement48, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3023,6 +3029,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertFloat(Float valueFloat) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertFloatPreparedStatement49==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_float) VALUES (?)";
@@ -3070,6 +3077,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertFloatPreparedStatement49, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3088,6 +3096,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertFloatType(float valueFloatType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertFloatTypePreparedStatement50==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_float_type) VALUES (?)";
@@ -3135,6 +3144,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertFloatTypePreparedStatement50, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3153,6 +3163,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertInt(Integer valueInt) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertIntPreparedStatement51==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_int) VALUES (?)";
@@ -3200,6 +3211,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertIntPreparedStatement51, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3218,6 +3230,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertIntType(int valueIntType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertIntTypePreparedStatement52==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_int_type) VALUES (?)";
@@ -3265,6 +3278,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertIntTypePreparedStatement52, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3283,6 +3297,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertListLong(LinkedList<Long> valueLongList) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertListLongPreparedStatement53==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long_list) VALUES (?)";
@@ -3330,6 +3345,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertListLongPreparedStatement53, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3348,6 +3364,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertLocale(Locale valueLocale) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertLocalePreparedStatement54==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_locale) VALUES (?)";
@@ -3395,6 +3412,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertLocalePreparedStatement54, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3413,6 +3431,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertLong(Long valueLong) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertLongPreparedStatement55==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long) VALUES (?)";
@@ -3460,6 +3479,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertLongPreparedStatement55, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3478,6 +3498,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertLongType(long valueLongType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertLongTypePreparedStatement56==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_long_type) VALUES (?)";
@@ -3525,6 +3546,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertLongTypePreparedStatement56, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3543,6 +3565,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertShort(Short valueShort) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertShortPreparedStatement57==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_short) VALUES (?)";
@@ -3590,6 +3613,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertShortPreparedStatement57, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3608,6 +3632,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertShortType(short valueShortType) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertShortTypePreparedStatement58==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_short_type) VALUES (?)";
@@ -3655,6 +3680,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertShortTypePreparedStatement58, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3673,6 +3699,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertString(String valueString) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertStringPreparedStatement59==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_string) VALUES (?)";
@@ -3720,6 +3747,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertStringPreparedStatement59, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3738,6 +3766,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertTime(Time valueTime) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertTimePreparedStatement60==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_time) VALUES (?)";
@@ -3785,6 +3814,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertTimePreparedStatement60, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3803,6 +3833,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertTimeZone(TimeZone valueTimeZone) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertTimeZonePreparedStatement61==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_time_zone) VALUES (?)";
@@ -3850,6 +3881,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertTimeZonePreparedStatement61, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -3868,6 +3900,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long insertURL(URL valueUrl) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertURLPreparedStatement62==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean (value_url) VALUES (?)";
@@ -3915,12 +3948,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertURLPreparedStatement62, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -3979,13 +4016,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public List<Bean> selectList(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -3997,13 +4035,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean> resultList=new ArrayList<Bean>(_cursor.getCount());
       Bean resultBean=null;
@@ -4106,12 +4146,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4163,12 +4207,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4180,13 +4225,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -4283,12 +4330,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_big_decimal=${valueBigDecimal}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4347,13 +4398,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne(BigDecimal valueBigDecimal) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
     // add where arguments
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4365,13 +4417,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -4468,12 +4522,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_big_decimal=${valueBigDecimal}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4532,13 +4590,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne(BigInteger valueBigDecimal) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL4;
     // add where arguments
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4550,13 +4609,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -4653,12 +4714,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_bool_type=${valueBoolType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4717,13 +4782,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne(boolean valueBoolType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueBoolType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4735,13 +4801,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -4838,12 +4906,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_bool=${valueBool}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -4902,13 +4974,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOne(Boolean valueBool) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL6;
     // add where arguments
     _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -4920,13 +4993,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -5023,12 +5098,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5088,13 +5167,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL7;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5106,13 +5186,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean resultBean=new Bean();
       if (_cursor.moveToFirst()) {
 
@@ -5163,7 +5245,7 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.valueBeanArray=null;
           resultBean.valueBigDecimal=null;
           resultBean.valueBigInteger=null;
@@ -5254,12 +5336,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5319,13 +5405,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5337,13 +5424,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -5353,12 +5442,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_bean_array=${valueBeanArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5417,13 +5510,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayBeanType(Bean[] valueBeanArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_ARRAY_BEAN_TYPE_SQL9;
     // add where arguments
     _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5435,13 +5529,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -5538,12 +5634,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long_array=${valueLongArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5602,13 +5702,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayLong(Long[] valueLongArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_ARRAY_LONG_SQL10;
     // add where arguments
     _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5620,13 +5721,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -5723,12 +5826,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long_type_array=${valueLongTypeArray}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5787,13 +5894,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneArrayLongType(long[] valueLongTypeArray) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_ARRAY_LONG_TYPE_SQL11;
     // add where arguments
     _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5805,13 +5913,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -5908,12 +6018,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_byte=${valueByte}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -5972,13 +6086,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneByte(Byte valueByte) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BYTE_SQL12;
     // add where arguments
     _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -5990,13 +6105,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6093,12 +6210,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_byte_type=${valueByteType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6157,13 +6278,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneByteType(boolean valueByteType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BYTE_TYPE_SQL13;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueByteType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6175,13 +6297,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6278,12 +6402,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_calendar=${valueCalendar}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6342,13 +6470,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneCalendar(Calendar valueCalendar) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_CALENDAR_SQL14;
     // add where arguments
     _contentValues.addWhereArgs((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6360,13 +6489,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6463,12 +6594,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_char_type=${valueChar}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6527,13 +6662,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneChar(Character valueChar) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_CHAR_SQL15;
     // add where arguments
     _contentValues.addWhereArgs((valueChar==null?"":String.valueOf(valueChar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6545,13 +6681,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6648,12 +6786,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_char_type=${valueCharType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6712,13 +6854,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneCharType(char valueCharType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_CHAR_TYPE_SQL16;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueCharType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6730,13 +6873,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -6833,12 +6978,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_currency=${valueCurrency}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -6897,13 +7046,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneCurrencye(Currency valueCurrency) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_CURRENCYE_SQL17;
     // add where arguments
     _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -6915,13 +7065,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7018,12 +7170,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_date=${valueDate}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7082,13 +7238,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneDate(Date valueDate) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_DATE_SQL18;
     // add where arguments
     _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7100,13 +7257,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7203,12 +7362,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_double=${valueDouble}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7267,13 +7430,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneDouble(Double valueDouble) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_DOUBLE_SQL19;
     // add where arguments
     _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7285,13 +7449,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7388,12 +7554,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_double_type=${valueDoubleType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7452,13 +7622,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneDoubleType(double valueDoubleType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_DOUBLE_TYPE_SQL20;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7470,13 +7641,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7573,12 +7746,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_enum_type=${valueEnumType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7637,13 +7814,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneEnumType(EnumType valueEnumType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_ENUM_TYPE_SQL21;
     // add where arguments
     _contentValues.addWhereArgs((valueEnumType==null?"":EnumUtils.write(valueEnumType)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7655,13 +7833,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7758,12 +7938,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_float=${valueFloat}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -7822,13 +8006,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneFloat(Float valueFloat) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_FLOAT_SQL22;
     // add where arguments
     _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -7840,13 +8025,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -7943,12 +8130,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_float_type=${valueFloatType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8007,13 +8198,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneFloatType(float valueFloatType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_FLOAT_TYPE_SQL23;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueFloatType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8025,13 +8217,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8128,12 +8322,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_int=${valueInt}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8192,13 +8390,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneInt(Integer valueInt) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_INT_SQL24;
     // add where arguments
     _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8210,13 +8409,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8313,12 +8514,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_int_type=${valueIntType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8377,13 +8582,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneIntType(int valueIntType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_INT_TYPE_SQL25;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueIntType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8395,13 +8601,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8498,12 +8706,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long_list=${valueLongList}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8562,13 +8774,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneListLong(LinkedList<Long> valueLongList) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_LIST_LONG_SQL26;
     // add where arguments
     _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8580,13 +8793,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8683,12 +8898,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_locale=${valueLocale}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8747,13 +8966,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneLocale(Calendar valueLocale) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_LOCALE_SQL27;
     // add where arguments
     _contentValues.addWhereArgs((valueLocale==null?"":CalendarUtils.write(valueLocale)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8765,13 +8985,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -8868,12 +9090,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long=${valueLong}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -8932,13 +9158,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneLong(Long valueLong) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_LONG_SQL28;
     // add where arguments
     _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -8950,13 +9177,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9053,12 +9282,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_long_type=${valueLongType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9117,13 +9350,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneLongType(long valueLongType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_LONG_TYPE_SQL29;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueLongType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9135,13 +9369,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9238,12 +9474,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_short=${valueShort}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9302,13 +9542,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneShort(Short valueShort) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SHORT_SQL30;
     // add where arguments
     _contentValues.addWhereArgs((valueShort==null?"":String.valueOf(valueShort)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9320,13 +9561,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9423,12 +9666,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_short_type=${valueShortType}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9487,13 +9734,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneShortType(short valueShortType) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SHORT_TYPE_SQL31;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueShortType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9505,13 +9753,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9608,12 +9858,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_string=${valueString}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9672,13 +9926,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneString(String valueString) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_STRING_SQL32;
     // add where arguments
     _contentValues.addWhereArgs((valueString==null?"":valueString));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9690,13 +9945,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9793,12 +10050,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_time=${valueTime}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -9857,13 +10118,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneTime(Time valueTime) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_TIME_SQL33;
     // add where arguments
     _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -9875,13 +10137,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -9978,12 +10242,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_time_zone=${valueTimeZone}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10042,13 +10310,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneTimeZone(TimeZone valueTimeZone) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_TIME_ZONE_SQL34;
     // add where arguments
     _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10060,13 +10329,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -10163,12 +10434,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean WHERE value_url=${valueUrl}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10227,13 +10502,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Bean selectOneURL(URL valueUrl) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_U_R_L_SQL35;
     // add where arguments
     _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10245,13 +10521,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean resultBean=null;
 
@@ -10348,12 +10626,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_bool FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10364,12 +10646,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Boolean selectValueBool() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_BOOL_SQL36;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10381,13 +10664,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Boolean result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10397,12 +10682,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_bool_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10413,12 +10702,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public boolean selectValueBoolType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_BOOL_TYPE_SQL37;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10430,13 +10720,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       boolean result=false;
 
       if (_cursor.moveToFirst()) {
@@ -10446,12 +10738,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_byte FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10462,12 +10758,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Byte selectValueByte() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_BYTE_SQL38;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10479,13 +10776,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Byte result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10495,12 +10794,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_byte_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10511,12 +10814,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public byte selectValueByteType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_BYTE_TYPE_SQL39;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10528,13 +10832,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       byte result=0;
 
       if (_cursor.moveToFirst()) {
@@ -10544,12 +10850,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_char FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10560,12 +10870,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Character selectValueChar() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_CHAR_SQL40;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10577,13 +10888,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Character result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10593,12 +10906,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_char_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10609,12 +10926,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public char selectValueCharType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_CHAR_TYPE_SQL41;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10626,13 +10944,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       char result=0;
 
       if (_cursor.moveToFirst()) {
@@ -10642,12 +10962,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_double FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10658,12 +10982,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Double selectValueDouble() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_DOUBLE_SQL42;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10675,13 +11000,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Double result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10691,12 +11018,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_double_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10707,12 +11038,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public double selectValueDoubleType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_DOUBLE_TYPE_SQL43;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10724,13 +11056,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       double result=0;
 
       if (_cursor.moveToFirst()) {
@@ -10740,12 +11074,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_float FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10756,12 +11094,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Float selectValueFloat() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_FLOAT_SQL44;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10773,13 +11112,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Float result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10789,12 +11130,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_float_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10805,12 +11150,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public float selectValueFloatType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_FLOAT_TYPE_SQL45;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10822,13 +11168,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       float result=0f;
 
       if (_cursor.moveToFirst()) {
@@ -10838,12 +11186,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_int FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10854,12 +11206,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Integer selectValueInt() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_INT_SQL46;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10871,13 +11224,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Integer result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10887,12 +11242,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_int_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10903,12 +11262,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public int selectValueIntType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_INT_TYPE_SQL47;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10920,13 +11280,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       int result=0;
 
       if (_cursor.moveToFirst()) {
@@ -10936,12 +11298,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_long FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -10952,12 +11318,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Long selectValueLong() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_LONG_SQL48;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -10969,13 +11336,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Long result=null;
 
       if (_cursor.moveToFirst()) {
@@ -10985,12 +11354,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_long_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11001,12 +11374,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public long selectValueLongType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_LONG_TYPE_SQL49;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11018,13 +11392,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       long result=0L;
 
       if (_cursor.moveToFirst()) {
@@ -11034,12 +11410,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_short FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11050,12 +11430,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public Short selectValueShort() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_SHORT_SQL50;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11067,13 +11448,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Short result=null;
 
       if (_cursor.moveToFirst()) {
@@ -11083,12 +11466,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_short_type FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11099,12 +11486,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public short selectValueShortType() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_SHORT_TYPE_SQL51;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11116,13 +11504,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       short result=0;
 
       if (_cursor.moveToFirst()) {
@@ -11132,12 +11522,16 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT value_string FROM bean</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -11148,12 +11542,13 @@ public class BeanDaoImpl extends Dao implements BeanDao {
    */
   @Override
   public String selectValueString() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_VALUE_STRING_SQL52;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -11165,13 +11560,15 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       String result=null;
 
       if (_cursor.moveToFirst()) {
@@ -11181,13 +11578,14 @@ public class BeanDaoImpl extends Dao implements BeanDao {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean SET value_bean_array=:valueBeanArray, value_big_decimal=:valueBigDecimal, value_big_integer=:valueBigInteger, value_bool=:valueBool, value_bool_type=:valueBoolType, value_byte=:valueByte, value_byte_array=:valueByteArray, value_byte_type=:valueByteType, value_calendar=:valueCalendar, value_char=:valueChar, value_char_array=:valueCharArray, value_char_list=:valueCharList, value_char_type=:valueCharType, value_char_type_array=:valueCharTypeArray, value_currency=:valueCurrency, value_date=:valueDate, value_double=:valueDouble, value_double_type=:valueDoubleType, value_enum_type=:valueEnumType, value_float=:valueFloat, value_float_type=:valueFloatType, value_int=:valueInt, value_int_type=:valueIntType, value_linked_map_string_bean=:valueLinkedMapStringBean, value_locale=:valueLocale, value_long=:valueLong, value_long_array=:valueLongArray, value_long_list=:valueLongList, value_long_type=:valueLongType, value_long_type_array=:valueLongTypeArray, value_map_string_bean=:valueMapStringBean, value_set_string=:valueSetString, value_short=:valueShort, value_short_type=:valueShortType, value_strin_list=:valueStrinList, value_string=:valueString, value_string_array=:valueStringArray, value_time=:valueTime, value_time_list=:valueTimeList, value_time_zone=:valueTimeZone, value_url=:valueUrl WHERE id=${value.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>value_bean_array</dt><dd>is mapped to <strong>:value.valueBeanArray</strong></dd>
    * 	<dt>value_big_decimal</dt><dd>is mapped to <strong>:value.valueBigDecimal</strong></dd>

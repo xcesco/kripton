@@ -42,6 +42,7 @@ import commons.kripton86.test7.Bean7;
 import commons.kripton86.test7.DS7DataSource;
 import commons.kripton86.test7.Dao7;
 import commons.kripton86.test8.Bean8;
+import commons.kripton86.test8.Bean9;
 import commons.kripton86.test8.DS8DataSource;
 import commons.kripton86.test8.Dao8;
 import sqlite.AbstractBindSQLiteProcessorTest;
@@ -74,7 +75,7 @@ public class TestSqliteCompile86 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void test2Compile() throws InstantiationException, IllegalAccessException, IOException {
-		this.expectedException(MethodWithoutSupportedAnnotationException.class);
+		this.expectedException(InvalidMethodSignException.class,"In class 'Dao2', method 'selectWrong' has an invalid signature: method must be annotated with @BindSqlSelect, @BindSqlInsert, @BindSqlUpdate or @BindSqlDelete");
 		buildDataSourceProcessorTest(DS2DataSource.class, Dao2.class, Bean2.class);
 	}
 	
@@ -126,7 +127,7 @@ public class TestSqliteCompile86 extends AbstractBindSQLiteProcessorTest {
 	 */
 	@Test
 	public void test8Compile() throws InstantiationException, IllegalAccessException, IOException {
-		this.expectedException(InvalidMethodSignException.class);
-		buildDataSourceProcessorTest(DS8DataSource.class, Dao8.class, Bean8.class);
+		this.expectedException(InvalidMethodSignException.class,"In class 'Dao8', method 'selectAll' has an invalid signature: select with custom projection must be declared with explicit JQL");
+		buildDataSourceProcessorTest(DS8DataSource.class, Dao8.class, Bean8.class, Bean9.class);
 	}
 }

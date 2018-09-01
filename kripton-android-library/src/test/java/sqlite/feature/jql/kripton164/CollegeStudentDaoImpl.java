@@ -25,7 +25,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO students (surname) VALUES (:student.surname)</pre>
    *
    * <p><code>student.id</code> is automatically updated because it is the primary key</p>
@@ -41,6 +41,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    */
   @Override
   public void insert(CollegeStudent student) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO students (surname) VALUES (?)";
@@ -86,11 +87,13 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     student.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT OR REPLACE INTO students (surname) SELECT surname FROM students WHERE surname=:bean.surname</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -106,6 +109,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    */
   @Override
   public void insertBeanFromSelect(CollegeStudent bean) {
+    // Specialized Insert - InsertType - BEGIN
     KriptonContentValues _contentValues=contentValuesForUpdate();
     _contentValues.put("surname", bean.surname);
 
@@ -141,7 +145,9 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
     // generate SQL for insert
     String _sql=String.format("INSERT OR REPLACE INTO students (%s) SELECT surname FROM students WHERE surname=?", _contentValues.keyList());
     long result = KriptonDatabaseWrapper.insert(_context, _sql, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

@@ -65,10 +65,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 	 * @return the string
 	 */
 	public static String generateDaoFactoryName(SQLiteDatabaseSchema schema) {
-		String schemaName = schema.getName();
-		schemaName = PREFIX + schemaName;
-
-		schemaName = schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
+		String schemaName = buildDaoFactoryName(schema);
 
 		return schemaName;
 	}
@@ -80,10 +77,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 	 * @return the string
 	 */
 	public static ClassName generateDaoFactoryClassName(SQLiteDatabaseSchema schema) {
-		String schemaName = schema.getName();
-		schemaName = PREFIX + schemaName;
-
-		schemaName = schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
+		String schemaName = buildDaoFactoryName(schema);
 
 		String packageName=TypeUtility.extractPackageName(schema.getElement());
 		return ClassName.get(packageName, schemaName);
@@ -122,10 +116,7 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 	 * @throws Exception the exception
 	 */
 	public TypeSpec.Builder buildDaoFactoryInterfaceInternal(Elements elementUtils, Filer filer, SQLiteDatabaseSchema schema) throws Exception {
-		String schemaName = schema.getName();
-		schemaName = PREFIX + schemaName;
-
-		schemaName = schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
+		String schemaName = buildDaoFactoryName(schema);
 
 		classBuilder = TypeSpec.interfaceBuilder(schemaName).addModifiers(Modifier.PUBLIC).addSuperinterface(BindDaoFactory.class);
 
@@ -162,6 +153,14 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 		}
 
 		return classBuilder;
+	}
+
+	public static String buildDaoFactoryName(SQLiteDatabaseSchema schema) {
+		String schemaName = schema.getName();
+		schemaName = PREFIX + schemaName;
+
+		schemaName = schemaName.replace(BindDataSourceBuilder.SUFFIX, SUFFIX);
+		return schemaName;
 	}
 
 }

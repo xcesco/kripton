@@ -33,6 +33,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://com.abubsoft.kripton/persons/${bean.id}</pre></td><td>{@link DaoPerson1Impl#update3ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindApp1ContentProvider extends ContentProvider {
   /**
@@ -213,12 +215,12 @@ public class BindApp1ContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
       }
     }
-    // log section BEGIN
+    // log section for content provider insert BEGIN
     if (dataSource.isLogEnabled()) {
       Logger.info("Element is created with URI '%s'", _returnURL);
       Logger.info("Changes are notified for URI '%s'", uri);
     }
-    // log section END
+    // log section for content provider insert END
     getContext().getContentResolver().notifyChange(uri, null);
     return _returnURL;
   }

@@ -43,6 +43,7 @@ public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
    */
   @Override
   public boolean insertDistance(long id, Double value) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertDistancePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean01 (id, value) VALUES (?, ?)";
@@ -91,6 +92,7 @@ public class DaoBeanInsertOKImpl extends Dao implements DaoBeanInsertOK {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertDistancePreparedStatement0, _contentValues);
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

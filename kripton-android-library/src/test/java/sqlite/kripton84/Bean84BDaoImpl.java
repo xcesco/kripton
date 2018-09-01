@@ -53,6 +53,9 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    *
    * <pre>SELECT id, column_bean FROM bean84_b WHERE id = ${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84B}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -70,13 +73,14 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    */
   @Override
   public Bean84B selectById(long param1) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(param1));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -88,13 +92,15 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean84B resultBean=null;
 
@@ -111,12 +117,16 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, column_bean FROM bean84_b WHERE cast(column_bean as TEXT) = ${param1}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean84B}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -135,13 +145,14 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    */
   @Override
   public Bean84B selectByBean(Bean84B2 param1) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_BEAN_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((param1==null?"":new String(serializer1(param1),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -153,13 +164,15 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean84B resultBean=null;
 
@@ -176,10 +189,11 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean84_b (column_bean) VALUES (:bean.columnBean)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -196,6 +210,7 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
    */
   @Override
   public boolean insert(Bean84B bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean84_b (column_bean) VALUES (?)";
@@ -241,16 +256,18 @@ public class Bean84BDaoImpl extends Dao implements Bean84BDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean84_b SET column_bean=:columnBean</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>column_bean</dt><dd>is mapped to <strong>:bean.columnBean</strong></dd>
    * </dl>

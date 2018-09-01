@@ -87,10 +87,10 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public App47 read() {
     App47 bean=new App47();
-    bean.name=prefs.getString("name", bean.name);
+    bean.name=prefs.getString("name", defaultBean.name);
      {
       String temp=prefs.getString("user_access_token", null);
-      bean.userAccessToken=StringUtils.hasText(temp) ? parseUserAccessToken(temp): bean.userAccessToken;
+      bean.userAccessToken=StringUtils.hasText(temp) ? parseUserAccessToken(temp): defaultBean.userAccessToken;
     }
 
 

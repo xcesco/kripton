@@ -32,6 +32,9 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
    *
    * <pre>SELECT id, name, surname FROM bean205 WHERE name like ${name} || '%'</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean205}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -50,13 +53,14 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
    */
   @Override
   public Bean205 selectByBean(String name) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_BEAN_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -68,13 +72,15 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean205 resultBean=null;
 
@@ -93,10 +99,11 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean205 (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -114,6 +121,7 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
    */
   @Override
   public boolean insert(Bean205 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean205 (name, surname) VALUES (?, ?)";
@@ -160,9 +168,11 @@ public class Bean205DaoImpl extends Dao implements Bean205Dao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setId(result);
 
     return result!=-1;
+    // Specialized Insert - InsertType - END
   }
 
   public static void clearCompiledStatements() {

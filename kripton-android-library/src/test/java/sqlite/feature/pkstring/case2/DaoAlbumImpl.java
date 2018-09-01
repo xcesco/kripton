@@ -50,7 +50,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
@@ -67,6 +67,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public void insert(Album bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (name, year) VALUES (?, ?)";
@@ -113,10 +114,11 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
@@ -133,6 +135,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public String insert1(Album bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert1PreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (name, year) VALUES (?, ?)";
@@ -181,10 +184,11 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     long result = KriptonDatabaseWrapper.insert(insert1PreparedStatement1, _contentValues);
 
     return String.valueOf(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO album (name, year) VALUES (:name, :year)</pre>
    *
    * <p><code>bean.name</code> is automatically updated because it is the primary key</p>
@@ -202,6 +206,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public long insert2(Album bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert2PreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (name, year) VALUES (?, ?)";
@@ -250,6 +255,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     long result = KriptonDatabaseWrapper.insert(insert2PreparedStatement2, _contentValues);
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -267,6 +273,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public void insert3(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert3PreparedStatement3==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (year) VALUES (?)";
@@ -313,6 +320,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert3PreparedStatement3, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -330,6 +338,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public String insert4(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert4PreparedStatement4==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (year) VALUES (?)";
@@ -377,6 +386,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert4PreparedStatement4, _contentValues);
     return String.valueOf(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -395,6 +405,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public long insert5(Date year) {
+    // Specialized Insert - InsertType - BEGIN
     if (insert5PreparedStatement5==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO album (year) VALUES (?)";
@@ -442,13 +453,14 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insert5PreparedStatement5, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE album SET year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
@@ -505,10 +517,10 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE album SET year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
@@ -568,10 +580,10 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE album SET year=:year WHERE name=:bean.name</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>year</dt><dd>is mapped to <strong>:bean.year</strong></dd>
    * </dl>
@@ -635,6 +647,9 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    *
    * <pre>SELECT name, year FROM album WHERE name=:name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -652,13 +667,14 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public List<Album> selectAlbums(String name) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALBUMS_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -670,13 +686,15 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Album> resultList=new ArrayList<Album>(_cursor.getCount());
       Album resultBean=null;
@@ -699,12 +717,16 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT name, year FROM album WHERE name=:bean.name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Album}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -723,13 +745,14 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
    */
   @Override
   public List<Album> selectAlbums2(Album bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALBUMS2_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(bean.name);
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -741,13 +764,15 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Album> resultList=new ArrayList<Album>(_cursor.getCount());
       Album resultBean=null;
@@ -770,6 +795,7 @@ public class DaoAlbumImpl extends Dao implements DaoAlbum {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

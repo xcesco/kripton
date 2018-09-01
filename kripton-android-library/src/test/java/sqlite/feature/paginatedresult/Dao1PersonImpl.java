@@ -6,7 +6,7 @@ import com.abubusoft.kripton.android.Logger;
 import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
-import com.abubusoft.kripton.android.sqlite.PaginatedResult;
+import com.abubusoft.kripton.android.sqlite.PagedResult;
 import com.abubusoft.kripton.common.DateUtils;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
@@ -40,6 +40,9 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -52,8 +55,10 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    * @return paginated result.
    */
   @Override
-  public PaginatedResult<Person> select() {
-    PaginatedResult2 paginatedResult=new PaginatedResult2();
+  public PagedResult<Person> select() {
+    final PaginatedResult2 paginatedResult=new PaginatedResult2();
+    // common part generation - BEGIN
+    // common part generation - END
     return paginatedResult;
   }
 
@@ -61,6 +66,9 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name LIMIT 10 OFFSET #{DYNAMIC_PAGE_OFFSET}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -76,6 +84,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    * @return result list
    */
   private List<Person> select(PaginatedResult2 paginatedResult) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, birth_city, birth_day, name, surname FROM person");
@@ -101,7 +110,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
     String _sql=_sqlBuilder.toString();
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -113,13 +122,15 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part II - SelectPaginatedResultHelper - BEGIN
 
       List<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -148,6 +159,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
 
       return resultList;
     }
+    // Specialized part II - SelectPaginatedResultHelper - END
   }
 
   /**
@@ -174,6 +186,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    */
   @Override
   public void insertOne(String name, String surname, String birthCity, Date birthDay) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname, birth_city, birth_day) VALUES (?, ?, ?, ?)";
@@ -223,12 +236,16 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertOnePreparedStatement0, _contentValues);
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -243,12 +260,13 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
    */
   @Override
   public List<Person> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -260,13 +278,15 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -295,16 +315,14 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM person</pre>
    *
-   *
-   * <h2>Where parameters:</h2>
-   * <dl>
-   * </dl>
+   * <p>No where parameters were found.</p>
    *
    *
    * @return number of deleted records
@@ -349,7 +367,7 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
     }
   }
 
-  public class PaginatedResult2 extends PaginatedResult<Person> {
+  public class PaginatedResult2 extends PagedResult<Person> {
     PaginatedResult2() {
       this.pageSize=10;
     }
@@ -357,6 +375,10 @@ public class Dao1PersonImpl extends Dao implements Dao1Person {
     public List<Person> execute() {
       list=Dao1PersonImpl.this.select(this);
       return list;
+    }
+
+    public List<Person> execute(BindPerson1DaoFactory daoFactory) {
+      return daoFactory.getDao1Person().select(this);
     }
   }
 }

@@ -29,6 +29,9 @@ public class DaoSongImpl extends Dao implements DaoSong {
    *
    * <pre>SELECT id, album_id, name FROM song</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Song}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -40,12 +43,13 @@ public class DaoSongImpl extends Dao implements DaoSong {
    */
   @Override
   public List<Song> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -57,13 +61,15 @@ public class DaoSongImpl extends Dao implements DaoSong {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Song> resultList=new ArrayList<Song>(_cursor.getCount());
       Song resultBean=null;
@@ -88,6 +94,7 @@ public class DaoSongImpl extends Dao implements DaoSong {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

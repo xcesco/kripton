@@ -32,7 +32,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO device (name) VALUES (:device.name)</pre>
    *
    * <p><code>device.id</code> is automatically updated because it is the primary key</p>
@@ -48,6 +48,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    */
   @Override
   public void insert(Device device) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO device (name) VALUES (?)";
@@ -93,13 +94,18 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     device.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name FROM device</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Device}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -111,12 +117,13 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    */
   @Override
   public List<Device> getAllDevices() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_ALL_DEVICES_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -128,13 +135,15 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Device> resultList=new ArrayList<Device>(_cursor.getCount());
       Device resultBean=null;
@@ -157,12 +166,16 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>select * from device inner join user_device on device.id = user_device.device_id  where user_device.user_id = ${userId}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Device}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -181,13 +194,14 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
    */
   @Override
   public List<Device> getUserDevices(Long userId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_USER_DEVICES_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((userId==null?"":String.valueOf(userId)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -199,13 +213,15 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Device> resultList=new ArrayList<Device>(_cursor.getCount());
       Device resultBean=null;
@@ -228,6 +244,7 @@ public class DeviceDaoImpl extends Dao implements DeviceDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

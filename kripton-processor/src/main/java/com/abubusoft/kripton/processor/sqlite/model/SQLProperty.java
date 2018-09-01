@@ -109,7 +109,7 @@ public class SQLProperty extends ManagedModelProperty {
 		}
 
 		String globalKey = element.asType().toString();
-		if (!hasTypeAdapter() && entity.schema.globalSqlTypeAdapter.containsKey(globalKey)) {
+		if (!hasTypeAdapter() && entity.schema.globalSqlTypeAdapter.containsKey(globalKey)) {			
 			// check for global type adapter
 			typeAdapter.adapterClazz = entity.schema.globalSqlTypeAdapter.get(globalKey);
 			typeAdapter.dataType = TypeAdapterHelper.detectDestinationType(entity.getElement(),

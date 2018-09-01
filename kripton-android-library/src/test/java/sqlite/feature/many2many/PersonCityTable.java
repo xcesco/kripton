@@ -20,9 +20,9 @@ public class PersonCityTable implements SQLiteTable {
    * DDL to create table person_city
    * </p>
    *
-   * <pre>CREATE TABLE person_city (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER NOT NULL, city_id INTEGER NOT NULL, FOREIGN KEY(person_id) REFERENCES persons(id) ON DELETE CASCADE, FOREIGN KEY(city_id) REFERENCES cities(id) ON DELETE CASCADE); CREATE INDEX idx_person_city_person_id ON person_city(person_id); CREATE INDEX idx_person_city_city_id ON person_city(city_id); CREATE UNIQUE INDEX idx_person_city_0 on person_city (person_id, city_id);</pre>
+   * <pre>CREATE TABLE person_city (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, person_id INTEGER NOT NULL, city_id INTEGER NOT NULL, FOREIGN KEY(person_id) REFERENCES persons(id) ON DELETE CASCADE, FOREIGN KEY(city_id) REFERENCES cities(id) ON DELETE CASCADE, UNIQUE (person_id, city_id)); CREATE INDEX idx_person_city_person_id ON person_city(person_id); CREATE INDEX idx_person_city_city_id ON person_city(city_id); CREATE UNIQUE INDEX idx_person_city_0 on person_city (person_id, city_id);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER NOT NULL, city_id INTEGER NOT NULL, FOREIGN KEY(person_id) REFERENCES persons(id) ON DELETE CASCADE, FOREIGN KEY(city_id) REFERENCES cities(id) ON DELETE CASCADE); CREATE INDEX idx_person_city_person_id ON person_city(person_id); CREATE INDEX idx_person_city_city_id ON person_city(city_id); CREATE UNIQUE INDEX idx_person_city_0 on person_city (person_id, city_id);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE person_city (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, person_id INTEGER NOT NULL, city_id INTEGER NOT NULL, FOREIGN KEY(person_id) REFERENCES persons(id) ON DELETE CASCADE, FOREIGN KEY(city_id) REFERENCES cities(id) ON DELETE CASCADE, UNIQUE (person_id, city_id)); CREATE INDEX idx_person_city_person_id ON person_city(person_id); CREATE INDEX idx_person_city_city_id ON person_city(city_id); CREATE UNIQUE INDEX idx_person_city_0 on person_city (person_id, city_id);";
 
   /**
    * <p>

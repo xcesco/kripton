@@ -47,6 +47,7 @@ import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.common.StringUtils;
+import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
 import com.abubusoft.kripton.processor.bind.model.many2many.M2MEntity;
@@ -62,6 +63,7 @@ import com.abubusoft.kripton.processor.utils.AnnotationProcessorUtilis;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.MethodSpec.Builder;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -141,7 +143,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 *             the exception
 	 */
 	public static Pair<Set<GeneratedTypeElement>, Set<GeneratedTypeElement>> generate(Filer filer, M2MModel model)
-			throws Exception {
+			 {
 		entityResult.clear();
 		daoResult.clear();
 		BindM2MBuilder visitor = new BindM2MBuilder(filer);
@@ -165,7 +167,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 * @throws Exception
 	 *             the exception
 	 */
-	public void generate(M2MEntity entity) throws Exception {
+	public void generate(M2MEntity entity) {
 		generateEntity(entity);
 		generateDaoPart(entity);
 	}
@@ -178,7 +180,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	private void generateDaoPart(M2MEntity entity) throws IOException {
+	private void generateDaoPart(M2MEntity entity) {
 		String daoClassName = entity.daoName.simpleName();
 
 		String daoPackageName = entity.daoName.packageName();
@@ -208,7 +210,11 @@ public class BindM2MBuilder extends AbstractBuilder {
 
 		TypeSpec typeSpec = classBuilder.build();
 
-		JavaWriterHelper.writeJava2File(filer, daoPackageName, typeSpec);
+		try {
+			JavaWriterHelper.writeJava2File(filer, daoPackageName, typeSpec);
+		} catch (IOException e) {
+			throw new KriptonRuntimeException(e);
+		}
 
 		GeneratedTypeElement daoPartElement = new GeneratedTypeElement(daoPackageName, classBuilder.build(), null,
 				null);
@@ -220,11 +226,11 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 *
 	 * @param entity
 	 *            the entity
-	 * @param generatedEntity 
+	 * @param generatedEntity
 	 * @param packageName
 	 *            the package name
 	 */
-	private void generateSelects(M2MEntity entity,String packageName) {
+	private void generateSelects(M2MEntity entity, String packageName) {
 		String idPart = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, entity.idName);
 
 		String methodName = "";
@@ -326,7 +332,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 *
 	 * @param entity
 	 *            the entity
-	 * @param generatedEntity 
+	 * @param generatedEntity
 	 * @param packageName
 	 *            the package name
 	 */
@@ -425,16 +431,15 @@ public class BindM2MBuilder extends AbstractBuilder {
 	 *
 	 * @param entity
 	 *            the entity
-	 * @return 
+	 * @return
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	private void generateEntity(M2MEntity entity) throws IOException {
+	private void generateEntity(M2MEntity entity) {
 		entity.propertyPrimaryKey = TypeName.LONG;
 		entity.propertyKey1 = findPrimaryKeyFieldType(entity.entity1Name.toString());
-		entity.propertyKey2 = findPrimaryKeyFieldType(entity.entity2Name.toString());	
-		if (!entity.needToCreate)
-		{			
+		entity.propertyKey2 = findPrimaryKeyFieldType(entity.entity2Name.toString());
+		if (!entity.needToCreate) {
 			return;
 		}
 
@@ -456,9 +461,8 @@ public class BindM2MBuilder extends AbstractBuilder {
 		String field1Name = converterFieldName.convert(entity.entity1Name.simpleName() + fkPrefix);
 		String field2Name = converterFieldName.convert(entity.entity2Name.simpleName() + fkPrefix);
 
-		
 		List<SQLProperty> properties = new ArrayList<SQLProperty>();
-				
+
 		// we define property type later
 		{
 			SQLProperty property = new SQLProperty(entity.idName, entity.getClassName(), entity.propertyPrimaryKey);
@@ -469,10 +473,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.foreignParentClassName = null;
 			properties.add(property);
 		}
-		
+
 		{
-			SQLProperty property = new SQLProperty(field1Name, entity.getClassName(),
-					entity.propertyKey1);
+			SQLProperty property = new SQLProperty(field1Name, entity.getClassName(), entity.propertyKey1);
 			property.columnType = ColumnType.INDEXED;
 			property.columnName = fk1Name;
 			property.setNullable(false);
@@ -481,10 +484,9 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.foreignParentClassName = entity.entity1Name.toString();
 			properties.add(property);
 		}
-		
+
 		{
-			SQLProperty property = new SQLProperty(field2Name, entity.getClassName(),
-					entity.propertyKey2);
+			SQLProperty property = new SQLProperty(field2Name, entity.getClassName(), entity.propertyKey2);
 			property.columnType = ColumnType.INDEXED;
 			property.columnName = fk2Name;
 			property.setNullable(false);
@@ -493,24 +495,35 @@ public class BindM2MBuilder extends AbstractBuilder {
 			property.foreignParentClassName = entity.entity2Name.toString();
 			properties.add(property);
 		}
-		
-		
+
 		// @formatter:off
 		classBuilder = TypeSpec.classBuilder(entityClassName).addModifiers(Modifier.PUBLIC)
 				.addAnnotation(AnnotationSpec.builder(BindSqlType.class).addMember("name", "$S", tableName).build());
 		// @formatter:on
-	
+
+		if (entity.immutable) {
+			// create constructor
+			Builder constructorBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC);
+			for (SQLProperty p : properties) {
+				constructorBuilder
+						.addParameter(ParameterSpec.builder(p.getPropertyType().getTypeName(), p.getName()).build());
+				constructorBuilder.addStatement("this.$L=$L", p.getName(), p.getName());
+			}
+			classBuilder.addMethod(constructorBuilder.build());
+		}
+
+		Modifier fieldModifier = entity.immutable ? Modifier.PRIVATE : Modifier.PUBLIC;
+
 		// javadoc for class
 		classBuilder.addJavadoc("<p>");
 		classBuilder.addJavadoc("\nGenerated entity implementation for <code>$L</code>\n", entity.name);
 		classBuilder.addJavadoc("</p>\n");
 		JavadocUtility.generateJavadocGeneratedBy(classBuilder);
-		// classBuilder.addJavadoc(" @see $T\n",
-		// TypeUtility.className(entity.getElement().getQualifiedName().toString()));
+		// classBuilder.addJavadoc(" @see $T\n",		
 
 		{
 			// @formatter:off
-			FieldSpec fieldSpec = FieldSpec.builder(entity.propertyPrimaryKey, entity.idName, Modifier.PUBLIC)
+			FieldSpec fieldSpec = FieldSpec.builder(entity.propertyPrimaryKey, entity.idName, fieldModifier)
 					.addJavadoc("Primary key\n")
 					.addAnnotation(AnnotationSpec.builder(BindSqlColumn.class)
 							.addMember("columnType", "$T.$L", ColumnType.class, ColumnType.PRIMARY_KEY).build())
@@ -522,7 +535,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		{
 			// @formatter:off
 			FieldSpec fieldSpec = FieldSpec
-					.builder(entity.propertyKey1, field1Name, Modifier.PUBLIC)
+					.builder(entity.propertyKey1, field1Name, fieldModifier)
 					.addJavadoc("Foreign key to $T model class\n", entity.entity1Name)
 					.addAnnotation(AnnotationSpec.builder(BindSqlColumn.class)
 							.addMember(AnnotationAttributeType.PARENT_ENTITY.getValue(), "$T.class", entity.entity1Name)
@@ -537,7 +550,7 @@ public class BindM2MBuilder extends AbstractBuilder {
 		{
 			// @formatter:off
 			FieldSpec fieldSpec = FieldSpec
-					.builder(entity.propertyKey2, field2Name, Modifier.PUBLIC)
+					.builder(entity.propertyKey2, field2Name, fieldModifier)
 					.addJavadoc("Foreign key to $T model class\n", entity.entity2Name)
 					.addAnnotation(AnnotationSpec.builder(BindSqlColumn.class)
 							.addMember(AnnotationAttributeType.PARENT_ENTITY.getValue(), "$T.class", entity.entity2Name)
@@ -548,16 +561,33 @@ public class BindM2MBuilder extends AbstractBuilder {
 			// @formatter:on
 			classBuilder.addField(fieldSpec);
 		}
-		TypeSpec typeSpec = classBuilder.build();		
-		
-		JavaWriterHelper.writeJava2File(filer, entity.getPackageName(), typeSpec);
+
+		if (entity.immutable) {
+			// getters
+			for (SQLProperty p : properties) {
+				Builder methodBuilder = MethodSpec
+						.methodBuilder("get" + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, p.getName()))
+						.returns(p.getPropertyType().getTypeName()).addStatement("return this.$L", p.getName())
+						.addModifiers(Modifier.PUBLIC);
+
+				classBuilder.addMethod(methodBuilder.build());
+			}
+		}
+
+		TypeSpec typeSpec = classBuilder.build();
+
+		try {
+			JavaWriterHelper.writeJava2File(filer, entity.getPackageName(), typeSpec);
+		} catch (IOException e) {
+			throw new KriptonRuntimeException(e);
+		}
 
 		GeneratedTypeElement entityElement = new GeneratedTypeElement(entity.getPackageName(), classBuilder.build(),
 				tableName, fk1Name + ", " + fk2Name);
-	
+
 		entityElement.properties = properties;
-			
-		entityResult.add(entityElement);			
+
+		entityResult.add(entityElement);
 	}
 
 }

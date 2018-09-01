@@ -47,6 +47,9 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    *
    * <pre>SELECT name, id FROM person WHERE type_name=${bean.name} ORDER BY name</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>name</dt><dd>is associated to bean's property <strong>name</strong></dd>
@@ -64,13 +67,14 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public List<Person> selectIncludeOne(Person bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_INCLUDE_ONE_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(bean.name);
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -82,13 +86,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -111,12 +117,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT birth_city, birth_day, surname, type_name FROM person ORDER BY name</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -130,12 +140,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public List<Person> selectExcludeOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_EXCLUDE_ONE_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -147,13 +158,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -180,10 +193,11 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, id) VALUES (:bean.name, :bean.id)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -200,6 +214,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public void insertIncludeOne(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertIncludeOnePreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, id) VALUES (?, ?)";
@@ -246,11 +261,13 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertIncludeOnePreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (birth_city, birth_day, surname, type_name) VALUES (:bean.birthCity, :bean.birthDay, :bean.surname, :bean.typeName)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -269,6 +286,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
    */
   @Override
   public void insertExcludeOne(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertExcludeOnePreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (birth_city, birth_day, surname, type_name) VALUES (?, ?, ?, ?)";
@@ -317,14 +335,16 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertExcludeOnePreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, id=:id</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>id</dt><dd>is mapped to <strong>:bean.id</strong></dd>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
@@ -377,10 +397,10 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET birth_city=:birthCity, birth_day=:birthDay, surname=:surname, type_name=:typeName</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>birth_city</dt><dd>is mapped to <strong>:bean.birthCity</strong></dd>
    * 	<dt>birth_day</dt><dd>is mapped to <strong>:bean.birthDay</strong></dd>

@@ -2,9 +2,10 @@ package com.abubusoft.kripton.example01;
 
 import java.util.Date;
 
-import com.abubusoft.kripton.BindTypeAdapter;
+import com.abubusoft.kripton.TypeAdapter;
 
-public class DateAdapter implements BindTypeAdapter<Date, Long> {
+
+public class DateAdapter implements TypeAdapter<Date, Long> {
 
 	@Override
 	public Date toJava(Long dataValue) {

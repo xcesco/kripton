@@ -22,6 +22,7 @@ import java.util.List;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.annotation.BindType;
+import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.core.reflect.TypeVariableResolver;
 import com.squareup.javapoet.TypeName;
 
@@ -32,10 +33,44 @@ import com.squareup.javapoet.TypeName;
  */
 @BindType
 public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElement> implements ModelElement, ModelWithAnnotation {
+	
+
+	/** The full collection of properties, included the disable and other properties */
+	List<E> immutableCollection = new ArrayList<>();
+
+
+	public List<E> getImmutableCollection() {
+		return immutableCollection;
+	}
+
+
+	/**
+	 * Find property by name.
+	 *
+	 * @param name the name
+	 * @return the t
+	 */
+	public E findImmutablePropertyByName(String name) {
+		String lcName = name.toLowerCase();
+		for (E item : immutableCollection) {
+			if (item.getName().toLowerCase().equals(lcName)) {
+				return item;
+			}
+		}
+
+		return null;
+	}
 
 	/** The annotations. */
 	protected List<ModelAnnotation> annotations;
 	
+	List<Pair<String, TypeName>> immutableConstructors;
+	
+	public List<Pair<String, TypeName>> getImmutableConstructors() {
+		return immutableConstructors;
+	}
+	
+
 	/**
 	 * Gets the annotations.
 	 *
@@ -47,6 +82,21 @@ public class ModelClass<E extends ModelProperty> extends ModelBucket<E, TypeElem
 
 	/** The type variable resolver. */
 	protected TypeVariableResolver typeVariableResolver;
+
+	boolean emptyContructor;
+
+	/**
+	 * true if all property are writable
+	 */
+	boolean allPropertyWritable;
+	
+	public boolean isImmutablePojo() {
+		return !isMutablePojo();
+	}
+
+	public boolean isMutablePojo() {
+		return emptyContructor && allPropertyWritable;
+	}
 
 	/**
 	 * Instantiates a new model class.

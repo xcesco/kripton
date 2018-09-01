@@ -148,7 +148,7 @@ public class TestPaginatedResult extends AbstractBindSQLiteProcessorTest {
 	@Test
 	public void testErr5() throws Throwable {
 		this.expectedException(InvalidMethodSignException.class);
-		buildDataSourceProcessorTest(Err5PersonDataSource.class, Err5PersonDAO.class, Person.class);
+		buildDataSourceProcessorTest(Err5PersonDataSource.class, Err5PersonDAO.class, Person.class, Err4Person.class);
 	}
 
 }

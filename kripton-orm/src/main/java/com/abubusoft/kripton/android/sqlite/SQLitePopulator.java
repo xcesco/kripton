@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.abubusoft.kripton.android.sqlite;
 
-import android.database.sqlite.SQLiteDatabase;
-
 /**
  * This simple interface is needed to implements populators executed after
  * database creation. Database used as parameter is already opened and it will
@@ -28,9 +26,7 @@ import android.database.sqlite.SQLiteDatabase;
 public interface SQLitePopulator {
 
 	/**
-	 * Execute
-	 * 
-	 * @param database
+	 * Execute the populator.
 	 */
-	void execute(SQLiteDatabase database);
+	void execute();
 }

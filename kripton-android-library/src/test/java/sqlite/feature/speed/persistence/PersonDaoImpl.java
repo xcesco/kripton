@@ -38,6 +38,9 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    *
    * <pre>SELECT id, name, surname FROM person</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -49,12 +52,15 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    */
   @Override
   public List<Person> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -79,12 +85,16 @@ public class PersonDaoImpl extends Dao implements PersonDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name, surname FROM person WHERE id=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -104,6 +114,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    */
   @Override
   public Person selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL2;
@@ -111,6 +122,8 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -129,10 +142,11 @@ public class PersonDaoImpl extends Dao implements PersonDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -149,6 +163,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
    */
   @Override
   public Person insert(Person bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
@@ -160,16 +175,18 @@ public class PersonDaoImpl extends Dao implements PersonDao {
 
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return bean;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, surname=:surname WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>

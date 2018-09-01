@@ -29,6 +29,9 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
    *
    * <pre>select * from person where id=:id #{DYNAMIC_WHERE}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -56,6 +59,7 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
    */
   @Override
   public List<Person> select(long id, String where) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("select * from person");
@@ -75,7 +79,7 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -87,13 +91,15 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -122,6 +128,7 @@ public class PersonDAO2Impl extends Dao implements PersonDAO2 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

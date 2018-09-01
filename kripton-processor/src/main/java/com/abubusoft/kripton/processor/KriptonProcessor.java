@@ -28,6 +28,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.common.StringUtils;
+import com.sun.source.util.Trees;
 
 /**
  * Annotation processor for json/xml/etc.
@@ -35,12 +36,12 @@ import com.abubusoft.kripton.common.StringUtils;
  * @author Francesco Benincasa (info@abubusoft.com)
  */
 public class KriptonProcessor extends BaseProcessor {
-	
-	
+
 	@Override
 	public Set<String> getSupportedOptions() {
 		Set<String> options = new LinkedHashSet<String>();
 
+		options.add(KriptonOptions.DEBUG);
 		options.addAll(typeProcessor.getSupportedOptions());
 		options.addAll(sharedPreferencesProcessor.getSupportedOptions());
 		options.addAll(dataSourceProcessor.getSupportedOptions());
@@ -61,7 +62,11 @@ public class KriptonProcessor extends BaseProcessor {
 	/** The type processor. */
 	private BindTypeSubProcessor typeProcessor = new BindTypeSubProcessor();
 
-	/* (non-Javadoc)
+	public static Trees trees;
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.BaseProcessor#getSupportedAnnotationClasses()
 	 */
 	protected Set<Class<? extends Annotation>> getSupportedAnnotationClasses() {
@@ -74,25 +79,30 @@ public class KriptonProcessor extends BaseProcessor {
 
 		return annotations;
 	}
-	
+
 	/**
 	 * Retrieve all supported annotation classes. Added for IntelliJ plugin
 	 * 
-	 * @return
-	 * 		set of all supported annotation classes
+	 * @return set of all supported annotation classes
 	 */
 	public static Set<Class<? extends Annotation>> getAllSupportedAnnotationClasses() {
-		KriptonProcessor processor=new KriptonProcessor();
+		KriptonProcessor processor = new KriptonProcessor();
 
 		return processor.getSupportedAnnotationClasses();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abubusoft.kripton.processor.BaseProcessor#init(javax.annotation.processing.ProcessingEnvironment)
 	 */
 	@Override
 	public synchronized void init(ProcessingEnvironment processingEnv) {
 		super.init(processingEnv);
+
+		KriptonProcessor.trees = Trees.instance(processingEnv);
+
+		KriptonOptions.init(this, processingEnv);
 
 		typeProcessor.init(processingEnv);
 		many2ManyProcessor.init(processingEnv);
@@ -102,15 +112,16 @@ public class KriptonProcessor extends BaseProcessor {
 		count = 0;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.annotation.processing.AbstractProcessor#process(java.util.Set, javax.annotation.processing.RoundEnvironment)
 	 */
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
-			count++;			
-			if (count ==1) {
-
+			count++;
+			if (count == 1) {
 
 				many2ManyProcessor.clear();
 				typeProcessor.clear();
@@ -131,25 +142,32 @@ public class KriptonProcessor extends BaseProcessor {
 				// dump(1, roundEnv);
 				dataSourceProcessor.analyzeRound(annotations, roundEnv);
 				dataSourceProcessor.process(annotations, roundEnv);
-				dataSourceProcessor.generatedClasses(roundEnv);
-			} else if (count==2) {
+				dataSourceProcessor.generateClasses(roundEnv);
+			} else if (count == 2) {
 				dataSourceProcessor.analyzeSecondRound(annotations, roundEnv);
 				dataSourceProcessor.processSecondRound(annotations, roundEnv);
-				dataSourceProcessor.generatedClassesSecondRound(roundEnv);
+				dataSourceProcessor.generateClassesSecondRound(roundEnv);
 			}
 
-			return false;
+			return true;
 		} catch (Throwable e) {
 			String msg = StringUtils.nvl(e.getMessage());
 			error(null, e.getClass().getCanonicalName() + ": " + msg);
-			
+
 			if (DEBUG_MODE) {
-				logger.log(Level.SEVERE, msg);
-				e.printStackTrace();
+				if (JUNIT_TEST_MODE) {
+					logger.log(Level.SEVERE, msg);
+					//e.printStackTrace();
+				} else {
+					StackTraceElement[] stackTrace = e.getStackTrace();
+					for (StackTraceElement item : stackTrace) {
+						error(null, String.format("\tat %s.%s(%s:%s)", item.getClassName(), item.getMethodName(), item.getFileName(), item.getLineNumber()));
+					}					
+				}
 			}
+			return false;
 		}
 
-		return false;
 	}
 
 }

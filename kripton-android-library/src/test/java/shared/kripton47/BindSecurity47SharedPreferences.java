@@ -88,16 +88,16 @@ public class BindSecurity47SharedPreferences extends AbstractSharedPreference {
     Security47 bean=new Security47();
      {
       String temp=prefs.getString("user_identity", null);
-      bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): bean.userIdentity;
+      bean.userIdentity=StringUtils.hasText(temp) ? parseUserIdentity(temp): defaultBean.userIdentity;
     }
 
-    bean.deviceUid=prefs.getString("device_uid", bean.deviceUid);
+    bean.deviceUid=prefs.getString("device_uid", defaultBean.deviceUid);
      {
       String temp=prefs.getString("authorization_token", null);
-      bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): bean.authorizationToken;
+      bean.authorizationToken=StringUtils.hasText(temp) ? parseAuthorizationToken(temp): defaultBean.authorizationToken;
     }
 
-    bean.fcmId=prefs.getString("fcm_id", bean.fcmId);
+    bean.fcmId=prefs.getString("fcm_id", defaultBean.fcmId);
 
     return bean;
   }

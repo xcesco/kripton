@@ -22,8 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
-
-// TODO: Auto-generated Javadoc
+ 
 /**
  * The Class DateUtils.
  */
@@ -41,8 +40,7 @@ public class DateUtils {
 	/** The short. */
 	public static String SHORT = "yyyy-MM-dd";
 
-	/** The time zone. */
-	public static String TIME_ZONE = "GMT";
+
 
 	/**
 	 * Read.
@@ -60,7 +58,7 @@ public class DateUtils {
 		}
 		return date;
 	}
-
+	
 	/**
 	 * Write.
 	 *
@@ -70,6 +68,18 @@ public class DateUtils {
 	public static String write(Date value) {
 		if (value==null) return null;
 		String text = ThreadLocalDateFormatter.format(value, FULL);
+		return text;
+	}
+	
+	/**
+	 * Write.
+	 *
+	 * @param value the value
+	 * @return the string
+	 */
+	public static String writeShort(Date value) {
+		if (value==null) return null;
+		String text = ThreadLocalDateFormatter.format(value, SHORT);
 		return text;
 	}
 	
@@ -117,7 +127,7 @@ public class DateUtils {
 			DateFormat df = formatterMap.get(pattern);
 			if (null == df) {
 				df = new SimpleDateFormat(pattern);
-				TimeZone timeZoneGMT = TimeZone.getTimeZone(DateUtils.TIME_ZONE);
+				TimeZone timeZoneGMT = TimeZone.getDefault();
 				df.setTimeZone(timeZoneGMT);
 				formatterMap.put(pattern, df);
 			}

@@ -68,7 +68,7 @@ public class BindApp2Preferences extends AbstractSharedPreference {
    */
   public App2Preferences read() {
     App2Preferences bean=new App2Preferences();
-    bean.field2=PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("field2", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(bean.field2)));
+    bean.field2=PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toJava(prefs.getString("field2", PrefsTypeAdapterUtils.getAdapter(IntTypeAdapter.class).toData(defaultBean.field2)));
 
     return bean;
   }

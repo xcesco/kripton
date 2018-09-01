@@ -20,9 +20,9 @@ public class UserDeviceTable implements SQLiteTable {
    * DDL to create table user_2_device
    * </p>
    *
-   * <pre>CREATE TABLE user_2_device (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, device_id INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE, FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE); CREATE INDEX idx_user_2_device_user_id ON user_2_device(user_id); CREATE INDEX idx_user_2_device_device_id ON user_2_device(device_id); CREATE UNIQUE INDEX idx_user_2_device_0 on user_2_device (user_id, device_id);</pre>
+   * <pre>CREATE TABLE user_2_device (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, device_id INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE, FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE, UNIQUE (user_id, device_id)); CREATE INDEX idx_user_2_device_user_id ON user_2_device(user_id); CREATE INDEX idx_user_2_device_device_id ON user_2_device(device_id); CREATE UNIQUE INDEX idx_user_2_device_0 on user_2_device (user_id, device_id);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE user_2_device (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, device_id INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE, FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE); CREATE INDEX idx_user_2_device_user_id ON user_2_device(user_id); CREATE INDEX idx_user_2_device_device_id ON user_2_device(device_id); CREATE UNIQUE INDEX idx_user_2_device_0 on user_2_device (user_id, device_id);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE user_2_device (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, device_id INTEGER NOT NULL, FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE, FOREIGN KEY(device_id) REFERENCES device(id) ON DELETE CASCADE, UNIQUE (user_id, device_id)); CREATE INDEX idx_user_2_device_user_id ON user_2_device(user_id); CREATE INDEX idx_user_2_device_device_id ON user_2_device(device_id); CREATE UNIQUE INDEX idx_user_2_device_0 on user_2_device (user_id, device_id);";
 
   /**
    * <p>

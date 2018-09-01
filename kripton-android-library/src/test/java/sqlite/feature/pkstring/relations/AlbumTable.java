@@ -20,9 +20,9 @@ public class AlbumTable implements SQLiteTable {
    * DDL to create table album
    * </p>
    *
-   * <pre>CREATE TABLE album (id TEXT PRIMARY KEY, name TEXT);</pre>
+   * <pre>CREATE TABLE album (id TEXT PRIMARY KEY NOT NULL, name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE album (id TEXT PRIMARY KEY, name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE album (id TEXT PRIMARY KEY NOT NULL, name TEXT);";
 
   /**
    * <p>

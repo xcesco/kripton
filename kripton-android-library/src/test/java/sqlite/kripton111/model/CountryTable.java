@@ -20,9 +20,9 @@ public class CountryTable implements SQLiteTable {
    * DDL to create table country
    * </p>
    *
-   * <pre>CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT);</pre>
+   * <pre>CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE country (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, area INTEGER, calling_code TEXT NOT NULL, code TEXT UNIQUE NOT NULL, name TEXT NOT NULL, region TEXT);";
 
   /**
    * <p>

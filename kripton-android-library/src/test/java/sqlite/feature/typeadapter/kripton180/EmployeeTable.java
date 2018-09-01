@@ -20,9 +20,9 @@ public class EmployeeTable implements SQLiteTable {
    * DDL to create table employees
    * </p>
    *
-   * <pre>CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, birth_date TEXT, field_boolean INTEGER, field_byte INTEGER, field_byte_array BLOB, field_character INTEGER, field_double REAL, field_float REAL, field_integer INTEGER, field_long INTEGER, field_short INTEGER, field_string TEXT, first_name TEXT, hire_date TEXT, last_name TEXT);</pre>
+   * <pre>CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, address TEXT, birth_date TEXT, field_boolean INTEGER, field_byte INTEGER, field_byte_array BLOB, field_character INTEGER, field_double REAL, field_float REAL, field_integer INTEGER, field_long INTEGER, field_short INTEGER, field_string TEXT, first_name TEXT, hire_date TEXT, last_name TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT, address TEXT, birth_date TEXT, field_boolean INTEGER, field_byte INTEGER, field_byte_array BLOB, field_character INTEGER, field_double REAL, field_float REAL, field_integer INTEGER, field_long INTEGER, field_short INTEGER, field_string TEXT, first_name TEXT, hire_date TEXT, last_name TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE employees (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, address TEXT, birth_date TEXT, field_boolean INTEGER, field_byte INTEGER, field_byte_array BLOB, field_character INTEGER, field_double REAL, field_float REAL, field_integer INTEGER, field_long INTEGER, field_short INTEGER, field_string TEXT, first_name TEXT, hire_date TEXT, last_name TEXT);";
 
   /**
    * <p>

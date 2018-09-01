@@ -42,6 +42,9 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    *
    * <pre>SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE channel_id = ${channelId}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link MessageEntity}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -67,13 +70,14 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    */
   @Override
   public List<MessageEntity> selectByChannel(long channelId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_CHANNEL_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(channelId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -85,13 +89,15 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<MessageEntity> resultList=new ArrayList<MessageEntity>(_cursor.getCount());
       MessageEntity resultBean=null;
@@ -130,13 +136,14 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE message SET channel_id=:channelId, channel_uid=:channelUid, face_uid=:faceUid, owner_type=:ownerType, owner_uid=:ownerUid, text=:text, type=:type, uid=:uid, update_time=:updateTime WHERE id = ${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>channel_id</dt><dd>is mapped to <strong>:bean.channelId</strong></dd>
    * 	<dt>channel_uid</dt><dd>is mapped to <strong>:bean.channelUid</strong></dd>
@@ -212,7 +219,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (:bean.channelId, :bean.channelUid, :bean.faceUid, :bean.ownerType, :bean.ownerUid, :bean.text, :bean.type, :bean.uid, :bean.updateTime)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -236,6 +243,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    */
   @Override
   public void insert(MessageEntity bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO message (channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -289,13 +297,18 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, channel_id, channel_uid, face_uid, owner_type, owner_uid, text, type, uid, update_time FROM message WHERE uid = ${uid}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link MessageEntity}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -322,13 +335,14 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
    */
   @Override
   public MessageEntity selectByUid(String uid) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_UID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((uid==null?"":uid));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -340,13 +354,15 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       MessageEntity resultBean=null;
 
@@ -379,6 +395,7 @@ public class DaoMessageImpl extends Dao implements DaoMessage {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   public static void clearCompiledStatements() {

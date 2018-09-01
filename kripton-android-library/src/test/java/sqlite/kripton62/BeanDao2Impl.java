@@ -65,6 +65,9 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean2</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean2}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -85,12 +88,13 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public Bean2 selectOne() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -102,13 +106,15 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean2 resultBean=null;
 
@@ -145,12 +151,16 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean2 WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean2}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -180,13 +190,14 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public void selectOne(int id, OnReadBeanListener<Bean2> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -198,13 +209,15 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean2 resultBean=new Bean2();
       if (_cursor.moveToFirst()) {
 
@@ -225,7 +238,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.value=null;
           resultBean.setValueBeanSet(null);
           resultBean.setValueBigDecimalSet(null);
@@ -256,12 +269,16 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean2 WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean2}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -291,13 +308,14 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public void selectOne(long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -309,13 +327,15 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -325,12 +345,16 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean2 WHERE id = ${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean2}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -359,13 +383,14 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public List<Bean2> selectList(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_LIST_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -377,13 +402,15 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean2> resultList=new ArrayList<Bean2>(_cursor.getCount());
       Bean2 resultBean=null;
@@ -426,13 +453,14 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE bean2 SET value=:value, value_bean_set=:valueBeanSet, value_big_decimal_set=:valueBigDecimalSet, value_byte_set=:valueByteSet, value_character_set=:valueCharacterSet, value_double_set=:valueDoubleSet, value_enum_type_set=:valueEnumTypeSet, value_float_set=:valueFloatSet, value_integer_set=:valueIntegerSet, value_short_set=:valueShortSet, value_string_set=:valueStringSet WHERE id=${value.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>value</dt><dd>is mapped to <strong>:value.value</strong></dd>
    * 	<dt>value_bean_set</dt><dd>is mapped to <strong>:value.valueBeanSet</strong></dd>
@@ -512,7 +540,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO bean2 (value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set) VALUES (:bean.value, :bean.valueBeanSet, :bean.valueBigDecimalSet, :bean.valueByteSet, :bean.valueCharacterSet, :bean.valueDoubleSet, :bean.valueEnumTypeSet, :bean.valueFloatSet, :bean.valueIntegerSet, :bean.valueShortSet, :bean.valueStringSet)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -539,6 +567,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public long insert(Bean2 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean2 (value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -594,9 +623,11 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -615,6 +646,7 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public long insert(HashSet<BigDecimal> valueBigDecimalSet) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO bean2 (value_big_decimal_set) VALUES (?)";
@@ -662,12 +694,16 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement2, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, value, value_bean_set, value_big_decimal_set, value_byte_set, value_character_set, value_double_set, value_enum_type_set, value_float_set, value_integer_set, value_short_set, value_string_set FROM bean2 WHERE value=${valueBigDecimalSet}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean2}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -696,13 +732,14 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
    */
   @Override
   public Bean2 selectOne(HashSet<BigDecimal> valueBigDecimalSet) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL5;
     // add where arguments
     _contentValues.addWhereArgs((valueBigDecimalSet==null?"":new String(serializer1(valueBigDecimalSet),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -714,13 +751,15 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean2 resultBean=null;
 
@@ -757,12 +796,12 @@ public class BeanDao2Impl extends Dao implements BeanDao2 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM bean2 WHERE value=:valueBigDecimalSet</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

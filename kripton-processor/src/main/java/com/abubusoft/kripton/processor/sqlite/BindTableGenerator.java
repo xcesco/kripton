@@ -39,6 +39,7 @@ import com.abubusoft.kripton.common.CaseFormat;
 import com.abubusoft.kripton.common.Converter;
 import com.abubusoft.kripton.common.One;
 import com.abubusoft.kripton.common.Pair;
+import com.abubusoft.kripton.common.Triple;
 import com.abubusoft.kripton.processor.BindDataSourceSubProcessor;
 import com.abubusoft.kripton.processor.bind.BindTypeContext;
 import com.abubusoft.kripton.processor.bind.JavaWriterHelper;
@@ -120,7 +121,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			Set<GeneratedTypeElement> generatedEntities) throws Exception {
 		BindTableGenerator visitor = new BindTableGenerator(elementUtils, filer, schema);
 
-		for (SQLiteEntity item : schema.getEntities()) {
+		List<SQLiteEntity> orderedEntities = BindDataSourceBuilder.orderEntitiesList(schema);
+
+		for (SQLiteEntity item : orderedEntities) {
 			visitor.visit(schema, item);
 		}
 
@@ -151,7 +154,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		AnnotationProcessorUtilis.infoOnGeneratedClasses(BindDataSource.class, packageName, classTableName);
 		classBuilder = TypeSpec.classBuilder(classTableName).addModifiers(Modifier.PUBLIC)
-				.addSuperinterface(SQLiteTable.class);		
+				.addSuperinterface(SQLiteTable.class);
 
 		BindTypeContext context = new BindTypeContext(classBuilder, TypeUtility.typeName(packageName, classTableName),
 				Modifier.STATIC, Modifier.PRIVATE);
@@ -188,6 +191,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		String separator = "";
 		bufferTable.append(" (");
+		
+		List<String> uniqueConstraintColumn=new ArrayList<>();
 
 		// for each column, that need to be persisted on table
 		for (SQLProperty item : entity.getCollection()) {
@@ -195,18 +200,19 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			bufferTable.append(item.columnName);
 
 			// every column is a long
-			if (item.getPropertyType()==null) {
+			if (item.getPropertyType() == null) {
 				bufferTable.append(" " + SQLTransformer.lookup(TypeName.LONG).getColumnTypeAsString());
 			} else {
-				bufferTable.append(" " + SQLTransformer.lookup(item.getPropertyType().getTypeName()).getColumnTypeAsString());
+				bufferTable.append(
+						" " + SQLTransformer.lookup(item.getPropertyType().getTypeName()).getColumnTypeAsString());
 			}
 
 			switch (item.columnType) {
 			case PRIMARY_KEY:
-				bufferTable.append(" PRIMARY KEY AUTOINCREMENT");
+				bufferTable.append(" PRIMARY KEY AUTOINCREMENT NOT NULL");
 				break;
 			case PRIMARY_KEY_UNMANGED:
-				bufferTable.append(" PRIMARY KEY");
+				bufferTable.append(" PRIMARY KEY NOT NULL");
 				break;
 			case UNIQUE:
 				bufferTable.append(" UNIQUE");
@@ -216,6 +222,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 						item.columnName, entity.getTableName(), item.columnName));
 				bufferIndexesDrop.append(
 						String.format(" DROP INDEX IF EXISTS idx_%s_%s;", entity.getTableName(), item.columnName));
+				
+				uniqueConstraintColumn.add(item.columnName);
+				
 				break;
 			case STANDARD:
 				break;
@@ -225,7 +234,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			// if it is not primary key and it is not nullable, then add not
 			// null
-			if (!nullable && !(item.columnType == ColumnType.PRIMARY_KEY || item.columnType == ColumnType.PRIMARY_KEY_UNMANGED)) {
+			if (!nullable && !(item.columnType == ColumnType.PRIMARY_KEY
+					|| item.columnType == ColumnType.PRIMARY_KEY_UNMANGED)) {
 				bufferTable.append(" NOT NULL");
 			}
 
@@ -275,6 +285,10 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		// add foreign key
 		bufferTable.append(bufferForeignKey.toString());
+
+		// add contrants unique
+		bufferTable.append(String.format(", UNIQUE (%s)", StringUtils.join(uniqueConstraintColumn, ", ")));
+
 		bufferTable.append(");");
 
 		// add indexes creation one table
@@ -284,7 +298,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 		// add single column indexes (NOT UNIQUE)
 		{
-			Pair<String, String> multiIndexes = buldIndexes(entity, false, indexCounter);
+			Triple<String, String, String> multiIndexes = buildIndexes(entity, false, indexCounter);
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
 				bufferIndexesDrop.append(multiIndexes.value1 + ";");
@@ -374,8 +388,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.core.ModelElementVisitor#visit(com.
-	 * abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema,
+	 * @see com.abubusoft.kripton.processor.core.ModelElementVisitor#visit(com. abubusoft.kripton.processor.sqlite.model.SQLiteDatabaseSchema,
 	 * com.abubusoft.kripton.processor.core.ModelClass)
 	 */
 	@Override
@@ -454,10 +467,11 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 			switch (item.columnType) {
 			case PRIMARY_KEY:
 			case PRIMARY_KEY_UNMANGED:
-				bufferTable.append(" PRIMARY KEY");	
-				if (!item.isType(String.class) && item.columnType==ColumnType.PRIMARY_KEY) {
+				bufferTable.append(" PRIMARY KEY");
+				if (!item.isType(String.class) && item.columnType == ColumnType.PRIMARY_KEY) {
 					bufferTable.append(" AUTOINCREMENT");
-				} 														
+				}
+				bufferTable.append(" NOT NULL");
 				break;
 			case UNIQUE:
 				bufferTable.append(" UNIQUE");
@@ -476,7 +490,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 			// if it is not primary key and it is not nullable, then add not
 			// null
-			if (!nullable && !(item.columnType == ColumnType.PRIMARY_KEY || item.columnType == ColumnType.PRIMARY_KEY_UNMANGED)) {
+			if (!nullable && !(item.columnType == ColumnType.PRIMARY_KEY
+					|| item.columnType == ColumnType.PRIMARY_KEY_UNMANGED)) {
 				bufferTable.append(" NOT NULL");
 			}
 
@@ -504,7 +519,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 				// foreign key can ben used only with column type
 				// long/Long
-				if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE, String.class)) {
+				if (!TypeUtility.isTypeIncludedIn(item.getPropertyType().getTypeName(), Long.class, Long.TYPE,
+						String.class)) {
 					throw new InvalidForeignKeyTypeException(item);
 				}
 
@@ -531,23 +547,29 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		}
 
 		// add foreign key
-		bufferTable.append(bufferForeignKey.toString());
-		bufferTable.append(");");
-
-		// add indexes creation one table
-		if (bufferIndexesCreate.length() > 0) {
-			bufferTable.append(bufferIndexesCreate.toString());
-		}
-
+		bufferTable.append(bufferForeignKey.toString());		
+		
+				
 		// add multicolumn indexes (UNIQUE)
 		{
-			Pair<String, String> multiIndexes = buldIndexes(entity, indexVisitor.getUniqueIndexes(), true,
+			Triple<String, String, String> multiIndexes = buldIndexes(entity, indexVisitor.getUniqueIndexes(), true,
 					indexCounter);
+			
+			// add constraint unique (if present)
+			bufferTable.append(multiIndexes.value2);
+			// close the table definition
+			bufferTable.append(");");
+			
 			if (!StringUtils.isEmpty(multiIndexes.value0)) {
 				bufferTable.append(multiIndexes.value0 + ";");
 				bufferIndexesDrop.append(multiIndexes.value1 + ";");
-			}
+			}						
 		}
+		
+		// add indexes creation one table
+				if (bufferIndexesCreate.length() > 0) {
+					bufferTable.append(bufferIndexesCreate.toString());
+				}
 
 		// add multicolumn indexes (NOT UNIQUE)
 		{
@@ -558,6 +580,8 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				bufferIndexesDrop.append(multiIndexes.value1 + ";");
 			}
 		}
+				
+		
 
 		{
 			// create table SQL
@@ -650,11 +674,12 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 *            the counter
 	 * @return the pair
 	 */
-	public static Pair<String, String> buldIndexes(final SQLiteEntity entity,
+	public static Triple<String, String, String> buldIndexes(final SQLiteEntity entity,
 			ArrayList<Pair<List<String>, Boolean>> indexList, boolean unique, int counter) {
-		Pair<String, String> result = new Pair<>();
+		Triple<String, String, String> result = new Triple<>();
 		result.value0 = "";
 		result.value1 = "";
+		result.value2 = "";
 
 		if (indexList.size() == 0)
 			return result;
@@ -666,14 +691,16 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 		} else {
 			uniqueString = "";
 		}
-		
 
 		List<String> listCreateIndex = new ArrayList<>();
-		List<String> listDropIndex = new ArrayList<>();				
-		
+		List<String> listDropIndex = new ArrayList<>();
+		List<String> listUniqueConstraint = new ArrayList<>();
+
 		for (Pair<List<String>, Boolean> index : indexList) {
+			final List<String> listUniqueFields = new ArrayList<>();
+
 			String createIndex = String.format(" CREATE %sINDEX idx_%s_%s on %s (%s)", uniqueString,
-					entity.getTableName(), counter++, entity.getTableName(), StringUtils.join(index.value0,", "));
+					entity.getTableName(), counter++, entity.getTableName(), StringUtils.join(index.value0, ", "));
 			String dropIndex = String.format(" DROP INDEX IF EXISTS idx_%s_%s", entity.getTableName(), counter);
 
 			final One<Integer> fieldCounter = new One<Integer>(0);
@@ -682,6 +709,24 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 				@Override
 				public String getContextDescription() {
 					return "While table definition generation for entity " + entity.getName();
+				}
+
+				@Override
+				public String getName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getParentName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public Finder<SQLProperty> findEntityByName(String entityName) {
+					// TODO Auto-generated method stub
+					return null;
 				}
 			}, createIndex, new JQLReplacerListenerImpl(null) {
 
@@ -692,6 +737,9 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 
 					AssertKripton.assertTrue(property != null, "class '%s' in @%s(indexes) use unknown property '%s'",
 							entity.getName(), BindSqlType.class.getSimpleName(), columnName);
+
+					listUniqueFields.add(property.columnName);
+
 					return property.columnName;
 				}
 
@@ -706,16 +754,23 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 					"class '%s' have @%s(indexes) with no well formed indexes", entity.getName(),
 					BindSqlType.class.getSimpleName());
 
+			if (unique) {
+				// add unique constraint
+				listUniqueConstraint.add(String.format(", UNIQUE (%s)", StringUtils.join(listUniqueFields, ", ")));
+			}
+
 			listCreateIndex.add(createIndex);
 			listDropIndex.add(dropIndex);
 		}
 
 		result.value0 = StringUtils.join(listCreateIndex, ";");
 		result.value1 = StringUtils.join(listDropIndex, ";");
+		result.value2 = StringUtils.join(listUniqueConstraint, "");
 
 		return result;
 	}
 
+	
 	/**
 	 * A generated element can have only a primary key and two FK.
 	 *
@@ -727,15 +782,16 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	 *            the counter
 	 * @return the pair
 	 */
-	public static Pair<String, String> buldIndexes(final GeneratedTypeElement entity, boolean unique, int counter) {
-		Pair<String, String> result = new Pair<>();
+	public static Triple<String, String, String> buildIndexes(final GeneratedTypeElement entity, boolean unique, int counter) {
+		Triple<String, String, String> result = new Triple<>();
 		result.value0 = "";
 		result.value1 = "";
+		result.value2 = "";
 
 		List<String> indexes = entity.index;
 		String uniqueString;
 
-		uniqueString = "UNIQUE ";		
+		uniqueString = "UNIQUE ";
 
 		if (indexes == null || indexes.size() == 0)
 			return result;
@@ -760,8 +816,7 @@ public class BindTableGenerator extends AbstractBuilder implements ModelElementV
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abubusoft.kripton.processor.core.ModelElementVisitor#visit(com.
-	 * abubusoft.kripton.processor.core.ModelProperty)
+	 * @see com.abubusoft.kripton.processor.core.ModelElementVisitor#visit(com. abubusoft.kripton.processor.core.ModelProperty)
 	 */
 	@Override
 	public void visit(SQLProperty kriptonProperty) {

@@ -31,6 +31,9 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    *
    * <pre>select * from students where first_name like ${firstName} || '%' </pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link CollegeStudent}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -49,13 +52,14 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    */
   @Override
   public List<CollegeStudent> getStudents(String firstName) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_STUDENTS_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((firstName==null?"":firstName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -67,13 +71,15 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<CollegeStudent> resultList=new ArrayList<CollegeStudent>(_cursor.getCount());
       CollegeStudent resultBean=null;
@@ -98,12 +104,16 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, first_name, surname FROM students WHERE first_name like ${firstName} || '%' </pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link CollegeStudent}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -123,13 +133,14 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
    */
   @Override
   public List<CollegeStudent> getStudentsRaw(String firstName) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_STUDENTS_RAW_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((firstName==null?"":firstName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -141,13 +152,15 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<CollegeStudent> resultList=new ArrayList<CollegeStudent>(_cursor.getCount());
       CollegeStudent resultBean=null;
@@ -172,6 +185,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   public static void clearCompiledStatements() {

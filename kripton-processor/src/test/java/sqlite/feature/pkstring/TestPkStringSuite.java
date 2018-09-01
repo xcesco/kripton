@@ -28,6 +28,7 @@ import base.BaseProcessorTest;
 @Suite.SuiteClasses({
 	TestCompilePkString1.class,
 	TestCompilePkString2.class,
+	TestCompilePkStringRx.class,
 	
 	TestCompilePkStringError1.class,
 	TestCompilePkStringError2.class,

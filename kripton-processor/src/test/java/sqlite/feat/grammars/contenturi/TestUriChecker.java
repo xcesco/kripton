@@ -37,6 +37,7 @@ import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriChecker.UriPlaceHolderReplacerListener;
 import com.abubusoft.kripton.processor.sqlite.grammars.uri.ContentUriPlaceHolder;
 import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
+import com.squareup.javapoet.TypeName;
 
 import base.BaseProcessorTest;
 
@@ -47,16 +48,7 @@ import base.BaseProcessorTest;
 @RunWith(JUnit4.class)
 public class TestUriChecker extends BaseProcessorTest {
 
-	/** The dummy context. */
-	JQLContext dummyContext = new JQLContext() {
-
-		@Override
-		public String getContextDescription() {
-			return "test context";
-		}
-
-	};
-
+	
 	/**
 	 * Check list.
 	 *
@@ -236,15 +228,15 @@ public class TestUriChecker extends BaseProcessorTest {
 		JQL jql = new JQL();
 		jql.value = sql;
 
-		Finder<SQLProperty> finder = new Finder<SQLProperty>() {
+		final Finder<SQLProperty> finder = new Finder<SQLProperty>() {
 
 			@Override
 			public SQLProperty findPropertyByName(String name) {
 				// SQLEntity entity=new SQLEntity(null, null);
 				// entity.
-				// SQLProperty properties = new SQLProperty(entity, null, null);
-				// properties.columnName = name;
-				return null;
+				SQLProperty properties = new SQLProperty(name, null, TypeName.get(String.class));
+				properties.columnName = name;
+				return properties;
 			}
 
 			@Override
@@ -262,6 +254,33 @@ public class TestUriChecker extends BaseProcessorTest {
 			public String getTableName() {
 				// TODO Auto-generated method stub
 				return null;
+			}
+
+		};
+		
+		/** The dummy context. */
+		JQLContext dummyContext = new JQLContext() {
+
+			@Override
+			public String getContextDescription() {
+				return "test context";
+			}
+
+			@Override
+			public String getName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getParentName() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Finder<SQLProperty> findEntityByName(String entityName) {
+				return finder;
 			}
 
 		};

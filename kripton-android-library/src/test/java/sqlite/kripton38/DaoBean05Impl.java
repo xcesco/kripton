@@ -80,6 +80,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>pk</dt><dd>is associated to bean's property <strong>pk</strong></dd>
@@ -101,13 +104,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public Bean05 selectOne(Long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL1;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -119,13 +123,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean05 resultBean=null;
 
@@ -150,12 +156,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${bean.pk} and text=${bean.text}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -179,6 +189,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public Bean05 selectOne(Bean05 bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL2;
@@ -186,7 +197,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
     _contentValues.addWhereArgs(bean.getText());
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -198,13 +209,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Bean05 resultBean=null;
 
@@ -229,12 +242,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -257,13 +274,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public List<Bean05> selectAll(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -275,13 +293,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Bean05> resultList=new ArrayList<Bean05>(_cursor.getCount());
       Bean05 resultBean=null;
@@ -312,12 +332,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk FROM ws_bean WHERE text = ${text}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -335,13 +359,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public List<Long> selectPK(String text) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_P_K_SQL4;
     // add where arguments
     _contentValues.addWhereArgs((text==null?"":text));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -353,13 +378,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarListHelper - BEGIN
 
       ArrayList<Long> resultList=new ArrayList<Long>(_cursor.getCount());
 
@@ -377,12 +404,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return resultList;
     }
+    // Specialized part - SelectScalarListHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT count(*) FROM ws_bean WHERE text = ${text}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -400,13 +431,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public Long selectCount(String text) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_COUNT_SQL5;
     // add where arguments
     _contentValues.addWhereArgs((text==null?"":text));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -418,13 +450,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       Long result=null;
 
       if (_cursor.moveToFirst()) {
@@ -434,12 +468,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -463,13 +501,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void selectCursorListener(Long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_CURSOR_LISTENER_SQL6;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -481,13 +520,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -497,12 +538,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -526,13 +571,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void selectBeanListener(Long id, OnReadBeanListener<Bean05> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BEAN_LISTENER_SQL7;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -544,13 +590,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean05 resultBean=new Bean05();
       if (_cursor.moveToFirst()) {
 
@@ -565,7 +613,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         do
          {
           // reset mapping
-          // pk does not need reset
+          // pk does not need reset (it will be taken from db)
           resultBean.setBeanType(null);
           resultBean.setContent(null);
           resultBean.setCreationTime(null);
@@ -584,12 +632,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -613,13 +665,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void selectOne(Long id, OnReadCursorListener listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL8;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -631,13 +684,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectRawListenerHelper - BEGIN
 
       if (_cursor.moveToFirst()) {
 
@@ -647,12 +702,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectRawListenerHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=${id}</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -676,13 +735,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void selectOne(long id, OnReadBeanListener<Bean05> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_SQL9;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -694,13 +754,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Bean05 resultBean=new Bean05();
       if (_cursor.moveToFirst()) {
 
@@ -715,7 +777,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         do
          {
           // reset mapping
-          // pk does not need reset
+          // pk does not need reset (it will be taken from db)
           resultBean.setBeanType(null);
           resultBean.setContent(null);
           resultBean.setCreationTime(null);
@@ -734,6 +796,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -758,6 +821,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public long insertRaw(String text, byte[] content, Date creationTime) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertRawPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO ws_bean (text, content, creation_time) VALUES (?, ?, ?)";
@@ -807,10 +871,11 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertRawPreparedStatement0, _contentValues);
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO ws_bean (bean_type, content, creation_time, number, text) VALUES (:bean.beanType, :bean.content, :bean.creationTime, :bean.number, :bean.text)</pre>
    *
    * <p><code>bean.pk</code> is automatically updated because it is the primary key</p>
@@ -830,6 +895,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public void insert(Bean05 bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO ws_bean (bean_type, content, creation_time, number, text) VALUES (?, ?, ?, ?, ?)";
@@ -879,14 +945,16 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.setPk(result);
+    // Specialized Insert - InsertType - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE ws_bean SET bean_type=:beanType, content=:content, creation_time=:creationTime, number=:number, text=:text WHERE pk=${bean.pk} and text=${bean.text} and creation_time=${bean.creationTime}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>bean_type</dt><dd>is mapped to <strong>:bean.beanType</strong></dd>
    * 	<dt>content</dt><dd>is mapped to <strong>:bean.content</strong></dd>
@@ -1086,7 +1154,6 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM ws_bean WHERE pk=:uid and creation_time=:valido and creation_time=:validoIn</pre>
    *
-   *
    * <h2>Where parameters:</h2>
    * <dl>
    * 	<dt>:uid</dt><dd>is mapped to method's parameter <strong>uid</strong></dd>
@@ -1138,7 +1205,6 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM ws_bean WHERE pk=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>
@@ -1229,6 +1295,9 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    *
    * <pre>SELECT content FROM ws_bean WHERE pk=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Bean05}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>content</dt><dd>is associated to bean's property <strong>content</strong></dd>
@@ -1245,13 +1314,14 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
    */
   @Override
   public byte[] getOne(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=GET_ONE_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -1263,13 +1333,15 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       byte[] result=null;
 
       if (_cursor.moveToFirst()) {
@@ -1279,6 +1351,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**

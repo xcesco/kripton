@@ -38,7 +38,7 @@ public class CityDAOImpl extends Dao implements CityDAO {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO city (name) VALUES (:bean.name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -54,6 +54,7 @@ public class CityDAOImpl extends Dao implements CityDAO {
    */
   @Override
   public void insertBean(City bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertBeanPreparedStatement0==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO city (name) VALUES (?)";
@@ -99,7 +100,9 @@ public class CityDAOImpl extends Dao implements CityDAO {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertBeanPreparedStatement0, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
@@ -151,6 +154,9 @@ public class CityDAOImpl extends Dao implements CityDAO {
    *
    * <pre>select * from city where id = (select id from person where id=${personId} )</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link City}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -168,13 +174,14 @@ public class CityDAOImpl extends Dao implements CityDAO {
    */
   @Override
   public City selectCityFromPerson(long personId) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_CITY_FROM_PERSON_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -186,13 +193,15 @@ public class CityDAOImpl extends Dao implements CityDAO {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       City resultBean=null;
 
@@ -209,6 +218,7 @@ public class CityDAOImpl extends Dao implements CityDAO {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

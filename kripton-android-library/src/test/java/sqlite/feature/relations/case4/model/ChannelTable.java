@@ -30,9 +30,9 @@ public class ChannelTable implements SQLiteTable {
    * DDL to create table channel
    * </p>
    *
-   * <pre>CREATE TABLE channel (id INTEGER PRIMARY KEY AUTOINCREMENT, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT, pub_date TEXT, title TEXT);</pre>
+   * <pre>CREATE TABLE channel (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT, pub_date TEXT, title TEXT);</pre>
    */
-  public static final String CREATE_TABLE_SQL = "CREATE TABLE channel (id INTEGER PRIMARY KEY AUTOINCREMENT, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT, pub_date TEXT, title TEXT);";
+  public static final String CREATE_TABLE_SQL = "CREATE TABLE channel (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, copyright TEXT, description TEXT, image BLOB, language TEXT, last_build_date TEXT, link TEXT, pub_date TEXT, title TEXT);";
 
   /**
    * <p>

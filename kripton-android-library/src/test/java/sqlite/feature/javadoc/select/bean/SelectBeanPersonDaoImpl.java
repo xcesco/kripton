@@ -61,6 +61,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -73,12 +76,13 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    */
   @Override
   public List<Person> selectAllBeans() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_BEANS_SQL1;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -90,13 +94,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
@@ -123,6 +129,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
@@ -193,6 +200,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT count(*) FROM person WHERE id=${love.id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>count(*)</dt><dd>no bean's property is associated</dd>
@@ -209,13 +219,14 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    */
   @Override
   public int selectAllBeansCount(Person bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_BEANS_COUNT_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -227,13 +238,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectScalarHelper - BEGIN
       int result=0;
 
       if (_cursor.moveToFirst()) {
@@ -243,6 +256,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       return result;
     }
+    // Specialized part - SelectScalarHelper - END
   }
 
   /**
@@ -327,6 +341,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -346,13 +363,14 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    */
   @Override
   public Person selectOneBean(Person benza) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ONE_BEAN_SQL3;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(benza.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -364,13 +382,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -391,6 +411,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -475,6 +496,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT person_name FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>person_name</dt><dd>is associated to bean's property <strong>personname</strong></dd>
@@ -498,6 +522,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    */
   @Override
   public Person selectOneBeanWithDynamic(Person bean, String where) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT person_name FROM person");
@@ -517,7 +542,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -529,13 +554,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -550,6 +577,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -634,6 +662,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} #{DYNAMIC_WHERE}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -662,6 +693,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    */
   @Override
   public Person selectOneBeanWithDynamicAndArgs(Person bean, String where, String[] args) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
@@ -688,7 +720,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -700,13 +732,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -727,6 +761,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -818,6 +853,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -844,6 +882,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    */
   @Override
   public Person selectOneBeanWithDynamicOrder(Person bean, String order) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
@@ -867,7 +906,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -879,13 +918,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -906,6 +947,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -996,6 +1038,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>SELECT id, person_name, person_surname, student FROM person WHERE id=${bean.id} ORDER BY #{DYNAMIC_ORDER_BY}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1024,6 +1069,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
   @Override
   public void selectOneBeanWithDynamicOrderAndListener(Person bean, String order,
       OnReadBeanListener<Person> listener) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     StringBuilder _sqlBuilder=sqlBuilder();
     _sqlBuilder.append("SELECT id, person_name, person_surname, student FROM person");
@@ -1047,7 +1093,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -1059,13 +1105,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListenerHelper - BEGIN
       Person resultBean=new Person();
       if (_cursor.moveToFirst()) {
 
@@ -1078,7 +1126,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
         do
          {
           // reset mapping
-          // id does not need reset
+          // id does not need reset (it will be taken from db)
           resultBean.setPersonName(null);
           resultBean.setPersonSurname(null);
           resultBean.setStudent(false);
@@ -1093,6 +1141,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
         } while (_cursor.moveToNext());
       }
     }
+    // Specialized part - SelectBeanListenerHelper - END
   }
 
   /**
@@ -1183,6 +1232,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>select * from person where id=${bean.id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1202,13 +1254,14 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    */
   @Override
   public Person selectWithJQL(Person bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_WITH_J_Q_L_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -1220,13 +1273,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -1247,6 +1302,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
@@ -1331,6 +1387,9 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    *
    * <pre>select * from person where id=${bean.id} and id in (select id from person)</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Person}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -1350,13 +1409,14 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
    */
   @Override
   public Person selectWithJQLAndInnerSQL(Person bean) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_WITH_J_Q_L_AND_INNER_S_Q_L_SQL5;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -1368,13 +1428,15 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Person resultBean=null;
 
@@ -1395,6 +1457,7 @@ public class SelectBeanPersonDaoImpl extends Dao implements SelectBeanPersonDao 
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**

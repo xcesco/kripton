@@ -102,9 +102,6 @@ public class ObjectBindTransform extends AbstractBindTransform {
 	 * @param onString the on string
 	 */
 	void generateSerializeInternal(BindTypeContext context, MethodSpec.Builder methodBuilder, String serializerName, TypeName beanClass, String beanName, BindProperty property, boolean onString) {
-		// TODO QUA
-		// TypeName typeName = resolveTypeName(property.getParent(),
-		// property.getPropertyType().getTypeName());
 		TypeName typeName = property.getPropertyType().getTypeName();
 
 		String bindName = context.getBindMapperName(context, typeName);

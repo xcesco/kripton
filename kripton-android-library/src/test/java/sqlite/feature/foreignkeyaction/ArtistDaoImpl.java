@@ -40,6 +40,9 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    *
    * <pre>SELECT id, name FROM artist WHERE id=${id}</pre>
    *
+   * <h2>Mapped class:</h2>
+   * {@link Artist}
+   *
    * <h2>Projected columns:</h2>
    * <dl>
    * 	<dt>id</dt><dd>is associated to bean's property <strong>id</strong></dd>
@@ -57,13 +60,14 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    */
   @Override
   public Artist selectById(long id) {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_BY_ID_SQL1;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -75,13 +79,15 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanHelper - BEGIN
 
       Artist resultBean=null;
 
@@ -98,12 +104,16 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       }
       return resultBean;
     }
+    // Specialized part - SelectBeanHelper - END
   }
 
   /**
    * <h2>Select SQL:</h2>
    *
    * <pre>SELECT id, name FROM artist</pre>
+   *
+   * <h2>Mapped class:</h2>
+   * {@link Artist}
    *
    * <h2>Projected columns:</h2>
    * <dl>
@@ -115,12 +125,13 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    */
   @Override
   public List<Artist> selectAll() {
+    // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
     String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
-    // log section BEGIN
+    // log section for select BEGIN
     if (_context.isLogEnabled()) {
       // manage log
       Logger.info(_sql);
@@ -132,13 +143,15 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
       }
       // log for where parameters -- END
     }
-    // log section END
+    // log section for select END
     try (Cursor _cursor = database().rawQuery(_sql, _sqlArgs)) {
       // log section BEGIN
       if (_context.isLogEnabled()) {
         Logger.info("Rows found: %s",_cursor.getCount());
       }
       // log section END
+      // common part generation - END
+      // Specialized part - SelectBeanListHelper - BEGIN
 
       ArrayList<Artist> resultList=new ArrayList<Artist>(_cursor.getCount());
       Artist resultBean=null;
@@ -161,13 +174,14 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
 
       return resultList;
     }
+    // Specialized part - SelectBeanListHelper - END
   }
 
   /**
-   * <h2>SQL update:</h2>
+   * <h2>SQL update</h2>
    * <pre>UPDATE artist SET name=:name WHERE id=${bean.id}</pre>
    *
-   * <h2>Updated columns:</h2>
+   * <h2>Updated columns</h2>
    * <dl>
    * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
    * </dl>
@@ -227,7 +241,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
   }
 
   /**
-   * <p>SQL insert:</p>
+   * <h2>SQL insert</h2>
    * <pre>INSERT INTO artist (name) VALUES (:name)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
@@ -244,6 +258,7 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
    */
   @Override
   public long insert(Artist bean) {
+    // Specialized Insert - InsertType - BEGIN
     if (insertPreparedStatement1==null) {
       // generate static SQL for statement
       String _sql="INSERT INTO artist (name) VALUES (?)";
@@ -289,15 +304,16 @@ public class ArtistDaoImpl extends Dao implements ArtistDao {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement1, _contentValues);
+    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
     bean.id=result;
 
     return result;
+    // Specialized Insert - InsertType - END
   }
 
   /**
    * <h2>SQL delete</h2>
    * <pre>DELETE FROM artist WHERE id=:id</pre>
-   *
    *
    * <h2>Where parameters:</h2>
    * <dl>

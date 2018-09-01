@@ -39,6 +39,8 @@ import com.abubusoft.kripton.android.Logger;
  * <tr><td><pre>content://com.abubusoft.contentprovidersample.provider/cheese/${id}</pre></td><td>{@link CheeseDaoImpl#deleteById3ForContentProvider}</td></tr>
  * </table>
  *
+ *
+ *
  */
 public class BindSampleContentProvider extends ContentProvider {
   /**
@@ -218,12 +220,12 @@ public class BindSampleContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for INSERT operation: " + uri);
       }
     }
-    // log section BEGIN
+    // log section for content provider insert BEGIN
     if (dataSource.isLogEnabled()) {
       Logger.info("Element is created with URI '%s'", _returnURL);
       Logger.info("Changes are notified for URI '%s'", uri);
     }
-    // log section END
+    // log section for content provider insert END
     getContext().getContentResolver().notifyChange(uri, null);
     return _returnURL;
   }
@@ -282,11 +284,11 @@ public class BindSampleContentProvider extends ContentProvider {
         throw new IllegalArgumentException("Unknown URI for DELETE operation: " + uri);
       }
     }
-    // log section BEGIN
+    // log section for content provider delete BEGIN
     if (dataSource.isLogEnabled()) {
       Logger.info("Changes are notified for URI %s", uri);
     }
-    // log section END
+    // log section for content provider delete END
     getContext().getContentResolver().notifyChange(uri, null);
     return returnRowDeleted;
   }

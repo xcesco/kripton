@@ -17,17 +17,11 @@ package com.abubusoft.kripton.processor.utils;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
-import java.util.logging.Logger;
-
-import com.squareup.javapoet.ClassName;
-
-import javax.annotation.processing.Messager;
-import javax.tools.Diagnostic;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.processor.BaseProcessor;
+import com.squareup.javapoet.ClassName;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AnnotationProcessorUtilis.
  */
@@ -65,28 +59,9 @@ public abstract class AnnotationProcessorUtilis {
 	 */
 	private static void printMessage(String msg) 
 	{
-		if (BaseProcessor.JUNIT_TEST_MODE) {
-			logger.info(msg);
-		}
-
-		if (!BaseProcessor.JUNIT_TEST_MODE || BaseProcessor.DEBUG_MODE)
-			messager.printMessage(Diagnostic.Kind.NOTE, msg);
+		BaseProcessor.info(msg);
 	}
 
-	/** The logger. */
-	static Logger logger = Logger.getGlobal();
-
-	/** The messager. */
-	private static Messager messager;
-
-	/**
-	 * Inits the.
-	 *
-	 * @param value the value
-	 */
-	public static void init(Messager value) {
-		messager = value;
-	}
 
 	/**
 	 * Info on generated file.
