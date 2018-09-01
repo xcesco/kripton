@@ -88,6 +88,11 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     _sqlBuilder.append(_sqlLimitStatement);
     // generation limit - END
 
+    // generation offset - BEGIN
+    String _sqlOffsetStatement=" OFFSET "+paginatedResult.firstRow();
+    _sqlBuilder.append(_sqlOffsetStatement);
+    // generation offset - END
+
     String _sql=_sqlBuilder.toString();
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
@@ -382,6 +387,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
 
     public List<Person> execute() {
+      // paged result is used in live data, so this method must be empty
       return null;
     }
 

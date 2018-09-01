@@ -334,7 +334,10 @@ public abstract class SqlSelectBuilder {
 			methodBuilder.addCode("\n");
 		}
 
-		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET) && SelectBuilderUtility.detectSelectType(method) == SelectType.PAGED_RESULT) {
+		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_OFFSET) && 
+				(SelectBuilderUtility.detectSelectType(method) == SelectType.PAGED_RESULT
+				|| method.isPagedLiveData()
+				)) {
 			methodBuilder.addComment("generation offset - BEGIN");
 			if (jql.annotatedPageSize) {
 				methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+paginatedResult.firstRow()", SqlUtils.class);
