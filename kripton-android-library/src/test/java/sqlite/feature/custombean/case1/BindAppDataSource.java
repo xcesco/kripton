@@ -326,16 +326,16 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     // log section create END
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-    }
-    // log section create END
-    database.execSQL(UserTable.CREATE_TABLE_SQL);
-    // log section create BEGIN
-    if (this.logEnabled) {
       Logger.info("DDL: %s",BookTable.CREATE_TABLE_SQL);
     }
     // log section create END
     database.execSQL(BookTable.CREATE_TABLE_SQL);
+    // log section create BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+    }
+    // log section create END
+    database.execSQL(UserTable.CREATE_TABLE_SQL);
     // log section create BEGIN
     if (this.logEnabled) {
       Logger.info("DDL: %s",LoanTable.CREATE_TABLE_SQL);
@@ -382,16 +382,16 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
-      }
-      // log section END
-      database.execSQL(UserTable.CREATE_TABLE_SQL);
-      // log section BEGIN
-      if (this.logEnabled) {
         Logger.info("DDL: %s",BookTable.CREATE_TABLE_SQL);
       }
       // log section END
       database.execSQL(BookTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",UserTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(UserTable.CREATE_TABLE_SQL);
       // log section BEGIN
       if (this.logEnabled) {
         Logger.info("DDL: %s",LoanTable.CREATE_TABLE_SQL);
