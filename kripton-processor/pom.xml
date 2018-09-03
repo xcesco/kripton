@@ -100,10 +100,17 @@
 		</dependency>
 		<!-- RX dependencies - END -->
 
+		<!-- <dependency> -->
+		<!-- <groupId>com.abubusoft.testing.compile</groupId> -->
+		<!-- <artifactId>compile-testing</artifactId> -->
+		<!-- <version>1.0.1</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
+
 		<dependency>
-			<groupId>com.abubusoft.testing.compile</groupId>
+			<groupId>com.google.testing.compile</groupId>
 			<artifactId>compile-testing</artifactId>
-			<version>1.0.1</version>
+			<version>0.15</version>
 			<scope>test</scope>
 		</dependency>
 

@@ -15,7 +15,8 @@
  *******************************************************************************/
 package base;
 
-import static com.abubusoft.testing.compile.JavaSourcesSubjectFactory.javaSources;
+//import static com.abubusoft.testing.compile.JavaSourcesSubjectFactory.javaSources;
+import static com.google.testing.compile.JavaSourcesSubjectFactory.javaSources;
 import static com.google.common.truth.Truth.assertAbout;
 import static org.junit.Assert.assertEquals;
 
@@ -51,11 +52,16 @@ import org.unitils.reflectionassert.ReflectionComparatorMode;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.KriptonProcessor;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
-import com.abubusoft.testing.compile.CompileTester.CompilationResultsConsumer;
-import com.abubusoft.testing.compile.CompileTester.GenerationClause;
-import com.abubusoft.testing.compile.CompileTester.SuccessfulCompilationClause;
-import com.abubusoft.testing.compile.JavaFileObjects;
+
+import com.google.testing.compile.CompileTester.SuccessfulCompilationClause;
+import com.google.testing.compile.JavaFileObjects;
+
+//import com.abubusoft.testing.compile.CompileTester.CompilationResultsConsumer;
+//import com.abubusoft.testing.compile.CompileTester.GenerationClause;
+//import com.abubusoft.testing.compile.CompileTester.SuccessfulCompilationClause;
+//import com.abubusoft.testing.compile.JavaFileObjects;
 import com.google.common.io.ByteStreams;
+import com.google.testing.compile.JavaFileObjects;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -457,7 +463,7 @@ public class BaseProcessorTest {
 			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
 
 			SuccessfulCompilationClause result1 = assertAbout(javaSources()).that(sourcesPhase1).processedWith(processorClazz.newInstance()).compilesWithoutError();
-			GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().generatesSources();
+			GenerationClause<SuccessfulCompilationClause> resultPhase1 = result1.and().and().generatesSources(null);
 			resultPhase1.forAllOfWhich(new CompilationResultsConsumer() {
 
 				@Override

@@ -29,7 +29,7 @@
 		<sourceEncoding>UTF-8</sourceEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 
 		<!-- plugins version -->
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
