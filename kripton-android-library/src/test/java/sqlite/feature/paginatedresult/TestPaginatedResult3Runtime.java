@@ -90,6 +90,7 @@ public class TestPaginatedResult3Runtime extends BaseAndroidTest {
 			{
 				int i = 5;
 				result.setPage(i);
+				result.execute();
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
@@ -102,6 +103,7 @@ public class TestPaginatedResult3Runtime extends BaseAndroidTest {
 			{
 				int i = 11;
 				result.setPage(i);
+				result.execute();
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
@@ -117,16 +119,18 @@ public class TestPaginatedResult3Runtime extends BaseAndroidTest {
 			{
 				int i = -111;
 				result.setPage(i);
+				result.execute();
 				Logger.info("---------------");
 				Logger.info("\tPage " + i);
 				Logger.info("---------------");
 				for (Person item : result.getList()) {
 					Logger.info(item.toString());
 				}
-				assertTrue(result.getList().size() == 0);
-				assertTrue(!result.hasNext());
-				// assertTrue(result.list().get(0).name.equals(String.format("name%03d",
-				// i * 10)));
+				//assertTrue(result.getList().size() == 0);
+				//assertTrue(!result.hasNext());
+				
+				// it's the same as invoke page 0
+				assertTrue(result.getList().get(0).name.equals(String.format("name%03d", 0 * 10)));
 			}
 
 		}

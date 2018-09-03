@@ -340,9 +340,9 @@ public abstract class SqlSelectBuilder {
 				)) {
 			methodBuilder.addComment("generation offset - BEGIN");
 			if (jql.annotatedPageSize) {
-				methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+paginatedResult.firstRow()", SqlUtils.class);
+				methodBuilder.addStatement("String _sqlOffsetStatement=\" OFFSET \"+paginatedResult.getOffset()", SqlUtils.class);
 			} else if (jql.hasParamPageSize()) {
-				methodBuilder.addStatement("String _sqlOffsetStatement=$T.printIf($L>0 && paginatedResult.firstRow()>0, \" OFFSET \"+paginatedResult.firstRow())", SqlUtils.class, jql.paramPageSize);
+				methodBuilder.addStatement("String _sqlOffsetStatement=$T.printIf($L>0 && paginatedResult.getOffset()>0, \" OFFSET \"+paginatedResult.getOffset())", SqlUtils.class, jql.paramPageSize);
 			}
 
 			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlOffsetStatement");

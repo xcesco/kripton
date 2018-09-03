@@ -78,7 +78,7 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 			}
 		});
 
-		liveData.moveToNextPage();
+		liveData.nextPage();
 
 		ds.execute(new BindAppDataSource.Transaction() {
 
@@ -92,8 +92,6 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 			}
 		});
 
-		// liveData.moveToFirstPage();
-		// liveData.moveToFirstPage();
 
 		Thread.sleep(1000);
 

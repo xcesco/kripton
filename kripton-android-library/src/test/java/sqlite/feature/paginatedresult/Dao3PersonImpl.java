@@ -124,7 +124,7 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
     // generation limit - END
 
     // generation offset - BEGIN
-    String _sqlOffsetStatement=" OFFSET "+paginatedResult.firstRow();
+    String _sqlOffsetStatement=" OFFSET "+paginatedResult.getOffset();
     _sqlBuilder.append(_sqlOffsetStatement);
     // generation offset - END
 

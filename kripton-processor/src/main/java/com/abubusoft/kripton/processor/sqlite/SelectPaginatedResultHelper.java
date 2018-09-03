@@ -311,6 +311,12 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 		if (!method.hasDynamicPageSizeConditions()) {
 			ModelAnnotation annotation = method.getAnnotation(BindSqlSelect.class);
 			int pageSize = annotation.getAttributeAsInt(AnnotationAttributeType.PAGE_SIZE);
+			
+			// in case pageSize is not specified (only for liveData)
+			if (pageSize==0) {
+				pageSize=20;
+			}
+			
 			setupBuilder.addStatement("this.pageSize=$L", pageSize);
 		}
 

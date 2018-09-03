@@ -39,6 +39,7 @@ public abstract class PagedResult<E> implements PageRequest {
 	 * Instantiates a new paginated result.
 	 */
 	protected PagedResult() {
+		list=new ArrayList<>();
 	}
 
 	/** The first row. */
@@ -50,12 +51,19 @@ public abstract class PagedResult<E> implements PageRequest {
 	/** The page size. */
 	protected int pageSize;
 
+	public void setPageSize(int pageSize) {
+		if (pageSize > 0 &&  this.pageSize!=pageSize) {
+			this.pageSize = pageSize;
+			//execute();
+		}		
+	}
+
 	/**
 	 * First row.
 	 *
 	 * @return the int
 	 */
-	public int firstRow() {
+	public int getOffset() {
 		return firstRow;
 	}
 
@@ -74,7 +82,7 @@ public abstract class PagedResult<E> implements PageRequest {
 	@Override
 	public void firstPage() {
 		setPage(0);
-
+		
 		execute();
 	}
 
@@ -92,8 +100,6 @@ public abstract class PagedResult<E> implements PageRequest {
 		if (firstRow < 0) {
 			firstRow = 0;
 			list = new ArrayList<>();
-		} else {
-			execute();
 		}
 
 	}
@@ -157,5 +163,12 @@ public abstract class PagedResult<E> implements PageRequest {
 	@Override
 	public int getPageSize() {
 		return pageSize;
+	}
+
+	@Override
+	public void setOffset(int offset) {
+		if (this.firstRow!=offset && offset>=0) { 
+			this.firstRow=offset;			
+		}
 	}
 }

@@ -139,7 +139,7 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
     // generation limit - END
 
     // generation offset - BEGIN
-    String _sqlOffsetStatement=SqlUtils.printIf(pageSize>0 && paginatedResult.firstRow()>0, " OFFSET "+paginatedResult.firstRow());
+    String _sqlOffsetStatement=SqlUtils.printIf(pageSize>0 && paginatedResult.getOffset()>0, " OFFSET "+paginatedResult.getOffset());
     _sqlBuilder.append(_sqlOffsetStatement);
     // generation offset - END
 

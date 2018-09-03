@@ -12,7 +12,7 @@ import com.abubusoft.kripton.android.PageRequest;
  * @param <T>
  *            the generic type
  */
-public abstract class PagedLiveData<T> extends KriptonLiveData<T> {
+public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest {
 
 	private final PageRequest pageRequest;
 
@@ -23,36 +23,66 @@ public abstract class PagedLiveData<T> extends KriptonLiveData<T> {
 		this.backed = backed;
 	}
 
-	public void setPage(Integer currentPage) {
-		if (pageRequest.getPage() != currentPage) {
-			pageRequest.setPage(currentPage);
-			backed.invalidate();
-		}
-	}
-
+	@Override
 	public int getPage() {
 		return pageRequest.getPage();
 	}
 
+	@Override
 	public int getPageSize() {
 		return pageRequest.getPageSize();
 	}
 
-	public void moveToNextPage() {
+	@Override
+	public void setPage(int page) {
+		if (pageRequest.getPage() != page) {
+			pageRequest.setPage(page);
+			backed.invalidate();
+		}
+	}
+
+	@Override
+	public void nextPage() {
 		pageRequest.setPage(pageRequest.getPage() + 1);
 		backed.invalidate();
 	}
 
-	public void moveToPreviousPage() {
+	@Override
+	public void setOffset(int offset) {
+		if (pageRequest.getOffset() != offset && offset >= 0) {
+			this.pageRequest.setOffset(offset);
+
+			backed.invalidate();
+		}
+	}
+
+	@Override
+	public void previousPage() {
 		pageRequest.setPage(pageRequest.getPage() - 1);
 		backed.invalidate();
 	}
 
-	public void moveToFirstPage() {
+	@Override
+	public void firstPage() {
 		if (pageRequest.getPage() != 0) {
 			pageRequest.setPage(0);
 			backed.invalidate();
 		}
+	}
+
+	@Override
+	public int getOffset() {
+		return pageRequest.getOffset();
+	}
+
+	@Override
+	public void setPageSize(int pageSize) {
+		if (pageRequest.getPageSize() != pageSize && pageSize > 0) {
+			this.pageRequest.setPageSize(pageSize);
+
+			backed.invalidate();
+		}
+
 	}
 
 }
