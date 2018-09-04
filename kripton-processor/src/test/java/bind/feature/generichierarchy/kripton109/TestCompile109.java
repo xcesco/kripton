@@ -20,7 +20,6 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
-import com.abubusoft.kripton.processor.exceptions.PropertyVisibilityException;
 
 import bind.AbstractBindTypeProcessorTest;
 import bind.feature.generichierarchy.kripton109.animations.Animation;
