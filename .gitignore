@@ -58,3 +58,7 @@ build
 /kripton-orm/.classpath
 /kripton-project.iml
 /kripton-parent/.settings
+.settings
+/kripton-arch-test/.classpath
+/kripton-orm/.settings/org.eclipse.jdt.core.prefs
+/kripton-shared-preferences/.settings/org.eclipse.jdt.core.prefs

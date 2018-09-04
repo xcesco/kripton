@@ -87,12 +87,12 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public App47 read() {
     App47 bean=new App47();
-    bean.name=prefs.getString("name", defaultBean.name);
      {
       String temp=prefs.getString("user_access_token", null);
       bean.userAccessToken=StringUtils.hasText(temp) ? parseUserAccessToken(temp): defaultBean.userAccessToken;
     }
 
+    bean.name=prefs.getString("name", defaultBean.name);
 
     return bean;
   }
@@ -104,8 +104,6 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
    */
   public void write(App47 bean) {
     SharedPreferences.Editor editor=prefs.edit();
-    editor.putString("name",bean.name);
-
     if (bean.userAccessToken!=null)  {
       String temp=serializeUserAccessToken(bean.userAccessToken);
       editor.putString("user_access_token",temp);
@@ -113,17 +111,11 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
       editor.remove("user_access_token");
     }
 
+    editor.putString("name",bean.name);
+
 
     editor.commit();
   }
-
-  /**
-   * reads property <code>name</code> from shared pref with key <code>name</code>
-   *
-   * @return property name value
-   */
-  public String getName() {
-    return prefs.getString("name", defaultBean.name);}
 
   /**
    * reads property <code>userAccessToken</code> from shared pref with key <code>user_access_token</code>
@@ -134,6 +126,14 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
     String temp=prefs.getString("user_access_token", null);
     return StringUtils.hasText(temp) ? parseUserAccessToken(temp): defaultBean.userAccessToken;
   }
+
+  /**
+   * reads property <code>name</code> from shared pref with key <code>name</code>
+   *
+   * @return property name value
+   */
+  public String getName() {
+    return prefs.getString("name", defaultBean.name);}
 
   /**
    * for attribute userAccessToken serialization
@@ -199,23 +199,6 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
     }
 
     /**
-     * modifier for property name
-     */
-    public BindEditor putName(String value) {
-      editor.putString("name",value);
-
-      return this;
-    }
-
-    /**
-     * remove property name
-     */
-    public BindEditor removeName() {
-      editor.remove("name");
-      return this;
-    }
-
-    /**
      * modifier for property userAccessToken
      */
     public BindEditor putUserAccessToken(UserAccessToken value) {
@@ -234,6 +217,23 @@ public class BindApp47SharedPreferences extends AbstractSharedPreference {
      */
     public BindEditor removeUserAccessToken() {
       editor.remove("user_access_token");
+      return this;
+    }
+
+    /**
+     * modifier for property name
+     */
+    public BindEditor putName(String value) {
+      editor.putString("name",value);
+
+      return this;
+    }
+
+    /**
+     * remove property name
+     */
+    public BindEditor removeName() {
+      editor.remove("name");
       return this;
     }
 
