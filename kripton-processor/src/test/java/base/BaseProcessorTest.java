@@ -454,6 +454,7 @@ public class BaseProcessorTest {
 			//final Map<String, String> mapSet = new HashMap<>();
 			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
 						
+			System.out.println(com.google.testing.compile.Compiler.javac().toString());
 			ImmutableList<JavaFileObject> generated = com.google.testing.compile.Compiler.javac()
 					.withProcessors(processorClazz.newInstance())					
 					.compile(sourcesPhase1).generatedSourceFiles();
