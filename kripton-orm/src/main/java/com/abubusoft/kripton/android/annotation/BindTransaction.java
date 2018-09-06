@@ -20,7 +20,25 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
+/**
+ * This annotation is used to annotate static method of a <i>DataSource</i> interface to define a transation. An example:
+ * 
+ * <pre>
+ * &#64;BindDataSource(fileName = "app.db", version = 1, daoSet = { DaoPerson.class }, rx = true)
+ * public interface AppDataSource {
+ * 
+ * 	&#64;BindTransaction
+ * 	static void execute(DaoPerson daoPerson) {
+ * 		daoPerson.insert(new Person());
+ * 	}
+ * }
+ * </pre>
+ * 
+ * The return type must be <code>void</code>. Parameters can be of any type, including datasource's dao. These last type of parameter will be remove from the generated method.
+ * 
+ * @author xcesco
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface BindTransaction {

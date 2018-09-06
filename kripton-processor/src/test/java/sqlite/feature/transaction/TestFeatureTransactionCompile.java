@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.transition;
+package sqlite.feature.transaction;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ import sqlite.AbstractBindSQLiteProcessorTest;
  * The Class TestLiveDataCompile.
  */
 @RunWith(JUnit4.class)
-public class TestFeatureDataSourceTransitionCompile extends AbstractBindSQLiteProcessorTest {
+public class TestFeatureTransactionCompile extends AbstractBindSQLiteProcessorTest {
 
 	@Test
 	public void testOK() throws Throwable {

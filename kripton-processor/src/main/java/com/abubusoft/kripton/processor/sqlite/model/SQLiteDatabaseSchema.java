@@ -26,11 +26,14 @@ import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindDataSourceOptions;
+import com.abubusoft.kripton.android.annotation.BindTransaction;
 import com.abubusoft.kripton.android.sqlite.NoCursorFactory;
 import com.abubusoft.kripton.android.sqlite.NoDatabaseErrorHandler;
 import com.abubusoft.kripton.android.sqlite.NoDatabaseLifecycleHandler;
@@ -41,12 +44,17 @@ import com.abubusoft.kripton.common.Pair;
 import com.abubusoft.kripton.processor.KriptonOptions;
 import com.abubusoft.kripton.processor.core.AssertKripton;
 import com.abubusoft.kripton.processor.core.Finder;
+import com.abubusoft.kripton.processor.core.ModelAnnotation;
 import com.abubusoft.kripton.processor.core.ModelBucket;
 import com.abubusoft.kripton.processor.core.TypeAdapterHelper;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.AnnotationFoundListener;
+import com.abubusoft.kripton.processor.core.reflect.AnnotationUtility.MethodFoundListener;
 import com.abubusoft.kripton.processor.core.reflect.TypeUtility;
 import com.abubusoft.kripton.processor.element.GeneratedTypeElement;
 import com.abubusoft.kripton.processor.sqlite.FindSqlTypeAdapterVisitor;
 import com.abubusoft.kripton.processor.sqlite.FindTasksVisitor;
+import com.abubusoft.kripton.processor.sqlite.SqlBuilderHelper;
 import com.squareup.javapoet.ClassName;
 
 /**
@@ -121,6 +129,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 
 	/** The generated entities. */
 	public LinkedHashSet<GeneratedTypeElement> generatedEntities;
+
+	public List<ExecutableElement> transactions = new ArrayList<ExecutableElement>();
 
 	/**
 	 * if <code>true</code>, content provider is generated.
@@ -207,7 +217,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	 *            the config log enabled
 	 * @param configPopulatorClass
 	 *            the config populator class
-	 * @param schemaLocationDirectory 
+	 * @param schemaLocationDirectory
 	 */
 	public SQLiteDatabaseSchema(TypeElement item, String schemaFileName, int schemaVersion, boolean schema, boolean log,
 			boolean asyncTask, boolean generateCursor, boolean generateRx, List<String> daoIntoDataSource,
@@ -228,7 +238,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		this.contentProvider = null;
 		this.generatedEntities = new LinkedHashSet<GeneratedTypeElement>();
 		this.daoNameSet = daoIntoDataSource;
-		this.schemaLocationDirectory=KriptonOptions.getSchemaLocation();
+		this.schemaLocationDirectory = KriptonOptions.getSchemaLocation();
 
 		FindTasksVisitor valueVisitor = new FindTasksVisitor();
 		FindSqlTypeAdapterVisitor typeAdapterVisitors = new FindSqlTypeAdapterVisitor();
@@ -277,6 +287,45 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 				NoDatabaseLifecycleHandler.class);
 		this.configPopulatorClazz = fillClazz(configPopulatorClass, NoPopulator.class);
 
+		// methods
+		// create method for dao
+		SqlBuilderHelper.forEachMethods((TypeElement) element, new MethodFoundListener() {
+
+			@Override
+			public void onMethod(ExecutableElement methodElement) {
+				if (methodElement.getModifiers().contains(Modifier.STATIC)) {
+
+					final List<ModelAnnotation> annotationList = new ArrayList<>();
+
+					AnnotationUtility.forEachAnnotations(methodElement, new AnnotationFoundListener() {
+
+						@Override
+						public void onAcceptAnnotation(Element element, String annotationClassName,
+								Map<String, String> attributes) {
+
+							if // @formatter:off
+								(annotationClassName.equals(BindTransaction.class.getCanonicalName()))
+								// @formatter:on
+							{
+								ModelAnnotation annotation = new ModelAnnotation(annotationClassName, attributes);
+								annotationList.add(annotation);
+							}
+							// we don't insert annotation
+
+						}
+					});
+
+					annotationList.addAll(annotationList);
+
+					AssertKripton.assertTrueOrInvalidMethodSignException(annotationList.size()==1,
+							SQLiteDatabaseSchema.this, methodElement);
+
+					transactions.add(methodElement);
+
+				}
+			}
+
+		});
 	}
 
 	/**
@@ -483,12 +532,12 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 	}
 
 	public SQLiteDaoDefinition findDaoDefinitionForEntity(SQLiteEntity entity) {
-		for (SQLiteDaoDefinition item:collection) {
+		for (SQLiteDaoDefinition item : collection) {
 			if (item.getEntity().getName().equals(entity.getName())) {
 				return item;
 			}
 		}
-		
+
 		return null;
 	}
 

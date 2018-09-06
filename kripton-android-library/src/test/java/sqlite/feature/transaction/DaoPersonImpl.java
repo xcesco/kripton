@@ -1,4 +1,4 @@
-package sqlite.feature.transition;
+package sqlite.feature.transaction;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;

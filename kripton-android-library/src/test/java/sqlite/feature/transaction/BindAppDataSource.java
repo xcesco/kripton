@@ -1,9 +1,8 @@
-package sqlite.feature.transition;
+package sqlite.feature.transaction;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
 import com.abubusoft.kripton.android.Logger;
-import com.abubusoft.kripton.android.annotation.BindTransaction;
 import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
@@ -51,19 +50,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    * <p>datasource singleton</p>
    */
   static volatile BindAppDataSource instance;
-  	
-  public Future<Boolean> executePersonInsert(final Person person) {
-	  return executeAsync(new Transaction() {
-
-		@Override
-		public TransactionResult onExecute(BindAppDaoFactory daoFactory) {
-			AppDataSource.execute(daoFactory.getDaoPerson(), person);
-			return TransactionResult.COMMIT;
-		}
-		  
-	  });
-	  
-  }
 
   /**
    * <p>Mutex to manage multithread access to instance</p>

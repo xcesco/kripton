@@ -1,4 +1,4 @@
-package sqlite.feature.transition;
+package sqlite.feature.transaction;
 
 import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
 

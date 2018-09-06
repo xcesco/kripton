@@ -1287,16 +1287,6 @@ public class BindDataSourceSubProcessor extends BaseProcessor {
 
 	}
 
-	/**
-	 * dao or entity can be null.
-	 *
-	 * @param daoElement
-	 *            the dao element
-	 * @return the m 2 M entity
-	 */
-	// public static M2MEntity generateEntityFromDao(TypeElement daoElement) {
-	// return M2MEntity.extractEntityManagedByDAO(daoElement);
-	// }
 
 	/**
 	 * dao or entity can be null.

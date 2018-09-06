@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.transition;
+package sqlite.feature.transaction;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindTransaction;
@@ -26,7 +26,7 @@ public interface AppDataSource {
 
 	
 	@BindTransaction
-	static void execute(DaoPerson daoPerson, Person person) {
-		daoPerson.insert(person);
+	static void execute(DaoPerson daoPerson) {
+		daoPerson.insert(new Person());
 	}
 }
