@@ -151,6 +151,8 @@ public class BindDaoFactoryBuilder extends AbstractBuilder {
 				classBuilder.addMethod(methodBuilder.build());
 			}
 		}
+		
+		SchemaUtility.generateTransaction(classBuilder, schema, true);
 
 		return classBuilder;
 	}

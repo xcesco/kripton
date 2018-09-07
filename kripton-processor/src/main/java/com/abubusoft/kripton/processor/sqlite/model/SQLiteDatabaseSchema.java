@@ -317,7 +317,7 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 
 					annotationList.addAll(annotationList);
 
-					AssertKripton.assertTrueOrInvalidMethodSignException(annotationList.size()==1,
+					AssertKripton.assertTrueOrInvalidMethodSignException(annotationList.size()!=1,
 							SQLiteDatabaseSchema.this, methodElement);
 
 					transactions.add(methodElement);

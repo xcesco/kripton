@@ -19,4 +19,6 @@ public interface BindAppDaoFactory extends BindDaoFactory {
    * retrieve dao DaoPerson
    */
   DaoPersonImpl getDaoPerson();
+  
+  boolean execute(String name);
 }

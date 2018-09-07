@@ -57,7 +57,7 @@ public class BindFamilyDataSource extends AbstractDataSource implements BindFami
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable(), new ChildTable()};
+  static final SQLiteTable[] TABLES = {new ChildTable(), new PersonTable()};
 
   /**
    * <p>dao instance</p>

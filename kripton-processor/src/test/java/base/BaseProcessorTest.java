@@ -450,11 +450,10 @@ public class BaseProcessorTest {
 	 */
 	protected long buildTest(Class<? extends BaseProcessor> processorClazz, Class<?>... classesToTest) {
 		final AtomicLong counter = new AtomicLong(0);
-		try {
-			//final Map<String, String> mapSet = new HashMap<>();
-			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);
-						
-			System.out.println(com.google.testing.compile.Compiler.javac().toString());
+				
+		try {			
+			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);	
+									
 			ImmutableList<JavaFileObject> generated = com.google.testing.compile.Compiler.javac()
 					.withProcessors(processorClazz.newInstance())					
 					.compile(sourcesPhase1).generatedSourceFiles();
@@ -481,9 +480,10 @@ public class BaseProcessorTest {
 						break;
 					}
 
-				} catch (Throwable e) {
-					// e.printStackTrace();
+				} catch (Throwable e) {										
 					Assert.fail(e.getMessage());
+					
+					
 				}
 			}
 
@@ -507,6 +507,7 @@ public class BaseProcessorTest {
 
 		} catch (Throwable e) {
 			e.printStackTrace();
+									
 			Assert.fail(e.getMessage());
 		}
 		return counter.longValue();
