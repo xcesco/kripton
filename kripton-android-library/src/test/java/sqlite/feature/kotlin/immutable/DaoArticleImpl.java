@@ -34,9 +34,15 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
 
   private static SQLiteStatement updatePreparedStatement1;
 
-  private static final String SELECT_BY_CHANNEL_UD_SQL2 = "SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE channel_id=?";
+  /**
+   * SQL definition for method selectByChannelUd
+   */
+  private static final String SELECT_BY_CHANNEL_UD_SQL4 = "SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE channel_id=?";
 
-  private static final String SELECT_BY_GUID_SQL3 = "SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE channel_id=? AND guid=?";
+  /**
+   * SQL definition for method selectByGuid
+   */
+  private static final String SELECT_BY_GUID_SQL6 = "SELECT id, author, channel_id, comments, description, guid, link, read, thumbnail, title FROM articles WHERE channel_id=? AND guid=?";
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
@@ -427,7 +433,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_CHANNEL_UD_SQL2;
+    String _sql=SELECT_BY_CHANNEL_UD_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(channelId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -558,7 +564,7 @@ public class DaoArticleImpl extends Dao implements DaoArticle {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_GUID_SQL3;
+    String _sql=SELECT_BY_GUID_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(channelId));
     _contentValues.addWhereArgs((guid==null?"":guid));

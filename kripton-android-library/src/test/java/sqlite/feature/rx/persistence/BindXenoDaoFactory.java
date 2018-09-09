@@ -27,32 +27,37 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindXenoDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao PhoneDao.
    *
-   * retrieve dao PhoneDao
+   * @return dao implementation
    */
   PhoneDaoImpl getPhoneDao();
 
   /**
+   * Retrieve dao PrefixConfigDao.
    *
-   * retrieve dao PrefixConfigDao
+   * @return dao implementation
    */
   PrefixConfigDaoImpl getPrefixConfigDao();
 
   /**
+   * Retrieve dao CountryDao.
    *
-   * retrieve dao CountryDao
+   * @return dao implementation
    */
   CountryDaoImpl getCountryDao();
 
   /**
+   * Retrieve dao Person2PhoneDao.
    *
-   * retrieve dao Person2PhoneDao
+   * @return dao implementation
    */
   Person2PhoneDaoImpl getPerson2PhoneDao();
 
   /**
+   * Retrieve dao PersonDao.
    *
-   * retrieve dao PersonDao
+   * @return dao implementation
    */
   PersonDaoImpl getPersonDao();
 }

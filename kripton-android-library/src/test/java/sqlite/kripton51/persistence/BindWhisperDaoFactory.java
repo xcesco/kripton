@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindWhisperDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao DaoMessage.
    *
-   * retrieve dao DaoMessage
+   * @return dao implementation
    */
   DaoMessageImpl getDaoMessage();
 }

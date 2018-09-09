@@ -22,11 +22,17 @@ import sqlite.feature.many2many.City;
  *  @see sqlite.feature.many2many.CityTable
  */
 public class CityErr3DaoImpl extends Dao implements CityErr3Dao {
-  private static final String SELECT_ALL_SQL3 = "SELECT id, name FROM cities";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL6 = "SELECT id, name FROM cities";
 
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_ID_SQL4 = "SELECT id, name FROM cities WHERE id=?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL8 = "SELECT id, name FROM cities WHERE id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
@@ -55,7 +61,7 @@ public class CityErr3DaoImpl extends Dao implements CityErr3Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL3;
+    String _sql=SELECT_ALL_SQL6;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -203,7 +209,7 @@ public class CityErr3DaoImpl extends Dao implements CityErr3Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL4;
+    String _sql=SELECT_BY_ID_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

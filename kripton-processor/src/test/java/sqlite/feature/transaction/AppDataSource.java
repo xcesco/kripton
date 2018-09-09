@@ -17,19 +17,18 @@ package sqlite.feature.transaction;
 
 import com.abubusoft.kripton.android.annotation.BindDataSource;
 import com.abubusoft.kripton.android.annotation.BindTransaction;
-import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
 /**
  * The Interface App0DataSource.
  */
-@BindDataSource(fileName="app.db", version=1, daoSet={DaoPerson.class}, rx=true)
+@BindDataSource(fileName="app.db", version=1, daoSet={DaoPerson.class})
 public interface AppDataSource {
 
 	
 	@BindTransaction
-	static TransactionResult execute(DaoPerson daoPerson, String name) {
-		daoPerson.insert(new Person());
+	static void execute(DaoPerson daoPerson, String name) {
+		daoPerson.insert(new Person(-1, name, "Surname"));
 		
-		return TransactionResult.COMMIT;
+		//return TransactionResult.COMMIT;
 	}
 }

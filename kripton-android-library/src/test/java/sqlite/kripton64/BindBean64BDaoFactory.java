@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindBean64BDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao Bean64BDao.
    *
-   * retrieve dao Bean64BDao
+   * @return dao implementation
    */
   Bean64BDaoImpl getBean64BDao();
 }

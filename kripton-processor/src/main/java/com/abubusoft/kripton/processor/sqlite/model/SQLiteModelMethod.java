@@ -157,6 +157,10 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	public long nextCounter() {
 		return getParent().nextCounter();
 	}
+	
+	public long currentCounter() {
+		return getParent().currentCounter();
+	}
 
 	/** The jql. */
 	public final JQL jql;
@@ -955,6 +959,15 @@ public class SQLiteModelMethod extends ModelMethod implements SQLiteModelElement
 	 */
 	public String buildSQLName() {
 		return getName() + "Sql" + nextCounter();
+	}
+	
+	/**
+	 * Builds the SQL name with current counter
+	 *
+	 * @return the string
+	 */
+	public String buildSQLNameWithCurrentCounter() {
+		return getName() + "Sql" + (currentCounter()-1);
 	}
 
 	public boolean isSpreadParameter(String methodParamName) {

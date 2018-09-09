@@ -65,6 +65,14 @@ public class SQLiteDaoDefinition extends ModelBucket<SQLiteModelMethod, TypeElem
 	public long nextCounter() {
 		return getParent().nextCounter();
 	}
+	
+	public long currentCounter() {
+		return getParent().currentCounter();
+	}
+	
+	public long getCurrentCounter() {
+		return getParent().currentCounter();
+	}
 
 	/**
 	 * Convert type variable in correct type. This must be done before work on

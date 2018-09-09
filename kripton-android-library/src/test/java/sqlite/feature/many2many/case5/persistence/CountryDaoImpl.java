@@ -25,17 +25,29 @@ import sqlite.feature.many2many.case5.model.CountryTable;
 public class CountryDaoImpl extends Dao implements CountryDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_ID_SQL6 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE id = ?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL12 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE id = ?";
 
   private static SQLiteStatement deleteByIdPreparedStatement1;
 
   private static SQLiteStatement updateByIdPreparedStatement2;
 
-  private static final String SELECT_ALL_SQL7 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country ORDER BY name asc";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL14 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country ORDER BY name asc";
 
-  private static final String SELECT_BY_CALLING_CODE_SQL8 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE calling_code = ?";
+  /**
+   * SQL definition for method selectByCallingCode
+   */
+  private static final String SELECT_BY_CALLING_CODE_SQL16 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE calling_code = ?";
 
-  private static final String SELECT_BY_COUNTRY_SQL9 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE code = ?";
+  /**
+   * SQL definition for method selectByCountry
+   */
+  private static final String SELECT_BY_COUNTRY_SQL18 = "SELECT id, area, calling_code, code, name, region, translated_name FROM country WHERE code = ?";
 
   public CountryDaoImpl(BindXenoDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -155,7 +167,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL6;
+    String _sql=SELECT_BY_ID_SQL12;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -323,7 +335,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL7;
+    String _sql=SELECT_ALL_SQL14;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -415,7 +427,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_CALLING_CODE_SQL8;
+    String _sql=SELECT_BY_CALLING_CODE_SQL16;
     // add where arguments
     _contentValues.addWhereArgs((callingCode==null?"":callingCode));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -502,7 +514,7 @@ public class CountryDaoImpl extends Dao implements CountryDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_COUNTRY_SQL9;
+    String _sql=SELECT_BY_COUNTRY_SQL18;
     // add where arguments
     _contentValues.addWhereArgs((code==null?"":code));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

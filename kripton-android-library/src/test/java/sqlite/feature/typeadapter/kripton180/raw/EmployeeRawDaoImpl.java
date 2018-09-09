@@ -33,17 +33,35 @@ import sqlite.feature.typeadapter.kripton180.adapters.TypeAdapterString;
  *  @see sqlite.feature.typeadapter.kripton180.EmployeeTable
  */
 public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
-  private static final String SELECT_BY_ID_SQL1 = "SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=?";
 
-  private static final String SELECT_BY_ID_J_Q_L_SQL2 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
+  /**
+   * SQL definition for method selectByIdJQL
+   */
+  private static final String SELECT_BY_ID_J_Q_L_SQL4 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=?";
 
-  private static final String SELECT_BY_ALL_WITH_ADAPTER_SQL3 = "SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+  /**
+   * SQL definition for method selectByAllWithAdapter
+   */
+  private static final String SELECT_BY_ALL_WITH_ADAPTER_SQL6 = "SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
-  private static final String SELECT_BY_ALL_SQL4 = "SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+  /**
+   * SQL definition for method selectByAll
+   */
+  private static final String SELECT_BY_ALL_SQL8 = "SELECT id, address, birth_date, field_boolean, field_byte, field_byte_array, field_character, field_double, field_float, field_integer, field_long, field_short, field_string, first_name, hire_date, last_name FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
-  private static final String SELECT_BY_ALL_J_Q_L_SQL5 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+  /**
+   * SQL definition for method selectByAllJQL
+   */
+  private static final String SELECT_BY_ALL_J_Q_L_SQL10 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
-  private static final String SELECT_BY_ALL_J_Q_L_WITH_ADAPTER_SQL6 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
+  /**
+   * SQL definition for method selectByAllJQLWithAdapter
+   */
+  private static final String SELECT_BY_ALL_J_Q_L_WITH_ADAPTER_SQL12 = "SELECT id, last_name, first_name, birth_date, hire_date, address, field_boolean, field_byte, field_character, field_short, field_integer, field_long, field_float, field_double, field_string, field_byte_array FROM employees WHERE id=? and field_boolean=? and field_byte=? and field_byte=? and field_character=? and field_short=? and field_integer=? and field_long=? and field_float=? and field_double=? and field_string=? and field_byte_array=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -105,7 +123,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL1;
+    String _sql=SELECT_BY_ID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -230,7 +248,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_J_Q_L_SQL2;
+    String _sql=SELECT_BY_ID_J_Q_L_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -387,7 +405,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ALL_WITH_ADAPTER_SQL3;
+    String _sql=SELECT_BY_ALL_WITH_ADAPTER_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
@@ -554,7 +572,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ALL_SQL4;
+    String _sql=SELECT_BY_ALL_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));
@@ -722,7 +740,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ALL_J_Q_L_SQL5;
+    String _sql=SELECT_BY_ALL_J_Q_L_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs((fieldBoolean==null?"":fieldBoolean));
@@ -891,7 +909,7 @@ public class EmployeeRawDaoImpl extends Dao implements EmployeeRawDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ALL_J_Q_L_WITH_ADAPTER_SQL6;
+    String _sql=SELECT_BY_ALL_J_Q_L_WITH_ADAPTER_SQL12;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(TypeAdapterBoolean.class, fieldBoolean));

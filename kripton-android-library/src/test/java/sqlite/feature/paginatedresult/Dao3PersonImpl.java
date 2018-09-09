@@ -27,7 +27,10 @@ import sqlite.feature.paginatedresult.model.Person;
 public class Dao3PersonImpl extends Dao implements Dao3Person {
   private static SQLiteStatement insertOnePreparedStatement0;
 
-  private static final String SELECT_ALL_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person ORDER BY name";
 
   private static SQLiteStatement deleteAllPreparedStatement1;
 
@@ -285,7 +288,7 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL1;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

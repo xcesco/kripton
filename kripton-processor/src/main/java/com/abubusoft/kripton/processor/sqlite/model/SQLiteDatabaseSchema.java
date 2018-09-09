@@ -541,4 +541,8 @@ public class SQLiteDatabaseSchema extends ModelBucket<SQLiteDaoDefinition, TypeE
 		return null;
 	}
 
+	public long currentCounter() {
+		return globalCounter;
+	}
+
 }

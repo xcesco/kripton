@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindShortDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao ShortDao.
    *
-   * retrieve dao ShortDao
+   * @return dao implementation
    */
   ShortDaoImpl getShortDao();
 }

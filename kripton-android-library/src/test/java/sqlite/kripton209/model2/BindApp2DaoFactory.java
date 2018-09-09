@@ -21,20 +21,23 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindApp2DaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao DeviceDao.
    *
-   * retrieve dao DeviceDao
+   * @return dao implementation
    */
   DeviceDaoImpl getDeviceDao();
 
   /**
+   * Retrieve dao UserDao.
    *
-   * retrieve dao UserDao
+   * @return dao implementation
    */
   UserDaoImpl getUserDao();
 
   /**
+   * Retrieve dao UserDeviceDao.
    *
-   * retrieve dao UserDeviceDao
+   * @return dao implementation
    */
   UserDeviceDaoImpl getUserDeviceDao();
 }

@@ -21,13 +21,25 @@ import java.util.List;
  *  @see PersonCityOk1Table
  */
 public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1Dao {
-  private static final String SELECT_ALL_SQL5 = "SELECT id, city_id, person_id FROM person_city_ok1";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL10 = "SELECT id, city_id, person_id FROM person_city_ok1";
 
-  private static final String SELECT_BY_ID_SQL6 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE id=?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL12 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE id=?";
 
-  private static final String SELECT_BY_PERSON_ID_SQL7 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE person_id=?";
+  /**
+   * SQL definition for method selectByPersonId
+   */
+  private static final String SELECT_BY_PERSON_ID_SQL14 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE person_id=?";
 
-  private static final String SELECT_BY_CITY_ID_SQL8 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE city_id=?";
+  /**
+   * SQL definition for method selectByCityId
+   */
+  private static final String SELECT_BY_CITY_ID_SQL16 = "SELECT id, city_id, person_id FROM person_city_ok1 WHERE city_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -63,7 +75,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL5;
+    String _sql=SELECT_ALL_SQL10;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -143,7 +155,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL6;
+    String _sql=SELECT_BY_ID_SQL12;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -218,7 +230,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PERSON_ID_SQL7;
+    String _sql=SELECT_BY_PERSON_ID_SQL14;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -299,7 +311,7 @@ public class PersonCityOk1DaoImpl extends Dao implements GeneratedPersonCityOk1D
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_CITY_ID_SQL8;
+    String _sql=SELECT_BY_CITY_ID_SQL16;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(cityId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

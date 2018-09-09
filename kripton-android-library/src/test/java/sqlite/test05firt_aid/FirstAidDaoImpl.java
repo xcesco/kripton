@@ -21,7 +21,10 @@ import java.util.List;
  *  @see FirstAidTable
  */
 public class FirstAidDaoImpl extends Dao implements FirstAidDao {
-  private static final String SELECT_ALL_SQL1 = "SELECT id, address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients FROM first_aid ORDER BY description";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL2 = "SELECT id, address, address2, city, description, green_average_waiting_time, green_visiting_patients, green_waiting_patients, info, latitude, longitude, phone, red_average_waiting_time, red_waiting_patients, total_patient_count, uid, white_average_waiting_time, white_visiting_patients, white_waiting_patients, yellow_average_waiting_time, yellow_visiting_patients, yellow_waiting_patients FROM first_aid ORDER BY description";
 
   private static SQLiteStatement deleteAllPreparedStatement0;
 
@@ -72,7 +75,7 @@ public class FirstAidDaoImpl extends Dao implements FirstAidDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL1;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

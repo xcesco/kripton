@@ -10,13 +10,12 @@ import com.abubusoft.kripton.android.sqlite.Dao;
 import com.abubusoft.kripton.android.sqlite.KriptonContentValues;
 import com.abubusoft.kripton.android.sqlite.KriptonDatabaseWrapper;
 import com.abubusoft.kripton.android.sqlite.PagedResult;
-import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
-import io.reactivex.subjects.PublishSubject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -30,19 +29,21 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *  @see PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
+  /**
+   * SQL definition for method select
+   */
+  private static final String SELECT_SQL2 = "SELECT id, name, surname FROM person WHERE name=?";
 
-  private static final String SELECT_PAGED_SQL2 = "SELECT id, name, surname FROM person WHERE name like ? || '%'";
-
-  private static final String SELECT_PAGED_SQL3 = "SELECT id, name, surname FROM person WHERE name like ? || '%'";
+  /**
+   * SQL definition for method selectPaged
+   */
+  private static final String SELECT_PAGED_SQL4 = "SELECT id, name, surname FROM person WHERE name like ? || '%'";
 
   private static SQLiteStatement insertPreparedStatement0;
 
   private static SQLiteStatement updatePreparedStatement1;
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
-
-  private static final PublishSubject<SQLiteEvent> subject = PublishSubject.create();
 
   public DaoPersonImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -70,14 +71,14 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * @param name
    * 	is binded to <code>:name</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public List<Person> select(String name) {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_SQL1;
+    String _sql=SELECT_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -106,6 +107,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       ArrayList<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      String __name=null;
+      String __surname=null;
+
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
@@ -114,17 +121,23 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
         do
          {
-          resultBean=new Person();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __name=null;
+          __surname=null;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { __surname=_cursor.getString(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new Person(__id,__name,__surname);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
     // Specialized part - SelectBeanListHelper - END
   }
@@ -159,7 +172,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_PAGED_SQL3;
+    String _sql=SELECT_PAGED_SQL4;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -188,6 +201,12 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       List<Person> resultList=new ArrayList<Person>(_cursor.getCount());
       Person resultBean=null;
 
+      // initialize temporary variable for immutable POJO
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      String __name=null;
+      String __surname=null;
+
       if (_cursor.moveToFirst()) {
 
         int index0=_cursor.getColumnIndex("id");
@@ -196,17 +215,23 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
         do
          {
-          resultBean=new Person();
+          // reset temporary variable for immutable POJO
+          // immutable object: initialize temporary variables for properties
+          __id=0;
+          __name=null;
+          __surname=null;
+          __id=_cursor.getLong(index0);
+          if (!_cursor.isNull(index1)) { __name=_cursor.getString(index1); }
+          if (!_cursor.isNull(index2)) { __surname=_cursor.getString(index2); }
 
-          resultBean.id=_cursor.getLong(index0);
-          if (!_cursor.isNull(index1)) { resultBean.name=_cursor.getString(index1); }
-          if (!_cursor.isNull(index2)) { resultBean.surname=_cursor.getString(index2); }
-
+          // define immutable POJO
+          // immutable object: inizialize object
+          resultBean=new Person(__id,__name,__surname);
           resultList.add(resultBean);
         } while (_cursor.moveToNext());
       }
 
-      return resultList;
+      return (resultList==null ? null : Collections.unmodifiableList(resultList));
     }
     // Specialized part II - SelectPaginatedResultHelper - END
   }
@@ -236,7 +261,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    * @param name
    * 	is binded to <code>:name</code>
-   * @return collection of bean or empty collection.
+   * @return collection of bean or empty collection. If result type is List, it will be generated as <strong>immutable list</strong>.
    */
   @Override
   public PagedLiveData<List<Person>> selectPaged(final String name) {
@@ -323,12 +348,6 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // log section END
     // insert operation
     long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
-    // if PK string, can not overwrite id (with a long) same thing if column type is UNMANAGED (user manage PK)
-    bean.id=result;
-    if (result>0) {
-      // rx management 
-      subject.onNext(SQLiteEvent.createInsertWithId(result));
-    }
     // support for livedata
     registryEvent(result>0?1:0);
     // Specialized Insert - InsertType - END
@@ -394,10 +413,6 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     }
     // log section END
     int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
-    if (result>0) {
-      // rx management 
-      subject.onNext(SQLiteEvent.createUpdate(result));
-    }
     // support for livedata
     registryEvent(result);
   }
@@ -427,10 +442,6 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
         item.get().invalidate();
       }
     }
-  }
-
-  public PublishSubject<SQLiteEvent> getSubject() {
-    return subject;
   }
 
   public static void clearCompiledStatements() {

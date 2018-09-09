@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindLongDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao LongDao.
    *
-   * retrieve dao LongDao
+   * @return dao implementation
    */
   LongDaoImpl getLongDao();
 }

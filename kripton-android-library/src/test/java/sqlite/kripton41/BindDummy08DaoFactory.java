@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindDummy08DaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao DaoBeanDeleteOK.
    *
-   * retrieve dao DaoBeanDeleteOK
+   * @return dao implementation
    */
   DaoBeanDeleteOKImpl getDaoBeanDeleteOK();
 }

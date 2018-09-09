@@ -21,20 +21,23 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindArtistDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao ArtistDao.
    *
-   * retrieve dao ArtistDao
+   * @return dao implementation
    */
   ArtistDaoImpl getArtistDao();
 
   /**
+   * Retrieve dao AlbumDao.
    *
-   * retrieve dao AlbumDao
+   * @return dao implementation
    */
   AlbumDaoImpl getAlbumDao();
 
   /**
+   * Retrieve dao TrackDao.
    *
-   * retrieve dao TrackDao
+   * @return dao implementation
    */
   TrackDaoImpl getTrackDao();
 }

@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindSchoolLunchDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao SchoolLunchDAO.
    *
-   * retrieve dao SchoolLunchDAO
+   * @return dao implementation
    */
   SchoolLunchDAOImpl getSchoolLunchDAO();
 }

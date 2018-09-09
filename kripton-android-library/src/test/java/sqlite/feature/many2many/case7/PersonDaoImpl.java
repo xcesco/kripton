@@ -23,7 +23,10 @@ import java.util.List;
 public class PersonDaoImpl extends Dao implements PersonDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String LIST_PERSONS_SQL2 = "SELECT id, name FROM person";
+  /**
+   * SQL definition for method listPersons
+   */
+  private static final String LIST_PERSONS_SQL4 = "SELECT id, name FROM person";
 
   public PersonDaoImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -118,7 +121,7 @@ public class PersonDaoImpl extends Dao implements PersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LIST_PERSONS_SQL2;
+    String _sql=LIST_PERSONS_SQL4;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

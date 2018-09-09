@@ -25,7 +25,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SelectRawHelper.
  *
@@ -38,7 +38,7 @@ public class SelectRawHelper extends AbstractSelectCodeGenerator {
 	 * @see com.abubusoft.kripton.processor.sqlite.AbstractSelectCodeGenerator#generateCommonPart(com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod, com.squareup.javapoet.TypeSpec.Builder, com.squareup.javapoet.MethodSpec.Builder, java.util.Set, boolean)
 	 */
 	public void generateCommonPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
-		generateCommonPart(method, classBuilder, methodBuilder, fieldList, mapFields, GenerationType.NO_CLOSE_CURSOR, null);
+		generateCommonPart(method, classBuilder, methodBuilder, fieldList, mapFields, GenerationType.NO_CLOSE_CURSOR, null, true);
 	}
 	
 	/*
@@ -49,6 +49,7 @@ public class SelectRawHelper extends AbstractSelectCodeGenerator {
 	@Override
 	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {		
 		methodBuilder.addCode("return _cursor;\n");
+		methodBuilder.endControlFlow();
 	}
 
 

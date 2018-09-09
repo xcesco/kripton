@@ -36,13 +36,25 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class PersonDAOImpl extends Dao implements PersonDAO {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_THE_ONE_SQL1 = "SELECT id, birth, name, surname FROM person";
+  /**
+   * SQL definition for method selectTheOne
+   */
+  private static final String SELECT_THE_ONE_SQL2 = "SELECT id, birth, name, surname FROM person";
 
-  private static final String SELECT_BY_BIRTHDAY_SQL2 = "SELECT id, birth, name, surname FROM person WHERE birth=?";
-
-  private static final String SELECT_SQL3 = "SELECT id, birth, name, surname FROM person WHERE birth=?";
-
+  /**
+   * SQL definition for method selectByBirthday
+   */
   private static final String SELECT_BY_BIRTHDAY_SQL4 = "SELECT id, birth, name, surname FROM person WHERE birth=?";
+
+  /**
+   * SQL definition for method select
+   */
+  private static final String SELECT_SQL6 = "SELECT id, birth, name, surname FROM person WHERE birth=?";
+
+  /**
+   * SQL definition for method selectByBirthday
+   */
+  private static final String SELECT_BY_BIRTHDAY_SQL8 = "SELECT id, birth, name, surname FROM person WHERE birth=?";
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
@@ -167,7 +179,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_THE_ONE_SQL1;
+    String _sql=SELECT_THE_ONE_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -258,7 +270,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_BIRTHDAY_SQL2;
+    String _sql=SELECT_BY_BIRTHDAY_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(DateAdapter.class, birthDay));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -355,7 +367,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_SQL3;
+    String _sql=SELECT_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(DateAdapter.class, birthDay));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -501,7 +513,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_BIRTHDAY_SQL4;
+    String _sql=SELECT_BY_BIRTHDAY_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(SQLTypeAdapterUtils.toString(DateAdapter.class, birthDay));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

@@ -22,11 +22,20 @@ import java.util.List;
  *  @see UserDeviceTable
  */
 public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
-  private static final String SELECT_BY_ID_SQL5 = "SELECT id, device_id, user_id FROM user_device WHERE id=?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL10 = "SELECT id, device_id, user_id FROM user_device WHERE id=?";
 
-  private static final String SELECT_BY_USER_ID_SQL6 = "SELECT id, device_id, user_id FROM user_device WHERE user_id=?";
+  /**
+   * SQL definition for method selectByUserId
+   */
+  private static final String SELECT_BY_USER_ID_SQL12 = "SELECT id, device_id, user_id FROM user_device WHERE user_id=?";
 
-  private static final String SELECT_BY_DEVICE_ID_SQL7 = "SELECT id, device_id, user_id FROM user_device WHERE device_id=?";
+  /**
+   * SQL definition for method selectByDeviceId
+   */
+  private static final String SELECT_BY_DEVICE_ID_SQL14 = "SELECT id, device_id, user_id FROM user_device WHERE device_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -69,7 +78,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL5;
+    String _sql=SELECT_BY_ID_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -156,7 +165,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_USER_ID_SQL6;
+    String _sql=SELECT_BY_USER_ID_SQL12;
     // add where arguments
     _contentValues.addWhereArgs((userId==null?"":String.valueOf(userId)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -249,7 +258,7 @@ public class UserDeviceDaoImpl extends Dao implements GeneratedUserDeviceDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_DEVICE_ID_SQL7;
+    String _sql=SELECT_BY_DEVICE_ID_SQL14;
     // add where arguments
     _contentValues.addWhereArgs((deviceId==null?"":String.valueOf(deviceId)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

@@ -30,7 +30,10 @@ import sqlite.feature.livedata.data.Person;
  *  @see sqlite.feature.livedata.data.PersonTable
  */
 public class DaoPerson0Impl extends Dao implements DaoPerson0 {
-  private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
+  /**
+   * SQL definition for method select
+   */
+  private static final String SELECT_SQL2 = "SELECT id, name, surname FROM person WHERE name=?";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -72,7 +75,7 @@ public class DaoPerson0Impl extends Dao implements DaoPerson0 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_SQL1;
+    String _sql=SELECT_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

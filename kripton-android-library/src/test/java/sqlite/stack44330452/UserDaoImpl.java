@@ -18,7 +18,10 @@ import java.util.List;
  *  @see UserTable
  */
 public class UserDaoImpl extends Dao implements UserDao {
-  private static final String LOAD_USER_SQL1 = "SELECT id FROM user";
+  /**
+   * SQL definition for method loadUser
+   */
+  private static final String LOAD_USER_SQL2 = "SELECT id FROM user";
 
   public UserDaoImpl(BindPetUserDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -44,7 +47,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LOAD_USER_SQL1;
+    String _sql=LOAD_USER_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

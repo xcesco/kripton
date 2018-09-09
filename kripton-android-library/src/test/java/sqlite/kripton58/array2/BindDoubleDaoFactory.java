@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindDoubleDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao DoubleDao.
    *
-   * retrieve dao DoubleDao
+   * @return dao implementation
    */
   DoubleDaoImpl getDoubleDao();
 }

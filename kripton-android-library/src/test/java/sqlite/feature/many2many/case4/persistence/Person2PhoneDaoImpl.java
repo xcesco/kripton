@@ -22,11 +22,20 @@ import java.util.List;
  *  @see PersonPhoneNumberTable
  */
 public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao {
-  private static final String SELECT_BY_ID_SQL11 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL22 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE id=?";
 
-  private static final String SELECT_BY_PERSON_ID_SQL12 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=?";
+  /**
+   * SQL definition for method selectByPersonId
+   */
+  private static final String SELECT_BY_PERSON_ID_SQL24 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE person_id=?";
 
-  private static final String SELECT_BY_PHONE_NUMBER_ID_SQL13 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE phone_number_id=?";
+  /**
+   * SQL definition for method selectByPhoneNumberId
+   */
+  private static final String SELECT_BY_PHONE_NUMBER_ID_SQL26 = "SELECT id, person_id, phone_number_id FROM person_phone_number WHERE phone_number_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -69,7 +78,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL11;
+    String _sql=SELECT_BY_ID_SQL22;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -156,7 +165,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PERSON_ID_SQL12;
+    String _sql=SELECT_BY_PERSON_ID_SQL24;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -249,7 +258,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PHONE_NUMBER_ID_SQL13;
+    String _sql=SELECT_BY_PHONE_NUMBER_ID_SQL26;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

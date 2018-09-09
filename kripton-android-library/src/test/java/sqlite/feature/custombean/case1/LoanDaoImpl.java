@@ -29,11 +29,20 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *  @see LoanTable
  */
 public class LoanDaoImpl extends Dao implements LoanDao {
-  private static final String FIND_ALL_LOANS_SQL10 = "SELECT id, book_id, end_time, start_time, user_id FROM loan";
+  /**
+   * SQL definition for method findAllLoans
+   */
+  private static final String FIND_ALL_LOANS_SQL20 = "SELECT id, book_id, end_time, start_time, user_id FROM loan";
 
-  private static final String FIND_ALL_WITH_USER_AND_BOOK_SQL11 = "SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id ";
+  /**
+   * SQL definition for method findAllWithUserAndBook
+   */
+  private static final String FIND_ALL_WITH_USER_AND_BOOK_SQL22 = "SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time From loan INNER JOIN book ON loan.book_id = book.id INNER JOIN user ON loan.user_id = user.id ";
 
-  private static final String FIND_LOANS_BY_NAME_AFTER_SQL12 = "SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
+  /**
+   * SQL definition for method findLoansByNameAfter
+   */
+  private static final String FIND_LOANS_BY_NAME_AFTER_SQL24 = "SELECT loan.id, book.title as title, user.name as name, loan.start_time, loan.end_time FROM book INNER JOIN loan ON loan.book_id = book.id INNER JOIN user on user.id = loan.user_id WHERE user.name LIKE ? AND loan.end_time > ? ";
 
   private static SQLiteStatement insertLoanPreparedStatement0;
 
@@ -68,7 +77,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_ALL_LOANS_SQL10;
+    String _sql=FIND_ALL_LOANS_SQL20;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -187,7 +196,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_ALL_WITH_USER_AND_BOOK_SQL11;
+    String _sql=FIND_ALL_WITH_USER_AND_BOOK_SQL22;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -316,7 +325,7 @@ public class LoanDaoImpl extends Dao implements LoanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=FIND_LOANS_BY_NAME_AFTER_SQL12;
+    String _sql=FIND_LOANS_BY_NAME_AFTER_SQL24;
     // add where arguments
     _contentValues.addWhereArgs((userName==null?"":userName));
     _contentValues.addWhereArgs((after==null?"":DateUtils.write(after)));

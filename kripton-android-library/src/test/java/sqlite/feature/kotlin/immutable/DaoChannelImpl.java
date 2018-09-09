@@ -32,11 +32,20 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class DaoChannelImpl extends Dao implements DaoChannel {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_RSS_FEED_ID_SQL4 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels WHERE rss_feed_id=?";
+  /**
+   * SQL definition for method selectByRssFeedId
+   */
+  private static final String SELECT_BY_RSS_FEED_ID_SQL8 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels WHERE rss_feed_id=?";
 
-  private static final String SELECT_ONE_BY_RSS_FEED_ID_SQL5 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels WHERE rss_feed_id=?";
+  /**
+   * SQL definition for method selectOneByRssFeedId
+   */
+  private static final String SELECT_ONE_BY_RSS_FEED_ID_SQL10 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels WHERE rss_feed_id=?";
 
-  private static final String SELECT_ONE_SQL6 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL12 = "SELECT id, copyright, description, image, language, last_build_date, link, pub_date, rss_feed_id, title FROM channels";
 
   static Collection<WeakReference<LiveDataHandler>> liveDatas = new CopyOnWriteArraySet<WeakReference<LiveDataHandler>>();
 
@@ -175,7 +184,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_RSS_FEED_ID_SQL4;
+    String _sql=SELECT_BY_RSS_FEED_ID_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(rssFeedId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -307,7 +316,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_BY_RSS_FEED_ID_SQL5;
+    String _sql=SELECT_ONE_BY_RSS_FEED_ID_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(rssFeedId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -423,7 +432,7 @@ public class DaoChannelImpl extends Dao implements DaoChannel {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL6;
+    String _sql=SELECT_ONE_SQL12;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

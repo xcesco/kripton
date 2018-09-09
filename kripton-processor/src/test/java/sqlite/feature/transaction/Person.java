@@ -27,6 +27,18 @@ public class Person {
 	/** The id. */
 	public long id;
 	
+	/**
+	 * @param id
+	 * @param name
+	 * @param surname
+	 */
+	public Person(long id, String name, String surname) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+	}
+
 	/** The name. */
 	public String name;
 	

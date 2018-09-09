@@ -20,7 +20,10 @@ import sqlite.kripton48.entities.Bean01;
  *  @see sqlite.kripton48.entities.Bean01Table
  */
 public class DaoBean01Impl extends Dao implements DaoBean01 {
-  private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean01 WHERE id=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL2 = "SELECT id, text FROM bean01 WHERE id=?";
 
   private static SQLiteStatement updateOnePreparedStatement0;
 
@@ -56,7 +59,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL1;
+    String _sql=SELECT_ONE_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

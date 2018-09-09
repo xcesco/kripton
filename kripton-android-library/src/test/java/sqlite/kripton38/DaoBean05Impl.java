@@ -35,23 +35,50 @@ import java.util.List;
  *  @see Bean05Table
  */
 public class DaoBean05Impl extends Dao implements DaoBean05 {
-  private static final String SELECT_ONE_SQL1 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL2 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_ONE_SQL2 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=? and text=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL4 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=? and text=?";
 
-  private static final String SELECT_ALL_SQL3 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL6 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_P_K_SQL4 = "SELECT pk FROM ws_bean WHERE text = ?";
+  /**
+   * SQL definition for method selectPK
+   */
+  private static final String SELECT_P_K_SQL8 = "SELECT pk FROM ws_bean WHERE text = ?";
 
-  private static final String SELECT_COUNT_SQL5 = "SELECT count(*) FROM ws_bean WHERE text = ?";
+  /**
+   * SQL definition for method selectCount
+   */
+  private static final String SELECT_COUNT_SQL10 = "SELECT count(*) FROM ws_bean WHERE text = ?";
 
-  private static final String SELECT_CURSOR_LISTENER_SQL6 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
+  /**
+   * SQL definition for method selectCursorListener
+   */
+  private static final String SELECT_CURSOR_LISTENER_SQL12 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_BEAN_LISTENER_SQL7 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
+  /**
+   * SQL definition for method selectBeanListener
+   */
+  private static final String SELECT_BEAN_LISTENER_SQL14 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_ONE_SQL8 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL16 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
-  private static final String SELECT_ONE_SQL9 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL18 = "SELECT pk, bean_type, content, creation_time, number, text FROM ws_bean WHERE pk=?";
 
   private static SQLiteStatement insertRawPreparedStatement0;
 
@@ -69,7 +96,10 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
 
   private static SQLiteStatement deleteBeanPreparedStatement7;
 
-  private static final String GET_ONE_SQL10 = "SELECT content FROM ws_bean WHERE pk=?";
+  /**
+   * SQL definition for method getOne
+   */
+  private static final String GET_ONE_SQL20 = "SELECT content FROM ws_bean WHERE pk=?";
 
   public DaoBean05Impl(BindDummy05DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -107,7 +137,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL1;
+    String _sql=SELECT_ONE_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -192,7 +222,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL2;
+    String _sql=SELECT_ONE_SQL4;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(bean.getPk()));
     _contentValues.addWhereArgs(bean.getText());
@@ -277,7 +307,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL3;
+    String _sql=SELECT_ALL_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -362,7 +392,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_P_K_SQL4;
+    String _sql=SELECT_P_K_SQL8;
     // add where arguments
     _contentValues.addWhereArgs((text==null?"":text));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -434,7 +464,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_COUNT_SQL5;
+    String _sql=SELECT_COUNT_SQL10;
     // add where arguments
     _contentValues.addWhereArgs((text==null?"":text));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -504,7 +534,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_CURSOR_LISTENER_SQL6;
+    String _sql=SELECT_CURSOR_LISTENER_SQL12;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -574,7 +604,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BEAN_LISTENER_SQL7;
+    String _sql=SELECT_BEAN_LISTENER_SQL14;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -668,7 +698,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL8;
+    String _sql=SELECT_ONE_SQL16;
     // add where arguments
     _contentValues.addWhereArgs((id==null?"":String.valueOf(id)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -738,7 +768,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL9;
+    String _sql=SELECT_ONE_SQL18;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1317,7 +1347,7 @@ public class DaoBean05Impl extends Dao implements DaoBean05 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_ONE_SQL10;
+    String _sql=GET_ONE_SQL20;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

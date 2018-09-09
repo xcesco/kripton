@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindExample01DaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao PersonDAO.
    *
-   * retrieve dao PersonDAO
+   * @return dao implementation
    */
   PersonDAOImpl getPersonDAO();
 }

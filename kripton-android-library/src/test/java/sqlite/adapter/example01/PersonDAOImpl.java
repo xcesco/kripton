@@ -20,7 +20,10 @@ import java.util.List;
  *  @see PersonTable
  */
 public class PersonDAOImpl extends Dao implements PersonDAO {
-  private static final String SELECT_BY_BIRTHDAY_SQL1 = "SELECT id, birth, name, surname FROM person WHERE birth=?";
+  /**
+   * SQL definition for method selectByBirthday
+   */
+  private static final String SELECT_BY_BIRTHDAY_SQL2 = "SELECT id, birth, name, surname FROM person WHERE birth=?";
 
   public PersonDAOImpl(BindExample01DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -56,7 +59,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_BIRTHDAY_SQL1;
+    String _sql=SELECT_BY_BIRTHDAY_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((birthDay==null?"":DateUtils.write(birthDay)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

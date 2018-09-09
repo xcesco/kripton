@@ -18,9 +18,15 @@ import java.util.List;
  *  @see CollegeStudentTable
  */
 public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
-  private static final String GET_STUDENTS_SQL1 = "select * from students where first_name like ? || '%' ";
+  /**
+   * SQL definition for method getStudents
+   */
+  private static final String GET_STUDENTS_SQL2 = "select * from students where first_name like ? || '%' ";
 
-  private static final String GET_STUDENTS_RAW_SQL2 = "SELECT id, first_name, surname FROM students WHERE first_name like ? || '%' ";
+  /**
+   * SQL definition for method getStudentsRaw
+   */
+  private static final String GET_STUDENTS_RAW_SQL4 = "SELECT id, first_name, surname FROM students WHERE first_name like ? || '%' ";
 
   public CollegeStudentDaoImpl(BindCollegeStudentsDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -55,7 +61,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_STUDENTS_SQL1;
+    String _sql=GET_STUDENTS_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((firstName==null?"":firstName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -136,7 +142,7 @@ public class CollegeStudentDaoImpl extends Dao implements CollegeStudentDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=GET_STUDENTS_RAW_SQL2;
+    String _sql=GET_STUDENTS_RAW_SQL4;
     // add where arguments
     _contentValues.addWhereArgs((firstName==null?"":firstName));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

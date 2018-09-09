@@ -16,8 +16,9 @@ import sqlite.feature.livedata.persistence3.dao.DaoPersonImpl;
  */
 public interface BindAppDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao DaoPerson.
    *
-   * retrieve dao DaoPerson
+   * @return dao implementation
    */
   DaoPersonImpl getDaoPerson();
 }

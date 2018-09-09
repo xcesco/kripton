@@ -18,7 +18,10 @@ import com.abubusoft.kripton.common.StringUtils;
  *  @see Bean02Table
  */
 public class DaoBean02Impl extends Dao implements DaoBean02 {
-  private static final String SELECT_ONE_SQL1 = "SELECT id, text FROM bean02 WHERE id=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL2 = "SELECT id, text FROM bean02 WHERE id=?";
 
   private static SQLiteStatement deleteOnePreparedStatement0;
 
@@ -54,7 +57,7 @@ public class DaoBean02Impl extends Dao implements DaoBean02 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL1;
+    String _sql=SELECT_ONE_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

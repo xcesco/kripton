@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindFirstAidDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao FirstAidDao.
    *
-   * retrieve dao FirstAidDao
+   * @return dao implementation
    */
   FirstAidDaoImpl getFirstAidDao();
 }

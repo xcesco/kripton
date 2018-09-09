@@ -24,15 +24,24 @@ import sqlite.feature.javadoc.Person;
  *  @see sqlite.feature.javadoc.PersonTable
  */
 public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
-  private static final String SELECT_ALL_BEANS_SQL1 = "SELECT id, person_name, person_surname, student FROM person";
+  /**
+   * SQL definition for method selectAllBeans
+   */
+  private static final String SELECT_ALL_BEANS_SQL2 = "SELECT id, person_name, person_surname, student FROM person";
 
   private static final Set<String> selectAllBeans0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  private static final String SELECT_ALL_BEANS_COUNT_SQL2 = "SELECT count(*) FROM person";
+  /**
+   * SQL definition for method selectAllBeansCount
+   */
+  private static final String SELECT_ALL_BEANS_COUNT_SQL4 = "SELECT count(*) FROM person";
 
   private static final Set<String> selectAllBeansCount1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "count(*)");
 
-  private static final String SELECT_ONE_BEAN_SQL3 = "SELECT id, person_name, person_surname, student FROM person WHERE id=?";
+  /**
+   * SQL definition for method selectOneBean
+   */
+  private static final String SELECT_ONE_BEAN_SQL6 = "SELECT id, person_name, person_surname, student FROM person WHERE id=?";
 
   private static final Set<String> selectOneBean2ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
@@ -44,7 +53,10 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
 
   private static final Set<String> selectOneBeanWithDynamicOrderAndListener6ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
-  private static final String SELECT_WITH_J_Q_L_SQL4 = "select * from person where id=?";
+  /**
+   * SQL definition for method selectWithJQL
+   */
+  private static final String SELECT_WITH_J_Q_L_SQL8 = "select * from person where id=?";
 
   private static final Set<String> selectWithJQL7ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "person_name", "person_surname", "student");
 
@@ -75,7 +87,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_BEANS_SQL1;
+    String _sql=SELECT_ALL_BEANS_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -211,7 +223,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_BEANS_COUNT_SQL2;
+    String _sql=SELECT_ALL_BEANS_COUNT_SQL4;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -340,7 +352,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_BEAN_SQL3;
+    String _sql=SELECT_ONE_BEAN_SQL6;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -1238,7 +1250,7 @@ public class SelectRawPersonDaoImpl extends Dao implements SelectRawPersonDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_WITH_J_Q_L_SQL4;
+    String _sql=SELECT_WITH_J_Q_L_SQL8;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

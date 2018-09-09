@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindDeleteBeanPersonDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao DeleteBeanPersonDao.
    *
-   * retrieve dao DeleteBeanPersonDao
+   * @return dao implementation
    */
   DeleteBeanPersonDaoImpl getDeleteBeanPersonDao();
 }

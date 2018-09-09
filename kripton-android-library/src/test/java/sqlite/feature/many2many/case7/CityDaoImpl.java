@@ -23,7 +23,10 @@ import java.util.List;
 public class CityDaoImpl extends Dao implements CityDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String LIST_CITIES_SQL1 = "SELECT id, name FROM city";
+  /**
+   * SQL definition for method listCities
+   */
+  private static final String LIST_CITIES_SQL2 = "SELECT id, name FROM city";
 
   public CityDaoImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -118,7 +121,7 @@ public class CityDaoImpl extends Dao implements CityDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LIST_CITIES_SQL1;
+    String _sql=LIST_CITIES_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

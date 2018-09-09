@@ -24,26 +24,30 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindQuickStartDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao UserDao.
    *
-   * retrieve dao UserDao
+   * @return dao implementation
    */
   UserDaoImpl getUserDao();
 
   /**
+   * Retrieve dao PostDao.
    *
-   * retrieve dao PostDao
+   * @return dao implementation
    */
   PostDaoImpl getPostDao();
 
   /**
+   * Retrieve dao CommentDao.
    *
-   * retrieve dao CommentDao
+   * @return dao implementation
    */
   CommentDaoImpl getCommentDao();
 
   /**
+   * Retrieve dao TodoDao.
    *
-   * retrieve dao TodoDao
+   * @return dao implementation
    */
   TodoDaoImpl getTodoDao();
 }

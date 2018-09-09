@@ -15,20 +15,20 @@
  ******************************************************************************/
 package sqlite.feature.transaction;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindTransaction;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * The Interface App0DataSource.
+ * The Class TestFeatureSQLTypeAdapterRuntimeSuite.
  */
-@BindDataSource(fileName="app.db", version=1, daoSet={DaoPerson.class})
-public interface AppDataSource {
-
-	
-	@BindTransaction
-	static void execute(DaoPerson daoPerson, String name) {
-		daoPerson.insert(new Person(-1, name, "Surname"));
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 
+		TestFeatureTransactionRuntime.class,		
 		
-		//return TransactionResult.COMMIT;
-	}
+		 })
+//@formatter:on
+public class TestFeatureTransactionRuntimeSuite {
+
 }

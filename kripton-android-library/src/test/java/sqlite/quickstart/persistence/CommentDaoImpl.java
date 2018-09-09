@@ -24,9 +24,15 @@ import sqlite.quickstart.model.Comment;
 public class CommentDaoImpl extends Dao implements CommentDao {
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static final String SELECT_BY_POST_ID_SQL5 = "SELECT id, body, email, name, post_id FROM comment WHERE post_id = ?";
+  /**
+   * SQL definition for method selectByPostId
+   */
+  private static final String SELECT_BY_POST_ID_SQL10 = "SELECT id, body, email, name, post_id FROM comment WHERE post_id = ?";
 
-  private static final String SELECT_ONE_BY_POST_ID_SQL6 = "SELECT id, body, email, name, post_id FROM comment WHERE id = ?";
+  /**
+   * SQL definition for method selectOneByPostId
+   */
+  private static final String SELECT_ONE_BY_POST_ID_SQL12 = "SELECT id, body, email, name, post_id FROM comment WHERE id = ?";
 
   public CommentDaoImpl(BindQuickStartDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -139,7 +145,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_POST_ID_SQL5;
+    String _sql=SELECT_BY_POST_ID_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(postId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -226,7 +232,7 @@ public class CommentDaoImpl extends Dao implements CommentDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_BY_POST_ID_SQL6;
+    String _sql=SELECT_ONE_BY_POST_ID_SQL12;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(postId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

@@ -27,17 +27,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 import javax.annotation.processing.Filer;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -575,6 +572,11 @@ public class BindDataSourceBuilder extends AbstractBuilder {
 							Modifier.PROTECTED)
 					.addJavadoc("Used only in transactions (that can be executed one for time\n")
 					.initializer("new DataSourceSingleThread()").build());
+		}
+		
+		// build transactions
+		{
+			SchemaUtility.generateTransaction(clazzBuilder, schema, false);
 		}
 
 		classBuilder.addType(clazzBuilder.build());

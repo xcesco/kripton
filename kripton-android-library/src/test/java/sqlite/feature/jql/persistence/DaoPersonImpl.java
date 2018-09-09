@@ -22,7 +22,10 @@ import sqlite.feature.jql.entities.Person;
  *  @see sqlite.feature.jql.entities.PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static final String SELECT_ALL_SQL5 = "SELECT _id, image, name FROM person";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL10 = "SELECT _id, image, name FROM person";
 
   private static SQLiteStatement insertBeanPreparedStatement0;
 
@@ -52,7 +55,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL5;
+    String _sql=SELECT_ALL_SQL10;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

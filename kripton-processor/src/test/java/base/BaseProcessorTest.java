@@ -34,8 +34,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.tools.JavaFileObject;
+import javax.tools.JavaFileObject.Kind;
 
 import org.apache.commons.io.output.NullOutputStream;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -43,11 +45,13 @@ import org.junit.rules.ExpectedException;
 import org.unitils.reflectionassert.ReflectionAssert;
 import org.unitils.reflectionassert.ReflectionComparatorMode;
 
+import com.abubusoft.kripton.android.sqlite.commons.IOUtils;
 import com.abubusoft.kripton.processor.BaseProcessor;
 import com.abubusoft.kripton.processor.KriptonProcessor;
 import com.abubusoft.kripton.processor.exceptions.KriptonProcessorException;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.ByteStreams;
+import com.google.testing.compile.Compilation;
 import com.google.testing.compile.JavaFileObjects;
 
 /**
@@ -450,13 +454,16 @@ public class BaseProcessorTest {
 	 */
 	protected long buildTest(Class<? extends BaseProcessor> processorClazz, Class<?>... classesToTest) {
 		final AtomicLong counter = new AtomicLong(0);
-				
+						
+		Compilation compilation=null;
 		try {			
 			final List<JavaFileObject> sourcesPhase1 = sources(classesToTest);	
-									
-			ImmutableList<JavaFileObject> generated = com.google.testing.compile.Compiler.javac()
+			
+			compilation=com.google.testing.compile.Compiler.javac()
 					.withProcessors(processorClazz.newInstance())					
-					.compile(sourcesPhase1).generatedSourceFiles();
+					.compile(sourcesPhase1);
+									
+			ImmutableList<JavaFileObject> generated = compilation.generatedSourceFiles();
 			for (JavaFileObject item : generated) {
 				counter.addAndGet(1);
 				try {
@@ -506,8 +513,25 @@ public class BaseProcessorTest {
 			}
 
 		} catch (Throwable e) {
-			e.printStackTrace();
-									
+			e.printStackTrace();											
+			
+			if (compilation!=null) {
+				try {
+					@SuppressWarnings("unchecked")
+					ImmutableList<JavaFileObject> generatedFiles=(ImmutableList<JavaFileObject>) FieldUtils.readField(compilation, "generatedFiles", true);
+					
+					generatedFiles.stream().filter(action -> action.getKind()==Kind.SOURCE ).forEach(action -> {
+						try {
+							log("\n********************************\n"+action.getName()+"\n"+IOUtils.readText(action.openInputStream()));
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					});
+				} catch (IllegalAccessException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
 			Assert.fail(e.getMessage());
 		}
 		return counter.longValue();

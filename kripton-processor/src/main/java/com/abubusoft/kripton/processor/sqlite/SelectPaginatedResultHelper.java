@@ -79,7 +79,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 			createPagedResult(method, pagedResultName, methodBuilder);
 
 			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(),
-					GenerationType.NO_CONTENT, null);
+					GenerationType.NO_CONTENT, null, true);
 			methodBuilder.addStatement("return paginatedResult");
 
 			if (!method.isPagedLiveData()) {
@@ -97,7 +97,7 @@ public class SelectPaginatedResultHelper extends AbstractSelectCodeGenerator {
 					ParameterSpec.builder(TypeUtility.typeName(pagedResultName), "paginatedResult").build());
 
 			generateCommonPart(method, classBuilder, methodBuilder, fieldList, selectType.isMapFields(),
-					GenerationType.NO_METHOD_SIGN, null,
+					GenerationType.NO_METHOD_SIGN, null, false,
 					JavadocPart.build(JavadocPartType.ADD_PARAMETER, "paginatedResult", "handler of paginated result"),
 					JavadocPart.build(JavadocPartType.RETURN, "", "result list"));
 

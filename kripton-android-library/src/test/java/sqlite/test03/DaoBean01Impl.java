@@ -18,7 +18,10 @@ import java.util.List;
  *  @see Bean01Table
  */
 public class DaoBean01Impl extends Dao implements DaoBean01 {
-  private static final String LIST_ALL_SQL1 = "SELECT id, bean_list, lista, message_date, message_text, value FROM bean01 WHERE 1=1";
+  /**
+   * SQL definition for method listAll
+   */
+  private static final String LIST_ALL_SQL2 = "SELECT id, bean_list, lista, message_date, message_text, value FROM bean01 WHERE 1=1";
 
   public DaoBean01Impl(BindDummy01DaoFactory daoFactory) {
     super(daoFactory.context());
@@ -49,7 +52,7 @@ public class DaoBean01Impl extends Dao implements DaoBean01 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=LIST_ALL_SQL1;
+    String _sql=LIST_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

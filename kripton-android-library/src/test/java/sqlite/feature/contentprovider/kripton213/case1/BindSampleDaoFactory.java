@@ -15,8 +15,9 @@ import com.abubusoft.kripton.android.sqlite.BindDaoFactory;
  */
 public interface BindSampleDaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao CheeseDao.
    *
-   * retrieve dao CheeseDao
+   * @return dao implementation
    */
   CheeseDaoImpl getCheeseDao();
 }

@@ -25,7 +25,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *  @see PersonTable
  */
 public class DaoPersonImpl extends Dao implements DaoPerson {
-  private static final String SELECT_ALL_SQL1 = "SELECT id, name FROM person";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL2 = "SELECT id, name FROM person";
 
   private static SQLiteStatement insertPreparedStatement0;
 
@@ -55,7 +58,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL1;
+    String _sql=SELECT_ALL_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

@@ -25,7 +25,10 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
 
   private static SQLiteStatement insertPreparedStatement1;
 
-  private static final String SELECT_BY_ID_SQL1 = "SELECT id, content, content_type, name FROM files WHERE id=?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL2 = "SELECT id, content, content_type, name FROM files WHERE id=?";
 
   public FileBeanDaoImpl(BindExampleDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -211,7 +214,7 @@ public class FileBeanDaoImpl extends Dao implements FileBeanDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL1;
+    String _sql=SELECT_BY_ID_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

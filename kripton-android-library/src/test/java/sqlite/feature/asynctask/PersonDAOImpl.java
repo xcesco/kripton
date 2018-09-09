@@ -24,9 +24,15 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
 
   private static SQLiteStatement insertThread2PreparedStatement1;
 
-  private static final String SELECT_THREAD1_SQL1 = "SELECT id, birth_city, birth_day, name, surname FROM person";
+  /**
+   * SQL definition for method selectThread1
+   */
+  private static final String SELECT_THREAD1_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person";
 
-  private static final String SELECT_THREAD2_SQL2 = "SELECT id, birth_city, birth_day, name, surname FROM person";
+  /**
+   * SQL definition for method selectThread2
+   */
+  private static final String SELECT_THREAD2_SQL4 = "SELECT id, birth_city, birth_day, name, surname FROM person";
 
   public PersonDAOImpl(BindPersonDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -204,7 +210,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_THREAD1_SQL1;
+    String _sql=SELECT_THREAD1_SQL2;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -277,7 +283,7 @@ public class PersonDAOImpl extends Dao implements PersonDAO {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_THREAD2_SQL2;
+    String _sql=SELECT_THREAD2_SQL4;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

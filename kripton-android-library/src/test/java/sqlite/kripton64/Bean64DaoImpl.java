@@ -181,109 +181,265 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
 
   private static SQLiteStatement insertURLPreparedStatement62;
 
-  private static final String SELECT_LIST_SQL1 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
+  /**
+   * SQL definition for method selectList
+   */
+  private static final String SELECT_LIST_SQL2 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
 
-  private static final String SELECT_ONE_SQL2 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL4 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64";
 
-  private static final String SELECT_ONE_SQL3 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_big_decimal=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL6 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_big_decimal=?";
 
-  private static final String SELECT_ONE_SQL4 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_big_decimal=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL8 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_big_decimal=?";
 
-  private static final String SELECT_ONE_SQL5 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bool_type=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL10 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bool_type=?";
 
-  private static final String SELECT_ONE_SQL6 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bool=?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL12 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bool=?";
 
-  private static final String SELECT_ONE_SQL7 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL14 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
 
-  private static final String SELECT_ONE_SQL8 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
+  /**
+   * SQL definition for method selectOne
+   */
+  private static final String SELECT_ONE_SQL16 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE id = ?";
 
-  private static final String SELECT_ONE_ARRAY_BEAN_TYPE_SQL9 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bean_array=?";
+  /**
+   * SQL definition for method selectOneArrayBeanType
+   */
+  private static final String SELECT_ONE_ARRAY_BEAN_TYPE_SQL18 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_bean_array=?";
 
-  private static final String SELECT_ONE_ARRAY_LONG_SQL10 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_array=?";
+  /**
+   * SQL definition for method selectOneArrayLong
+   */
+  private static final String SELECT_ONE_ARRAY_LONG_SQL20 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_array=?";
 
-  private static final String SELECT_ONE_ARRAY_LONG_TYPE_SQL11 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_type_array=?";
+  /**
+   * SQL definition for method selectOneArrayLongType
+   */
+  private static final String SELECT_ONE_ARRAY_LONG_TYPE_SQL22 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_type_array=?";
 
-  private static final String SELECT_ONE_BYTE_SQL12 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_byte=?";
+  /**
+   * SQL definition for method selectOneByte
+   */
+  private static final String SELECT_ONE_BYTE_SQL24 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_byte=?";
 
-  private static final String SELECT_ONE_BYTE_TYPE_SQL13 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_byte_type=?";
+  /**
+   * SQL definition for method selectOneByteType
+   */
+  private static final String SELECT_ONE_BYTE_TYPE_SQL26 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_byte_type=?";
 
-  private static final String SELECT_ONE_CALENDAR_SQL14 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_calendar=?";
+  /**
+   * SQL definition for method selectOneCalendar
+   */
+  private static final String SELECT_ONE_CALENDAR_SQL28 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_calendar=?";
 
-  private static final String SELECT_ONE_CHAR_SQL15 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_char_type=?";
+  /**
+   * SQL definition for method selectOneChar
+   */
+  private static final String SELECT_ONE_CHAR_SQL30 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_char_type=?";
 
-  private static final String SELECT_ONE_CHAR_TYPE_SQL16 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_char_type=?";
+  /**
+   * SQL definition for method selectOneCharType
+   */
+  private static final String SELECT_ONE_CHAR_TYPE_SQL32 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_char_type=?";
 
-  private static final String SELECT_ONE_CURRENCYE_SQL17 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_currency=?";
+  /**
+   * SQL definition for method selectOneCurrencye
+   */
+  private static final String SELECT_ONE_CURRENCYE_SQL34 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_currency=?";
 
-  private static final String SELECT_ONE_DATE_SQL18 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_date=?";
+  /**
+   * SQL definition for method selectOneDate
+   */
+  private static final String SELECT_ONE_DATE_SQL36 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_date=?";
 
-  private static final String SELECT_ONE_DOUBLE_SQL19 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_double=?";
+  /**
+   * SQL definition for method selectOneDouble
+   */
+  private static final String SELECT_ONE_DOUBLE_SQL38 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_double=?";
 
-  private static final String SELECT_ONE_DOUBLE_TYPE_SQL20 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_double_type=?";
+  /**
+   * SQL definition for method selectOneDoubleType
+   */
+  private static final String SELECT_ONE_DOUBLE_TYPE_SQL40 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_double_type=?";
 
-  private static final String SELECT_ONE_ENUM_TYPE_SQL21 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_enum_type=?";
+  /**
+   * SQL definition for method selectOneEnumType
+   */
+  private static final String SELECT_ONE_ENUM_TYPE_SQL42 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_enum_type=?";
 
-  private static final String SELECT_ONE_FLOAT_SQL22 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_float=?";
+  /**
+   * SQL definition for method selectOneFloat
+   */
+  private static final String SELECT_ONE_FLOAT_SQL44 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_float=?";
 
-  private static final String SELECT_ONE_FLOAT_TYPE_SQL23 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_float_type=?";
+  /**
+   * SQL definition for method selectOneFloatType
+   */
+  private static final String SELECT_ONE_FLOAT_TYPE_SQL46 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_float_type=?";
 
-  private static final String SELECT_ONE_INT_SQL24 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_int=?";
+  /**
+   * SQL definition for method selectOneInt
+   */
+  private static final String SELECT_ONE_INT_SQL48 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_int=?";
 
-  private static final String SELECT_ONE_INT_TYPE_SQL25 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_int_type=?";
+  /**
+   * SQL definition for method selectOneIntType
+   */
+  private static final String SELECT_ONE_INT_TYPE_SQL50 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_int_type=?";
 
-  private static final String SELECT_ONE_LIST_LONG_SQL26 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_list=?";
+  /**
+   * SQL definition for method selectOneListLong
+   */
+  private static final String SELECT_ONE_LIST_LONG_SQL52 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_list=?";
 
-  private static final String SELECT_ONE_LOCALE_SQL27 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_locale=?";
+  /**
+   * SQL definition for method selectOneLocale
+   */
+  private static final String SELECT_ONE_LOCALE_SQL54 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_locale=?";
 
-  private static final String SELECT_ONE_LONG_SQL28 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long=?";
+  /**
+   * SQL definition for method selectOneLong
+   */
+  private static final String SELECT_ONE_LONG_SQL56 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long=?";
 
-  private static final String SELECT_ONE_LONG_TYPE_SQL29 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_type=?";
+  /**
+   * SQL definition for method selectOneLongType
+   */
+  private static final String SELECT_ONE_LONG_TYPE_SQL58 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_long_type=?";
 
-  private static final String SELECT_ONE_SHORT_SQL30 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_short=?";
+  /**
+   * SQL definition for method selectOneShort
+   */
+  private static final String SELECT_ONE_SHORT_SQL60 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_short=?";
 
-  private static final String SELECT_ONE_SHORT_TYPE_SQL31 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_short_type=?";
+  /**
+   * SQL definition for method selectOneShortType
+   */
+  private static final String SELECT_ONE_SHORT_TYPE_SQL62 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_short_type=?";
 
-  private static final String SELECT_ONE_STRING_SQL32 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_string=?";
+  /**
+   * SQL definition for method selectOneString
+   */
+  private static final String SELECT_ONE_STRING_SQL64 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_string=?";
 
-  private static final String SELECT_ONE_TIME_SQL33 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_time=?";
+  /**
+   * SQL definition for method selectOneTime
+   */
+  private static final String SELECT_ONE_TIME_SQL66 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_time=?";
 
-  private static final String SELECT_ONE_TIME_ZONE_SQL34 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_time_zone=?";
+  /**
+   * SQL definition for method selectOneTimeZone
+   */
+  private static final String SELECT_ONE_TIME_ZONE_SQL68 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_time_zone=?";
 
-  private static final String SELECT_ONE_U_R_L_SQL35 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_url=?";
+  /**
+   * SQL definition for method selectOneURL
+   */
+  private static final String SELECT_ONE_U_R_L_SQL70 = "SELECT id, value_bean_array, value_big_decimal, value_big_integer, value_bool, value_bool_type, value_byte, value_byte_array, value_byte_type, value_calendar, value_char, value_char_array, value_char_list, value_char_type, value_char_type_array, value_currency, value_date, value_double, value_double_type, value_enum_type, value_float, value_float_type, value_int, value_int_type, value_linked_map_string_bean, value_locale, value_long, value_long_array, value_long_list, value_long_type, value_long_type_array, value_map_string_bean, value_set_string, value_short, value_short_type, value_strin_list, value_string, value_string_array, value_time, value_time_list, value_time_zone, value_url FROM bean64 WHERE value_url=?";
 
-  private static final String SELECT_VALUE_BOOL_SQL36 = "SELECT value_bool FROM bean64";
+  /**
+   * SQL definition for method selectValueBool
+   */
+  private static final String SELECT_VALUE_BOOL_SQL72 = "SELECT value_bool FROM bean64";
 
-  private static final String SELECT_VALUE_BOOL_TYPE_SQL37 = "SELECT value_bool_type FROM bean64";
+  /**
+   * SQL definition for method selectValueBoolType
+   */
+  private static final String SELECT_VALUE_BOOL_TYPE_SQL74 = "SELECT value_bool_type FROM bean64";
 
-  private static final String SELECT_VALUE_BYTE_SQL38 = "SELECT value_byte FROM bean64";
+  /**
+   * SQL definition for method selectValueByte
+   */
+  private static final String SELECT_VALUE_BYTE_SQL76 = "SELECT value_byte FROM bean64";
 
-  private static final String SELECT_VALUE_BYTE_TYPE_SQL39 = "SELECT value_byte_type FROM bean64";
+  /**
+   * SQL definition for method selectValueByteType
+   */
+  private static final String SELECT_VALUE_BYTE_TYPE_SQL78 = "SELECT value_byte_type FROM bean64";
 
-  private static final String SELECT_VALUE_CHAR_SQL40 = "SELECT value_char FROM bean64";
+  /**
+   * SQL definition for method selectValueChar
+   */
+  private static final String SELECT_VALUE_CHAR_SQL80 = "SELECT value_char FROM bean64";
 
-  private static final String SELECT_VALUE_CHAR_TYPE_SQL41 = "SELECT value_char_type FROM bean64";
+  /**
+   * SQL definition for method selectValueCharType
+   */
+  private static final String SELECT_VALUE_CHAR_TYPE_SQL82 = "SELECT value_char_type FROM bean64";
 
-  private static final String SELECT_VALUE_DOUBLE_SQL42 = "SELECT value_double FROM bean64";
+  /**
+   * SQL definition for method selectValueDouble
+   */
+  private static final String SELECT_VALUE_DOUBLE_SQL84 = "SELECT value_double FROM bean64";
 
-  private static final String SELECT_VALUE_DOUBLE_TYPE_SQL43 = "SELECT value_double_type FROM bean64";
+  /**
+   * SQL definition for method selectValueDoubleType
+   */
+  private static final String SELECT_VALUE_DOUBLE_TYPE_SQL86 = "SELECT value_double_type FROM bean64";
 
-  private static final String SELECT_VALUE_FLOAT_SQL44 = "SELECT value_float FROM bean64";
+  /**
+   * SQL definition for method selectValueFloat
+   */
+  private static final String SELECT_VALUE_FLOAT_SQL88 = "SELECT value_float FROM bean64";
 
-  private static final String SELECT_VALUE_FLOAT_TYPE_SQL45 = "SELECT value_float_type FROM bean64";
+  /**
+   * SQL definition for method selectValueFloatType
+   */
+  private static final String SELECT_VALUE_FLOAT_TYPE_SQL90 = "SELECT value_float_type FROM bean64";
 
-  private static final String SELECT_VALUE_INT_SQL46 = "SELECT value_int FROM bean64";
+  /**
+   * SQL definition for method selectValueInt
+   */
+  private static final String SELECT_VALUE_INT_SQL92 = "SELECT value_int FROM bean64";
 
-  private static final String SELECT_VALUE_INT_TYPE_SQL47 = "SELECT value_int_type FROM bean64";
+  /**
+   * SQL definition for method selectValueIntType
+   */
+  private static final String SELECT_VALUE_INT_TYPE_SQL94 = "SELECT value_int_type FROM bean64";
 
-  private static final String SELECT_VALUE_LONG_SQL48 = "SELECT value_long FROM bean64";
+  /**
+   * SQL definition for method selectValueLong
+   */
+  private static final String SELECT_VALUE_LONG_SQL96 = "SELECT value_long FROM bean64";
 
-  private static final String SELECT_VALUE_LONG_TYPE_SQL49 = "SELECT value_long_type FROM bean64";
+  /**
+   * SQL definition for method selectValueLongType
+   */
+  private static final String SELECT_VALUE_LONG_TYPE_SQL98 = "SELECT value_long_type FROM bean64";
 
-  private static final String SELECT_VALUE_SHORT_SQL50 = "SELECT value_short FROM bean64";
+  /**
+   * SQL definition for method selectValueShort
+   */
+  private static final String SELECT_VALUE_SHORT_SQL100 = "SELECT value_short FROM bean64";
 
-  private static final String SELECT_VALUE_SHORT_TYPE_SQL51 = "SELECT value_short_type FROM bean64";
+  /**
+   * SQL definition for method selectValueShortType
+   */
+  private static final String SELECT_VALUE_SHORT_TYPE_SQL102 = "SELECT value_short_type FROM bean64";
 
-  private static final String SELECT_VALUE_STRING_SQL52 = "SELECT value_string FROM bean64";
+  /**
+   * SQL definition for method selectValueString
+   */
+  private static final String SELECT_VALUE_STRING_SQL104 = "SELECT value_string FROM bean64";
 
   private static SQLiteStatement updateOnePreparedStatement63;
 
@@ -4019,7 +4175,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_LIST_SQL1;
+    String _sql=SELECT_LIST_SQL2;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -4210,7 +4366,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL2;
+    String _sql=SELECT_ONE_SQL4;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -4401,7 +4557,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL3;
+    String _sql=SELECT_ONE_SQL6;
     // add where arguments
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toPlainString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -4593,7 +4749,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL4;
+    String _sql=SELECT_ONE_SQL8;
     // add where arguments
     _contentValues.addWhereArgs((valueBigDecimal==null?"":valueBigDecimal.toString()));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -4785,7 +4941,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL5;
+    String _sql=SELECT_ONE_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueBoolType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -4977,7 +5133,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL6;
+    String _sql=SELECT_ONE_SQL12;
     // add where arguments
     _contentValues.addWhereArgs((valueBool==null?"":String.valueOf(valueBool)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -5170,7 +5326,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL7;
+    String _sql=SELECT_ONE_SQL14;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -5408,7 +5564,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SQL8;
+    String _sql=SELECT_ONE_SQL16;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -5513,7 +5669,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_ARRAY_BEAN_TYPE_SQL9;
+    String _sql=SELECT_ONE_ARRAY_BEAN_TYPE_SQL18;
     // add where arguments
     _contentValues.addWhereArgs((valueBeanArray==null?"":new String(serializer1(valueBeanArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -5705,7 +5861,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_ARRAY_LONG_SQL10;
+    String _sql=SELECT_ONE_ARRAY_LONG_SQL20;
     // add where arguments
     _contentValues.addWhereArgs((valueLongArray==null?"":new String(serializer2(valueLongArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -5897,7 +6053,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_ARRAY_LONG_TYPE_SQL11;
+    String _sql=SELECT_ONE_ARRAY_LONG_TYPE_SQL22;
     // add where arguments
     _contentValues.addWhereArgs((valueLongTypeArray==null?"":new String(serializer3(valueLongTypeArray),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -6089,7 +6245,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_BYTE_SQL12;
+    String _sql=SELECT_ONE_BYTE_SQL24;
     // add where arguments
     _contentValues.addWhereArgs((valueByte==null?"":String.valueOf(valueByte)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -6281,7 +6437,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_BYTE_TYPE_SQL13;
+    String _sql=SELECT_ONE_BYTE_TYPE_SQL26;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueByteType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -6473,7 +6629,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_CALENDAR_SQL14;
+    String _sql=SELECT_ONE_CALENDAR_SQL28;
     // add where arguments
     _contentValues.addWhereArgs((valueCalendar==null?"":CalendarUtils.write(valueCalendar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -6665,7 +6821,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_CHAR_SQL15;
+    String _sql=SELECT_ONE_CHAR_SQL30;
     // add where arguments
     _contentValues.addWhereArgs((valueChar==null?"":String.valueOf(valueChar)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -6857,7 +7013,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_CHAR_TYPE_SQL16;
+    String _sql=SELECT_ONE_CHAR_TYPE_SQL32;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueCharType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -7049,7 +7205,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_CURRENCYE_SQL17;
+    String _sql=SELECT_ONE_CURRENCYE_SQL34;
     // add where arguments
     _contentValues.addWhereArgs((valueCurrency==null?"":CurrencyUtils.write(valueCurrency)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -7241,7 +7397,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_DATE_SQL18;
+    String _sql=SELECT_ONE_DATE_SQL36;
     // add where arguments
     _contentValues.addWhereArgs((valueDate==null?"":DateUtils.write(valueDate)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -7433,7 +7589,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_DOUBLE_SQL19;
+    String _sql=SELECT_ONE_DOUBLE_SQL38;
     // add where arguments
     _contentValues.addWhereArgs((valueDouble==null?"":String.valueOf(valueDouble)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -7625,7 +7781,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_DOUBLE_TYPE_SQL20;
+    String _sql=SELECT_ONE_DOUBLE_TYPE_SQL40;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueDoubleType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -7817,7 +7973,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_ENUM_TYPE_SQL21;
+    String _sql=SELECT_ONE_ENUM_TYPE_SQL42;
     // add where arguments
     _contentValues.addWhereArgs((valueEnumType==null?"":EnumUtils.write(valueEnumType)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -8009,7 +8165,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_FLOAT_SQL22;
+    String _sql=SELECT_ONE_FLOAT_SQL44;
     // add where arguments
     _contentValues.addWhereArgs((valueFloat==null?"":String.valueOf(valueFloat)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -8201,7 +8357,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_FLOAT_TYPE_SQL23;
+    String _sql=SELECT_ONE_FLOAT_TYPE_SQL46;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueFloatType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -8393,7 +8549,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_INT_SQL24;
+    String _sql=SELECT_ONE_INT_SQL48;
     // add where arguments
     _contentValues.addWhereArgs((valueInt==null?"":String.valueOf(valueInt)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -8585,7 +8741,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_INT_TYPE_SQL25;
+    String _sql=SELECT_ONE_INT_TYPE_SQL50;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueIntType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -8777,7 +8933,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_LIST_LONG_SQL26;
+    String _sql=SELECT_ONE_LIST_LONG_SQL52;
     // add where arguments
     _contentValues.addWhereArgs((valueLongList==null?"":new String(serializer4(valueLongList),StandardCharsets.UTF_8)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -8969,7 +9125,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_LOCALE_SQL27;
+    String _sql=SELECT_ONE_LOCALE_SQL54;
     // add where arguments
     _contentValues.addWhereArgs((valueLocale==null?"":CalendarUtils.write(valueLocale)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -9161,7 +9317,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_LONG_SQL28;
+    String _sql=SELECT_ONE_LONG_SQL56;
     // add where arguments
     _contentValues.addWhereArgs((valueLong==null?"":String.valueOf(valueLong)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -9353,7 +9509,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_LONG_TYPE_SQL29;
+    String _sql=SELECT_ONE_LONG_TYPE_SQL58;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueLongType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -9545,7 +9701,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SHORT_SQL30;
+    String _sql=SELECT_ONE_SHORT_SQL60;
     // add where arguments
     _contentValues.addWhereArgs((valueShort==null?"":String.valueOf(valueShort)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -9737,7 +9893,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_SHORT_TYPE_SQL31;
+    String _sql=SELECT_ONE_SHORT_TYPE_SQL62;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(valueShortType));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -9929,7 +10085,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_STRING_SQL32;
+    String _sql=SELECT_ONE_STRING_SQL64;
     // add where arguments
     _contentValues.addWhereArgs((valueString==null?"":valueString));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -10121,7 +10277,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_TIME_SQL33;
+    String _sql=SELECT_ONE_TIME_SQL66;
     // add where arguments
     _contentValues.addWhereArgs((valueTime==null?"":SQLTimeUtils.write(valueTime)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -10313,7 +10469,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_TIME_ZONE_SQL34;
+    String _sql=SELECT_ONE_TIME_ZONE_SQL68;
     // add where arguments
     _contentValues.addWhereArgs((valueTimeZone==null?"":TimeZoneUtils.write(valueTimeZone)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -10505,7 +10661,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ONE_U_R_L_SQL35;
+    String _sql=SELECT_ONE_U_R_L_SQL70;
     // add where arguments
     _contentValues.addWhereArgs((valueUrl==null?"":UrlUtils.write(valueUrl)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -10649,7 +10805,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_BOOL_SQL36;
+    String _sql=SELECT_VALUE_BOOL_SQL72;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -10705,7 +10861,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_BOOL_TYPE_SQL37;
+    String _sql=SELECT_VALUE_BOOL_TYPE_SQL74;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -10761,7 +10917,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_BYTE_SQL38;
+    String _sql=SELECT_VALUE_BYTE_SQL76;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -10817,7 +10973,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_BYTE_TYPE_SQL39;
+    String _sql=SELECT_VALUE_BYTE_TYPE_SQL78;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -10873,7 +11029,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_CHAR_SQL40;
+    String _sql=SELECT_VALUE_CHAR_SQL80;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -10929,7 +11085,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_CHAR_TYPE_SQL41;
+    String _sql=SELECT_VALUE_CHAR_TYPE_SQL82;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -10985,7 +11141,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_DOUBLE_SQL42;
+    String _sql=SELECT_VALUE_DOUBLE_SQL84;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11041,7 +11197,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_DOUBLE_TYPE_SQL43;
+    String _sql=SELECT_VALUE_DOUBLE_TYPE_SQL86;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11097,7 +11253,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_FLOAT_SQL44;
+    String _sql=SELECT_VALUE_FLOAT_SQL88;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11153,7 +11309,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_FLOAT_TYPE_SQL45;
+    String _sql=SELECT_VALUE_FLOAT_TYPE_SQL90;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11209,7 +11365,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_INT_SQL46;
+    String _sql=SELECT_VALUE_INT_SQL92;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11265,7 +11421,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_INT_TYPE_SQL47;
+    String _sql=SELECT_VALUE_INT_TYPE_SQL94;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11321,7 +11477,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_LONG_SQL48;
+    String _sql=SELECT_VALUE_LONG_SQL96;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11377,7 +11533,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_LONG_TYPE_SQL49;
+    String _sql=SELECT_VALUE_LONG_TYPE_SQL98;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11433,7 +11589,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_SHORT_SQL50;
+    String _sql=SELECT_VALUE_SHORT_SQL100;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11489,7 +11645,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_SHORT_TYPE_SQL51;
+    String _sql=SELECT_VALUE_SHORT_TYPE_SQL102;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN
@@ -11545,7 +11701,7 @@ public class Bean64DaoImpl extends Dao implements Bean64Dao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_VALUE_STRING_SQL52;
+    String _sql=SELECT_VALUE_STRING_SQL104;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

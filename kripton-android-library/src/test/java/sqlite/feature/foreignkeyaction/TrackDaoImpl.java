@@ -21,9 +21,15 @@ import java.util.List;
  *  @see TrackTable
  */
 public class TrackDaoImpl extends Dao implements TrackDao {
-  private static final String SELECT_BY_ID_SQL5 = "SELECT id, album_id FROM track WHERE id=?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL10 = "SELECT id, album_id FROM track WHERE id=?";
 
-  private static final String SELECT_ALL_SQL6 = "SELECT id, album_id FROM track";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL12 = "SELECT id, album_id FROM track";
 
   private static SQLiteStatement updatePreparedStatement0;
 
@@ -63,7 +69,7 @@ public class TrackDaoImpl extends Dao implements TrackDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL5;
+    String _sql=SELECT_BY_ID_SQL10;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -128,7 +134,7 @@ public class TrackDaoImpl extends Dao implements TrackDao {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL6;
+    String _sql=SELECT_ALL_SQL12;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

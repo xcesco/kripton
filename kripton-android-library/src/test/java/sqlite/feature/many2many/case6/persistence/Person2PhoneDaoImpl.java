@@ -24,13 +24,25 @@ import sqlite.feature.many2many.case6.model.PersonPhone;
  *  @see sqlite.feature.many2many.case6.model.PersonPhoneTable
  */
 public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao {
-  private static final String SELECT_BY_DATE_SQL11 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE buy_date>?";
+  /**
+   * SQL definition for method selectByDate
+   */
+  private static final String SELECT_BY_DATE_SQL22 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE buy_date>?";
 
-  private static final String SELECT_BY_ID_SQL12 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE id=?";
+  /**
+   * SQL definition for method selectById
+   */
+  private static final String SELECT_BY_ID_SQL24 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE id=?";
 
-  private static final String SELECT_BY_PERSON_ID_SQL13 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE person_id=?";
+  /**
+   * SQL definition for method selectByPersonId
+   */
+  private static final String SELECT_BY_PERSON_ID_SQL26 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE person_id=?";
 
-  private static final String SELECT_BY_PHONE_NUMBER_ID_SQL14 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE phone_number_id=?";
+  /**
+   * SQL definition for method selectByPhoneNumberId
+   */
+  private static final String SELECT_BY_PHONE_NUMBER_ID_SQL28 = "SELECT id, buy_date, person_id, phone_number_id FROM person_phone WHERE phone_number_id=?";
 
   private static SQLiteStatement deleteByIdPreparedStatement0;
 
@@ -74,7 +86,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_DATE_SQL11;
+    String _sql=SELECT_BY_DATE_SQL22;
     // add where arguments
     _contentValues.addWhereArgs((since==null?"":SQLDateUtils.write(since)));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -158,7 +170,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_ID_SQL12;
+    String _sql=SELECT_BY_ID_SQL24;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(id));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -236,7 +248,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PERSON_ID_SQL13;
+    String _sql=SELECT_BY_PERSON_ID_SQL26;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(personId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -320,7 +332,7 @@ public class Person2PhoneDaoImpl extends Dao implements GeneratedPerson2PhoneDao
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_BY_PHONE_NUMBER_ID_SQL14;
+    String _sql=SELECT_BY_PHONE_NUMBER_ID_SQL28;
     // add where arguments
     _contentValues.addWhereArgs(String.valueOf(phoneNumberId));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();

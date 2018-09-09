@@ -33,11 +33,17 @@ import sqlite.feature.livedata.data.Person;
  *  @see sqlite.feature.livedata.data.PersonTable
  */
 public class DaoPerson1Impl extends Dao implements DaoPerson1 {
-  private static final String SELECT_SQL1 = "SELECT id, name, surname FROM person WHERE name=?";
+  /**
+   * SQL definition for method select
+   */
+  private static final String SELECT_SQL2 = "SELECT id, name, surname FROM person WHERE name=?";
 
   private static final Set<String> select0ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
 
-  private static final String SELECT_ALL_SQL2 = "SELECT id, name, surname FROM person";
+  /**
+   * SQL definition for method selectAll
+   */
+  private static final String SELECT_ALL_SQL4 = "SELECT id, name, surname FROM person";
 
   private static final Set<String> selectAll1ForContentProviderColumnSet = CollectionUtils.asSet(String.class, "id", "name", "surname");
 
@@ -83,7 +89,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_SQL1;
+    String _sql=SELECT_SQL2;
     // add where arguments
     _contentValues.addWhereArgs((name==null?"":name));
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
@@ -279,7 +285,7 @@ public class DaoPerson1Impl extends Dao implements DaoPerson1 {
     // common part generation - BEGIN
     KriptonContentValues _contentValues=contentValues();
     // query SQL is statically defined
-    String _sql=SELECT_ALL_SQL2;
+    String _sql=SELECT_ALL_SQL4;
     // add where arguments
     String[] _sqlArgs=_contentValues.whereArgsAsArray();
     // log section for select BEGIN

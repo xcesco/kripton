@@ -16,8 +16,9 @@ import sqlite.feature.globaltypeadapters.DaoPersonImpl;
  */
 public interface BindPerson1DaoFactory extends BindDaoFactory {
   /**
+   * Retrieve dao DaoPerson.
    *
-   * retrieve dao DaoPerson
+   * @return dao implementation
    */
   DaoPersonImpl getDaoPerson();
 }

@@ -7,27 +7,11 @@ import com.abubusoft.kripton.android.sqlite.AbstractDataSource;
 import com.abubusoft.kripton.android.sqlite.DataSourceOptions;
 import com.abubusoft.kripton.android.sqlite.SQLContext;
 import com.abubusoft.kripton.android.sqlite.SQLContextInSessionImpl;
-import com.abubusoft.kripton.android.sqlite.SQLiteEvent;
 import com.abubusoft.kripton.android.sqlite.SQLiteTable;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTask;
 import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.Maybe;
-import io.reactivex.MaybeEmitter;
-import io.reactivex.MaybeOnSubscribe;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.SingleOnSubscribe;
-import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -71,10 +55,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
    */
   protected DaoPersonImpl daoPerson = new DaoPersonImpl(this);
 
-  protected Scheduler globalSubscribeOn;
-
-  protected Scheduler globalObserveOn;
-
   /**
    * Used only in transactions (that can be executed one for time
    */
@@ -87,304 +67,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   @Override
   public DaoPersonImpl getDaoPerson() {
     return daoPerson;
-  }
-
-  public BindAppDataSource globalSubscribeOn(Scheduler scheduler) {
-    this.globalSubscribeOn=scheduler;
-    return this;
-  }
-
-  public BindAppDataSource globalObserveOn(Scheduler scheduler) {
-    this.globalObserveOn=scheduler;
-    return this;
-  }
-
-  public <T> Observable<T> execute(final ObservableTransaction<T> transaction) {
-    ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
-      @Override
-      public void subscribe(ObservableEmitter<T> emitter) {
-        boolean needToOpened=!BindAppDataSource.this.isOpenInWriteMode();
-        boolean success=false;
-        @SuppressWarnings("resource")
-        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
-        DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
-        currentDaoFactory.onSessionOpened();
-        try {
-          connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
-            connection.setTransactionSuccessful();
-            success=true;
-          }
-          emitter.onComplete();
-        } catch(Throwable e) {
-          Logger.error(e.getMessage());
-          e.printStackTrace();
-          emitter.onError(e);
-          currentDaoFactory.onSessionClear();
-        } finally {
-          try {
-            connection.endTransaction();
-          } catch(Throwable e) {
-          }
-          if (needToOpened) { close(); }
-          if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
-        }
-        return;
-      }
-    };
-    Observable<T> result=Observable.create(emitter);
-    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
-    return result;
-  }
-
-  public <T> Single<T> execute(final SingleTransaction<T> transaction) {
-    SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
-      @Override
-      public void subscribe(SingleEmitter<T> emitter) {
-        boolean needToOpened=!BindAppDataSource.this.isOpenInWriteMode();
-        boolean success=false;
-        @SuppressWarnings("resource")
-        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
-        DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
-        currentDaoFactory.onSessionOpened();
-        try {
-          connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
-            connection.setTransactionSuccessful();
-            success=true;
-          }
-          // no onComplete;
-        } catch(Throwable e) {
-          Logger.error(e.getMessage());
-          e.printStackTrace();
-          emitter.onError(e);
-          currentDaoFactory.onSessionClear();
-        } finally {
-          try {
-            connection.endTransaction();
-          } catch(Throwable e) {
-          }
-          if (needToOpened) { close(); }
-          if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
-        }
-        return;
-      }
-    };
-    Single<T> result=Single.create(emitter);
-    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
-    return result;
-  }
-
-  public <T> Flowable<T> execute(final FlowableTransaction<T> transaction) {
-    FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
-      @Override
-      public void subscribe(FlowableEmitter<T> emitter) {
-        boolean needToOpened=!BindAppDataSource.this.isOpenInWriteMode();
-        boolean success=false;
-        @SuppressWarnings("resource")
-        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
-        DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
-        currentDaoFactory.onSessionOpened();
-        try {
-          connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
-            connection.setTransactionSuccessful();
-            success=true;
-          }
-          emitter.onComplete();
-        } catch(Throwable e) {
-          Logger.error(e.getMessage());
-          e.printStackTrace();
-          emitter.onError(e);
-          currentDaoFactory.onSessionClear();
-        } finally {
-          try {
-            connection.endTransaction();
-          } catch(Throwable e) {
-          }
-          if (needToOpened) { close(); }
-          if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
-        }
-        return;
-      }
-    };
-    Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
-    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
-    return result;
-  }
-
-  public <T> Maybe<T> execute(final MaybeTransaction<T> transaction) {
-    MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
-      @Override
-      public void subscribe(MaybeEmitter<T> emitter) {
-        boolean needToOpened=!BindAppDataSource.this.isOpenInWriteMode();
-        boolean success=false;
-        @SuppressWarnings("resource")
-        SQLiteDatabase connection=needToOpened ? openWritableDatabase() : database();
-        DataSourceSingleThread currentDaoFactory=_daoFactorySingleThread.bindToThread();
-        currentDaoFactory.onSessionOpened();
-        try {
-          connection.beginTransaction();
-          if (transaction != null && TransactionResult.COMMIT==transaction.onExecute(currentDaoFactory, emitter)) {
-            connection.setTransactionSuccessful();
-            success=true;
-          }
-          // no onComplete;
-        } catch(Throwable e) {
-          Logger.error(e.getMessage());
-          e.printStackTrace();
-          emitter.onError(e);
-          currentDaoFactory.onSessionClear();
-        } finally {
-          try {
-            connection.endTransaction();
-          } catch(Throwable e) {
-          }
-          if (needToOpened) { close(); }
-          if (success) { currentDaoFactory.onSessionClosed(); } else { currentDaoFactory.onSessionClear(); }
-        }
-        return;
-      }
-    };
-    Maybe<T> result=Maybe.create(emitter);
-    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
-    return result;
-  }
-
-  public <T> Observable<T> executeBatch(final ObservableBatch<T> batch, final boolean writeMode) {
-    ObservableOnSubscribe<T> emitter=new ObservableOnSubscribe<T>() {
-      @Override
-      public void subscribe(ObservableEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindAppDataSource.this.isOpenInWriteMode(): !BindAppDataSource.this.isOpen();
-        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
-        DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
-        currentDaoFactory.onSessionOpened();
-        try {
-          if (batch != null) { batch.onExecute(currentDaoFactory, emitter); }
-          emitter.onComplete();
-        } catch(Throwable e) {
-          Logger.error(e.getMessage());
-          e.printStackTrace();
-          emitter.onError(e);
-        } finally {
-          if (needToOpened) { close(); }
-          currentDaoFactory.onSessionClosed();
-        }
-        return;
-      }
-    };
-    Observable<T> result=Observable.create(emitter);
-    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
-    return result;
-  }
-
-  public <T> Observable<T> executeBatch(final ObservableBatch<T> batch) {
-    return executeBatch(batch, false);
-  }
-
-  public <T> Single<T> executeBatch(final SingleBatch<T> batch, final boolean writeMode) {
-    SingleOnSubscribe<T> emitter=new SingleOnSubscribe<T>() {
-      @Override
-      public void subscribe(SingleEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindAppDataSource.this.isOpenInWriteMode(): !BindAppDataSource.this.isOpen();
-        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
-        DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
-        currentDaoFactory.onSessionOpened();
-        try {
-          if (batch != null) { batch.onExecute(currentDaoFactory, emitter); }
-          // no onComplete;
-        } catch(Throwable e) {
-          Logger.error(e.getMessage());
-          e.printStackTrace();
-          emitter.onError(e);
-        } finally {
-          if (needToOpened) { close(); }
-          currentDaoFactory.onSessionClosed();
-        }
-        return;
-      }
-    };
-    Single<T> result=Single.create(emitter);
-    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
-    return result;
-  }
-
-  public <T> Single<T> executeBatch(final SingleBatch<T> batch) {
-    return executeBatch(batch, false);
-  }
-
-  public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch, final boolean writeMode) {
-    FlowableOnSubscribe<T> emitter=new FlowableOnSubscribe<T>() {
-      @Override
-      public void subscribe(FlowableEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindAppDataSource.this.isOpenInWriteMode(): !BindAppDataSource.this.isOpen();
-        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
-        DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
-        currentDaoFactory.onSessionOpened();
-        try {
-          if (batch != null) { batch.onExecute(currentDaoFactory, emitter); }
-          emitter.onComplete();
-        } catch(Throwable e) {
-          Logger.error(e.getMessage());
-          e.printStackTrace();
-          emitter.onError(e);
-        } finally {
-          if (needToOpened) { close(); }
-          currentDaoFactory.onSessionClosed();
-        }
-        return;
-      }
-    };
-    Flowable<T> result=Flowable.create(emitter, BackpressureStrategy.BUFFER);
-    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
-    return result;
-  }
-
-  public <T> Flowable<T> executeBatch(final FlowableBatch<T> batch) {
-    return executeBatch(batch, false);
-  }
-
-  public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch, final boolean writeMode) {
-    MaybeOnSubscribe<T> emitter=new MaybeOnSubscribe<T>() {
-      @Override
-      public void subscribe(MaybeEmitter<T> emitter) {
-        boolean needToOpened=writeMode?!BindAppDataSource.this.isOpenInWriteMode(): !BindAppDataSource.this.isOpen();
-        if (needToOpened) { if (writeMode) { openWritableDatabase(); } else { openReadOnlyDatabase(); }}
-        DataSourceSingleThread currentDaoFactory=new DataSourceSingleThread();
-        currentDaoFactory.onSessionOpened();
-        try {
-          if (batch != null) { batch.onExecute(currentDaoFactory, emitter); }
-          // no onComplete;
-        } catch(Throwable e) {
-          Logger.error(e.getMessage());
-          e.printStackTrace();
-          emitter.onError(e);
-        } finally {
-          if (needToOpened) { close(); }
-          currentDaoFactory.onSessionClosed();
-        }
-        return;
-      }
-    };
-    Maybe<T> result=Maybe.create(emitter);
-    if (globalSubscribeOn!=null) result.subscribeOn(globalSubscribeOn);
-    if (globalObserveOn!=null) result.observeOn(globalObserveOn);
-    return result;
-  }
-
-  public <T> Maybe<T> executeBatch(final MaybeBatch<T> batch) {
-    return executeBatch(batch, false);
-  }
-
-  public PublishSubject<SQLiteEvent> getPersonSubject() {
-    return daoPerson.getSubject();
   }
 
   /**
@@ -545,11 +227,27 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
   }
 
   /**
-   * generated by {@link AppDataSource#execute}
+   * Executes method {@link execute}
+   *
+   * @return <code>true</code> if transaction was done succefull.
    */
+  @Override
   public boolean execute(String name) {
-    return execute(daoFactory -> {
-      return AppDataSource.execute(daoFactory.getDaoPerson(), name);
+    return BindAppDataSource.this.execute(daoFactory -> {
+      AppDataSource.execute(daoFactory.getDaoPerson(), name);
+      return TransactionResult.COMMIT;
+    });
+  }
+
+  /**
+   * Executes method {@link execute} in async mode
+   *
+   * @return a <code>Future</code> with true if transaction was done succefull.
+   */
+  @Override
+  public Future<Boolean> executeAsync(String name) {
+    return BindAppDataSource.this.executeAsync(daoFactory -> { 
+      if (daoFactory.execute(name)==true) { return TransactionResult.COMMIT; } else { return TransactionResult.ROLLBACK; }
     });
   }
 
@@ -727,38 +425,6 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
     return TABLES;
   }
 
-  public interface ObservableBatch<T> {
-    void onExecute(BindAppDaoFactory daoFactory, ObservableEmitter<T> emitter);
-  }
-
-  public interface ObservableTransaction<T> {
-    TransactionResult onExecute(BindAppDaoFactory daoFactory, ObservableEmitter<T> emitter);
-  }
-
-  public interface SingleBatch<T> {
-    void onExecute(BindAppDaoFactory daoFactory, SingleEmitter<T> emitter);
-  }
-
-  public interface SingleTransaction<T> {
-    TransactionResult onExecute(BindAppDaoFactory daoFactory, SingleEmitter<T> emitter);
-  }
-
-  public interface FlowableBatch<T> {
-    void onExecute(BindAppDaoFactory daoFactory, FlowableEmitter<T> emitter);
-  }
-
-  public interface FlowableTransaction<T> {
-    TransactionResult onExecute(BindAppDaoFactory daoFactory, FlowableEmitter<T> emitter);
-  }
-
-  public interface MaybeBatch<T> {
-    void onExecute(BindAppDaoFactory daoFactory, MaybeEmitter<T> emitter);
-  }
-
-  public interface MaybeTransaction<T> {
-    TransactionResult onExecute(BindAppDaoFactory daoFactory, MaybeEmitter<T> emitter);
-  }
-
   /**
    * Rapresents transational operation.
    */
@@ -833,6 +499,31 @@ public class BindAppDataSource extends AbstractDataSource implements BindAppDaoF
 
     public DataSourceSingleThread bindToThread() {
       return this;
+    }
+
+    /**
+     * Executes method {@link execute}
+     *
+     * @return <code>true</code> if transaction was done succefull.
+     */
+    @Override
+    public boolean execute(String name) {
+      return BindAppDataSource.this.execute(daoFactory -> {
+        AppDataSource.execute(daoFactory.getDaoPerson(), name);
+        return TransactionResult.COMMIT;
+      });
+    }
+
+    /**
+     * Executes method {@link execute} in async mode
+     *
+     * @return a <code>Future</code> with true if transaction was done succefull.
+     */
+    @Override
+    public Future<Boolean> executeAsync(String name) {
+      return BindAppDataSource.this.executeAsync(daoFactory -> { 
+        if (daoFactory.execute(name)==true) { return TransactionResult.COMMIT; } else { return TransactionResult.ROLLBACK; }
+      });
     }
   }
 }
