@@ -46,7 +46,7 @@ public interface DaoPerson {
 	 *            the bean
 	 */
 	@BindSqlInsert
-	void insert(Person bean);
+	Person insert(Person bean);
 	
 	/**
 	 * Update.
