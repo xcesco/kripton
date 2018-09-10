@@ -130,7 +130,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   /**
    * <h2>SQL insert</h2>
-   * <pre>INSERT INTO person (name, surname) VALUES (:bean.name, :bean.surname)</pre>
+   * <pre>INSERT INTO person (name, surname) VALUES (:name, :surname)</pre>
    *
    * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
    *
@@ -145,71 +145,56 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    *
    */
   @Override
-  public Person insert(List<Person> beans) {
+  public void insert(List<Person> bean) {
     // Specialized Insert - InsertType - BEGIN
-	  for (Person bean: beans) {
-	  
-    if (insertPreparedStatement0==null) {
-      // generate static SQL for statement
-      String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
-      insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
-    }
-    KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("surname", bean.surname);
-
-    // log section BEGIN
-    if (_context.isLogEnabled()) {
-      // log for insert -- BEGIN 
-      StringBuffer _columnNameBuffer=new StringBuffer();
-      StringBuffer _columnValueBuffer=new StringBuffer();
-      String _columnSeparator="";
-      for (String columnName:_contentValues.keys()) {
-        _columnNameBuffer.append(_columnSeparator+columnName);
-        _columnValueBuffer.append(_columnSeparator+":"+columnName);
-        _columnSeparator=", ";
+    for (Person __bean: bean) {
+      if (insertPreparedStatement0==null) {
+        // generate static SQL for statement
+        String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
+        insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
       }
-      Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+      KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
+      _contentValues.put("name", __bean.name);
+      _contentValues.put("surname", __bean.surname);
 
-      // log for content values -- BEGIN
-      Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
-      for (int i = 0; i < _contentValues.size(); i++) {
-        _contentValue = _contentValues.get(i);
-        if (_contentValue.value1==null) {
-          Logger.info("==> :%s = <null>", _contentValue.value0);
-        } else {
-          Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        // log for insert -- BEGIN 
+        StringBuffer _columnNameBuffer=new StringBuffer();
+        StringBuffer _columnValueBuffer=new StringBuffer();
+        String _columnSeparator="";
+        for (String columnName:_contentValues.keys()) {
+          _columnNameBuffer.append(_columnSeparator+columnName);
+          _columnValueBuffer.append(_columnSeparator+":"+columnName);
+          _columnSeparator=", ";
         }
-      }
-      // log for content values -- END
-      // log for insert -- END 
+        Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+        // log for content values -- BEGIN
+        Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+        for (int i = 0; i < _contentValues.size(); i++) {
+          _contentValue = _contentValues.get(i);
+          if (_contentValue.value1==null) {
+            Logger.info("==> :%s = <null>", _contentValue.value0);
+          } else {
+            Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+          }
+        }
+        // log for content values -- END
+        // log for insert -- END 
 
 
-      // log for where parameters -- BEGIN
-      int _whereParamCounter=0;
-      for (String _whereParamItem: _contentValues.whereArgs()) {
-        Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+        // log for where parameters -- BEGIN
+        int _whereParamCounter=0;
+        for (String _whereParamItem: _contentValues.whereArgs()) {
+          Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+        }
+        // log for where parameters -- END
       }
-      // log for where parameters -- END
+      // log section END
+      // insert operation
+      long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
     }
-    // log section END
-    // insert operation
-    long result = KriptonDatabaseWrapper.insert(insertPreparedStatement0, _contentValues);
-    // immutable POJO - create a copy with new id
-    // immutable object: initialize temporary variables for properties
-    long __id=0;
-    String __name=null;
-    String __surname=null;
-    // immutable object: initialize temporary variables for properties with entity propertiy values
-    __id=bean.id;
-    __name=bean.name;
-    __surname=bean.surname;
-    __id=result;
-    // immutable object: inizialize object
-    bean=new Person(__id,__name,__surname);
-
-	  }
-    return null;
     // Specialized Insert - InsertType - END
   }
 

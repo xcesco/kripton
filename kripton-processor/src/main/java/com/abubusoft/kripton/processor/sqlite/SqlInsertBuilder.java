@@ -63,11 +63,15 @@ public abstract class SqlInsertBuilder {
 	 * The Enum InsertType.
 	 */
 	public enum InsertType {
-		
+
 		/** The insert bean. */
-		INSERT_BEAN(InsertBeanHelper.class, true), 
- /** The insert raw. */
- INSERT_RAW(InsertRawHelper.class, false);
+		INSERT_BEAN(InsertBeanHelper.class, true),
+
+		/** The insert list bean. */
+		INSERT_LIST_BEAN(InsertListBeanHelper.class, true),
+
+		/** The insert raw. */
+		INSERT_RAW(InsertRawHelper.class, false);
 
 		/** The code generator. */
 		private InsertCodeGenerator codeGenerator;
@@ -87,8 +91,10 @@ public abstract class SqlInsertBuilder {
 		/**
 		 * Instantiates a new insert type.
 		 *
-		 * @param codeGenerator the code generator
-		 * @param mapFields the map fields
+		 * @param codeGenerator
+		 *            the code generator
+		 * @param mapFields
+		 *            the map fields
 		 */
 		private InsertType(Class<? extends InsertCodeGenerator> codeGenerator, boolean mapFields) {
 			try {
@@ -103,12 +109,17 @@ public abstract class SqlInsertBuilder {
 		/**
 		 * Generate.
 		 *
-		 * @param classBuilder the class builder
-		 * @param methodBuilder the method builder
-		 * @param method the method
-		 * @param returnType the return type
+		 * @param classBuilder
+		 *            the class builder
+		 * @param methodBuilder
+		 *            the method builder
+		 * @param method
+		 *            the method
+		 * @param returnType
+		 *            the return type
 		 */
-		public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, SQLiteModelMethod method, TypeName returnType) {
+		public void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, SQLiteModelMethod method,
+				TypeName returnType) {
 			codeGenerator.generate(classBuilder, methodBuilder, this.isMapFields(), method, returnType);
 
 		}
@@ -118,24 +129,32 @@ public abstract class SqlInsertBuilder {
 	 * The Interface InsertCodeGenerator.
 	 */
 	public interface InsertCodeGenerator {
-		
+
 		/**
 		 * Generate.
 		 *
-		 * @param classBuilder the class builder
-		 * @param methodBuilder the method builder
-		 * @param mapFields the map fields
-		 * @param method the method
-		 * @param returnType the return type
+		 * @param classBuilder
+		 *            the class builder
+		 * @param methodBuilder
+		 *            the method builder
+		 * @param mapFields
+		 *            the map fields
+		 * @param method
+		 *            the method
+		 * @param returnType
+		 *            the return type
 		 */
-		void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields, SQLiteModelMethod method, TypeName returnType);
+		void generate(TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, boolean mapFields,
+				SQLiteModelMethod method, TypeName returnType);
 	}
 
 	/**
 	 * Generate.
 	 *
-	 * @param classBuilder the class builder
-	 * @param method the method
+	 * @param classBuilder
+	 *            the class builder
+	 * @param method
+	 *            the method
 	 */
 	public static void generate(TypeSpec.Builder classBuilder, SQLiteModelMethod method) {
 		InsertType insertResultType = detectInsertType(method);
@@ -146,7 +165,8 @@ public abstract class SqlInsertBuilder {
 		AssertKripton.failWithInvalidMethodSignException(insertResultType == null, method);
 
 		// generate method code
-		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
+		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName()).addAnnotation(Override.class)
+				.addModifiers(Modifier.PUBLIC);
 
 		ParameterSpec parameterSpec;
 		for (Pair<String, TypeName> item : method.getParameters()) {
@@ -178,53 +198,79 @@ public abstract class SqlInsertBuilder {
 	/**
 	 * Detect insert type.
 	 *
-	 * @param method the method
+	 * @param method
+	 *            the method
 	 * @return the insert type
 	 */
 	public static InsertType detectInsertType(SQLiteModelMethod method) {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
 		SQLiteEntity entity = method.getEntity();
+		TypeName beanTypeName = typeName(entity.getElement());
 
 		InsertType insertResultType = null;
 
 		// check type of arguments
-		int count = 0;
+		int beanCounter = 0;
+		int beanCollectionCounter = 0;
 		for (Pair<String, TypeName> param : method.getParameters()) {
-			if (TypeUtility.isEquals(param.value1, typeName(entity.getElement()))) {
-				count++;
+			if (TypeUtility.isEquals(param.value1, beanTypeName)) {
+				beanCounter++;
+			} else if (TypeUtility.isCollectionOfType(param.value1, beanTypeName)) {
+				beanCollectionCounter++;
 			}
 		}
 
-		AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() == 0, method, " INSERT operations require at least one parameter");
+		AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() == 0, method,
+				" INSERT operations require at least one parameter");
 
-		if (count == 0) {
+		if (beanCounter == 0 && beanCollectionCounter == 0) {
 			// method to insert raw data: no bean is used
 			insertResultType = InsertType.INSERT_RAW;
 
 			ModelAnnotation annotation = method.getAnnotation(BindSqlInsert.class);
 
 			// check value attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.FIELDS).size() > 0, method,
-					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.FIELDS.getValue());
+			AssertKripton.failWithInvalidMethodSignException(
+					AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.FIELDS)
+							.size() > 0,
+					method, " can not use attribute %s in this kind of query definition",
+					AnnotationAttributeType.FIELDS.getValue());
 
 			// check excludeFields attribute
-			AssertKripton.failWithInvalidMethodSignException(AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS).size() > 0, method,
-					" can not use attribute %s in this kind of query definition", AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
+			AssertKripton.failWithInvalidMethodSignException(
+					AnnotationUtility.extractAsStringArray(method, annotation, AnnotationAttributeType.EXCLUDED_FIELDS)
+							.size() > 0,
+					method, " can not use attribute %s in this kind of query definition",
+					AnnotationAttributeType.EXCLUDED_FIELDS.getValue());
 
 			// check if there is only one parameter
-			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() != 1 && TypeUtility.isEquals(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()),
+			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() != 1
+					&& TypeUtility.isEquals(method.getParameters().get(0).value1, daoDefinition.getEntityClassName()),
 					method);
 
 			// check no
-			AssertKripton.failWithInvalidMethodSignException(annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY), method, "attribute '%s' can not be used here",
-					AnnotationAttributeType.INCLUDE_PRIMARY_KEY.getValue());
+			AssertKripton.failWithInvalidMethodSignException(
+					annotation.getAttributeAsBoolean(AnnotationAttributeType.INCLUDE_PRIMARY_KEY), method,
+					"attribute '%s' can not be used here", AnnotationAttributeType.INCLUDE_PRIMARY_KEY.getValue());
 
-		} else if (count == 1) {
+		} else if (beanCounter == 1) {
 			insertResultType = InsertType.INSERT_BEAN;
 
-			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() > 1, method, " aspected only one parameter of %s type", daoDefinition.getEntityClassName());
+			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() > 1, method,
+					" aspected only one parameter of %s type", daoDefinition.getEntityClassName());
+		} else if (beanCollectionCounter == 1) {
+			insertResultType = InsertType.INSERT_LIST_BEAN;
+			AssertKripton.failWithInvalidMethodSignException(method.getParameters().size() > 1, method,
+					" aspected only one collection of %s type as parameter", daoDefinition.getEntityClassName());
+
+			AssertKripton.assertTrueOrInvalidMethodSignException(
+					TypeUtility.isCollectionOfType(method.getReturnClass(), beanTypeName)
+							|| TypeUtility.isEquals(method.getReturnClass(), typeName(Void.TYPE)),
+					method, " invalid return type for multiple insert method",
+					daoDefinition.getEntityClassName());
 		} else {
-			throw (new InvalidMethodSignException(method, "only one parameter of type " + typeName(entity.getElement()) + " can be used"));
+			throw (new InvalidMethodSignException(method,
+					"only one parameter of type " + typeName(entity.getElement()) + " can be used"));
 		}
 
 		return insertResultType;
@@ -235,18 +281,24 @@ public abstract class SqlInsertBuilder {
 	 * Generate insert used in content provider class.
 	 * </p>
 	 *
-	 * @param classBuilder the class builder
-	 * @param method the method
-	 * @param insertResultType the insert result type
+	 * @param classBuilder
+	 *            the class builder
+	 * @param method
+	 *            the method
+	 * @param insertResultType
+	 *            the insert result type
 	 */
-	private static void generateInsertForContentProvider(TypeSpec.Builder classBuilder, final SQLiteModelMethod method, InsertType insertResultType) {
+	private static void generateInsertForContentProvider(TypeSpec.Builder classBuilder, final SQLiteModelMethod method,
+			InsertType insertResultType) {
 		final SQLiteDaoDefinition daoDefinition = method.getParent();
 		final SQLiteEntity entity = method.getEntity();
 		final Set<String> columns = new LinkedHashSet<>();
 
 		MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.contentProviderMethodName);
-		if (!method.getParent().hasSamePackageOfSchema()) {methodBuilder.addModifiers(Modifier.PUBLIC); }
-		
+		if (!method.getParent().hasSamePackageOfSchema()) {
+			methodBuilder.addModifiers(Modifier.PUBLIC);
+		}
+
 		ParameterSpec parameterSpec;
 		parameterSpec = ParameterSpec.builder(Uri.class, "uri").build();
 		methodBuilder.addParameter(parameterSpec);
@@ -282,15 +334,17 @@ public abstract class SqlInsertBuilder {
 		SqlBuilderHelper.generateColumnCheckSet(classBuilder, method, columns);
 
 		// retrieve content values
-		methodBuilder.addStatement("$T _contentValues=contentValuesForContentProvider(contentValues)", KriptonContentValues.class);
+		methodBuilder.addStatement("$T _contentValues=contentValuesForContentProvider(contentValues)",
+				KriptonContentValues.class);
 
 		// generate column check
-		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.values().keySet()", true, null);
+		SqlBuilderHelper.forEachColumnInContentValue(methodBuilder, method, "_contentValues.values().keySet()", true,
+				null);
 
 		methodBuilder.addCode("\n");
 
-		String rxIdGetter="result";
-		
+		String rxIdGetter = "result";
+
 		// extract pathVariables
 		// generate get uri variables in content values
 		// every controls was done in constructor of SQLiteModelMethod
@@ -298,17 +352,20 @@ public abstract class SqlInsertBuilder {
 			SQLProperty entityProperty = entity.get(variable.value);
 
 			if (entityProperty != null) {
-				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value, variable.pathSegmentIndex);
+				methodBuilder.addCode("// Add parameter $L at path segment $L\n", variable.value,
+						variable.pathSegmentIndex);
 				TypeName entityPropertyType = entityProperty.getPropertyType().getTypeName();
 				if (TypeUtility.isString(entityPropertyType)) {
-					methodBuilder.addStatement("contentValues.put($S, uri.getPathSegments().get($L))", entityProperty.columnName, variable.pathSegmentIndex);
+					methodBuilder.addStatement("contentValues.put($S, uri.getPathSegments().get($L))",
+							entityProperty.columnName, variable.pathSegmentIndex);
 				} else {
-					methodBuilder.addStatement("contentValues.put($S, Long.valueOf(uri.getPathSegments().get($L)))", entityProperty.columnName, variable.pathSegmentIndex);
+					methodBuilder.addStatement("contentValues.put($S, Long.valueOf(uri.getPathSegments().get($L)))",
+							entityProperty.columnName, variable.pathSegmentIndex);
 				}
 			}
-			
+
 			if (entityProperty.isPrimaryKey()) {
-				rxIdGetter=PropertyUtility.getter(entityProperty);
+				rxIdGetter = PropertyUtility.getter(entityProperty);
 			}
 		}
 
@@ -325,21 +382,22 @@ public abstract class SqlInsertBuilder {
 		}
 
 		methodBuilder.addComment("insert operation");
-		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)", conflictString1, entity.getTableName(), conflictString2);
+		methodBuilder.addStatement("long result = database().insert$L($S, null, _contentValues.values()$L)",
+				conflictString1, entity.getTableName(), conflictString2);
 		if (method.getParent().getParent().generateRx) {
-			SQLProperty primaryKey=entity.getPrimaryKey();
-			if (primaryKey.columnType==ColumnType.PRIMARY_KEY) {
+			SQLProperty primaryKey = entity.getPrimaryKey();
+			if (primaryKey.columnType == ColumnType.PRIMARY_KEY) {
 				// long autogenerated
-				rxIdGetter="result";
+				rxIdGetter = "result";
 			} else {
-							
+
 				if (primaryKey.isType(String.class)) {
-					rxIdGetter=String.format("contentValues.getAsString(\"%s\")", primaryKey.columnName);
+					rxIdGetter = String.format("contentValues.getAsString(\"%s\")", primaryKey.columnName);
 				} else {
-					rxIdGetter=String.format("contentValues.getAsLong(\"%s\")", primaryKey.columnName);
+					rxIdGetter = String.format("contentValues.getAsLong(\"%s\")", primaryKey.columnName);
 				}
 			}
-			
+
 			GenericSQLHelper.generateSubjectNext(entity, methodBuilder, SubjectType.INSERT, rxIdGetter);
 		}
 

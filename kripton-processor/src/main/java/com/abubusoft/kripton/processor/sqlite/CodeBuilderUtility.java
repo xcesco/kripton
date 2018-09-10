@@ -69,7 +69,7 @@ public abstract class CodeBuilderUtility {
 		return listPropertyInContentValue;
 
 	}
-
+	
 	/**
 	 * Generate content values from entity.
 	 *
@@ -86,11 +86,32 @@ public abstract class CodeBuilderUtility {
 	 */
 	public static void generateContentValuesFromEntity(Elements elementUtils, SQLiteModelMethod method, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
 			List<String> alreadyUsedBeanPropertiesNames) {
+		String entityName = method.getParameters().get(0).value0;
+		
+		generateContentValuesFromEntity(elementUtils, method, entityName, annotationClazz, methodBuilder, alreadyUsedBeanPropertiesNames);
+	}
+
+	/**
+	 * Generate content values from entity.
+	 *
+	 * @param elementUtils
+	 *            the element utils
+	 * @param method
+	 *            the method
+	 * @param annotationClazz
+	 *            the annotation clazz
+	 * @param methodBuilder
+	 *            the method builder
+	 * @param alreadyUsedBeanPropertiesNames
+	 *            the already used bean properties names
+	 */
+	public static void generateContentValuesFromEntity(Elements elementUtils, SQLiteModelMethod method, String entityName, Class<? extends Annotation> annotationClazz, Builder methodBuilder,
+			List<String> alreadyUsedBeanPropertiesNames) {
 		// all check is already done
 
 		SQLiteEntity entity = method.getEntity();
 
-		String entityName = method.getParameters().get(0).value0;
+		
 		TypeName entityClassName = typeName(entity.getElement());
 
 		AssertKripton.assertTrueOrInvalidMethodSignException(!method.hasAdapterForParam(entityName), method, "method's parameter '%s' can not use a type adapter", entityName);

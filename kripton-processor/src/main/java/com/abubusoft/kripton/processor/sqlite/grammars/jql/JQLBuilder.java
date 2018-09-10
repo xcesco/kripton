@@ -34,6 +34,7 @@ import static com.abubusoft.kripton.processor.sqlite.grammars.jql.JQLKeywords.WH
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -361,13 +362,17 @@ public abstract class JQLBuilder {
 			// define field list
 			// every method parameter can be used only as insert field
 			InsertType insertResultType = SqlInsertBuilder.detectInsertType(method);
-			Set<String> fields;
-			if (insertResultType == InsertType.INSERT_BEAN) {
+			Set<String> fields=new HashSet<>();
+			switch(insertResultType) {
+			case INSERT_BEAN:
+			case INSERT_LIST_BEAN:
 				fields = extractFieldsFromAnnotation(method, annotation, includePrimaryKey.value0);
-			} else {
+				break;							
+			case INSERT_RAW:
 				fields = extractFieldsFromMethodParameters(method, annotation);
+				break;
 			}
-
+			
 			AssertKripton.assertTrueOrInvalidMethodSignException(fields.size() > 0, method, "no field is included in this query");
 
 			result.conflictAlgorithmType = ConflictAlgorithmType.valueOf(AnnotationUtility.extractAsEnumerationValue(method.getElement(), annotation, AnnotationAttributeType.CONFLICT_ALGORITHM_TYPE));

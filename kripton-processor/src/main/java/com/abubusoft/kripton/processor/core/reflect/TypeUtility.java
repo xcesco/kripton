@@ -155,8 +155,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Check if class that is rapresented by value has same typeName of entity
-	 * parameter.
+	 * Check if class that is rapresented by value has same typeName of entity parameter.
 	 *
 	 * @param value
 	 *            the value
@@ -169,8 +168,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Check if class that is rapresented by value has same typeName of entity
-	 * parameter.
+	 * Check if class that is rapresented by value has same typeName of entity parameter.
 	 *
 	 * @param value
 	 *            the value
@@ -344,8 +342,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Check if method parameter is nullable. Moreover, check nullable status of
-	 * method param and property are compatible.
+	 * Check if method parameter is nullable. Moreover, check nullable status of method param and property are compatible.
 	 *
 	 * @param method
 	 *            the method
@@ -391,8 +388,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * generate begin string to translate in code to used in content value or
-	 * parameter need to be converted in string through String.valueOf
+	 * generate begin string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 *
 	 * @param methodBuilder
 	 *            the method builder
@@ -406,8 +402,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * generate begin string to translate in code to used in content value or
-	 * parameter need to be converted in string through String.valueOf
+	 * generate begin string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 *
 	 * @param methodBuilder
 	 *            the method builder
@@ -434,8 +429,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * generate end string to translate in code to used in content value or
-	 * parameter need to be converted in string through String.valueOf
+	 * generate end string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 *
 	 * @param methodBuilder
 	 *            the method builder
@@ -449,8 +443,7 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * generate end string to translate in code to used in content value or
-	 * parameter need to be converted in string through String.valueOf
+	 * generate end string to translate in code to used in content value or parameter need to be converted in string through String.valueOf
 	 *
 	 * @param methodBuilder
 	 *            the method builder
@@ -484,6 +477,21 @@ public abstract class TypeUtility {
 	 */
 	public static boolean isArray(TypeName typeName) {
 		if (typeName instanceof ArrayTypeName) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Checks if is array.
+	 *
+	 * @param typeName
+	 *            the type name
+	 * @return true, if is array
+	 */
+	public static boolean isArrayOfType(TypeName typeName, TypeName elementTypeName) {
+		if (typeName instanceof ArrayTypeName && isEquals(((ArrayTypeName) typeName).componentType, elementTypeName)) {
 			return true;
 		}
 
@@ -660,13 +668,10 @@ public abstract class TypeUtility {
 	}
 
 	/**
-	 * Returns a string with type parameters replaced with wildcards. This is
-	 * slightly different from
-	 * {@link Types#erasure(javax.lang.model.type.TypeMirror)}, which removes
-	 * all type parameter data.
+	 * Returns a string with type parameters replaced with wildcards. This is slightly different from {@link Types#erasure(javax.lang.model.type.TypeMirror)}, which removes all
+	 * type parameter data.
 	 * 
-	 * For instance, if there is a field with type List&lt;String&gt;, this
-	 * returns a string List&lt;?&gt;.
+	 * For instance, if there is a field with type List&lt;String&gt;, this returns a string List&lt;?&gt;.
 	 *
 	 * @param declaredType
 	 *            the declared type
@@ -700,6 +705,20 @@ public abstract class TypeUtility {
 	 */
 	public static boolean isCollection(TypeName typeName) {
 		return isAssignable(typeName, Collection.class);
+	}
+
+	/**
+	 * Checks if is collection and if element type is the one passed as parameter.
+	 *
+	 * @param typeName
+	 *            the type name
+	 * @param elementTypeName
+	 *            the element type name
+	 * @return true, if is collection
+	 */
+	public static boolean isCollectionOfType(TypeName typeName, TypeName elementTypeName) {
+		return isAssignable(typeName, Collection.class)
+				&& isEquals(((ParameterizedTypeName) typeName).typeArguments.get(0), elementTypeName);
 	}
 
 	/**
