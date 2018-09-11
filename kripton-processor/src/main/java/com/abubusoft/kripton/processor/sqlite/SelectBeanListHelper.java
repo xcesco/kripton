@@ -58,7 +58,8 @@ public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 	 * SelectCodeGenerator#generate(com.squareup.javapoet.MethodSpec.Builder)
 	 */
 	@Override
-	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder, MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
+	public void generateSpecializedPart(SQLiteModelMethod method, TypeSpec.Builder classBuilder,
+			MethodSpec.Builder methodBuilder, Set<JQLProjection> fieldList, boolean mapFields) {
 		SQLiteEntity entity = method.getEntity();
 		TypeName returnTypeName = method.getReturnClass();
 
@@ -68,13 +69,15 @@ public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 		TypeName entityClass = typeName(entity.getElement());
 		ClassName returnRawListClazzName = returnListName.rawType;
 
-		collectionClass = defineCollection(returnRawListClazzName);
+		collectionClass = SqlUtility.defineCollection(returnRawListClazzName);
 
 		methodBuilder.addCode("\n");
 		if (TypeUtility.isTypeEquals(collectionClass, TypeUtility.typeName(ArrayList.class))) {
-			methodBuilder.addCode("$T<$T> resultList=new $T<$T>(_cursor.getCount());\n", collectionClass, entityClass, collectionClass, entityClass);
+			methodBuilder.addCode("$T<$T> resultList=new $T<$T>(_cursor.getCount());\n", collectionClass, entityClass,
+					collectionClass, entityClass);
 		} else {
-			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass, entityClass);
+			methodBuilder.addCode("$T<$T> resultList=new $T<$T>();\n", collectionClass, entityClass, collectionClass,
+					entityClass);
 		}
 		methodBuilder.addStatement("$T resultBean=null", entityClass);
 		// immutable management
@@ -96,7 +99,8 @@ public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 
 				methodBuilder.addStatement("int index$L=_cursor.getColumnIndex($S)", (i++), item.columnName);
 				if (item.hasTypeAdapter()) {
-					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)", item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
+					methodBuilder.addStatement("$T $LAdapter=$T.getAdapter($T.class)",
+							item.typeAdapter.getAdapterTypeName(), item.getName(), SQLTypeAdapterUtils.class,
 							item.typeAdapter.getAdapterTypeName());
 				}
 			}
@@ -120,7 +124,8 @@ public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 			if (item.isNullable()) {
 				methodBuilder.addCode("if (!_cursor.isNull(index$L)) { ", i);
 			}
-			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor", "index" + i + "");
+			SQLTransformer.cursor2Java(methodBuilder, typeName(entity.getElement()), item, "resultBean", "_cursor",
+					"index" + i + "");
 			methodBuilder.addCode(";");
 			if (item.isNullable()) {
 				methodBuilder.addCode(" }");
@@ -150,7 +155,8 @@ public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 		// return list or immutable list
 		if (entity.isImmutablePojo()) {
 			methodBuilder.addCode("return ");
-			ImmutableUtility.generateImmutableCollectionIfPossible(entity, methodBuilder, "resultList", ParameterizedTypeName.get(returnRawListClazzName, entityClass));
+			ImmutableUtility.generateImmutableCollectionIfPossible(entity, methodBuilder, "resultList",
+					ParameterizedTypeName.get(returnRawListClazzName, entityClass));
 			methodBuilder.addCode(";\n");
 		} else {
 			methodBuilder.addCode("return resultList;\n");
@@ -158,34 +164,6 @@ public class SelectBeanListHelper extends AbstractSelectCodeGenerator {
 
 		// close try { open cursor
 		methodBuilder.endControlFlow();
-	}
-
-	/**
-	 * Define collection.
-	 *
-	 * @param listClazzName
-	 *            the list clazz name
-	 * @return the type name
-	 */
-	static ClassName defineCollection(ClassName listClazzName) {
-		try {
-			Class<?> clazz = Class.forName(listClazzName.toString());
-
-			if (clazz.isAssignableFrom(Collection.class)) {
-				clazz = ArrayList.class;
-			} else if (clazz.isAssignableFrom(List.class)) {
-				clazz = ArrayList.class;
-			}
-			if (clazz.isAssignableFrom(Set.class)) {
-				clazz = LinkedHashSet.class;
-			}
-
-			return ClassName.get(clazz);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
-
 	}
 
 }

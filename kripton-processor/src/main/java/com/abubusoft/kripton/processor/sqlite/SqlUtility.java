@@ -15,8 +15,13 @@
  *******************************************************************************/
 package com.abubusoft.kripton.processor.sqlite;
 
+import static com.abubusoft.kripton.processor.core.reflect.TypeUtility.typeName;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,6 +30,8 @@ import com.abubusoft.kripton.processor.core.ModelProperty;
 import com.abubusoft.kripton.processor.exceptions.MethodParameterNotFoundException;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
 // TODO: Auto-generated Javadoc
@@ -38,6 +45,8 @@ public class SqlUtility {
 
 	/** The Constant WORD. */
 	private static final Pattern WORD = Pattern.compile("([_a-zA-Z]\\w*)");
+	
+	
 
 	/**
 	 * Extract from value string every placeholder :{}, replace it with ? and
@@ -100,6 +109,38 @@ public class SqlUtility {
 		return result;
 	}
 
+	/**
+	 * Define collection.
+	 *
+	 * @param listClazzName
+	 *            the list clazz name
+	 * @return the type name
+	 */
+	public static ClassName defineCollection(TypeName listClazzName) {
+		try {
+			Class<?> clazz=null;
+			if (listClazzName instanceof ParameterizedTypeName) {
+				ParameterizedTypeName returnListName = (ParameterizedTypeName) listClazzName;
+				clazz = Class.forName(returnListName.rawType.toString());
+			} else {
+				clazz = Class.forName(listClazzName.toString());	
+			}						
+
+			if (clazz.isAssignableFrom(List.class)) {
+				clazz = ArrayList.class;
+			} else if (clazz.isAssignableFrom(Set.class)) {
+				clazz = LinkedHashSet.class;
+			} else if (clazz.isAssignableFrom(Collection.class)) {
+				clazz = ArrayList.class;
+			}
+
+			return ClassName.get(clazz);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
 	
 
 }

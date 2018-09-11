@@ -45,6 +45,7 @@ import com.abubusoft.kripton.processor.sqlite.model.SQLProperty;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteDaoDefinition;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteEntity;
 import com.abubusoft.kripton.processor.sqlite.model.SQLiteModelMethod;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -73,7 +74,10 @@ public class InsertListBeanHelper implements InsertCodeGenerator {
 		String collectionBeanName = method.getParameters().get(0).value0;
 		String entityParamName = "__bean";
 		
-		methodBuilder.addStatement("", TypeUtility.);
+		if (returnType != TypeName.VOID) {
+			ClassName fixedReturnType = SqlUtility.defineCollection(method.getReturnClass());
+			methodBuilder.addStatement("$T __result=new $T<>()", method.getReturnClass(), fixedReturnType);
+		}
 
 		methodBuilder.beginControlFlow("for ($T $L: $L)", entity.getElement(), entityParamName, collectionBeanName);
 
@@ -178,15 +182,16 @@ public class InsertListBeanHelper implements InsertCodeGenerator {
 
 		// define return value
 		if (returnType == TypeName.VOID) {
+			// do nothing
 		} else if (TypeUtility.isCollectionOfType(returnType, typeName(entity.getElement()))) {
-			methodBuilder.addCode("\n");
-			methodBuilder.addCode("return $L;\n", entityParamName);
+			//methodBuilder.addCode("\n");
+			//methodBuilder.addCode("return $L;\n", entityParamName);
 		}
 
 		methodBuilder.endControlFlow();
 
 		if (returnType != TypeName.VOID) {
-			methodBuilder.addCode("return $L;\n", "null");
+			methodBuilder.addStatement("return __result");
 		}
 	}
 

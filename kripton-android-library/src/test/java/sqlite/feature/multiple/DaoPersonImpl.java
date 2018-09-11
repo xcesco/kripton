@@ -10,7 +10,9 @@ import com.abubusoft.kripton.common.StringUtils;
 import com.abubusoft.kripton.common.Triple;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -29,7 +31,9 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
   private static SQLiteStatement insertPreparedStatement0;
 
-  private static SQLiteStatement updatePreparedStatement1;
+  private static SQLiteStatement insertAllPreparedStatement1;
+
+  private static SQLiteStatement updatePreparedStatement2;
 
   public DaoPersonImpl(BindAppDaoFactory daoFactory) {
     super(daoFactory.context());
@@ -154,8 +158,8 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
         insertPreparedStatement0 = KriptonDatabaseWrapper.compile(_context, _sql);
       }
       KriptonContentValues _contentValues=contentValuesForUpdate(insertPreparedStatement0);
-      _contentValues.put("name", __bean.name);
-      _contentValues.put("surname", __bean.surname);
+      _contentValues.put("name", __bean.getName());
+      _contentValues.put("surname", __bean.getSurname());
 
       // log section BEGIN
       if (_context.isLogEnabled()) {
@@ -199,6 +203,78 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
   }
 
   /**
+   * <h2>SQL insert</h2>
+   * <pre>INSERT INTO person (name, surname) VALUES (:name, :surname)</pre>
+   *
+   * <p><code>bean.id</code> is automatically updated because it is the primary key</p>
+   *
+   * <p><strong>Inserted columns:</strong></p>
+   * <dl>
+   * 	<dt>name</dt><dd>is mapped to <strong>:bean.name</strong></dd>
+   * 	<dt>surname</dt><dd>is mapped to <strong>:bean.surname</strong></dd>
+   * </dl>
+   *
+   * @param bean
+   * 	is mapped to parameter <strong>bean</strong>
+   *
+   */
+  @Override
+  public Set<Person> insertAll(List<Person> bean) {
+    // Specialized Insert - InsertType - BEGIN
+    Set<Person> __result=new LinkedHashSet<>();
+    for (Person __bean: bean) {
+      if (insertAllPreparedStatement1==null) {
+        // generate static SQL for statement
+        String _sql="INSERT INTO person (name, surname) VALUES (?, ?)";
+        insertAllPreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      }
+      KriptonContentValues _contentValues=contentValuesForUpdate(insertAllPreparedStatement1);
+      _contentValues.put("name", __bean.getName());
+      _contentValues.put("surname", __bean.getSurname());
+
+      // log section BEGIN
+      if (_context.isLogEnabled()) {
+        // log for insert -- BEGIN 
+        StringBuffer _columnNameBuffer=new StringBuffer();
+        StringBuffer _columnValueBuffer=new StringBuffer();
+        String _columnSeparator="";
+        for (String columnName:_contentValues.keys()) {
+          _columnNameBuffer.append(_columnSeparator+columnName);
+          _columnValueBuffer.append(_columnSeparator+":"+columnName);
+          _columnSeparator=", ";
+        }
+        Logger.info("INSERT INTO person (%s) VALUES (%s)", _columnNameBuffer.toString(), _columnValueBuffer.toString());
+
+        // log for content values -- BEGIN
+        Triple<String, Object, KriptonContentValues.ParamType> _contentValue;
+        for (int i = 0; i < _contentValues.size(); i++) {
+          _contentValue = _contentValues.get(i);
+          if (_contentValue.value1==null) {
+            Logger.info("==> :%s = <null>", _contentValue.value0);
+          } else {
+            Logger.info("==> :%s = '%s' (%s)", _contentValue.value0, StringUtils.checkSize(_contentValue.value1), _contentValue.value1.getClass().getCanonicalName());
+          }
+        }
+        // log for content values -- END
+        // log for insert -- END 
+
+
+        // log for where parameters -- BEGIN
+        int _whereParamCounter=0;
+        for (String _whereParamItem: _contentValues.whereArgs()) {
+          Logger.info("==> param%s: '%s'",(_whereParamCounter++), StringUtils.checkSize(_whereParamItem));
+        }
+        // log for where parameters -- END
+      }
+      // log section END
+      // insert operation
+      long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement1, _contentValues);
+    }
+    return __result;
+    // Specialized Insert - InsertType - END
+  }
+
+  /**
    * <h2>SQL update</h2>
    * <pre>UPDATE person SET name=:name, surname=:surname WHERE id=${bean.id}</pre>
    *
@@ -218,16 +294,16 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
    */
   @Override
   public void update(Person bean) {
-    if (updatePreparedStatement1==null) {
+    if (updatePreparedStatement2==null) {
       // generate static SQL for statement
       String _sql="UPDATE person SET name=?, surname=? WHERE id=?";
-      updatePreparedStatement1 = KriptonDatabaseWrapper.compile(_context, _sql);
+      updatePreparedStatement2 = KriptonDatabaseWrapper.compile(_context, _sql);
     }
-    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement1);
-    _contentValues.put("name", bean.name);
-    _contentValues.put("surname", bean.surname);
+    KriptonContentValues _contentValues=contentValuesForUpdate(updatePreparedStatement2);
+    _contentValues.put("name", bean.getName());
+    _contentValues.put("surname", bean.getSurname());
 
-    _contentValues.addWhereArgs(String.valueOf(bean.id));
+    _contentValues.addWhereArgs(String.valueOf(bean.getId()));
 
     // generation CODE_001 -- BEGIN
     // generation CODE_001 -- END
@@ -257,7 +333,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log for where parameters -- END
     }
     // log section END
-    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement1, _contentValues);
+    int result = KriptonDatabaseWrapper.updateDelete(updatePreparedStatement2, _contentValues);
   }
 
   public static void clearCompiledStatements() {
@@ -265,9 +341,13 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       insertPreparedStatement0.close();
       insertPreparedStatement0=null;
     }
-    if (updatePreparedStatement1!=null) {
-      updatePreparedStatement1.close();
-      updatePreparedStatement1=null;
+    if (insertAllPreparedStatement1!=null) {
+      insertAllPreparedStatement1.close();
+      insertAllPreparedStatement1=null;
+    }
+    if (updatePreparedStatement2!=null) {
+      updatePreparedStatement2.close();
+      updatePreparedStatement2=null;
     }
   }
 }

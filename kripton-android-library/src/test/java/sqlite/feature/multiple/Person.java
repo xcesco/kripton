@@ -24,7 +24,7 @@ import com.abubusoft.kripton.android.annotation.BindSqlType;
 public class Person {
 
 	/** The id. */
-	public long id;
+	private long id;
 	
 	/**
 	 * @param id
@@ -39,8 +39,20 @@ public class Person {
 	}
 
 	/** The name. */
-	public String name;
+	private String name;
 	
 	/** The surname. */
-	public String surname;
+	private String surname;
+
+	public long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
 }

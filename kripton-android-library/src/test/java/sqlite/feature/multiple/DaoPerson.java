@@ -16,6 +16,7 @@
 package sqlite.feature.multiple;
 
 import java.util.List;
+import java.util.Set;
 
 import com.abubusoft.kripton.android.annotation.BindDao;
 import com.abubusoft.kripton.android.annotation.BindSqlInsert;
@@ -47,6 +48,15 @@ public interface DaoPerson {
 	 */
 	@BindSqlInsert
 	void insert(List<Person> bean);
+	
+	/**
+	 * Insert.
+	 *
+	 * @param bean
+	 *            the bean
+	 */
+	@BindSqlInsert
+	Set<Person> insertAll(List<Person> bean);
 	
 	/**
 	 * Update.

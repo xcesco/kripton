@@ -61,7 +61,7 @@ public class SelectScalarListHelper extends AbstractSelectCodeGenerator {
 		ClassName listClazzName = returnListName.rawType;
 		TypeName elementName = returnListName.typeArguments.get(0);
 
-		collectionClass = SelectBeanListHelper.defineCollection(listClazzName);
+		collectionClass = SqlUtility.defineCollection(listClazzName);
 
 		methodBuilder.addCode("\n");
 		
