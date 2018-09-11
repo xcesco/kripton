@@ -269,6 +269,19 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
       // log section END
       // insert operation
       long result = KriptonDatabaseWrapper.insert(insertAllPreparedStatement1, _contentValues);
+      // immutable POJO - create a copy with new id
+      // immutable object: initialize temporary variables for properties
+      long __id=0;
+      String __name=null;
+      String __surname=null;
+      // immutable object: initialize temporary variables for properties with entity propertiy values
+      __id=__bean.getId();
+      __name=__bean.getName();
+      __surname=__bean.getSurname();
+      __id=result;
+      // immutable object: inizialize object
+      __bean=new Person(__id,__name,__surname);
+      __result.add(__bean);
     }
     return __result;
     // Specialized Insert - InsertType - END

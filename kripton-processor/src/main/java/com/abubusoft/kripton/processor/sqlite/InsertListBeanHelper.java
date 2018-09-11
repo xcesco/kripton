@@ -70,15 +70,16 @@ public class InsertListBeanHelper implements InsertCodeGenerator {
 		SQLiteDaoDefinition daoDefinition = method.getParent();
 		SQLiteEntity entity = method.getEntity();
 
-		// name of the entity param
-		String collectionBeanName = method.getParameters().get(0).value0;
-		String entityParamName = "__bean";
-		
-		if (returnType != TypeName.VOID) {
+		boolean returnCollection = TypeUtility.isCollectionOfType(returnType,
+				TypeUtility.typeName(entity.getElement()));
+
+		// manage return collection
+		if (returnCollection) {
 			ClassName fixedReturnType = SqlUtility.defineCollection(method.getReturnClass());
 			methodBuilder.addStatement("$T __result=new $T<>()", method.getReturnClass(), fixedReturnType);
 		}
-
+		String entityParamName = "__bean";
+		String collectionBeanName = method.getParameters().get(0).value0;
 		methodBuilder.beginControlFlow("for ($T $L: $L)", entity.getElement(), entityParamName, collectionBeanName);
 
 		// retrieve content values
@@ -127,7 +128,7 @@ public class InsertListBeanHelper implements InsertCodeGenerator {
 		// we need to fix all fields.
 		if (entity.isImmutablePojo()) {
 			// only if we need to return an entity
-			if (TypeUtility.isEquals(returnType, entity)) {
+			if (returnCollection) {
 				methodBuilder.addComment("immutable POJO - create a copy with new id");
 				ImmutableUtility.generateImmutableVariableInit(entity, methodBuilder);
 				ImmutableUtility.generateImmutableVariableCopyFromEntity(entity, methodBuilder, entityParamName);
@@ -179,19 +180,14 @@ public class InsertListBeanHelper implements InsertCodeGenerator {
 			methodBuilder.addComment("support for livedata");
 			methodBuilder.addStatement(BindDaoBuilder.METHOD_NAME_REGISTRY_EVENT + "(result>0?1:0)");
 		}
-
+		
 		// define return value
-		if (returnType == TypeName.VOID) {
-			// do nothing
-		} else if (TypeUtility.isCollectionOfType(returnType, typeName(entity.getElement()))) {
-			//methodBuilder.addCode("\n");
-			//methodBuilder.addCode("return $L;\n", entityParamName);
-		}
-
-		methodBuilder.endControlFlow();
-
-		if (returnType != TypeName.VOID) {
+		if (returnCollection) {		
+			methodBuilder.addStatement("__result.add($L)",entityParamName);
+			methodBuilder.endControlFlow();
 			methodBuilder.addStatement("return __result");
+		} else {
+			methodBuilder.endControlFlow();
 		}
 	}
 
