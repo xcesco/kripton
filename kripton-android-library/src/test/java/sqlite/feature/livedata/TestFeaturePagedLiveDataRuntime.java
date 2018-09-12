@@ -91,6 +91,8 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 				return TransactionResult.COMMIT;
 			}
 		});
+		
+		liveData.createPageRequestBuilder().pageSize(41).page(2).apply();
 
 
 		Thread.sleep(1000);
