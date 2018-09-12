@@ -13,21 +13,46 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.multiple;
+package sqlite.feature.multiple.case1;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
-import com.abubusoft.kripton.android.annotation.BindTransaction;
+import com.abubusoft.kripton.android.annotation.BindSqlType;
 
 /**
- * The Interface App0DataSource.
+ * The Class Person.
  */
-@BindDataSource(fileName="app.db", version=1, daoSet={DaoPerson.class})
-public interface AppDataSource {
+@BindSqlType
+public class Person {
+
+	/** The id. */
+	private long id;
 	
-	@BindTransaction
-	static void execute(DaoPerson daoPerson, String name) {
-		//daoPerson.insert(new Person(-1, name, "Surname"));
-		
-		//return TransactionResult.COMMIT;
+	/**
+	 * @param id
+	 * @param name
+	 * @param surname
+	 */
+	public Person(long id, String name, String surname) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+	}
+
+	/** The name. */
+	private String name;
+	
+	/** The surname. */
+	private String surname;
+
+	public long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSurname() {
+		return surname;
 	}
 }

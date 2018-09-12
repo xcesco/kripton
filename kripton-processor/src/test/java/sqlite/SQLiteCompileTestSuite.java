@@ -45,6 +45,8 @@ import sqlite.feature.kotlin.TestCompileKotlinImmutable;
 import sqlite.feature.livedata.TestLiveDataSuite;
 import sqlite.feature.livedatax.TestLiveDataXSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
+import sqlite.feature.multiple.TestCompileMultipleSuite;
+import sqlite.feature.multiple.TestFeatureMultipleCompile;
 import sqlite.feature.paginatedresult.TestPaginatedResultSuite;
 import sqlite.feature.performance.TestPerformanceSuite;
 import sqlite.feature.pkstring.TestPkStringSuite;
@@ -125,6 +127,7 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestCompileImmutableSuite.class,
 			TestDataSourceOptionSuite.class,
 			TestAdapterSuite.class,
+			TestCompileMultipleSuite.class,
 			FeatureAsyncSuite.class,
 			
 			// bug-fix			

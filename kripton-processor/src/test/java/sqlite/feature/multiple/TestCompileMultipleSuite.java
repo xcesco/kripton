@@ -15,24 +15,21 @@
  *******************************************************************************/
 package sqlite.feature.multiple;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.runners.Suite;
 
-import sqlite.AbstractBindSQLiteProcessorTest;
-import sqlite.feature.multiple.case1.AppDataSource;
-import sqlite.feature.multiple.case1.DaoPerson;
-import sqlite.feature.multiple.case1.Person;
+import base.BaseProcessorTest;
 
 /**
- * The Class TestLiveDataCompile.
+ * The Class TestCompileMany2ManySuite.
  */
-@RunWith(JUnit4.class)
-public class TestFeatureMultipleCompile extends AbstractBindSQLiteProcessorTest {
-
-	@Test
-	public void testOK() throws Throwable {
-		buildDataSourceProcessorTest(Person.class, DaoPerson.class, AppDataSource.class);
-	}
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{ 		
+			TestFeatureMultipleCompile.class
+		 })
+//@formatter:on
+public class TestCompileMultipleSuite extends BaseProcessorTest {
 
 }

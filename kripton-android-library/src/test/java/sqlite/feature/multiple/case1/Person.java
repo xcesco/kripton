@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.multiple;
+package sqlite.feature.multiple.case1;
 
 import com.abubusoft.kripton.android.annotation.BindSqlType;
 
