@@ -137,7 +137,7 @@ public class Dao4PersonImpl extends Dao implements Dao4Person {
     // generation order - END
 
     // generation limit - BEGIN
-    String _sqlLimitStatement=SqlUtils.printIf(pageSize>0, " LIMIT "+pageSize);
+    String _sqlLimitStatement=SqlUtils.printIf(paginatedResult.getPageSize()>0, " LIMIT "+paginatedResult.getPageSize());
     _sqlBuilder.append(_sqlLimitStatement);
     // generation limit - END
 

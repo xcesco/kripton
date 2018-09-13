@@ -324,10 +324,12 @@ public abstract class SqlSelectBuilder {
 
 		if (jql.dynamicReplace.containsKey(JQLDynamicStatementType.DYNAMIC_PAGE_SIZE) || jql.annotatedPageSize) {
 			methodBuilder.addComment("generation limit - BEGIN");
-			if (jql.annotatedPageSize) {
+			if (SelectBuilderUtility.detectSelectType(method) != SelectType.PAGED_RESULT && !method.isPagedLiveData()) {
 				methodBuilder.addStatement("String _sqlLimitStatement=$S", splittedSql.sqlLimitStatement);
+			} else if (jql.annotatedPageSize) {
+				methodBuilder.addStatement("String _sqlLimitStatement=\" LIMIT \"+$L", "paginatedResult.getPageSize()");
 			} else if (jql.hasParamPageSize()) {
-				methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+$L)", SqlUtils.class, jql.paramPageSize, jql.paramPageSize);
+				methodBuilder.addStatement("String _sqlLimitStatement=$T.printIf($L>0, \" LIMIT \"+$L)", SqlUtils.class, "paginatedResult.getPageSize()", "paginatedResult.getPageSize()");
 			}
 			methodBuilder.addStatement("_sqlBuilder.append($L)", "_sqlLimitStatement");
 			methodBuilder.addComment("generation limit - END");

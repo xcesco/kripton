@@ -92,8 +92,9 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 			}
 		});
 		
-		liveData.createPageRequestBuilder().pageSize(41).page(2).apply();
+		liveData.createPageRequestBuilder().pageSize(41).offset(11).apply();
 
+		liveData.setOffset(liveData.getOffset()+100);
 
 		Thread.sleep(1000);
 

@@ -84,7 +84,7 @@ public class DaoPersonImpl extends Dao implements DaoPerson {
 
     // manage WHERE arguments -- END
     // generation limit - BEGIN
-    String _sqlLimitStatement=" LIMIT 20";
+    String _sqlLimitStatement=" LIMIT "+paginatedResult.getPageSize();
     _sqlBuilder.append(_sqlLimitStatement);
     // generation limit - END
 

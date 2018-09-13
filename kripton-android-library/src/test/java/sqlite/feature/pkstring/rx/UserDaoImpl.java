@@ -202,7 +202,7 @@ public class UserDaoImpl extends Dao implements UserDao {
     // generation CODE_001 -- END
     String _sqlWhereStatement="";
     // generation limit - BEGIN
-    String _sqlLimitStatement=" LIMIT 20";
+    String _sqlLimitStatement=" LIMIT "+paginatedResult.getPageSize();
     _sqlBuilder.append(_sqlLimitStatement);
     // generation limit - END
 

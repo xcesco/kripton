@@ -30,14 +30,22 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest 
 	 *
 	 */
 	public class PageRequestBuilder {
+		private int originalOffset;
+		private int originalPage;
+		private int originalPageSize;
+		
 		private int offset;
 		private int page;
 		private int pageSize;
 
 		private PageRequestBuilder() {
-			offset = pageRequest.getOffset();
-			page = pageRequest.getPage();
-			pageSize = pageRequest.getPageSize();
+			originalOffset = pageRequest.getOffset();
+			originalPage = pageRequest.getPage();
+			originalPageSize = pageRequest.getPageSize();
+			
+			offset=originalOffset;
+			page=originalPage;
+			pageSize=originalPageSize;
 		}
 
 		/**
@@ -78,17 +86,17 @@ public class PagedLiveData<T> extends KriptonLiveData<T> implements PageRequest 
 		 */
 		public void apply() {
 			boolean changes = false;
-			if (pageRequest.getOffset() != offset) {
+			if (originalOffset != offset) {
 				changes = true;
 				pageRequest.setOffset(offset);
 			}
 
-			if (pageRequest.getPageSize() != pageSize) {
+			if (originalPageSize != pageSize) {
 				changes = true;
 				pageRequest.setPageSize(pageSize);
 			}
 
-			if (pageRequest.getPage() != page) {
+			if (originalPage != page) {
 				changes = true;
 				pageRequest.setPage(page);
 			}

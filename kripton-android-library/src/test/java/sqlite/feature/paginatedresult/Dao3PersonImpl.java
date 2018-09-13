@@ -122,7 +122,7 @@ public class Dao3PersonImpl extends Dao implements Dao3Person {
     // generation order - END
 
     // generation limit - BEGIN
-    String _sqlLimitStatement=" LIMIT 10";
+    String _sqlLimitStatement=" LIMIT "+paginatedResult.getPageSize();
     _sqlBuilder.append(_sqlLimitStatement);
     // generation limit - END
 
