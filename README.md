@@ -258,10 +258,10 @@ You can use Kritpon Annotation Processor and Kripton Persistence Library via gra
 
 ```
 // annotation processor
-annotationProcessor "com.abubusoft:kripton-processor:4.0.0"
+annotationProcessor "com.abubusoft:kripton-processor:5.0.0"
 
 // https://mvnrepository.com/artifact/com.abubusoft/kripton
-implements "com.abubusoft:kripton-android-library:4.0.0"
+implements "com.abubusoft:kripton-android-library:5.0.0"
 ```
 
 or via maven
@@ -272,7 +272,7 @@ or via maven
   <dependency>
     <groupId>com.abubusoft</groupId>
     <artifactId>kripton</artifactId>
-    <version>4.0.0</version>
+    <version>5.0.0</version>
   </dependency>
   ...
 </dependencies>
@@ -291,7 +291,7 @@ or via maven
 		  <path>
 		    <groupId>com.abubusoft</groupId>
 		    <artifactId>kripton-processor</artifactId>
-		    <version>4.0.0</version>
+		    <version>5.0.0</version>
 		</path>
 	    </annotationProcessorPaths>
 	  </configuration>
@@ -304,7 +304,7 @@ or via maven
 
 Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/com/abubusoft/).
 
-Kritpon requires at minimum Java 7 or Android 3.0.
+Kritpon requires at minimum Java 8 or Android 3.0.
 
 ![logo](https://github.com/xcesco/wikis/blob/master/kripton/logo320_120.png)
 
