@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.contentprovider;
+package sqlite.errors;
 
+import java.io.IOException;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.runners.JUnit4;
 
-import base.BaseProcessorTest;
-import sqlite.feature.contentprovider.kripton213.case1.TestCompileKripton213;
-import sqlite.feature.contentprovider.kripton35.TestContentProvider;
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
-/**
- * The Class TestContentProviderSuite.
- */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestContentProvider.class,
-		TestCompileKripton213.class,
-		ContentProviderCase1CompilerTest.class
-		
-		 })
-//@formatter:on
-public class TestContentProviderSuite extends BaseProcessorTest {
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.errors.dao.case3.DaoPerson;
+import sqlite.errors.dao.case3.Person;
+import sqlite.errors.dao.case3.PersonDataSource;
+
+@RunWith(JUnit4.class)
+public class SQLiteErrorTest3 extends AbstractBindSQLiteProcessorTest {
+
+	@Test
+	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
+		this.expectedException(InvalidMethodSignException.class, "In class 'DaoPerson', method 'update' has an invalid signature: no field was specified for update");
+		buildDataSourceProcessorTest(DaoPerson.class, Person.class, PersonDataSource.class);
+	}
 
 }

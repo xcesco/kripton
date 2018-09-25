@@ -13,16 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package sqlite.feature.indexes.case2;
+package sqlite.errors;
 
-import com.abubusoft.kripton.android.annotation.BindDataSource;
-
-import sqlite.feature.indexes.PersonDAO;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * The Interface PersonDataSource.
+ * The Class SQLiteCompileTestSuite.
  */
-@BindDataSource(daoSet= { PersonDAO.class }, fileName = "personFeatureIndex3.db", log=true)
-public interface PersonDataSource {
+@RunWith(Suite.class)
+//@formatter:off
+@Suite.SuiteClasses(
+		{
+			SQLiteErrorTest1.class,
+			SQLiteErrorTest2.class,
+			SQLiteErrorTest3.class,
+			SQLiteErrorTest4.class
+			})
+//@formatter:on
+public class SQLiteCompileErrorTest {
 
 }

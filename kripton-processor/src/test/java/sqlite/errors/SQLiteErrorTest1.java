@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared.kripton198;
+package sqlite.errors;
 
 import java.io.IOException;
 
@@ -21,24 +21,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import shared.AbstractBindSharedPreferenceProcessorTest;
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
 
-/**
- * The Class Test198Compile.
- */
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.errors.dao.case1.DaoPerson;
+import sqlite.errors.dao.case1.Person;
+import sqlite.errors.dao.case1.PersonDataSource;
+
 @RunWith(JUnit4.class)
-public class Test198Compile extends AbstractBindSharedPreferenceProcessorTest {
+public class SQLiteErrorTest1 extends AbstractBindSQLiteProcessorTest {
 
-	/**
-	 * Test compile.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(AppPreferences.class);
+		this.expectedException(InvalidMethodSignException.class, "In class 'DaoPerson', method 'selectAll' has an invalid signature: method must be annotated with @BindSqlSelect, @BindSqlInsert, @BindSqlUpdate or @BindSqlDelete");
+		buildDataSourceProcessorTest(DaoPerson.class, Person.class, PersonDataSource.class);
 	}
 
 }

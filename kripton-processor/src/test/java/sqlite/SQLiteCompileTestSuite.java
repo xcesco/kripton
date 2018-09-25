@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import sqlite.adapter.example01.TestAdapterSuite;
+import sqlite.errors.SQLiteCompileErrorTest;
 import sqlite.example02.Example02Suite;
 import sqlite.feat.grammars.contenturi.TestUriCheckerSuite;
 import sqlite.feat.grammars.jql.TestJqlCheckerSuite;
@@ -46,7 +47,6 @@ import sqlite.feature.livedata.TestLiveDataSuite;
 import sqlite.feature.livedatax.TestLiveDataXSuite;
 import sqlite.feature.many2many.TestCompileMany2ManySuite;
 import sqlite.feature.multiple.TestCompileMultipleSuite;
-import sqlite.feature.multiple.TestFeatureMultipleCompile;
 import sqlite.feature.paginatedresult.TestPaginatedResultSuite;
 import sqlite.feature.performance.TestPerformanceSuite;
 import sqlite.feature.pkstring.TestPkStringSuite;
@@ -126,12 +126,16 @@ import sqlite.test05firt_aid.TestFirstAid;
 			TestInSuite.class,
 			TestCompileImmutableSuite.class,
 			TestDataSourceOptionSuite.class,
+			
 			TestAdapterSuite.class,
 			TestCompileMultipleSuite.class,
 			FeatureAsyncSuite.class,
 			
 			// bug-fix			
 			TestCompileKotlinImmutable.class,
+			
+			// error check
+			SQLiteCompileErrorTest.class,
 			
 			Example02Suite.class,
 			TestCompile111.class,

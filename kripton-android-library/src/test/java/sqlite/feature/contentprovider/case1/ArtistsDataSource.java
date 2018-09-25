@@ -13,29 +13,15 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.contentprovider;
+package sqlite.feature.contentprovider.case1;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import sqlite.feature.contentprovider.case1.TestContentProviderCase1Runtime;
-import sqlite.feature.contentprovider.kripton35.TestContentProviderInsert;
-import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
-import sqlite.feature.contentprovider.kripton35.TestContentProviderWrong;
+import com.abubusoft.kripton.android.annotation.BindContentProvider;
+import com.abubusoft.kripton.android.annotation.BindDataSource;
 
 /**
- * The Class TestContentProviderRuntimeSuite.
+ * Created by xcesco on 02/10/2017.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestContentProviderRuntime.class, 
-		TestContentProviderInsert.class,
-		TestContentProviderWrong.class,
-		TestContentProviderCase1Runtime.class
-		 })
-//@formatter:on
-public class TestContentProviderRuntimeSuite  {
-	
+@BindContentProvider(authority = "com.abubusoft.kripton.example")
+@BindDataSource(daoSet = { ArtistDao.class , AlbumDao.class}, fileName = "artists.db")
+public interface ArtistsDataSource {
 }

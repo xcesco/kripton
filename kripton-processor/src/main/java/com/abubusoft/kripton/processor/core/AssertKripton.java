@@ -134,16 +134,6 @@ public abstract class AssertKripton {
 	}
 
 	/**
-	 * Fail with method without supported annotation exception.
-	 *
-	 * @param value
-	 *            the value
-	 */
-	public static void failWithMethodWithoutSupportedAnnotationException(SQLiteModelMethod value) {
-		throw (new MethodWithoutSupportedAnnotationException(value.getParent(), value));
-	}
-
-	/**
 	 * Fail.
 	 *
 	 * @param messageFormat
@@ -343,27 +333,6 @@ public abstract class AssertKripton {
 
 	}
 
-	/**
-	 * Assert true or missed annotation on class.
-	 *
-	 * @param expression
-	 *            the expression
-	 * @param element
-	 *            the element
-	 * @param beanName
-	 *            the bean name
-	 * @param annotationClazz
-	 *            the annotation clazz
-	 */
-	public static void assertTrueOrMissedAnnotationOnClass(boolean expression, Element element, String beanName,
-			Class<? extends Annotation> annotationClazz) {
-		if (!expression) {
-			String msg = String.format(
-					"In dao definition '%s' is referred a bean definition '%s' without @%s annotation",
-					element.getSimpleName(), beanName, annotationClazz.getSimpleName());
-			throw (new MissedAnnotationOnClass(msg));
-		}
-	}
 
 	/**
 	 * Asser true or foreign key not found.
@@ -383,24 +352,6 @@ public abstract class AssertKripton {
 
 	}
 
-	/**
-	 * Asser true or missed annotation on class exception.
-	 *
-	 * @param expression
-	 *            the expression
-	 * @param entity
-	 *            the entity
-	 * @param foreignClassName
-	 *            the foreign class name
-	 */
-	public static void asserTrueOrMissedAnnotationOnClassException(boolean expression, SQLiteEntity entity,
-			String foreignClassName) {
-		if (!expression) {
-			String msg = String.format("Entity '%s' refers a bean '%s' without @%s annotation", entity.getSimpleName(),
-					foreignClassName, BindType.class.getSimpleName());
-			throw (new MissedAnnotationOnClass(msg));
-		}
-	}
 
 	/**
 	 * Asser true or missed annotation on class exception.

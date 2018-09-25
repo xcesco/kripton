@@ -133,7 +133,7 @@ public class ModifyRawHelper implements ModifyCodeGenerator {
 			generateJavaDoc(method, methodBuilder, updateMode, whereCondition, where, methodParams);
 
 			if (updateMode) {
-				AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method, "no column was selected for update");
+				//AssertKripton.assertTrueOrInvalidMethodSignException(updateableParams.size() > 0, method, "no column was selected for update");
 
 				// order item for content values
 				updateableParams = SqlBuilderHelper.orderContentValues(method, updateableParams);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015, 2016 Francesco Benincasa (info@abubusoft.com).
+ * Copyright 2015, 2017 Francesco Benincasa (info@abubusoft.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package shared.kripton198;
+package sqlite.errors;
 
 import java.io.IOException;
 
@@ -21,24 +21,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import shared.AbstractBindSharedPreferenceProcessorTest;
+import com.abubusoft.kripton.processor.exceptions.InvalidMethodSignException;
+import com.abubusoft.kripton.processor.exceptions.UnknownPropertyInJQLException;
 
-/**
- * The Class Test198Compile.
- */
+import sqlite.AbstractBindSQLiteProcessorTest;
+import sqlite.errors.dao.case4.DaoPerson;
+import sqlite.errors.dao.case4.Person;
+import sqlite.errors.dao.case4.PersonDataSource;
+
 @RunWith(JUnit4.class)
-public class Test198Compile extends AbstractBindSharedPreferenceProcessorTest {
+public class SQLiteErrorTest4 extends AbstractBindSQLiteProcessorTest {
 
-	/**
-	 * Test compile.
-	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 */
 	@Test
 	public void testCompile() throws IOException, InstantiationException, IllegalAccessException {
-		buildSharedPreferencesProcessorTest(AppPreferences.class);
+		this.expectedException(UnknownPropertyInJQLException.class, "In DAO 'DaoPerson' in method 'update', unknown property 'namex' is used");
+		buildDataSourceProcessorTest(DaoPerson.class, Person.class, PersonDataSource.class);
 	}
 
 }

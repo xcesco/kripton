@@ -13,29 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package sqlite.feature.contentprovider;
+package sqlite.feature.contentprovider.case1;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import sqlite.feature.contentprovider.case1.TestContentProviderCase1Runtime;
-import sqlite.feature.contentprovider.kripton35.TestContentProviderInsert;
-import sqlite.feature.contentprovider.kripton35.TestContentProviderRuntime;
-import sqlite.feature.contentprovider.kripton35.TestContentProviderWrong;
+import com.abubusoft.kripton.android.annotation.BindContentProviderPath;
+import com.abubusoft.kripton.android.annotation.BindDao;
 
 /**
- * The Class TestContentProviderRuntimeSuite.
+ * The Interface AlbumDao.
  */
-@RunWith(Suite.class)
-//@formatter:off
-@Suite.SuiteClasses(
-		{ 
-		TestContentProviderRuntime.class, 
-		TestContentProviderInsert.class,
-		TestContentProviderWrong.class,
-		TestContentProviderCase1Runtime.class
-		 })
-//@formatter:on
-public class TestContentProviderRuntimeSuite  {
-	
+@BindContentProviderPath(path = "albums")
+@BindDao(Album.class)
+public interface AlbumDao extends BaseDao<Album> {
+
 }

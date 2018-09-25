@@ -1,4 +1,4 @@
-package sqlite.feature.indexes;
+package sqlite.feature.contentprovider.case1;
 
 import android.database.sqlite.SQLiteDatabase;
 import com.abubusoft.kripton.android.KriptonLibrary;
@@ -13,26 +13,30 @@ import com.abubusoft.kripton.android.sqlite.SQLiteUpdateTaskHelper;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 import com.abubusoft.kripton.exception.KriptonRuntimeException;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 /**
  * <p>
- * Implementation of the PersonDataSource datasource.
+ * Implementation of the ArtistsDataSource datasource.
  * This class expose database interface through Dao attribute.
  * </p>
  *
- * @see PersonDataSource
- * @see BindPersonDaoFactory
- * @see PersonDAO
- * @see PersonDAOImpl
- * @see Person
+ * @see ArtistsDataSource
+ * @see BindArtistsDaoFactory
+ * @see ArtistDao
+ * @see ArtistDaoImpl
+ * @see Artist
+ * @see AlbumDao
+ * @see AlbumDaoImpl
+ * @see Album
  */
-public class BindPersonDataSource extends AbstractDataSource implements BindPersonDaoFactory, PersonDataSource {
+public class BindArtistsDataSource extends AbstractDataSource implements BindArtistsDaoFactory, ArtistsDataSource {
   /**
    * <p>datasource singleton</p>
    */
-  static volatile BindPersonDataSource instance;
+  static volatile BindArtistsDataSource instance;
 
   /**
    * <p>Mutex to manage multithread access to instance</p>
@@ -40,32 +44,47 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   private static final Object mutex = new Object();
 
   /**
-   * Unique identifier for Dao PersonDAO
+   * Unique identifier for Dao ArtistDao
    */
-  public static final int PERSON_D_A_O_UID = 0;
+  public static final int ARTIST_DAO_UID = 0;
+
+  /**
+   * Unique identifier for Dao AlbumDao
+   */
+  public static final int ALBUM_DAO_UID = 1;
 
   /**
    * List of tables compose datasource
    */
-  static final SQLiteTable[] TABLES = {new PersonTable()};
+  static final SQLiteTable[] TABLES = {new ArtistTable(), new AlbumTable()};
 
   /**
    * <p>dao instance</p>
    */
-  protected PersonDAOImpl personDAO = new PersonDAOImpl(this);
+  protected ArtistDaoImpl artistDao = new ArtistDaoImpl(this);
+
+  /**
+   * <p>dao instance</p>
+   */
+  protected AlbumDaoImpl albumDao = new AlbumDaoImpl(this);
 
   /**
    * Used only in transactions (that can be executed one for time
    */
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
-  protected BindPersonDataSource(DataSourceOptions options) {
-    super("person1.db", 1, options);
+  protected BindArtistsDataSource(DataSourceOptions options) {
+    super("artists.db", 1, options);
   }
 
   @Override
-  public PersonDAOImpl getPersonDAO() {
-    return personDAO;
+  public ArtistDaoImpl getArtistDao() {
+    return artistDao;
+  }
+
+  @Override
+  public AlbumDaoImpl getAlbumDao() {
+    return albumDao;
   }
 
   /**
@@ -228,8 +247,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * <p>Retrieve instance.</p>
    */
-  public static BindPersonDataSource getInstance() {
-    BindPersonDataSource result=instance;
+  public static BindArtistsDataSource getInstance() {
+    BindArtistsDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
         result=instance;
@@ -238,7 +257,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
           	.inMemory(false)
           	.log(true)
           	.build();
-          instance=result=new BindPersonDataSource(options);
+          instance=result=new BindArtistsDataSource(options);
           try {
             instance.openWritableDatabase();
             instance.close();
@@ -256,8 +275,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * Retrieve data source instance and open it.
    * @return opened dataSource instance.
    */
-  public static BindPersonDataSource open() {
-    BindPersonDataSource instance=getInstance();
+  public static BindArtistsDataSource open() {
+    BindArtistsDataSource instance=getInstance();
     instance.openWritableDatabase();
     return instance;
   }
@@ -266,8 +285,8 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
    * Retrieve data source instance and open it in read only mode.
    * @return opened dataSource instance.
    */
-  public static BindPersonDataSource openReadOnly() {
-    BindPersonDataSource instance=getInstance();
+  public static BindArtistsDataSource openReadOnly() {
+    BindArtistsDataSource instance=getInstance();
     instance.openReadOnlyDatabase();
     return instance;
   }
@@ -289,10 +308,16 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     // log section create END
     // log section create BEGIN
     if (this.logEnabled) {
-      Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+      Logger.info("DDL: %s",ArtistTable.CREATE_TABLE_SQL);
     }
     // log section create END
-    database.execSQL(PersonTable.CREATE_TABLE_SQL);
+    database.execSQL(ArtistTable.CREATE_TABLE_SQL);
+    // log section create BEGIN
+    if (this.logEnabled) {
+      Logger.info("DDL: %s",AlbumTable.CREATE_TABLE_SQL);
+    }
+    // log section create END
+    database.execSQL(AlbumTable.CREATE_TABLE_SQL);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onCreate(database);
     }
@@ -333,10 +358,16 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
       // generate tables
       // log section BEGIN
       if (this.logEnabled) {
-        Logger.info("DDL: %s",PersonTable.CREATE_TABLE_SQL);
+        Logger.info("DDL: %s",ArtistTable.CREATE_TABLE_SQL);
       }
       // log section END
-      database.execSQL(PersonTable.CREATE_TABLE_SQL);
+      database.execSQL(ArtistTable.CREATE_TABLE_SQL);
+      // log section BEGIN
+      if (this.logEnabled) {
+        Logger.info("DDL: %s",AlbumTable.CREATE_TABLE_SQL);
+      }
+      // log section END
+      database.execSQL(AlbumTable.CREATE_TABLE_SQL);
     }
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onUpdate(database, previousVersion, currentVersion, true);
@@ -349,25 +380,27 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   @Override
   public void onConfigure(SQLiteDatabase database) {
     // configure database
+    database.setForeignKeyConstraintsEnabled(true);
     if (options.databaseLifecycleHandler != null) {
       options.databaseLifecycleHandler.onConfigure(database);
     }
   }
 
   public void clearCompiledStatements() {
-    PersonDAOImpl.clearCompiledStatements();
+    ArtistDaoImpl.clearCompiledStatements();
+    AlbumDaoImpl.clearCompiledStatements();
   }
 
   /**
    * <p>Build instance. This method can be used only one time, on the application start.</p>
    */
-  public static BindPersonDataSource build(DataSourceOptions options) {
-    BindPersonDataSource result=instance;
+  public static BindArtistsDataSource build(DataSourceOptions options) {
+    BindArtistsDataSource result=instance;
     if (result==null) {
       synchronized(mutex) {
         result=instance;
         if (result==null) {
-          instance=result=new BindPersonDataSource(options);
+          instance=result=new BindArtistsDataSource(options);
           try {
             instance.openWritableDatabase();
             instance.close();
@@ -383,11 +416,11 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
             e.printStackTrace();
           }
         } else {
-          throw new KriptonRuntimeException("Datasource BindPersonDataSource is already builded");
+          throw new KriptonRuntimeException("Datasource BindArtistsDataSource is already builded");
         }
       }
     } else {
-      throw new KriptonRuntimeException("Datasource BindPersonDataSource is already builded");
+      throw new KriptonRuntimeException("Datasource BindArtistsDataSource is already builded");
     }
     return result;
   }
@@ -402,7 +435,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   /**
    * Rapresents transational operation.
    */
-  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindPersonDaoFactory> {
+  public interface Transaction extends AbstractDataSource.AbstractExecutable<BindArtistsDaoFactory> {
     /**
      * Execute transation. Method need to return {@link TransactionResult#COMMIT} to commit results
      * or {@link TransactionResult#ROLLBACK} to rollback.
@@ -412,7 +445,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
      * @return
      * @throws Throwable
      */
-    TransactionResult onExecute(BindPersonDaoFactory daoFactory);
+    TransactionResult onExecute(BindArtistsDaoFactory daoFactory);
   }
 
   /**
@@ -425,27 +458,40 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
      * @param daoFactory
      * @throws Throwable
      */
-    T onExecute(BindPersonDaoFactory daoFactory);
+    T onExecute(BindArtistsDaoFactory daoFactory);
   }
 
-  class DataSourceSingleThread implements BindPersonDaoFactory {
+  class DataSourceSingleThread implements BindArtistsDaoFactory {
     private SQLContextInSessionImpl _context;
 
-    protected PersonDAOImpl _personDAO;
+    protected ArtistDaoImpl _artistDao;
+
+    protected AlbumDaoImpl _albumDao;
 
     DataSourceSingleThread() {
-      _context=new SQLContextInSessionImpl(BindPersonDataSource.this);
+      _context=new SQLContextInSessionImpl(BindArtistsDataSource.this);
     }
 
     /**
      *
-     * retrieve dao PersonDAO
+     * retrieve dao ArtistDao
      */
-    public PersonDAOImpl getPersonDAO() {
-      if (_personDAO==null) {
-        _personDAO=new PersonDAOImpl(this);
+    public ArtistDaoImpl getArtistDao() {
+      if (_artistDao==null) {
+        _artistDao=new ArtistDaoImpl(this);
       }
-      return _personDAO;
+      return _artistDao;
+    }
+
+    /**
+     *
+     * retrieve dao AlbumDao
+     */
+    public AlbumDaoImpl getAlbumDao() {
+      if (_albumDao==null) {
+        _albumDao=new AlbumDaoImpl(this);
+      }
+      return _albumDao;
     }
 
     @Override
@@ -454,12 +500,24 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
     }
 
     protected void onSessionOpened() {
+      // support for live data
+      _context.onSessionOpened();
     }
 
     protected void onSessionClear() {
+      // support for live data
+      _context.onSessionOpened();
     }
 
     protected void onSessionClosed() {
+      // support for live data
+      Set<Integer> daosWithEvents=_context.onSessionClosed();
+      if (_artistDao!=null && daosWithEvents.contains(ARTIST_DAO_UID)) {
+        _artistDao.invalidateLiveData();
+      }
+      if (_albumDao!=null && daosWithEvents.contains(ALBUM_DAO_UID)) {
+        _albumDao.invalidateLiveData();
+      }
     }
 
     public DataSourceSingleThread bindToThread() {

@@ -22,7 +22,7 @@ import sqlite.feature.indexes.PersonDAO;
 /**
  * The Interface PersonDataSource.
  */
-@BindDataSource(daoSet= { PersonDAO.class }, fileName = "person.db", log=true)
+@BindDataSource(daoSet= { PersonDAO.class }, fileName = "personFeatureIndex.db", log=true)
 public interface PersonDataSource {
 
 }
