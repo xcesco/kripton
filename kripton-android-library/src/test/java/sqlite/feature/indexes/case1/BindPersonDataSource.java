@@ -60,7 +60,7 @@ public class BindPersonDataSource extends AbstractDataSource implements BindPers
   protected DataSourceSingleThread _daoFactorySingleThread = new DataSourceSingleThread();
 
   protected BindPersonDataSource(DataSourceOptions options) {
-    super("person.db", 1, options);
+    super("FeatureIndex2.db", 1, options);
   }
 
   @Override

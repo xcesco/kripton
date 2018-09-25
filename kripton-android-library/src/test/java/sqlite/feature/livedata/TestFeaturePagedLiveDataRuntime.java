@@ -26,12 +26,9 @@ import com.abubusoft.kripton.android.executor.KriptonTaskExecutor;
 import com.abubusoft.kripton.android.livedata.PagedLiveData;
 import com.abubusoft.kripton.android.sqlite.TransactionResult;
 
-import android.arch.lifecycle.Observer;
 import base.BaseAndroidTest;
-import sqlite.feature.livedata.paginated.BindAppDaoFactory;
 import sqlite.feature.livedata.paginated.BindAppDataSource;
 import sqlite.feature.livedata.paginated.Person;
-import sqlite.feature.livedata.paginated.BindAppDataSource.Transaction;
 
 /**
  * The Class TestFeatureLiveDataRuntime.
@@ -56,45 +53,37 @@ public class TestFeaturePagedLiveDataRuntime extends BaseAndroidTest {
 		log("Main thread" + KriptonTaskExecutor.getInstance().isMainThread());
 
 		final PagedLiveData<List<Person>> liveData = ds.getDaoPerson().selectPaged("Manero");
-		liveData.observeForever(new Observer<List<Person>>() {
-
-			@Override
-			public void onChanged(List<Person> t) {
-				log("--> Page %s -- size %s", liveData.getPage(), t.size());
-			}
+		liveData.observeForever(t -> {
+			log("--> Page %s -- size %s", liveData.getPage(), t.size());
 		});
 
-		ds.execute(new BindAppDataSource.Transaction() {
-
-			@Override
-			public TransactionResult onExecute(BindAppDaoFactory daoFactory) {
-				for (int i = 0; i < 100; i++) {
-					Person person = new Person();
-					person.name = "Manero" + i;
-					person.surname = "Tonj" + i;
-					daoFactory.getDaoPerson().insert(person);
-				}
-				return TransactionResult.COMMIT;
+		ds.execute(daoFactory -> {
+			for (int i = 0; i < 100; i++) {
+				Person person = new Person();
+				person.name = "Manero" + i;
+				person.surname = "Tonj" + i;
+				daoFactory.getDaoPerson().insert(person);
 			}
+			return TransactionResult.COMMIT;
 		});
 
 		liveData.nextPage();
 
-		ds.execute(new BindAppDataSource.Transaction() {
-
-			@Override
-			public TransactionResult onExecute(BindAppDaoFactory daoFactory) {
-				Person person = new Person();
-				person.name = "Manero";
-				person.surname = "Tonj";
-				daoFactory.getDaoPerson().insert(person);
-				return TransactionResult.COMMIT;
-			}
+		ds.execute(daoFactory -> {
+			Person person = new Person();
+			person.name = "Manero";
+			person.surname = "Tonj";
+			daoFactory.getDaoPerson().insert(person);
+			return TransactionResult.COMMIT;
 		});
-		
-		liveData.createPageRequestBuilder().pageSize(41).offset(11).apply();
 
-		liveData.setOffset(liveData.getOffset()+100);
+		liveData.createPageRequestBuilder().pageSize(41).offset(11).apply();
+		liveData.setOffset(liveData.getOffset() + 100);
+		
+		liveData.setPage(1);
+		liveData.nextPage();
+		liveData.previousPage();
+		liveData.nextPage();
 
 		Thread.sleep(1000);
 
