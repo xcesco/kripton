@@ -17,19 +17,11 @@ package com.abubusoft.kripton.processor.core;
 
 import java.lang.annotation.Annotation;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface ModelWithAnnotation.
  */
 public interface ModelWithAnnotation extends ModelWrapperElement {
 	
-	/**
-	 * Adds the annotation.
-	 *
-	 * @param annotation the annotation
-	 */
-	void addAnnotation(ModelAnnotation annotation);
-
 	/**
 	 * Gets the annotation.
 	 *
