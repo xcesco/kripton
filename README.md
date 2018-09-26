@@ -8,6 +8,8 @@
 
 <img width="128px" src="https://github.com/xcesco/wikis/blob/master/kripton/jetbrains-variant-3.png">
 
+<a href="https://www.jetbrains.com/?from=Kritpon%20Persistence%20Library">Thanks to JetBrains supports Kripton Persistence Library project!</a>
+
 # Kripton Persistence Library
 Kripton is a java library, for Android platform, that provides a simple and uniform way to manage persistence of Java classes in different flavours through annotations and interface.
 
